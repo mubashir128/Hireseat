@@ -1,0 +1,51 @@
+<div style="padding:30px;">
+  <a style="cursor: pointer;" (click)="goBack()"> <i class="material-icons left">chevron_left</i> Resume Repository</a>
+  <div class="card white" style="margin-top:30px;">
+      <div style="padding:20px; border-bottom: solid #e0e0e0 1px;">
+          <div class="section-header"> Edit Resume </div>
+      </div>
+      <form   [formGroup]="editResumeFrm" (ngSubmit)="submit()" novalidate> 
+          <div style="display:table; width:100%; margin-bottom:0px;" class="commonEditResumeParent">
+              <div id="resume-preview"  class="center-align"style="display:table-cell; width:50%; height:100%; vertical-align:middle;" class="commonEditResumeInner" >
+                <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2" [url] ="downloadURL"></app-pdf-viewer>
+                  <div *ngIf="fileUploaded===0 || fileUploaded===2" class="file-field input-field">
+                      <div class="waves-effect waves-teal btn-flat">
+                          <span>Upload Resume</span>
+                          <input type="file" (change)="fileChange($event)">
+                      </div>                     
+                  </div>
+                  <!-- <div *ngIf="fileUploaded===1" class="progress">
+                      <div class="determinate" style="width: {{uploadProgress}}%"></div>
+                  </div> -->
+              </div>
+              <div id="resume-info"  style="display:table-cell; border-left: solid #e0e0e0 1px;  width:50%; height:70%; padding:15px;"  class="commonEditResumeInner">
+                  <div class="row" style="margin-bottom:0px;">
+                      <div class="input-field col s12 m12 l12">
+                          <div>Candidate Name*</div>
+                          <input id="candidate-name" type="text" class="validate" name="resume.candidateName" [(ngModel)]="resume.candidateName" formControlName="candidateName">
+                          <div *ngIf="(f.candidateName.touched && f.candidateName.errors)" class="invalid-feedback" class="error">
+                            <div *ngIf="f.candidateName.errors.required">Candidate Name is required</div>                
+                        </div>
+                      </div>
+                      <div class="input-field col s12 m12 l12">
+                          <div>Social Security Number*</div>
+                          <input id="social-security-num" type="text" class="validate" name="resume.socialSecurityNum" [(ngModel)]="resume.socialSecurityNum" formControlName="socialSecurityNum">
+                          <div *ngIf="(f.socialSecurityNum.touched && f.socialSecurityNum.errors)" class="invalid-feedback" class="error">
+                            <div *ngIf="f.socialSecurityNum.errors.required">Social Security Number is required</div> 
+                            
+                        </div>
+                        <div class="error" *ngIf="f.socialSecurityNum.errors?.maxlength">
+                            4 Digits Only
+                        </div>
+                      </div>                   
+                  </div>
+              </div>
+          </div>
+          <div class="divider"></div>
+          <div class=" row center-align" style="padding:15px;">
+              <a class="waves-effect waves-light btn-flat" (click)="goBack()">Cancel</a>
+              <button  type="submit" class="waves-effect waves-light btn">Save</button>
+          </div>
+      </form>
+  </div> 
+</div>

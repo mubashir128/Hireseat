@@ -1,0 +1,763 @@
+.pageHeading {
+    
+    font-size: 35px;
+    font-weight: bold;
+    margin: 0 0;
+}
+.headerDiv p {
+    margin: 0 0;
+}
+.headerDiv a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+}
+.headerDiv{
+    text-align: center;
+    background-color: #6bf;
+    padding: 20px 0;
+	margin: 0px 0 30px;
+    color: #fff;
+}
+.mar0{
+    margin:0px
+}
+.paginationMain .pagination li {
+    margin: 0 2px;
+    border: 1px solid #ddd;
+}
+.paginationMain .pagination li:hover{
+	color:#fff;
+    background-color: #6bf;
+}
+.paginationMain{
+	text-align:right;
+}
+/* .catgoryDivBlogs li {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 20px;
+    font-size: 15px;
+    position: relative;
+}
+.catgoryDivBlogs li a{
+    color: #666;
+}
+.catgoryDivBlogs li:hover{
+    background-color: #66bbff1a;
+    cursor: pointer;
+}
+.catgoryDivBlogs li .fa{
+    color: #666;
+    margin-right: 10px;
+} */
+/* .catgoryDivBlogs li:after {
+    position: absolute;
+    content: "";
+    left: 10px;
+    height: 5px;
+    width: 5px;
+    background-color: #666666;
+    border-radius: 50%;
+    top: 13px;
+} */
+.catgoryDivBlogs li a{
+    /* color: #666; */
+    color: #fff;
+}
+.catgoryDivBlogs li .fa{
+    /* color: #666; */
+    color: #fff;
+    margin-right: 10px;
+}
+
+.catgoryDivBlogs h5 {
+    font-size: 20px;
+    font-weight: bold;
+}
+.catgoryDivBlogs li:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+h2 strong{
+    font-size: 20px!important;
+}
+.catgoryDivBlogs ul{
+    background-color: transparent;
+}
+.catgoryDivBlogs li {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 20px;
+    font-size: 18px;
+    position: relative;
+    margin: 0 0 10px;
+    background-color: #008af9;
+    transition:.2s;
+}
+.replyMain {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.replyInner {
+    width: calc(100% - 70px);
+}
+.userIcon {
+    height: 55px;
+}
+
+.catgoryDivBlogs h5 {
+    font-size: 20px;
+    font-weight: bold;
+}
+/* .catgoryDivBlogs ul {
+    box-shadow: 0 0 10px #ddd;
+    background-color: #fff;
+}
+.catgoryDivBlogs li:hover {
+    background-color: #66bbff1a;
+} */
+.blogImageDiv  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: 0.5s;
+    /* border: 1px solid #ddd; */
+    border-radius: 5px;
+    background-color: #000;
+}
+.blogImageDiv  img:hover{
+    transform: scale(1.02);
+}
+.blogImageDiv {
+    height: 400px;
+    /* margin: 0 -20px 0 -20px; */
+    background-color: #fff;
+}
+.blogvideoDiv {
+    height: 400px;
+    /* margin: 0 -20px 0 -20px;
+     */
+     background-color: #fff;
+}
+.blogiframeDiv{
+    height: 400px;
+    background-color: #fff;
+    /* margin: 0 -20px 0 -20px; */
+}
+.NewBgDIv{
+    background-color: #fff;
+    padding: 20px 20px 20px;
+    margin-top: 0px;
+    box-shadow: 0 0 10px #85858514;
+}
+.blogvideoDiv video{
+    height: 100%;
+    width: 100%;
+}
+.blogDeatialPage {
+    /* background-color: #fff; */
+    /* padding: 0 20px 20px; */
+    margin-top: 20px;
+    /* box-shadow: 0 0 10px #85858514; */
+}
+.bgLightG {
+    background-color: #f5f5f5;
+    padding: 10px 0 20px;
+}
+.blogiframeDiv iframe{
+ height: 100%;
+ width: 100%;
+ border: none;
+}
+
+.tagBtn {
+    height: 32px;
+    font-size: 15px;
+    background-color: #0aafff;
+    line-height: 1;
+    padding: 0 20px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 0 3px 5px;
+    color: #fff !important;
+}
+
+.blogDeatialPage p {
+    font-size: 16px;
+    color: #000;
+    margin: 10px 0;
+}
+.blogDeatialPage h4 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    margin: 20px 0 0;
+}
+.blogDeatialPage p {
+    margin: 20px 0;
+    font-size: 20px;
+}
+.blogDeatialPage h2, .blogDeatialPage h3 {
+    margin: 0px 0 0px;
+    font-size: 25px;
+    padding: 0 0 10px 0;
+}
+
+
+.adminDate {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    font-size: 14px;
+    margin-top: 30px;
+}
+.adminDate span {
+    margin: 0 5px 0 0;
+    color: #666;
+}
+.adminDate a {
+ cursor: pointer;
+}
+.shareDiv {
+    padding: 20px 30px;
+    background-color: #ebebeb;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.shareDiv h4 {
+    margin: 0 0 !important;
+    font-size: 16px !important;
+    font-weight: normal !important;
+}
+.shareIconDiv .fa {
+    color: #33AAFF;
+    margin: 0 5px;
+    font-size: 20px;
+}
+/* .authorDiv {
+    margin: 0px 0 0;
+    border: 1px solid #ddd;
+    padding: 0px 0px;
+    box-shadow: 0 0 10px #dddddd80;
+} */
+.authorDiv{
+    margin: 0px 0 0;
+    padding: 0px 0px;
+    background-color: #fff;
+    padding: 20px 20px 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px #85858514;
+}
+/* .commentDiv{
+      /* margin: 50px 0 0; *
+      margin: 20px 0 0;
+      border-top: 1px solid #ddd;
+      padding: 20px 0;
+} */
+.commentDiv {
+    /* border-top: 1px solid #ddd; */
+    margin: 0px 0 0;
+    background-color: #fff;
+    padding: 20px 20px 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px #85858514;
+}
+
+.commentDiv h2 {
+  color: #000;
+  font-weight: bold;
+
+}
+.blogDeatialPage h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+}
+.commentdataInner{
+    margin: 10px 0 20px;
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+    position: relative;
+    padding: 20px 10px;
+    background-color: #66bbff1a;
+}
+.replaydataInner{
+    margin: 0px 0 10px;
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+    position: relative;
+    padding: 20px 10px;
+    background-color: #5f63661a;
+}
+/* .commentdataInner:hover{
+    background-color: #66bbff1a;
+} */
+.commentdata p{
+    margin: 0px;
+    font-size: 15px;
+}
+/* .commentdata .authorDiv {
+    margin: 0px 0 0 60px;
+    border-top: 0px solid #ddd;
+    padding: 10px;
+    background-color: #66bbff1a;;
+} */
+
+.commentdata span{
+    font-size: 20px;
+    color: deepskyblue;
+    font-weight: 600;
+}
+.authorDiv h4 {
+    margin: 0 0 20px !important;
+    font-size: 20px !important;
+}
+.authorDiv .userImg {
+    background-color: #ddd;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+.authorDiv .blogsImgs {
+    width: 100%;
+    object-fit: contain;
+    height: 170px;
+    border: 1px solid #ddd;
+    background-color: #000;
+}
+.authorDiv .titleH {
+    font-size: 16px !important;
+    margin: 10px 0 0 0!important;
+    cursor: pointer;
+}
+.authorDiv .titleH:hover {
+    color: #008af9
+}
+.blockHead {
+    padding: 0 0 0 10px;
+}
+.marB0{
+    margin-bottom:0;
+}
+.authorDiv p {
+    font-size: 14px !important;
+    color: #666 !important;
+    margin: 0 0 !important;
+}
+.authorDiv h5 {
+    font-size: 16px;
+    color: #000;
+    margin: 10px 0;
+}
+.authorDiv textarea {
+    height: auto;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #000;
+    padding: 10px;
+}
+
+.inputBoxDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.inputBoxDiv input {
+    width: 30% !important;
+    border: 1px solid #ddd !important;
+    height: 30px !important;
+    padding: 0 10px !important;
+    margin: 10px 0;
+}
+.boxDiv {
+    min-height: 200px;
+    box-shadow: 0 0 10px #ddd;
+    padding: 10px 10px;
+    background-color: #fff;
+}
+.tweetscroll {
+    max-height: 560px;
+    overflow-y: auto;
+}
+.commentHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.replayBtnComment {
+    background-color: #0cbfff;
+    color: #fff;
+    padding: 4px 10px;
+    position: absolute;
+    border-radius: 5px;
+    right: 10px;
+    top: 50px;
+}
+.replayBtnComment .fa {
+    color: #fff;
+}
+.commentDiv.commentDivReply {
+    background-color: #ffffff;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    box-shadow: none;
+}
+.commentDivReply  span {
+    font-size: 18px;
+    font-weight: bold;
+}
+.blogDeatialPage .commentDivReply p {
+    margin: 0px 0;
+    font-size: 16px;
+}
+
+.boxDiv .sigleArticle h5 {
+    font-size: 16px;
+}
+.boxDiv .sigleArticle span {
+    font-size: 12px !important;
+    color: #9999;
+    font-weight: 500;
+}
+.boxDiv .sigleArticle p{
+    margin: 0 0;
+    font-size: 15px;
+    color: #6a6a6a;
+    font-weight: 500;
+}
+.meetupsMain .boxDiv {
+    max-height: 400px;
+    overflow-y:auto;
+}
+.meetupsMain .boxDiv a{
+    text-align: right;
+    display: block;
+    padding: 0 15px;
+}
+.meetupsMain .sigleArticle {
+    border-bottom: 1px solid #d9d9d9;
+    padding: 5px 0px 0;
+}
+.catgoryDivBlogs li a{
+    /* color: #666; */
+    color: #fff;
+}
+.catgoryDivBlogs li .fa{
+    /* color: #666; */
+    color: #fff;
+    margin-right: 10px;
+}
+
+.catgoryDivBlogs h5 {
+    font-size: 20px;
+    font-weight: bold;
+}
+.catgoryDivBlogs li:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.catgoryDivBlogs ul{
+    background-color: transparent;
+}
+.catgoryDivBlogs li {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 20px;
+    font-size: 18px;
+    position: relative;
+    margin: 0 0 10px;
+    background-color: #008af9;
+    transition:.2s;
+}
+
+
+.postText .isnotimage{
+    display: block;
+    /* color: #008af9; */
+   
+  
+}
+.postText .isimage{
+    display: none;
+    
+}
+.Editdate.date {
+    background-color: #ddd;
+    margin: 5px 0;
+    font-size: 20px;
+    padding: 10px 0;
+}
+
+.postimage video {
+    display: inline-block;
+    vertical-align: baseline;
+    background-color: #000;
+}
+.mar0{
+    margin:0px
+}
+/* .blogDeatialPage {
+    margin-top: 20px;
+} */
+.bgLightG {
+    background-color: #f5f5f5;
+    padding: 10px 0 20px;
+}
+
+.boxDiv .sigleArticle h5 {
+    font-size: 16px;
+}
+.boxDiv .sigleArticle span {
+    font-size: 12px !important;
+    color: #9999;
+    font-weight: 500;
+}
+.boxDiv .sigleArticle p{
+    margin: 0 0;
+    font-size: 15px;
+    color: #6a6a6a;
+    font-weight: 500;
+}
+.meetupsMain .boxDiv {
+    max-height: 400px;
+    overflow-y:auto;
+}
+.meetupsMain .boxDiv a{
+    text-align: right;
+    display: block;
+    padding: 0 15px;
+}
+.meetupsMain .sigleArticle {
+    border-bottom: 1px solid #d9d9d9;
+    padding: 5px 0px 0;
+}
+.catgoryDivBlogs li a{
+    /* color: #666; */
+    color: #fff;
+}
+.catgoryDivBlogs li .fa{
+    /* color: #666; */
+    color: #fff;
+    margin-right: 10px;
+}
+
+.catgoryDivBlogs h5 {
+    font-size: 20px;
+    font-weight: bold;
+}
+.catgoryDivBlogs li:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+h2 strong{
+    font-size: 20px!important;
+}
+.catgoryDivBlogs ul{
+    background-color: transparent;
+}
+.catgoryDivBlogs li {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 20px;
+    font-size: 18px;
+    position: relative;
+    margin: 0 0 10px;
+    background-color: #008af9;
+    transition:.2s;
+}
+.replyMain {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.replyInner {
+    width: calc(100% - 70px);
+}
+.userIcon {
+    height: 55px;
+}
+.boxDiv {
+    min-height: 200px;
+    box-shadow: 0 0 10px #ddd;
+    padding: 10px 10px;
+    background-color: #fff;
+}
+.catgoryDivBlogs h5 {
+    font-size: 20px;
+    font-weight: bold;
+}
+.meetupsMain .boxDiv {
+    max-height: 400px;
+    overflow-y:auto;
+}
+.meetupsMain .boxDiv a{
+    text-align: right;
+    display: block;
+    padding: 0 15px;
+}
+.meetupsMain .sigleArticle {
+    border-bottom: 1px solid #d9d9d9;
+    padding: 5px 0px 0;
+}
+
+/* comment Section css */
+.postText .commentSectionMain h5 {
+    font-size: 11px !important;
+    line-height: unset;
+    margin: 10px 0 !important;
+    font-family: 'gilroysemibold';
+    color: #6a7683;
+    padding: 0 0px 0px 10px;
+}
+.postText .commentSectionMain h5 span {
+    font-family: 'gilroybold';
+    color: #1c2d41;
+}
+.profilePic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.commentCommonS {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.postText .commentSectionMain p {
+    font-size: 13px;
+    color: #6e7985;
+    margin: 0 !important;
+    padding: 0 0 0 10px;
+}
+.comentIcon {
+    width: 16px;
+}
+.commentSectionMain {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.catagorytag {
+    padding: 2px 10px;
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-family: 'gilroybold';
+    text-transform: uppercase;
+    font-size: 12px;
+    margin: 14px 15px;
+    background-color: #ed1c24;
+}
+.catgoryDivBlogs.catgoryDivBlogsCat {
+    background-color: #fff;
+    padding: 10px 10px;
+    margin: 20px 0 0;
+}
+.catagoryList span {
+    /* background-color: red; */
+    margin: 5px;
+    padding: 2px 10px;
+    color: #fff;
+}
+.isnotimg{
+    font-family: 'gilroybold';
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #fff;
+    padding: 2px 10px;
+    margin: 14px 15px;
+    display: inline-block;
+}
+.catagoryList {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-wrap: wrap;
+}
+.catagoryList a {
+    color: #fff;
+    font-family: 'gilroybold';
+    text-transform: uppercase;
+    font-size: 12px;
+}
+.blogListMain{
+    margin: 20px 10px 0px;
+    border-bottom: 1px solid #ddd;
+    padding: 0px;
+    background-color: #fff;
+    box-shadow: 0 0 10px #99999924;
+    width: calc(33.33% - 20px);
+    position: relative;
+    padding-bottom: 80px;
+}
+
+.meetupsMain .boxDiv{
+    background-color: transparent;
+}
+.meetUphead {
+    display: flex;
+    align-items: flex-end;
+}
+.staueImg {
+    filter: invert(1);
+    width: 40px;
+    margin: 0 10px 0 0;
+}
+.headText h4 {
+    font-size: 20px;
+    font-family: 'gilroyextrabold';
+    color: #fff;
+    margin: 0;
+}
+.headText p {
+    margin: 5px 0;
+    font-size: 15px;
+    color: #c4c5cb;
+    display: flex;
+    align-items: center;
+}
+.headText img{
+    filter: invert(2);
+    margin: 0 6px 0 0;
+    height: 20px;
+}
+.MeetUsigleArticle {
+    padding: 20px;
+}
+.meetRepeat h3 {
+    font-size: 25px;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+    display: inline-block;
+    padding: 10px 0 20px;
+}
+.meetRepeat p {
+    margin: 5px 0;
+    font-size: 13px;
+    color: #fff;
+    font-family: 'gilroyregular';
+}
+.commentMain {
+    max-height: 300px;
+    overflow-y: auto;
+}
+/*================================  responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 1024px)  {
+    
+}
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 767px)  {
+    .pageHeading {
+        font-size: 30px;
+    }
+    .headerDiv {
+        padding: 10px 0 !important;
+    }
+}

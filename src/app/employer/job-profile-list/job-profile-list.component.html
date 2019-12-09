@@ -1,0 +1,24 @@
+<div>
+  <div class="right-align">
+    <a class="waves-effect waves-light btn" [routerLink]="['/employer/create-job-profile']"> <i
+        class="material-icons left">add</i> New Job Profile</a>
+  </div>
+  <div id="job-profile-list" style="margin-top:15px;" *ngIf="!noJp">
+    <div class="job-profile-item" style="padding:10px;" *ngFor="let jobProfile of jp">
+      <div style="cursor: pointer;" class="disF"  style="width: 100%;">
+        
+          <img src="assets/img/jobprofile.png" height="50px">
+          <div class="job-title" style="cursor: pointer;" (click)="select(jobProfile._id)"> {{ jobProfile.jobTitle }} </div>
+          <!-- <button class="waves-effect waves-light btn" (click)="select(jobProfile._id)">View</button> -->
+          <i class="material-icons" style="cursor: pointer;" (click)="select(jobProfile._id)">edit</i>
+        
+        
+      </div> 
+      
+    </div>
+    <div *ngIf="noJp">
+      No Results to Show
+    </div>
+    <div class="divider"></div>
+  </div>
+</div>

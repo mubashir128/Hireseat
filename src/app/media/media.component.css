@@ -1,0 +1,534 @@
+.sectionBGimg {
+    width: 100%;
+    height: auto;
+}
+.bestRecruitment {
+    position: relative;
+}
+.bestRecruitmentText {
+    position: absolute;
+    top: 40%;
+    left: 23%;
+    transform: translate(-50%, -50%);
+}
+.BoldText {
+    margin: 5px 0 40px;
+    font-family: 'gilroybold';
+}
+.ThinTextHeading {
+    margin: 0px 0;
+    font-family: 'gilroyregular';
+}
+.bestRecruitmentText h3{
+    font-size: 45px;
+    color: #1c2d41;
+}
+.KnowMoreBtn {
+    background-color: #0aafff;
+    border: none;
+    color: #fff;
+    min-width: 200px;
+    font-size: 18px;
+    font-family: 'gilroybold';
+    height: 60px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+/*========================== sec section css =================*/
+/* .ProveBestInner {
+    padding: 170px 120px ;
+} */
+.secHeadingDiv {
+    height: 150px;
+}
+.width50 {
+    width: 50%;
+    float: left;
+}
+.proveHead {
+    display: flex;
+    align-items: flex-end;
+    margin: 0 0 -6px;
+}
+.proveHead img{
+    width: 100%;
+}
+.SecHeading {
+    font-size: 50px;
+    color: #fff;
+    font-family: 'gilroyextrabold';
+}
+.proveText h5 {
+    font-size: 25px;
+    color: #fff;
+    font-family: 'gilroybold';
+    margin: 20px 0;
+}
+.proveText p {
+    font-family: 'gilroyregular';
+    color: #fff;
+    font-size: 16px;
+    line-height: 2;
+}
+.flexRow {
+    display: flex;
+    align-items: center;
+}
+.marB50{
+    margin-bottom: 50px;
+}
+.marB20 {
+    margin-bottom: 20px;
+}
+.proveText {
+    padding: 0 10px;
+}
+.transparentBtn {
+    height: 70px;
+    border: 3px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 100%;
+    border-radius: 5px;
+    font-family: 'gilroybold';
+    font-size: 20px;
+}
+.paddL60{
+    padding-left: 60px;
+}
+.paddR60{
+    padding-right: 60px;
+}
+.SecHeading.blackHed {
+    color: #1c2d41;
+    text-align: center;
+    margin: 80px 0;
+}
+.imgDivVideoDiv h4 {
+    color: #1c2d41;
+    font-size: 20px;
+    font-family: 'gilroybold';
+    padding: 0px 16px;
+    line-height: 1.3;
+    margin: 10px 0 0;
+}
+.videoDiv {
+    /* height: 310px;
+    background-color: #000; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 230px;
+    background-color: #bbafa9;
+}
+.videoDiv a {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.paddLR10{
+    padding: 0 10px;
+}
+.VideoImg {
+    width: 100%;
+    height: 320px;
+    object-fit: contain;
+    background-color: #000;
+}
+.recruiterCommityInner {
+    padding: 20px 90px;
+    background-color: #fbfbfb;
+}
+.imgDivVideoDiv {
+    background-color: #fff;
+    box-shadow: 0 0 3px #dddddd57;
+    margin-bottom: 6px;
+    padding: 0 0px 10px;
+}
+.recruiterCommityInner .paddLR10 {
+    padding: 0 3px;
+}
+/* .paddLR20{
+    padding: 0 20px;
+} */
+.homePageMain {
+    background-color: #fbfbfb;
+}
+.arows {
+    margin: 0 15px;
+}
+.text-center{
+    text-align: center;
+}
+.ProveLeft{
+    background-color: #3ea9f5;
+    padding: 0 20px 0 100px;
+}
+.seatBack{
+    background-color: #0964d9;
+    padding: 0 40px 0 90px;
+    margin: -2px 0 0 0;
+}
+.SeatBAchH{
+    margin: 0px 0px 2px 0px !important;
+}
+.proveFooter {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+}
+.proveFooter img {
+    width: 100%;
+}
+.ProveInnerMain {
+    display: flex;
+}
+.proveF{
+    margin: -6px 0px 0 0;
+}
+.newBtnTextB {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 50px 0;
+    padding: 50px 0 6px;
+}
+/*============================== 3 section css =============================*/
+.boxDiv {
+    max-height: 700px;
+    overflow-y: auto;
+}
+.articleDiv70 {
+    width: 63%;
+    float: left;
+    background-color: #0aafff;
+    padding: 0 70px 0 100px;
+    position: relative;
+}
+.articleDiv30 {
+    width: 37%;
+    float: left;
+    background-color: #1c2d41;
+    padding: 0px 180px 0 60px;
+    position: relative;
+}
+.articleDiv30 .SecHeading{
+    margin: 40px 0;
+}
+.articleDivInner {
+    float: left;
+    width: 100%;
+    display: flex;
+    padding: 0px 0 0;
+}
+.min330 {
+    min-height: 330px;
+}
+.flexC{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.flexC .proveText{
+    width: 100%;
+    position: absolute;
+    bottom: 50px;
+}
+.articleDiv70 .SecHeading.blackHed {
+    color: #1c2d41;
+    text-align: left;
+    margin: 40px 0;
+}
+.ArticleDiv {
+    background-color: #fff;
+    padding: 25px;
+    margin: 20px 0px 0px;
+}
+.ArticleDiv h5 {
+    color: #1c2d41;
+    font-size: 20px;
+    margin: 10px 0;
+    font-family: 'gilroysemibold';
+}
+.ArticleDiv h4 {
+    color: #1c2d41;
+    font-size: 35px;
+    font-family: 'gilroybold';
+}
+.ArticleDiv p {
+    color: #1c2d41;
+    font-size: 15px;
+    font-family: 'gilroymedium';
+}
+.ArticleHeadImg {
+    width: 100%;
+}
+.tweeterHeaderImg {
+    width: 100%;
+}
+.mar0{
+    margin: 0;
+}
+.articleDivInner1 .articleDiv30 {
+    padding: 0;
+    background-color: unset;
+}
+.articleDivInner1 .articleDiv70 {
+    background-color: unset;
+    padding: 0;
+}
+.articleDivInner1 {
+    display: flex;
+    align-items: flex-end;
+    margin: 0 0 -6px;
+}
+.articleDiv {
+    margin: -85px 0 0;
+}
+/* ========================== recruter section 5th start =============================*/
+.recruterMain {
+    width: 100%;
+    float: left;
+}
+.recruterInner {
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+}
+.staueIcon {
+    filter: invert(1);
+    margin: 0 10px;
+}
+.recruterInner .SecHeading {
+    font-size: 40px;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+.recruterInner p {
+    color: #c4c5cb;
+    font-size: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    line-height: 1;
+}
+.recruterInner h5 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin: 10px 0;
+    font-family: 'gilroybold';
+    width:70%;
+}
+.lineSide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 30px 0;
+}
+.lineSide h5:after{
+    width: 150px;
+    position: absolute;
+    content: "";
+    height: 3px;
+    background-color: #fff;
+    top: 20px;
+    left:0;
+} 
+.lineSide h5:before{
+    width: 150px;
+    position: absolute;
+    content: "";
+    height: 3px;
+    background-color: #fff;
+    top: 20px;
+    right:0;
+} 
+.DateTime {
+    display: flex;
+    margin: 25px 0;
+}
+.date {
+    border-right: 1px solid #fff;
+    min-width: 170px;
+}
+.date h3 {
+    font-size: 80px;
+    color: #fff;
+    font-family: 'gilroyregular';
+    margin: 0 0;
+    line-height: 1;
+}
+.date p {
+    font-size: 20px !important;
+    margin: 0 !important;
+    line-height: 1;
+}
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #1b3fef;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+.Time h4 {
+    margin: 0 0 15px;
+    text-align: left;
+    color: #fff;
+    font-size: 30px;
+    font-family: 'gilroyregular';
+}
+.Time {
+    padding: 0 25px 0;
+}
+.Time p {
+    text-align: left !important;
+    font-size: 17px !important;
+    display: block !important;
+    font-family: 'gilroyregular';
+    margin: 7px 0 0 !important;
+}
+.flexWrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+.flexWrap .paddLR10{
+    display: flex;
+}
+/* ========================== recruter section 5th end =============================== */
+/*=============================== footer css ========================*/
+.footerSection {
+    width: 100%;
+    float: left;
+    padding: 50px 100px;
+    background-color: #0a111a;
+}
+.footerSection h4 {
+    color: #fff;
+    font-size: 17px;
+    font-family: 'gilroyregular';
+    margin: 15px 0;
+}
+.footerSection p {
+    font-size: 14px;
+    color: #858c94;
+    margin: 10px 0;
+}
+.marB30{
+    margin-bottom: 30px !important;
+}
+.Emailtext {
+    position: relative;
+    margin: 20px 0 0px;
+}
+.emailF {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    filter: brightness(235%);
+}
+.Emailtext input[type="text"] {
+    border: none !important;
+    background-color: #fff !important;
+    border-radius: 5px !important;
+    padding: 0 0 0 50px !important;
+    width: 100% !important;
+    height: 50px !important;
+    box-sizing: border-box;
+}
+ .SearchBtn {
+    background-color: #0aafff;
+    border: none;
+    min-width: 151px;
+    height: 50px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+}
+.FooterBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: .5px solid #1c2d41;
+    padding: 30px 0 30px;
+}
+.FooterBottom a {
+    text-decoration: none;
+    color: #858c94;
+    font-size: 13px;
+}
+.stickyBtn{
+    position: fixed !important;
+    bottom: 150px !important;
+    right: 100px !important;
+    z-index: 99 !important;
+    outline: none !important;
+    background-color: transparent !important;
+    cursor: pointer !important;
+    border-radius: 5px !important;
+    font-size: 18px !important;
+    border: 1px solid #3b4148 !important;
+    height: 50px !important;
+    width: 50px !important;
+    padding: 0 !important;
+    
+}
+/* .stickyBtn .fa{
+    color: #fff !important;
+} */
+.stickyBtn .fa{
+    color: #3f3f3f !important;
+}
+/*=============================== footer css end ========================*/
+/* ipad responsive */
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px)  {
+
+.SecHeading.blackHed {
+    margin: 50px 0;
+}
+.recruiterCommityInner{
+    padding: 20px 10px;
+}
+.SecHeading {
+    font-size: 40px;
+}
+
+}
+
+/* mobile responsive */
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 767px)  {
+    .SecHeading.blackHed {
+        margin: 50px 0;
+    }
+    .recruiterCommityInner{
+        padding: 20px 10px;
+    }
+    .SecHeading {
+        font-size: 30px;
+    }
+    .stickyBtn {
+        right: 40px !important;
+    }
+}

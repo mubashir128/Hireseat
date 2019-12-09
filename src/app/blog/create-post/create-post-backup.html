@@ -1,0 +1,49 @@
+<div>
+  <h2>Add New Post  </h2>
+  <form [formGroup]="addpost" >
+  <input type="text" placeholder="enter text" formControlName="title">
+  <textarea formControlName="description">enter description</textarea>
+  
+    
+      <button (click)="getData()">publish</button>
+  
+      <div>
+        <p>categories</p>
+        <div class="formDivCreate">
+          <div class="form-group">
+            <input type="checkbox" name="vehicle1" value="Bike" class="createpostInput"> 
+            <p>I have a bike</p>
+         </div>
+          <div class="form-group">
+            <input type="checkbox" name="vehicle1" value="Bike" class="createpostInput"> 
+            <p>I have a bike</p>
+         </div>
+         <div class="form-group">
+            <input type="checkbox" name="vehicle1" value="Bike" class="createpostInput"> 
+            <p>I have a bike</p>
+         </div>
+        </div>
+        <button>add new category</button>
+      </div>
+  
+      <app-edit-tag (tagListArray)="eventHandler($event)"></app-edit-tag>
+      <!-- <div>
+         <input type="text" placeholder="enter tags" formControlName="tags">
+        <button >add tags</button> -->
+
+        <!-- <div class="Bcolor">Select the skill sets*</div> <!-- [onlyFromAutocomplete]="true" -->
+        <!-- <tag-input [(ngModel)]="resume.tags" formControlName="tags"  [placeholder]="''" [secondaryPlaceholder]="''" (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
+          <tag-input-dropdown [autocompleteItems]="skillSets" [keepOpen]="false" [showDropdownIfEmpty]="true" [dynamicUpdate]="false">
+        </tag-input-dropdown>
+        </tag-input>
+        <div *ngIf="(f.tags.touched && f.tags.errors)" class="invalid-feedback" class="error">
+          <div *ngIf="f.tags.errors.required">Skill sets are required</div>
+        </div>
+      </div>  -->
+  
+      <label for="image" class="choseLabel">Profile Image</label>
+      <input #file type="file" accept='image/*' formControlName="file" (change)="preview(file.files)" />
+       <img [src]="imgURL" height="200" *ngIf="imgURL" height="50px" width="50px">
+      <!-- <div *ngIf="signin.controls['file'].hasError('required')" class="error">Please Select image</div>   -->
+    </form> 
+  

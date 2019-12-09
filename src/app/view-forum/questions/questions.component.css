@@ -1,0 +1,30 @@
+.questionDivText h4 {
+    margin: 0;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: #000 !important;
+    text-align: left !important;
+    cursor: pointer
+}
+.questionDivText{
+    padding: 10px 10px !important;
+    margin-bottom: 0px !important;
+    border-bottom: 1px solid #ddd !important;
+}
+.headDiv h4 {
+    text-align: center !important;
+
+}
+.questionDivText .fa {
+    color: #33AAFF;
+    margin: 0 5px;
+}
+.activeClass {
+color:  orange
+}
+.activeClass .fa {
+    color: orange !important;
+}
+.activeClass a{
+    color: orange !important;
+}

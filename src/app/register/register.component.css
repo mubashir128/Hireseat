@@ -1,0 +1,167 @@
+.terms h4 {
+    font-size: 18px;
+    margin: 30px 0 0 !important;
+    color: #000;
+}
+.terms p{
+    font-size: 14px;
+    margin: 10px 0;
+    color: #000;
+}
+.agree p{
+    padding-left: 20px;
+    position: relative;
+}
+.agree p:after{
+   position: absolute;
+   content: "";
+   width:5px;
+   height: 5px;
+   background-color: #000;
+   border-radius: 50%;
+   top: 8px;
+   left: 5px;
+}
+.listTerm li{
+    list-style-type: square;
+}
+ul.listTerm {
+    padding-left: 20px;
+}
+.terms h5{
+    font-size: 20px;
+    color: #33aaff;
+}
+.terms .popHead {
+    color: #33aaff !important;
+    text-align: center;
+    font-size: 25px !important;
+    margin: 0px 0 0 0 !important;
+    font-weight: bold;
+}
+.uploadBtnDiv {
+    position: relative;
+    width: 200px;
+    overflow: hidden;
+    margin: 30px 0 10px;
+}
+.uploadBtnDiv input{
+    position: relative;
+    height: 40px;
+    opacity: 0;
+    z-index: 9;
+}
+.uploadBtn {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    background-color: transparent;
+    color: #0aafff;
+    font-size: 17px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+.page-title {
+    color: #33aaff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 0 10px;
+}
+.rightCondition {
+    width: calc(100% - 340px);
+    text-align: right;
+    float: left;
+    margin: -3px 0 0;
+}
+.leftCondition {
+    width: 310px;
+    float: left;
+    margin: 12px 0;
+}
+.modal.modal-fixed-footer .modal-content {
+    padding: 20px !important;
+}
+@media only screen 
+and (min-width : 320px)
+and (max-width : 667px)  { 
+    .modal.modal-fixed-footer .modal-content {
+        padding-bottom: 70px;
+    }
+    .msgBox {
+        max-height: unset !important;
+        height: auto;
+    }
+    .modal.modal-fixed-footer .modal-content {
+        position: unset;
+        max-height: 100%;
+        width: 100%;
+    }
+    .modal.modal-fixed-footer .modal-footer {
+        position: unset;
+        margin: 20px 0 0;
+    }
+    .terms h4 {
+        margin: 10px 0 0 !important;
+    }
+    .center-align button {
+        padding: 0 18px;
+        height: 30px !important;
+        line-height: unset;
+    }
+ 
+    .center-align {
+        float: unset;
+        padding-top: 5px;
+        padding-right: 0;
+        margin-right: 0!important;
+    }
+    .modal.modal-fixed-footer.termAndCondition {
+        padding: 0;
+        height: auto;
+    }
+    .modal.modal-fixed-footer.termAndCondition .modal-content {
+        padding-bottom: 0;
+    }
+    .rightCondition {
+        width: unset;
+        padding-left: 15px;
+    }
+    .modal .modal-footer.popupModal{
+        height: 110px !important;
+    }
+}
+
+.msgBox{
+    max-height: 30%;
+    width: 30%;
+    top: 30%;
+    overflow: hidden;
+
+}
+.regMSG{
+    font-size: 20px !important;
+    font-weight: bolder;
+    text-align: center;
+    overflow: hidden;
+}
+.msgHead{
+    margin-top: 20px;
+    text-align: center;
+    color: #33aaff;
+    font-weight: 700;
+}
+.msgContain{
+    padding: 1px !important;
+}
+.text-center{
+    text-align: center;
+}
+.choseLabel{
+    position: static;
+    width: 100%;
+    float: left;
+    transform: unset;
+}

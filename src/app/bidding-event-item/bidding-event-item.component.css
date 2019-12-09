@@ -1,0 +1,203 @@
+/* .bid-event-item:hover {
+    background-color: #03a9f4;
+}
+.bid-event-item:hover .buildingImg img{
+    opacity: 1 !important;
+}
+.bid-event-item:hover .job-title{
+color: #fff;
+}
+.bid-event-item:hover .company-name{
+color: #dbdbdb;
+}
+.bid-event-item:hover .active-bidding-event{
+    background-color: #ffffff;
+}
+.bid-event-item:hover .active-bidding-event span{
+    color: #33aaff;
+}
+.bid-event-item:hover .reward{
+    background-color:#ebebeb;
+} */
+.bid-event-item {
+    -moz-transition: all .1s ease-in;
+    -o-transition: all .1s ease-in;
+    -webkit-transition: all .1s ease-in;
+    transition: all .1s ease-in;
+    background-color: white;
+    position: relative;
+}
+.active-bidding-event{
+    background-color: #33aaff;
+    color: #fff;
+}
+.scheduled-bidding-event{
+    background-color:#b3e5fc;
+    color: #546e7a;
+}
+.expired-bidding-event{
+    background-color:#cfd8dc;
+    color: #546e7a;
+}
+.reward{
+    background-color:#cfd8dc;
+    color: #546e7a;
+}
+.job-title{
+    font-size:20px;
+     color:#37474f;
+    color:#114488;
+    font-weight:700;
+}
+.company-name{
+    font-size:14px;
+    color:#607d8b;
+}
+.chip>img {
+    float: left;
+    margin: 0px 0px 0 0px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    padding: 5px;
+}
+img {
+    border: 0;
+}
+.reward p{
+    margin:0;
+}
+/* New css added by komal */
+.deletBtn{
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    border: 1px solid #FF9800;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.deletBtn i {
+    color: #FF9800;
+    font-size: 16px;
+}
+.deletBtn:hover.deletBtn i{
+    color: #fff;
+}
+.deletBtn:hover{
+    border: 1px solid #FF9800;
+    background-color: #FF9800;
+}
+.countDiv {
+    background-color: #FF9800;
+    color: #fff;
+    position: absolute;
+    /* border-radius: 50%; */
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    font-size: 15px;
+    box-shadow: 1px 2px 7px #8d8d8dad;
+}
+/* Delete confirmation Popup */
+.confirmationDiv{
+    background-color: #fff;
+    width: 450px;
+    min-height: 150px;
+    padding: 40px 20px;
+    margin: 0 auto;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 10px #66666638;
+}
+.confirmationDiv h3{
+    font-size: 22px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #707070;
+    padding-bottom: 5px;
+    /* border-bottom: 1px solid; */
+}
+.confirmBtnsGroup{
+    margin: 40px 0 0;
+}
+.confirmBtn{
+    background-color: #fff;
+    color: #0aafff;
+    font-size: 16px;
+    padding: 5px 20px;
+    border-radius: 3px;
+    font-weight: bold;
+    border: 2px solid #0aafff;
+}
+.confirmBtn:hover{
+    background-color: #0aafff;
+    color: #ffffff;
+    border: 2px solid #0aafff;
+}
+button.confirmBtn.yesBtn {
+    margin-right: 10px;
+    background-color: #0aafff;
+    color: #fff;
+    border: 2px solid #0aafff;
+}
+/* Delete confirmation Popup  ends*/
+
+/*==================================== responsive css start  =================================*/
+/*================================ i-pad responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px)  {
+    .bid-event-item {
+        padding-bottom: 50px !important;
+    }
+    .jobPost{
+        width: unset !important;
+    }
+    .BtnDivBuilding {
+        width: 40% !important;
+    }
+    .chip{
+        width: 100% !important;
+    }
+}
+/*================================ i-pad responsive css ends  ===============================*/
+/*================================ Mobile responsive css start  ===============================*/
+@media only screen 
+and (min-width:320px)
+and (max-width:667px){
+    .BtnDivBuilding p{
+        margin: 0;
+    }
+    .msgBox[_ngcontent-c11] {
+        max-height: unset;
+        height: auto;
+    }
+    .modal.modal-fixed-footer .modal-content {
+        position: unset;
+        max-height: 100%;
+        width: 100%;
+    }
+    .modal.modal-fixed-footer .modal-footer {
+        position: unset;
+        margin: 20px 0 0;
+    }
+    .jobPost{
+        width:88% !important;
+    }
+    /* .bid-event-item{
+        padding-bottom: 40px !important;
+    } */
+    .deletBtn {
+        top: 20px !important;
+    }
+}
+/*================================ Mobile responsive css ends  ===============================*/

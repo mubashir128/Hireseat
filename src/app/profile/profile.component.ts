@@ -1,0 +1,181 @@
+
+import { Component, OnInit,Input } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { IProfile, Profile } from './model/user-profile';
+import { UserService } from '../_services/user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RewardSummary} from './model/reward-summary';
+declare var Materialize:any;
+declare var jQuery:any;
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
+})
+export class ProfileComponent implements OnInit {
+  public userProfile: IProfile;
+  public userInfoDetails:any;
+  public profilefrm: FormGroup;
+  public updateProfileimg:FormGroup
+  public userData:any;
+  public loggedinUser:any;
+  public obj:any={}; 
+  public token:String;
+  public imagePath;
+  currentUserId:any;
+  //userroledata:any;
+  filepath:any;
+  imgURL: any;
+  public message: string;
+  public PointsSummary=new RewardSummary();
+  constructor(private userService:UserService,private spinner:NgxSpinnerService,private formBuilder: FormBuilder,private router:Router) {
+    this.userProfile = new Profile();    
+   this.getUsersProfile();
+   }
+
+  ngOnInit() {
+    this.loggedinUser=this.userService.getUser();
+    jQuery('.modal').modal();
+    this.spinner.show();    
+    this.currentUserId=JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
+
+     
+    this.updateProfileimg = this.formBuilder.group({
+      file: ['', Validators.compose([Validators.required])],
+    })
+
+
+
+    this.profilefrm = this.formBuilder.group({
+      aboutComp: ['', Validators.compose([Validators.required])],
+      locOfHeadOff: ['', Validators.compose([Validators.required])],
+      noOfEmp: ['', Validators.compose([Validators.required,Validators.pattern('[0-9]+')])],
+      webSiteLink: ['', Validators.compose([Validators.required])],
+      fbLink: [''], /*  Validators.compose([Validators.required]) */
+      twittLink: [''],
+      youtubeLink: [''],
+      linkedInLink: [''],
+      fullName:['', Validators.compose([Validators.required])],
+      phoneNo:['', Validators.compose([Validators.required,Validators.pattern('[0-9]+')])],
+      email:['', Validators.compose([Validators.required,Validators.email])],
+      file:['', Validators.compose([Validators.required])]
+      });
+  }
+  get f() { return this.profilefrm.controls; }
+  get img() { return this.updateProfileimg.controls; }
+
+  getUsersProfile(){
+  
+    this.userService.getUserProfile(this.userService.getUserData().userRole).subscribe((data:any)=>{   
+              if(data != null && data != undefined &&  data != ""){
+                this.userProfile=data.res;
+              }else{
+                Materialize.toast('Something went wrong',1000)
+              }             
+              this.spinner.hide();
+    },(error)=>{
+      console.log(error);
+      this.spinner.hide();
+    });
+}
+preview(files) {
+  if (files.length === 0)
+    return;
+
+  var mimeType = files[0].type;
+  if (mimeType.match(/image\/*/) == null) {
+    this.message = "Only images are supported.";
+    return;
+  }
+  this.filepath=<File>files[0];
+
+  var reader = new FileReader();
+  this.imagePath = files;
+  reader.readAsDataURL(files[0]); 
+  reader.onload = (_event) => { 
+    this.imgURL = reader.result; 
+  }
+  console.log(this.imagePath[0]['File'])
+
+  console.log(this.filepath)
+  
+
+}
+onSubmit() {  
+  if(!this.profilefrm.invalid){    
+    this.spinner.show();
+    this.userService.updateUserProfile(this.userProfile).subscribe((data:any)=>{          
+     if(data.result === "OK"){
+      this.loggedinUser=this.userService.getUser();    
+      this.obj.email=this.userProfile.email;
+      this.obj.phoneNo=this.userProfile.phoneNo;
+      this.obj.fullName=this.userProfile.fullName;
+      this.obj._id=this.loggedinUser.userInfo._id;
+      this.obj.role=this.loggedinUser.userInfo.role;
+      this.obj.userRole=this.loggedinUser.userInfo.userRole;
+      this.obj.companyName=this.loggedinUser.userInfo.companyName;
+      this.token=this.loggedinUser.token;
+      localStorage.setItem('currentUser', JSON.stringify({ userInfo:this.obj, token: this.token }));   
+      Materialize.toast('Profile Updated Successfully',3000)     
+      }else{
+        Materialize.toast('Something went wrong',1000)
+      }
+      this.spinner.hide();
+  },(error)=>{
+    console.log(error);
+    if(error === "Conflict"){
+      Materialize.toast('Email Id / Phone Number Already Registered !',1000)
+    }
+    this.spinner.hide();
+  });
+  }else{
+    this.spinner.hide();
+     return;
+  }
+ 
+}
+updateProfileImg(){
+  const fd=new FormData();
+  fd.append('file',this.imagePath[0],this.imagePath[0].name);
+  fd.append('id',this.currentUserId);
+
+ 
+  this.userService.updateProfileImg(fd).subscribe(
+    (res)=>{console.log(res)
+      Materialize.toast(res.message, 1000);
+    },
+    (error)=>{console.log(error)}
+  )
+}
+
+showSummary(){
+  this.spinner.show();
+  this.userService.getRewardLoosePointsSummary().subscribe((data:any)=>{    
+   this.PointsSummary.skillsLosePt=data.skillsLosePt;
+   this.PointsSummary.experienceLosePt=data.experienceLosePt;
+   this.PointsSummary.personalityLosePt=data.personalityLosePt;    
+    this.getEarnreward();    
+  },(error)=>{
+    console.log(error);
+    this.spinner.hide();
+  })
+  
+}
+
+getEarnreward(){
+  this.userService.getEarnreward().subscribe((data)=>{
+    this.PointsSummary.skillsErn=data.skillsErn;
+    this.PointsSummary.personalityErn=data.personalityErn;
+    this.PointsSummary.experienceEarn=data.experienceEarn;
+    this.spinner.hide();
+     jQuery('#RewardModel').modal('open');
+  },(error)=>{
+    console.log(error);
+    this.spinner.hide();
+  })
+}
+gotoHome(){
+  this.router.navigate(['/recruiter/bidding-event-list']);
+}
+}

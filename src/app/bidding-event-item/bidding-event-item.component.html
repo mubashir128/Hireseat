@@ -1,0 +1,51 @@
+<div class="bid-event-item"  style="padding:15px; width: 100%; float: left;">
+  <div class="buildingImg" style="display:inline-block; width:12%;height:auto; vertical-align:top;">
+      <img class="responsive-img" src="assets/img/company.png" style="width:100%;opacity:0.8;padding:15px;"/>
+  </div>
+  <div class="jobPost" style="display:inline-block;width:38%;height:auto;padding-left:15px;vertical-align:top;">
+      <div class="job-title" (click)="select(biddingEvent._id)"> {{biddingEvent?.jobProfileKey[0]?.jobTitle||biddingEvent?.jobProfileKey?.jobTitle}}</div>
+      <div class="company-name"> {{biddingEvent.employerCompanyName}} </div>
+  </div>
+  <div class="BtnDivBuilding" style="display:inline-block;width:50%; float:right; vertical-align:top;text-align:right;">
+          <div class="chip reward" style=" display: inline-flex;padding-right:20px;">
+                  <img src="assets/img/reward.png" />
+                  <!-- Reward -->
+                   <p> ${{numberWithCommas(biddingEvent.rewardMoneyFrom) }} -  ${{ numberWithCommas(biddingEvent.rewardMoneyTo)  }}</p>
+          </div>
+          <div class="chip scheduled-bidding-event" *ngIf="biddingStatus===0" style="display: inline-flex; vertical-align:top;">
+                  <img src="assets/img/status.png" />
+                  <!--  Starts in -->  
+                <span *ngIf="remainingTime.remainingDays>0">{{remainingTime.remainingDays}}&nbsp;days,&nbsp;</span>
+                <span *ngIf="remainingTime.remainingHours>0" >{{remainingTime.remainingHours}}&nbsp;hrs</span>
+                <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingHours>0">,&nbsp;</span>
+                <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingMinutes>0">{{remainingTime.remainingMinutes}}&nbsp;mins</span>
+                   
+          </div>
+           <div class="chip active-bidding-event" *ngIf="biddingStatus===1" style="display: inline-flex; vertical-align:top;">
+                  <img src="assets/img/status.png"/>
+                  <!-- Closes in -->
+                    <span *ngIf="remainingTime.remainingDays>0">{{remainingTime.remainingDays}}&nbsp;days,&nbsp;</span>
+                    <span *ngIf="remainingTime.remainingHours>0" >{{remainingTime.remainingHours}}&nbsp;hrs</span>
+                    <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingHours>0">,&nbsp;</span>
+                    <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingMinutes>0">{{remainingTime.remainingMinutes}}&nbsp;mins</span>
+          </div>
+           <div class="chip expired-bidding-event" *ngIf="biddingStatus===-1" style="display: inline-flex;vertical-align:top;">
+                <img src="assets/img/status.png" />
+                Expired
+          </div>
+</div>
+<div *ngIf= "userInfo.userRole =='recruiter'" class="countDiv" >{{biddingEvent?.numOfresumes}}</div>
+<a *ngIf= "userInfo.userRole =='employer'" (click)="showdelete(biddingEvent._id)" class="deletBtn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+<div id="DeleteConfirm{{biddingEvent._id}}" class="modal confirmationDiv">
+  <!-- <h3>Confirmation</h3> -->
+  <h3>Are you sure you want to delete?</h3>
+  <div class="btn-group confirmBtnsGroup">
+    <button class="confirmBtn yesBtn" (click)="deleteJobPost(biddingEvent._id)">YES</button>
+    <button class="confirmBtn noBtn" (click)="closed(biddingEvent._id)">NO</button>
+  </div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+

@@ -1,0 +1,366 @@
+.page-title {
+    font-size: 30px;
+    color: #114488;
+    font-weight: 700;
+}
+#map-iframe{
+    width:100%;
+}
+p {
+    color: #333;
+    font-size: 16px;
+}
+h5 {
+    font-size: 20px;
+    font-weight: bold;
+}
+.width50{
+	width:50%;
+	float:left;
+	padding:15px;
+}
+.page-title.text-center.headerDiv.contactHeader {
+    color: #fff;
+    font-size: 35px;
+    border: none;
+    padding: 20px 0 !important;
+    margin-bottom: 30px;
+}
+.displayFlex{
+    display: flex;
+    flex-wrap: wrap;
+}
+.displayFlex .marUnset{
+    margin-left: unset;
+    margin-bottom: 20px;
+}
+.shadowCommon{
+    padding: 20px 20px 30px;
+    box-shadow: 0 0 10px #9999994d;
+    float: none;
+    /* margin: 10px !important; */
+    padding: 20px 20px 140px;
+    position: relative;
+    height: 100%;
+}
+.bordTopOrange{
+    border-top: 5px solid #FF5722;
+}
+.bordTopGreen{
+    border-top: 5px solid #309600;
+}
+.bordTopGreen{
+    border-top: 5px solid #660096;
+}
+.marRigh10{
+    margin-right: 10px;
+}
+.shadowCommon h6{
+    font-size: 25px;
+    color: #0aafff;
+    /* font-weight: 600; */
+    text-transform: uppercase;;
+}
+.shadowCommon p{
+    color: #606060;
+    font-size: 15px;
+    margin: 5px 0;
+}
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px 0 20px;
+}
+.skills span{
+    background-color: #f0f0f0;
+    padding: 6px 20px;
+    border-radius: 5px;
+    margin: 5px 5px;
+    font-size: 14px;
+}
+.BtnDiv {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 30px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.recruiter{
+    width: 45%;
+    /* float: left; */
+    position: relative;
+    text-align: left;
+}
+.candidate{
+    width: 45%;
+    text-align: left;
+}
+.recruiter:after{
+    position: absolute;
+    content: '';
+    background-color: #d9d9d9;
+    width: 1px;
+    height: 100%;
+    right: -20px;
+    top: 0;
+}
+.borderedBtn{
+    background-color: transparent;
+    color: #03a9f4;
+    border: 1px solid #03a9f4;
+    font-size: 13px;
+    padding: 0px 10px;
+    border-radius: 5px;
+    width: 100%;
+    margin: 0 auto;
+}
+.borderedBtn:hover{
+    background-color: #03a9f4;
+    color: #fff;
+}
+.BtnDiv p{
+    color: #03a9f4;
+}
+/*==================================== responsive css start  =================================*/
+/*================================ i-pad responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px)  {
+	
+}
+/*================================ i-pad responsive css end  ===============================*/
+/*================================ mobile responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 767px)  {
+	.width50{
+	width:100%;
+	float:left;
+	padding:15px;
+}
+}
+/*================================ mobile responsive css end  ===============================*/
+
+ /*=================================== upload resume popup ================================ */
+ .slide-sub-heading{
+    font-size: 35px;
+    color: #114488;
+    font-weight: 700;
+    margin: 30px 0px 10px 0px;
+}
+
+.slide-heading{
+    font-size:32px;
+    color:#fff;
+    font-weight:700;
+    margin:0px 0px 10px 0px;
+    padding: 20px 0 !important;
+}
+
+.slide-body{
+    font-size:18px;
+    /* color:#808080; */
+    color:#666;
+    font-weight:400;
+    margin:0px 0px 10px 0px;
+}
+
+.slide-bullet{
+    font-size:20px;
+    color:#114488;
+    font-weight:700;
+    margin:0px 0px 10px 0px;
+}
+.borW{
+    background-color: #fff;
+}
+
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+    border-bottom: 1px solid #fff;
+}
+.cancelBtn {
+    background-color: #ddd;
+    margin: 0 5px;
+}
+.mainDivUploadRes {
+    padding: 0 0 20px;
+}
+/* .mainDivUploadRes {
+    padding: 0 0 20px;
+    background-image: linear-gradient(to right bottom,#e4eaf3,#33aaff);
+} */
+.inputPlaceColor input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: inset 0 0 20px #e7e7e7;
+    padding: 0 10px;
+    box-sizing: inherit;
+    margin: 0px;
+    height: 40px;
+}
+.grey.lighten-4 {
+    color: #0aafff !important;
+    margin-top: 0;
+    font-weight: 600;
+    border: 2px solid #0aafff;
+}
+.grey.lighten-4:hover{
+    color: #ffffff !important;
+    background-color: #0aafff !important;
+    border: 2px solid #0aafff;
+}
+/* .inputPlaceColor input{
+    border: 1px solid #fff;
+    border-radius: 5px;
+    /* box-shadow: inset 0 0 30px #ffffff; 
+    padding: 0 10px;
+    box-sizing: inherit;
+	margin: 0px;
+} */
+.inputPlaceColor input:focus, .inputPlaceColor tag-input{
+	border-bottom: 1px solid #fff;
+    box-shadow: 0 0px 0 0 #fff;
+}
+.inputPlaceColor tag-input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: inset 0 0 20px #e7e7e7;
+    padding: 0 10px;
+    box-sizing: inherit;
+}
+/* .inputPlaceColor tag-input {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    /* box-shadow: inset 0 0 30px #ffffff; 
+    padding: 0 10px;
+    box-sizing: inherit;
+} */
+.ng2-tag-input__text-input{
+    margin: 0;
+    border: 0px !important;
+    box-shadow: unset !important;
+}
+.formDivParent{
+	width:100%;  
+	padding:0px 0px 0px 0px;
+	max-width: 600px; 
+    margin: 0 auto;
+    max-height: unset;
+    overflow: unset;
+}
+.mainDivUploadRes .slide-heading {
+    font-size: 27px;
+}
+.marB0{
+	margin-bottom:0px;
+}
+.text-left{
+	text-align: left;
+}
+.Bcolor{
+	color:#4b4b4b;
+}
+/* .Bcolor {
+    color: #fff;
+} */
+.paddT30{
+	padding-top:30px;
+}
+
+.mar0PaddB20{
+    margin: 0 0;
+    padding: 20px !important;;
+}
+/* .cancelBtn{
+    background-color: #999;
+    margin: 0 5px;
+    color: #fff;
+} */
+.jobpostModalHeadMain{
+    color: #ffffff;
+    text-align: center;
+    background-color: #0aafff;
+    padding: 15px 10px;
+}
+.jobpostModalHead{
+    font-size: 23px;
+    margin: 0;
+}
+.paddDiv{
+    width: 100%;
+    float: left;
+    padding: 20px 20px 30px;
+    border-bottom: 1px solid #e1e1e1;
+}
+.paddR{
+    padding-right: 20px;
+}
+.disFlex{
+    display: flex;
+    align-items: center;
+}
+
+/*================================ i-pad responsive css start  ===============================*/
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px){
+    .recruiter:after {
+        right: -15px;
+    }
+    .skills span {
+        font-size: 17px;
+    }
+    .shadowCommon p {
+        font-size: 17px;
+    }
+}
+/*================================ i-pad responsive css ends  ===============================*/
+/*================================ mobile responsive css start  ===============================*/
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 667px) {
+.center-align {
+    float: none;
+    padding-top: 0;
+    padding-right: 0;
+    /* margin-right: 0!important; */
+    margin: 0 auto !important;
+    min-height: unset !important;
+}
+.disBtnFlex{
+    display: flex;
+    justify-content: center;
+    justify-content: center;
+}
+.inputPlaceColor{
+    padding: 0;
+}
+.paddDiv {
+    max-height: 400px;
+    overflow-y: auto;
+}
+.jobpostModalHead {
+    font-size: 22px;
+}
+.row .col {
+    padding: 0 .75rem !important;
+}
+.recruiter:after {
+    right: -15px;
+}
+.shadowCommon h6 {
+    font-size: 22px;
+}
+.page-title.text-center.headerDiv.contactHeader {
+    font-size: 30px !important;
+    padding: 10px 0 !important;
+}
+.skills {
+    padding: 20px 0 20px;
+}
+}
+/*================================ mobile responsive css ends  ===============================*/

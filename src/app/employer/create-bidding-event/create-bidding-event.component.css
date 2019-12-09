@@ -1,0 +1,60 @@
+#create-bidding-event{
+    margin: 0.5rem 0 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background-color: #fff;
+}
+.title{
+    font-size:24px;
+    /* color:#114488; */
+    color: #0aafff;
+    font-weight:700;
+}
+
+.input-field  .dropdown-button {
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #9e9e9e;
+    color: #9e9e9e;
+    cursor: pointer;
+    padding-bottom: 9px;
+    margin-top: 17px;
+}
+.input-field  .dropdown-button:focus {
+    border-bottom: 1px solid #4CAF50;
+    box-shadow: 0 1px 0 0 #4CAF50;
+}
+.marT35{
+    margin-top: 35px;
+}
+.marT20{
+    margin-top: 20px;
+}
+/*==================================== responsive css start  =================================*/
+/*================================ i-pad responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px)  {
+.input-field .dropdown-button {
+    padding-bottom: 6px !important;
+    font-size: 13px !important;
+}
+i.right {
+    margin-left: 0;
+}
+}
+/*================================ i-pad responsive css ends  ===============================*/
+/*================================ Mobile responsive css start  ===============================*/
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 767px) {
+    .input-field .dropdown-button {
+        padding-bottom: 6px;
+        font-size: 13px;
+    }
+    .title {
+        font-size: 22px;
+    }
+}
+/*================================ Mobile responsive css ends  ===============================*/

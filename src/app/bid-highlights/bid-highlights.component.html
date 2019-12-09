@@ -1,0 +1,42 @@
+<div *ngIf="biddingEvent" class="row" style="border-bottom: solid #e0e0e0 1px; margin-bottom:0px;">
+    <div class="col s6 center-align" style="border-right: solid #e0e0e0 1px; padding:10px;">
+        <label>Reward</label>
+        <h6> $ {{numberWithCommas(biddingEvent.rewardMoney)}} </h6>
+    </div>
+    <div *ngIf="biddingStatus===1" class="col s6 center-align" style="padding:10px;">
+        <label>Closes in</label>
+         <h6> 
+            <span *ngIf="remainingTime.remainingDays>0">{{remainingTime.remainingDays}}&nbsp;days,&nbsp;</span>
+            <span *ngIf="remainingTime.remainingHours>0" >{{remainingTime.remainingHours}}&nbsp;hrs</span>
+            <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingHours>0">,&nbsp;</span>
+            <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingMinutes>0">{{remainingTime.remainingMinutes}}&nbsp;mins</span>
+        </h6>
+    </div>
+    <div *ngIf="biddingStatus===0" class="col s6 center-align" style="padding:10px;">
+        <label>Starts in</label>
+        <h6> 
+            <span *ngIf="remainingTime.remainingDays>0">{{remainingTime.remainingDays}}&nbsp;days,&nbsp;</span>
+            <span *ngIf="remainingTime.remainingHours>0" >{{remainingTime.remainingHours}}&nbsp;hrs</span>
+            <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingHours>0">,&nbsp;</span>
+            <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingMinutes>0">{{remainingTime.remainingMinutes}}&nbsp;mins</span>
+        </h6>
+    </div>
+    <div *ngIf="biddingStatus===-1" class="col s6 center-align" style="padding:10px;">
+        <label>Status</label>
+        <h6>Expired</h6>
+    </div>
+</div>
+<div *ngIf="biddingEvent" class="row" style="margin-bottom:0px;">
+    <div class="col s3 center-align" style="border-right: solid #e0e0e0 1px; padding:10px;">
+        <label>Total Candidates</label>
+        <h6>{{totalCandidateBidded}} </h6>
+    </div>
+    <div class="col s3 center-align" style="border-right: solid #e0e0e0 1px; padding:10px;">
+        <label>Selected Candidates</label>
+        <h6>{{SelectedBid}} </h6>
+    </div>
+     <div class="col s6 center-align" style="border-right: solid #e0e0e0 1px; padding:10px;">
+        <label>Interview Seats</label>
+        <h6> {{biddingEvent.resumeLimit}} </h6>
+    </div>  
+</div>

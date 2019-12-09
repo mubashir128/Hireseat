@@ -1,0 +1,31 @@
+<div>
+    <div >
+        <ul id="bidding-event-list"  style="margin-top:15px;">
+            <li *ngFor="let user of userList | paginate: { itemsPerPage: 5, currentPage: p }" style="cursor:pointer;">
+              
+                <div class="bid-event-item" (click)="loginUser(user.email)" style="padding:15px;">
+                    <div style="display:inline-block; width:12%;heigth:auto; vertical-align:top;">
+                        <img class="responsive-img" src="../../../assets/img/employee.png" style="width:100%;opacity:0.2;padding:15px;"/>
+                    </div>
+                    <div  style="display:inline-block;width:50%;height:auto;padding-left:15px;vertical-align:top;">
+                        <div class="job-title"> {{user.fullName}} </div>
+                        <div class="company-name"> {{user.email}} </div>
+                    </div>
+                    <div class="BtnDivBuilding" style="display:inline-block;width:50%; float:right;vertical-align:top;text-align:right;">
+                           
+
+                             <div class="chip active-bidding-event"  style="display:inline-block; vertical-align:top;">
+                                  {{user.userRole}}
+                            </div>
+                    </div>
+                  </div>
+                  <div class="divider"></div>
+            </li>
+        </ul>
+        <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+        
+    </div>
+    <div *ngIf="noBiddingEvents">
+            No Results to show
+    </div>  
+</div>

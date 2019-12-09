@@ -1,0 +1,47 @@
+#create-job-profile{
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    margin: 0.5rem 0 1rem 0;
+}
+.title{
+    font-size:24px;
+    color:#114488;
+    font-weight:700;
+}
+
+.input-field  .dropdown-button {
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #9e9e9e;
+    color: #9e9e9e;
+    cursor: pointer;
+}
+.input-field  .dropdown-button:focus {
+    border-bottom: 1px solid #4CAF50;
+    box-shadow: 0 1px 0 0 #4CAF50;
+}
+.marT35{
+    margin-top: 35px;
+}
+.marT20{
+    margin-top: 20px;
+}
+.input-field.col label {
+    left: .75rem;
+    height: 20px;
+    font-size: 18px;
+    color: #666;
+}
+.commonDivJobProfile label {
+    font-size: 18px;
+    /* font-size: 16px; */
+    color: #333;
+    margin: 5px 0;
+    display: block;
+}
+.mar0{
+    margin: 0;
+}
+.padd0{
+padding: 0;
+}

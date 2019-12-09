@@ -1,0 +1,84 @@
+<div *ngIf="jobProfile">
+            <!-- Short Info Start -->
+        
+            <div class="white" style="padding:20px; border: solid #e0e0e0 1px;">
+                <div class="row">
+                    <div *ngIf="jobProfile.salaryCycle" class="col s4 center-align">
+                        <label> Salary  
+                                <span *ngIf="jobProfile.salaryCycle ===1"> per Year </span>
+                                <span *ngIf="jobProfile.salaryCycle ===2"> per Month </span>
+                                <span *ngIf="jobProfile.salaryCycle ===3"> per Week </span>
+                                <span *ngIf="jobProfile.salaryCycle ===4"> per Day </span>
+                                <span *ngIf="jobProfile.salaryCycle ===5"> per Hour </span>
+                        </label>
+                        <h6> {{numberWithCommas(jobProfile.salary)}} </h6>
+                    </div>
+                    <div *ngIf="jobProfile.jobType" class="col s4 center-align">
+                        <label style="padding-top:20px;">Job Type</label>
+                        <h6 *ngIf="jobProfile.jobType ===1"> Full Time</h6>
+                        <h6 *ngIf="jobProfile.jobType ===2" > Part Time</h6>
+                    </div>
+                    <div *ngIf="jobProfile.jobLocation" class="col s4 center-align">
+                        <label style="padding-top:20px;">Location</label>
+                        <h6>{{jobProfile.jobLocation}}</h6>
+                    </div>
+                    <div *ngIf="jobProfile.skills" class="col s4 center-align">
+                        <label style="padding-top:20px;">Required Skills</label>
+                        <h6 [innerHTML]="jobProfile.skills"></h6>
+                    </div>
+                    <div *ngIf="jobProfile.minEducation" class="col s4 center-align">
+                        <label style="padding-top:20px;">Required Education</label>
+                        <h6>{{jobProfile.minEducation}}</h6>
+                    </div>
+                </div>              
+            </div>
+            
+            <div class="white" style="padding:10px;  margin-top:20px;  border: solid #e0e0e0 1px;">
+                <h5> Description </h5>
+                <br>
+                <h6 [innerHTML]="jobProfile.jobDescription"> </h6>
+            </div>           
+            <div *ngIf="employer" class="white" style="padding:20px;  margin-top:20px; border: solid #e0e0e0 1px;">
+                <div class="row">
+                    <div class="col s2">
+                        <img _ngcontent-aoe-14="" class="responsive-img" src="assets/img/company.png" style="opacity:0.2;padding:15px;">
+                    </div>
+                    <div class="col s10">
+                        <h5> {{employer.companyName}} </h5>
+                    </div>
+                </div>
+                <div *ngIf="employer.aboutComp"> 
+                    <h6>{{employer.aboutComp}}</h6>
+                </div>
+                <div class="divider"></div>
+                <div class="row">
+                    <div *ngIf="employer.noOfEmp > 0" class="col s6">
+                        <img src="assets/img/sample_logo.png"/> {{employer.noOfEmp}}  Employees
+                    </div>
+                    <div *ngIf="employer.webSiteLink" class="col s6">
+                        <a [attr.href]="'http://'+employer.webSiteLink" target="_blank"><img src="assets/img/sample_logo.png"/>  Website Link </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngIf="employer.locOfHeadOff" class="col s6">
+                        <img src="assets/img/sample_logo.png"/> HQ: {{employer.locOfHeadOff}}
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row">
+                    <div *ngIf="employer.linkedInLink" class="col s2">
+                        <a [attr.href]="employer.linkedInLink" target="_blank">Linkedin </a>
+                    </div>
+                    <div *ngIf="employer.fbLink" class="col s2">
+                        <a [attr.href]="employer.fbLink" target="_blank">Facebook </a>
+                    </div>
+                    <div *ngIf="employer.twittLink" class="col s2">
+                        <a [attr.href]="employer.twittLink" target="_blank">Twitter </a>
+                    </div>
+                    <div *ngIf="employer.youtubeLink" class="col s2">
+                        <a [attr.href]="employer.youtubeLink" target="_blank">Youtube </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Employer Profile End -->
+    </div>

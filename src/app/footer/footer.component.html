@@ -1,0 +1,91 @@
+<!-- <footer class="page-footer" style="background:#33AAFF;">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s6">
+        <h5 class="white-text">Mail Us:</h5>
+        <p class="grey-text text-lighten-4">
+            HireSeat Agency Pvt. Ltd. <br>
+            48 Harding Pl <br>
+            Freeport, New York, 11520 <br><br>
+            Phone number: 516 729 0271 <br>
+            Email Address: contact@hireseat.com
+        </p>
+      </div>
+      <div class="col l4 offset-l2 s6">
+        <h5 class="white-text">Links</h5>
+        <ul>
+          <li  *ngIf="!isLoggedIn"><a class="grey-text text-lighten-3" [routerLink]="['/login']">Login</a></li>
+          <li  *ngIf="!isLoggedIn"><a class="grey-text text-lighten-3" [routerLink]="['/login']">Sign Up</a></li>
+          <li><a class="grey-text text-lighten-3" [routerLink]="['/contact-us']" >Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2017 HireSeat, Inc. All rights reserved. Made In NYC.
+    </div>
+  </div>
+</footer> -->
+<!--========================== footer section start ===============================-->
+<div class="footerSection">
+  <div class="row">
+    <div class="col s6 l4 MailUs paddxDiv">
+        <h4>Mail Us:</h4>
+        <p class="marB30">HireSeat Agency Pvt. Ltd. 48 Harding Pl<br>
+            Freeport, New York, 11520</p>
+        <p>Phone number:<span>516 729 0271</span></p>
+        <p>Email address:<span>contact@hireseat.com</span></p>
+    </div>
+    <div class="col s6 l3 LinksDiv paddxDiv">
+        <h4>Links:</h4>
+        <ul>
+          <li><a class="grey-text text-lighten-3" [routerLink]="['/blog']" >Blog</a></li>
+          <li  *ngIf="!isLoggedIn"><a class="grey-text text-lighten-3" [routerLink]="['/login']">Login</a></li>
+          <li  *ngIf="!isLoggedIn"><a class="grey-text text-lighten-3" [routerLink]="['/login']">Sign Up</a></li>
+    
+         <!--  <li><a class="grey-text text-lighten-3" >Bidding Rules</a></li> -->
+         
+           <li><a class="grey-text text-lighten-3" [routerLink]="['/forum']" >Ask a Recruiter </a></li>
+         <li><a class="grey-text text-lighten-3" [routerLink]="['/upload-resume']" > Resume Bank</a></li>
+          <li><a class="grey-text text-lighten-3" [routerLink]="['/contact-us']" >Contact Us</a></li>
+        </ul>
+    </div>
+    <div class="col s12 l3 Subscribe">
+      <h4>Subscribe our Newsletter:</h4>
+      <div class="Emailtext">
+        <img src="assets/img/email.png" class="emailF">
+        <form novalidate (ngSubmit)="formSubmit()" role="form" [formGroup]="Email">
+        <input type="text" placeholder="Email Address"  formControlName="email" >
+        <div *ngIf="Email.controls['email'].hasError('email')" class="error">Please Enter
+          Valid  Email</div>
+      <button class="SearchBtn" type="submit">Subscribe</button>
+
+      </form> 
+      </div>
+  
+    </div>
+  </div>
+  <div class="FooterBottom">
+     <a>&copy; 2017 HireSeat, Inc. All rights reserved. Made In NYC</a>
+     <a>Terms and Conditions | Privacy Policy</a>
+  </div>
+</div>
+<!--========================== footer section end ===============================-->
+
+
+<div id="registerMsg" class="modal modal-fixed-footer custFooterModal msgBox">
+    <h4 class="msgHead">Subscription</h4>
+  <div class="modal-content terms msgContain">
+    
+    <h4 class="regMSG" >Thank you for Subscribing!</h4> 
+   
+
+  </div>
+  <div class="modal-footer">
+    <div class="col s6 m6 l6 text-center" > 
+      <button class="modal-close  waves-effect waves-light btn " (click)="goHome()"> Ok </button>
+    </div>
+  </div>
+
+</div>

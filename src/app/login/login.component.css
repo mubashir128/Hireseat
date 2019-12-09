@@ -1,0 +1,36 @@
+.vertical-divider{
+    position:relative;
+    left:50%;
+    top:10%;
+    bottom:10%;
+    border-left:1px solid black;
+}
+
+.title{
+    font-size:24px;
+    color:#114488;
+    font-weight:400;
+}
+/* =================================== Media query Starts====================================== */
+@media only screen 
+and (min-width:320px)
+and (max-width:667px){
+    .loginCardDiv .center-align {
+        float: none;
+        padding-top: 5px;
+        padding-right:0px;
+        margin-right: 0!important;
+    }
+}
+/* =================================== Media query Close====================================== */
+.mainWrapperLogin {
+    overflow-y: auto;
+}
+.card {
+    position: relative;
+    margin: .5rem 0 1rem 0;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 0 10px #99999924;
+}

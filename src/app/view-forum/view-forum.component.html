@@ -1,0 +1,119 @@
+<app-navbar></app-navbar>
+<div class="headerDiv text-center mar0 blogHeader">
+	<h4 class="pageHeading ">Ask a Recruiter</h4>
+	<p><a [routerLink]="['/home/']">Home</a> &#8811; <a> Ask a Recruiter</a>   </p>
+</div>
+<div class="mainDivForums">
+    <div class="container">
+        <div class="forumMainSection">
+            <div class="forumPageMain">
+                <!-- <div class="inputDivMainN">
+                    <input type="text" [(ngModel)]="searchText" placeholder="search here .....">
+                </div> -->
+                <div class="inputDivMainN">
+                    <div class="inputDivMainNInner">
+                        <form [formGroup]="searchQues">
+                            <input type="text" formControlName="question" placeholder="search here ....." (input)="textChanges(searchQues.value)">
+                            <button (click)="searchQuesData(searchQues.value)" class="serchBtn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="forumPageInner">
+                    <!--only Question start-->
+                    <div *ngIf="askusersData">
+
+                        <div *ngFor="let data of questData">
+
+                            <div *ngIf="data.questionById == askusersData._id && !isLoggedIn" class="forumQustionBlock forumQustionCommonBlock">
+                                <form [formGroup]="postAnsw">
+                                    <div class="headDiv">
+                                        <h4>Your question</h4>
+                                    </div>
+                                    <div class="questionDivText">
+                                        <h4>{{data.question}}</h4>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--only question end  -->
+
+                    <div *ngIf="isLoggedIn">
+                        <ul>
+                        <li *ngFor="let data of questData | paginate: { itemsPerPage: 10, currentPage: p }" class="forumQustionBlock forumQustionCommonBlock">
+                            <form [formGroup]="postAnswer">
+                                <div class="headDiv">
+                                    <h4>Questions for You</h4>
+                                    <div *ngIf="data.isAnswered==false">
+                                        <i class="fa fa-star yellowStar" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <p class="byAnnomus"> Question added by : Anonymous user</p>
+                               
+                                <div class="questionDivText">
+                                    <h4>{{data.question}}</h4>
+                                    <button class="answer" (click)="showAnsDiv(data._id)"><i class="fa fa-reply" aria-hidden="true"></i> Answer</button>
+                                    <div *ngIf="answerClick" class="questionDivTextReply" [id]="data._id">
+                                        <textarea placeholder="Write Your Answer here.." formControlName="answerPost" id="answerspost"></textarea>
+                                        <div *ngIf="postAnswer.hasError('','answerPost') && postAnswer.get('answerPost').touched"> Answer is required*</div>
+                                        <button class="waves-effect waves-light btn" [disabled]="!postAnswer.valid" (click)="postAns(postAnswer.value,data._id,data.answersCount)"> post </button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                        <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+                    </div>
+
+                    <div class="forumAnswersBlock forumQustionCommonBlock" *ngFor="let data of getAnswerData | searchFilter:{answer:searchText}">
+                        <div class="questionDivText">
+                               
+                            <h4><a [routerLink]="[ '/question-details/', data.questionByUserId._id]">{{data.questionByUserId.question}}</a></h4>
+                            <div>
+                                <span>{{ data.questionByUserId.answersCount}} Answers</span>
+                            </div>
+                            <div class="answerHead">
+                                <img *ngIf="data.answerByUserId.profileimage;else recriuterImg" src="{{data.answerByUserId.profileimage}}" class="profileImg">
+                                <ng-template #recriuterImg> 
+                                        <img  src="assets/img/user.png" class="profileImg">
+                                    </ng-template>
+                                <div class="queHeadtext">
+                                    <!-- <h4 *ngIf="!data.answerByName;else ansPerName">Anonymous user</h4> -->
+                                    
+                                        <h4>{{data.answerByUserId.fullName}}</h4>
+                                        <p>Answered {{ callback(data.createdAt) }} ago </p>
+                                     <!--</ng-template> -->
+                                </div>
+                            </div>
+                            <p >{{data.answer}}</p>
+                            <!-- <button (click)="show = !show">{{ show ? 'Show less': 'Show More' }}</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stickyDiv">
+                <div class="AksQutionN">
+                    <app-askbutton></app-askbutton>
+                </div>
+                <div class="recentQuestionsDivMain">
+                    <app-questions [questData]="questData"></app-questions>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--message pop up:START-->
+<div id="answermsdPop" class="modal videoModalMain forumPopMain forumMsgPopup newPopZindex">
+    <a (click)="closeanswerPopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+    <div class="modal-content videoModalContent">
+        <h4 class="slide-heading text-center"> Message</h4>
+        <div class="modalBodyPop">
+            <p>{{msgForPopup}}</p>
+        </div>
+    </div>
+</div>
+
+<!--message pop up:END-->
+<app-footer></app-footer>

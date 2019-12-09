@@ -1,0 +1,19 @@
+<div>
+    <ul id="job-profile-list" style="margin-top:15px;" *ngIf="!noRecords">
+        <li class="job-profile-item" *ngFor="let profile of jobProfile | paginate: { itemsPerPage: 2, currentPage: p }">
+            <div style="cursor: pointer;" class="row marB0" (click)="getbidsForFeedback(profile._id)">
+                <div class="col s12 m6 l6">
+                    <div class="job-title">
+                        <h4>Job Title</h4>
+                        <h3>{{profile.jobProfileKey.jobTitle}} </h3>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <div class="divider"></div>
+        <pagination-controls class="resume_pagination" (pageChange)="p = $event"></pagination-controls>
+    </ul>
+    <div *ngIf="noRecords">
+        No Results to show
+    </div>
+</div>

@@ -1,0 +1,158 @@
+footer.page-footer{
+    margin-top:0px;   
+   }
+   /*=============================== footer css ========================*/
+.footerSection {
+    width: 100%;
+    float: left;
+    padding: 50px 100px;
+    background-color: #0a111a;
+}
+.footerSection h4 {
+    color: #fff;
+    font-size: 17px;
+    font-family: 'gilroyregular';
+    margin: 15px 0;
+}
+.footerSection p {
+    font-size: 14px;
+    color: #858c94;
+    margin: 10px 0;
+}
+.marB30{
+    margin-bottom: 30px !important;
+}
+.Emailtext {
+    position: relative;
+    margin: 20px 0 0px;
+}
+.emailF {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    filter: brightness(235%);
+}
+.Emailtext input[type="text"] {
+    border: none !important;
+    background-color: #fff !important;
+    border-radius: 5px !important;
+    padding: 0 0 0 50px !important;
+    width: 100% !important;
+    height: 50px !important;
+    box-sizing: border-box;
+}
+ .SearchBtn {
+    background-color: #0aafff;
+    border: none;
+    min-width: 151px;
+    height: 50px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+}
+.FooterBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: .5px solid #1c2d41;
+    padding: 30px 0 30px;
+}
+.FooterBottom a {
+    text-decoration: none;
+    color: #858c94;
+    font-size: 13px;
+}
+/*================================ i-pad responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px)  {
+.Emailtext input[type="text"] {
+    width: 75% !important;
+    margin-right: 10px;
+}
+}
+/*=============================== footer css end ========================*/
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 667px)  { 
+    .modal.modal-fixed-footer .modal-content {
+        padding-bottom: 70px;
+    }
+    .msgBox {
+        max-height: unset !important;
+        height: auto;
+    }
+    .modal.modal-fixed-footer .modal-content {
+        position: unset;
+        max-height: 100%;
+        width: 100%;
+    }
+    .modal.modal-fixed-footer .modal-footer {
+        position: unset;
+        margin: 20px 0 0;
+    }
+    .terms h4 {
+        margin: 10px 0 0 !important;
+    }
+    .center-align button {
+        padding: 0 18px;
+        height: 30px !important;
+        line-height: unset;
+    }
+    .row .col.paddxDiv {
+        padding: 0 .75rem !important;
+    }
+    .center-align {
+        float: unset;
+        padding-top: 5px;
+        padding-right: 0;
+        margin-right: 0!important;
+    }
+    .modal.modal-fixed-footer.termAndCondition {
+        padding: 0;
+        height: auto;
+    }
+    .modal.modal-fixed-footer.termAndCondition .modal-content {
+        padding-bottom: 0;
+    }
+    .Emailtext input[type="text"] {
+        height: 40px !important;
+    }
+    .SearchBtn {
+        height: 40px;
+    }
+}
+
+.msgBox{
+    max-height: 30%;
+    width: 30%;
+    top: 30%;
+    overflow: hidden;
+
+}
+.regMSG{
+    font-size: 20px !important;
+    font-weight: bolder;
+    text-align: center;
+    overflow: hidden;
+}
+.msgHead{
+    margin-top: 20px;
+    text-align: center;
+    color: #33aaff;
+    font-weight: 700;
+}
+.msgContain{
+    /* padding: 1px !important; */
+}
+.text-center{
+    text-align: center;
+}
+.choseLabel{
+    position: static;
+    width: 100%;
+    float: left;
+    transform: unset;
+}

@@ -1,0 +1,76 @@
+<div>
+    <p class="askBtnText">Ask the best professional recruiters in NYC about how to find a job, interviewing tips, resume questions, how to use Linkedin…etc</p>
+    <a class="waves-effect waves-light btn width100 AksQutionBtn" (click)="showforumPopup1()">Ask Question</a>
+</div>
+ <!--================ forums  ask Question pop up Modal :START================-->
+ <div id="forumsPop1" class="modal videoModalMain forumPopMain">
+		<a (click)="closeForumModel()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+		<div class="modal-content videoModalContent">
+			<h4 class="slide-heading text-center">Ask Questions Anonymously</h4>
+			<div class="modalBodyPop">
+				<h5>Tips on getting good answers quickly</h5>
+				<ul>
+            <li>Make sure your question hasn't been asked already</li>
+            <li>Keep your question short and to the point</li>
+				</ul>
+				
+				<div class="questionDiv">
+					<div class="questionHead">
+						<!-- <img src="assets/img/user.png" class="profileImg"> -->
+						<div class="queHeadtext">
+							<h4>Please verify your email to ensure that you are a real person. You will be given a one time password</h4>
+						</div>
+					</div>
+					<div class="verifyDiv">
+            <!-- <h5>Verify your Email</h5> -->
+          <form [formGroup]="verifyEmail" >
+						<div class="verifyDivInner">
+              <input type="text"  placeholder="Enter Email" formControlName="emailVerify" >
+               
+                <div *ngIf="emailSubmitted && f.emailVerify.errors" class="invalid-feedback">
+                    <div *ngIf="f.emailVerify.errors.required"> Email is required*</div>
+                    <div *ngIf="f.emailVerify.errors.email">Email must be a valid email address</div>
+
+                </div>
+                <!-- <button class="waves-effect waves-light btn" (click)="verifyUser()"> Verify Email </button> -->
+                <button class="waves-effect waves-light btn" type="button" (click)="onSubmit()"> Verify Email  </button>
+              </div>
+          </form>
+          <form [formGroup]="verifyOtp" >
+						<div class="verifyDivInner" *ngIf="!verfStatus">
+              <input type="text" placeholder="Enter One Time Password" formControlName="otpVerify" min="6" max="6">
+              <div *ngIf="otpSubmitted && otpVali.otpVerify.errors" class="invalid-feedback">
+                <div *ngIf="otpVali.otpVerify.errors.required"> Otp is required*</div>
+            </div>
+							<button  class="waves-effect waves-light btn" type="button" (click)="checkOtp()"> Verify  </button>
+            </div>
+          </form>
+						
+          </div>
+          <form [formGroup]="askQues" >
+					<div class="textFeildDivQ">
+            <textarea  placeholder="ask your question here..." formControlName="addQuestions"></textarea>
+          
+					</div>
+          <div class="text-right">
+						<button class="waves-effect waves-light btn marT20" (click)="addQuest()" [disabled]="!askQues.valid" > post question </button>
+          </div>
+        </form>
+				</div>
+			</div>
+		</div>
+
+  </div>
+   <!--================ forums  ask Question pop up Modal :END================-->
+
+    <!--message pop up:START-->
+  <div id="emailConfirmPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+      <a (click)="closeEmailConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+      <div class="modal-content videoModalContent">
+        <h4 class="slide-heading text-center"> Message</h4>
+        <div class="modalBodyPop">
+           <p>{{msgForPopup}}</p>
+        </div>
+      </div>
+    </div>
+    <!--message pop up:END-->

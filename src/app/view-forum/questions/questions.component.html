@@ -1,0 +1,15 @@
+<div class="forumPageInner">
+  <!-- <a class="waves-effect waves-light btn" (click)="showforumPopup()">Ask Question</a> -->
+    <div  class="forumQustionBlock forumQustionCommonBlock" >
+      <div class="headDiv">
+        <h4>recent questions</h4>
+      </div>
+        <!-- class="activeClass" [routerLink]="['/question-details/',data._id]"  [ngClass]="{ 'activeClass': data._id=5d1ca271f7186327dcb82b41 }"-->
+        <div class="questionDivText" *ngFor="let data of questData">
+          
+          <h4 id="p" class="tempClass" [id]="data._id"  (click)="sendDetails(data._id)" ><i class="fa fa-angle-right" aria-hidden="true"></i><a >{{data.question}}</a></h4>
+        </div>
+    </div>  
+     
+    
+  </div>

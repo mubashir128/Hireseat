@@ -1,0 +1,52 @@
+#job-profile-list{
+    margin: 0.5rem 0 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+}
+
+.job-profile-item:hover {
+    background-color:#03a9f4;
+}
+.job-profile-item {
+    -moz-transition: all .1s ease-in;
+    -o-transition: all .1s ease-in;
+    -webkit-transition: all .1s ease-in;
+    transition: all .1s ease-in;
+    background-color: white;
+    width: 100%;
+    
+}
+.job-title{
+    font-size:20px;    
+    color:#114488;
+    font-weight:700;
+    padding-left:15px;
+}
+.job-title:hover{
+    color: white;
+}
+.resume_pagination  ul.ngx-pagination{
+    margin: 15px 15px !important;
+    
+}
+.resume_pagination li.current {
+    border-radius: 50%;
+}
+ .job-title h4 {
+    font-size: 14px;
+    margin: 10px 0px;
+}
+.job-title h3 {
+    color: #114488;
+    font-weight: 700;
+    font-size: 23px;
+    margin:5px 0px;
+}
+.fullwidth{
+    width: 100%;
+    float: left;
+}
+.marB0{
+    margin: 0px;
+    border-bottom:1px solid #ddd;
+}

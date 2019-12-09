@@ -1,0 +1,135 @@
+<div class="center-align" style="width:100%; min-height:100vh; padding:20px 0px 50px 0px; background:#E9F4FF;">
+
+    <a [routerLink]="['/']"><img src="assets/img/identity1.png" class="logoImg" /></a>
+    <div class="btnDiv container "><button class="waves-effect waves-light btn"
+            [routerLink]="['/employer/feedback-list']">Back To List</button></div>
+    <div class="slide-heading" style="margin-top:10px;"> <a [routerLink]="['/']">HIRE SEAT </a></div>
+    <div class="slide-sub-heading responsive-table" *ngIf="errorMsg"> No resumes found for feedback.</div>
+    <div class="slide-sub-heading responsive-table" *ngIf="noRecords"> You are using Expired Link / Invalid Link.</div>
+    <table class="highlight centered container" *ngIf="ResumeList.length > 0" width="100%">
+        <colgroup>
+            <col width="20%">
+            <col width="15%">
+            <col width="40%">
+            <col width="20%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Three Points</th>
+                <th>Resume</th>
+                <th>Feedback</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let resume of ResumeList">
+                <td>
+                    <h4>{{resume.StrongPoint1}}</h4>
+                    <h4>{{resume.StrongPoint2}}</h4>
+                    <h4>{{resume.StrongPoint3}}</h4>
+                </td>
+
+                <td>
+
+                    <div style="height:100%; width:100%; padding-left:0%; padding-right:0%; padding-top:0%;">
+                        <app-pdf-viewer [url]="resume.resumeKey.fileURL"></app-pdf-viewer>
+                    </div>
+
+
+                </td>
+                <td>
+                    <div class="commonDivTd">
+                        <h4 class="commonLabl"> Skills Match </h4>
+                        <span class="rating">
+
+                            <input type="radio" id="{{'field1'+resume._id+'_star5'}}" name="{{'rating1'+resume._id}}"
+                                value="50" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field1'+resume._id+'_star5'}}"></label>
+
+                            <input type="radio" id="{{'field1'+resume._id+'_star4'}}" name="{{'rating1'+resume._id}}"
+                                value="20" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field1'+resume._id+'_star4'}}"></label>
+
+                            <input type="radio" id="{{'field1'+resume._id+'_star3'}}" name="{{'rating1'+resume._id}}"
+                                value="10" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field1'+resume._id+'_star3'}}"></label>
+
+                            <input type="radio" id="{{'field1'+resume._id+'_star2'}}" name="{{'rating1'+resume._id}}"
+                                value="0" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field1'+resume._id+'_star2'}}"></label>
+
+                            <input type="radio" id="{{'field1'+resume._id+'_star1'}}" name="{{'rating1'+resume._id}}"
+                                value="-50" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field1'+resume._id+'_star1'}}"></label>
+
+                        </span>
+                    </div>
+                    <div class="commonDivTd">
+                        <h4 class="commonLabl"> Experience Match </h4>
+                        <span class="rating">
+
+                            <input type="radio" id="{{'field2'+resume._id+'_star5'}}" name="{{'rating2'+resume._id}}"
+                                value="50" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field2'+resume._id+'_star5'}}"></label>
+
+                            <input type="radio" id="{{'field2'+resume._id+'_star4'}}" name="{{'rating2'+resume._id}}"
+                                value="20" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field2'+resume._id+'_star4'}}"></label>
+
+                            <input type="radio" id="{{'field2'+resume._id+'_star3'}}" name="{{'rating2'+resume._id}}"
+                                value="10" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field2'+resume._id+'_star3'}}"></label>
+
+                            <input type="radio" id="{{'field2'+resume._id+'_star2'}}" name="{{'rating2'+resume._id}}"
+                                value="0" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field2'+resume._id+'_star2'}}"></label>
+
+                            <input type="radio" id="{{'field2'+resume._id+'_star1'}}" name="{{'rating2'+resume._id}}"
+                                value="-50" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field2'+resume._id+'_star1'}}"></label>
+
+                        </span>
+                    </div>
+                    <div class="commonDivTd">
+                        <h4 class="commonLabl"> Personality Match </h4>
+                        <span class="rating">
+
+                            <input type="radio" id="{{'field3'+resume._id+'_star5'}}" name="{{'rating3'+resume._id}}"
+                                value="50" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field3'+resume._id+'_star5'}}"></label>
+
+                            <input type="radio" id="{{'field3'+resume._id+'_star4'}}" name="{{'rating3'+resume._id}}"
+                                value="20" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field3'+resume._id+'_star4'}}"></label>
+
+                            <input type="radio" id="{{'field3'+resume._id+'_star3'}}" name="{{'rating3'+resume._id}}"
+                                value="10" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field3'+resume._id+'_star3'}}"></label>
+
+                            <input type="radio" id="{{'field3'+resume._id+'_star2'}}" name="{{'rating3'+resume._id}}"
+                                value="0" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field3'+resume._id+'_star2'}}"></label>
+
+                            <input type="radio" id="{{'field3'+resume._id+'_star1'}}" name="{{'rating3'+resume._id}}"
+                                value="-50" /><label (click)="selectRating($event)" class="full"
+                                for="{{'field3'+resume._id+'_star1'}}"></label>
+
+                        </span>
+                    </div>
+                    <div class="text-center fullwidth marT20">
+                        <span>
+                            <input type="button" (click)="feedBack(resume._id,'yes','Comments' + resume._id)"
+                                value="Interview" class="InrterviewBtn">
+                            <input type="button" (click)="feedBack(resume._id,'no','Comments' + resume._id)"
+                                value="Reject" class="rejectBtn">
+                        </span>
+                    </div>
+                </td>
+                <td>
+                    <textarea class="comments" [attr.id]="'Comments' + resume._id"></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

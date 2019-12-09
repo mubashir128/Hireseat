@@ -1,0 +1,70 @@
+#create-job-profile{
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    margin: 0.5rem 0 1rem 0;
+}
+.title{
+    font-size:24px;
+    /* color:#114488; */
+    color: #0aafff;
+    font-weight:700;
+    /* border-bottom: 1px solid; */
+}
+
+.input-field  .dropdown-button {
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #9e9e9e;
+    color: #9e9e9e;
+    cursor: pointer;
+}
+.input-field  .dropdown-button:focus {
+    border-bottom: 1px solid #4CAF50;
+    box-shadow: 0 1px 0 0 #4CAF50;
+}
+.marT35{
+    margin-top: 35px;
+}
+.marT20{
+    margin-top: 20px;
+}
+[type="checkbox"].filled-in:checked+label:after {
+    border: 2px solid #48aef3;
+    background-color: #48aef3;
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    background-color: #48aef3;
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+    border: 2px solid #48aef3;
+}
+[type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after {
+    border: 2px solid #48aef3;
+}
+form p:last-child {
+    margin-top: 0;
+}
+/*==================================== responsive css start  =================================*/
+/*================================ i-pad responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px)  {
+    .marT20 {
+        margin-top: 0 !important;
+    }
+    form p:last-child {
+        margin-top: 20px;
+    }
+}
+/*================================ i-pad responsive css ends  ===============================*/
+/*================================ mobile responsive css start  ===============================*/
+
+    @media only screen 
+    and (min-width : 320px) 
+    and (max-width : 767px)  {
+    form p:last-child {
+        margin-top: 20px;
+    }
+}
+/*================================ mobile responsive css ends  ===============================*/

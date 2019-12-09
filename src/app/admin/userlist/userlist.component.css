@@ -1,0 +1,143 @@
+#bidding-event-list{
+    margin: 0.5rem 0 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+}
+.bid-event-item:hover {
+    background-color: #03a9f4;
+}
+.bid-event-item {
+    -moz-transition: all .1s ease-in;
+    -o-transition: all .1s ease-in;
+    -webkit-transition: all .1s ease-in;
+    transition: all .1s ease-in;
+    background-color: white;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.active-bidding-event{
+    background-color: #33aaff;
+    color: #fff;
+}
+.scheduled-bidding-event{
+    background-color:#b3e5fc;
+    color: #546e7a;
+}
+.expired-bidding-event{
+    background-color:#cfd8dc;
+    color: #546e7a;
+}
+.reward{
+    background-color:#cfd8dc;
+    color: #546e7a;
+}
+.job-title{
+    font-size:20px;
+    color:#37474f;
+    color:#114488;
+    font-weight:700;
+}
+.disF{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.commonDiv{
+  /*   width: 25%;
+    text-align: left;
+    margin: 0px 0px;
+    padding: 5px 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px; */
+    width: 16.66%;
+    text-align: left;
+    margin: 0px 0px;
+    padding: 5px 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    word-break: break-all;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+.commonDiv.bold {
+    font-weight: bold;
+    background-color: #ddd;
+}
+.LogOutOption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #48aef3;
+    color: #fff;
+    margin-top: 8px;
+    height: 45px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+.LogOutOption h4 {
+    font-size: 22px;
+    margin: 0;
+    font-weight: bold;
+}
+.LogOutOption a {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.LogOutOption a {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #fff;
+    padding: 0 10px;
+    box-shadow: 0px 1px 3px #a0a0a0;
+}
+.table-border{
+    box-shadow: 0 0 10px #ddd;
+}
+.table-striped{
+	border: 1px solid #ddd;
+}
+.table-striped{
+	border: 1px solid #ddd;
+}
+.table-striped tr:nth-child(odd) { 
+	background-color:#f7f7f7 
+}
+.tableDiv td, .tableDiv th {
+    padding: 15px 15px;
+}
+.tableDiv {
+   width: 100%;
+    overflow-x: auto;
+    padding: 0 20px;
+}
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 667px) {
+    
+   .userListMobile{
+        padding: 10px 10px 50px 10px !important;
+        background-color: #fff;
+        width: 100%;
+        display: unset;
+    }
+
+    .tblScroll{
+        overflow-x: auto;
+        width: 100%;
+    }
+    .tblScroll ul{
+        width: 800px;
+    }
+    .tableDiv {
+        max-width: 330px;
+        overflow-x: scroll;
+        padding: 0;
+    }
+   
+}

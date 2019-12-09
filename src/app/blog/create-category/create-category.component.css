@@ -1,0 +1,319 @@
+  /*=================== checkbox btn css start =============*/
+  /* The container */
+  .checkboxL {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #666;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkboxL input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmarkC {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: transparent;
+    border: 1px solid #ddd;
+  }
+  .tableDiv {
+    width: 100%;
+    overflow-x: auto;
+    padding: 3px 10px;
+}
+  /* On mouse-over, add a grey background color */
+  .checkboxL:hover input ~ .checkmarkC {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkboxL input:checked ~ .checkmarkC {
+    background-color: transparent;
+  }
+  
+  /* Create the checkmarkC/indicator (hidden when not checked) */
+  .checkmarkC:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmarkC when checked */
+  .checkboxL input:checked ~ .checkmarkC:after {
+    display: block;
+  }
+  
+  /* Style the checkmarkC/indicator */
+  .checkboxL .checkmarkC:after {
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid #33aaff;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+    /*=================== checkbox btn css end =============*/
+	.searchDiv {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 15px 0;
+}
+.serchInput {
+    border: 1px solid #ddd !important;
+    height: 30px !important;
+    width: 200px !important;
+    margin: 0 5px !important;
+    padding: 0px 5px !important;
+	display: block;
+}
+.commonBtn {
+    border: 1px solid #ddd;
+    color: #000 !important;
+    height: 32px;
+    font-size: 15px;
+    background-color: #f7f7f7;
+    line-height: 1;
+    padding: 0 20px;
+}
+.catogoryMain {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.countList {
+    margin: 0 !important;
+    font-size: 15px;
+    color: #000;
+}
+.table-striped{
+	border: 1px solid #ddd;
+}
+.table-striped{
+	border: 1px solid #ddd;
+}
+.table-striped tr:nth-child(odd) { 
+	background-color:#f7f7f7 
+}
+.deleteLink {
+    color: red;
+    margin: 0 10px;
+}
+.text-center {
+    text-align: center;
+}
+.cursor-pointer{
+  cursor: pointer !important;
+}
+.checkmarkC {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  height: 18px;
+  width: 18px;
+  background-color: transparent;
+  border: 1px solid #ddd;
+}
+
+.msgBox{
+  max-height: 20%;
+  width: 20%;
+  top: 30% !important;
+  overflow: hidden;
+  padding: 20px;
+
+}
+.paddB20{
+  padding-bottom: 20px;
+}
+.regMSG{
+  font-size: 20px !important;
+  font-weight: bolder;
+  text-align: center;
+  overflow: hidden;
+  color: #6a6a6a;
+}
+.msgHead{
+  /* margin-top: 20px; */
+  text-align: center;
+  color: #33aaff;
+  font-weight: 700;
+  font-size: 25px;
+}
+.msgContain{
+  padding: 1px !important;
+}
+.text-center{
+  text-align: center;
+}
+.choseLabel{
+  position: static;
+  width: 100%;
+  float: left;
+  transform: unset;
+}
+
+.updatePopup {
+  max-height: 60%;
+  width: 34%;
+  top: 20% !important;
+  overflow: hidden;
+  padding: 20px !important;
+}
+.searchDivN{
+    justify-content: center;
+}
+.searchDivN input.serchInput {
+    min-width: 450px;
+}
+.searchDivN label {
+    font-size: 20px;
+    color: #000;
+    font-weight: 500;
+    margin-right: 20px;
+}
+.searchDivN .commonbt {
+    min-width: 150px;
+    margin: 20px 10px;
+}
+.saveBtn{
+    background-color: #33AAFF;
+    color: #fff;;
+}
+.cancelBtn{
+    background-color: #fff;
+    color: #000;;
+}
+.modal.modal-fixed-footer.updatePopup {
+    padding: 0;
+    height: 250px;
+}
+.updatePopup hr {
+    box-sizing: content-box;
+    height: 0.5px;
+    background-color: #33aaff !important;
+    color: #33aaff !important;
+    border: none;
+}
+.disUnset{
+  display: unset;
+}
+.modal.modal-fixed-footer .modal-content {
+  position: unset !important;
+  height: unset !important;
+  /* max-height: 100%; */
+  width: 100%;
+  max-height: unset;
+  overflow-y: unset !important;
+}
+.categoryDiv{
+  padding-top: 20px;
+}
+.modal.modal-fixed-footer .modal-footer {
+  left: 0;
+  bottom: 8px !important;
+}
+h4.pageheading{
+  color: #33aaff;
+}
+.modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-flat {
+  width: 100%;
+}
+/*==================================== responsive css start  =================================*/
+/*================================ i-pad responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px)  {
+  .updatePopup {
+    width: 50%;
+  }
+  .searchDivN input.serchInput {
+    min-width: 320px;
+}
+.catogoryMain {
+  padding: 0 10px;
+}
+.formDiv{
+  width: 100%;
+}
+.serchInput{
+  width: 330px !important;
+}
+/* .serchInput{
+  height: 40px !important;
+} */
+.searchDivN label {
+  padding: 0 7px;
+}
+.categoryDiv{
+  padding-top: 0;
+}
+.msgBox {
+  width: 40%;
+}
+.modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-flat {
+  width: 90%;
+}
+}
+
+/*================================ mobile responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 767px)  {
+.tableDiv {
+  max-width: 330px;
+  overflow-x: scroll;
+  padding: 0;
+}
+.msgBox {
+  max-height: 28% !important;
+}
+.modal-footer{
+  position: unset;
+}
+.searchDivN input.serchInput {
+  min-width: 290px;
+}
+.searchDivN label {
+  padding: 0 5px;
+}
+.modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-flat{
+  width: 100%;
+}
+.disFlex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.marL0{
+  margin-left: 0 !important;
+}
+.commonBtn {
+  font-size: 12px;
+}
+h4.pageheading{
+  font-size: 26px;
+}
+}
+/*================================ mobile responsive css ends  ===============================*/

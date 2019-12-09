@@ -1,0 +1,115 @@
+.resume-bank-item:hover {
+    background-color: #f4fbff;
+}
+.resume-bank-item {
+    -moz-transition: all .1s ease-in;
+    -o-transition: all .1s ease-in;
+    -webkit-transition: all .1s ease-in;
+    transition: all .1s ease-in;
+    background-color: white;
+}
+.waves-effect {
+    min-width: 82px;
+    padding: 0 1rem;
+}
+.disF{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    float: left;
+    /* background-color: #dddddd; */
+    background-color: #0aafff;
+}
+.commonDiv{
+    /* width: 25%; */
+    width: 17%;
+    text-align: left;
+    margin: 0px 0px;
+    padding: 5px 20px;
+    /* border-bottom: 1px solid #ddd; */
+    font-size: 16px;
+}
+.commonDiv.bold {
+    /* font-weight: bold;
+    background-color: #ddd; */
+    font-weight: 500;
+    color: #fff;
+    background-color: #0aafff;
+}
+.parentCommonDF{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #ddd;
+}
+.commonDiv span {
+    background-color: #f1f1f1;
+    padding: 5px 20px;
+    margin: 3px 3px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 25px;
+    line-height: 1.2;
+    font-size: 14px;
+}
+.table-border{
+    box-shadow: 0 0 10px #ddd;
+}
+.confirmationDiv{
+    background-color: #fff;
+    width: 500px;
+    min-height: 180px;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #66666638;
+}
+.confirmationDiv h3{
+    font-size: 22px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #0aafff;
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+}
+.confirmationDiv p{
+    margin: 5px 0;
+    font-size: 15px;
+    color: #797979;
+}
+.confirmBtnsGroup{
+    margin: 30px 0 0;
+    text-align: right;
+}
+.confirmBtn{
+    background-color: #0aafff;
+    color: #fff;
+    font-size: 16px;
+    padding: 5px 20px;
+    border-radius: 3px;
+    border: 1px solid #0aafff;
+}
+button.confirmBtn.yesBtn {
+    margin-right: 10px;
+}
+.input-field.disFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.inputInnerDiv {
+    width: calc(100% - 150px);
+    padding-right: 20px;
+}
+.wid150{
+    min-width: 150px;
+}
+.wid150 button{
+    width: 100%;
+}
+.error{
+    position: absolute;
+}

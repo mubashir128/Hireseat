@@ -1,0 +1,39 @@
+<div *ngIf="myBids" style="border: solid #e0e0e0 1px; margin-top:20px; background-color:#F2F2F2;">
+  <div style="padding:20px; background-color:#A6D9FF;color:#E8F4FF;font-weight:700;"> My Candidates</div>
+  <div class="divider"></div>
+  <div *ngIf="myBidsCount===0"  style="padding:20px;"> No Bids to show. </div>
+   <table *ngIf="myBidsCount>0" class="highlight" style="margin:20px; width:calc(100% - 40px);">
+      <thead>
+      <tr>
+          <th data-field="id"><label>ID</label></th>
+          <th data-field="name"><label>Candidate Name</label></th>
+          <th data-field="bidding-status"><label>Bidding Status</label></th>
+          <th data-field="seat-rank"><label>Bid Order</label></th>
+          <th *ngIf="biddingStatus===1" data-field="new-bid"><label>Enter new Bid</label></th>
+          <th *ngIf="biddingStatus===1" data-field="action"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let bid of myBids">        
+          <td></td>
+          <td>{{bid.resumeKey.candidateName}}</td>   
+          <td>
+              <div class="chip" *ngIf="bid.shortlisted==true"> Shortlisted </div> 
+              <div class="chip" *ngIf="bid.shortlisted==false"> Pending </div>
+          </td>
+          <td><div class="chip"> {{bid.BidNumber}} </div></td>
+          <td *ngIf="biddingStatus===1">
+              <form>
+                  <div class="input-field">
+                      <input id="bidding-amount" name="newAmount" type="text" class="validate">
+                      <label for="bidding-amount">Enter Amount</label>
+                  </div>
+              </form>
+          </td>
+          <td *ngIf="biddingStatus===1">
+              <a class="waves-effect waves-light btn white grey-text">Bid</a>
+          </td>
+      </tr>
+      </tbody>
+  </table>
+</div>

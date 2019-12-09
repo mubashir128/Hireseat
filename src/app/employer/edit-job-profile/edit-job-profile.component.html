@@ -1,0 +1,227 @@
+<a style="cursor: pointer;" (click)="goBack()"> Back </a>
+<form [formGroup]="jobProfileFrm" (ngSubmit)="onSubmit()">
+    <div class="card white" id="create-job-profile" style="padding:30px; margin-top:15px;">
+        <div class="title" style="margin-bottom:30px;"> Edit Job Profile</div>
+        <!-- <div class="divider"></div> -->
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="jobTitle" type="text" class="validate" name="jp.jobTitle" [(ngModel)]="jp.jobTitle"
+                    formControlName="jobTitle">
+                <label for="jobTitle" [ngClass]="{'active': jp.jobTitle}">Job Title</label>
+                <div *ngIf="(f.jobTitle.touched && f.jobTitle.errors)" class="invalid-feedback" class="error">
+                    <div *ngIf="f.jobTitle.errors.required">Job Title is required</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="job-brief" type="text" class="validate" name="jp.jobBrief" [(ngModel)]="jp.jobBrief"
+                    formControlName="jobBrief">
+                <label for="job-brief" [ngClass]="{'active': jp.jobBrief}">Job Brief</label>
+                <div *ngIf="(f.jobBrief.touched && f.jobBrief.errors)" class="invalid-feedback" class="error">
+                    <div *ngIf="f.jobBrief.errors.required">Job Brief is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <span>
+                <input type="radio" id="full-time" [value]="1" [(ngModel)]="jp.jobType" formControlName="jobType" />
+                <label for="full-time" [ngClass]="{'active': jp.jobType}">Full Time</label>
+            </span>
+            <span>
+                <input type="radio" id="part-time" [value]="2" [(ngModel)]="jp.jobType" formControlName="jobType" />
+                <label for="part-time" [ngClass]="{'active': jp.jobType}">Part Time</label>
+            </span>
+
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="job-location" type="text" class="validate" name="jp.jobLocation" [(ngModel)]="jp.jobLocation"
+                    formControlName="jobLocation">
+                <label for="job-location" [ngClass]="{'active': jp.jobLocation}">Job Location</label>
+                <div *ngIf="(f.jobLocation.touched && f.jobLocation.errors)" class="invalid-feedback" class="error">
+                    <div *ngIf="f.jobLocation.errors.required">Job Location is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="input-field col s6">
+                <input currencyMask id="salary" type="text" class="validate" name="jp.salary" [(ngModel)]="jp.salaryFrom"
+                    formControlName="salaryFrom">
+                <label for="salary" [ngClass]="{'active': jp.salaryFrom}"> Salary From </label>
+                <div *ngIf="(f.salaryFrom.touched && f.salaryFrom.errors)" class="invalid-feedback" class="error">
+                    <div *ngIf="f.salaryFrom.errors.required">From Salary is required</div>
+                </div>
+            </div>
+            <div class="input-field col s6">
+                    <input currencyMask id="salary" type="text" class="validate" name="jp.salary" [(ngModel)]="jp.salaryTo"
+                        formControlName="salaryTo">
+                    <label for="salary" [ngClass]="{'active': jp.salaryTo}"> Salary To </label>
+                    <div *ngIf="f.salaryTo.touched" class="invalid-feedback" class="error">
+                        <div *ngIf="jobProfileFrm.hasError('invalidSalary') && !f.salaryTo.errors?.required" >Can't be less than From Salary</div>
+                    </div>
+                    <div *ngIf="(f.salaryTo.touched && f.salaryTo.errors)" class="invalid-feedback" class="error">
+                        <div *ngIf="f.salaryTo.errors.required">To Salary is required</div>
+                        
+                    </div>
+                </div>
+
+        </div>
+        <div class="row">
+            <div class="input-field col s6 marT35">
+                <input type="hidden" name="jp.salaryCycle" [(ngModel)]="jp.salaryCycle" formControlName="salaryCycle">
+                <a class="dropdown-button" data-activates="dropdown_salaryCycle">
+                    <span *ngIf="jp.salaryCycle==0">Choose Salary Cycle</span>
+                    <span *ngIf="jp.salaryCycle==1">{{salaryCycleArr[0].value}}</span>
+                    <span *ngIf="jp.salaryCycle==2">{{salaryCycleArr[1].value}}</span>
+                    <span *ngIf="jp.salaryCycle==3">{{salaryCycleArr[2].value}}</span>
+                    <i class="material-icons right">arrow_drop_down</i>
+                </a>
+                <ul id="dropdown_salaryCycle" class="dropdown-content hide-on-small-only">
+                    <li *ngFor="let salaryCycle of salaryCycleArr"><a
+                            (click)="salaryCycleVal(salaryCycle.id)">{{salaryCycle.value}}</a></li>
+                </ul>
+            </div>
+            <div class="col s6 marT20">
+                <p>
+                    <input type="checkbox" class="filled-in" id="salary-negotiable" name="jp.salaryNegotiable"
+                        [(ngModel)]="jp.salaryNegotiable" formControlName="salaryNegotiable" />
+                    <label for="salary-negotiable">Negotiable</label>
+                </p>
+            </div>
+
+        </div>
+        <!-- <div class="divider"></div> -->
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="min-education" type="text" class="validate" name="jp.minEducation"
+                    [(ngModel)]="jp.minEducation" formControlName="minEducation">
+                <label for="min-education" [ngClass]="{'active': jp.minEducation}">Minimum Education</label>
+                <div *ngIf="(f.minEducation.touched && f.minEducation.errors)" class="invalid-feedback" class="error">
+                    <div *ngIf="f.minEducation.errors.required">Minimum Education is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+                <div class="input-field col s6">
+                        <input  id="salary" type="text" class="validate" name="jp.salary" [(ngModel)]="jp.experienceFrom"
+                            formControlName="experienceFrom">
+                        <label for="salary" [ngClass]="{'active': jp.experienceFrom}">Experience From</label>
+                        
+                        <div *ngIf="(f.experienceFrom.touched && f.experienceFrom.errors)" class="invalid-feedback" class="error">
+                            <div *ngIf="f.experienceFrom.errors.required">From Experience is required</div>
+                        </div>
+                    </div>
+                    <div class="input-field col s6">
+                            <input  id="salary" type="text" class="validate" name="jp.salary" [(ngModel)]="jp.experienceTo"
+                                formControlName="experienceTo">
+                            <label for="salary" [ngClass]="{'active': jp.experienceTo}">Experience To</label>
+                            <div *ngIf="f.experienceTo.touched" class="invalid-feedback" class="error">
+                                <div *ngIf="jobProfileFrm.hasError('invalidExperience') && !f.experienceTo.errors?.required" >Can't be less than Experience From</div>
+                            </div>
+                            <div *ngIf="(f.experienceTo.touched && f.experienceTo.errors)" class="invalid-feedback" class="error">
+                                <div *ngIf="f.experienceTo.errors.required">To Experience is required</div>
+                            </div>
+                        </div>
+        
+            <!-- <div class="input-field col s12">
+                <label for="expected-experience" [ngClass]="{'active': jp.experience >= 0}">Expected Experience</label>
+                <input type="hidden" name="jp.experience" [(ngModel)]="jp.experience" formControlName="experience">
+                <a class="dropdown-button" data-activates="dropdown_experience">
+                    <span *ngIf="jp.experience==0">Choose Experience</span>
+                    <span *ngIf="jp.experience==1">{{jobExperienceArr[0].value}}</span>
+                    <span *ngIf="jp.experience==2">{{jobExperienceArr[1].value}}</span>
+                    <span *ngIf="jp.experience==3">{{jobExperienceArr[2].value}}</span>
+                    <span *ngIf="jp.experience==4">{{jobExperienceArr[3].value}}</span>
+                    <span *ngIf="jp.experience==5">{{jobExperienceArr[4].value}}</span>
+                    <span *ngIf="jp.experience==6">{{jobExperienceArr[5].value}}</span>
+                    <span *ngIf="jp.experience==7">{{jobExperienceArr[6].value}}</span>
+                    <i class="material-icons right">arrow_drop_down</i>
+                </a>
+                <ul id="dropdown_experience" class="dropdown-content hide-on-small-only">
+                    <li *ngFor="let jobExperienceVal of jobExperienceArr"><a
+                            (click)="experienceVal(jobExperienceVal.id)">{{jobExperienceVal.value}}</a></li>
+                </ul>
+
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="skills" type="text" class="validate" name="jp.skills" [(ngModel)]="jp.skills"
+                    formControlName="skills">
+                <label for="skills" [ngClass]="{'active': jp.skills}">Skills</label>
+                <div *ngIf="(f.skills.touched && f.skills.errors)" class="invalid-feedback" class="error">
+                    <div *ngIf="f.skills.errors.required">Skills is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <label [ngClass]="{'active': jp.jobShift >= 0}">Select Shift</label>
+                <input type="hidden" name="jp.jobShift" [(ngModel)]="jp.jobShift" formControlName="jobShift">
+                <a class="dropdown-button" data-activates="dropdown_jobshift">
+                    <span *ngIf="jp.jobShift==0">Choose Shift</span>
+                    <span *ngIf="jp.jobShift==1">{{jobShiftArr[0].value}}</span>
+                    <span *ngIf="jp.jobShift==2">{{jobShiftArr[1].value}}</span>
+                    <i class="material-icons right">arrow_drop_down</i>
+                </a>
+                <ul id="dropdown_jobshift" class="dropdown-content hide-on-small-only">
+                    <li *ngFor="let jobsiftVal of jobShiftArr"><a
+                            (click)="jobShiftVal(jobsiftVal.id)">{{jobsiftVal.value}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+                <label for="job-description" [ngClass]="{'active': jp.jobDescription}" style="padding: 0 10px;">Job Description</label>
+            <div class="input-field col s12">
+               
+
+                <ckeditor
+                    formControlName="jobDescription"
+                    [(ngModel)]="jp.jobDescription"
+                    name="myckeditor"
+                    required
+                    [config]="ckeConfig" 
+                    debounce="500" 
+                     >
+                </ckeditor>
+               
+                <!-- <ck-editor name="myckeditor" formControlName="jobDescription" [(ngModel)]="jp.jobDescription" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor> -->
+
+                <div *ngIf="(f.jobDescription.touched && f.jobDescription.errors)" class="invalid-feedback"
+                    class="error">
+                    <div *ngIf="f.jobDescription.errors.required">Job Description is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <label [ngClass]="{'active': jp.contract >= 0}">Contract of Minimum</label>
+                <input type="hidden" name="jp.contract" [(ngModel)]="jp.contract" formControlName="contract">
+                <a class="dropdown-button" data-activates="dropdown_contract">
+                    <span *ngIf="jp.contract==0">Choose Contract</span>
+                    <span *ngIf="jp.contract==1">{{contractArr[0].value}}</span>
+                    <span *ngIf="jp.contract==2">{{contractArr[1].value}}</span>
+                    <span *ngIf="jp.contract==3">{{contractArr[2].value}}</span>
+                    <i class="material-icons right">arrow_drop_down</i>
+                </a>
+                <ul id="dropdown_contract" class="dropdown-content hide-on-small-only">
+                    <li *ngFor="let contract of contractArr"><a
+                            (click)="contractVal(contract.id)">{{contract.value}}</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <!-- <div class="divider"></div> -->
+        <div class="row">
+            <div class="input-field col s12 ">
+                <a class="waves-effect waves-light btn-flat" (click)="goBack()">Cancel</a>
+                <button [disabled]="jobProfileFrm.valid==true ? false:true " type="submit"
+                    class="waves-effect waves-light btn">Update</button>
+            </div>
+        </div>
+    </div>
+</form>

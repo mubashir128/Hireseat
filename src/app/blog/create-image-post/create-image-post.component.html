@@ -1,0 +1,162 @@
+<div class="createpostMainDiv">
+    <form [formGroup]="addpost">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="heading">Add New Image Post</h4>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col m12 s12 l9 FRM">
+        <div class="inputDiv">
+          <!-- <input type="text" class="titleEnter" placeholder="Enter title here" name ="" [(ngModel)] ='blogUrl'  (ngModelChange)="blogUrl = unmask($event)" [ngModelOptions]="{standalone: true}" > -->
+          <input type="text" class="titleEnter" placeholder="Enter title here" formControlName="title" (input)="onchange(this.addpost.controls.title.value)">
+          
+          <!-- <div *ngIf="f.title.errors" class="invalid-feedback">
+              <div *ngIf="f.title.errors.required"> title is required*</div>
+          </div> -->
+        
+        </div>
+        <div class="urlDiv">
+            <p><b>Permalink:</b> http://192.168.100.7:4200/blog/<span class="blogurlClass">{{blogUrl}}</span></p>
+            <!--<button class="okBtn" (click)="showeditUrl()">Edit</button> -->
+  <!--          
+            <div *ngIf="showEditUrl">
+              <input type="text" class="titleEnter"  formControlname="editBlogUrl" placeholder="Enter URl here">
+              <button class="okBtn">Ok</button><a>Cancel</a>
+            </div> -->
+        </div>
+        <!-- <div class="text-left">
+          <button class="btn editFusionBuilderBtn">Edit with fusion Builder</button>
+        </div>
+        <div class="text-left">
+            <button class="btn AddMediaBtn">Add Media</button>
+        </div> -->
+        <div class="editerDIv">
+         
+          <ckeditor  formControlName="postDescription" [config]="ckeConfig" name="myckeditor" skin="moono-lisa"  required  debounce="500">
+              </ckeditor>
+           
+  
+        </div>
+        <div class="customeKeyword marT">
+          <h4 class="secHead">custome Keyword</h4>
+          <div class="customeText">
+              <p>First create post for adding keywords.</p>
+           </div>
+        </div>
+    </div>
+  
+      <div class="col m12 s12 l3 FLM">
+          <button class="btn publishBtn" (click)="getData()">Publish</button>
+          <!-- <div class="customeKeyword">
+              <h4 class="secHead">Format</h4>
+              <div class="customeText">
+  
+                  <label class="radioBtnL">Standard 
+                    <input type="radio" checked="checked" name="radio">
+                    <span class="checkmark"></span>
+                  </label>
+  
+                  <label class="radioBtnL">Gallery 
+                    <input type="radio" checked="checked" name="radio">
+                    <span class="checkmark"></span>
+                  </label>
+  
+                  <label class="radioBtnL">Link 
+                    <input type="radio" checked="checked" name="radio">
+                    <span class="checkmark"></span>
+                  </label>
+  
+                  <label class="radioBtnL">Image 
+                      <input type="radio" checked="checked" name="radio">
+                      <span class="checkmark"></span>
+                    </label>
+  
+                    <label class="radioBtnL">Quote 
+                      <input type="radio" checked="checked" name="radio">
+                      <span class="checkmark"></span>
+                    </label>
+  
+                    <label class="radioBtnL">Video 
+                      <input type="radio" checked="checked" name="radio">
+                      <span class="checkmark"></span>
+                    </label>
+  
+                    <label class="radioBtnL">Audio 
+                        <input type="radio" checked="checked" name="radio">
+                        <span class="checkmark"></span>
+                      </label>
+  
+                    <label class="radioBtnL">Chat
+                      <input type="radio" checked="checked" name="radio">
+                      <span class="checkmark"></span>
+                    </label>  
+  
+               </div>
+            </div> -->
+  
+            <div class="customeKeyword marT">
+              <h4 class="secHead">Add catagory</h4>
+             
+                <div class="customeText scrollDiv" >
+                 
+                    <label class="checkboxL"  formArrayName="categoriesData" *ngFor="let categ of addpost.controls.categoriesData.controls; let i = index">
+                     
+                      <input type="checkbox" [formControlName]="i">
+                      {{ categoriesData[i]?.categoryName }}
+                      <span class="checkmarkC"></span>
+                    </label>
+                    <!-- <div *ngIf="!addpost.valid">At least one order must be selected</div> -->
+                  </div>
+             
+              <a (click)="showAddCatgory()" class="addCatagoryA"> + Add New Category</a>
+              <div class="addcatagory" *ngIf="showAddCatg">
+                <form [formGroup]="addNewCateg" >
+                  <input type="text" class="catagoryText" formControlName="categoryName">
+                      <!-- <select  class="catagoryText">
+                        <option>new catagory</option>
+                        <option>new catagory</option>
+                        <option>new catagory</option>
+                      </select> -->
+                      <div class="btnDiv DiF">
+                        <button class="waves-effect waves-light btn" (click)="addNewCategory()"> Add New Catagory</button>
+                        <button class="waves-effect waves-light btn cancelBtn" (click)="Cancel()"> Cancel</button>
+                      </div>
+                </form>  
+              </div>
+  
+            </div>
+  
+            <div class="customeKeyword marT">
+                <h4 class="secHead">Feature image</h4>
+                <div class="customeText">
+                    <a>set feature image</a>
+                    <img [src]="imgURL" *ngIf="imgURL" class="UploadedImg">
+                    <div class="uploadBtnDiv">
+                     <input #file type="file" accept='image/*' formControlName="file" (change)="preview(file.files)" required />
+                     <button class="waves-effect waves-light btn uploadBtn" > Upload</button>
+                    </div>
+                   
+  
+                 </div>
+            </div>
+           
+            <!-- <div class="customeKeyword marT">
+                <h4 class="secHead">Tags</h4>
+                <div class="customeText">
+                    <div class="tagDIv">
+                      <tag-input [(ngModel)] ='createTags' formControlName="tags"  [placeholder]="''" [secondaryPlaceholder]="''" (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
+                        <tag-input-dropdown [autocompleteItems]="tagsAutoData" [keepOpen]="false" [showDropdownIfEmpty]="true" >
+                      </tag-input-dropdown>
+                      </tag-input>
+                        <button class="btn AddMediaBtn titleEnter">Add </button>
+                    </div>
+                </div>
+            </div>
+   -->
+
+      <app-edit-tag (tagListArray)="eventHandler($event)"></app-edit-tag>
+      </div>
+  
+    </div>
+    </form>
+  </div>

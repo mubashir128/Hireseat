@@ -1,0 +1,50 @@
+
+<!-- <div class="JobCostPage">
+  <div class="JobCostPageHeadMain">
+    <h5 class="JobCostPageHead">Recruiter Cost</h5>
+    <button *ngIf="checkCost?.result == 'fail'" type="submit" (click)="showCostDiv()" data-toggle="modal" data-target="#addorupdatecost" class="waves-effect waves-light btn btnSuccess">Add Cost</button>
+    <button *ngIf="checkCost?.result == 'success'" type="submit" (click)="showCostDiv()"  data-toggle="modal" data-target="#addorupdatecost" class="waves-effect waves-light btn btnSuccess">update</button>
+  </div>
+  <table class="costTable">
+      <thead>
+        <tr>
+          <th>Sr.no</th>
+          <th>Profile_Picture</th>
+          <th>Recruiter Name</th>
+          <th>Recruiter Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let costList of recruiterCostList; let i = index">
+          <td>{{i+1}}</td>
+          <td><img [src]="costList.RecruiterKey.profileimage" class="profilepic"></td>
+          <td>{{costList.RecruiterKey.fullName}}</td>
+          <td>{{costList.recruiterCost}}</td>
+        </tr>
+      </tbody>
+    </table>
+<div class="modal addCost" id="addorupdatecost">
+  <input type="text" placeholder="Enter Cost for job profile per condidate" [(ngModel)]="RecruiterCost">
+  <button *ngIf="checkCost?.result == 'fail'" type="submit" (click)="AddCost()" class="waves-effect waves-light btn btnSuccess">Add</button>
+  <button *ngIf="checkCost?.result == 'success'" type="submit" (click)="UpdateCost()" class="waves-effect waves-light btn btnSuccess">update</button>
+</div>
+
+</div> -->
+<!-- <div class="dd-container">
+    <div class="dd-control-container" (click)="toggle()" tabindex="0" #displayLabel>
+      <span class="dd-display-item" role="textbox">{{display}}
+        <div class="pull-right"><i class="fa fa-caret-down"></i></div>
+      </span>
+    </div>
+    <div class="dd-list-container" [hidden]="isListHide">
+      <div><input type="text" class="drop-input" [(ngModel)]="selectedResume" (keypress)="onKeyPress($event)" #filterInput></div>
+      <div class="dd-items-container">
+        <div [attr.data-dd-value]="{id:'', display:'Select'}" class="dd-list-item" (click)="onItemSelect()" (mouseover)="onHover($event)" (mouseout)="onHover($event)">{{placeholder}}</div>
+        <div #listItems [ngClass]=" { 'dd-active dd-hightlight-item' :isSelected(item)} " class="dd-list-item " *ngFor="let item
+         of resumes | selectedResume : searchText; let i=index "
+         (click)="onItemSelect(item) " [attr.data-dd-value]="stringify(item)" (mouseover)="onHover($event) " (mouseout)="onHover($event) ">
+        {{item?.display}}
+        </div>
+      </div>
+    </div>
+  </div> -->

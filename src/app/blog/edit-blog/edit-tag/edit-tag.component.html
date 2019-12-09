@@ -1,0 +1,14 @@
+<div class="customeKeyword marT">
+  <h4 class="secHead">Tags</h4>
+  <div class="customeText">
+      <div class="tagDIv">
+        <form [formGroup]="tagForm" >
+        <tag-input [(ngModel)] ='tagList' formControlName="tag"  [editable]='true'  (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
+         <!--  <tag-input-dropdown [autocompleteItems]="tagsAutoData" [keepOpen]="false" [showDropdownIfEmpty]="true" > 
+        </tag-input-dropdown> -->
+      </tag-input>
+          <!-- <button class="btn AddMediaBtn titleEnter">Add </button> -->
+        </form>
+      </div>
+  </div>
+</div>

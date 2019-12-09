@@ -1,0 +1,15 @@
+.collection .collection-item{
+    border-bottom: none; 
+}
+.collection a.collection-item {
+    display: block;
+    transition: .25s;
+    color: #48aef3 !important;
+}
+.collection .collection-item.active {
+    background-color: #48aef3 ;
+    color: #fff !important;
+}
+.collection-item{
+    cursor: pointer;
+}

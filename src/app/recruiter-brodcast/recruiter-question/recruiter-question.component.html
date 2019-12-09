@@ -1,0 +1,33 @@
+<div class="quetionAns">
+
+       
+    <div class="closeBtn" (click)="showDiv()"><span *ngIf="showdata">X</span><span *ngIf="!showdata">?</span></div>
+    
+   
+     <div class="quetionAnsMain" >
+     
+        <h2>Q & A for this job post </h2>
+        <div *ngIf="showdata">
+         <div class="scrollDiv">
+          
+          <div class="quetion" *ngFor="let quetionAns of quetionsData ;let index = index"  >
+              <div class="quetion" *ngIf="quetionAns?._id == queid"  >
+                  <h5><Span class="labelclass">Q.{{index+1}}</Span> <span class="highlightdiv" ngxTextHighlight [content]="quetionAns?.question" [searchTerm]="quetionAns?.question"  [caseSensitive]="false">{{quetionAns?.question}}</span><span class="queCount">{{quetionAns?.questionCount}}</span></h5>
+                   <p><span class="labelclass">Ans: </span> <span> {{quetionAns?.Ans}}</span></p>
+             </div>
+                <h5><Span class="labelclass">Q.{{index+1}} </Span> <span class="highlightdiv" ngxTextHighlight [content]="quetionAns?.question" [searchTerm]="question"  [caseSensitive]="false">{{quetionAns?.question}}</span><span class="queCount">{{quetionAns.questionCount}}</span></h5>
+                <p><span class="labelclass">Ans: </span> <span> {{quetionAns?.Ans}}</span></p>
+         
+        
+          </div>
+        </div>
+       
+        <div class="writeAns nobord">
+            <h2>Wanna ask quetion to Employer?</h2>
+            <!-- <ng2-completer [datasource]="dataService" [minSearchLength]="0" rows="3" placeholder="Ask your quetion ..." class="askQuestion" id="question" (input)="updateSearch($event)" [(ngModel)]="question"></ng2-completer> -->
+            <textarea rows="3"  class="textBoxarea" placeholder="Ask your quetion ..." [(ngModel)]="question"(input)="updateSearch($event)" id="search-term"></textarea>
+            <button class="postBtn" (click)="AskQuestions()">Post Quetion</button>
+          </div>
+        </div>
+   </div>
+  </div>

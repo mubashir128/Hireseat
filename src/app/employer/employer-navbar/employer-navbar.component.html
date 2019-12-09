@@ -1,0 +1,16 @@
+<header>
+  <div class="collection padd0">
+      <a class="collection-item" [ngClass]="{'active': tab.selected===true }" *ngFor="let tab of tabs1" (click)="SelectItem(tab.id)" [routerLink]="[tab.id]">{{tab.displayText}}</a>
+  </div>
+  
+</header>
+
+<div class="collection">
+    <div class="col s12 m12 text-center l12 rewarDiv padd15">
+      <a><img src="assets/img/reward_points.png" height="50px" width="50px"></a>
+      <label for="company-reward">Ranking</label>
+      <h5 id="recruiter-rewards" class="mar0"> {{userProfile?.ranking}} </h5>
+      <label for="company-reward">Total Score</label>
+      <h5 id="recruiter-rewards" class="mar0"> {{userProfile?.ratingPoints}}  </h5>
+    </div>
+  </div>

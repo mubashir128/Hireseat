@@ -1,0 +1,128 @@
+import { Injectable } from '@angular/core';
+import { HttpClient  } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import * as myGlobals from '../globalPath';
+import { IBiddingEvent } from '../models/bidding-event'
+import { IJobProfile } from '../models/job-profile';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BiddingEventService {
+
+  public baseurl: any;
+  constructor(private http: HttpClient) { 
+    this.baseurl = myGlobals.baseUrl;
+  }
+
+  updateBiddingEventStatus(info:IBiddingEvent){
+    return this.http.put<IBiddingEvent[]>(this.baseurl+'api/updateBiddingEventStatus/',info).pipe(map((res:IBiddingEvent[])=>{
+      return res;
+    }));
+  }
+
+  getMyBids(info){
+    return this.http.get<IBiddingEvent[]>(this.baseurl+'api/getMyBids/'+info).pipe(map((res:IBiddingEvent[])=>{
+      return res;
+    }));
+  }
+  deletejobPost(id,employerkey){
+    return this.http.get<IBiddingEvent>(this.baseurl+'api/deletejobPost/'+id+ '/' + employerkey).pipe(map((res:IBiddingEvent)=>{    
+      return res;
+    }))
+  }
+  createBiddingEvent(info:IBiddingEvent){
+    return this.http.post<IBiddingEvent>(this.baseurl+'api/createBiddingEvent',info).pipe(map((res:IBiddingEvent)=>{
+      return res;
+    }))
+  }
+  addRecruiterCost(info){
+    return this.http.post<IBiddingEvent>(this.baseurl+'api/addRecruiterCost',info).pipe(map((res:IBiddingEvent)=>{
+      return res;
+    }))
+  }
+  getAllRecruiterCost(id){
+    return this.http.get<IBiddingEvent>(this.baseurl+'api/getRecruiterCost/'+id).pipe(map((res:IBiddingEvent)=>{    
+      return res;
+    }))
+  }
+  getRecruiterCostById(info){
+    return this.http.post<IBiddingEvent>(this.baseurl+'api/getRecruiterCostById',info).pipe(map((res:IBiddingEvent)=>{
+      return res;
+    })) 
+  }
+  updateRecruiterCost(info){
+    return this.http.post<IBiddingEvent>(this.baseurl+'api/updateRecruiterCost',info).pipe(map((res:IBiddingEvent)=>{
+      return res;
+    })) 
+  }
+  addRecruiterQuetions(info){
+    return this.http.post<IBiddingEvent>(this.baseurl+'api/addRecruiterQuetions',info).pipe(map((res:IBiddingEvent)=>{
+      return res;
+    }))
+  }
+  AddRecruiterQueAns(info){
+    return this.http.post<IBiddingEvent>(this.baseurl+'api/AddRecruiterQueAns',info).pipe(map((res:IBiddingEvent)=>{
+      return res;
+    }))
+  }
+  getAllQuestions(id,type){
+    return this.http.get<IBiddingEvent>(this.baseurl+'api/getAllQuestions/'+id + '/' + type).pipe(map((res:IBiddingEvent)=>{    
+      return res;
+    }))
+  }
+  getQuestions(info){
+    return this.http.post<IBiddingEvent>(this.baseurl+'api/getQuestions',info).pipe(map((res:IBiddingEvent)=>{
+      return res;
+    }))
+    
+  }
+  getBiddingEvents(){
+    return this.http.get<IBiddingEvent[]>(this.baseurl+'api/getBiddingEvents').pipe(map((res:IBiddingEvent[])=>{    
+      return res;
+    }))
+  }
+  
+
+  getBiddingEventById(id:any){
+    return this.http.get<IBiddingEvent>(this.baseurl+'api/getBiddingEventById/'+id).pipe(map((res:IBiddingEvent)=>{    
+      return res;
+    }))
+  }
+  getAllJobProfile(limit){
+    return this.http.get<IBiddingEvent[]>(this.baseurl+'api/getAllJobProfile/'+limit).pipe(map((res:IBiddingEvent[])=>{    
+      return res;
+    }))
+  }
+ 
+  getAllBiddingEvents(info){
+    return this.http.get<IBiddingEvent[]>(this.baseurl+'api/getAllBiddingEvents/'+info).pipe(map((res:IBiddingEvent[])=>{    
+      return res;
+    }))
+  }
+
+  createJobProfile(info:IJobProfile){
+    return this.http.post<IJobProfile>(this.baseurl+'api/createJobProfile',info).pipe(map((res:IJobProfile)=>{
+      return res;
+    }))
+  }
+  
+  getJobProfiles(){
+    return this.http.get<IJobProfile[]>(this.baseurl+'api/getJobProfiles').pipe(map((res:IJobProfile[])=>{    
+      return res;
+    }))
+  }
+  
+  getJobProfileById(id:any){
+    return this.http.get<IJobProfile>(this.baseurl+'api/getJobProfileById/'+id).pipe(map((res:IJobProfile)=>{    
+      return res;
+    }))
+  }
+  
+  updateJobProfile(info:IJobProfile){
+    return this.http.put<IJobProfile>(this.baseurl+'api/updateJobProfile',info).pipe(map((res:IJobProfile)=>{    
+      return res;
+    }))
+  }
+
+}

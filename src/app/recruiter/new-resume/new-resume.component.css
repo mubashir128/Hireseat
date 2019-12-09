@@ -1,0 +1,38 @@
+.section-header{
+    font-size: 20px;
+    color: #114488;
+    font-weight: 700;
+}
+/*================================ mobile responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 767px)  {
+    .newResume{
+        padding: 0 !important;
+    }
+.wid100{
+    width: 100% !important;
+    display: table !important;
+}
+.grey.lighten-4 {
+    background-color: #fff!important;
+    padding: 0 15px;
+    color: #fff !important;
+    display: table-cell;
+}
+.file-field span {
+    font-size: 13px;
+}
+.uploadBtn{
+    background-color: #4db0f4;
+    border-radius: 5px;
+}
+.card {
+    width: 100%;
+    float: left;
+}
+.marB0{
+    margin-bottom: 0;
+}
+}

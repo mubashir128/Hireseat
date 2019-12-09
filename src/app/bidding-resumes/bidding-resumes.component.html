@@ -1,0 +1,65 @@
+<div class="center-align" *ngIf="bidsCount===0"> <br> 
+  <span *ngIf="bidStatus === 'ACTIVE'">No one has bid yet. <br>Be first one to bid.</span>
+  <span *ngIf="bidStatus === 'EXPIRED'">No bids.</span>
+  <span *ngIf="bidStatus === 'SCHEDULED'">Bidding has not started yet.</span>
+</div>
+<table *ngIf="bidsCount>0" class="highlight">
+  <thead>
+      <tr>
+          <th data-field="bid"><label>No</label></th>
+          <th data-field="recruiting-company"> <label> Recruiting Company </label></th>
+          <th data-field=""></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr (click)="showResume(bid)" class="hoverable-row" style="cursor:pointer;" *ngFor="let bid of bidArr">
+          <td style="cursor:pointer;"><label>{{bid.BidNumber}}</label></td>        
+          <td style="cursor:pointer;"><label>{{bid.recruiterName}}</label></td>
+          <td style="cursor:pointer;"><label style="color: #039be5;"><b>View Resume</b></label></td>
+      </tr>
+  </tbody>
+</table>
+
+<div>
+  <!-- Modal Structure -->
+  <div id="BiddingResumePoints" class="modal modal-fixed-footer">
+    <div class="modal-content">                 
+              <div class="col s6 m6 l6">
+                    <h4>3 points</h4> 
+                      <div class="input-field">
+                          Point 1 : {{StrongPoint1|charlimit}}                          
+                      </div>
+                      <div class="input-field">
+                          Point 2 : {{StrongPoint2|charlimit}}                          
+                      </div>
+                      <div class="input-field">
+                          Point 3 : {{StrongPoint3|charlimit}}                         
+                      </div>                     
+
+            </div>                 
+            <div class="col s6 m6 l6">
+                    <h4>Feedback Points From Employer</h4>
+                <div class="input-field">
+                    Skills Match : {{skillsMatchPoints}} 
+                </div>
+                <div class="input-field">
+                    Experience Match : {{experienceMatchPoints}} 
+                </div>
+                <div class="input-field">
+                    Personality Match : {{personalityMatchPoints}} 
+                </div>
+            </div>
+            <div>
+                <div class="input-field">
+                    Comment : {{comment}}
+                </div> 
+            </div>
+            
+    </div>
+    <div class="modal-footer">    
+        <div class="col s6 m6 l6">        
+        <button class="modal-close left waves-effect waves-light btn">Close</button>
+        </div>
+</div>  
+</div>
+</div>

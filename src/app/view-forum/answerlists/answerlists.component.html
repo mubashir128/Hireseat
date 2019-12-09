@@ -1,0 +1,123 @@
+<app-navbar></app-navbar>
+
+<div class="mainDivForums">
+	<div class="container">
+		<div class="forumMainSection">
+		<div class="forumPageMain">
+			<a [routerLink]="['/forum/']" > Go Back to Forum </a>
+				
+		<div class="forumPageInner" >
+            <div>
+				<div class="forumQustionBlock forumQustionCommonBlock" *ngIf="questionData">
+					<div class="headDiv headDivN">
+						<h4>Questions for You</h4>
+						<div class="shareQuestion ">
+							<a href="https://www.facebook.com/sharer/sharer.php?u=https://hireseat.com/question-details/{{questionData._id}}&description={{questionData.question}}" 
+							    onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" title="Facebook" class="wpfai-facebook wpfai-link wpfainw">
+								<span class="fa-stack ">
+									<i class="fa fa-facebook fa-stack-1x "></i>
+								</span><div class="counter"></div>
+		                   </a>
+
+							
+<a href="http://www.twitter.com/intent/tweet?url=https://hireseat.com/question-details/{{questionData._id}}&amp;text={{questionData.question}}" onclick="javascript:window.open(this.href,
+'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" title="Twitter" class="wpfai-twitter wpfai-link wpfainw">
+	<span class="fa-stack ">
+	  <i class="fa fa-twitter fa-stack-1x "></i>
+	</span>
+	<div class="counter"></div>
+  </a>		
+  
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://hireseat.com/question-details/{{questionData._id}}&title={{questionData.question}}" onclick="javascript:window.open(this.href,
+'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" title="linkedin" class="wpfai-linkedin wpfai-link wpfainw">
+	<span class="fa-stack ">
+	  <i class="fa fa-linkedin fa-stack-1x "></i>
+	</span>
+	<div class="counter"></div>
+  </a>
+  </div>
+						</div>
+						<p class="byAnnomus" > Question added by : Anonymous user</p>
+						<div *ngIf="questionData" class="questionDivText" >
+                            <h4>{{questionData.question }}</h4>
+                            <div *ngIf="isLoggedIn"> 
+							   <button class="answer" (click)="showAnsDiv()"><i class="fa fa-reply" aria-hidden="true"></i> Answer</button>
+                                <div *ngIf="answerClick" class="questionDivTextReply">
+                                    <form [formGroup]="postAnsw">
+                                    <textarea  placeholder="Write Your Answer here.." formControlName="ans" ></textarea>
+                                    <div *ngIf="postAnsw.hasError('','ans') && postAnsw.get('ans').touched"> Answer is required*</div>
+                                    <button class="waves-effect waves-light btn" [disabled]="!postAnsw.valid" (click)="postAns(postAnsw.value,questionData._id)"> post </button>
+                                    </form>
+                                </div>
+                           </div> 
+						</div>
+				</div>
+			</div>
+			<div *ngIf="answerData.length===0;else elseAnswer" class="queHeadtext">
+					<h4>No Answers Yet</h4>
+			</div>
+			<ng-template #elseAnswer>
+			<div class="answerNotfication">
+					<div *ngIf="answerData">
+						<div *ngIf="answerData;else ansDiv ">
+							<h4 class="answerCount">{{answerData.length}} Answers</h4>
+						</div>
+						
+							
+						
+					</div>
+			</div>	
+        <div *ngIf="answerData">
+			<div class="forumAnswersBlock forumQustionCommonBlock" *ngFor="let data of answerData">
+				<div class="questionDivText">
+					<div class="answerHead">
+						<!-- <img *ngIf="data.answerByUserId.profileimage==null" src="assets/img/user.png" class="profileImg"> -->
+						   <div *ngIf="!data.answerByUserId.profileimage || data.answerByUserId.profileimage=='' ;else showProfileImg">
+								<img  src="assets/img/user.png" class="profileImg">
+						   </div>
+						   <ng-template #showProfileImg>
+								<img  src="{{data.answerByUserId.profileimage}}" class="profileImg">
+							   </ng-template>
+						
+
+							<div class="queHeadtext">
+								<h4 >{{data.answerByUserId.fullName}}</h4>
+								<p>Answered {{ callback(data.createdAt) }} ago </p>
+								
+							</div>
+					</div>
+					
+					<p>{{data.answer}}</p>
+				</div>
+            </div>
+		</div>
+		</ng-template>
+		
+       
+       
+		</div>
+		</div>
+			<div class="stickyDiv">
+					<div class="AksQutionN">
+							<app-askbutton></app-askbutton>
+					</div>
+					<div class="recentQuestionsDivMain">
+						<app-questions [questData]="questData"></app-questions>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--message pop up:START-->
+<div id="answermsdPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+		<a (click)="closeanswerPopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+		<div class="modal-content videoModalContent">
+      <h4 class="slide-heading text-center"> Message</h4>
+      <div class="modalBodyPop">
+         <p>{{msgForPopup}}</p>
+			</div>
+    </div>
+  </div>
+ 
+  <!--message pop up:END-->
+<app-footer></app-footer>

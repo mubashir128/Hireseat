@@ -1,0 +1,15 @@
+#container-parent{
+    width:100%;
+    min-height:100%;
+}
+.page-title{
+    font-size:24px;
+    color:#114488;
+    font-weight:700;
+}
+.slide-heading{
+    font-size:32px;
+    color:#114488;
+    font-weight:700;
+    margin:0px 0px 10px 0px;
+}

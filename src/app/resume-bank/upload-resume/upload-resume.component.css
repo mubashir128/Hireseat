@@ -1,0 +1,142 @@
+.slide-sub-heading{
+    font-size: 35px;
+    color: #114488;
+    font-weight: 700;
+    margin: 30px 0px 10px 0px;
+}
+
+.slide-heading{
+    font-size:32px;
+    color:#fff;
+    font-weight:700;
+    margin:0px 0px 10px 0px;
+    padding: 20px 0 !important;
+}
+
+.slide-body{
+    font-size:18px;
+    /* color:#808080; */
+    color:#666;
+    font-weight:400;
+    margin:0px 0px 10px 0px;
+}
+
+.slide-bullet{
+    font-size:20px;
+    color:#114488;
+    font-weight:700;
+    margin:0px 0px 10px 0px;
+}
+.borW{
+    background-color: #fff;
+}
+
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+    border-bottom: 1px solid #fff;
+}
+.cancelBtn {
+    background-color: #ddd;
+    margin: 0 5px;
+}
+.mainDivUploadRes {
+    padding: 0 0 20px;
+}
+/* .mainDivUploadRes {
+    padding: 0 0 20px;
+    background-image: linear-gradient(to right bottom,#e4eaf3,#33aaff);
+} */
+.inputPlaceColor input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: inset 0 0 20px #e7e7e7;
+    padding: 0 10px;
+    box-sizing: inherit;
+    margin: 0px;
+}
+.grey.lighten-4 {
+    background-color: #0aafff !important;
+    color: #fff !important;
+}
+/* .inputPlaceColor input{
+    border: 1px solid #fff;
+    border-radius: 5px;
+    /* box-shadow: inset 0 0 30px #ffffff; 
+    padding: 0 10px;
+    box-sizing: inherit;
+	margin: 0px;
+} */
+.inputPlaceColor input:focus, .inputPlaceColor tag-input{
+	border-bottom: 1px solid #fff;
+    box-shadow: 0 0px 0 0 #fff;
+}
+.inputPlaceColor tag-input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: inset 0 0 20px #e7e7e7;
+    padding: 0 10px;
+    box-sizing: inherit;
+}
+/* .inputPlaceColor tag-input {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    /* box-shadow: inset 0 0 30px #ffffff; 
+    padding: 0 10px;
+    box-sizing: inherit;
+} */
+.ng2-tag-input__text-input{
+    margin: 0;
+    border: 0px !important;
+    box-shadow: unset !important;
+}
+.formDivParent{
+	width:100%;  
+	padding:0px 0px 0px 0px;
+	max-width: 600px; 
+	margin: 0 auto;
+}
+.mainDivUploadRes .slide-heading {
+    font-size: 27px;
+}
+.marB0{
+	margin-bottom:0px;
+}
+.text-left{
+	text-align: left;
+}
+.Bcolor{
+	color:#000;
+}
+/* .Bcolor {
+    color: #fff;
+} */
+.paddT30{
+	padding-top:30px;
+}
+
+.mar0PaddB20{
+    margin: 0 0;
+    padding: 20px 0;
+}
+/* .cancelBtn{
+    background-color: #999;
+    margin: 0 5px;
+    color: #fff;
+} */
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 667px) {
+
+    .center-align {
+    float: none;
+    padding-top: 0;
+    padding-right: 0;
+    margin-right: 0!important;
+    min-height: unset !important;
+    display: unset !important;
+}
+
+.slide-sub-heading {
+    font-size: 25px;
+}
+
+}

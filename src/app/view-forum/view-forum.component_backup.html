@@ -1,0 +1,103 @@
+<app-navbar></app-navbar>
+<!-- <div class="inputDivMain">
+	<input type="text" [(ngModel)]="searchText" placeholder="search here ....."> 
+</div> -->
+
+<div class="mainDivForums">
+	<div class="container">
+		<div class="forumMainSection">
+		<div class="forumPageMain">
+				<!-- <app-questions [data]="data"></app-questions> -->
+				<div class="inputDivMainN">
+					<input type="text" [(ngModel)]="searchText" placeholder="search here ....."> 
+				</div> 
+		<div class="forumPageInner" >
+					<!--only Question start-->
+					<div *ngIf="askusersData">
+						<div *ngFor="let postAnsw of postAnswer;let i = index;"  >
+							
+							<div *ngIf="questData[i].questionById ==askusersData._id && !isLoggedIn" class="forumQustionBlock forumQustionCommonBlock" >
+							<form [formGroup]="postAnsw" >
+								<div class="headDiv">
+									<h4>Your question</h4>
+								</div>
+								<div class="questionDivText" >
+									<h4>{{questData[i].question}}</h4>
+								</div>
+							</form>
+						</div>
+					</div>
+					</div>
+
+							
+					<!--only question end   infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false" style="height: 600px; overflow-y: scroll;">-->
+
+			<div *ngIf="isLoggedIn"> 
+			
+				<div *ngFor="let postAnsw of postAnswer;let i = index;"  class="forumQustionBlock forumQustionCommonBlock" >
+					<form [formGroup]="postAnsw" >
+						<div class="headDiv">
+							<h4>Questions for You</h4>
+							<div *ngIf="questData[i].isAnswered==false">
+							<i class="fa fa-star yellowStar" aria-hidden="true"></i>
+							</div>
+						</div>
+						<p class="byAnnomus" *ngIf="!questData[i].username;else Anonymous"> Question added by : Anonymous user</p>
+						<ng-template #Anonymous>
+							<p class="byAnnomus">Question added by : {{questData[i].username}}</p>
+						</ng-template>
+                        <div class="questionDivText" >
+							<h4>{{(questData[i].question | searchFilter:{questData:searchText} )}}</h4>
+							<button class="answer" (click)="showAnsDiv()"><i class="fa fa-reply" aria-hidden="true"></i> Answer</button>
+
+							<div *ngIf="answerClick" class="questionDivTextReply">
+								<textarea  placeholder="Write Your Answer here.." formControlName="answerPost" ></textarea>
+								<div *ngIf="postAnsw.hasError('','answerPost') && postAnsw.get('answerPost').touched"> Answer is required*</div>
+								<button class="waves-effect waves-light btn" [disabled]="!postAnsw.valid" (click)="postAns(postAnsw.value,questData[i]._id)"> post </button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="forumAnswersBlock forumQustionCommonBlock" *ngFor="let data of getAnswerData | searchFilter:{answer:searchText}">
+				<div class="questionDivText">
+					<h4>{{data.questionByUserId.question}}</h4>
+					<div class="answerHead">
+						<img src="assets/img/user.png" class="profileImg">
+							<div class="queHeadtext">
+								<h4 *ngIf="!data.answerByName;else ansPerName">Anonymous user</h4>
+								<ng-template #ansPerName>
+									<h4>{{data.answerByName}}</h4>
+								</ng-template>
+									<!-- <p>Answered 1hr ago.</p> -->
+							</div>
+					</div>
+					<p>{{data.answer}}</p>
+				</div>
+			</div>
+		</div>
+		</div>
+			<div class="stickyDiv">
+					<div class="AksQutionN">
+							<app-askbutton></app-askbutton>
+					</div>
+				<app-questions [questData]="questData"></app-questions>
+			    
+			</div>
+		</div>
+	</div>
+</div>
+<!--message pop up:START-->
+<div id="answermsdPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+		<a (click)="closeanswerPopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+		<div class="modal-content videoModalContent">
+      <h4 class="slide-heading text-center"> Message</h4>
+      <div class="modalBodyPop">
+         <p>{{msgForPopup}}</p>
+			</div>
+    </div>
+  </div>
+ 
+  <!--message pop up:END-->
+<app-footer></app-footer>

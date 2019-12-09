@@ -1,0 +1,56 @@
+/* .bgLight{
+	background-color: #64baf71a !important;
+} */
+.uploadImageDiv{
+	width:100%;
+	height:80px; 
+	background-color:grey;
+	position: relative;
+	z-index: 0;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+}
+.uploadImageDiv input{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 9;
+	opacity: 0;
+	left: 0;
+    top: 0;
+} 
+.uploadImageDiv .uploadedImg{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.uploadImageDiv .plusIcon{
+	width: auto;
+    height: auto;
+    object-fit: contain;
+}
+.marT10{
+    margin-top: 10px;
+}
+.ProfileTitle{
+    font-size: 32px;
+    color: #0aafff;
+}
+/*================================ mobile responsive css start  ===============================*/
+
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 767px)  {
+	.ProfileTitle {
+		font-size: 23px !important;
+	}
+}
+/*================================ mobile responsive css ends  ===============================*/
+/* .bluebtn{
+	color: #fff;
+    border: 1px solid #3af;
+    padding: 5px 20px;
+    border-radius: 20px;
+    background-color: #33aaff;
+} */

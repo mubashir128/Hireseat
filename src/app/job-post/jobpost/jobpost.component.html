@@ -1,0 +1,141 @@
+<app-navbar></app-navbar>
+<div style="background:#f5f5f5; min-height:100vh;height:100%; width: 100%;float: left; padding-bottom: 40px;">
+    <div class="page-title text-center headerDiv contactHeader"> Job Post </div>
+    <div class="container">
+      <!-- <div class="row" style="margin: 0.5rem 0 1rem 0;">
+          <div class="col s12 ">
+              <div class="page-title headerDiv"> Contact Us </div>
+          </div>
+      </div> -->
+      <div class="row displayFlex">
+        <!-- <div class="col m4 s4 shadowCommon" *ngFor="let jobPosts of biddingEvents">
+            <h6><span>Job Title :</span>{{jobPosts.jobProfileKey.jobTitle}}</h6>
+            <p><span>Job description :</span>{{jobPosts.jobProfileKey.jobBrief}}</p>
+            <p><span>Education :</span>{{jobPosts.jobProfileKey.minEducation}}</p>
+            <p><span>Expected Experience :</span> {{jobPosts.jobProfileKey.experienceFrom}} to {{jobPosts.jobProfileKey.experienceTo}} Years</p>
+            <p><span>Skills :</span>{{jobPosts.jobProfileKey.skills}}</p>
+            <div class="BtnDiv">
+                <button class="waves-effect waves-light btn marRigh10" (click)="select(jobPosts._id)" > view Detail </button>
+                <a [routerLink]="['/upload-resume']" class="waves-effect waves-light btn marRigh10">Add Resume</a>
+            </div>
+        </div> -->
+        <div class="col l4 m6 s12 marUnset" *ngFor="let jobPosts of biddingEvents">
+          <div class="shadowCommon">
+            <h6>{{jobPosts.jobProfileKey.jobTitle}}</h6>
+            <div class="skills"  >
+                <span *ngFor="let skill of jobPosts.jobProfileKey.skills.split(',')">{{skill}}</span>
+            </div>
+            <!-- <p>{{jobPosts.jobProfileKey.skills}}</p> -->
+            <p [innerHtml]="truncateHTML(jobPosts.jobProfileKey.jobBrief)"></p>
+            <!-- <p><span>Education :</span>{{jobPosts.jobProfileKey.minEducation}}</p>
+            <p><span>Expected Experience :</span> {{jobPosts.jobProfileKey.experienceFrom}} to {{jobPosts.jobProfileKey.experienceTo}} Years</p> -->
+         
+            <div class="BtnDiv">
+                <div class="recruiter">
+                    <p>I am Recruiter</p>
+                    <button class="waves-effect waves-light btn borderedBtn marRigh10" (click)="select(jobPosts._id)" > Login / Register </button>
+                </div>
+                <div class="candidate">
+                    <p>I am Candidate</p>
+                    <a data-toggle="modal" data-target="#ResuemFrm" class="waves-effect waves-light btn borderedBtn marRigh10" (click)="showUploadModel(jobPosts.jobProfileKey._id)">Send Resume</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+  <div class="text-center">
+    <button class="btn publishBtn" (click)="getMoreData()">Read More</button>
+  </div>
+</div>
+<div class="modal center-align formDivParent"  id="ResuemFrm">
+	 
+        <form [formGroup]="newResumeFrm" (ngSubmit)="submit()" novalidate>
+          <div>
+      
+            <div id="resume-info" class="inputPlaceColor">
+              <div class="row marB0" >
+                  <div class="jobpostModalHeadMain">
+                    <h3 class="jobpostModalHead">Upload Your Resume</h3>
+                  </div>
+                  <div class="paddDiv">
+                  <!-- <div class="input-field disFlex col s12 m12 l12 " >
+                       <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
+                        [url]="downloadURL"></app-pdf-viewer>
+                      <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+                        *ngIf="fileUploaded===0">
+                        <div>
+                          <span>Upload Resume</span>
+                          <input type="file" (change)="fileChange($event)">
+                        </div>
+                          </div>   
+                   </div>    -->
+                    <div class="input-field col s12 m12 l12 text-left">
+                        <div class="Bcolor">First Name*</div>
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.firstName"
+                        formControlName="firstName">
+                      <div *ngIf="(f.firstName.touched && f.firstName.errors)" class="invalid-feedback" class="error">
+                        <div *ngIf="f.firstName.errors.required">First name is required</div>
+                      </div>
+                    </div>
+                    <div class="input-field col s12 m12 l12 text-left">
+                        <div class="Bcolor" >Last Name*</div>
+                      <input id="social-security-num" type="text" class="validate" name="resume.lastName"
+                        [(ngModel)]="resume.lastName" formControlName="lastName" >
+                      <div *ngIf="(f.lastName.touched && f.lastName.errors)" class="invalid-feedback"
+                        class="error">
+                        <div *ngIf="f.lastName.errors.required">Last name is required</div>              
+                      </div>            
+                    </div>
+                    <div class="input-field col s12 m12 l12 text-left">
+                        <div class="Bcolor">Select the skill sets*</div> <!-- [onlyFromAutocomplete]="true" -->
+                      <tag-input [(ngModel)]="resume.tags" formControlName="tags"  [placeholder]="''" [secondaryPlaceholder]="''" (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
+                        <!-- <tag-input-dropdown [autocompleteItems]="skillSets" [keepOpen]="false" [showDropdownIfEmpty]="true" [dynamicUpdate]="false">
+                      </tag-input-dropdown> -->
+                      </tag-input>
+                      <div *ngIf="(f.tags.touched && f.tags.errors)" class="invalid-feedback" class="error">
+                        <div *ngIf="f.tags.errors.required">Skill sets are required</div>
+                      </div>
+                    </div>
+                    <div class="input-field col s12 m12 l12 text-left" >
+                      
+                      <div class="Bcolor">Years Of Experience*</div>
+                      <input id="social-security-num" type="text" class="validate" name="resume.experience"
+                        [(ngModel)]="resume.experience" formControlName="experience">
+                      <div *ngIf="(f.experience.touched && f.experience.errors)" class="invalid-feedback"
+                        class="error">
+                        <div *ngIf="f.experience.errors.required">Years of experience is required</div>        
+                        <div *ngIf="f.experience.errors.pattern">Number Only</div>       
+                      </div>            
+                    </div>
+                    <div class="input-field disFlex col s12 m12 l12 " >
+                       
+                          <div class="Bcolor paddR">Upload your resume*</div>
+                        <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+                          *ngIf="fileUploaded===0">
+                          <div>
+                            <span>Upload Resume</span>
+                            <input type="file" (change)="fileChange($event)">
+                          </div>
+                            </div>   
+                            <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
+                            [url]="downloadURL"></app-pdf-viewer>
+                    </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          
+          <div class=" row center-align disBtnFlex mar0PaddB20">
+              <a class="waves-effect waves-light btn-flat cancelBtn transparentBtnN" (click)="closed()">Cancel</a>
+              <button type="submit" class="waves-effect waves-light btn commonBlueBtnN"> Save </button>
+          </div>
+        </form>
+       
+       
+  
+      </div>
+<app-footer></app-footer> 
+
+

@@ -1,0 +1,113 @@
+<div class="createpostMainDiv">
+  <form [formGroup]="editBlogForm">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="heading">Edit Post</h4>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col m9 s8">
+      <div class="inputDiv">
+        <!-- <input type="text" class="titleEnter" placeholder="Enter title here" name ="" [(ngModel)] ='blogUrl'  (ngModelChange)="blogUrl = unmask($event)" [ngModelOptions]="{standalone: true}" > -->
+        <input type="text" class="titleEnter" placeholder="Enter title here" formControlName="title" (input)="onchange(this.editBlogForm.controls.title.value)">
+        
+       
+      
+      </div>
+      <div class="urlDiv">
+          <p><b>Permalink:</b> http://192.168.100.7:4200/blog/<span class="blogurlClass">{{blogUrl}}</span></p>
+         
+      </div>
+     
+      <div class="editerDIv">
+     
+
+        <ckeditor  formControlName="description" name="myckeditor"  required skin="moono-lisa" debounce="500">
+            </ckeditor> 
+               
+
+      </div>
+      <div class="customeKeyword marT">
+        <h4 class="secHead">custome Keyword</h4>
+        <div class="customeText">
+            <p>First create post for adding keywords.</p>
+         </div>
+      </div>
+  </div>
+
+    <div class="col m3 col-s4">
+        <button class="btn publishBtn" [disabled]="videouploading" (click)="getData()">Publish</button>
+        <app-edit-category [categorise]="postData?.categories" (categoriseArray)="categoryevent($event)">  </app-edit-category>
+        
+
+          <div *ngIf="isimage"  class="customeKeyword marT">
+            <h4 class="secHead">Feature image</h4>
+             <div *ngIf="changefile" class="customeText">
+              <img [src]="imgURL"  class="UploadedImg">
+              <button class="waves-effect waves-light btn uploadBtn" (click)="changeFile()" >Change</button>            
+            </div>
+            <div *ngIf="showFileForm" class="customeText" >
+              <a>set feature image</a>
+              <img [src]="imgURL" *ngIf="imgURL" class="UploadedImg">
+              <div class="imageUploadBtnDiv">
+                <div class="uploadBtnDiv">
+                <input #file type="file" accept='image/*' formControlName="file" (change)="preview(file.files)" required />
+                <button class="waves-effect waves-light btn uploadBtn" > Upload</button>
+                </div>
+                <button class="waves-effect waves-light btn cancelBtn" (click)="cancelFile()"> Cancel</button>
+              </div>
+
+           </div>
+          
+        </div>
+        <div *ngIf="isvideo" class="customeKeyword marT">
+          <h4 class="secHead">Video</h4>
+          <div *ngIf="showVideo" >
+              <div  *ngIf="!isembbedded">
+                <video style=" width: 100%; height: auto;" controls controls [src]="video" >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div  *ngIf="isembbedded" >
+						    <iframe style=" width: -webkit-fill-available;height: inherit;" [src]='safeurl'></iframe>
+               </div>
+          <button class="waves-effect waves-light btn uploadBtn" (click)="changeVideo()" >Change</button>
+         </div>
+          <div class="customeText" *ngIf="ischangeVideo">
+
+              <input type="radio"  name="radio"  (change)="getvideo('embedded')" >Video Link &nbsp;&nbsp;    
+              <input type="radio" name="radio"  (change)="getvideo('local')">Video File &nbsp;&nbsp;
+
+          <div *ngIf="diplayvideo == 'embedded'">
+                <input  type="text" placeholder="enter youtubelink here"  [(ngModel)]="Video" formControlName="Video">
+           </div >
+           <div *ngIf="diplayvideo == 'local'">
+                <div class="uploadBtnDiv">
+                    <input #video type="file" accept='video/*' formControlName="videoFile"  (change)="previewvideo($event)"  >
+                    <button class="waves-effect waves-light btn uploadBtn" > Upload</button>
+                  
+               </div>
+               <div *ngIf="uploadResponse.status == 'progress'">
+                  <div role="progressbar" class="progress-bar" [style.width.%]="uploadResponse.message" >
+                    {{uploadResponse.message}}%
+                   
+                  </div>
+                  {{uploadResponse.message}}%
+                </div>
+                <h6 *ngIf="uploadResponse.message == 'sucess'">
+                    video uploaded sucessfully......!
+                  </h6>
+              </div>
+              <button class="waves-effect waves-light btn cancelBtn" (click)="cancleVideo()"> Cancel</button>
+
+           </div>
+           
+      </div>
+      <!-- <tag-input [(ngModel)] ='createTags' formControlName="tags"  [placeholder]="''" [secondaryPlaceholder]="''" (onAdd)="addTag($event)" (onRemove)="removeTag($event)"></tag-input> -->
+      <app-edit-tag [tagArrayData]="postData.tags" (tagListArray)="eventHandler($event)"></app-edit-tag>
+        
+
+    </div>
+
+  </div>
+  </form>
+</div>

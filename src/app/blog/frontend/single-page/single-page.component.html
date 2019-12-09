@@ -1,0 +1,224 @@
+<app-navbar></app-navbar>
+	<div class="headerDiv text-center mar0">
+		<h4 class="pageHeading ">{{singleBlogData?.title}} </h4>
+		<p><a [routerLink]="['/home/']">Home</a> &#8811; <a [routerLink]="['/blog/']">Blog</a> &#8811; <a [routerLink]="['/blog/',singleBlogData?.blogurl]">{{singleBlogData?.title}}</a> </p>
+	</div>
+	<div class="bgLightG">
+	<div class="container" >
+	
+		<div class="row">
+			<div class="col s12 m7 l9">
+				<div class="blogDeatialPage">
+						<!-- {{singleBlogData?.featuredImage}} -->
+					<div *ngIf="singleBlogData?.featuredImage" class="blogImageDiv">
+							<!-- {{singleBlogData?.video}} -->
+						<img src="{{singleBlogData?.featuredImage}}" class="">
+					</div>
+					 <div *ngIf="singleBlogData?.video != null " class="blogvideoDiv">
+						
+		                       <video  id="selectedVideo" height="100%" controls [src]="singleBlogData?.video ">
+									Your browser does not support the video tag.
+								</video>
+					</div>  
+					<div class="blogiframeDiv" *ngIf="singleBlogData?.embbedded"  >
+							
+						<iframe  [src]='singleBlogData?.embbedded | safe'></iframe>
+
+					</div>
+					
+					<div class="NewBgDIv" [innerHTML]="singleBlogData?.description"></div>
+					<div class="adminDate">
+						<span>By Admin |</span><span>{{singleBlogData?.createdAt | date}} |</span><span>Uncategorized |</span><span><a (click)="toTop()">{{singleBlogData?.comment?.length}} Comments</a></span>
+					</div>
+					<div class="shareDiv">
+						<h4>Share This Story, Choose Your Platform!</h4>
+						<div class="shareIconDiv"> 
+						
+							<app-social-share [shareurl]="shareurl"></app-social-share>
+						</div>
+					</div>
+				
+
+
+					<!-- Related post -->
+					<div class="authorDiv">
+					<div class="row marB0" >
+						<h4 class="blockHead">Related Posts</h4>
+						<div  *ngFor="let a of array;let i = index">
+
+							<div *ngIf= "i <= 2 && a?.blogurl !== singleBlogData?.blogurl"class="col m12 s12 l4">
+								<img  *ngIf="a?.featuredImage" src="{{a?.featuredImage}}" class="blogsImgs">
+								<div *ngIf="a?.video!= null" class="blogsImgs">
+										<video style=" width: inherit;	height: inherit;" controls  *ngIf="a.video != null " controls [src]="a?.video" >
+												 Your browser does not support the video tag.
+											 </video>
+								 </div> 
+								 <div  *ngIf="a?.embbedded" >
+										<!-- <div *ngIf="a?.embbedded!= 'null' " [innerHtml]="safe(a?.embbedded,'thumb')"> </div> -->
+										<iframe *ngIf="a?.embbedded!= 'null' "style=" width: -webkit-fill-available;height: inherit;" [src]='a?.embbedded | safe'></iframe>
+				
+								 </div>
+								 <div *ngIf="!a?.featuredImage && !a?.embbedded && a?.video == null" class="blogsImgs ">
+
+								</div>
+			
+									<h4 (click) ="getPost(a?.blogurl)" class="titleH">{{a?.title}}</h4>
+							
+								<p><span>{{a?.createdAt | date}}| </span><span> {{a?.comment?.length}} Comments</span></p>
+							</div>
+
+
+							
+						</div>
+					</div>
+				</div>
+          <!-- comment -->
+					<div class="commentDiv" id="commentDiv">
+							<h2>Comment</h2>
+							<div class="commentMain">
+							<div class="commentdata" *ngFor="let comment of singleBlogData?.comment ; let i = index">
+							<div class="commentdataInner" >
+								<div class="replyMain">
+									<img src="assets/img/user.png" class="userIcon">
+									<div class="replyInner">
+										<div class="commentHead">	
+											<span>{{comment?.Name}}</span>
+											<p>{{comment?.date | date}}</p>
+										</div>
+										<p>{{comment?.comment}}</p>
+									</div>
+								
+									<a class="replayBtnComment" (click)="Replay(comment?.Name,i)" ><i class="fa fa-reply" aria-hidden="true"></i> Replay</a>
+								</div>
+								<div class="commentReplyMain">
+									<div class="commentDiv commentDivReply "  *ngFor="let replay of comment?.Replay ; let i = index" >
+										<div class="replyMain">
+											<img src="assets/img/user.png" class="userIcon">
+											<div class="replyInner">	
+												<div class="commentHead" >	
+													<span>{{replay?.name}}</span>
+													<p>{{replay?.date|date}}</p>
+												
+												</div>	
+												<p>{{replay?.replay}}</p>
+											</div>
+											
+										</div>
+									</div>
+									</div>
+								</div>
+							
+
+
+									<div *ngIf="showReplay" >	
+									<div *ngIf="i == index" class="authorDiv" >
+											<form [formGroup]="replayForm">
+												<h4>Leave A Replay</h4>
+												<textarea class="commentBox" rows="2" formControlName="replay" required></textarea>
+												<div *ngIf="currentUser==undefined" >
+													<input type="text" class="" placeholder="Name" formControlName="name"  required >
+													<input type="text" class="" placeholder="Email" formControlName="email" >
+												
+												</div>
+												 <button class="btn PostBtn" (click)="sendreplay(comment?._id)" >Replay</button>
+											</form>
+									</div>
+								</div>
+							</div>
+						</div>
+							<div class="commentDiv commentDivReply" *ngFor="let replaydata of replayData ; let i = index">
+									<div class="commentHead">
+											<span>{{replaydata?.name}}</span>
+										<p>{{replaydata?.date|date}}</p>
+									</div>	
+										<p>{{replaydata?.replay}}</p>
+							</div>
+						</div>
+				
+						
+					<div class="authorDiv">
+					<form [formGroup]="commentForm">
+						<h4>Leave A Comment</h4>
+						<textarea class="commentBox" rows="3" formControlName="comment" required></textarea>
+					  <div *ngIf="currentUser==undefined"   > <!-- *ngIf="currentUser==undefined" -->
+							<input type="text" class="" placeholder="Name" formControlName="Name" required  >
+							<input type="text" class="" placeholder="Email" formControlName="Email" >
+						
+						</div>
+						 <button class="btn PostBtn" (click)="comment()" >POST COMMENT</button>
+						
+					</form>
+					</div>
+				
+				
+				
+				
+				
+
+			</div>
+			</div>
+			
+			<div class="col s12 m5 l3">
+					<div class="catgoryDivBlogs catgoryDivBlogsCat">
+						<h5>Library</h5>
+						<div  class="catagoryList"  >
+					
+							<span [ngStyle]="{'background-color': getColors(i) }"   *ngFor="let catg of categoriesData; let i = index "   ><a  [routerLink]="['/blog/categories/',catg.catslug]">{{catg?.categoryName}}</a></span>
+	
+						</div>
+					</div>
+					<div class="catgoryDivBlogs">
+						<h5>Recents Tweets</h5>
+						<div class="boxDiv tweetscroll">
+								<ngx-twitter-timeline [data]="{sourceType: 'url', url: 'https://twitter.com/HireSeat?ref_src=twsrc%5Etfw'}" data-width="280" data-height="200" [opts]="{tweetLimit: 3}"></ngx-twitter-timeline>
+						</div>
+						
+	
+					</div>
+					<div class="catgoryDivBlogs ">
+						<h5>Recents Meetps</h5>
+						<div class=" meetupsMain">
+							<div class="boxDiv">
+								<div class="meetUpInner">
+									<div  class="MeetUsigleArticle" >
+										<div class="meetUphead">
+											<img src="assets/img/staue.png" class="staueImg">
+											<div class="headText">
+												<h4>Human Resources Technology and Drinks</h4>
+												<p><img src="assets/img/location.png" class=""> New York City</p>
+											</div>
+											
+										</div>
+										<div *ngFor="let meetup of meetUpsData let i = index">
+										<div *ngIf="i<3" class="meetRepeat"  >
+																		
+											<h3>{{meetup.local_date | date}}&nbsp;|&nbsp;{{meetup.local_time|convertFrom24To12Format}}</h3>
+											<!-- <P *ngIf="meetup.local_date > formatted_date">upcoming</P>
+											<P *ngIf="meetup.local_date < formatted_date">past</P> -->
+											<p>Venue:  {{meetup?.venue.address_1}} , {{meetup?.venue.name}}</p>
+											<p>{{meetup?.venue.city }}</p>
+											<!-- <a href="{{meetup.link}}" target="_blank" >View Venue</a>  -->
+										 
+										</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="catgoryDivBlogs">
+							<h5>Tags</h5>
+							<div class="boxDiv">
+							 <span class="tagDiv" *ngFor="let tag of singleBlogData?.tags;let i = index"  >
+									 <button class="tagBtn"  (click)="getPostbyTag(tag?.value)">{{tag?.display}}</button>
+							 </span>
+							 </div>
+					</div>
+				</div>
+	</div>
+	</div>
+	</div>
+	
+  <!--message pop up:END-->
+<app-footer></app-footer>

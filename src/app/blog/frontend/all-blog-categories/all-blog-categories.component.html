@@ -1,0 +1,128 @@
+
+
+<app-navbar></app-navbar>
+<div class="headerDiv text-center mar0 blogHeader">
+	<h4 class="pageHeading ">HireSeat blog</h4>
+	<p><a [routerLink]="['/home/']">Home</a> &#8811; <a [routerLink]="['/blog/']">Blog</a> <a [routerLink]="['blog/categories/:url']"> &#8811; {{url}}</a> </p></div>
+<div class="bgLightG">
+	<div class="container">
+		<div class="row">
+			<div class="col s12 m7 l9">
+				<div class="row flexWrap">
+					<div class="blogListMain" *ngFor="let blog of blogcategoriesData let i = index">
+						<div class="blogDeatialPage">
+							<!-- single BOx -->
+							<div [routerLink]="['/blog/',blog.blogurl]" class="SingleBlock" >
+								<span [ngStyle]="{'background-color': getColors(i) }"  [ngClass]="{'catagorytag': blog.featuredImage || blog.embbedded || blog?.video || embbedded == '','isnotimg': !blog.featuredImage}">{{blog?.categories[0]}}</span>
+								<div *ngIf="blog.featuredImage" class="postimage">
+									
+									<img src="{{blog.featuredImage}}" >
+								</div>
+
+								<div *ngIf="blog.video != null " class=" postimage">
+									<video  id="selectedVideo" height="100%" controls [src]="blog?.video">
+										Your browser does not support the video tag.
+									</video>
+								
+									</div> 
+
+								<div  *ngIf="blog.embbedded" class="postimage" >
+										<!-- <div *ngIf="blog?.embbedded!= 'null' " [innerHtml]="safe(blog.embbedded)"> </div> -->
+
+										<iframe  *ngIf="blog.embbedded!= 'null' "  [src]='blog.embbedded| safe'></iframe>
+								</div>
+								
+								<div class="postText" >
+									
+										<h5>{{blog.createdAt.substring(0,10)| date:"dd MMM yyyy"}}</h5>
+										<h4><a [routerLink]="['/blog/',blog.blogurl]">{{blog.title}}</a></h4>
+										<p>Categories:{{blog.categories}}</p>
+										<p  [ngClass]="{'isimage': blog.featuredImage || blog.embbedded || blog?.video || embbedded == '','isnotimage': !blog.featuredImage}" [innerHTML]="truncateHTML(blog?.description)"></p>
+									
+									
+								</div>	
+								
+								
+							</div>
+							
+				
+						</div>
+						<div class="postTextInner postText" >
+								<div class="readMoreDiv text-right">
+									<a [routerLink]="['/blog/',blog.blogurl]">Read More...</a>
+								</div>
+								<div class="commentSectionMain">
+									<div class="commentCommonS">
+										<img src="assets/img/commentIcon.png" class="comentIcon">
+										<p class="comment">{{blog?.comment?.length}} | Comments</p>
+									</div>
+									<div class="commentCommonS">
+											<img src="assets/img/profile.png" class="profilePic">
+											<h5 class="comment">by <span>{{blog?.author?.fullName}}</span></h5>
+										</div>
+								</div>
+							</div>
+					</div>
+				</div>
+				<div class="text-center">
+						<button class="btn publishBtn" (click)="getMoreData()">Read More</button>
+					</div>
+			</div>
+			<div class="col s12 m5 l3">
+				<div class="catgoryDivBlogs catgoryDivBlogsCat">
+					<h5>Library</h5>
+					<div  class="catagoryList"  >
+
+						<span   [ngStyle]="{'background-color': getColors(i) }"  *ngFor="let catg of categoriesData; let i = index "  ><a (click)="loadData(catg.catslug)">{{catg?.categoryName}}</a></span>
+
+					</div>
+				</div>
+				<div class="catgoryDivBlogs">
+					<h5>Recents Tweets</h5>
+					<div class="boxDiv tweetscroll">
+							<ngx-twitter-timeline [data]="{sourceType: 'url', url: 'https://twitter.com/HireSeat?ref_src=twsrc%5Etfw'}" data-width="280" data-height="200" [opts]="{tweetLimit: 3}"></ngx-twitter-timeline>
+					</div>
+					
+
+				</div>
+				<div class="catgoryDivBlogs ">
+					<h5>Recents Meetps</h5>
+					<div class=" meetupsMain">
+						<div class="boxDiv">
+								<!-- <div *ngFor="let meetup of meetUpsData let i = index"> -->
+							<div class="meetUpInner">
+								<div  class="MeetUsigleArticle" >
+									<div class="meetUphead">
+										<img src="assets/img/staue.png" class="staueImg">
+										<div class="headText">
+											<h4>Human Resources Technology and Drinks</h4>
+											<p><img src="assets/img/location.png" class=""> New York City</p>
+										</div>
+										
+									</div>
+									<div *ngFor="let meetup of meetUpsData let i = index">
+									<div *ngIf="i<3" class="meetRepeat"  >
+																	
+										<h3>{{meetup.local_date | date}}&nbsp;|&nbsp;{{meetup.local_time|convertFrom24To12Format}}</h3>
+										<!-- <P *ngIf="meetup.local_date > formatted_date">upcoming</P>
+									    <P *ngIf="meetup.local_date < formatted_date">past</P> -->
+											<p>Venue:  {{meetup?.venue.address_1}} , {{meetup?.venue.name}}</p>
+										  <p>{{meetup?.venue.city }}</p>
+										<!-- <a href="{{meetup.link}}" target="_blank" >View Venue</a>  -->
+									 
+									</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+			</div>
+			
+		</div>
+	</div>
+</div>
+  <!--message pop up:END-->
+<app-footer></app-footer>

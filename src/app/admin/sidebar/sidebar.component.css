@@ -1,0 +1,108 @@
+.collection .collection-item{
+    border-bottom: none; 
+}
+.collection a.collection-item {
+    FONT-VARIANT: JIS04;
+    display: block;
+    transition: .25s;
+    color: #fff!important;
+    margin: 0 0 9px;
+    font-weight: bold;
+    background-color: #33aaff;
+}
+.collection .collection-item.active {
+    background-color: #48aef3 ;
+    color: #fff !important;
+}
+.text-center {
+    text-align: center;
+}
+.rewarDiv h4 {
+    font-size: 13px;
+    text-align: center;
+    margin: 5px 0;
+}
+.borR{
+    border-right:1px solid #ddd;
+}
+.commonDivDF {
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
+    min-height: 100px !important;
+}
+.marTB15{
+    margin: 15px 0;
+}
+.modal.modal-fixed-footer.custFooterModal {
+    padding: 0;
+    height: 100%;
+    max-height: 350px;
+}
+img.greenArrowIcon {
+    transform: rotate(180deg);
+    width:40px;
+}
+.mar0{
+    margin:0px;
+}
+.redArrowIcon {
+    width: 40px;
+}
+.popHead{
+    text-align: center;
+    font-size: 25px;
+    color: #03A9F4;
+    font-weight: bold;
+}
+.padd15{
+padding:15px;
+}
+.rewarDiv a {
+	display: block;
+}
+
+/* .listDiv {
+    position: absolute;
+    width: 150px;
+    left: 100%;
+    top: 0;
+    z-index: 9;
+    border: 1px solid #ddd;
+	display:none;
+	background-color: #f8f8f8;
+} */
+.listDiv ul {
+    margin: 0 0;
+}
+/* .collection-item:hover .listDiv {
+	display:block;
+} */
+.collection-item {
+    position: relative;
+}
+.overflowUnset{
+    overflow: unset;
+}
+.listDiv li {
+    padding: 2px 10px;
+    cursor: pointer;
+    background-color: #ffffff;
+    margin-bottom: 5px;
+}
+.listDiv {
+    left: 100%;
+    top: 0;
+    z-index: 9;
+    /* display: none; */
+    background-color: #33aaff;
+}
+/* .listDiv li:hover {
+    background-color:#ddd;
+} */
+.collection {
+    position: relative;
+    background-color: #f4f4f499;
+    border: none;
+    margin-top: 50px;
+}

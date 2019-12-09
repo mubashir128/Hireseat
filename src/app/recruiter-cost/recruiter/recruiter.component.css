@@ -1,0 +1,38 @@
+table {
+    width: 100%;
+  }
+  .profilepic{
+    width: 60px;
+  }
+  .JobCostPageHeadMain {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+  .JobCostPage{
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 10px #3d3d3d29;
+  }
+  .JobCostPageHead{
+    color: #ff7e06;
+  }
+  .costTable{
+    margin-bottom: 20px;
+  }
+  .addCost{
+    padding: 20px;
+    box-shadow: 0 2px 7px #00000040;
+    text-align: right;
+    width: 50%;
+    margin: 0 auto;
+  }
+  .costTable td, .costTable th{
+    border-bottom: 1px solid #dadada;
+  }
+  .waves-effect.waves-light.btn:hover{
+    box-shadow: 0 2px 10px #000;
+  }
+ 

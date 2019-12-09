@@ -1,0 +1,68 @@
+<!-- <div class="">
+  
+  <nav class="white">
+    <div class="nav-wrapper container">
+      <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png" style="vertical-align:middle;" /></a>
+      <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="color: #48aef3;">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a [routerLink]="['/contact-us']">Contact Us</a>
+        <li><a [routerLink]="['/home/LeaderBoard']">Leader Board</a> -->
+        <!-- <li><a [routerLink]="['/home/TheRockRec']">The Rockstar Recruiter Community</a> -->
+          <!--  <li><a [routerLink]="['/rules']">Scoring Rules</a> -->
+            <!-- <li><div><app-blog-nav></app-blog-nav></div> -->
+              <!-- <li><a [routerLink]="['/blog']" style="color:#33AAFF;">Blog</a></li>
+
+        <li><a  [routerLink]="['/forum']">Ask a Recruiter</a>
+           
+        <li><a [routerLink]="['/recruiter/profile']">My Profile</a></li>
+        <li> 
+        <ng-container *ngIf="show">
+          <div class="notificationList" >
+              <div class="notificationListInner" >
+                <div class="hederNotification">
+                  <h4>Notification</h4>
+                </div>
+                <ul>
+                  <li *ngFor="let ques of questDataLenght"><a [routerLink]="['/forum']" *ngIf="!ques.isAnswered">{{ques.question}}</a></li>
+                </ul>
+              </div>
+          </div>
+        </ng-container>
+          <a (click)="toggle()"><h4 class="count" >{{questDataLenght.length}}</h4><img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 40px;width: 40px" /></a></li>
+
+        <li *ngIf="!this.supperAdmin.checkSuperAdminEmail()"><a (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+  <ul class="side-nav" id="mobile-demo">
+    <li><a class="mobileMenu-li" (click)="navigate('/contact-us')" >Contact Us</a></li>
+    <li><a class="mobileMenu-li" (click)="navigate('/home/LeaderBoard')" >Leader Board</a></li>
+    <li><a class="mobileMenu-li" (click)="navigate('/home/TheRockRec')" >The Rockstar Recruiter Community</a></li>
+    <li><a class="mobileMenu-li" (click)="navigate('/forum')" >Ask a Recruiter</a></li>
+    <li><a class="mobileMenu-li" (click)="navigate('/blog')" >Blog</a></li>
+    <li><a class="mobileMenu-li" (click)="navigate('/recruiter/profile')" >My Profile</a></li>
+    <li *ngIf="!this.supperAdmin.checkSuperAdminEmail()"><a class="mobileMenu-li" (click)="logout()">Logout</a></li>
+  </ul>
+ 
+</div> -->
+
+<app-navbar></app-navbar>
+<div class="container" style="margin-top:15px;">
+
+  <div class="row">
+      <div class="LogOutOption mobileHeadRe" *ngIf="this.supperAdmin.checkSuperAdminEmail()" > 
+          <h4>{{UserData.fullName}} : {{UserData.userRole}}</h4>
+          <a (click)="logoutSA()"> Logout </a>
+        </div>
+    <div class="col s12 m3 l3">
+      <app-recruiter-navbar (selected)="navigate($event)"></app-recruiter-navbar>
+    </div>
+    <div class="col s12 m9 l9">
+      <div class="LogOutOption desktopRe" *ngIf="this.supperAdmin.checkSuperAdminEmail()" > 
+        <h4>{{UserData.fullName}} : {{UserData.userRole}}</h4>
+        <a (click)="logoutSA()"> Logout </a>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

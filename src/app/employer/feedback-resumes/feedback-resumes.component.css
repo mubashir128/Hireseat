@@ -1,0 +1,161 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+.rating { 
+  border: none;
+  float: left;
+  margin:0px 0px 0px 28px;
+}
+
+h4{
+    font-size: 20px;
+}
+
+ul.parentUl {
+    display: flex;
+    width:100%;
+}
+h3{
+    font-size: 24px; 
+}
+
+.btnDiv{
+  text-align: left;
+}
+ul.parentUl li {
+    width: 100%;
+}
+
+
+  /* Second stars */
+  
+ 
+  
+  .rating > input { display: none; } 
+  .rating > label:before { 
+    margin-top: 2px;
+    padding:0px 5px 0px 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+  }
+  
+  .rating > .half:before { 
+    content: "\f089";
+    position: absolute;
+  }
+  
+  .rating > label { 
+    color: #D8D8D8; 
+    float: right;
+    margin:4px 1px 0px 0px;
+    
+    border-radius:15px;
+    height:25px;
+  }
+  
+  /***** CSS Magic to Highlight Stars on Hover *****/
+  
+  .rating:not(:checked) > label:hover, /* hover current star */
+  .rating:not(:checked) > label:hover ~ label { 
+    color:#FFC107 !important;
+    cursor:pointer;
+  } /* hover previous stars in list */
+  
+  .rating > input:checked + label:hover, /* hover current star when changing rating */
+  .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+  .rating > input:checked ~ label:hover ~ label { 
+    color:#FFC107 !important;
+    cursor:pointer;
+  } 
+.fullwidth{
+  width: 100%;
+  float: left;
+}
+  .commonDivTd {
+    width: 100%;
+    float: left;
+    display: flex;
+}
+.commonDivTd h4{
+  min-width: 260px;
+    margin: 5px 0px;
+}
+table.highlight, .highlight th, .highlight td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.highlight th, .highlight td {
+  padding: 5px;
+  text-align: center;   
+  padding: 10px;
+  
+}
+.logoImg{
+  width: 100px;
+  height: auto;
+}
+.marT20{
+  margin-top: 20px;
+}
+.rejectBtn{
+  color:#fff;
+  min-width: 100px;
+  background-color: red;
+  margin: 0 5px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 5px 0px;
+}
+.InrterviewBtn{
+  color:#fff;
+  min-width: 100px;
+  background-color: green;
+  margin: 0 5px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 5px 0px;
+}
+
+
+.container {
+    margin: 0 auto;
+    max-width: 1280px;}
+
+    
+ /*  [type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after{
+    border: 0;
+  } */
+  [type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after {
+    border: none;
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+  border: none !important;
+  background: none;
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+  border: none;
+}
+[type="radio"]:checked+label:before {
+  border: 0px solid transparent;
+}
+
+thead {
+  background-color: #65baf7;
+  color: #fff;
+}
+
+.comments{
+  margin: 0px;
+  width: 239px;
+  height: 136px;
+}
+
+@media only screen and (min-width: 601px){
+
+.container {
+    width: 95% !important;
+}
+
+}

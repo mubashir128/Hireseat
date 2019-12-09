@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<div class="row">
+<div class="col m3 s12">
+<app-sidebar></app-sidebar>
+</div>
+<div class="col m9">
+<div class="center-align  userListMobile" style=" padding:50px 0px 50px 0px;">
+        <div class="LogOutOption" *ngIf="this.supperAdmin.checkSuperAdminEmail()"> 
+            <h4> {{UserData.fullName}} : {{UserData.userRole}} </h4>
+            <a (click)="logoutSA()"> Logout </a>
+        </div>
+    <span>Total Users ({{UserList.length}})</span>
+    <!-- <div class="tblScroll">
+    <ul class="table-border">
+        <li  style="cursor:pointer;">
+                <div class="disF">
+                    <div class="commonDiv bold">Name</div>
+                    <div class="commonDiv bold">Email</div>
+                    <div class="commonDiv bold">Role</div>
+                    <div class="commonDiv bold">Company Name</div>
+                    <div class="commonDiv bold">Link</div>
+                    <div class="commonDiv bold">Mobile No</div>
+                </div>
+        </li>
+        <li *ngFor="let User of UserList  | paginate: { itemsPerPage: 10, currentPage: p } ;  let i = index" style="cursor:pointer;">
+            <div class="disF">
+                <div class="commonDiv">{{User.refUserId.fullName}}</div>
+                <div class="commonDiv">{{User.refUserId.email}}</div>
+                <div class="commonDiv">{{User.refUserId.userRole}}</div>
+                <div class="commonDiv">{{User.companyName}}</div>
+                <div class="commonDiv">{{User.webSiteLink}}</div>
+                <div class="commonDiv">{{User.refUserId.phoneNo}}</div>
+            </div>
+        </li>
+    </ul>
+    </div> -->
+
+    <div class="tableDiv">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th> Name </th> 
+                <th> Email </th>
+                <th> Role </th>
+                <th> Company Name </th>
+                <th> Link</th>
+                <th> Mobile No </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let User of UserList  | paginate: { itemsPerPage: 10, currentPage: p } ;  let i = index" style="cursor:pointer;">
+                <td>{{User.refUserId.fullName}}</td>
+                <td>{{User.refUserId.email}}</td>
+                <td>{{User.refUserId.userRole}}</td>
+                <td>{{User.companyName}}</td>
+                <td>{{User.webSiteLink}}</td>
+                <td> {{User.refUserId.phoneNo}} </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <pagination-controls (pageChange)="p = $event" style="text-align: right;"></pagination-controls>
+</div>
+</div>
+</div>
+
+<app-footer></app-footer>

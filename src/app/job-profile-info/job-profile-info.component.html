@@ -1,0 +1,26 @@
+<div>
+    <div class="white" id="create-job-profile" style="padding:30px; margin-top:15px;">
+      <div class="title" style="margin-bottom:30px;">Job Profile Details</div>
+      <div class="divider"></div>
+      <div class="commonDivJobProfile"><label for="jobTitle" ><b>Job Title : </b>{{profileDetails?.jobTitle}}</label></div>   
+      <div class="commonDivJobProfile"><label for="job-brief"  ><b>Job Brief : </b>{{profileDetails?.jobBrief}}</label></div>   
+      <div class="commonDivJobProfile"><label for="job-location" ><b>Job Location  : </b>{{profileDetails?.jobLocation}}</label></div>   
+      <div class="commonDivJobProfile row mar0">
+        <div class="col s6 padd0">  
+           <label for="salary"><b>Salary  : </b>{{ profileDetails?.salaryFrom | currency }} to {{ profileDetails?.salaryTo | currency }}</label>
+        </div>   
+        <div class="col s6"> <label><b>Salary Cycle : </b>
+            <span *ngIf="profileDetails?.salaryCycle==1">Per Year </span>  
+            <span *ngIf="profileDetails?.salaryCycle==2"> Per Month </span>
+            <span *ngIf="profileDetails?.salaryCycle==3">Per Week </span>
+            </label>
+        </div> 
+     </div>
+     <div class="divider"></div>
+      <div class="commonDivJobProfile"> <label><b>Education : </b> {{profileDetails?.minEducation}} </label></div>   
+      <div class="commonDivJobProfile"><label  for="expected-experience"><b>Expected Experience : </b> {{profileDetails?.experienceFrom}} to {{profileDetails?.experienceTo}} Years</label></div>   
+      <div class="commonDivJobProfile"><label for="skills"><b> Skills : </b> {{profileDetails?.skills}}</label></div>   
+      <div class="commonDivJobProfile"><label for="job-description"><b>Job Description : </b> <div [innerHTML]="profileDetails?.jobDescription"></div>  </label></div>   
+
+   </div>
+</div>

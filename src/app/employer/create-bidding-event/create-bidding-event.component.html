@@ -1,0 +1,81 @@
+<div id="create-bidding-event" style="padding:30px 30px 0px 30px;">
+    <div class="title" style="margin-bottom:30px;"> New HireSeat Job Posting</div>
+
+    <form [formGroup]="auctionFrm" (ngSubmit)="submit()" novalidate>
+        <div class="row flexWrap">
+            <div class="input-field col s6 m4">
+                <input id="activationDate"  type="date" class="validate datepicker" name="activationDate">
+                <label for="activationDate" class="active">Activation Date</label>
+            </div>
+            <div class="input-field col s6 m4">
+                <input id="expiryDate" type="date" class="validate datepicker" name="expiryDate">
+                <label for="expiryDate" class="active">Expiry Date</label>
+            </div>
+            <div class="input-field col s6 m4 marT35">
+                <label for="jobProfiler" class="active">Select Job Profile</label>
+                <input type="hidden" name="selectedJobProfile" [(ngModel)]="selectedJobProfile"
+                    formControlName="selectedJobProfile">
+                <a class="dropdown-button" data-activates="dropdown_jobProfile">
+                    {{jobProfileName}}
+                    <i class="material-icons right" style="cursor: pointer">arrow_drop_down</i>
+                </a>
+                <ul id="dropdown_jobProfile" class="dropdown-content"><!--  hide-on-small-only -->
+                    <li *ngFor="let jobProfile of jp"><a
+                            (click)="jobProfileVal(jobProfile.jobTitle,jobProfile._id)">{{jobProfile.jobTitle}}</a></li>
+                </ul>
+                <div *ngIf="(f.selectedJobProfile.touched && f.selectedJobProfile.errors)" class="invalid-feedback"
+                    class="error">
+                    <div *ngIf="f.selectedJobProfile.errors.required">Company Description is required</div>
+                </div>
+            </div>
+        <!-- </div>
+        <div class="row"> -->
+            <!--  <div class="input-field col s6">
+              <input id="resume-limit" type="text" class="validate" name="biddingEvent.resumeLimit" [(ngModel)]="biddingEvent.resumeLimit" formControlName="resumeLimit">
+              <label for="resume-limit" [ngClass]="{'active': biddingEvent.resumeLimit}">How many candidates do you want to interview?</label>
+              <div *ngIf="(f.resumeLimit.touched && f.resumeLimit.errors)" class="invalid-feedback" class="error">
+                    <div *ngIf="f.resumeLimit.errors.required">Resume Limit is required</div>  
+                    <div *ngIf="f.resumeLimit.errors.pattern">Numbers should not be zero</div>              
+                </div>
+          </div> -->
+            <div class="input-field col s6 m4">
+                <input id="reward-money" currencyMask type="text" class="validate"
+                    name="biddingEvent.rewardMoney" [(ngModel)]="biddingEvent.rewardMoneyFrom"
+                    formControlName="rewardMoneyFrom">
+                <label for="reward-money" class="active">Placement Fee From</label>
+                
+                <div *ngIf="(f.rewardMoneyFrom.touched && f.rewardMoneyFrom.errors)" class="invalid-feedback" class="error">
+                    <div *ngIf="f.rewardMoneyFrom.errors.required">From Reward Money is required</div>
+                    <div *ngIf="f.rewardMoneyFrom.errors.pattern">Numbers Only</div>
+                </div>
+            </div>
+
+            <div class="input-field col s6 m4">
+                <input id="reward-money" currencyMask type="text" class="validate"
+                    name="biddingEvent.rewardMoneyTo" [(ngModel)]="biddingEvent.rewardMoneyTo"
+                    formControlName="rewardMoneyTo">
+                <label for="reward-money" class="active">Placement Fee To</label>
+                <div *ngIf="f.rewardMoneyTo.touched" class="invalid-feedback" class="error">
+                    <div *ngIf="auctionFrm.hasError('invalidReward') && !f.rewardMoneyTo.errors?.required" >Can't be less than Placement Fee From</div>
+                </div>
+                <div *ngIf="(f.rewardMoneyTo.touched && f.rewardMoneyTo.errors)" class="invalid-feedback" class="error">
+                    <div *ngIf="f.rewardMoneyTo.errors.required">To Reward Money is required</div>
+                    <div *ngIf="f.rewardMoneyTo.errors.pattern">Numbers Only</div>
+                </div>
+            </div>
+            <div class="input-field col s6 m4">
+                <p> per candidate </p>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="center-align" style="margin-top:15px; margin-bottom:15px;">
+            <button [disabled]="auctionFrm.valid==true ? false:true " type="submit"
+                class="waves-effect waves-light  commonBlueBtnN">Create</button>
+                <a  class="transparentBtnN waves-effect waves-light " (click)="goBack()"> Back </a> 
+        </div>
+    </form>
+</div>
+
+<!-- <div class="row">
+    <div class="center-align"> <a  class="transparentBtnN waves-effect waves-light " (click)="goBack()"> Back </a> </div>
+</div> -->

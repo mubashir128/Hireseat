@@ -1,0 +1,37 @@
+<div class="quetionAns">
+  <div class="closeBtn" (click)="showDiv()"><span *ngIf="showdata">X</span><span *ngIf="!showdata">?</span></div>
+  <div class="quetionAnsMain">
+    <div class="HeaderDiv">
+      <h2>Q & A for this job post </h2>
+      <span>{{count}}</span>
+    </div>
+    
+    <div class="allQuetionAnsDiv" *ngIf="showdata">
+        <div class="scrollDiv">
+      <div *ngFor="let quetionAns of quetionsData; let index = index">
+     
+          <div class="quetion" *ngIf="quetionAns.Ans">
+              <h5><Span class="labelclass">Q.{{index + 1}} </Span> <span>{{quetionAns.question}}</span><span class="queCount">{{quetionAns.questionCount}}</span></h5>
+              <p><span class="labelclass">Ans: </span> <span> {{quetionAns.Ans}}</span></p>
+          </div>
+        
+        <div class="quetion onlyQue nobord" *ngIf="!quetionAns.Ans">
+            <h5><Span class="labelclass">Q.{{index + 1}} </Span> <span>{{quetionAns.question}}</span> <span class="queCount">{{quetionAns.questionCount}}</span></h5>
+            <a (click)="showpostAns(index,quetionAns._id)" >Post your response > ></a>
+          </div>
+        
+      </div>
+    </div>
+      <div class="writeAns nobord" *ngIf="show">
+        <h5><Span class="labelclass">Q.</Span> <span>{{quetionsData[selectedId].question}} </span></h5>
+        <textarea placeholder="write your answer..." [(ngModel)]="answer"></textarea>
+        <button class="postBtn" (click)="postAns(quetionsData[selectedId]._id)">Post</button>
+      </div>
+      <div class="writeAns nobord" *ngIf="queid && shownotification">
+          <h5><Span class="labelclass">Q.</Span> <span>{{queDetails.question}} </span></h5>
+          <textarea placeholder="write your answer..." [(ngModel)]="answer"></textarea>
+          <button class="postBtn" (click)="postAns(queDetails._id)">Post</button>
+        </div>
+    </div>
+  </div>
+</div>

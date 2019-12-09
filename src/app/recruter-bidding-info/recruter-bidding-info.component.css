@@ -1,0 +1,696 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+.rating { 
+  border: none;
+  float: left;
+  margin:0px 0px 0px 28px;
+}
+
+#bidding-amount::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+}
+#bidding-amount:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #fff;
+}
+#bidding-amount::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #fff;
+}
+#bidding-amount:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #fff;
+}
+.singleList.rejectedResume{
+    border: 2px solid #ff6565;
+}
+/* h1, h2, h3, h4, h5{
+    font-family: 'Rajdhani', sans-serif;
+} */
+.fullwidth{
+    width:100%;
+    float:left;
+}
+.myclass{
+  
+    pointer-events: none;
+    opacity: .5;
+  }
+.jobManegement {
+    background-color: #30496f;
+    padding: 15px 0;
+    width: 100%;
+    float: left;
+}
+.custContainer {
+  width: 100%;
+  max-width: 1170px;
+}
+.blueSection a{
+    color: #b1d0ff;
+    font-size: 20px;
+}
+.remainingtext {
+    font-size: 20px;
+    color: #fff;
+    border: 2px solid #425c84;
+    margin: 0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    position:relative;
+}
+
+.secHead {
+    color: #fff;
+    margin: 20px 0 40px 0;
+    font-size: 35px;
+    font-weight:bold;
+    font-family: 'Rajdhani', sans-serif;
+}
+.secHead  span {
+    color: #ff4526;
+}
+.salHead {
+    font-size: 20px;
+    color: #fff;
+    display: inline-block;
+    margin: 0px 40px;
+}
+.reward {
+    font-size: 30px;
+    color: #f0e31a;
+    display: inline-block;
+    font-weight:bold;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+/* tab style */
+.bx-pager {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-left: 1px solid #4e83d7;
+  position: absolute;
+  width: 65%;
+  top: -52px;
+  background-color: transparent;
+}
+.bx-pager .bx-pager-item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex: 0 20%;
+    border-top: 1px solid #4e83d7;
+    border-bottom: 1px solid #4e83d7;
+    background-color: #32486e;
+}
+
+.bx-pager .bx-pager-item .bx-pager-link {
+    text-decoration: none;
+    color: #b1d0ff;
+    font-size: 20px;
+    flex: 1;
+    padding-left: 56px;
+    text-align: center;
+    font-family: 'Rajdhani', sans-serif;
+}
+.bx-pager .bx-pager-item .arrow {
+    border: solid #4e83d7;
+    display: inline-block;
+    padding: 13px;
+    border-width: 0 1px 1px 0;
+    transform: translateY(21.5px) rotate(-45deg) skew(-16deg, -12deg) translateX(24px);
+    background-color: #30486f;
+}
+.bx-pager .bx-pager-item.active {
+    background-color: #fff;
+}
+.bx-pager .bx-pager-item.active .bx-pager-link {
+    color: #30496f;
+    font-size: 20px;
+}
+.bx-pager .bx-pager-item.active .arrow {
+    background-color: #fff;
+}
+.tabSection {
+    position: relative;
+    width: 100%;
+    float: left;
+}
+/* custome tab style */
+
+.tabSection .nav>li {
+    position: unset;
+}
+.tabSection .nav-tabs>li.active>a, .tabSection .nav-tabs>li.active>a:focus, .tabSection .nav-tabs>li.active>a:hover {
+    background-color: transparent;
+    border: none;
+    border-bottom-color: transparent;
+}
+.tabSection .nav>li>a:focus, .tabSection .nav>li>a:hover {
+    text-decoration: none;
+    background-color: transparent;
+}
+.nav-tabs>li>a:hover {
+    border-color: transparent;
+}
+.tabSection .nav-tabs {
+    border-bottom: none;
+}
+.allResume {
+    color: #33aaff;
+    font-size: 20px;
+    margin: 50px 0 30px;
+    font-weight: bold;
+}
+.actionDIv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #33aaff;
+    border-radius: 5px;
+    padding: 5px 0;
+    margin-bottom: 50px;
+}
+.actionDIv h4 {
+    width: 33%;
+    text-align: center;
+    color: #33aaff;
+    font-size: 20px;
+}
+.ListResume {
+    list-style: none;
+    padding: 0;
+}
+/* .singleList {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 5px 20px #9999;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+} */
+.commonSingleInner {
+    width: 25%;
+}
+.feedbackDiv.commonSingleInner {
+    width: 45%;
+}
+.PointsDiv.commonSingleInner {
+    border-right: 1px solid #999;
+}
+.PointsDivSingle {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    position: relative;
+}
+.PointsDivSingle h4{
+    margin: 0 20px;
+    font-size: 16px;
+    color: #919191;
+    word-break: break-all;
+}
+.startDiv {
+    display: flex;
+}
+
+
+.feedbackDiv .PointsDivSingle h4 {
+    margin: 0 20px;
+    font-size: 19px;
+    color: #b6b6b6;
+    min-width: 150px;
+}
+.feedbackDiv .PointsDivSingle img {
+    margin: 0 5px;
+}
+.feedbackDiv .PointsDivSingle {
+    display: flex;
+    align-items: baseline;
+    margin: 10px 0;
+    justify-content: center;
+}
+.ActionDiv.commonSingleInner {
+    width: 30%;
+}
+.ActionDiv h5 {
+    color: #30496f;
+    font-size: 14px;
+}
+.comment {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f2f2f2;
+}
+.comment h4{
+    font-size: 14px;
+    color: #747474;
+    margin: 0;
+}
+.overStart:hover {
+    filter: invert(300%);
+}
+ .docDiv h4{
+    color: #30496f;
+    font-size: 14px;
+}
+.commonRejectApprove {
+    width: auto;
+}
+.commonBtn{
+    min-width: 120px;
+    background-color: transparent;
+    margin: 10px 20px !important;
+    /*padding: 3px 0;*/
+    font-family: 'Rajdhani', sans-serif;
+}
+.commonBtn.RejectBtn {
+    border: 1px solid #f32222;
+    border-radius: 25px;
+    color: #f32222;
+    font-size: 16px;
+}
+/* .commonBtn.RejectBtn:hover{
+    background-color: #f32222 !important;
+    border: 1px solid #f32222 !important;
+} */
+.commonBtn.approveBtn {
+    border: 1px solid #329132;
+    border-radius: 25px;
+    color: #329132;
+    font-size: 16px;
+}
+.resumeSingleList .PointsDiv.commonSingleInner {
+    border-right: 0px solid #999;
+}
+.resumeSingleList
+
+.approveBtnDiv {
+    width: 20%;
+}
+.docSection {
+    width: 22%;
+    text-align: center;
+}
+ .docSection img{
+    margin: 0 auto;
+}
+.docDiv {
+    border-right: 1px solid #999;
+    border-left: 1px solid #999;
+}
+.commentTxt{
+    border-radius:10px;
+    height: 5rem;
+}
+
+  /* Second stars */
+  
+  .rating > input { display: none; } 
+  .rating > label:before { 
+    margin-top: 2px;
+    padding:0px 5px 0px 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+  }
+  
+  .rating > .half:before { 
+    content: "\f089";
+    position: absolute;
+  }
+  
+  .rating > label { 
+    color: #D8D8D8; 
+    float: right;
+    margin:4px 1px 0px 0px;
+    
+    border-radius:15px;
+    height:25px;
+  }
+  
+  /***** CSS Magic to Highlight Stars on Hover *****/
+  
+  .rating:not(:checked) > label:hover, /* hover current star */
+  .rating:not(:checked) > label:hover ~ label { 
+    color:#FFC107 !important;
+    cursor:pointer;
+  } /* hover previous stars in list */
+  
+  .rating > input:checked + label:hover, /* hover current star when changing rating */
+  .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+  .rating > input:checked ~ label:hover ~ label { 
+    color:#FFC107 !important;
+    cursor:pointer;
+  } 
+.fullwidth{
+  width: 100%;
+  float: left;
+}
+  .commonDivTd {
+    width: 100%;
+    float: left;
+    display: flex;
+}
+.commonDivTd h4{
+  min-width: 260px;
+    margin: 5px 0px;
+}
+table.highlight, .highlight th, .highlight td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.highlight th, .highlight td {
+  padding: 5px;
+  text-align: center;   
+  padding: 10px;
+  
+}
+.logoImg{
+  width: 100px;
+  height: auto;
+}
+.marT20{
+  margin-top: 20px;
+}
+.rejectBtn{
+  color:#fff;
+  min-width: 100px;
+  background-color: red;
+  margin: 0 5px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 5px 0px;
+}
+.InrterviewBtn{
+  color:#fff;
+  min-width: 100px;
+  background-color: green;
+  margin: 0 5px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 5px 0px;
+}
+.bidDiv {
+    margin: 15px 0 0;
+    padding: 10px 0;
+    background-color: #33aaff;
+}
+.bidDiv .input-field {
+    position: relative;
+    margin-top: 0;
+    width: 100%;
+    float: left;
+    background-color: #fff;
+    /* height: 35px; */
+    height: 40px;
+}
+.bidDropDown{
+    /* width: 100% !important; */
+    width: calc(100% - 22px) !important;
+    top: 40px !important;
+    left: 11px !important;
+}
+.bidDiv .material-icons {
+    font-size: 40px;
+    color: #30476f;
+}
+.bidDiv .input-field label {
+    color: #30486f!important;
+    top: -5px;
+    font-size: 16px;
+}
+.container {
+    margin: 0 auto;
+    max-width: 1280px;}
+
+    
+ /*  [type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after{
+    border: 0;
+  } */
+  [type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after {
+    border: none;
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+  border: none !important;
+  background: none;
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+  border: none;
+}
+[type="radio"]:checked+label:before {
+  border: 0px solid transparent;
+}
+
+
+.dropdown-toggle{
+    width: 0px; position: absolute; top: 0px; left: 0px; display: block; opacity: 1;
+}
+
+.sizeH4{
+    font-size: 18px;
+    color: #515151;
+    margin-bottom: 30px !important;
+}
+.NoteOrange{
+    font-size: 15px;
+    color: #ff6f00;
+    margin-top: 20px;
+}
+.popupButtonMargin{
+    margin: 5px;
+}
+.myResume{
+    background-color: #33aaff;
+}
+.myResume .PointsDivSingle h4 {
+    color: #fff;
+}
+.myResume .ActionDiv h5{
+    color: #fff;
+}
+.myResume h6{
+    color: #fff;
+}
+.myResume .PointsDivSingle img {
+    filter: brightness(300%);
+}
+.PointsDiv.commonSingleInner {
+    border-right: 1px solid #dbdbdb;
+}
+.myResume .PointsDiv.commonSingleInner {
+    border-right: 1px solid #fff;
+}
+.whiteBtn, .whiteBtn:hover{
+    background-color: #fff;
+    color:#000;
+}
+.dropdown-button_resume {
+    display: inline-block;
+    margin: 7px 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+.error{
+    color: red;
+}
+.rejectedDiv {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #ff6465;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 7px;
+}
+
+.singleList.rejectedResume {
+    position: relative;
+}
+.disFlex{
+    display: flex;
+}
+.CandidateDiv{
+    background-color: #fff;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    float: left;
+    box-shadow: 0 0 10px #a1a1a157;
+    position: relative;
+    padding-bottom: 60px;
+}
+.disFlex .col{
+    margin-left: 0 !important;
+}
+.marT20{
+margin-top: 20px;
+}
+.CandidateResume {
+    width: 25%;
+    float: left;
+}
+.cadidateDetails{
+    width: 75%;
+    float: left;
+    margin: 0 0 0 auto;
+}
+.cadidateDetails h6{
+    position: relative;
+    /* width: 50%; */
+    /* float: left; */
+    padding: 2px 0px;
+    margin: 0;
+    display: inline-block;
+    padding-right: 10px;
+}
+.cadidateDetails h6:after{
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-color: #39aaff;
+}
+.cadidateDetails p{
+    /* width: 50%; */
+    /* float: left; */
+    padding-left: 10px;
+    margin: 0;
+    display: inline-block;
+}
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    float: left;
+    padding: 20px 0;
+}
+.skills span{
+    background-color: #f0f0f0;
+    padding: 6px 20px;
+    border-radius: 5px;
+    margin: 5px 5px;
+    font-size: 14px;
+}
+.BtnDiv {
+    width: 100%;
+    position: absolute;
+    bottom: 19px;
+    left: 0;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.recruiter{
+    width: 48%;
+    /* float: left; */
+    position: relative;
+    text-align: left;
+}
+.candidate{
+    width: 48%;
+    text-align: left;
+}
+.borderedBtn{
+    background-color: transparent;
+    color: #03a9f4;
+    border: 1px solid #03a9f4;
+    font-size: 13px;
+    padding: 0px 10px;
+    border-radius: 5px;
+    width: 100%;
+    margin: 0 auto;
+    /* line-height: unset; */
+}
+.borderedBtn:hover{
+    background-color: #03a9f4;
+    color: #fff;
+}
+.popupFooter{
+    bottom: 20px !important;
+    padding: 7px 20px;
+}
+.ModalForm .input-field input{
+    height: 2rem;
+    margin: 0 0 5px 0;
+}
+.error > div{
+    font-size: 13px;
+}
+.dropdown-content.bidDropDown i{
+    right: 20px;
+    position: absolute;
+    top: 15px;
+    color: #878787;
+}
+.posrelDiv{
+    position: relative;
+}
+ul.resumeDrodown {
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 0;
+}
+.PointsDivSingle.PointsDivSingleN .OnHoverDiv{
+    background-color: #353535;
+    padding: 20px 5px;
+    display: none;
+    position: absolute;
+    z-index: 9;
+    top: 20px;
+    border-radius: 5px ;
+    width: 100%
+}
+.PointsDivSingle.PointsDivSingleN .OnHoverDiv h4{
+    color: #c0c0c0 !important;
+    font-size: 15px;
+}
+.PointsDivSingle.PointsDivSingleN:hover .OnHoverDiv{
+    display: block;
+    position: absolute;
+    z-index: 9;
+}
+.PointsDivSingle.PointsDivSingleN .OnHoverDiv:before {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+.PointsDivSingle.PointsDivSingleN .OnHoverDiv:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-bottom-color: #353535;
+    border-width: 12px;
+    margin-left: -110px;
+}
+/*================================ i-pad responsive css start  ===============================*/
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px){
+
+}
+/*================================ i-pad responsive css ends  ===============================*/
+/*================================ mobile responsive css start  ===============================*/
+@media only screen 
+and (min-width : 320px) 
+and (max-width : 667px){
+    .disFlex{
+        display: unset;
+    }
+    .disFlex .col {
+        margin-top: 20px;
+    }
+    .bidDropDown {
+        width: 100% !important;
+        left: 0 !important;
+    }
+}
+/*================================ mobile responsive css ends  ===============================*/
