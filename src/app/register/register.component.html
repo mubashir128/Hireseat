@@ -195,11 +195,15 @@
                   (click)="unReadTermsAndConditions()"
                   [ngModelOptions]="{ standalone: true }"
                 />
+
                 <label for="acceptTermsUnread"></label>
               </div>
-              <a style="cursor:pointer" (click)="showTermsAndCond()"
-                >Please Accept Terms & Conditions to register</a
-              >
+
+              <a style="cursor:pointer" (click)="showTermsAndCond()">
+                <span class="asterisk">&#8270;</span>
+
+                Please Accept Terms & Conditions to register
+              </a>
               <!-- <input type="checkbox" class="filled-in" id="acceptTerms" name="acceptedTermsCond" />
               <label for="acceptTerms" (click)="showTermsAndCond()">I accept the terms and conditions.</label>  -->
             </div>

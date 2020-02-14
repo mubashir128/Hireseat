@@ -52,6 +52,15 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    // scroll to top
+    $(document).ready(function() {
+      $("html, body").animate(
+        {
+          scrollTop: 0
+        },
+        1500
+      );
+    });
     jQuery(".modal").modal();
     this.spinner.show();
     this._Userservice.getmeetup().subscribe(data => {

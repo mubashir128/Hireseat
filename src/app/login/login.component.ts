@@ -45,6 +45,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    // scroll to top
+    $(document).ready(function() {
+      $("html, body").animate(
+        {
+          scrollTop: 0
+        },
+        1500
+      );
+    });
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
   }
 

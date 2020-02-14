@@ -74,12 +74,7 @@ export class RegisterComponent implements OnInit {
   }
   unReadTermsAndConditions() {
     this.value = $("#acceptTermsUnread").is(":checked");
-    // console.log(
-    //   "accepted terms and conditions",
-    //   this.acceptedTermsCondUnread,
-    //   this.acceptedTermsCond,
-    //   this.value
-    // );
+    console.log("accepted terms and conditions", this.value);
   }
   formSubmit() {
     this.spinner.show();
@@ -107,7 +102,9 @@ export class RegisterComponent implements OnInit {
     });
     if (!this.signin.valid) {
       this.spinner.hide();
+      Materialize.toast("Please complete the form.", 1000);
     }
+
     const fd = new FormData();
     // fd.userRole=this.localRole;
     // fd.role=this.localRole == "employer" ? 2 : 3;
@@ -157,6 +154,7 @@ export class RegisterComponent implements OnInit {
       } else {
         this.suBtnActive = true;
         Materialize.toast("Please accept the terms and conditions", 5000);
+        this.spinner.hide();
       }
     } else {
       this.suBtnActive = true;

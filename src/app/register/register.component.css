@@ -172,3 +172,14 @@ ul.listTerm {
   border-bottom: 2px solid #26a69a !important;
 }
 /* end of checkbox */
+
+.asterisk {
+  color: red;
+
+  content: "\002A";
+}
+/*  this is for checkbox which is on registration's unread condiotions */
+[type="checkbox"] + label {
+  margin-right: 30px !important;
+  padding-left: 0px !important;
+}
