@@ -78,6 +78,10 @@ export class RegisterComponent implements OnInit {
   }
   formSubmit() {
     this.spinner.show();
+    if (!this.signin.valid) {
+      this.spinner.hide();
+      Materialize.toast("Please complete the form.", 1000);
+    }
     this.value = $("#acceptTermsUnread").is(":checked");
     // console.log(this.value);
     this.suBtnActive = true;
@@ -100,10 +104,6 @@ export class RegisterComponent implements OnInit {
       ]),
       file: new FormControl(res.file, [Validators.required])
     });
-    if (!this.signin.valid) {
-      this.spinner.hide();
-      Materialize.toast("Please complete the form.", 1000);
-    }
 
     const fd = new FormData();
     // fd.userRole=this.localRole;
