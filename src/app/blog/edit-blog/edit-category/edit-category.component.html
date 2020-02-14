@@ -1,23 +1,43 @@
 <div class="customeKeyword marT">
-	<h4 class="secHead">Add catagory</h4>
-	  <div class="customeText scrollDiv">
-		  <label class="checkboxL" *ngFor="let catagory of catArray" >
-		
-			<input   name="select"  type="checkbox" (change)="getCheckedCat($event)" [checked]="catagory?.selected == true"   [value]="catagory?.catslug">
-	
-			<span class="checkmarkC"></span> {{catagory?.categoryName}} 
-			<!-- <i class="fa fa-times-circle pull-right" style="color: brown" (click)="removeCategory(catagory?._id)"></i> -->
-		  </label>
-		</div>
-	<a  class="cursor-pointe addCatagoryA" (click)="showAddCatForm()" *ngIf="!showAddCat"> + Add New Category </a>
- 	<div class="addcatagory" *ngIf="showAddCat">
-	  <form [formGroup]="addNewCategForm" >
-			<input type="text" class="catagoryText" formControlName="categoryName">
-			<div class="btnDiv DiF">
-				<button class="waves-effect waves-light btn" (click)="addNewCategory()"> Add New Catagory</button>
-				<button class="waves-effect waves-light btn cancelBtn" (click)="cancelCategory()"> Cancel </button>
-			</div>
-	  </form>  
-	</div>
-	</div>
-	
+  <h4 class="secHead">Add catagory</h4>
+  <div id="scrollCat" class="customeText scrollDiv">
+    <label class="checkboxL" *ngFor="let catagory of catArray; let i = index">
+      <input
+        name="select"
+        type="checkbox"
+        (change)="getCheckedCat(catagory, $event)"
+        [checked]="catagory?.selected == true"
+        [value]="catagory?.catslug"
+      />
+
+      <span class="checkmarkC"></span> {{ catagory?.categoryName }}
+      <!-- <i class="fa fa-times-circle pull-right" style="color: brown" (click)="removeCategory(catagory?._id)"></i> -->
+    </label>
+  </div>
+  <a
+    class="cursor-pointe addCatagoryA"
+    (click)="showAddCatForm()"
+    *ngIf="!showAddCat"
+  >
+    + Add New Category
+  </a>
+  <div class="addcatagory" *ngIf="showAddCat">
+    <form [formGroup]="addNewCategForm">
+      <input type="text" class="catagoryText" formControlName="categoryName" />
+      <div class="btnDiv DiF">
+        <button
+          class="waves-effect waves-light btn addBtn"
+          (click)="addNewCategory()"
+        >
+          Add New Catagory
+        </button>
+        <button
+          class="waves-effect waves-light btn cancelBtn"
+          (click)="cancelCategory()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

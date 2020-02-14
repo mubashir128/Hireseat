@@ -1,48 +1,48 @@
-.formDivCreate .createpostInput{
-    opacity: 1;
-    position: unset;
-    pointer-events: unset;
+.formDivCreate .createpostInput {
+  opacity: 1;
+  position: unset;
+  pointer-events: unset;
 }
 .formDivCreate p {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 .formDivCreate .form-group {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .createpostMainDiv {
-    min-height: calc(100vh - 123px);
-    background-color: #f1f1f1;
-    padding: 30px;
+  min-height: calc(100vh - 123px);
+  background-color: #f1f1f1;
+  padding: 30px;
 }
 .heading {
-    font-size: 25px;
-    font-weight: bold;
-    color: #000;
+  font-size: 25px;
+  font-weight: bold;
+  color: #000;
 }
 .titleEnter {
-    border: 1px solid #ddd!important;
-    padding: 0 15px !important;
-    box-sizing: border-box !important;
-    background-color: #fff !important;
+  border: 1px solid #ddd !important;
+  padding: 0 15px !important;
+  box-sizing: border-box !important;
+  background-color: #fff !important;
 }
 .urlDiv {
-    display: flex;
-    align-items: center;
-    margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 0 20px;
 }
-.urlDiv .titleEnter{
-    width:auto;
-    margin: 0;
+.urlDiv .titleEnter {
+  width: auto;
+  margin: 0;
 }
 .urlDiv p {
-    margin: 0;
+  margin: 0;
 }
 .titleEnter {
-    border: 1px solid #ddd!important;
-    padding: 0 15px !important;
-    box-sizing: border-box !important;
-    background-color: #fff !important;
+  border: 1px solid #ddd !important;
+  padding: 0 15px !important;
+  box-sizing: border-box !important;
+  background-color: #fff !important;
 }
 .addCatagoryA {
   padding: 0 20px 10px;
@@ -52,33 +52,41 @@
 .btnDiv.DiF {
   margin: 10px 0 20px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  /* align-items: center; */
   justify-content: space-between;
 }
+.addBtn {
+  background-color: #969696;
+}
+.addBtn:hover {
+  background-color: #03a9f4;
+}
 .cancelBtn {
+  margin-top: 10px;
   background-color: #969696;
 }
 button.okBtn {
-    height: 45px;
-    min-width: 50px;
-    border: 1px solid #f1f1f1 !important;
-    font-weight: bold;
-    margin: 0px 10px;
+  height: 45px;
+  min-width: 50px;
+  border: 1px solid #f1f1f1 !important;
+  font-weight: bold;
+  margin: 0px 10px;
 }
 .urlDiv a {
-    color: #33aaff;
-    text-decoration: underline !important;
-    -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
+  color: #33aaff;
+  text-decoration: underline !important;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 .AddMediaBtn {
-    margin: 22px 0;
-    color: #000;
-    background-color: #ffff;
-    height: 30px;
-    padding: 0 20px;
-    font-size: 14px;
-    line-height: initial;
+  margin: 22px 0;
+  color: #000;
+  background-color: #ffff;
+  height: 30px;
+  padding: 0 20px;
+  font-size: 14px;
+  line-height: initial;
 }
 .AddBtn {
   margin: 10px 0;
@@ -90,214 +98,215 @@ button.okBtn {
   line-height: initial;
 }
 .editerDIv textarea {
-    height: auto;
-    background-color: #fff;
-    border: 1px solid #ddd;
+  height: auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
 }
 .customeKeyword {
-    background-color: #fff;
-    border: 1px solid #ddd;
+  background-color: #fff;
+  border: 1px solid #ddd;
 }
 .secHead {
-    font-size: 16px;
-    color: #000;
-    padding: 10px 20px;
-    margin: 0;
-    border-bottom: 1px solid #ddd;
-    font-weight: 600;
+  font-size: 16px;
+  color: #000;
+  padding: 10px 20px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+  font-weight: 600;
 }
 .customeText {
-    padding: 10px 20px;
+  padding: 10px 20px;
 }
 .customeText p {
-    font-size: 16px;
-    color: #000;
-    margin: 0;
+  font-size: 16px;
+  color: #000;
+  margin: 0;
 }
-.marT{
-    margin: 10px 0 0 ;
+.marT {
+  margin: 10px 0 0;
 }
 .publishBtn {
-	border: 1px solid #ddd;
-    width: 100%;
-    margin-bottom: 20px;
-    height: 45px;
-    box-shadow: none;
-    background-color: #3af;
-    color: #fff;
-    text-align: left;
-    padding: 0 20px;
-    font-weight: 600;
+  border: 1px solid #ddd;
+  width: 100%;
+  margin-bottom: 20px;
+  height: 45px;
+  box-shadow: none;
+  background-color: #3af;
+  color: #fff;
+  text-align: left;
+  padding: 0 20px;
+  font-weight: 600;
 }
 /* .customeText [type="radio"]:not(:checked), [type="radio"]:checked {
   
     opacity: 1;
     pointer-events: none;
 } */
-input[type="checkbox"], input[type="radio"] {
+input[type="checkbox"],
+input[type="radio"] {
   opacity: 1;
   position: unset;
   pointer-events: painted;
 }
 /*=================== radio btn css start =============*/
 .radioBtnL {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 0px;
-    cursor: pointer;
-    font-size: 15px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    color: #666;
-  }
-  
-  /* Hide the browser's default radio button */
-  .radioBtnL input {
-    position: absolute;
-    opacity: 1;
-    cursor: pointer;
-  }
-  
-  /* Create a custom radio button */
-  .checkmark {
-    position: absolute;
-    top: 3px;
-    left: 0;
-    height: 15px;
-    width: 15px;
-    background-color: transparent;
-    border-radius: 50%;
-    border: 1px solid #ddd;
-  }
-  
-  /* On mouse-over, add a grey background color */
-  .radioBtnL:hover input ~ .checkmark {
-    background-color: #ccc;
-  }
-  
-  /* When the radio button is checked, add a blue background */
-  .radioBtnL input:checked ~ .checkmark {
-    background-color: transparent;
-  }
-  
-  /* Create the indicator (the dot/circle - hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the indicator (dot/circle) when checked */
-  .radioBtnL input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  /* Style the indicator (dot/circle) */
-  .radioBtnL .checkmark:after {
-    top: 2px;
-    left: 2px;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #33aaff;
-  }
-  /*=================== radio btn css end =============*/
-  /*=================== checkbox btn css start =============*/
-  /* The container */
-.checkboxL {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 0px;
-    cursor: pointer;
-    font-size: 15px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    color: #666;
-  }
-  
-  /* Hide the browser's default checkbox */
-  .checkboxL input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmarkC {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 18px;
-    width: 18px;
-    background-color: transparent;
-    border: 1px solid #ddd;
-  }
-  
-  /* On mouse-over, add a grey background color */
-  .checkboxL:hover input ~ .checkmarkC {
-    background-color: #ccc;
-  }
-  
-  /* When the checkbox is checked, add a blue background */
-  .checkboxL input:checked ~ .checkmarkC {
-    background-color: transparent;
-  }
-  
-  /* Create the checkmarkC/indicator (hidden when not checked) */
-  .checkmarkC:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the checkmarkC when checked */
-  .checkboxL input:checked ~ .checkmarkC:after {
-    display: block;
-  }
-  
-  /* Style the checkmarkC/indicator */
-  .checkboxL .checkmarkC:after {
-    left: 6px;
-    top: 2px;
-    width: 6px;
-    height: 10px;
-    border: solid #33aaff;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-    /*=================== checkbox btn css end =============*/
-
-    .addcatagory {
-        padding: 0 20px;
-    }
-    .catagoryText {
-        display: block;
-        height: 30px !important;
-        border: 1px solid #ddd !important;
-        font-size: 15px;
-        color: #000;
-    }
-    .addcatagory a {
-        text-decoration: underline;
-        font-size: 18px;
-        font-weight: 500;
-        margin: 10px 0;
-        display: block;
-    }
-	.customeText.scrollDiv {
-    max-height: 120px;
-    overflow-y: auto;
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #666;
 }
 
-.cursor-pointer{
-    cursor: pointer !important;
+/* Hide the browser's default radio button */
+.radioBtnL input {
+  position: absolute;
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+/* On mouse-over, add a grey background color */
+.radioBtnL:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radioBtnL input:checked ~ .checkmark {
+  background-color: transparent;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioBtnL input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radioBtnL .checkmark:after {
+  top: 2px;
+  left: 2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #33aaff;
+}
+/*=================== radio btn css end =============*/
+/*=================== checkbox btn css start =============*/
+/* The container */
+.checkboxL {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #666;
+}
+
+/* Hide the browser's default checkbox */
+.checkboxL input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmarkC {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: transparent;
+  border: 1px solid #ddd;
+}
+
+/* On mouse-over, add a grey background color */
+.checkboxL:hover input ~ .checkmarkC {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkboxL input:checked ~ .checkmarkC {
+  background-color: transparent;
+}
+
+/* Create the checkmarkC/indicator (hidden when not checked) */
+.checkmarkC:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmarkC when checked */
+.checkboxL input:checked ~ .checkmarkC:after {
+  display: block;
+}
+
+/* Style the checkmarkC/indicator */
+.checkboxL .checkmarkC:after {
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 10px;
+  border: solid #33aaff;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/*=================== checkbox btn css end =============*/
+
+.addcatagory {
+  padding: 0 20px;
+}
+.catagoryText {
+  display: block;
+  height: 30px !important;
+  border: 1px solid #ddd !important;
+  font-size: 15px;
+  color: #000;
+}
+.addcatagory a {
+  text-decoration: underline;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 0;
+  display: block;
+}
+.customeText.scrollDiv {
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
 }

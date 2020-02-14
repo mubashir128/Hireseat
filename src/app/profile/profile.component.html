@@ -1,217 +1,384 @@
 <div class="card white hoverable bgLight" style="padding:30px;">
-    <form [formGroup]="profilefrm" (ngSubmit)="onSubmit()">
-        <div class="row">
-            <h4 class="ProfileTitle"> Edit Organization Profile </h4>
-            <div class="divider"></div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 m8 l8">
-                <label [ngClass]="{'active': userProfile.companyName}" for="company-name">Company Name *</label>
-                <h5 id="company-name">{{userProfile.companyName}} </h5>
-                <!-- <input id="company-name" type="text" class="validate" name="userProfile.companyName" [(ngModel)]="userProfile.companyName">  -->
-
-            </div>
-            <div class="col s12 m2 l2 rewarDiv" *ngIf="loggedinUser.userInfo.userRole != 'employer'">
-                <!--  <div style="width:100%; height:80px; background-color:grey;">
+  <form [formGroup]="profilefrm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <h4 class="ProfileTitle">Edit Organization Profile</h4>
+      <div class="divider"></div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12 m8 l8">
+        <label
+          [ngClass]="{ active: userProfile.companyName }"
+          for="company-name"
+          >Company Name *</label
+        >
+        <h5 id="company-name">{{ userProfile.companyName }}</h5>
+        <!-- <input id="company-name" type="text" class="validate" name="userProfile.companyName" [(ngModel)]="userProfile.companyName">  -->
+      </div>
+      <div
+        class="col s12 m2 l2 rewarDiv"
+        *ngIf="loggedinUser.userInfo.userRole != 'employer'"
+      >
+        <!--  <div style="width:100%; height:80px; background-color:grey;">
             </div> -->
-                <a (click)="showSummary()"><img src="assets/img/reward_points.png" height="100" width="100"></a>
-                <label [ngClass]="{'active': userProfile.ratingPoints}" for="company-reward">Reward Points</label>
-                <h5 id="recruiter-rewards">{{userProfile.ratingPoints}} </h5>
-            </div>
-        </div>
+        <a (click)="showSummary()"
+          ><img src="assets/img/reward_points.png" height="100" width="100"
+        /></a>
+        <label
+          [ngClass]="{ active: userProfile.ratingPoints }"
+          for="company-reward"
+          >Reward Points</label
+        >
+        <h5 id="recruiter-rewards">{{ userProfile.ratingPoints }}</h5>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="input-field col s12">
-                <textarea id="company-description" class="materialize-textarea" [(ngModel)]="userProfile.aboutComp"
-                    formControlName="aboutComp"></textarea>
-                <label [ngClass]="{'active': userProfile.aboutComp}" for="company-description">About Company</label>
-                <div *ngIf="(f.aboutComp.touched && f.aboutComp.errors)" class="invalid-feedback"
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea
+          id="company-description"
+          class="materialize-textarea"
+          [(ngModel)]="userProfile.aboutComp"
+          formControlName="aboutComp"
+        ></textarea>
+        <label
+          [ngClass]="{ active: userProfile.aboutComp }"
+          for="company-description"
+          >About Company</label
+        >
+        <!-- <div *ngIf="(f.aboutComp.touched && f.aboutComp.errors)" class="invalid-feedback"
                     class="error">
                     <div *ngIf="f.aboutComp.errors.required">Company Description is required</div>
-                </div>
-            </div>
-        </div>
+                </div> -->
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="head-office-location" type="text" [(ngModel)]="userProfile.locOfHeadOff" class="validate"
-                    formControlName="locOfHeadOff">
-                <label [ngClass]="{'active': userProfile.locOfHeadOff}" for="head-office-location">Location of Head
-                    Office</label>
-                <div *ngIf="(f.locOfHeadOff.touched && f.locOfHeadOff.errors)"
-                    class="invalid-feedback" class="error">
-                    <div *ngIf="f.locOfHeadOff.errors.required">Head Office Location is required</div>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input
+          id="head-office-location"
+          type="text"
+          [(ngModel)]="userProfile.locOfHeadOff"
+          class="validate"
+          formControlName="locOfHeadOff"
+        />
+        <label
+          [ngClass]="{ active: userProfile.locOfHeadOff }"
+          for="head-office-location"
+          >Location of Head Office</label
+        >
+        <!-- <div
+          *ngIf="f.locOfHeadOff.touched && f.locOfHeadOff.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.locOfHeadOff.errors.required">
+            Head Office Location is required
+          </div>
+        </div> -->
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="employee-count" type="text" class="validate" [(ngModel)]="userProfile.noOfEmp"
-                    formControlName="noOfEmp">
-                <label [ngClass]="userProfile.noOfEmp !== ''?'active':''" for="employee-count">Number of Employees
-                </label>
-                <div *ngIf="(f.noOfEmp.touched && f.noOfEmp.errors)" class="invalid-feedback"
-                    class="error">
-                    <div *ngIf="f.noOfEmp.errors.required">Number of Employee is required</div>
-                    <div *ngIf="f.noOfEmp.errors.pattern">Numbers Only</div>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input
+          id="employee-count"
+          type="text"
+          class="validate"
+          [(ngModel)]="userProfile.noOfEmp"
+          formControlName="noOfEmp"
+        />
+        <label
+          [ngClass]="userProfile.noOfEmp !== '' ? 'active' : ''"
+          for="employee-count"
+          >Number of Employees
+        </label>
+        <!-- <div
+          *ngIf="f.noOfEmp.touched && f.noOfEmp.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.noOfEmp.errors.required">
+            Number of Employee is required
+          </div>
+          <div *ngIf="f.noOfEmp.errors.pattern">Numbers Only</div>
+        </div> -->
+      </div>
+    </div>
 
-        <!-- <div class="divider"></div> -->
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="website-link" type="text" class="validate" [(ngModel)]="userProfile.webSiteLink"
-                    formControlName="webSiteLink">
-                <label [ngClass]="{'active': userProfile.webSiteLink}" for="website-link">Website Link *</label>
-                <div *ngIf="(f.webSiteLink.touched && f.webSiteLink.errors)"
-                    class="invalid-feedback" class="error">
-                    <div *ngIf="f.webSiteLink.errors.required">Web Site Link is required</div>
-                </div>
-            </div>
-            <div class="input-field col s12">
-                <input id="fb-link" type="text" class="validate" [(ngModel)]="userProfile.fbLink"
-                    formControlName="fbLink">
-                <label [ngClass]="{'active': userProfile.fbLink}" for="fb-link">Facebook Link</label>
-                <div *ngIf="(f.fbLink.touched && f.fbLink.errors) || f.fbLink.invalid" class="invalid-feedback"
-                    class="error">
-                    <div *ngIf="f.fbLink.errors.required">Facebook Link is required</div>
-                </div>
-            </div>
-            <div class="input-field col s12">
-                <input id="twitter-link" type="text" class="validate" [(ngModel)]="userProfile.twittLink"
-                    formControlName="twittLink">
-                <label [ngClass]="{'active': userProfile.twittLink}" for="twitter-link">Twitter Link</label>
-                <div *ngIf="(f.twittLink.touched && f.twittLink.errors) || f.twittLink.invalid" class="invalid-feedback"
-                    class="error">
-                    <div *ngIf="f.twittLink.errors.required">Twitter Link is required</div>
-                </div>
-            </div>
-            <div class="input-field col s12">
-                <input id="youtube-link" type="text" class="validate" [(ngModel)]="userProfile.youtubeLink"
-                    formControlName="youtubeLink">
-                <label [ngClass]="{'active': userProfile.youtubeLink}" for="youtube-link">Youtube Link</label>
-                <div *ngIf="(f.youtubeLink.touched && f.youtubeLink.errors) || f.youtubeLink.invalid"
-                    class="invalid-feedback" class="error">
-                    <div *ngIf="f.youtubeLink.errors.required">Youtube Link is required</div>
-                </div>
-            </div>
-            <div class="input-field col s12">
-                <input id="linkedin-link" type="text" class="validate" [(ngModel)]="userProfile.linkedInLink"
-                    formControlName="linkedInLink">
-                <label [ngClass]="{'active': userProfile.linkedInLink}" for="linkedin-link">Linkedin Link</label>
-                <div *ngIf="(f.linkedInLink.touched && f.linkedInLink.errors) || f.linkedInLink.invalid"
-                    class="invalid-feedback" class="error">
-                    <div *ngIf="f.linkedInLink.errors.required">Linkedin Link is required</div>
-                </div>
-            </div>
+    <!-- <div class="divider"></div> -->
+    <div class="row">
+      <div class="input-field col s12">
+        <input
+          id="website-link"
+          type="text"
+          class="validate"
+          [(ngModel)]="userProfile.webSiteLink"
+          formControlName="webSiteLink"
+        />
+        <label
+          [ngClass]="{ active: userProfile.webSiteLink }"
+          for="website-link"
+          >Website Link *</label
+        >
+        <div
+          *ngIf="f.webSiteLink.touched && f.webSiteLink.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.webSiteLink.errors.required">
+            Web Site Link is required
+          </div>
         </div>
-        <div class="divider"></div>
-        <div class="row" style="padding-top:15px;">
-            <div class="col s6 m8 l3 ">
-                    <form [formGroup]="updateProfileimg" >
-                <div class="uploadImageDiv">
-                        <img [src]="imgURL" height="200" *ngIf="imgURL" height="50px" width="50px" class="uploadedImg">
-                        <input #file type="file" accept='image/*' formControlName="file" (change)="preview(file.files)" />
-                        <img src="assets/img/Asset 7.png" class="plusIcon">
-                </div>
-               
-                       
-                        
-                    
-                        <!-- <label [ngClass]="{'active': updateProfileimg.file}" for="contact-name">Contact Person Image *</label>
+      </div>
+      <div class="input-field col s12">
+        <input
+          id="fb-link"
+          type="text"
+          class="validate"
+          [(ngModel)]="userProfile.fbLink"
+          formControlName="fbLink"
+        />
+        <label [ngClass]="{ active: userProfile.fbLink }" for="fb-link"
+          >Facebook Link</label
+        >
+        <div
+          *ngIf="f.fbLink.touched && f.fbLink.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.fbLink.errors.required">Facebook Link is required</div>
+        </div>
+      </div>
+      <div class="input-field col s12">
+        <input
+          id="twitter-link"
+          type="text"
+          class="validate"
+          [(ngModel)]="userProfile.twittLink"
+          formControlName="twittLink"
+        />
+        <label [ngClass]="{ active: userProfile.twittLink }" for="twitter-link"
+          >Twitter Link</label
+        >
+        <div
+          *ngIf="f.twittLink.touched && f.twittLink.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.twittLink.errors.required">
+            Twitter Link is required
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12">
+        <input
+          id="youtube-link"
+          type="text"
+          class="validate"
+          [(ngModel)]="userProfile.youtubeLink"
+          formControlName="youtubeLink"
+        />
+        <label
+          [ngClass]="{ active: userProfile.youtubeLink }"
+          for="youtube-link"
+          >Youtube Link</label
+        >
+        <div
+          *ngIf="f.youtubeLink.touched && f.youtubeLink.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.youtubeLink.errors.required">
+            Youtube Link is required
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s12">
+        <input
+          id="linkedin-link"
+          type="text"
+          class="validate"
+          [(ngModel)]="userProfile.linkedInLink"
+          formControlName="linkedInLink"
+        />
+        <label
+          [ngClass]="{ active: userProfile.linkedInLink }"
+          for="linkedin-link"
+          >Linkedin Link</label
+        >
+        <div
+          *ngIf="f.linkedInLink.touched && f.linkedInLink.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.linkedInLink.errors.required">
+            Linkedin Link is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row" style="padding-top:15px;">
+      <div class="col s6 m8 l3 ">
+        <form [formGroup]="updateProfileimg">
+          <div class="uploadImageDiv">
+            <img
+              [src]="imgURL"
+              height="200"
+              *ngIf="imgURL"
+              height="50px"
+              width="50px"
+              class="uploadedImg"
+            />
+            <input
+              #file
+              type="file"
+              accept="image/*"
+              formControlName="file"
+              (change)="preview(file.files)"
+            />
+            <img src="assets/img/Asset 7.png" class="plusIcon" />
+          </div>
+
+          <!-- <label [ngClass]="{'active': updateProfileimg.file}" for="contact-name">Contact Person Image *</label>
                         <div *ngIf="(img.file.touched && f.fullName.errors) || img.file.invalid" class="invalid-feedback"
                             class="error">
                             <div *ngIf="updateProfileimg.controls['file'].hasError('required')" class="error">Please Select image</div>
                             !-- <div *ngIf="f.fullName.errors.required">Full Name is required</div> --
                         </div> -->
-                        <button class="marT10 bluebtn" (click)="updateProfileImg()">Update Image</button>
-                    </form>   
-          
+          <button class="marT10 bluebtn" (click)="updateProfileImg()">
+            Update Image
+          </button>
+        </form>
+      </div>
+      <div class="input-field col s12 m8 l9 ">
+        <input
+          id="contact-name"
+          type="text"
+          class="validate"
+          name="userProfile.fullName"
+          [(ngModel)]="userProfile.fullName"
+          formControlName="fullName"
+        />
+        <label [ngClass]="{ active: userProfile.fullName }" for="contact-name"
+          >Contact Person Name *</label
+        >
+        <div
+          *ngIf="f.fullName.touched && f.fullName.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.fullName.errors.required">Full Name is required</div>
+        </div>
+      </div>
 
-            </div>
-            <div class="input-field col s12 m8 l9 ">
-                <input id="contact-name" type="text" class="validate" name="userProfile.fullName"
-                    [(ngModel)]="userProfile.fullName" formControlName="fullName">
-                <label [ngClass]="{'active': userProfile.fullName}" for="contact-name">Contact Person Name *</label>
-                <div *ngIf="(f.fullName.touched && f.fullName.errors) || f.fullName.invalid" class="invalid-feedback"
-                    class="error">
-                    <div *ngIf="f.fullName.errors.required">Full Name is required</div>
-                </div>
-            </div>
-
-            <!-- <div class="input-field col s12 m10 l10 ">
+      <!-- <div class="input-field col s12 m10 l10 ">
                 
             </div> -->
-        </div>
+    </div>
 
-        <div class="row">
-            <div class="input-field col s12 m6 l6  ">
-                <input id="contact-phone-number" type="text" class="validate" name="userProfile.phoneNo"
-                    [(ngModel)]="userProfile.phoneNo" formControlName="phoneNo">
-                <label [ngClass]="{'active': userProfile.phoneNo}" for="contact-phone-number">Phone Number *</label>
-                <div *ngIf="(f.phoneNo.touched && f.phoneNo.errors) || f.phoneNo.invalid " class="invalid-feedback"
-                    class="error">
-                    <div *ngIf="f.phoneNo.errors.required">Phone Number is required</div>
-                    <div *ngIf="f.phoneNo.errors.pattern">Numbers Only</div>
-                </div>
-            </div>
-            <div class="input-field col s12 m6 l6">
-                <input id="contact-email" type="text" class="validate" name="userProfile.email"
-                    [(ngModel)]="userProfile.email" formControlName="email" readonly >
-                <label [ngClass]="{'active': userProfile.email}" for="contact-email">Email *</label>
-                <div *ngIf="(f.email.touched && f.email.errors) || f.email.invalid" class="invalid-feedback"
-                    class="error">
-                    <div *ngIf="f.email.errors.required">Email is required</div>
-                    <div *ngIf="f.email.errors.email">Enter valid email address</div>
-                </div>
-            </div>
+    <div class="row">
+      <div class="input-field col s12 m6 l6  ">
+        <input
+          id="contact-phone-number"
+          type="text"
+          class="validate"
+          name="userProfile.phoneNo"
+          [(ngModel)]="userProfile.phoneNo"
+          formControlName="phoneNo"
+        />
+        <label
+          [ngClass]="{ active: userProfile.phoneNo }"
+          for="contact-phone-number"
+          >Phone Number *</label
+        >
+        <div
+          *ngIf="f.phoneNo.touched && f.phoneNo.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.phoneNo.errors.required">Phone Number is required</div>
+          <div *ngIf="f.phoneNo.errors.pattern">Numbers Only</div>
         </div>
-        <div class="divider"></div>
-        <div class="row">
-            <div class="input-field col s10 m10 l6 offset-s1 offset-m1 offset-l3">
-                <a (click)="gotoHome()" class="right waves-effect waves-light btn white grey-text">Cancel</a>
-                <button [disabled]="profilefrm.valid==true ? false:true " type="submit"
-                    class="left waves-effect waves-light btn">Save</button>
-            </div>
+      </div>
+      <div class="input-field col s12 m6 l6">
+        <input
+          id="contact-email"
+          type="text"
+          class="validate"
+          name="userProfile.email"
+          [(ngModel)]="userProfile.email"
+          formControlName="email"
+          readonly
+        />
+        <label [ngClass]="{ active: userProfile.email }" for="contact-email"
+          >Email *</label
+        >
+
+        <div
+          *ngIf="f.email.touched && f.email.errors"
+          class="invalid-feedback"
+          class="error"
+        >
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Enter valid email address</div>
         </div>
-    </form>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+      <div class="input-field col s10 m10 l6 offset-s1 offset-m1 offset-l3">
+        <a
+          (click)="gotoHome()"
+          class="right waves-effect waves-light btn white grey-text"
+          >Cancel</a
+        >
+        <button type="submit" class="left waves-effect waves-light btn">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 
 <!-- Modal Structure -->
 <div id="RewardModel" class="modal modal-fixed-footer">
-
-    <div class="modal-content">
-        <h4>Reward Points Summary</h4>
-        <div class="col s6 m6 l6">
-            <div class="input-field">
-                You lost <b>{{PointsSummary.skillsLosePt}}</b> points in <b>Skills Match</b>
-            </div>
-            <div class="input-field">
-                You lost <b>{{PointsSummary.experienceLosePt}}</b> points in <b>Experience Match</b>
-            </div>
-            <div class="input-field">
-                You lost <b>{{PointsSummary.personalityLosePt}} </b> points in <b>Education Match</b>
-            </div>
-        </div>
-        <div class="col s6 m6 l6">
-            <div class="input-field">
-                You earned <b>{{PointsSummary.skillsErn}} </b> points in <b>Skills Match</b>
-            </div>
-            <div class="input-field">
-                You earned <b>{{PointsSummary.experienceEarn}} </b> points in <b>Experience Match</b>
-            </div>
-            <div class="input-field">
-                You earned <b>{{PointsSummary.personalityErn}} </b> points in <b>Education Match</b>
-            </div>
-        </div>
-
+  <div class="modal-content">
+    <h4>Reward Points Summary</h4>
+    <div class="col s6 m6 l6">
+      <div class="input-field">
+        You lost <b>{{ PointsSummary.skillsLosePt }}</b> points in
+        <b>Skills Match</b>
+      </div>
+      <div class="input-field">
+        You lost <b>{{ PointsSummary.experienceLosePt }}</b> points in
+        <b>Experience Match</b>
+      </div>
+      <div class="input-field">
+        You lost <b>{{ PointsSummary.personalityLosePt }} </b> points in
+        <b>Education Match</b>
+      </div>
     </div>
-    <div class="modal-footer">
-        <div class="col s6 m6 l6">
-            <button class="modal-close left waves-effect waves-light btn">Close</button>
-        </div>
+    <div class="col s6 m6 l6">
+      <div class="input-field">
+        You earned <b>{{ PointsSummary.skillsErn }} </b> points in
+        <b>Skills Match</b>
+      </div>
+      <div class="input-field">
+        You earned <b>{{ PointsSummary.experienceEarn }} </b> points in
+        <b>Experience Match</b>
+      </div>
+      <div class="input-field">
+        You earned <b>{{ PointsSummary.personalityErn }} </b> points in
+        <b>Education Match</b>
+      </div>
     </div>
-
+  </div>
+  <div class="modal-footer">
+    <div class="col s6 m6 l6">
+      <button class="modal-close left waves-effect waves-light btn">
+        Close
+      </button>
+    </div>
+  </div>
 </div>

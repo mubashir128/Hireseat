@@ -1,87 +1,134 @@
 <div class="card white hoverable bgLight" style="padding: 13px 30px;">
-  <form [formGroup]="SearchFrm" (ngSubmit)="submit()" novalidate>
+  <form [formGroup]="SearchFrm" novalidate>
     <div class="row">
-      <div class="input-field disFlex col s12 m12 l12" style="text-align: left;">
+      <div
+        class="input-field disFlex col s12 m12 l12"
+        style="text-align: left;"
+      >
         <div class="inputInnerDiv">
           <div class="skillInput">Select the skill sets*</div>
-          <tag-input class="borderBott borderBottN " [(ngModel)]="tags" formControlName="tags" [onlyFromAutocomplete]="true" [placeholder]="''"
-            [secondaryPlaceholder]="''">
-            <tag-input-dropdown [autocompleteItems]="skillSets" [keepOpen]="false" [showDropdownIfEmpty]="true" [dynamicUpdate]="false">
+          <span>Note: select skills from dropdown</span>
+          <tag-input
+            class="borderBott borderBottN "
+            [(ngModel)]="tags"
+            formControlName="tags"
+            [addOnBlur]="true"
+            (onAdd)="onadd($event)"
+            (onRemove)="onadd($event)"
+            [onlyFromAutocomplete]="true"
+            [placeholder]="''"
+            [secondaryPlaceholder]="''"
+          >
+            <tag-input-dropdown
+              [autocompleteItems]="skillSets"
+              [keepOpen]="false"
+              [showDropdownIfEmpty]="true"
+              [dynamicUpdate]="false"
+            >
             </tag-input-dropdown>
           </tag-input>
-          <div *ngIf="(f.tags.touched && f.tags.errors)" class="invalid-feedback" class="error">
+          <!-- <div *ngIf="(f.tags.touched && f.tags.errors)" class="invalid-feedback" class="error">
             <div *ngIf="f.tags.errors.required">Skill sets are required</div>
-          </div>
+          </div> -->
         </div>
-        
-          <div class="center-align wid150">
-            <!-- <a class="waves-effect waves-light btn-flat cancelBtn" [routerLink]="['/recruiter/bidding-event-list']">Cancel</a> -->
-            <button type="submit" class="waves-effect waves-light btn">Search</button>
-          </div>
-      </div>
-      <!-- <div class=" row center-align"> -->
+
+        <!-- <div class="center-align wid150"> -->
         <!-- <a class="waves-effect waves-light btn-flat cancelBtn" [routerLink]="['/recruiter/bidding-event-list']">Cancel</a> -->
         <!-- <button type="submit" class="waves-effect waves-light btn">Search</button> -->
+        <!-- </div> -->
+      </div>
+      <!-- <div class=" row center-align"> -->
+      <!-- <a class="waves-effect waves-light btn-flat cancelBtn" [routerLink]="['/recruiter/bidding-event-list']">Cancel</a> -->
+      <!-- <button type="submit" class="waves-effect waves-light btn">Search</button> -->
       <!-- </div> -->
     </div>
   </form>
 </div>
 
 <div class="resumeBankTable">
-<ul class="table-border">
-    <li  style="cursor:pointer;">
-        <div class="disF">
-            <div class="commonDiv bold">Name</div>
-            <div class="commonDiv bold">Resume</div>
-            <div class="commonDiv bold">Skills</div>
-            <div class="commonDiv bold">Experience</div>
-            <div class="commonDiv bold">Job Post</div>
-            <div class="commonDiv bold">Add To Resume Repository</div>
+  <ul class="table-border">
+    <li style="cursor:pointer;">
+      <div class="disF">
+        <div class="commonDiv bold">Name</div>
+        <div class="commonDiv bold">Resume</div>
+        <div class="commonDiv bold">Skills</div>
+        <div class="commonDiv bold">Experience</div>
+        <div class="commonDiv bold">Job Post</div>
+        <div class="commonDiv bold">Add To Resume Repository</div>
+      </div>
+    </li>
+    <li
+      class="resume-bank-item"
+      *ngFor="
+        let searchedresume of searchedResume
+          | paginate: { itemsPerPage: 10, currentPage: p }
+      "
+    >
+      <div class="parentCommonDF">
+        <div class="commonDiv">
+          {{ searchedresume.firstName }}
+          {{ searchedresume.lastName }}
         </div>
-  </li>
-  <li class="resume-bank-item" *ngFor="let searchedresume of searchedResume | paginate: { itemsPerPage: 10, currentPage: p }">  
-    <div class="parentCommonDF">
-        
-          <div class="commonDiv">
-             {{searchedresume.firstName}}
-             {{searchedresume.lastName}}
-          </div>
-          <div class="commonDiv">
-            <a [attr.href]="transform(searchedresume.resumeUrl)" target="_blank" download>Download Resume</a>
-          </div>
-          <div class="commonDiv">
-            <span *ngFor="let tags of searchedresume.tags">  
-              {{tags.display}}
-            </span>
-          </div>
-          <div class="commonDiv">
-            <span >  
-              {{searchedresume.experience}}
-            </span>
-          </div>
-          <div class="commonDiv">
-              <span *ngIf="searchedresume.jobPostProfieId">  
-                {{searchedresume.jobPostProfieId.jobTitle}}
-              </span>
-             
-            </div>
-          <div class="commonDiv">
-            <button *ngIf="!searchedresume.jobPostProfieId" data-toggle="modal" data-target="#Conformation" (click)="showUploadModel(searchedresume._id)" class="waves-effect waves-light btn">Add</button>
-            <button *ngIf="searchedresume.jobPostProfieId" [disabled]="searchedresume.jobPostProfieId" data-toggle="modal" data-target="#Conformation" class="waves-effect waves-light btn">added</button>
-          </div>   
-         
-    </div> 
-    
-    <div class="divider"></div>  
-  </li>  
-</ul>
-<div class="modal confirmationDiv" id="Conformation">
-  <h3>Confirmation</h3>
-  <p>Are you sure you want to add your resume to resume repository?</p>
-  <div class="btn-group confirmBtnsGroup">
-    <button class="confirmBtn yesBtn" (click)="addToResumeRepo()">YES</button>
-    <button class="confirmBtn noBtn" (click)="closed()">NO</button>
+        <div class="commonDiv">
+          <a
+            [attr.href]="transform(searchedresume.resumeUrl)"
+            target="_blank"
+            download
+            >Download Resume</a
+          >
+        </div>
+        <div class="commonDiv">
+          <span *ngFor="let tags of searchedresume.tags">
+            {{ tags.display }}
+          </span>
+        </div>
+        <div class="commonDiv">
+          <span> {{ searchedresume.experience }} years </span>
+        </div>
+        <div class="commonDiv">
+          <span *ngIf="searchedresume.jobPostProfieId">
+            {{ searchedresume.jobPostProfieId.jobTitle }}
+          </span>
+        </div>
+        <div class="commonDiv">
+          <button
+            *ngIf="
+              !searchedresume.jobPostProfieId &&
+              searchedresume.status == 'pending'
+            "
+            data-toggle="modal"
+            data-target="#Conformation"
+            (click)="showUploadModel(searchedresume._id)"
+            class="waves-effect waves-light btn"
+          >
+            Add
+          </button>
+          <button
+            *ngIf="
+              searchedresume.jobPostProfieId || searchedresume.status == 'added'
+            "
+            [disabled]="
+              searchedresume.jobPostProfieId || searchedresume.status == 'added'
+            "
+            data-toggle="modal"
+            data-target="#Conformation"
+            class="waves-effect waves-light btn"
+          >
+            added
+          </button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+    </li>
+  </ul>
+  <div class="modal confirmationDiv" id="Conformation">
+    <h3>Confirmation</h3>
+    <p>Are you sure you want to add your resume to resume repository?</p>
+    <div class="btn-group confirmBtnsGroup">
+      <button class="confirmBtn yesBtn" (click)="addToResumeRepo()">YES</button>
+      <button class="confirmBtn noBtn" (click)="closed()">NO</button>
+    </div>
   </div>
-</div>    
 </div>
-<pagination-controls (pageChange)="p = $event" ></pagination-controls>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

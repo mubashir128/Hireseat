@@ -24,6 +24,7 @@ export class AllBlogTagComponent implements OnInit {
   blogTagData: any;
   limit = 10;
   meetUpsData: any;
+  viewmore: boolean;
  
   constructor(private _blogservice:BlogService,private route: ActivatedRoute,private _sanitizer: DomSanitizer,private _Userservice: UserService) { }
 
@@ -36,8 +37,12 @@ export class AllBlogTagComponent implements OnInit {
     (error) =>console.log(error))
      this._blogservice.getTagPost(this.tagValue,this.limit).subscribe((res)=>{
     this.blogTagData = res.data;
-  
-  }) 
+    if(this.blogTagData.length%9 == 0 && this.blogTagData.length>0){
+      this.viewmore = true;
+    }else{
+      this.viewmore = false;
+   }
+   }) 
   this._Userservice.getmeetup().subscribe((data)=>{
       
     this.meetUpsData = data;
@@ -52,7 +57,11 @@ export class AllBlogTagComponent implements OnInit {
     var limit = this.pageCount()+10;
     this._blogservice.getTagPost(this.tagValue,limit).subscribe((res)=>{
       this.blogTagData=res.data
-    
+      if(this.blogTagData.length%9 == 0 && this.blogTagData.length>0){
+        this.viewmore = true;
+      }else{
+        this.viewmore = false;
+     }
    
     },
     (error) =>{

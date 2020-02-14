@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
       linkedInLink: [''],
       fullName:['', Validators.compose([Validators.required])],
       phoneNo:['', Validators.compose([Validators.required,Validators.pattern('[0-9]+')])],
-      email:['', Validators.compose([Validators.required,Validators.email])],
+      email:[''],
       file:['', Validators.compose([Validators.required])]
       });
   }
@@ -103,8 +103,12 @@ preview(files) {
 
 }
 onSubmit() {  
-  if(!this.profilefrm.invalid){    
+  console.log(this.profilefrm.invalid);
+  console.log(this.profilefrm.errors);
+  console.log(this.userProfile);
+  if(this.userProfile){    
     this.spinner.show();
+    console.log(this.userProfile);
     this.userService.updateUserProfile(this.userProfile).subscribe((data:any)=>{          
      if(data.result === "OK"){
       this.loggedinUser=this.userService.getUser();    
@@ -131,6 +135,8 @@ onSubmit() {
   });
   }else{
     this.spinner.hide();
+    Materialize.toast('Add valid information !',1000)
+
      return;
   }
  

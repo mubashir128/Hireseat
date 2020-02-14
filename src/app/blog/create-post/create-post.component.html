@@ -1,63 +1,82 @@
 <div class="createpostMainDiv">
   <form [formGroup]="addpost">
-  <div class="row">
-    <div class="col-md-12">
-      <h4 class="heading">Add New video Post</h4>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col m12 s12 l9">
-      <div class="inputDiv">
-        <!-- <input type="text" class="titleEnter" placeholder="Enter title here" name ="" [(ngModel)] ='blogUrl'  (ngModelChange)="blogUrl = unmask($event)" [ngModelOptions]="{standalone: true}" > -->
-        <input type="text" class="titleEnter" placeholder="Enter title here" formControlName="title" (input)="onchange(this.addpost.controls.title.value)">
-        
-        <!-- <div *ngIf="f.title.errors" class="invalid-feedback">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="heading">Add New video Post</h4>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col m12 s12 l9">
+        <div class="inputDiv">
+          <!-- <input type="text" class="titleEnter" placeholder="Enter title here" name ="" [(ngModel)] ='blogUrl'  (ngModelChange)="blogUrl = unmask($event)" [ngModelOptions]="{standalone: true}" > -->
+          <input
+            type="text"
+            class="titleEnter"
+            placeholder="Enter title here"
+            formControlName="title"
+            (input)="onchange(this.addpost.controls.title.value)"
+          />
+
+          <!-- <div *ngIf="f.title.errors" class="invalid-feedback">
             <div *ngIf="f.title.errors.required"> title is required*</div>
         </div> -->
-      
-      </div>
-      <div class="urlDiv">
-          <p><b>Permalink:</b> http://192.168.100.7:4200/blog/<span class="blogurlClass">{{blogUrl}}</span></p>
+        </div>
+        <div class="urlDiv">
+          <p>
+            <b>Permalink:</b> {{ permaLink
+            }}<span class="blogurlClass">{{ blogUrl }}</span>
+          </p>
           <!--<button class="okBtn" (click)="showeditUrl()">Edit</button> -->
-<!--          
+          <!--          
           <div *ngIf="showEditUrl">
             <input type="text" class="titleEnter"  formControlname="editBlogUrl" placeholder="Enter URl here">
             <button class="okBtn">Ok</button><a>Cancel</a>
           </div> -->
-      </div>
-      <!-- <div class="text-left">
+        </div>
+        <!-- <div class="text-left">
         <button class="btn editFusionBuilderBtn">Edit with fusion Builder</button>
       </div>
       <div class="text-left">
           <button class="btn AddMediaBtn">Add Media</button>
       </div> -->
-      <div class="editerDIv">
-        <!-- <textarea rows="10"></textarea> -->
-        <!-- <editor apiKey="mdwbvawcfes6kt8vty75gmpchmbwscurhcux0nfhjg374rpa" [init]="{ selector: 'textarea',
+        <div class="editerDIv">
+          <!-- <textarea rows="10"></textarea> -->
+          <!-- <editor apiKey="mdwbvawcfes6kt8vty75gmpchmbwscurhcux0nfhjg374rpa" [init]="{ selector: 'textarea',
         plugins: 'a11ychecker advcode casechange formatpainter linkchecker lists checklist media mediaembed pageembed permanentpen powerpaste tinycomments tinydrive tinymcespellchecker',
         toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter insertfile pageembed permanentpen',
         toolbar_drawer: 'floating',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name'}" (onSelectionChange)="handleEvent($event)"></editor> -->
-        <!-- <ck-editor name="myckeditor" formControlName="postDescription" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor> -->
+          <!-- <ck-editor name="myckeditor" formControlName="postDescription" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor> -->
 
-         <ckeditor  formControlName="postDescription" name="myckeditor"  required  [config]="ckeConfig" debounce="500">
-            </ckeditor> 
-                <!-- <div *ngIf="(f.jobDescription.touched && f.jobDescription.errors)" class="invalid-feedback"
+          <ckeditor
+            formControlName="postDescription"
+            name="myckeditor"
+            required
+            [config]="ckeConfig"
+            debounce="500"
+          >
+          </ckeditor>
+          <!-- <div *ngIf="(f.jobDescription.touched && f.jobDescription.errors)" class="invalid-feedback"
                     class="error">
                     <div *ngIf="f.jobDescription.errors.required">Job Description is required</div>
                 </div> -->
-
-      </div>
-      <div class="customeKeyword marT">
-        <h4 class="secHead">custome Keyword</h4>
-        <div class="customeText">
+        </div>
+        <div class="customeKeyword marT">
+          <h4 class="secHead">custome Keyword</h4>
+          <div class="customeText">
             <p>First create post for adding keywords.</p>
-         </div>
+          </div>
+        </div>
       </div>
-  </div>
 
-    <div class="col s12 m12 l3">
-        <button class="btn publishBtn" [disabled]="videouploading"  (click)="getData()">Publish</button>
+      <div class="col s12 m12 l3">
+        <button
+          class="btn publishBtn"
+          [disabled]="videouploading"
+          (click)="getData()"
+        >
+          Publish
+        </button>
         <!-- <div class="customeKeyword">
             <h4 class="secHead">Format</h4>
             <div class="customeText">
@@ -105,75 +124,110 @@
              </div>
           </div> -->
 
-          <div class="customeKeyword marT">
-            <h4 class="secHead">Add catagory</h4>
-           
-              <div class="customeText scrollDiv" >
-               
-                  <label class="checkboxL"  formArrayName="categoriesData" *ngFor="let categ of addpost.controls.categoriesData.controls; let i = index">
-                   
-                    <input type="checkbox" [formControlName]="i">
-                    {{ categoriesData[i]?.categoryName }}
-                    <span class="checkmarkC"></span>
-                  </label>
-                  <!-- <div *ngIf="!addpost.valid">At least one order must be selected</div> -->
-                </div>
-               
-            <a *ngIf="showcatbutton" (click)="showAddCatgory()"  class="addCatagoryA">+ Add New Category</a>
-            <div class="addcatagory" *ngIf="showAddCatg">
-              
-              <form [formGroup]="addNewCateg" >
+        <div class="customeKeyword marT">
+          <h4 class="secHead">Add catagory</h4>
 
+          <div class="customeText scrollDiv">
+            <label
+              class="checkboxL"
+              formArrayName="categoriesData"
+              *ngFor="
+                let categ of addpost.controls.categoriesData.controls;
+                let i = index
+              "
+            >
+              <input type="checkbox" [formControlName]="i" />
+              {{ categoriesData[i]?.categoryName }}
+              <span class="checkmarkC"></span>
+            </label>
+            <!-- <div *ngIf="!addpost.valid">At least one order must be selected</div> -->
+          </div>
 
-                <input type="text" class="catagoryText" formControlName="categoryName">
-                    <!-- <select  class="catagoryText">
+          <a
+            *ngIf="showcatbutton"
+            (click)="showAddCatgory()"
+            class="addCatagoryA"
+            >+ Add New Category</a
+          >
+          <div class="addcatagory" *ngIf="showAddCatg">
+            <form [formGroup]="addNewCateg">
+              <input
+                type="text"
+                class="catagoryText"
+                formControlName="categoryName"
+              />
+              <!-- <select  class="catagoryText">
                       <option>new catagory</option>
                       <option>new catagory</option>
                       <option>new catagory</option>
                     </select> -->
-                <div class="btnDiv DiF">
-                  <button class="waves-effect waves-light btn" (click)="addNewCategory()"> Add New Catagory</button>
-                  <button class="waves-effect waves-light btn cancelBtn" (click)="Cancel()"> Cancel</button>
-                </div>
-              </form>  
-            </div>
-
+              <div class="btnDiv DiF">
+                <button
+                  class="waves-effect waves-light btn"
+                  (click)="addNewCategory()"
+                >
+                  Add New Catagory
+                </button>
+                <button
+                  class="waves-effect waves-light btn cancelBtn"
+                  (click)="Cancel()"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
+        </div>
 
-        
-          <div class="customeKeyword marT">
-            <h4 class="secHead">Video</h4>
-            <div class="customeText">
-               
-         
-                <input type="radio"  name="radio"  (change)="getvideo('embedded')" ><span>Video Link</span>&nbsp;&nbsp;     
-               <input type="radio" name="radio"  (change)="getvideo('local')"><span>Video File</span> &nbsp;&nbsp;
-       
-               
-               <div *ngIf="diplayvideo == 'embedded'">
-                <input  type="text" placeholder="enter youtubelink here"  formControlName="Video">
-                <!-- <div *ngIf="addpost.controls['Video'].errors.pattern">youtube url is not valid</div> -->
+        <div class="customeKeyword marT">
+          <h4 class="secHead">Video</h4>
+          <div class="customeText">
+            <input
+              type="radio"
+              name="radio"
+              (change)="getvideo('embedded')"
+            /><span>Video Link</span>&nbsp;&nbsp;
+            <input
+              type="radio"
+              name="radio"
+              (change)="getvideo('local')"
+            /><span>Video File</span> &nbsp;&nbsp;
 
-               </div >
-               <div *ngIf="diplayvideo == 'local'">
-                 <div class="uploadBtnDiv">
-                  <input  type="file" accept='video/*' formControlName="videofile" (change)="previewvideo($event)"  >
-                  <button class="waves-effect waves-light btn uploadBtn"> Upload</button>
-                
-                  
+            <div *ngIf="diplayvideo == 'embedded'">
+              <input
+                type="text"
+                placeholder="enter youtubelink here"
+                formControlName="Video"
+              />
+              <!-- <div *ngIf="addpost.controls['Video'].errors.pattern">youtube url is not valid</div> -->
+            </div>
+            <div *ngIf="diplayvideo == 'local'">
+              <div class="uploadBtnDiv">
+                <input
+                  type="file"
+                  accept="video/*"
+                  formControlName="videofile"
+                  (change)="previewvideo($event)"
+                />
+                <button class="waves-effect waves-light btn uploadBtn">
+                  Upload
+                </button>
+              </div>
+              <div *ngIf="uploadResponse.status == 'progress'">
+                <div
+                  role="progressbar"
+                  class="progress-bar"
+                  [style.width.%]="uploadResponse.message"
+                >
+                  {{ uploadResponse.message }}%
                 </div>
-                <div *ngIf="uploadResponse.status == 'progress'">
-                  <div role="progressbar" class="progress-bar" [style.width.%]="uploadResponse.message" >
-                    {{uploadResponse.message}}%
-                   
-                  </div>
-                  {{uploadResponse.message}}%
-                </div>
-                <h6 *ngIf="uploadResponse.message == 'sucess'">
-                    video uploaded sucessfully......!
-                  </h6>
-                </div>
-             </div>
+                {{ uploadResponse.message }}%
+              </div>
+              <h6 *ngIf="uploadResponse.message == 'sucess'">
+                video uploaded sucessfully......!
+              </h6>
+            </div>
+          </div>
         </div>
         <app-edit-tag (tagListArray)="eventHandler($event)"></app-edit-tag>
 
@@ -192,9 +246,7 @@
                   </div>
             </div>
         </div> -->
-
+      </div>
     </div>
-
-  </div>
   </form>
 </div>

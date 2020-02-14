@@ -1,24 +1,66 @@
 <header>
-    <div class="collection overflowUnset">
-   
-      <a class="collection-item" >Blog Post 
-    
+  <div class="collection overflowUnset">
+    <span class="blog-post">
+      Blog Post
+    </span>
+    <hr />
+    <a class="collection-item-one">
       <div class="listDiv">
         <ul>
-          <!-- <li>All Post</li>
+          <!-- <li>All Post</li> 
           <li>Add New</li>
-          <li>Catagory</li> -->
-          <li><a [routerLink]="['/blog-posts/all-post/']">All Posts</a></li>
-          <li><a [routerLink]="['/blog-posts/create-image-post/']">Add image post</a></li>
-           <li><a [routerLink]="['/blog-posts/create-post/']">Add Video post</a></li> 
-           <li><a [routerLink]="['/blog-posts/create-categories/']">Categories</a></li>
+          <li>Catagory</li>
+         -->
+          <li>
+            <a
+              class="collection-item-one"
+              [routerLinkActive]="'active'"
+              [routerLink]="['/blog-posts/all-post/']"
+            >
+              <span class="text-center">
+                All Posts
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="collection-item-one"
+              [routerLinkActive]="'active'"
+              [routerLink]="['/blog-posts/create-image-post/']"
+            >
+              <span class="text-center">
+                Add image post
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="collection-item-one"
+              [routerLinkActive]="'active'"
+              [routerLink]="['/blog-posts/create-post/']"
+            >
+              <span class="text-center">
+                Add Video post
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="collection-item-one"
+              [routerLinkActive]="'active'"
+              [routerLink]="['/blog-posts/create-categories/']"
+            >
+              <span class="text-center">
+                Categories
+              </span>
+            </a>
+          </li>
         </ul>
       </div>
     </a>
- 
-    <!-- <a class="collection-item" [routerLink]="['/user-list/']"> User List</a> -->
-    
-    <a class="collection-item" (click)="Export()"  >Export Subscriber </a>
 
-    </div>
-  </header>
+    <!-- <a class="collection-item-one" [routerLink]="['/user-list/']"> User List</a> -->
+    <hr />
+    <a class="collection-item-one" (click)="Export()">Export Subscriber </a>
+  </div>
+</header>

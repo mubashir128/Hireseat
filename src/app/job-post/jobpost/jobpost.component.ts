@@ -29,6 +29,7 @@ export class JobpostComponent implements OnInit {
   array: any;
   resume_type: string;
  limit = 6;
+  viewmore: boolean;
   constructor(private bidEventService:BiddingEventService,private router: Router, private route: ActivatedRoute,private userService:UserService,private formBuilder: FormBuilder, private resumeService: ResumeService, private spinner: NgxSpinnerService) 
   {
     this.resume = new ResumeBank();
@@ -36,10 +37,13 @@ export class JobpostComponent implements OnInit {
    }
 
   ngOnInit() {
+    var element = document.getElementsByTagName("ng2-dropdown-menu")
+     element[0].className = 'dropdown'
+   
     this.getSkillset();
     this.newResumeFrm = this.formBuilder.group({
-      firstName: ['', Validators.compose([Validators.required])],
-      lastName: ['', Validators.compose([Validators.required])],
+      firstName: ['', Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z ]*$/)])],
+      lastName: ['', Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z ]*$/)])],
       tags: ['', Validators.required],
       experience: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]+'), Validators.maxLength(2)])]
     });
@@ -47,7 +51,12 @@ export class JobpostComponent implements OnInit {
     // jQuery('#ResuemFrm').modal('close');
     this.bidEventService.getAllJobProfile(this.limit).subscribe((data)=>{        
       this.biddingEvents=data;
-   
+      console.log(this.biddingEvents);
+      if(this.biddingEvents.length%6 == 0 && this.biddingEvents.length>0){
+        this.viewmore = true;
+     }else{
+       this.viewmore = false;
+     }
         
      
        },(error)=>{
@@ -98,7 +107,11 @@ export class JobpostComponent implements OnInit {
      var limit = this.pageCount()+6;
      this.bidEventService.getAllJobProfile(limit).subscribe((data)=>{        
       this.biddingEvents=data;
-   
+      if(this.biddingEvents.length%6 == 0 && this.biddingEvents.length>0){
+        this.viewmore = true;
+     }else{
+       this.viewmore = false;
+     }
         
      
        },(error)=>{

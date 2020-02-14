@@ -76,7 +76,7 @@ export class RecruiterQuestionComponent implements OnInit {
       this.bidEventService.addRecruiterQuetions(info).subscribe((res)=>{
       this.result = res;
         if(this.result.result == "inserted"){
-          Materialize.toast('Quetion Added Successfully', 1000)
+          Materialize.toast('Question added successfully', 1000)
           this.question = '';
           this.bidEventService.getAllQuestions(this.id,this.user.userRole).subscribe((data)=>{
      

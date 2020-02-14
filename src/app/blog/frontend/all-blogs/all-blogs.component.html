@@ -12,7 +12,7 @@
 						<div class="blogDeatialPage">
 							<!-- single BOx -->
 							<div [routerLink]="['/blog/',blog.blogurl]" class="SingleBlock" >
-								<span [ngStyle]="{'background-color': getColors(i) }"  [ngClass]="{'catagorytag': blog.featuredImage || blog.embbedded || blog?.video || embbedded == '','isnotimg': !blog.featuredImage}">{{blog?.categories[0]}}</span>
+								<span [ngStyle]="{'background-color': blog?.categories[0]?.colorCode }"  [ngClass]="{'catagorytag': blog.featuredImage || blog.embbedded || blog?.video || embbedded == '','isnotimg': !blog.featuredImage}">{{blog?.categories[0]?.categoryName}}</span>
 								<div *ngIf="blog.featuredImage" class="postimage">
 									
 									<img src="{{blog.featuredImage}}" >
@@ -35,7 +35,7 @@
 									
 										<h5>{{blog.createdAt.substring(0,10)| date:"dd MMM yyyy"}}</h5>
 										<h4><a [routerLink]="['/blog/',blog.blogurl]">{{blog.title}}</a></h4>
-										<p>Categories:{{blog.categories}}</p>
+										<p>Categories:<span *ngFor="let category of blog.categories">{{category?.categoryName}}, </span></p>
 										<p  [ngClass]="{'isimage': blog.featuredImage || blog.embbedded || blog?.video || embbedded == '','isnotimage': !blog.featuredImage}" [innerHTML]="truncateHTML(blog?.description)"></p>
 									
 									
@@ -64,7 +64,7 @@
 					</div>
 				</div>
 				<div class="text-center">
-					<button class="btn publishBtn" (click)="getMoreData()">Read More</button>
+					<button *ngIf="viewmore" class="btn publishBtn" (click)="getMoreData()">Read More</button>
 				</div>
 			</div>
 			<div class="col s12 m5 l3">
@@ -72,7 +72,7 @@
 					<h5>Library</h5>
 					<div  class="catagoryList"  >
 				
-						<span [ngStyle]="{'background-color': getColors(i) }"  *ngFor="let catg of categoriesData; let i = index "   ><a  [routerLink]="['/blog/categories/',catg.catslug]">{{catg?.categoryName}}</a></span>
+						<span   *ngFor="let catg of categoriesData; let i = index " [ngStyle]="{'background-color': catg?.colorCode }"  ><a  [routerLink]="['/blog/categories/',catg.catslug]">{{catg?.categoryName}}</a></span>
 
 					</div>
 				</div>

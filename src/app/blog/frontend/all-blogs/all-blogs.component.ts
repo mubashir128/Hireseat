@@ -25,7 +25,8 @@ export class AllBlogsComponent implements OnInit {
   url: any;
   meetUpsData: any;
   colorsArray: any[] = ['#0aafff', '#3cb877', '#f26422', '#1a6efa','#1a6efa'];
-  limit = 10;
+  limit = 9;
+  viewmore: boolean;
 
   constructor(private _blogservice:BlogService,private _Userservice: UserService,private _sanitizer: DomSanitizer,private spinner :NgxSpinnerService) { }
 
@@ -39,7 +40,12 @@ export class AllBlogsComponent implements OnInit {
     jQuery('.modal').modal();
     this.spinner.show();
     this._blogservice.getAllBlogPost(this.limit).subscribe((res)=>{
-      this.blogPOstData=res.data
+      this.blogPOstData=res.data;
+      if(this.blogPOstData.length%9 == 0 && this.blogPOstData.length>0){
+        this.viewmore = true;
+     }else{
+       this.viewmore = false;
+     }
   },
     (error) =>{
       console.log(error)
@@ -66,10 +72,15 @@ export class AllBlogsComponent implements OnInit {
   }
 
   getMoreData(){
-    var limit = this.pageCount()+10;
+    var limit = this.pageCount()+9;
     this._blogservice.getAllBlogPost(limit).subscribe((res)=>{
       this.blogPOstData=res.data
     
+      if(this.blogPOstData.length%9 == 0 && this.blogPOstData.length>0){
+        this.viewmore = true;
+     }else{
+       this.viewmore = false;
+     }
    
     },
     (error) =>{

@@ -55,3 +55,7 @@
 h2{
   font-size: 25px !important;
 }
+ng2-dropdown-menu.dropdown {
+  position: relative !important;
+  z-index: 9999 !important;
+}

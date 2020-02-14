@@ -163,7 +163,7 @@
 						<h5>Library</h5>
 						<div  class="catagoryList"  >
 					
-							<span [ngStyle]="{'background-color': getColors(i) }"   *ngFor="let catg of categoriesData; let i = index "   ><a  [routerLink]="['/blog/categories/',catg.catslug]">{{catg?.categoryName}}</a></span>
+							<span *ngFor="let catg of categoriesData; let i = index "  [ngStyle]="{'background-color': catg?.colorCode }" ><a  [routerLink]="['/blog/categories/',catg.catslug]">{{catg?.categoryName}}</a></span>
 	
 						</div>
 					</div>

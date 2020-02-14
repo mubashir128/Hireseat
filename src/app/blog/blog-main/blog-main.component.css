@@ -44,4 +44,5 @@
     background-color: #ffffff;
     width: 100%;
     float: left;
+    min-height: calc(100vh - 467px);
 }

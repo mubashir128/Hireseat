@@ -1,30 +1,40 @@
 <header>
-  <div class="collection overflowUnset">
-    <a class="collection-item" [ngClass]="{'active': tab.selected===true }" *ngFor="let tab of tabs1"
-      (click)="SelectItem(tab.id)" [routerLink]="[tab.id]">{{tab.displayText}}</a>
+  <div class="collection overflowUnset mobileScroll">
+    <a
+      class="collection-item"
+      [ngClass]="{ active: tab.selected === true }"
+      *ngFor="let tab of tabs1"
+      (click)="SelectItem(tab.id)"
+      [routerLink]="[tab.id]"
+      >{{ tab.displayText }}</a
+    >
     <!-- <a class="collection-item" >Blog Post 
 	
 		<div class="listDiv">
 			<ul>
-				<!-- <li>All Post</li>
+				<li>All Post</li>
 				<li>Add New</li>
         <li>Catagory</li> -->
-        <!-- <li><a [routerLink]="['/blog-posts/all-post/']">All Posts</a></li>
+    <!-- <li><a [routerLink]="['/blog-posts/all-post/']">All Posts</a></li>
          <li><a [routerLink]="['/blog-posts/create-post/']">Add New</a></li>
          <li><a [routerLink]="['/blog-posts/create-categories/']">Categories</a></li>
 			</ul>
 		</div>
-	</a> --> 
+	</a> -->
   </div>
 </header>
-<header>
+<header class="hideInMobile">
   <div class="collection">
     <div class="col s12 m12 text-center l12 rewarDiv padd15">
-      <a><img src="assets/img/reward_points.png" height="50px" width="50px"></a>
-      <label for="company-reward">Ranking</label>
-      <h5 id="recruiter-rewards" class="mar0">{{userProfile.ranking}} </h5>
+      <a
+        ><img src="assets/img/reward_points.png" height="50px" width="50px"
+      /></a>
+      <label for="company-reward">Ranking </label>
+      <h5 id="recruiter-rewards" class="mar0">{{ userProfile.ranking }}</h5>
       <label for="company-reward">Total Recruiter Score</label>
-      <h5 id="recruiter-rewards" class="mar0">{{userProfile.ratingPoints}} </h5>
+      <h5 id="recruiter-rewards" class="mar0">
+        {{ userProfile.ratingPoints }}
+      </h5>
     </div>
   </div>
   <div class="collection">
@@ -32,22 +42,44 @@
       <!-- <a (click)="showSummary()" ><img src="assets/img/reward_points.png" height="100" width="100"></a>
        <label (click)="showSummary()" for="company-reward">Reward Points</label> -->
       <!-- <h5 id="recruiter-rewards">{{userProfile.ratingPoints}} </h5> -->
-      <img src="assets/img/greenArrow.png" class="greenArrowIcon">
-      <h4><b>Skill Matches</b> : <b> {{PointsSummary.skillsErn}} </b></h4>
-      <h4><b>Experience Matches</b> : <b> {{PointsSummary.experienceEarn}} </b> </h4>
-      <h4><b>Education Matches</b> : <b> {{PointsSummary.personalityErn}} </b> </h4>
-      <h4><b>Interviews Requested</b> : <b> {{PointsSummary.resumeErn}} </b> </h4>
-      <h4><b>Hires</b> : <b> {{PointsSummary.interViewErn}} </b> </h4>
+      <img src="assets/img/greenArrow.png" class="greenArrowIcon" />
+      <h4>
+        <b>Skill Matches</b> : <b> {{ PointsSummary.skillsErn }} </b>
+      </h4>
+      <h4>
+        <b>Experience Matches</b> : <b> {{ PointsSummary.experienceEarn }} </b>
+      </h4>
+      <h4>
+        <b>Education Matches</b> : <b> {{ PointsSummary.personalityErn }} </b>
+      </h4>
+      <h4>
+        <b>Interviews Requested</b> : <b> {{ PointsSummary.resumeErn }} </b>
+      </h4>
+      <h4>
+        <b>Hires</b> : <b> {{ PointsSummary.interViewErn }} </b>
+      </h4>
     </div>
   </div>
   <div class="collection">
     <div class="col s12 m12 text-center l12 rewarDiv padd15">
-      <img src="assets/img/redArrow.png" class="redArrowIcon">
-      <h4><b>Skill Mismatches</b> : <b> {{PointsSummary.skillsLosePt}}</b></h4>
-      <h4> <b>Experience Mismatches</b> : <b> {{PointsSummary.experienceLosePt}}</b> </h4>
-      <h4> <b>Education Mismatches</b> : <b> {{PointsSummary.personalityLosePt}} </b></h4>
-      <h4> <b>Resumes Rejected </b> : <b> {{PointsSummary.resumeLosePt}}</b> </h4>
-      <h4> <b>Interviews lost</b> : <b> {{PointsSummary.interViewLosePt}} </b></h4>
+      <img src="assets/img/redArrow.png" class="redArrowIcon" />
+      <h4>
+        <b>Skill Mismatches</b> : <b> {{ PointsSummary.skillsLosePt }}</b>
+      </h4>
+      <h4>
+        <b>Experience Mismatches</b> :
+        <b> {{ PointsSummary.experienceLosePt }}</b>
+      </h4>
+      <h4>
+        <b>Education Mismatches</b> :
+        <b> {{ PointsSummary.personalityLosePt }} </b>
+      </h4>
+      <h4>
+        <b>Resumes Rejected </b> : <b> {{ PointsSummary.resumeLosePt }}</b>
+      </h4>
+      <h4>
+        <b>Interviews lost</b> : <b> {{ PointsSummary.interViewLosePt }} </b>
+      </h4>
     </div>
   </div>
 </header>
@@ -58,55 +90,68 @@
     <h4 class="popHead">Reward Points Summary</h4>
     <div class="col s6 m6 l6 borR">
       <div class="col s12 text-center marTB15">
-        <img src="assets/img/greenArrow.png" class="greenArrowIcon">
+        <img src="assets/img/greenArrow.png" class="greenArrowIcon" />
       </div>
       <div class="col s4 borR commonDivDF">
         <div class=" aliC">
-          <h4><b>{{PointsSummary.skillsErn}} </b></h4>
-          <h4><b>Skills Match</b> </h4>
+          <h4>
+            <b>{{ PointsSummary.skillsErn }} </b>
+          </h4>
+          <h4><b>Skills Match</b></h4>
         </div>
       </div>
       <div class="col s4 borR commonDivDF">
         <div class=" aliC">
-          <h4><b>Experience Match</b> <b>{{PointsSummary.experienceEarn}} </b> </h4>
-          <h4> </h4>
+          <h4>
+            <b>Experience Match</b> <b>{{ PointsSummary.experienceEarn }} </b>
+          </h4>
+          <h4></h4>
         </div>
       </div>
       <div class="col s4 commonDivDF">
         <div class=" aliC">
-          <h4><b>Education Match</b><b>{{PointsSummary.personalityErn}} </b> </h4>
-          <h4> </h4>
+          <h4>
+            <b>Education Match</b><b>{{ PointsSummary.personalityErn }} </b>
+          </h4>
+          <h4></h4>
         </div>
       </div>
     </div>
     <div class="col s6 m6 l6 ">
       <div class="col s12 text-center marTB15">
-        <img src="assets/img/redArrow.png" class="redArrowIcon">
+        <img src="assets/img/redArrow.png" class="redArrowIcon" />
       </div>
       <div class="col s4 borR commonDivDF">
         <div class=" aliC">
-          <h4><b>Skills Match</b> <b>{{PointsSummary.skillsLosePt}}</b></h4>
-          <h4><b>Skills Match</b> </h4>
+          <h4>
+            <b>Skills Match</b> <b>{{ PointsSummary.skillsLosePt }}</b>
+          </h4>
+          <h4><b>Skills Match</b></h4>
         </div>
       </div>
       <div class="col s4 borR commonDivDF">
         <div class=" aliC">
-          <h4> <b>Experience Match</b> <b>{{PointsSummary.experienceLosePt}}</b> </h4>
-          <h4> </h4>
+          <h4>
+            <b>Experience Match</b> <b>{{ PointsSummary.experienceLosePt }}</b>
+          </h4>
+          <h4></h4>
         </div>
       </div>
       <div class="col s4 commonDivDF">
         <div class=" aliC">
-          <h4> <b>Education Match</b> <b>{{PointsSummary.personalityLosePt}} </b></h4>
-          <h4> </h4>
+          <h4>
+            <b>Education Match</b> <b>{{ PointsSummary.personalityLosePt }} </b>
+          </h4>
+          <h4></h4>
         </div>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <div class="col s6 m6 l6">
-      <button class="modal-close left waves-effect waves-light btn">Close</button>
+      <button class="modal-close left waves-effect waves-light btn">
+        Close
+      </button>
     </div>
   </div>
-
 </div>

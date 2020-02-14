@@ -12,6 +12,10 @@
     min-width: 82px;
     padding: 0 1rem;
 }
+.inputInnerDiv span{
+    color: #FF9800;
+    font-weight: bold;
+}
 .disF{
     display: flex;
     align-items: center;

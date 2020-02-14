@@ -31,6 +31,7 @@
                                     autocomplete="off" (focus)="focusFunction($event)" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" />
                                 <div *ngIf="login.controls['email'].hasError('required')" class="error">Please Enter
                                     Email id</div>
+                                <div *ngIf="login.controls['email'].hasError('pattern')" class="error">Please Enter valid email id</div>
                                     <div  *ngIf="status == 'emailnotfound'"  class="error">Email not register.</div>
                                 <label for="email">Email</label>
                             </div>

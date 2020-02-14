@@ -100,10 +100,10 @@ export class SinglePageComponent implements OnInit{
       this.singleBlogData=res.data;
       
       this.reletedpostcategory = res.data.categories;
-    
-     
-
-      this._blogService.getBlogByCategory(this.reletedpostcategory,this.limit).subscribe((res)=>{
+ 
+    let result = res.data.categories.map(a => a.catslug);
+  
+      this._blogService.getBlogByCategory(result,this.limit).subscribe((res)=>{
         this.array = res.data;
       })
    // video uplodad   

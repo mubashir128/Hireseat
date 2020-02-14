@@ -1,106 +1,227 @@
 <div style="background:#f5f5f5; height:100%;min-height:100vh; padding-top:4vh;">
-  <div class="center-align" style="margin-bottom:30px;cursor: pointer;"> <a [routerLink]="['/']"><img
-        src="assets/img/navbar-logo.png"></a>
+  <div class="center-align" style="margin-bottom:30px;cursor: pointer;">
+    <a [routerLink]="['/']"><img src="assets/img/navbar-logo.png"/></a>
   </div>
 
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l6  offset-m2 offset-l3">
         <div class="card row" style="padding:30px;">
-
-          <form novalidate (ngSubmit)="formSubmit()" role="form" [formGroup]="signin" *ngIf="UserRoleSet">
+          <form
+            novalidate
+            (ngSubmit)="formSubmit()"
+            role="form"
+            [formGroup]="signin"
+            *ngIf="UserRoleSet"
+          >
             <div class="row">
-              <div class="page-title" *ngIf="localRole=='employer'"> Create Employer Account </div>
-              <div class="page-title" *ngIf="localRole=='recruiter'"> Create Recruiter Account </div>
+              <div class="page-title" *ngIf="localRole == 'employer'">
+                Create Employer Account
+              </div>
+              <div class="page-title" *ngIf="localRole == 'recruiter'">
+                Create Recruiter Account
+              </div>
               <div class="divider"></div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input class="form-control" type="text" name="fullname" formControlName="fullname" autocomplete="off" />
+                <input
+                  class="form-control"
+                  type="text"
+                  name="fullname"
+                  formControlName="fullname"
+                  autocomplete="off"
+                />
                 <label for="name">Full Name</label>
-                <div *ngIf="signin.controls['fullname'].hasError('required')" class="error">Please Enter Full Name</div>
-
+                <div
+                  *ngIf="signin.controls['fullname'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Full Name
+                </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input type="email" class="form-control" name="email" formControlName="email"
-                  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" autocomplete="off" />
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  formControlName="email"
+                  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                  autocomplete="off"
+                />
                 <label for="email">Email</label>
-                <div *ngIf="signin.controls['email'].hasError('required')" class="error">Please Enter Email</div>
-                <div *ngIf="signin.controls['email'].hasError('pattern')" class="error">Please Enter Valid Email</div>
+                <div
+                  *ngIf="signin.controls['email'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Email
+                </div>
+                <div
+                  *ngIf="signin.controls['email'].hasError('pattern')"
+                  class="error"
+                >
+                  Please Enter Valid Email
+                </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input type="text" class="form-control" name="phoneNo" formControlName="phoneNo" pattern="[0-9]+"
-                maxlength="10"minlength="10"  autocomplete="off" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="phoneNo"
+                  formControlName="phoneNo"
+                  pattern="[0-9]+"
+                  maxlength="10"
+                  minlength="10"
+                  autocomplete="off"
+                />
                 <label for="phoneNumber">Phone Number</label>
-                <div *ngIf="signin.controls['phoneNo'].hasError('required')" class="error">Please Enter Phone Number
+                <div
+                  *ngIf="signin.controls['phoneNo'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Phone Number
                 </div>
-                <div *ngIf="signin.controls['phoneNo'].hasError('pattern') ||signin.controls['phoneNo'].hasError('minlength') " class="error">Please Enter Valid Phone
-                  Number</div>
+                <div
+                  *ngIf="
+                    signin.controls['phoneNo'].hasError('pattern') ||
+                    signin.controls['phoneNo'].hasError('minlength')
+                  "
+                  class="error"
+                >
+                  Please Enter Valid Phone Number
+                </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input type="text" class="form-control" name="companyName" formControlName="companyName"
-                  autocomplete="off" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="companyName"
+                  formControlName="companyName"
+                  autocomplete="off"
+                />
                 <label for="company-name">Company Name</label>
-                <div *ngIf="signin.controls['companyName'].hasError('required')" class="error">Please Enter Company Name
+                <div
+                  *ngIf="signin.controls['companyName'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Company Name
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input type="text" class="form-control" name="webSiteLink" formControlName="webSiteLink"
-                  autocomplete="off" />
-                <div *ngIf="signin.controls['webSiteLink'].hasError('required')" class="error">Please Enter Web Site
+                <input
+                  type="text"
+                  class="form-control"
+                  name="webSiteLink"
+                  formControlName="webSiteLink"
+                  autocomplete="off"
+                />
+                <div
+                  *ngIf="signin.controls['webSiteLink'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Web Site
                 </div>
                 <label for="website-link">Website Link</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input type="password" class="form-control" name="password" formControlName="password" minlength="5"
-                  autocomplete="off" />
-                <div *ngIf="signin.controls['password'].hasError('required')" class="error">Please Enter Password</div>
-                <div *ngIf="signin.controls['password'].hasError('minlength')" class="error">Please Enter Minimum 5 Char
-                  password </div>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  formControlName="password"
+                  minlength="5"
+                  autocomplete="off"
+                />
+                <div
+                  *ngIf="signin.controls['password'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Password
+                </div>
+                <div
+                  *ngIf="signin.controls['password'].hasError('minlength')"
+                  class="error"
+                >
+                  Please Enter Minimum 5 Char password
+                </div>
                 <label for="password">Password</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12 ">
-                  <label for="image" class="choseLabel">Profile Image</label>
-                  <div class="uploadBtnDiv">
-                    <input #file type="file" accept='image/*' formControlName="file" (change)="preview(file.files)" />
-                    <button class="uploadBtn">choose profile image</button>
-                  </div>
-                 <img [src]="imgURL" height="200" *ngIf="imgURL" height="50px" width="50px">
-                <div *ngIf="signin.controls['file'].hasError('required')" class="error">Please Select image</div>
-               
-              
+                <label for="image" class="choseLabel">Profile Image</label>
+                <div class="uploadBtnDiv">
+                  <input
+                    #file
+                    type="file"
+                    accept="image/*"
+                    formControlName="file"
+                    (change)="preview(file.files)"
+                  />
+                  <button class="uploadBtn">choose profile image</button>
+                </div>
+                <img
+                  [src]="imgURL"
+                  height="200"
+                  *ngIf="imgURL"
+                  height="50px"
+                  width="50px"
+                />
+                <div
+                  *ngIf="signin.controls['file'].hasError('required')"
+                  class="error"
+                >
+                  Please Select image
+                </div>
               </div>
             </div>
-            <div class="row">
-              <a style="cursor:pointer" (click)="showTermsAndCond()">Please Accept Terms & Conditions to register</a>
+            <div class="row terms-conditions">
+              <div>
+                <input
+                  type="checkbox"
+                  class="filled-in"
+                  id="acceptTermsUnread"
+                  [(ngModel)]="acceptedTermsCondUnread"
+                  (click)="unReadTermsAndConditions()"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <label for="acceptTermsUnread"></label>
+              </div>
+              <a style="cursor:pointer" (click)="showTermsAndCond()"
+                >Please Accept Terms & Conditions to register</a
+              >
               <!-- <input type="checkbox" class="filled-in" id="acceptTerms" name="acceptedTermsCond" />
               <label for="acceptTerms" (click)="showTermsAndCond()">I accept the terms and conditions.</label>  -->
             </div>
             <div class="row  center-align">
-              <button type="submit" [disabled]="!suBtnActive" class="waves-effect waves-light commonBlueBtnN">
-                <span *ngIf="suBtnActive " >Register</span>
+              <button
+                type="submit"
+                [disabled]="!suBtnActive"
+                class="waves-effect waves-light commonBlueBtnN"
+              >
+                <span *ngIf="suBtnActive">Register</span>
                 <!-- <i *ngIf="!suBtnActive" class="fa fa-spinner fa-spin" style="font-size:24px"></i> -->
                 <!-- <span *ngIf="!suBtnActive">please fill all field</span> -->
               </button>
+            </div>
+            <div class="row  center-align">
+              <a style="cursor:pointer" routerLink="/home">Home</a>
             </div>
           </form>
           <div *ngIf="!UserRoleSet">
             Hello,Please Select User Type (Employer/Recruiter)
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -109,497 +230,736 @@
 <!-- Show Register message -->
 
 <div id="registerMsg" class="modal modal-fixed-footer custFooterModal msgBox">
-    <h4 class="msgHead">Registration</h4>
+  <h4 class="msgHead">Registration</h4>
   <div class="modal-content terms msgContain">
-    
-    <h4 class="regMSG" >Thank you for registering!</h4> 
-    <h4 class="regMSG" >Please activate your account using the link sent to your email.</h4>
-
+    <h4 class="regMSG">Thank you for registering!</h4>
+    <h4 class="regMSG">
+      Please activate your account using the link sent to your email.
+    </h4>
   </div>
   <div class="modal-footer">
-    <div class="col s6 m6 l6 text-center" > 
-      <button class="modal-close  waves-effect waves-light btn " (click)="goHome()"> Ok </button>
+    <div class="col s6 m6 l6 text-center">
+      <button
+        class="modal-close  waves-effect waves-light btn "
+        (click)="goHome()"
+      >
+        Ok
+      </button>
     </div>
   </div>
-
 </div>
 
 <!-- // -->
 
 <!-- Term and Condition Model  -->
-<div id="TermsAndCond" class="modal modal-fixed-footer custFooterModal termAndCondition">
+<div
+  id="TermsAndCond"
+  class="modal modal-fixed-footer custFooterModal termAndCondition"
+>
   <div class="modal-content terms">
     <h4 class="popHead">Terms And Conditions</h4>
     <h5>
-      Terms of Service</h5>
+      Terms of Service
+    </h5>
 
-    <h4> LAST UPDATED: March 1, 2019</h4>
+    <h4>LAST UPDATED: March 1, 2019</h4>
 
-    <p> Please read these Terms of Service completely using www.hireseat.com which is owned and operated by HireSeat
-      LLC. This Agreement documents the legally binding terms and conditions attached to the use of the Site at
-      www.hireseat.com.
-      By using or accessing the Site in any way, viewing or browsing the Site, or adding your own content to the Site,
-      you are agreeing to be bound by these Terms of Service.
+    <p>
+      Please read these Terms of Service completely using www.hireseat.com which
+      is owned and operated by HireSeat LLC. This Agreement documents the
+      legally binding terms and conditions attached to the use of the Site at
+      www.hireseat.com. By using or accessing the Site in any way, viewing or
+      browsing the Site, or adding your own content to the Site, you are
+      agreeing to be bound by these Terms of Service.
     </p>
     <p>
-      By using or accessing www.hireseat.com in any way, viewing or browsing the Site, or adding your own content to the
-      Site, you are agreeing to be bound by these Terms of Service.
+      By using or accessing www.hireseat.com in any way, viewing or browsing the
+      Site, or adding your own content to the Site, you are agreeing to be bound
+      by these Terms of Service.
     </p>
     <p>
-      Our Privacy Policy that can be found here. By indicating your agreement to this Agreement, you are consenting to
-      have your personal data used by us as set forth in the Privacy Policy.
+      Our Privacy Policy that can be found here. By indicating your agreement to
+      this Agreement, you are consenting to have your personal data used by us
+      as set forth in the Privacy Policy.
     </p>
 
-    <h4> Your Account</h4>
-    <p> In order to access and use the Services, you must activate an account. You may never use another user’s account
-      without permission. During the onboarding process, you will have to provide your name, email address, and company
-      name, and you will be asked to create a password for your account. You represent and warrant that all registration
-      information you submit to us is truthful, complete and accurate, and you will maintain the accuracy of such
-      information. You are solely responsible for the confidentiality of your account and for the activity that occurs
-      on the account, and you must keep your account password secure. You are responsible for ensuring that all
-      Authorised Users are aware of the terms and conditions of these Terms of Service, and that they comply with them.
-      We encourage you to use “strong” passwords (passwords that use a combination of upper and lower case letters,
-      numbers and symbols) with your account. You will promptly inform us of any need to deactivate your account. We
-      reserve the right to delete or change your account at any time and for any reason. We are under no obligation to
-      accept any individual, and may accept or reject any registration in our sole and complete discretion. You must
-      notify us immediately of any actual or suspected breach of security or unauthorised use of your account by sending
-      an email to contact@hireseat.com. HireSeat will not be liable for any losses caused by any unauthorised use of
-      your account.
+    <h4>Your Account</h4>
+    <p>
+      In order to access and use the Services, you must activate an account. You
+      may never use another user’s account without permission. During the
+      onboarding process, you will have to provide your name, email address, and
+      company name, and you will be asked to create a password for your account.
+      You represent and warrant that all registration information you submit to
+      us is truthful, complete and accurate, and you will maintain the accuracy
+      of such information. You are solely responsible for the confidentiality of
+      your account and for the activity that occurs on the account, and you must
+      keep your account password secure. You are responsible for ensuring that
+      all Authorised Users are aware of the terms and conditions of these Terms
+      of Service, and that they comply with them. We encourage you to use
+      “strong” passwords (passwords that use a combination of upper and lower
+      case letters, numbers and symbols) with your account. You will promptly
+      inform us of any need to deactivate your account. We reserve the right to
+      delete or change your account at any time and for any reason. We are under
+      no obligation to accept any individual, and may accept or reject any
+      registration in our sole and complete discretion. You must notify us
+      immediately of any actual or suspected breach of security or unauthorised
+      use of your account by sending an email to contact@hireseat.com. HireSeat
+      will not be liable for any losses caused by any unauthorised use of your
+      account.
     </p>
     <h4>Services</h4>
-    <p> All users may use the Web Site and the Services solely for their own use. You may not modify, copy, distribute,
-      re-publish, transmit, display, perform, reproduce, publish, reuse, resell, license, create derivative works from,
-      transfer, or sell any information, content, material, software, products or services obtained from the Web Site or
-      through the Services. We reserve all of our statutory and common law rights against any person or entity who
-      violates this paragraph. You may not link or frame to any pages of the Web Site or any content contained therein,
-      whether in whole or in part, without prior written consent from us. Any rights not expressly granted herein are
-      reserved.
+    <p>
+      All users may use the Web Site and the Services solely for their own use.
+      You may not modify, copy, distribute, re-publish, transmit, display,
+      perform, reproduce, publish, reuse, resell, license, create derivative
+      works from, transfer, or sell any information, content, material,
+      software, products or services obtained from the Web Site or through the
+      Services. We reserve all of our statutory and common law rights against
+      any person or entity who violates this paragraph. You may not link or
+      frame to any pages of the Web Site or any content contained therein,
+      whether in whole or in part, without prior written consent from us. Any
+      rights not expressly granted herein are reserved.
     </p>
-    <p>You agree that your use of the Web Site and the Services is subject to all applicable local, state and federal
-      laws and regulations. You also agree:
+    <p>
+      You agree that your use of the Web Site and the Services is subject to all
+      applicable local, state and federal laws and regulations. You also agree:
     </p>
     <div class="agree">
-      <p> not to use the Web Site or the Services or submit content to the Web Site if you are under the age of 18;</p>
-      <p>not to access the Web Site using a third-party's account/registration without the express consent of the
-        account holder;</p>
-      <p> not to use the Web Site or the Services for illegal purposes;</p>
-      <p> not to use the Web Site or Services to engage in commercial activities, except those activities contemplated
-        by the Services;</p>
-      <p> not to copy any content from the Web Site for republication in print or online;</p>
-      <p> not to attempt to gain unauthorized access to other computer systems from or through the Web Site or the
-        Services;</p>
-      <p>not to interfere with another person's use and enjoyment of the Web Site or the Services or another entity's
-        use and enjoyment of the Web Site or the Services;
+      <p>
+        not to use the Web Site or the Services or submit content to the Web
+        Site if you are under the age of 18;
       </p>
-      <p> not to use robots, spiders or any other automatic device to copy, transmit or use in any form the content of
-        the Web Site, including resumes, posted jobs, profiles of candidates seeking Employment Opportunities, or any
-        other pages or content on the Web Site;
+      <p>
+        not to access the Web Site using a third-party's account/registration
+        without the express consent of the account holder;
+      </p>
+      <p>not to use the Web Site or the Services for illegal purposes;</p>
+      <p>
+        not to use the Web Site or Services to engage in commercial activities,
+        except those activities contemplated by the Services;
+      </p>
+      <p>
+        not to copy any content from the Web Site for republication in print or
+        online;
+      </p>
+      <p>
+        not to attempt to gain unauthorized access to other computer systems
+        from or through the Web Site or the Services;
+      </p>
+      <p>
+        not to interfere with another person's use and enjoyment of the Web Site
+        or the Services or another entity's use and enjoyment of the Web Site or
+        the Services;
+      </p>
+      <p>
+        not to use robots, spiders or any other automatic device to copy,
+        transmit or use in any form the content of the Web Site, including
+        resumes, posted jobs, profiles of candidates seeking Employment
+        Opportunities, or any other pages or content on the Web Site;
       </p>
       <p>not to upload obscene or pornographic material;</p>
-      <p>not to upload or transmit viruses or other harmful, disruptive or destructive files; and/or</p>
-      <p>not to disrupt, interfere with, or otherwise harm or violate the security of the Web Site or the Services, or
-        any system resources, accounts, user IDs, passwords, servers or networks connected to or accessible through the
-        Web Site or affiliated or linked sites (including those of our partners).
+      <p>
+        not to upload or transmit viruses or other harmful, disruptive or
+        destructive files; and/or
+      </p>
+      <p>
+        not to disrupt, interfere with, or otherwise harm or violate the
+        security of the Web Site or the Services, or any system resources,
+        accounts, user IDs, passwords, servers or networks connected to or
+        accessible through the Web Site or affiliated or linked sites (including
+        those of our partners).
       </p>
     </div>
-    <p>For Employers using the Services and the Web Site, you agree to use the Services and the Web Site solely to look
-      for potential candidates for specific Employment Opportunities and for no other purposes. Furthermore, you agree
-      that you will not:
+    <p>
+      For Employers using the Services and the Web Site, you agree to use the
+      Services and the Web Site solely to look for potential candidates for
+      specific Employment Opportunities and for no other purposes. Furthermore,
+      you agree that you will not:
     </p>
     <ul class="listTerm">
-      <li> take any action which imposes an unreasonable or disproportionately large load on the Web Site
-        infrastructure; or</li>
+      <li>
+        take any action which imposes an unreasonable or disproportionately
+        large load on the Web Site infrastructure; or
+      </li>
 
-      <li> contact the Web Site’s users (e.g., other Employers, Independent Recruiters, Employment Opportunity
-        candidates, etc.) through unsolicited e-mail, telephone calls, mailings or any other method of communication to
-        sell goods or services other than Employment Opportunities contemplated by you or our users.
+      <li>
+        contact the Web Site’s users (e.g., other Employers, Independent
+        Recruiters, Employment Opportunity candidates, etc.) through unsolicited
+        e-mail, telephone calls, mailings or any other method of communication
+        to sell goods or services other than Employment Opportunities
+        contemplated by you or our users.
       </li>
     </ul>
-    <h4> User Provided Content</h4>
-    <p>The Web Site allows you and others to post, transmit, display, publish, distribute, or otherwise submit user
-      generated material including, but not limited to, Employment Opportunity postings and resumes (collectively,
+    <h4>User Provided Content</h4>
+    <p>
+      The Web Site allows you and others to post, transmit, display, publish,
+      distribute, or otherwise submit user generated material including, but not
+      limited to, Employment Opportunity postings and resumes (collectively,
       "Submissions"). You agree not to create any Submission that:
     </p>
     <div class="agree">
-      <p>is incomplete, false or inaccurate, including without limitation, resume information or information which is
-        inaccurate;
+      <p>
+        is incomplete, false or inaccurate, including without limitation, resume
+        information or information which is inaccurate;
       </p>
-      <p> is or represents a franchise, pyramid scheme, change letter, "club membership", distributorship or sales
-        representative agency agreement or other business opportunity which requires an up-front or periodic payment,
-        pays commissions only (no significant salary) or requires recruitment of other members, sub-distributors or
-        sub-agents;
+      <p>
+        is or represents a franchise, pyramid scheme, change letter, "club
+        membership", distributorship or sales representative agency agreement or
+        other business opportunity which requires an up-front or periodic
+        payment, pays commissions only (no significant salary) or requires
+        recruitment of other members, sub-distributors or sub-agents;
       </p>
-      <p> imposes an unreasonable or disproportionately large load on the Web Site infrastructure;</p>
-      <p>includes a false profile or resume for the purpose of soliciting recruiting assignments from Employer
-        subscribers who are posting jobs on the Web Site;
+      <p>
+        imposes an unreasonable or disproportionately large load on the Web Site
+        infrastructure;
       </p>
-      <p> contains vulgar, profane, abusive, hateful, or sexually explicit language, epithets or slurs, text in poor
-        taste, inflammatory attacks of a personal, sexual, racial or religious nature, or expressions of bigotry,
-        racism, discrimination or hate;
+      <p>
+        includes a false profile or resume for the purpose of soliciting
+        recruiting assignments from Employer subscribers who are posting jobs on
+        the Web Site;
       </p>
-      <p>is defamatory, threatening, disparaging, false, misleading, deceptive, fraudulent, inaccurate, or unfair,
-        contains gross exaggeration or unsubstantiated claims, violates the privacy rights or right of publicity of any
-        third party, is unreasonably harmful or offensive to any individual or community, contains any actionable
-        statement, or tends to mislead or reflect unfairly on any other person, business or entity;
+      <p>
+        contains vulgar, profane, abusive, hateful, or sexually explicit
+        language, epithets or slurs, text in poor taste, inflammatory attacks of
+        a personal, sexual, racial or religious nature, or expressions of
+        bigotry, racism, discrimination or hate;
       </p>
-      <p>unfairly interferes with any third party's uninterrupted use and enjoyment of the Web Site or the Services;
+      <p>
+        is defamatory, threatening, disparaging, false, misleading, deceptive,
+        fraudulent, inaccurate, or unfair, contains gross exaggeration or
+        unsubstantiated claims, violates the privacy rights or right of
+        publicity of any third party, is unreasonably harmful or offensive to
+        any individual or community, contains any actionable statement, or tends
+        to mislead or reflect unfairly on any other person, business or entity;
       </p>
-      <p>contains copyrighted content (copyrighted articles, illustrations, images, text, or other content) without the
-        express permission of the owner of the copyrights in the content;
+      <p>
+        unfairly interferes with any third party's uninterrupted use and
+        enjoyment of the Web Site or the Services;
       </p>
-      <p>constitutes, promotes or encourages illegal acts, the violation of any right of any individual or entity, the
-        violation of any local, state, national or international law, rule, guideline or regulation, or otherwise
-        creates liability;
+      <p>
+        contains copyrighted content (copyrighted articles, illustrations,
+        images, text, or other content) without the express permission of the
+        owner of the copyrights in the content;
       </p>
-      <p> discloses any personal identifying information relating to or images of a minor;
+      <p>
+        constitutes, promotes or encourages illegal acts, the violation of any
+        right of any individual or entity, the violation of any local, state,
+        national or international law, rule, guideline or regulation, or
+        otherwise creates liability;
       </p>
-      <p>infringes any copyright, trademark, patent, trade secret, or other intellectual property right;</p>
-      <p> contains viruses or other harmful, disruptive or destructive files;</p>
-      <p> links to any commercial or other website (except that Employers may provide informative links to the
-        sponsoring entity’s web site); and/or
+      <p>
+        discloses any personal identifying information relating to or images of
+        a minor;
+      </p>
+      <p>
+        infringes any copyright, trademark, patent, trade secret, or other
+        intellectual property right;
+      </p>
+      <p>contains viruses or other harmful, disruptive or destructive files;</p>
+      <p>
+        links to any commercial or other website (except that Employers may
+        provide informative links to the sponsoring entity’s web site); and/or
       </p>
       <p>is not otherwise in compliance with these Terms of Service.</p>
     </div>
-    <P>Each time you provide a Submission to the Web Site, you represent and warrant that you have the right to provide
-      such Submission, which means that you represent and warrant that:
+    <P
+      >Each time you provide a Submission to the Web Site, you represent and
+      warrant that you have the right to provide such Submission, which means
+      that you represent and warrant that:
     </P>
     <div class="agree">
       <P>you are the author of the Submission, or</P>
       <P> the Submission is not protected by copyright law, or</P>
-      <P>you have express permission from the copyright owner to use the Submission in connection with the Web Site; and
+      <P
+        >you have express permission from the copyright owner to use the
+        Submission in connection with the Web Site; and
       </P>
-      <p> you have the right to grant us the license set out in these Terms of Service;</p>
-      <p>your use of the Web Site and Submission(s) do not violate these Terms of Service.</p>
-
+      <p>
+        you have the right to grant us the license set out in these Terms of
+        Service;
+      </p>
+      <p>
+        your use of the Web Site and Submission(s) do not violate these Terms of
+        Service.
+      </p>
     </div>
-    <p> You grant us and our affiliates and related entities a royalty-free, perpetual, irrevocable, non-exclusive right
-      and license to use, copy, modify, display, archive, store, publish, transmit, perform, distribute, reproduce and
-      create derivative works from all Submissions you provide to us in any form, media, software or technology of any
-      kind now existing or developed in the future, including but not limited to social media websites, job boards, or
-      any other websites. Without limiting the generality of the previous sentence, you authorize us to include the
-      Submissions you provide in a searchable format that may be accessed by users of the Web Site. You also grant us
-      and our related entities the right to use any Personally Identifiable Information (as that term is defined in our
-      Privacy Policy) included with any Submission in connection with the use, reproduction or distribution of such
-      Submission and our provision of Services to you. You also grant us the right to use the Submission and any facts,
-      ideas, concepts, know-how or techniques contained in any Submission or communication you send to us for any
-      purpose whatsoever, including but not limited to, developing, promoting and/or marketing products and services.
-      You grant all rights described in this paragraph in consideration of your use of the Web Site, without
+    <p>
+      You grant us and our affiliates and related entities a royalty-free,
+      perpetual, irrevocable, non-exclusive right and license to use, copy,
+      modify, display, archive, store, publish, transmit, perform, distribute,
+      reproduce and create derivative works from all Submissions you provide to
+      us in any form, media, software or technology of any kind now existing or
+      developed in the future, including but not limited to social media
+      websites, job boards, or any other websites. Without limiting the
+      generality of the previous sentence, you authorize us to include the
+      Submissions you provide in a searchable format that may be accessed by
+      users of the Web Site. You also grant us and our related entities the
+      right to use any Personally Identifiable Information (as that term is
+      defined in our Privacy Policy) included with any Submission in connection
+      with the use, reproduction or distribution of such Submission and our
+      provision of Services to you. You also grant us the right to use the
+      Submission and any facts, ideas, concepts, know-how or techniques
+      contained in any Submission or communication you send to us for any
+      purpose whatsoever, including but not limited to, developing, promoting
+      and/or marketing products and services. You grant all rights described in
+      this paragraph in consideration of your use of the Web Site, without
       compensation of any sort to you. We do not claim ownership of Submissions.
     </p>
-    <p>Submissions are not endorsed by us, and do not represent the views of us or our subsidiaries and affiliates,
-      agents, officers or directors. You acknowledge and agree that we do not control Submissions, and disclaim any
-      responsibility for Submissions. We specifically disclaim any duty, obligation, or responsibility, to review,
-      screen, refuse to post, remove, or edit any Submission. In addition, we do not represent or warrant that any other
-      content or information accessible via the Web Site is accurate, complete, reliable, current or error-free. We
-      assume no responsibility or liability for any errors or omissions in the content provided via the Web Site.
+    <p>
+      Submissions are not endorsed by us, and do not represent the views of us
+      or our subsidiaries and affiliates, agents, officers or directors. You
+      acknowledge and agree that we do not control Submissions, and disclaim any
+      responsibility for Submissions. We specifically disclaim any duty,
+      obligation, or responsibility, to review, screen, refuse to post, remove,
+      or edit any Submission. In addition, we do not represent or warrant that
+      any other content or information accessible via the Web Site is accurate,
+      complete, reliable, current or error-free. We assume no responsibility or
+      liability for any errors or omissions in the content provided via the Web
+      Site.
     </p>
-    <p>We reserve the right (but disclaim any duty, obligation or responsibility) to review, screen, refuse to post,
-      remove in their entirety, or edit (at any time and without prior notice) any Submission for any reason or no
+    <p>
+      We reserve the right (but disclaim any duty, obligation or responsibility)
+      to review, screen, refuse to post, remove in their entirety, or edit (at
+      any time and without prior notice) any Submission for any reason or no
       reason whatsoever, in our absolute and sole discretion.
     </p>
-    <p>You acknowledge and agree that the Web Site contains proprietary information and content that is protected by
-      intellectual property and other laws, and may not be used except as provided in these Terms of Service without
-      advance, written permission of us. All designs, text, graphics, interfaces, and images (and the selection and
-      arrangements thereof), and software, hypertext markup language ("HTML"), scripts, active server pages, and other
-      content and software used in the Web Site are reserved.
+    <p>
+      You acknowledge and agree that the Web Site contains proprietary
+      information and content that is protected by intellectual property and
+      other laws, and may not be used except as provided in these Terms of
+      Service without advance, written permission of us. All designs, text,
+      graphics, interfaces, and images (and the selection and arrangements
+      thereof), and software, hypertext markup language ("HTML"), scripts,
+      active server pages, and other content and software used in the Web Site
+      are reserved.
     </p>
 
     <h4>Additional Rules for Using the Services</h4>
 
-    <p>If you are an Independent Recruiter and have an existing, documented, relationship with an Employer that uses the
-      Services, you can continue to work offline with that Employer or you can work through our Services, subject to our
-      Terms of Service. The Terms of Service prohibit bringing new business developed through our Service offline and
-      anyone attempting to violate this policy will be immediately removed and denied access to the Service, and in
-      addition we may pursue all other legal remedies available to us.
-    </p>
-    <p>If you are a recruiting professional or head hunting company that intends to refer candidates and earn a fee
-      (such professionals and companies referred to herein as “Independent Recruiters”), please make sure you have
-      spoken with all candidates you are referring and have his/her consent in writing to refer him or her for an
-      Employment Opportunity.
+    <p>
+      If you are an Independent Recruiter and have an existing, documented,
+      relationship with an Employer that uses the Services, you can continue to
+      work offline with that Employer or you can work through our Services,
+      subject to our Terms of Service. The Terms of Service prohibit bringing
+      new business developed through our Service offline and anyone attempting
+      to violate this policy will be immediately removed and denied access to
+      the Service, and in addition we may pursue all other legal remedies
+      available to us.
     </p>
     <p>
-      The Services are set up to automatically block duplicate submissions. In the unlikely event that the system fails
-      to block a duplicate submission, the winner of the Referral Reward (as defined below) will be the party who first
-      submitted the candidate, as determined by the time and date stamp on the submissions. We will never be required to
-      pay more than one Referral Reward for the same candidate placement or the same Employment Opportunity. In the
-      unlikely event of a duplicate submission by another party (i.e., when the same candidate is submitted by two
-      parties), we will look at time stamp (date and time when the candidate is referred by each party as per our
-      records) as well as documented proof that each party had the candidate’s consent in writing prior to introducing
-      him / her. The party first referring the candidate with the candidate’s permission will be awarded the Referral
-      Reward.
+      If you are a recruiting professional or head hunting company that intends
+      to refer candidates and earn a fee (such professionals and companies
+      referred to herein as “Independent Recruiters”), please make sure you have
+      spoken with all candidates you are referring and have his/her consent in
+      writing to refer him or her for an Employment Opportunity.
     </p>
-    <p>Individuals and Independent Recruiters shall have the right to represent the candidates they submit for a period
-      of six (6) months from the date of submission for that particular Employment Opportunity for which a referral was
-      made.
+    <p>
+      The Services are set up to automatically block duplicate submissions. In
+      the unlikely event that the system fails to block a duplicate submission,
+      the winner of the Referral Reward (as defined below) will be the party who
+      first submitted the candidate, as determined by the time and date stamp on
+      the submissions. We will never be required to pay more than one Referral
+      Reward for the same candidate placement or the same Employment
+      Opportunity. In the unlikely event of a duplicate submission by another
+      party (i.e., when the same candidate is submitted by two parties), we will
+      look at time stamp (date and time when the candidate is referred by each
+      party as per our records) as well as documented proof that each party had
+      the candidate’s consent in writing prior to introducing him / her. The
+      party first referring the candidate with the candidate’s permission will
+      be awarded the Referral Reward.
+    </p>
+    <p>
+      Individuals and Independent Recruiters shall have the right to represent
+      the candidates they submit for a period of six (6) months from the date of
+      submission for that particular Employment Opportunity for which a referral
+      was made.
     </p>
 
-    <p>If you are an Employer, you represent and warrant that you are authorized to advertise Employment Opportunities
-      through the Services on behalf of your company, and that you have authority to make payments in the event a
-      candidate referred through this Web Site for the Employment Opportunity gets hired by you. You agree that you will
-      take time to update the online candidate statuses via the Services and keep us informed. You will attempt to log
-      in to the Web Site not less than 2 times a week. You will update joining dates as applicable via the Services once
-      a candidate accepts an offer. In the event that a joining date is changed for any reason, you will update the Web
-      Site to ensure the joining date is accurate.
+    <p>
+      If you are an Employer, you represent and warrant that you are authorized
+      to advertise Employment Opportunities through the Services on behalf of
+      your company, and that you have authority to make payments in the event a
+      candidate referred through this Web Site for the Employment Opportunity
+      gets hired by you. You agree that you will take time to update the online
+      candidate statuses via the Services and keep us informed. You will attempt
+      to log in to the Web Site not less than 2 times a week. You will update
+      joining dates as applicable via the Services once a candidate accepts an
+      offer. In the event that a joining date is changed for any reason, you
+      will update the Web Site to ensure the joining date is accurate.
     </p>
-    Your intellectual property rights
-    We make no claims on any Submission. Any Submission submitted by you will remain your intellectual property. You
-    represent and warrant that: (i) you have obtained all necessary third party rights, including, without limitation,
-    copyrights, for any Employment Opportunity posting, or resumes submitted by you. You will be responsible for making
-    back-up and archival copies of your Submissions. In no event will we be responsible to you or any other person for
-    any loss, corruption or alteration of Submissions.
+    Your intellectual property rights We make no claims on any Submission. Any
+    Submission submitted by you will remain your intellectual property. You
+    represent and warrant that: (i) you have obtained all necessary third party
+    rights, including, without limitation, copyrights, for any Employment
+    Opportunity posting, or resumes submitted by you. You will be responsible
+    for making back-up and archival copies of your Submissions. In no event will
+    we be responsible to you or any other person for any loss, corruption or
+    alteration of Submissions.
 
-    <h4> Indemnification</h4>
-    <p>You agree to indemnify, defend and hold us and our directors, officers, agents, contractors, partners and
-      employees, harmless from and against any loss, liability, claim, or demand, including reasonable attorneys' fees,
+    <h4>Indemnification</h4>
+    <p>
+      You agree to indemnify, defend and hold us and our directors, officers,
+      agents, contractors, partners and employees, harmless from and against any
+      loss, liability, claim, or demand, including reasonable attorneys' fees,
       arising out of or related to:
     </p>
-    <p> (i) your breach of any representations or warranties made by you hereunder or your breach of any term of this
-      Agreement;
+    <p>
+      (i) your breach of any representations or warranties made by you hereunder
+      or your breach of any term of this Agreement;
     </p>
-    <p>(ii) your use of the Services or the Web Site in violation of this Agreement; or</p>
+    <p>
+      (ii) your use of the Services or the Web Site in violation of this
+      Agreement; or
+    </p>
 
-    <p> (iii) your Submissions and/or your violation of any law or the rights of a third party.</p>
+    <p>
+      (iii) your Submissions and/or your violation of any law or the rights of a
+      third party.
+    </p>
 
-
-    <p> You hereby agree not to sue, assist in or be a voluntary party to assist in or be a voluntary party to, except
-      as required by law, any action, suit, or proceeding against us for any claims, actions, suits, damages, liability,
-      losses or expenses of whatever kind or however arising out of or relating to your use of the Web Site or the
-      Services.
+    <p>
+      You hereby agree not to sue, assist in or be a voluntary party to assist
+      in or be a voluntary party to, except as required by law, any action,
+      suit, or proceeding against us for any claims, actions, suits, damages,
+      liability, losses or expenses of whatever kind or however arising out of
+      or relating to your use of the Web Site or the Services.
     </p>
     <h4>Our intellectual property rights</h4>
-    <p>You acknowledge that we own all right, title and interest in and to the Web Site and the Services (the
-      "Intellectual Property"), and such Intellectual Property is protected by U.S. and international intellectual
+    <p>
+      You acknowledge that we own all right, title and interest in and to the
+      Web Site and the Services (the "Intellectual Property"), and such
+      Intellectual Property is protected by U.S. and international intellectual
       property laws.
     </p>
-    <h4> Disclaimer of warranties</h4>
-    <p>We are not responsible for the conduct, whether online or offline, of any user of the Web Site. The Web Site and
-      the Services may be temporarily unavailable from time to time for various reasons. We assume no responsibility for
-      any error, omission, interruption, deletion, defect, delay in operation or transmission, communications line
-      failure, theft or destruction or unauthorized access to, or alteration of, the Web Site. We are not responsible
-      for any problems or technical malfunction of any telephone network or lines, computer online systems, servers or
-      providers, computer equipment or software, or the failure of email on account of technical problems or traffic
-      congestion on the Internet or at any web site, including injury or damage to any person's computer related to or
-      resulting from participating or downloading materials or Submission in connection with the Web Site or the
-      Services. THE WEB SITES AND THE SERVICES ARE PROVIDED "AS-IS" AND WE DISCLAIM ANY AND ALL WARRANTIES, WHETHER
-      EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION IMPLIED WARRANTIES OF TITLE, MERCHANTABILITY, FITNESS FOR A
-      PARTICULAR PURPOSE OR NON-INFRINGEMENT. WE CANNOT GUARANTEE AND DO NOT PROMISE ANY SPECIFIC RESULTS FROM USE OF
-      THE WEB SITES AND/OR THE SERVICES.
+    <h4>Disclaimer of warranties</h4>
+    <p>
+      We are not responsible for the conduct, whether online or offline, of any
+      user of the Web Site. The Web Site and the Services may be temporarily
+      unavailable from time to time for various reasons. We assume no
+      responsibility for any error, omission, interruption, deletion, defect,
+      delay in operation or transmission, communications line failure, theft or
+      destruction or unauthorized access to, or alteration of, the Web Site. We
+      are not responsible for any problems or technical malfunction of any
+      telephone network or lines, computer online systems, servers or providers,
+      computer equipment or software, or the failure of email on account of
+      technical problems or traffic congestion on the Internet or at any web
+      site, including injury or damage to any person's computer related to or
+      resulting from participating or downloading materials or Submission in
+      connection with the Web Site or the Services. THE WEB SITES AND THE
+      SERVICES ARE PROVIDED "AS-IS" AND WE DISCLAIM ANY AND ALL WARRANTIES,
+      WHETHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION IMPLIED
+      WARRANTIES OF TITLE, MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR
+      NON-INFRINGEMENT. WE CANNOT GUARANTEE AND DO NOT PROMISE ANY SPECIFIC
+      RESULTS FROM USE OF THE WEB SITES AND/OR THE SERVICES.
     </p>
-    <p>We receive information from various sources and do not screen or censor the listings for Employment
-      Opportunities, candidate resumes or other information which comprise the content of the Web Site. Further, there
-      are potential hazards associated with electronic distribution, and there may be delays, omissions, inaccuracies or
-      typographical errors in the content of the Web Site. Accordingly, we have no control over the quality, safety, or
-      legality of the Employment Opportunities or resumes posted, the truth or accuracy of the listings, the ability of
-      specific Employers to make Employment Opportunity offers to candidates or the ability of candidates to fill
-      Employment Opportunity openings. Further, there are potential risks, including but not limited to the risk of
-      physical harm when dealing with people acting under false pretenses, strangers, foreign nationals or underage
-      persons. We make no representations about the accuracy, reliability, completeness, or timeliness of this Web Site
-      or material. You assume all risks in dealing with other users with whom you come into contact with through the Web
+    <p>
+      We receive information from various sources and do not screen or censor
+      the listings for Employment Opportunities, candidate resumes or other
+      information which comprise the content of the Web Site. Further, there are
+      potential hazards associated with electronic distribution, and there may
+      be delays, omissions, inaccuracies or typographical errors in the content
+      of the Web Site. Accordingly, we have no control over the quality, safety,
+      or legality of the Employment Opportunities or resumes posted, the truth
+      or accuracy of the listings, the ability of specific Employers to make
+      Employment Opportunity offers to candidates or the ability of candidates
+      to fill Employment Opportunity openings. Further, there are potential
+      risks, including but not limited to the risk of physical harm when dealing
+      with people acting under false pretenses, strangers, foreign nationals or
+      underage persons. We make no representations about the accuracy,
+      reliability, completeness, or timeliness of this Web Site or material. You
+      assume all risks in dealing with other users with whom you come into
+      contact with through the Web Site.
+    </p>
+    <p>
+      We are under no legal obligation to control the information provided by
+      other users, which is made available through the Web Site. There is the
+      potential that other user’s information may be offensive, harmful,
+      inaccurate or deceptive. You are expected to use caution and common sense
+      when using the Web Site. The use of the Web Site and all material included
+      therein is at your own risk. Changes are periodically made to the Web Site
+      and may be made from time to time without notice. Employers are solely
+      responsible for their postings of Employment Opportunities on the Web
       Site.
     </p>
-    <p>We are under no legal obligation to control the information provided by other users, which is made available
-      through the Web Site. There is the potential that other user’s information may be offensive, harmful, inaccurate
-      or deceptive. You are expected to use caution and common sense when using the Web Site. The use of the Web Site
-      and all material included therein is at your own risk. Changes are periodically made to the Web Site and may be
-      made from time to time without notice. Employers are solely responsible for their postings of Employment
-      Opportunities on the Web Site.
-    </p>
-    <p> We are not to be considered to be an Employer with respect to your use of the Web Site, and we do not guarantee
-      that Employment Opportunity candidates will be contacted or hired by any of the Employers whose Employment
-      Opportunity postings appear on the Web Site. We are not responsible for any employment decisions, whatsoever, made
-      by any Employer posting Employment Opportunities on the Web Site. Further we do not take responsibility for any
-      Employment Opportunity that candidates may secure as a result of using the Web Site. We do not make any
-      representations or warranties of any kind with respect to any Employment Opportunity candidate, Employer, or third
-      party whether in regards to the Web Site, hiring, employment recruiting practices, products, or services. We do
-      not endorse any Employment Opportunity, candidate, Employer or third party on the Web Site.
+    <p>
+      We are not to be considered to be an Employer with respect to your use of
+      the Web Site, and we do not guarantee that Employment Opportunity
+      candidates will be contacted or hired by any of the Employers whose
+      Employment Opportunity postings appear on the Web Site. We are not
+      responsible for any employment decisions, whatsoever, made by any Employer
+      posting Employment Opportunities on the Web Site. Further we do not take
+      responsibility for any Employment Opportunity that candidates may secure
+      as a result of using the Web Site. We do not make any representations or
+      warranties of any kind with respect to any Employment Opportunity
+      candidate, Employer, or third party whether in regards to the Web Site,
+      hiring, employment recruiting practices, products, or services. We do not
+      endorse any Employment Opportunity, candidate, Employer or third party on
+      the Web Site.
     </p>
     <h4>Limitation of liability</h4>
-    <p>IN NO EVENT WILL WE BE LIABLE TO YOU OR ANY THIRD PERSON FOR ANY INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL,
-      SPECIAL OR PUNITIVE DAMAGES, INCLUDING DAMAGES FOR ANY LOST PROFITS OR LOST DATA ARISING FROM YOUR USE OF THE WEB
-      SITES OR THE SERVICES, EVEN IF WE ARE AWARE OR HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. TO THE
-      FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ANY WARRANTIES FOR SERVICES RECEIVED THROUGH OR ADVERTISED ON THE WEB
-      SITES. NOTWITHSTANDING ANYTHING TO THE CONTRARY CONTAINED HEREIN, OUR LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER,
-      AND REGARDLESS OF THE FORM OF THE ACTION, WILL AT ALL TIMES BE LIMITED TO THE LESSER OF: (A) THE AMOUNT PAID, IF
-      ANY, BY YOU TO US FOR THE SERVICES; AND (B) TEN DOLLARS ($10). THE PARTIES AGREE THAT THESE LIMITATIONS ARE AN
-      ESSENTIAL PART OF THIS AGREEMENT AND SHALL SURVIVE ANY REMEDY’S FAILURE OF ESSENTIAL PURPOSE. CERTAIN STATE LAWS
-      DO NOT ALLOW LIMITATIONS ON IMPLIED WARRANTIES OR THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF THESE LAWS
-      APPLY TO YOU, SOME OR ALL OF THE ABOVE DISCLAIMERS, EXCLUSIONS OR LIMITATIONS MAY NOT APPLY TO YOU, AND YOU MAY
-      HAVE ADDITIONAL RIGHTS.
+    <p>
+      IN NO EVENT WILL WE BE LIABLE TO YOU OR ANY THIRD PERSON FOR ANY INDIRECT,
+      CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL OR PUNITIVE DAMAGES,
+      INCLUDING DAMAGES FOR ANY LOST PROFITS OR LOST DATA ARISING FROM YOUR USE
+      OF THE WEB SITES OR THE SERVICES, EVEN IF WE ARE AWARE OR HAVE BEEN
+      ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. TO THE FULLEST EXTENT
+      PERMITTED BY LAW, WE DISCLAIM ANY WARRANTIES FOR SERVICES RECEIVED THROUGH
+      OR ADVERTISED ON THE WEB SITES. NOTWITHSTANDING ANYTHING TO THE CONTRARY
+      CONTAINED HEREIN, OUR LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER, AND
+      REGARDLESS OF THE FORM OF THE ACTION, WILL AT ALL TIMES BE LIMITED TO THE
+      LESSER OF: (A) THE AMOUNT PAID, IF ANY, BY YOU TO US FOR THE SERVICES; AND
+      (B) TEN DOLLARS ($10). THE PARTIES AGREE THAT THESE LIMITATIONS ARE AN
+      ESSENTIAL PART OF THIS AGREEMENT AND SHALL SURVIVE ANY REMEDY’S FAILURE OF
+      ESSENTIAL PURPOSE. CERTAIN STATE LAWS DO NOT ALLOW LIMITATIONS ON IMPLIED
+      WARRANTIES OR THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF THESE
+      LAWS APPLY TO YOU, SOME OR ALL OF THE ABOVE DISCLAIMERS, EXCLUSIONS OR
+      LIMITATIONS MAY NOT APPLY TO YOU, AND YOU MAY HAVE ADDITIONAL RIGHTS.
     </p>
     <h4>Links and Third Party Services</h4>
-    <p>As a courtesy to you, the Web Site may offer links to other websites. We are not responsible for the contents of
-      any website pages created and maintained by organizations independent of us. Visiting any such third-party website
-      pages is at your own risk. We have no control of these third-party website pages, nor can we guarantee the
-      accuracy, completeness, or timeliness of information in third-party website pages. Your use of such information is
-      voluntary, and your reliance on such information should be made only after independent review. References to
-      commercial products or services within any such third-party website pages do not constitute or imply an
-      endorsement by us. If you receive any products or services from a third party web site, your use of such services
-      or receipt of such products will be subject to the terms and conditions of the applicable third party web site. By
-      using the Web Site and Services you acknowledge that we are responsible neither for the availability of, nor the
-      content located on or through any third-party website pages.
+    <p>
+      As a courtesy to you, the Web Site may offer links to other websites. We
+      are not responsible for the contents of any website pages created and
+      maintained by organizations independent of us. Visiting any such
+      third-party website pages is at your own risk. We have no control of these
+      third-party website pages, nor can we guarantee the accuracy,
+      completeness, or timeliness of information in third-party website pages.
+      Your use of such information is voluntary, and your reliance on such
+      information should be made only after independent review. References to
+      commercial products or services within any such third-party website pages
+      do not constitute or imply an endorsement by us. If you receive any
+      products or services from a third party web site, your use of such
+      services or receipt of such products will be subject to the terms and
+      conditions of the applicable third party web site. By using the Web Site
+      and Services you acknowledge that we are responsible neither for the
+      availability of, nor the content located on or through any third-party
+      website pages.
     </p>
-    <h4> Customer Communications</h4>
-    <p> By signing up for an Account with us, you are opting in to receive communications from us regarding our products
-      and services, including customer newsletters, special offers and exclusive discounts. You may opt out of these
-      communications at any time by following the "unsubscribe" link at the bottom of any email. For more details about
-      how we collect and use customer information, please visit our Privacy Policy page.
+    <h4>Customer Communications</h4>
+    <p>
+      By signing up for an Account with us, you are opting in to receive
+      communications from us regarding our products and services, including
+      customer newsletters, special offers and exclusive discounts. You may opt
+      out of these communications at any time by following the "unsubscribe"
+      link at the bottom of any email. For more details about how we collect and
+      use customer information, please visit our Privacy Policy page.
     </p>
     <h4>Trademarks</h4>
-    <p>HireSeat.com™ and HireSeat™ are our trademarks. Such trademarks and other marks, logos, and names used on or in
-      connection with the Web Site may not be used in connection with any product or service that is not under our
-      ownership or control. Furthermore, such trademark may not be used in any manner that is likely to cause confusion
-      among customers or in any manner that disparages or discredits us. All other trademarks not owned by us or our
-      affiliates, which appear on the Web Site are the property of their respective owners, who may or may not be
-      affiliated with, connected to, or sponsored by us.
+    <p>
+      HireSeat.com™ and HireSeat™ are our trademarks. Such trademarks and other
+      marks, logos, and names used on or in connection with the Web Site may not
+      be used in connection with any product or service that is not under our
+      ownership or control. Furthermore, such trademark may not be used in any
+      manner that is likely to cause confusion among customers or in any manner
+      that disparages or discredits us. All other trademarks not owned by us or
+      our affiliates, which appear on the Web Site are the property of their
+      respective owners, who may or may not be affiliated with, connected to, or
+      sponsored by us.
     </p>
     <h4>Consideration</h4>
 
     <p>To be paid by Employers.</p>
 
-    <p> If you are an Employer and post an Employment Opportunity, you agree that in the event you are able to fill the
-      Employment Opportunity through the Services, you will pay us the Placement Fee (“Placement Fee”) and Platform Fee
-      (“Platform Fee”) applicable to the pricing plan you selected on your HireSeat Talent Crowdsourcing Platform Term
-      Sheet, unless otherwise agreed to by us in writing. We will select the Referral Reward for each Employment
-      Opportunity. Employers are obligated to pay Placement Fees and Platform Fees regardless of whether the actual
-      person who accepted employment published a resume on the Web Site or was referred by an Independent Recruiter or
-      an individual using the Services (including without limitation referrals made by an individual via social media).
+    <p>
+      If you are an Employer and post an Employment Opportunity, you agree that
+      in the event you are able to fill the Employment Opportunity through the
+      Services, you will pay us the Placement Fee (“Placement Fee”) and Platform
+      Fee (“Platform Fee”) applicable to the pricing plan you selected on your
+      HireSeat Talent Crowdsourcing Platform Term Sheet, unless otherwise agreed
+      to by us in writing. We will select the Referral Reward for each
+      Employment Opportunity. Employers are obligated to pay Placement Fees and
+      Platform Fees regardless of whether the actual person who accepted
+      employment published a resume on the Web Site or was referred by an
+      Independent Recruiter or an individual using the Services (including
+      without limitation referrals made by an individual via social media).
     </p>
 
     <p>
-      You will be invoiced the Placement Fee 1 day after the applicable candidate joining date for 90 days, and all payments are due within 15 days of each payment date. You will be invoiced for the Platform Fee (if applicable) on a monthly basis in advance.
+      You will be invoiced the Placement Fee 1 day after the applicable
+      candidate joining date for 90 days, and all payments are due within 15
+      days of each payment date. You will be invoiced for the Platform Fee (if
+      applicable) on a monthly basis in advance.
     </p>
     <p>
-      Payment is only due once the Candidate has completed ninety (90) calendar days of employment.
-      If the Candidate’s employment with Client is terminated within ninety (90) calendar days of Candidate’s first day of employment with Client, no fee payment is due. If Candidate’s employment with Client is terminated after ninety (90) calendar days of Candidate’s first day of employment with Client, Client shall not be entitled to any other refund.       
+      Payment is only due once the Candidate has completed ninety (90) calendar
+      days of employment. If the Candidate’s employment with Client is
+      terminated within ninety (90) calendar days of Candidate’s first day of
+      employment with Client, no fee payment is due. If Candidate’s employment
+      with Client is terminated after ninety (90) calendar days of Candidate’s
+      first day of employment with Client, Client shall not be entitled to any
+      other refund.
     </p>
     <p>
-      All amounts not paid when due will accrue interest at the rate of 1% per month. Furthermore, you agree that you
-      will reimburse us for all costs and expenses, including without limitation reasonable attorneys’ fees, incurred by
-      us to enforce our rights under this Agreement, including right to payment.
+      All amounts not paid when due will accrue interest at the rate of 1% per
+      month. Furthermore, you agree that you will reimburse us for all costs and
+      expenses, including without limitation reasonable attorneys’ fees,
+      incurred by us to enforce our rights under this Agreement, including right
+      to payment.
     </p>
 
-
-    <p> Consideration to be paid to Independent Recruiters
-    </p>
-    <p>You can choose to receive a check via mail or we can direct deposit Referral Rewards electronically in an account
-      designated by you after your referred candidate completes the guaranty period applicable for the Employment
-      Opportunity.
-    </p>
-   
+    <p>Consideration to be paid to Independent Recruiters</p>
     <p>
-      Prior to making payment to you, we will need you to provide the name of the legal entity to be paid, account
-      information in the event that we are to make payment electronically, as well as the applicable EIN or Social
-      Security number and W-9 form. We reserve the right to request any additional information that we may need in order
-      to pay you a Referral Reward.
-    </p>
-    <p> Independent Recruiters are not eligible for a Referral Reward for candidates who applied to the Employer outside
-      of our Services in the preceding 3 months (or such shorter or longer period as may be specified in our contract
-      with the Employer). These candidates belong to the Employer, and no Referral Rewards will be paid by us with
-      respect to these candidates. If the Employer hires a candidate whom they already were in touch with (in the past 3
-      months) prior to your submission, neither we, nor the Employer will owe a fee to you. Individual Recruiters are
-      solely responsible for any taxes to be paid, which are levied on their receipt of a Referral Reward.
-    </p>
-    <p>If the candidate introduced by you is submitted for a different Employment Opportunity within the Services by
-      someone else, that Independent Recruiter or individual will own the right to represent that candidate for that
-      particular Employment Opportunity.
-    </p>
-    <p> Consideration to be paid to Individuals who make referrals
-    </p>
-    <p>In the event that the candidate (e.g., your friend or social connection, etc.) you refer gets hired by an
-      Employer advertising an Employment Opportunity through the Services, and once we get paid for the applicable
-      Placement Fee from the Employer, you will be eligible to receive your Referral Reward or percentage thereof as set
-      forth below.
+      You can choose to receive a check via mail or we can direct deposit
+      Referral Rewards electronically in an account designated by you after your
+      referred candidate completes the guaranty period applicable for the
+      Employment Opportunity.
     </p>
 
-
-
-    <p>Referral sources can choose to receive a check via mail, or we can direct deposit electronically in an account
-      designated by you. Prior to making payment to you, we will need you to provide the account information in the
-      event that we are to make payment electronically, as well as the applicable Social Security number and W-9 form.
-      We reserve the right to request any additional information that we may need in order to pay you a Referral Reward
-      or any part thereof.
-    </p>
-    <p>Individuals are solely responsible for any taxes to be paid, which are levied on their receipt of a Referral
-      Reward or any portion thereof.
-    </p>
-    <p> Jurisdiction, Arbitration, Applicable Law and Limitations</p>
-    <p> The Web Site is created and controlled by HireSeat, Inc. YOU AGREE THAT DISPUTES BETWEEN YOU AND US WILL BE
-      RESOLVED BY BINDING, INDIVIDUAL ARBITRATION AND YOU WAIVE YOUR RIGHT TO PARTICIPATE IN A CLASS ACTION LAWSUIT OR
-      CLASS-WIDE ARBITRATION. You agree that this Agreement will be governed by and construed in accordance with the
-      laws of the United States of America and the State of New York, without regard to its conflicts of law provisions.
-      You agree that any dispute or claim arising out of, or in connection with, this Agreement shall be finally settled
-      by binding arbitration in New York, in accordance with the then-current rules and procedures of the American
-      Arbitration Association by one (1) arbitrator appointed by the American Arbitration Association. The arbitrator
-      shall apply the law of the State of New York, without reference to rules of conflict of law or statutory rules of
-      arbitration, to the merits of any dispute or claim. Judgment on the award rendered by the arbitrator may be
-      entered in any court of competent jurisdiction. The parties agree that, any provision of applicable law
-      notwithstanding, the arbitrator shall have the authority to award the prevailing party its costs and reasonable
-      attorneys’ fees. You agree that service of process upon you in any such action may be made if delivered in person,
-      by courier service, by telegram, by telefacsimile or by first class mail, and shall be deemed effectively given
-      upon receipt.
+    <p>
+      Prior to making payment to you, we will need you to provide the name of
+      the legal entity to be paid, account information in the event that we are
+      to make payment electronically, as well as the applicable EIN or Social
+      Security number and W-9 form. We reserve the right to request any
+      additional information that we may need in order to pay you a Referral
+      Reward.
     </p>
     <p>
-      Use of the Web Site is not authorized in any jurisdiction that does not give effect to all provisions of this
-      Agreement. We make no claims or assurances that the Web Site is appropriate or may be downloaded outside of the
-      United States. In the event that the arbitration or class action terms are determined to be unenforceable or
-      invalid for any reason, you agree that all legal proceedings arising out of or in connection with this Agreement,
-      or Services available on or through the Web Site must be filed in a federal or state court located in New York
-      within one year of the time in which the events giving rise to such claim began, or your claim will be forever
-      waived and barred. You expressly submit to the exclusive jurisdiction of said courts and consent to
-      extraterritorial service of process.
+      Independent Recruiters are not eligible for a Referral Reward for
+      candidates who applied to the Employer outside of our Services in the
+      preceding 3 months (or such shorter or longer period as may be specified
+      in our contract with the Employer). These candidates belong to the
+      Employer, and no Referral Rewards will be paid by us with respect to these
+      candidates. If the Employer hires a candidate whom they already were in
+      touch with (in the past 3 months) prior to your submission, neither we,
+      nor the Employer will owe a fee to you. Individual Recruiters are solely
+      responsible for any taxes to be paid, which are levied on their receipt of
+      a Referral Reward.
+    </p>
+    <p>
+      If the candidate introduced by you is submitted for a different Employment
+      Opportunity within the Services by someone else, that Independent
+      Recruiter or individual will own the right to represent that candidate for
+      that particular Employment Opportunity.
+    </p>
+    <p>Consideration to be paid to Individuals who make referrals</p>
+    <p>
+      In the event that the candidate (e.g., your friend or social connection,
+      etc.) you refer gets hired by an Employer advertising an Employment
+      Opportunity through the Services, and once we get paid for the applicable
+      Placement Fee from the Employer, you will be eligible to receive your
+      Referral Reward or percentage thereof as set forth below.
     </p>
 
-    <h4> General</h4>
-    <p> a. Enforceability. If any provision in this Agreement is found to be void, invalid or otherwise unenforceable,
-      then that provision shall be deemed to be superseded by a valid, enforceable provision or that matches the intent
-      of the original provision as closely as possible. The remainder of the Agreement shall continue to be enforceable
-      and valid according to terms contained herein.
+    <p>
+      Referral sources can choose to receive a check via mail, or we can direct
+      deposit electronically in an account designated by you. Prior to making
+      payment to you, we will need you to provide the account information in the
+      event that we are to make payment electronically, as well as the
+      applicable Social Security number and W-9 form. We reserve the right to
+      request any additional information that we may need in order to pay you a
+      Referral Reward or any part thereof.
     </p>
-    <p> b. Entire Agreement. This Agreement sets forth the entire agreement between you and us pertaining to your use of
-      the Web Site and the Services. We reserve the right, at our sole discretion, to change, modify, add, or delete
-      portions of this Agreement at any time without further notice. If we do this, we will post the changes to this
-      Agreement on this page and will indicate at the top of this page the new effective date (i.e., the LAST UPDATED
-      date). Your continued use of the Services or the Web Site after any such changes constitutes your acceptance of
-      the revised Agreement. If you do not agree to abide by this Agreement or any future revised Agreement, do not use
-      or access the Services or the Web Site. It is your responsibility to regularly review this Agreement. If any
-      provision of this Agreement is held invalid or unenforceable, such provision shall be revised to the extent
-      necessary to cure the invalidity or unenforceability, and the remainder of this Agreement shall continue in full
-      force and effect.
+    <p>
+      Individuals are solely responsible for any taxes to be paid, which are
+      levied on their receipt of a Referral Reward or any portion thereof.
+    </p>
+    <p>Jurisdiction, Arbitration, Applicable Law and Limitations</p>
+    <p>
+      The Web Site is created and controlled by HireSeat, Inc. YOU AGREE THAT
+      DISPUTES BETWEEN YOU AND US WILL BE RESOLVED BY BINDING, INDIVIDUAL
+      ARBITRATION AND YOU WAIVE YOUR RIGHT TO PARTICIPATE IN A CLASS ACTION
+      LAWSUIT OR CLASS-WIDE ARBITRATION. You agree that this Agreement will be
+      governed by and construed in accordance with the laws of the United States
+      of America and the State of New York, without regard to its conflicts of
+      law provisions. You agree that any dispute or claim arising out of, or in
+      connection with, this Agreement shall be finally settled by binding
+      arbitration in New York, in accordance with the then-current rules and
+      procedures of the American Arbitration Association by one (1) arbitrator
+      appointed by the American Arbitration Association. The arbitrator shall
+      apply the law of the State of New York, without reference to rules of
+      conflict of law or statutory rules of arbitration, to the merits of any
+      dispute or claim. Judgment on the award rendered by the arbitrator may be
+      entered in any court of competent jurisdiction. The parties agree that,
+      any provision of applicable law notwithstanding, the arbitrator shall have
+      the authority to award the prevailing party its costs and reasonable
+      attorneys’ fees. You agree that service of process upon you in any such
+      action may be made if delivered in person, by courier service, by
+      telegram, by telefacsimile or by first class mail, and shall be deemed
+      effectively given upon receipt.
+    </p>
+    <p>
+      Use of the Web Site is not authorized in any jurisdiction that does not
+      give effect to all provisions of this Agreement. We make no claims or
+      assurances that the Web Site is appropriate or may be downloaded outside
+      of the United States. In the event that the arbitration or class action
+      terms are determined to be unenforceable or invalid for any reason, you
+      agree that all legal proceedings arising out of or in connection with this
+      Agreement, or Services available on or through the Web Site must be filed
+      in a federal or state court located in New York within one year of the
+      time in which the events giving rise to such claim began, or your claim
+      will be forever waived and barred. You expressly submit to the exclusive
+      jurisdiction of said courts and consent to extraterritorial service of
+      process.
     </p>
 
-    <p> c. No Waiver. The failure of us to exercise or enforce any right or provision of this Agreement shall not
-      constitute a waiver of said right or provision. Neither party hereto shall be deemed to be in default of any
-      provision of this Agreement or for failure in performance resulting from acts or events beyond the reasonable
-      control of such party and arising without its fault or negligence, including, but not be limited to, acts of God,
-      civil or military authority, interruption of electric or telecommunication services, civil disturbances, acts of
-      war or terrorists, strikes, fires, floods or other catastrophes.
+    <h4>General</h4>
+    <p>
+      a. Enforceability. If any provision in this Agreement is found to be void,
+      invalid or otherwise unenforceable, then that provision shall be deemed to
+      be superseded by a valid, enforceable provision or that matches the intent
+      of the original provision as closely as possible. The remainder of the
+      Agreement shall continue to be enforceable and valid according to terms
+      contained herein.
     </p>
-    <p> d. Headings & Construction. The section titles in this Agreement are for your convenience only and carry no
-      contractual or legal effect whatsoever. The language in this Agreement shall be interpreted in accordance with its
-      fair meaning and shall not be strictly interpreted for or against either party.
+    <p>
+      b. Entire Agreement. This Agreement sets forth the entire agreement
+      between you and us pertaining to your use of the Web Site and the
+      Services. We reserve the right, at our sole discretion, to change, modify,
+      add, or delete portions of this Agreement at any time without further
+      notice. If we do this, we will post the changes to this Agreement on this
+      page and will indicate at the top of this page the new effective date
+      (i.e., the LAST UPDATED date). Your continued use of the Services or the
+      Web Site after any such changes constitutes your acceptance of the revised
+      Agreement. If you do not agree to abide by this Agreement or any future
+      revised Agreement, do not use or access the Services or the Web Site. It
+      is your responsibility to regularly review this Agreement. If any
+      provision of this Agreement is held invalid or unenforceable, such
+      provision shall be revised to the extent necessary to cure the invalidity
+      or unenforceability, and the remainder of this Agreement shall continue in
+      full force and effect.
     </p>
-    <p>e. Contact Us. For questions regarding the terms of this Agreement, contact us at contact@HireSeat.com.
+
+    <p>
+      c. No Waiver. The failure of us to exercise or enforce any right or
+      provision of this Agreement shall not constitute a waiver of said right or
+      provision. Neither party hereto shall be deemed to be in default of any
+      provision of this Agreement or for failure in performance resulting from
+      acts or events beyond the reasonable control of such party and arising
+      without its fault or negligence, including, but not be limited to, acts of
+      God, civil or military authority, interruption of electric or
+      telecommunication services, civil disturbances, acts of war or terrorists,
+      strikes, fires, floods or other catastrophes.
+    </p>
+    <p>
+      d. Headings & Construction. The section titles in this Agreement are for
+      your convenience only and carry no contractual or legal effect whatsoever.
+      The language in this Agreement shall be interpreted in accordance with its
+      fair meaning and shall not be strictly interpreted for or against either
+      party.
+    </p>
+    <p>
+      e. Contact Us. For questions regarding the terms of this Agreement,
+      contact us at contact@HireSeat.com.
     </p>
     <p>Copyright © 2017 HireSeat, Inc. All Rights Reserved.</p>
-
 
     <!-- <input type="checkbox" class="filled-in" id="acceptTerms" name="acceptedTermsCond"
       [(ngModel)]="acceptedTermsCond" />
     <label for="acceptTerms">I accept the terms and conditions.</label> -->
-
-
-
-
   </div>
   <div class="modal-footer popupModal">
-    <div class="col s12 m6 l6 leftCondition">
-        <input type="checkbox" class="filled-in" id="acceptTerms" name="acceptedTermsCond"
-        [(ngModel)]="acceptedTermsCond" />
-      <label for="acceptTerms">I accept the terms and conditions.</label> 
-    </div>
+    <!-- <div class="col s12 m6 l6 leftCondition">
+      <input
+        type="checkbox"
+        class="filled-in"
+        id="acceptTerms"
+        name="acceptedTermsCond"
+        [(ngModel)]="acceptedTermsCond"
+        (click)="unReadTermsAndConditions()"
+      />
+      <label for="acceptTerms">I accept the terms and conditions.</label>
+    </div> -->
     <div class="col s12 m6 l6 rightCondition">
-    <button class="modal-close  waves-effect waves-light btn">Close</button>
+      <button class="modal-close  waves-effect waves-light btn">Close</button>
+    </div>
   </div>
-  </div>
-
 </div>

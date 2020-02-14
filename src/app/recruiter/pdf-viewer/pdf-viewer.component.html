@@ -1,11 +1,29 @@
- <iframe id="pdf-viewr" *ngIf="extension===0" height="100%" width="100%" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen [src]="transform()">
-
+<iframe
+  id="pdf-viewr"
+  *ngIf="extension === 0"
+  height="100%"
+  width="100%"
+  frameborder="0"
+  marginwidth="0"
+  marginheight="0"
+  allowfullscreen
+  [src]="url | safePdf"
+>
 </iframe>
 
-   <iframe id="doc-viewr" *ngIf="extension===1" [src]="transform()" width="100%"  height="100%" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen>
-        This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> 
-        document, powered by <a target='_blank' href='http://office.com/webapps'>Office Online</a>.
-</iframe> 
-
-
-    
+<iframe
+  id="doc-viewr"
+  *ngIf="extension === 1"
+  [src]="url | safePdf"
+  width="100%"
+  height="100%"
+  frameborder="0"
+  marginwidth="0"
+  marginheight="0"
+  allowfullscreen
+>
+  This is an embedded
+  <a target="_blank" href="http://office.com">Microsoft Office</a> document,
+  powered by
+  <a target="_blank" href="http://office.com/webapps">Office Online</a>.
+</iframe>

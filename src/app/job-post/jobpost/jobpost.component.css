@@ -123,6 +123,10 @@ h5 {
 .BtnDiv p{
     color: #03a9f4;
 }
+ng2-dropdown-menu .dropdown{
+    position: relative !important;
+    z-index: 9999 !important;
+  }
 /*==================================== responsive css start  =================================*/
 /*================================ i-pad responsive css start  ===============================*/
 
@@ -364,3 +368,9 @@ and (max-width : 667px) {
 }
 }
 /*================================ mobile responsive css ends  ===============================*/
+
+ng2-dropdown-menu {
+    display: block;
+    position: relative !important;
+    z-index: 9999 !important;
+}

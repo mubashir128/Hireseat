@@ -21,8 +21,9 @@ export class AllBlogCategoriesComponent implements OnInit {
   blogcategoriesData: any;
   myurl: string;
   meetUpsData: any;
-  limit = 5;
+  limit = 9;
   colorsArray: any[] = ['#0aafff', '#3cb877', '#f26422', '#1a6efa','#1a6efa'];
+  viewmore: boolean;
 
   constructor(private _blogservice:BlogService,private _Userservice: UserService,private route: ActivatedRoute,private _sanitizer: DomSanitizer,private spinner: NgxSpinnerService) { }
 
@@ -37,15 +38,24 @@ export class AllBlogCategoriesComponent implements OnInit {
     })
     this.url = this.route.snapshot.paramMap.get("url");
     this._blogservice.getBlogCategories().subscribe((res)=>{
-      this.categoriesData=res.data
+      this.categoriesData=res.data;
+      
     },
     (error) =>console.log(error))
 
   //  this.myurl = this.url.replace(/[^a-zA-Z ]/g, " ");
-   var array = this.url.replace(/[^a-zA-Z ]/g, " ").split(",");
-  //  console.log(array);
+  //  var array = this.url.replace(/[^a-zA-Z ]/g, " ").split(",");
+       var array = this.url.split(",");
+
     this._blogservice.getBlogByCategory(array,this.limit).subscribe((res)=>{
       this.blogcategoriesData=res.data;
+     
+      if(this.blogcategoriesData.length%9 == 0 && this.blogcategoriesData.length>0){
+        this.viewmore = true;
+     }else{
+       this.viewmore = false;
+     }
+   
       this.spinner.hide();
       
     },
@@ -60,8 +70,8 @@ export class AllBlogCategoriesComponent implements OnInit {
    }
  
    getMoreData(){
-     console.log(this.url);
-     var limit = this.dataLength()+10;
+   
+     var limit = this.dataLength()+9;
      var isarray = Array.isArray(this.url);
  
      if(isarray){
@@ -72,7 +82,11 @@ export class AllBlogCategoriesComponent implements OnInit {
     }
      this._blogservice.getBlogByCategory(array,limit).subscribe((res)=>{
        this.blogcategoriesData=res.data
-    
+       if(this.blogcategoriesData.length%9 == 0 && this.blogcategoriesData.length>0){
+         this.viewmore = true;
+       }else{
+         this.viewmore = false;
+      }
      
     
      },
@@ -128,11 +142,16 @@ export class AllBlogCategoriesComponent implements OnInit {
   loadData(url){
     this.spinner.show();
 
-    console.log("id : "+ url)
+    
     var array = url.split(",");
-   console.log(array);
+    // console.log(array);
     this._blogservice.getBlogByCategory(array,this.limit).subscribe((res)=>{
       this.blogcategoriesData=res.data;
+      if(this.blogcategoriesData.length%9 == 0 && this.blogcategoriesData.length>0){
+        this.viewmore = true;
+      }else{
+        this.viewmore = false;
+     }
       this.url = url;
       this.spinner.hide();
 
