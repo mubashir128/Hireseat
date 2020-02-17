@@ -211,6 +211,7 @@
               <button
                 type="submit"
                 [disabled]="!suBtnActive"
+                [disabled]="!signin.form.valid"
                 class="waves-effect waves-light commonBlueBtnN"
               >
                 <span *ngIf="suBtnActive">Register</span>

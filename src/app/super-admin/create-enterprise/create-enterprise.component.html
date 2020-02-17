@@ -1,0 +1,151 @@
+<div style="background:#f5f5f5; height:100%;min-height:100vh;">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <div class="card row" style="padding:30px;">
+          <form
+            novalidate
+            (ngSubmit)="formSubmit()"
+            role="form"
+            [formGroup]="signin"
+          >
+            <div class="row">
+              <div class="page-title">
+                Create An Enterprise
+              </div>
+              <div class="divider"></div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="companyName"
+                  formControlName="companyName"
+                  autocomplete="off"
+                />
+                <label for="company-name">Enterprise Name</label>
+                <div
+                  *ngIf="signin.controls['companyName'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Company Name
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="webSiteLink"
+                  formControlName="webSiteLink"
+                  autocomplete="off"
+                />
+                <div
+                  *ngIf="signin.controls['webSiteLink'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Web Site
+                </div>
+                <label for="website-link">Website Link</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  formControlName="email"
+                  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                  autocomplete="off"
+                />
+                <label for="email">Email</label>
+                <div
+                  *ngIf="signin.controls['email'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Email
+                </div>
+                <div
+                  *ngIf="signin.controls['email'].hasError('pattern')"
+                  class="error"
+                >
+                  Please Enter Valid Email
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  formControlName="password"
+                  minlength="5"
+                  autocomplete="off"
+                />
+                <div
+                  *ngIf="signin.controls['password'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Password
+                </div>
+                <div
+                  *ngIf="signin.controls['password'].hasError('minlength')"
+                  class="error"
+                >
+                  Please Enter Minimum 5 Char password
+                </div>
+                <label for="password">Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m12 l12 ">
+                <label for="image" class="choseLabel">Profile Image</label>
+                <div class="uploadBtnDiv">
+                  <input
+                    #file
+                    type="file"
+                    accept="image/*"
+                    formControlName="file"
+                    (change)="preview(file.files)"
+                  />
+                  <button class="uploadBtn">choose profile image</button>
+                </div>
+                <img
+                  [src]="imgURL"
+                  height="200"
+                  *ngIf="imgURL"
+                  height="50px"
+                  width="50px"
+                />
+                <div
+                  *ngIf="signin.controls['file'].hasError('required')"
+                  class="error"
+                >
+                  Please Select image
+                </div>
+              </div>
+            </div>
+
+            <div class="row  center-align">
+              <button
+                type="submit"
+                [disabled]="!suBtnActive"
+                class="waves-effect waves-light commonBlueBtnN"
+              >
+                <span *ngIf="suBtnActive">Register</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

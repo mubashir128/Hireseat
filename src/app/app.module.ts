@@ -115,6 +115,8 @@ import { LimitPipe } from "./../charlimit";
 import { SafePipe } from "./blog/frontend/safepipe";
 import { SortPipe } from "./shared/pipes/sort.pipe";
 import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
+import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
+import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -301,6 +303,14 @@ const appChildRoutes: Routes = [
       {
         path: "user-list",
         component: SAUserListComponent
+      },
+      {
+        path: "create-admin",
+        component: CreateAdminComponent
+      },
+      {
+        path: "create-enterprise",
+        component: CreateEnterpriseComponent
       }
     ],
     canActivate: [SupperAdminGuard]
@@ -396,7 +406,9 @@ const appChildRoutes: Routes = [
     EmployeerAnsComponent,
     inArrayPipe,
     SortPipe,
-    SafePdfPipe
+    SafePdfPipe,
+    CreateAdminComponent,
+    CreateEnterpriseComponent
   ],
   imports: [
     InfiniteScrollModule,

@@ -1,15 +1,21 @@
-.collection .collection-item{
-    border-bottom: none; 
+.collection .collection-item-one {
+  border-bottom: none;
+  background-color: #fff;
+  line-height: 1.5rem;
+  padding: 10px 14px;
+  margin: 0;
 }
-.collection a.collection-item {
-    display: block;
-    transition: .25s;
-    color: #48aef3 !important;
+.collection a.collection-item-one {
+  display: block;
+  transition: 1s;
+  color: #48aef3 !important;
 }
-.collection .collection-item.active {
-    background-color: #48aef3 ;
-    color: #fff !important;
+.collection .collection-item-one.active {
+  background-color: #48aef3;
+  transition: 0.25s;
+
+  color: #fff !important;
 }
-.collection-item{
-    cursor: pointer;
+.collection-item-one {
+  cursor: pointer;
 }

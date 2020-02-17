@@ -1,7 +1,54 @@
 <header>
+  <!-- <div class="collection">
+    <a
+      class="collection-item"
+      [ngClass]="{ active: tab.selected === true }"
+      *ngFor="let tab of tabs1"
+      (click)="SelectItem(tab.id)"
+      [routerLink]="tab.id"
+      routerLinkActive="tab.id"
+      >{{ tab.displayText }}</a
+    >
+  </div> -->
   <div class="collection">
-      <a class="collection-item" [ngClass]="{'active': tab.selected===true }" *ngFor="let tab of tabs1">{{tab.displayText}}</a>
+    <a class="collection-item-one">
+      <div class="listDiv">
+        <ul>
+          <li>
+            <a
+              class="collection-item-one"
+              [routerLinkActive]="'active'"
+              [routerLink]="['/super-admin/user-list']"
+            >
+              <span class="text-center">
+                User List
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="collection-item-one"
+              [routerLinkActive]="'active'"
+              [routerLink]="['/super-admin/create-admin']"
+            >
+              <span class="text-center">
+                Create Admin
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="collection-item-one"
+              [routerLinkActive]="'active'"
+              [routerLink]="['/super-admin/create-enterprise']"
+            >
+              <span class="text-center">
+                Create Enterprise
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </a>
   </div>
-  
 </header>
-
