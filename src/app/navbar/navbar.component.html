@@ -55,6 +55,13 @@
             >Recruiter</a
           >
         </li>
+        <li *ngIf="showAdminDashboardButton">
+          <a
+            [routerLink]="['/super-admin/user-list']"
+            routerLinkActive="borderBA"
+            >Super Admin Dashboard</a
+          >
+        </li>
         <!-- for recruiter profile -->
         <li *ngIf="isRecruiter && isLoggedIn">
           <a [routerLink]="['/recruiter/profile']" routerLinkActive="borderBA">
@@ -85,6 +92,7 @@
           </a>
         </li>
         <!-- <li *ngIf="isEmployer && isLoggedIn "><a [routerLink]="['/home/TheRockRec']">The Rockstar Recruiter Community</a> -->
+
         <ng-container id="notify" *ngIf="show && !isAdmin && isLoggedIn">
           <div class="notificationList">
             <div class="notificationListInner">

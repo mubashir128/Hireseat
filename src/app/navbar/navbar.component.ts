@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
   suggestedQueCount: number = 0;
   suggestedQueAnsCount: number = 0;
   notificationLength: any;
+  showAdminDashboardButton: boolean = false;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -86,7 +87,10 @@ export class NavbarComponent implements OnInit {
             }
           });
         });
-    }
+    } else
+      this.loggedInUser.userRole == "super-admin"
+        ? (this.showAdminDashboardButton = true)
+        : (this.showAdminDashboardButton = false);
 
     jQuery(document).ready(function() {
       jQuery(".button-collapse").sideNav();

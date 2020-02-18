@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
   meetUpsData: any;
   limit = 1000;
   article: any = [];
+  showAdminDashboardButton: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,6 +50,11 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     window.addEventListener("scroll", this.scroll, true);
+    const userInfo = JSON.parse(window.localStorage.getItem("currentUser"));
+    const userRole = userInfo.userRole;
+    userRole === "super-admin"
+      ? (this.showAdminDashboardButton = true)
+      : (this.showAdminDashboardButton = false);
   }
 
   ngOnInit() {
