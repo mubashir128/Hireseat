@@ -15,7 +15,79 @@
               </div>
               <div class="divider"></div>
             </div>
-
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="fullname"
+                  formControlName="fullname"
+                  autocomplete="off"
+                />
+                <label for="name">Full Name</label>
+                <div
+                  *ngIf="signin.controls['fullname'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Full Name
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  formControlName="email"
+                  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                  autocomplete="off"
+                />
+                <label for="email">Email</label>
+                <div
+                  *ngIf="signin.controls['email'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Email
+                </div>
+                <div
+                  *ngIf="signin.controls['email'].hasError('pattern')"
+                  class="error"
+                >
+                  Please Enter Valid Email
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="phoneNo"
+                  formControlName="phoneNo"
+                  pattern="[0-9]+"
+                  maxlength="10"
+                  minlength="10"
+                  autocomplete="off"
+                />
+                <label for="phoneNumber">Phone Number</label>
+                <div
+                  *ngIf="signin.controls['phoneNo'].hasError('required')"
+                  class="error"
+                >
+                  Please Enter Phone Number
+                </div>
+                <div
+                  *ngIf="
+                    signin.controls['phoneNo'].hasError('pattern') ||
+                    signin.controls['phoneNo'].hasError('minlength')
+                  "
+                  class="error"
+                >
+                  Please Enter Valid Phone Number
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
                 <input
@@ -51,32 +123,6 @@
                   Please Enter Web Site
                 </div>
                 <label for="website-link">Website Link</label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s12 m12 l12">
-                <input
-                  type="email"
-                  class="form-control"
-                  name="email"
-                  formControlName="email"
-                  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
-                  autocomplete="off"
-                />
-                <label for="email">Email</label>
-                <div
-                  *ngIf="signin.controls['email'].hasError('required')"
-                  class="error"
-                >
-                  Please Enter Email
-                </div>
-                <div
-                  *ngIf="signin.controls['email'].hasError('pattern')"
-                  class="error"
-                >
-                  Please Enter Valid Email
-                </div>
               </div>
             </div>
 
