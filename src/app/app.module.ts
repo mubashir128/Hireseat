@@ -117,6 +117,10 @@ import { SortPipe } from "./shared/pipes/sort.pipe";
 import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
 import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
 import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
+import { EnterpriseDashboardComponent } from './enterprise/enterprise-dashboard/enterprise-dashboard.component';
+import { EnterpriseNavbarComponent } from './enterprise/enterprise-navbar/enterprise-navbar.component';
+import { EnterpriseUserListComponent } from './enterprise/enterprise-user-list/enterprise-user-list.component';
+import { CreateEmployerComponent } from './enterprise/create-employer/create-employer.component';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -408,7 +412,11 @@ const appChildRoutes: Routes = [
     SortPipe,
     SafePdfPipe,
     CreateAdminComponent,
-    CreateEnterpriseComponent
+    CreateEnterpriseComponent,
+    EnterpriseDashboardComponent,
+    EnterpriseNavbarComponent,
+    EnterpriseUserListComponent,
+    CreateEmployerComponent
   ],
   imports: [
     InfiniteScrollModule,
