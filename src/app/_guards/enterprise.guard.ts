@@ -27,7 +27,7 @@ export class EnterpriseGuard implements CanActivate {
       } else if (userRole == "admin") {
         this.router.navigate(["user-list"]);
         return false;
-      } else if (userRole == "enterprise") {
+      } else if (userRole == "enterprise" || userRole == "super-admin") {
         return true;
       }
     }
