@@ -4,6 +4,8 @@ import { UserService } from "../../_services/user.service";
 import { AuthenticationService } from "../../_services/authentication.service";
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
+declare var jQuery: any;
+declare var Materialize: any;
 @Component({
   selector: "app-create-employer",
   templateUrl: "./create-employer.component.html",

@@ -75,10 +75,8 @@ export class CreateAdminComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {
     // this.router.navigate(["/super-admin/user-list"]);
 
-    const localUserInfo = JSON.parse(
-      window.localStorage.getItem("currentUser")
-    );
-    const userRole = localUserInfo.userInfo.userRole;
+    const userRole = JSON.parse(window.localStorage.getItem("currentUser"))
+      .userInfo.userRole;
     console.log(userRole);
   }
 

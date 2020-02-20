@@ -2,7 +2,7 @@
 //export const baseUrl = 'http://192.168.100.21:5000/';
 
 //local path with ip server path
-export const baseUrl = "http://192.168.100.19:5000/"; //ip link
+export const baseUrl = "http://localhost:5000/"; //ip link
 
 // Test Server
 // export const baseUrl = "http://44.232.150.23:5002/"; //ip link

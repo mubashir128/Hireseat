@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(["/user-list"]);
       } else if (this.chkLoggedInUser.userRole == "super-admin") {
         this.router.navigate(["super-admin/user-list"]);
+      } else if (this.chkLoggedInUser.userRole == "enterprise") {
+        this.router.navigate(["enterprise/user-list"]);
       }
     }
   }
@@ -85,6 +87,8 @@ export class LoginComponent implements OnInit {
               this.router.navigate(["user-list"]);
             } else if (this.userData.userRole == "super-admin") {
               this.router.navigate(["super-admin/user-list"]);
+            } else if (this.userData.userRole == "enterprise") {
+              this.router.navigate(["enterprise/user-list"]);
             }
           } else if (data == "wrongpass") {
             this.status = "wrongpass";

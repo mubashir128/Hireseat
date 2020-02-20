@@ -32,6 +32,7 @@ export class NavbarComponent implements OnInit {
   suggestedQueAnsCount: number = 0;
   notificationLength: any;
   showAdminDashboardButton: boolean = false;
+  showEnterpriseDashboardButton: boolean = false;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -57,6 +58,8 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showAdminDashboardButton = false;
+    this.showEnterpriseDashboardButton = false;
     this._forum.getUnAnsweredData().subscribe(
       res => {
         this.questDataLenght = res;
@@ -66,6 +69,8 @@ export class NavbarComponent implements OnInit {
     );
 
     if (this.loggedInUser.userRole == "employer") {
+      this.showAdminDashboardButton = false;
+      this.showEnterpriseDashboardButton = false;
       this._forum
         .getAllUnAnsQuestionsByEmployerId(this.loggedInUser._id)
         .subscribe(data => {
@@ -77,6 +82,8 @@ export class NavbarComponent implements OnInit {
           });
         });
     } else if (this.loggedInUser.userRole == "recruiter") {
+      this.showAdminDashboardButton = false;
+      this.showEnterpriseDashboardButton = false;
       this._forum
         .getAllUnreadAnsQueByRecruiteId(this.loggedInUser._id)
         .subscribe(data => {
@@ -87,10 +94,16 @@ export class NavbarComponent implements OnInit {
             }
           });
         });
-    } else
-      this.loggedInUser.userRole == "super-admin"
-        ? (this.showAdminDashboardButton = true)
-        : (this.showAdminDashboardButton = false);
+    } else if (this.loggedInUser.userRole == "super-admin") {
+      this.showAdminDashboardButton = true;
+      this.showEnterpriseDashboardButton = false;
+    } else if (this.loggedInUser.userRole == "enterprise") {
+      this.showEnterpriseDashboardButton = true;
+      this.showAdminDashboardButton = false;
+    } else {
+      this.showAdminDashboardButton = false;
+      this.showEnterpriseDashboardButton = false;
+    }
 
     jQuery(document).ready(function() {
       jQuery(".button-collapse").sideNav();
