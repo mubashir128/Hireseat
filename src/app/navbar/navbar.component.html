@@ -158,7 +158,13 @@
           /></a>
         </li>
 
-        <li *ngIf="isLoggedIn && !this.supperAdmin.checkSuperAdminEmail()">
+        <li
+          *ngIf="
+            isLoggedIn &&
+            !this.supperAdmin.checkSuperAdminEmail() &&
+            !this.enterpriseService.checkEnterpriseEmail()
+          "
+        >
           <a class="waves-effect waves-light btn btnSuccess" (click)="logout()"
             >Logout</a
           >
@@ -244,7 +250,13 @@
       >
     </li>
 
-    <li *ngIf="!this.supperAdmin.checkSuperAdminEmail() && isLoggedIn">
+    <li
+      *ngIf="
+        !this.supperAdmin.checkSuperAdminEmail() &&
+        !this.enterpriseService.checkEnterpriseEmail() &&
+        isLoggedIn
+      "
+    >
       <a class="waves-effect waves-light btn " (click)="logout()">Logout</a>
     </li>
   </ul>

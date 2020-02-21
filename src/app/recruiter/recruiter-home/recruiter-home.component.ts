@@ -6,6 +6,7 @@ import { UserService } from "../../_services/user.service";
 import { SuperAdminService } from "../../_services/super-admin.service";
 import { ForumService } from "../../_services/forum.service";
 import { map } from "rxjs/operators";
+import { EnterpriseService } from "src/app/_services/enterprise.service";
 
 declare var jQuery: any;
 @Component({
@@ -43,6 +44,7 @@ export class RecruiterHomeComponent implements OnInit {
 
   ngOnInit() {
     const checkSA = this.supperAdmin.checkSuperAdminEmail();
+
     console.log(checkSA);
 
     this.spinner.show();

@@ -5,6 +5,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { UserService } from "../../_services/user.service";
 import { SuperAdminService } from "../../_services/super-admin.service";
 import { ForumService } from "../../_services/forum.service";
+import { EnterpriseService } from "../../_services/enterprise.service";
 declare var jQuery: any;
 @Component({
   selector: "app-employer-home",
@@ -20,12 +21,14 @@ export class EmployerHomeComponent implements OnInit {
   questData: any;
   questDataLenght: any = [];
   isOnProfile: boolean = false;
+  enterpriseLogin: boolean;
   constructor(
     private _AuthService: AuthenticationService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private userService: UserService,
     public supperAdmin: SuperAdminService,
+    public enterpriseSevice: EnterpriseService,
     private _forum: ForumService
   ) {
     this.chkLoggedInUser = this.userService.getUserData();
@@ -50,7 +53,14 @@ export class EmployerHomeComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
+    if (localStorage.getItem("enterprise-email") != undefined) {
+      this.enterpriseLogin = true;
+      // return true;
+    } else {
+      this.enterpriseLogin = false;
 
+      // return false;
+    }
     setTimeout(() => {
       this.spinner.hide();
     }, 500);
@@ -103,6 +113,30 @@ export class EmployerHomeComponent implements OnInit {
           }
         },
         error => {
+          this._AuthService.logout();
+          console.log(error);
+        }
+      );
+  }
+  logoutEnterprise() {
+    console.log("logging out enterprise's employer");
+
+    this.enterpriseSevice
+      .unSecureEnterpriseEmployerLogin({
+        email: localStorage.getItem("enterprise-email")
+      })
+      .subscribe(
+        response => {
+          console.log("got response", response);
+
+          if (response) {
+            localStorage.removeItem("enterprise-email");
+            this.router.navigate(["enterprise/user-list"]);
+          }
+        },
+        error => {
+          console.log("error logging out");
+
           this._AuthService.logout();
           console.log(error);
         }

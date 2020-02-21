@@ -57,12 +57,6 @@ export class EnterpriseUserListComponent implements OnInit {
               this.router.navigate(["employer/bidding-event-list"]);
             } else if (response.userInfo.userRole == "recruiter") {
               this.router.navigate(["recruiter/bidding-event-list"]);
-            } else if (response.userInfo.userRole == "admin") {
-              // this.router.navigate(["user-list"]);
-              // enterprise won't get this user
-            } else if (response.userInfo.userRole == "super-admin") {
-              // this.router.navigate(["super-admin/user-list"]);
-              // enterprise won't get this user
             } else if (response.userInfo.userRole == "enterprise") {
               this.router.navigate(["enterprise/user-list"]);
             }
