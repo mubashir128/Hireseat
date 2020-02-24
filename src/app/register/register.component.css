@@ -183,3 +183,8 @@ ul.listTerm {
   margin-right: 30px !important;
   padding-left: 0px !important;
 }
+.profile-image {
+  object-fit: scale-down;
+  width: 70px;
+  height: 70px;
+}

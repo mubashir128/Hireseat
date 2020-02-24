@@ -97,6 +97,7 @@
                     [routerLink]="['/forum']"
                     routerLinkActive="borderBA"
                     *ngIf="!ques.isAnswered"
+                    [innerHtml]="truncateHTML(ques.question)"
                     >{{ ques.question }}</a
                   >
                 </li>
@@ -109,6 +110,7 @@
                     [queryParams]="{ queid: ques?._id }"
                     routerLinkActive="borderBA"
                     *ngIf="ques.QueAnsStaus == '1'"
+                    [innerHtml]="truncateHTML(ques.question)"
                     >{{ ques.question }}</a
                   >
                 </li>
@@ -122,6 +124,7 @@
                     routerLinkActive="borderBA"
                     *ngIf="ques.QueAnsStaus == '2' && isRecruiter"
                     (click)="updateQueAns(ques?._id)"
+                    [innerHtml]="truncateHTML(ques.question)"
                     >{{ ques.question }}</a
                   >
                 </li>

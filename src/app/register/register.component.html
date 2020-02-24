@@ -170,13 +170,7 @@
                   />
                   <button class="uploadBtn">choose profile image</button>
                 </div>
-                <img
-                  [src]="imgURL"
-                  height="200"
-                  *ngIf="imgURL"
-                  height="50px"
-                  width="50px"
-                />
+                <img [src]="imgURL" *ngIf="imgURL" class="profile-image" />
                 <div
                   *ngIf="signin.controls['file'].hasError('required')"
                   class="error"
@@ -210,8 +204,7 @@
             <div class="row  center-align">
               <button
                 type="submit"
-                [disabled]="!suBtnActive"
-                [disabled]="!signin.form.valid"
+                [disabled]="!suBtnActive || !signin.value"
                 class="waves-effect waves-light commonBlueBtnN"
               >
                 <span *ngIf="suBtnActive">Register</span>

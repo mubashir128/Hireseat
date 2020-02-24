@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
   formSubmit() {
     console.log(this.signin.value);
 
-    this.spinner.show();
+    // this.spinner.show();
     if (!this.signin.valid) {
       console.log("invalid form");
 

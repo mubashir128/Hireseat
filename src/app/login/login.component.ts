@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit {
       if (this.chkLoggedInUser.userRole == "employer") {
         this.router.navigate(["employer/bidding-event-list"]);
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
+        console.log("recruiter logged in");
+
         this.router.navigate(["recruiter/bidding-event-list"]);
       } else if (this.chkLoggedInUser.userRole == "admin") {
         this.router.navigate(["/user-list"]);

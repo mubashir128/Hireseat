@@ -92,6 +92,17 @@ export class NavbarComponent implements OnInit {
       jQuery(".button-collapse").sideNav();
     });
   }
+  truncateHTML(text: string): string {
+    let charlimit = 20;
+    if (!text || text.length <= charlimit) {
+      return text;
+    }
+
+    let without_html = text.replace(/<(?:.|\n)*?>/gm, "");
+    let trim_space = without_html.trim().replace(/&nbsp;/g, "");
+    let shortened = trim_space.substring(0, charlimit) + "...";
+    return shortened;
+  }
   updateQueAns(id) {
     this._forum.updateQueAnsReadStatus(id).subscribe(data => {});
   }

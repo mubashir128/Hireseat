@@ -136,4 +136,17 @@ img.greenArrowIcon {
   margin-bottom: 10px;
   color: #03a9f4;
   font-size: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.export {
+  color: #03a9f4;
+  font-size: 17px;
+  display: flex;
+  padding-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }

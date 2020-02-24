@@ -128,7 +128,7 @@ nav ul a {
   right: 0;
   padding: 0px 0px;
   top: 70px;
-  z-index: 99;
+  z-index: 999999;
   /* border: 1px solid #1c6fa9; */
   /* background-color: #48aef3; */
   background-color: #ffffff;
