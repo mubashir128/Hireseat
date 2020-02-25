@@ -38,9 +38,7 @@ export class CreateEmployerComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // this.router.navigate(["/super-admin/user-list"]);
-  }
+  ngOnInit() {}
 
   // on submit form
   formSubmit() {
@@ -69,7 +67,7 @@ export class CreateEmployerComponent implements OnInit {
     });
 
     const fd = new FormData();
-    this.localRole = "employer"; // admin role
+    this.localRole = "employer"; // employer role
     this.userroledata = 2;
     fd.append("userRole", this.localRole);
     fd.append("role", this.userroledata);
