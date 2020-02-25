@@ -51,8 +51,6 @@ export class UserService {
   }
 
   register(info: any) {
-    debugger;
-
     return this.http.post<any>(this.baseurl + "api/register", info).pipe(
       map((res: any) => {
         return res;
@@ -60,7 +58,6 @@ export class UserService {
     );
   }
   registerEnterprise(info: any) {
-    debugger;
     return this.http
       .post<any>(this.baseurl + "api/registerEnterprise", info)
       .pipe(
@@ -70,6 +67,15 @@ export class UserService {
       );
   }
 
+  registerEnterpriseEmployer(info: any) {
+    return this.http
+      .post<any>(this.baseurl + "api/registerEnterpriseEmployer", info)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
   emailVerification(info: any) {
     return this.http
       .put<any>(this.baseurl + "api/emailVerification", info)

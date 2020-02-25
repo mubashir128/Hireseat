@@ -40,12 +40,6 @@ export class CreateEmployerComponent implements OnInit {
 
   ngOnInit() {
     // this.router.navigate(["/super-admin/user-list"]);
-
-    const localUserInfo = JSON.parse(
-      window.localStorage.getItem("currentUser")
-    );
-    const userRole = localUserInfo.userInfo.userRole;
-    console.log(userRole);
   }
 
   // on submit form
@@ -53,10 +47,10 @@ export class CreateEmployerComponent implements OnInit {
     var res = this.signin.value;
 
     // checking user role whether it is super-admin or not
-    const localUserInfo = JSON.parse(
-      window.localStorage.getItem("currentUser")
-    );
-    const userRole = localUserInfo.userInfo.userRole;
+    const userRole = JSON.parse(window.localStorage.getItem("currentUser"))
+      .userInfo.userRole;
+    const enterpriseId = JSON.parse(window.localStorage.getItem("currentUser"))
+      .userInfo._id;
 
     this.signin = new FormGroup({
       fullname: new FormControl(res.fullname, [Validators.required]),
@@ -75,8 +69,8 @@ export class CreateEmployerComponent implements OnInit {
     });
 
     const fd = new FormData();
-    this.localRole = "admin"; // admin role
-    this.userroledata = 1;
+    this.localRole = "employer"; // admin role
+    this.userroledata = 2;
     fd.append("userRole", this.localRole);
     fd.append("role", this.userroledata);
     fd.append("file", this.imagePath[0], this.imagePath[0].name);
@@ -88,10 +82,10 @@ export class CreateEmployerComponent implements OnInit {
     fd.append("companyName", this.signin.controls.companyName.value);
     fd.append("webSiteLink", this.signin.controls.webSiteLink.value);
     fd.append("password", this.signin.controls.password.value);
-
+    fd.append("enterprise", enterpriseId);
     if (!this.signin.valid) {
       console.log("invalid form");
-      Materialize.toast("Please complete the form.", 1000);
+      Materialize.toast("Please complete the form.", 3000);
       this.spinner.hide();
     }
 
@@ -99,30 +93,38 @@ export class CreateEmployerComponent implements OnInit {
     if (userRole === "enterprise") {
       this.spinner.show();
 
-      console.log("yes super admin is active");
+      console.log("yes Enterprise is active");
 
       this.suBtnActive = true;
       var res = this.signin.value;
 
       if (this.signin.valid) {
         this.spinner.show();
-        this.userService.register(fd).subscribe(
+        this.userService.registerEnterpriseEmployer(fd).subscribe(
           data => {
+            console.log("response from backend positive", data);
+
             if (data.statustxt === "success") {
               this.spinner.hide();
               this.suBtnActive = true;
               jQuery("#registerMsg").modal("open");
-              this.router.navigate(["/super-admin/user-list"]);
+              this.router.navigate(["/enterprise/user-list"]);
             }
             this.spinner.hide();
           },
           error => {
-            console.log(error);
+            console.log("response from backend negative", error);
             if (error == "Conflict") {
               Materialize.toast(
                 "Email Id / Phone Number Already Registered !",
-                1000
+                3000
               );
+              this.spinner.hide();
+            } else if (error == "Bad Request") {
+              Materialize.toast("Email Id  Already Registered !", 3000);
+              this.spinner.hide();
+            } else {
+              Materialize.toast("Network error!", 3000);
               this.spinner.hide();
             }
 
@@ -137,7 +139,7 @@ export class CreateEmployerComponent implements OnInit {
     } else {
       // logout the user
       this.spinner.hide();
-      Materialize.toast("Your not an authorized user...!", 1000);
+      Materialize.toast("Your not an authorized user...!", 3000);
       this._authService.logout();
     }
   }
