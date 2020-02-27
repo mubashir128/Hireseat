@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ElementRef } from "@angular/core";
 import { UserService } from "../_services/user.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { AuthenticationService } from "../_services/authentication.service";
 import { SuperAdminService } from "../_services/super-admin.service";
 import { ForumService } from "../_services/forum.service";
@@ -11,7 +11,10 @@ declare var $: any;
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.css"]
+  styleUrls: ["./navbar.component.css"],
+  host: {
+    "(document:click)": "onClick($event)"
+  }
 })
 export class NavbarComponent implements OnInit {
   path: any = "assets/img/navbar-logo.png";
@@ -31,6 +34,7 @@ export class NavbarComponent implements OnInit {
   suggestedQueCount: number = 0;
   suggestedQueAnsCount: number = 0;
   notificationLength: any;
+  permaLink: any;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -38,8 +42,10 @@ export class NavbarComponent implements OnInit {
     public supperAdmin: SuperAdminService,
     private route: ActivatedRoute,
     private _forum: ForumService,
-    private bidEventService: BiddingEventService
+    private bidEventService: BiddingEventService,
+    private _eref: ElementRef
   ) {
+    this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != "no") {
       this.isLoggedIn = true;
@@ -53,6 +59,14 @@ export class NavbarComponent implements OnInit {
         this.isSuperAdmin = true;
       }
     }
+    router.events.subscribe(val => {
+      // see also
+      if (val instanceof NavigationEnd) {
+        // hiding notification while changes in route
+        this.show = false;
+        this.buttonName = "Hide";
+      }
+    });
   }
 
   ngOnInit() {
@@ -91,7 +105,10 @@ export class NavbarComponent implements OnInit {
     jQuery(document).ready(function() {
       jQuery(".button-collapse").sideNav();
     });
+    this.show = false;
+    this.buttonName = "Hide";
   }
+
   truncateHTML(text: string): string {
     let charlimit = 20;
     if (!text || text.length <= charlimit) {
@@ -126,5 +143,13 @@ export class NavbarComponent implements OnInit {
     // CHANGE THE NAME OF THE BUTTON.
     if (this.show) this.buttonName = "Hide";
     else this.buttonName = "Show";
+  }
+  onClick(event) {
+    console.log("clicked ");
+
+    if (!this._eref.nativeElement.contains(event.target))
+      // or some similar check
+      this.show = false;
+    this.buttonName = "Hide";
   }
 }

@@ -100,7 +100,13 @@ nav ul a {
 .mobileHeadRe {
   display: none;
 }
-
+.notificationListOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 70px;
+  left: 0;
+}
 @media only screen and (min-width: 320px) and (max-width: 667px) {
   .mobileHeadRe {
     display: flex;
@@ -203,8 +209,14 @@ h4.count {
 }
 .borderBA a {
   color: #0aafff;
+  background-color: #ffffff !important;
 }
-
+.notification-content {
+  background-color: #ffffff !important;
+}
+.notification-content:hover {
+  background-color: #e5f4ff !important;
+}
 /* width */
 .notificationListInner ul::-webkit-scrollbar {
   width: 5px;

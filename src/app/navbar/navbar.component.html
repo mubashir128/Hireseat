@@ -95,7 +95,7 @@
                 <li *ngFor="let ques of questDataLenght">
                   <a
                     [routerLink]="['/forum']"
-                    routerLinkActive="borderBA"
+                    routerLinkActive="notification-content"
                     *ngIf="!ques.isAnswered"
                     [innerHtml]="truncateHTML(ques.question)"
                     >{{ ques.question }}</a
@@ -108,7 +108,7 @@
                       ques?.biddingEventId
                     ]"
                     [queryParams]="{ queid: ques?._id }"
-                    routerLinkActive="borderBA"
+                    routerLinkActive="notification-content"
                     *ngIf="ques.QueAnsStaus == '1'"
                     [innerHtml]="truncateHTML(ques.question)"
                     >{{ ques.question }}</a
@@ -121,7 +121,7 @@
                       ques?.biddingEventId
                     ]"
                     [queryParams]="{ queid: ques?._id }"
-                    routerLinkActive="borderBA"
+                    routerLinkActive="notification-content"
                     *ngIf="ques.QueAnsStaus == '2' && isRecruiter"
                     (click)="updateQueAns(ques?._id)"
                     [innerHtml]="truncateHTML(ques.question)"

@@ -78,11 +78,11 @@ export class LoginComponent implements OnInit {
             if (this.userData.userRole == "employer") {
               this.router.navigate(["employer/bidding-event-list"]);
             } else if (this.userData.userRole == "recruiter") {
-              if (this.returnUrl) {
-                this.router.navigate([this.returnUrl]);
-              } else {
-                this.router.navigate(["recruiter/bidding-event-list"]);
-              }
+              // if (this.returnUrl) {
+              //   this.router.navigate([this.returnUrl]);
+              // } else {
+              this.router.navigate(["recruiter/bidding-event-list"]);
+              // }
             } else if (this.userData.userRole == "admin") {
               this.router.navigate(["user-list"]);
             } else if (this.userData.userRole == "super-admin") {
