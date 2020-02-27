@@ -82,6 +82,15 @@
           >
         </li>
         <!-- end of employeer profile -->
+        <!-- Enterprise profile -->
+        <li *ngIf="isEnterprise && isLoggedIn">
+          <a
+            [routerLink]="['/enterprise/user-list']"
+            routerLinkActive="borderBA"
+            >Enterprise</a
+          >
+        </li>
+        <!-- end of Enterprise profile -->
 
         <li *ngIf="isEmployer && isLoggedIn">
           <a [routerLink]="['/employer/profile']" routerLinkActive="borderBA">
@@ -215,6 +224,16 @@
         >Recruiter</a
       >
     </li>
+    <!--  -->
+    <li *ngIf="isEnterprise && isLoggedIn">
+      <a
+        class="waves-effect waves-light btn"
+        [routerLink]="['/enterprise/user-list']"
+        routerLinkActive="borderBA"
+        >Enterprise</a
+      >
+    </li>
+    <!--  -->
     <li *ngIf="isRecruiter && isLoggedIn">
       <a
         class="waves-effect waves-light btn"
@@ -230,6 +249,7 @@
         >Employer</a
       >
     </li>
+
     <li *ngIf="isEmployer && isLoggedIn">
       <a
         class="waves-effect waves-light btn"
