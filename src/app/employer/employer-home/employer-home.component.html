@@ -49,35 +49,98 @@
 
 </div> -->
 <app-navbar></app-navbar>
-<div class="container" style="margin-top:15px;">
+
+<!-- if only employer logged in -->
+<ng-container
+  *ngIf="!this.supperAdmin.checkSuperAdminEmail() && !enterpriseLogin"
+>
+  <div class="container" style="margin-top:15px;">
+    <div class="row">
+      <div class="col s12 m3 l3" *ngIf="!isOnProfile">
+        <app-employer-navbar
+          (selected)="navigate($event)"
+        ></app-employer-navbar>
+      </div>
+      <!-- <div class="col s12 m9 l9"> -->
+      <div
+        [ngClass]="{
+          'col s12 m12 l12': isOnProfile,
+          'col s12 m9 l9': !isOnProfile
+        }"
+      >
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- if Super admin -->
+<ng-container
+  *ngIf="this.supperAdmin.checkSuperAdminEmail() && !enterpriseLogin"
+>
+  <div class="container" style="margin-top:15px;">
+    <div class="row">
+      <div
+        class="LogOutOption mobileHeadRe"
+        *ngIf="this.supperAdmin.checkSuperAdminEmail() && !enterpriseLogin"
+      >
+        <!-- put this condition at false 'this.supperAdmin.checkSuperAdminEmail()' -->
+        <h4>{{ chkLoggedInUser.fullName }} : {{ chkLoggedInUser.userRole }}</h4>
+        <a (click)="logoutSA()"> Logout </a>
+      </div>
+      <div class="col s12 m3 l3" *ngIf="!isOnProfile">
+        <app-employer-navbar
+          (selected)="navigate($event)"
+        ></app-employer-navbar>
+      </div>
+      <!-- <div class="col s12 m9 l9"> -->
+      <div
+        [ngClass]="{
+          'col s12 m12 l12': isOnProfile,
+          'col s12 m9 l9': !isOnProfile
+        }"
+      >
+        <div
+          class="LogOutOption desktopRe"
+          *ngIf="this.supperAdmin.checkSuperAdminEmail()"
+        >
+          <!-- put this condition at false 'this.supperAdmin.checkSuperAdminEmail()' -->
+          <h4>
+            {{ chkLoggedInUser.fullName }} : {{ chkLoggedInUser.userRole }}
+          </h4>
+          <a (click)="logoutSA()"> Logout </a>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<!-- for enterprise -->
+<ng-container
+  class="container"
+  style="margin-top:15px;"
+  *ngIf="enterpriseLogin && !this.supperAdmin.checkSuperAdminEmail()"
+>
   <div class="row">
-    <div
-      class="LogOutOption mobileHeadRe"
-      *ngIf="this.supperAdmin.checkSuperAdminEmail()"
-    >
-      <!-- put this condition at false 'this.supperAdmin.checkSuperAdminEmail()' -->
-      <h4>{{ chkLoggedInUser.fullName }} : {{ chkLoggedInUser.userRole }}</h4>
-      <a (click)="logoutSA()"> Logout </a>
+    <div class="LogOutOption mobileHeadRe">
+      <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
+      <a (click)="logoutEnterprise()"> Logout </a>
     </div>
     <div class="col s12 m3 l3" *ngIf="!isOnProfile">
       <app-employer-navbar (selected)="navigate($event)"></app-employer-navbar>
     </div>
-    <!-- <div class="col s12 m9 l9"> -->
     <div
       [ngClass]="{
         'col s12 m12 l12': isOnProfile,
         'col s12 m9 l9': !isOnProfile
       }"
     >
-      <div
-        class="LogOutOption desktopRe"
-        *ngIf="this.supperAdmin.checkSuperAdminEmail()"
-      >
-        <!-- put this condition at false 'this.supperAdmin.checkSuperAdminEmail()' -->
-        <h4>{{ chkLoggedInUser.fullName }} : {{ chkLoggedInUser.userRole }}</h4>
-        <a (click)="logoutSA()"> Logout </a>
+      <div class="LogOutOption desktopRe" *ngIf="enterpriseLogin">
+        <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
+        <a (click)="logoutEnterprise()"> Logout </a>
       </div>
       <router-outlet></router-outlet>
     </div>
   </div>
-</div>
+</ng-container>
+<!-- End for enterprise -->
