@@ -16,10 +16,31 @@ export class EmployerNavbarComponent implements OnInit {
   public userProfile: IProfile;
   public type: number = 0;
   public tabs1: Tab[];
+  tabMenu: any;
   constructor(private router: Router,private spinner: NgxSpinnerService,private userService: UserService) {
-    this.tabs1 = [];
-    this.tabs1.push(new Tab('/employer/job-profile-list', 'Job Profiles', false));
-    this.tabs1.push(new Tab('/employer/bidding-event-list', 'Job Postings', false));
+    this.tabMenu = [
+      {
+        id:1,
+        name:'Dashboard',
+        path:'/employer/dashboard',
+        selected: true
+      },
+      {
+        id:2,
+        name:'Job Profiles',
+        path:'/employer/job-profile-list',
+        selected: false
+      },
+      {
+        id:3,
+        name:'Job Postings',
+        path:'/employer/bidding-event-list',
+        selected: false
+      }
+    ]
+    // this.tabs1 = [];
+    // this.tabs1.push(new Tab('/employer/job-profile-list', 'Job Profiles', true));
+    // this.tabs1.push(new Tab('/employer/bidding-event-list', 'Job Postings', false));
     /*  this.tabs1.push(new Tab('/employer/feedback-list', 'Active Job Postings Feedback',false)); */
   }
 
@@ -35,8 +56,8 @@ export class EmployerNavbarComponent implements OnInit {
 
 
   SelectItem(item) {
-    this.tabs1.forEach(tab => {
-      if (tab.id === item)
+    this.tabMenu.forEach(tab => {
+      if (tab.path === item)
         tab.selected = true;
       else
         tab.selected = false;

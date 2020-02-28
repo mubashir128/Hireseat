@@ -33,9 +33,10 @@ export class LoginComponent implements OnInit {
     this.chkLoggedInUser = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "employer") {
-        this.router.navigate(["employer/bidding-event-list"]);
+        console.log('employer logged in ');
+        
+        this.router.navigate(["employer/dashboard"]);
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
-        console.log("recruiter logged in");
 
         this.router.navigate(["recruiter/bidding-event-list"]);
       } else if (this.chkLoggedInUser.userRole == "admin") {
@@ -76,7 +77,7 @@ export class LoginComponent implements OnInit {
           if (data == "success") {
             this.userData = this.userService.getUserData();
             if (this.userData.userRole == "employer") {
-              this.router.navigate(["employer/bidding-event-list"]);
+              this.router.navigate(["employer/dashboard"]);
             } else if (this.userData.userRole == "recruiter") {
               // if (this.returnUrl) {
               //   this.router.navigate([this.returnUrl]);

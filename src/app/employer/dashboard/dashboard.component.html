@@ -1,0 +1,28 @@
+<div class="main-container">
+  <div class="chart-container">
+    <div class="left-container">
+      <div class="bar-chart">
+        <app-bar-chart></app-bar-chart>
+      </div>
+      <div class="line-chart">
+        <app-line-chart></app-line-chart>
+      </div>
+    </div>
+    <div class="right-container">
+      <div class="pie-chart">
+        <app-pie-chart></app-pie-chart>
+      </div>
+      <div class="scatter-chart">
+        <app-scatter-chart></app-scatter-chart>
+      </div>
+    </div>
+  </div>
+  <div class="listing">
+    <!-- user data job listing -->
+    <div class="job-listing-details" *ngFor="let job of jobListing">
+
+      {{job.name}}
+      {{job.jobTitle}}
+    </div>
+  </div>
+</div>
