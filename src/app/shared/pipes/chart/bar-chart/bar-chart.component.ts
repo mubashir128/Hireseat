@@ -6,7 +6,7 @@ import { Chart } from 'chart.js';
   styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent implements OnInit {
-  BarChart = [];
+  BarChart = [{}];
   constructor() { }
 
   ngOnInit() {

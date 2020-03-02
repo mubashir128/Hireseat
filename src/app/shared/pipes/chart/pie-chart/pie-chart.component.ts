@@ -7,7 +7,7 @@ import { Chart } from 'chart.js';
   styleUrls: ['./pie-chart.component.css']
 })
 export class PieChartComponent implements OnInit {
-  PieChart: [];
+  PieChart: [{}];
 
   constructor() { }
 
@@ -36,7 +36,7 @@ export class PieChartComponent implements OnInit {
       },
       options: {
         title: {
-          text: "Bar Chart",
+          text: "Pie Chart",
           display: true
         },
         scales: {
