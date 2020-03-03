@@ -54,7 +54,7 @@ export class LineChartComponent implements OnInit {
         }
       },
       title: {
-        text: "Chart Title",
+        text: "Aggregate Recruiter Performance",
         display: true
       },
       scales: {
