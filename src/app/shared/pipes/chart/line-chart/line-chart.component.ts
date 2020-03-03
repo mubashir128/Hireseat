@@ -16,7 +16,7 @@ export class LineChartComponent implements OnInit {
       fill: "false",
       lineTension: "0",
       borderColor: "#FF0000",
-      borderWidth: 2,
+      borderWidth: 3,
       data: [70, 60, 68, 52, 50, 51]
     };
     const fillRate = {
@@ -25,7 +25,7 @@ export class LineChartComponent implements OnInit {
       yAxisID: "percent",
       lineTension: "0",
       borderColor: "#8FAADC",
-      borderWidth: 2,
+      borderWidth: 3,
       data: [29, 25, 24, 33, 20, 10]
     };
     const AvgFillRate = {
@@ -33,7 +33,7 @@ export class LineChartComponent implements OnInit {
       fill: "false",
       lineTension: "0",
       borderColor: "#5B9BD5",
-      borderWidth: 2,
+      borderWidth: 3,
       data: [10, 8, 5, 7, 11, 6]
     };
     this.lineChartDataSet = {
@@ -64,8 +64,7 @@ export class LineChartComponent implements OnInit {
         xAxes: [
           {
             ticks: {
-              beginAtZero: true,
-              padding: 10
+              beginAtZero: true
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",

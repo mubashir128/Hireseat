@@ -41,7 +41,7 @@ export class BarChartComponent implements OnInit {
           yAxisID: "rest",
           lineTension: "0",
           borderColor: "red",
-          borderWidth: 2,
+          borderWidth: 3,
           fill: false,
 
           data: [25, 20, 20, 18, 20, 25, 30, 20, 20, 25, 15, 15, 15, 20, 15]

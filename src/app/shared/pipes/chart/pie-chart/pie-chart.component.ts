@@ -88,10 +88,26 @@ export class PieChartComponent implements OnInit {
             {
               ticks: {
                 beginAtZero: true
+              },
+              gridLines: {
+                color: "rgba(0, 0, 0, 0)"
+                // display: false
+              }
+            }
+          ],
+          xAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+              gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+                display: false
               }
             }
           ]
-        }
+        },
+        bezierCurve: false
       }
     });
   }
