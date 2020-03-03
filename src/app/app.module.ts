@@ -117,6 +117,11 @@ import { SortPipe } from "./shared/pipes/sort.pipe";
 import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
 import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
 import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
+import { DashboardComponent } from './employer/dashboard/dashboard.component';
+import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
+import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.component';
+import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
+import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -201,6 +206,10 @@ const appChildRoutes: Routes = [
       {
         path: "employer-Answere/:id",
         component: EmployeerAnsComponent
+      },
+      {
+        path: "dashboard",
+        component: DashboardComponent
       }
     ],
     canActivate: [EmployerGuard]
@@ -408,7 +417,12 @@ const appChildRoutes: Routes = [
     SortPipe,
     SafePdfPipe,
     CreateAdminComponent,
-    CreateEnterpriseComponent
+    CreateEnterpriseComponent,
+    DashboardComponent,
+    BarChartComponent,
+    LineChartComponent,
+    PieChartComponent,
+    ScatterChartComponent
   ],
   imports: [
     InfiniteScrollModule,
