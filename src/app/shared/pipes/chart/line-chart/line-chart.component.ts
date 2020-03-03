@@ -1,86 +1,123 @@
-import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Component, OnInit } from "@angular/core";
+import { Chart } from "chart.js";
 
 @Component({
-  selector: 'app-line-chart',
-  templateUrl: './line-chart.component.html',
-  styleUrls: ['./line-chart.component.css']
+  selector: "app-line-chart",
+  templateUrl: "./line-chart.component.html",
+  styleUrls: ["./line-chart.component.css"]
 })
 export class LineChartComponent implements OnInit {
   LineChart: [{}];
   lineChartDataSet: any;
+  lineOptions: any;
   constructor() {
-    const recruiter1 = {
-      label: "Recruiter1",
-      fill: 'false',
-      lineTension: '0.2',
-      borderColor: "#85e0e0",
-      borderWidth: 1,
-      data: [5025, 6000, 7025, 8000, 9089, 10098]
+    const totalRecs = {
+      label: "Total Recs",
+      fill: "false",
+      lineTension: "0",
+      borderColor: "#FF0000",
+      borderWidth: 2,
+      data: [70, 60, 68, 52, 50, 51]
     };
-    const recruiter2 = {
-      label: "Recruiter2",
-      fill: 'false',
-      lineTension: '0.2',
-      borderColor: "#3399ff",
-      borderWidth: 1,
-      data: [8078, 8100, 8500, 9100, 9100, 9000]
-    }
-    const recruiter3 = {
-      label: "Recruiter3",
-      fill: 'false',
-      lineTension: '0.2',
-      borderColor: "#cc3399",
-      borderWidth: 1,
-      data: [7001, 7500, 8500, 9035, 9035, 8998]
+    const fillRate = {
+      label: "Fill Rate",
+      fill: "false",
+      yAxisID: "percent",
+      lineTension: "0",
+      borderColor: "#8FAADC",
+      borderWidth: 2,
+      data: [29, 25, 24, 33, 20, 10]
     };
-    const recruiter4 = {
-      label: "Recruiter4",
-      fill: 'false',
-      lineTension: '0.2',
-      borderColor: "#79ff4d",
-      borderWidth: 1,
-      data: [8565, 8201, 7525, 7202, 8010, 7888]
-    };
-    const recruiter5 = {
-      label: "Recruiter5",
-      fill: 'false',
-      lineTension: '0.2',
-      borderColor: "#6666ff",
-      borderWidth: 1,
-      data: [9025, 8001, 7001, 6002, 6210, 7000]
+    const AvgFillRate = {
+      label: "Avg Fill Rate in Days",
+      fill: "false",
+      lineTension: "0",
+      borderColor: "#5B9BD5",
+      borderWidth: 2,
+      data: [10, 8, 5, 7, 11, 6]
     };
     this.lineChartDataSet = {
-      labels: [
-        "Jan",
-        "Feb",
-        "March",
-        "April",
-        "May",
-        "June"
-      ],
-      datasets: [recruiter1, recruiter2, recruiter3, recruiter4, recruiter5]
+      labels: ["Jan", "Feb", "March", "April", "May", "June"],
+      datasets: [totalRecs, AvgFillRate, fillRate]
+    };
+    this.lineOptions = {
+      legend: {
+        position: "bottom",
+        labels: {
+          // fontFamily: "Comic Sans MS",
+          boxWidth: 30,
+          boxHeight: 0,
+          fontSize: 10
+        },
+        maxSize: {
+          height: 0
+        }
+      },
+      title: {
+        text: "Chart Title",
+        display: true
+      },
+      scales: {
+        ticks: {
+          beginAtZero: true
+        },
+        xAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+              padding: 10
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+              display: false
+            }
+          }
+        ],
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+              display: false
+            }
+          },
+          {
+            id: "percent",
+            type: "linear",
+            position: "right",
+
+            ticks: {
+              max: 35,
+              min: 0,
+              callback: function(value, index, values) {
+                return value + "%";
+              }
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)"
+            }
+          }
+        ]
+      },
+      elements: {
+        line: {
+          tension: 0
+        },
+        point: {
+          radius: 0
+        }
+      },
+      bezierCurve: false
     };
   }
 
   ngOnInit() {
-    this.LineChart = new Chart('lineChart', {
-      type: 'line',
+    this.LineChart = new Chart("lineChart", {
+      type: "line",
       data: this.lineChartDataSet,
-      options: {
-        title: {
-          text: "Chart Title",
-          display: true
-        },
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
+      options: this.lineOptions
     });
   }
-
 }

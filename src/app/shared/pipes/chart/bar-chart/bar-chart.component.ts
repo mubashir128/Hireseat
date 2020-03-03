@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Component, OnInit } from "@angular/core";
+import { Chart } from "chart.js";
 @Component({
-  selector: 'app-bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.css']
+  selector: "app-bar-chart",
+  templateUrl: "./bar-chart.component.html",
+  styleUrls: ["./bar-chart.component.css"]
 })
 export class BarChartComponent implements OnInit {
   BarChart = [{}];
   barChartData = {};
   chartOptions: any;
+  data: any;
   constructor() {
     // declairing bar chart data
-    this.barChartData = {
+
+    // end of creating bar chart data
+
+    this.data = {
       labels: [
         "Recruiter1",
         "Recruiter2",
@@ -31,12 +35,26 @@ export class BarChartComponent implements OnInit {
       ],
       datasets: [
         {
+          label: "Fee",
+          //new option, type will default to bar as that what is used to create the scale
+          type: "line",
+          yAxisID: "rest",
+          lineTension: "0",
+          borderColor: "red",
+          borderWidth: 2,
+          fill: false,
+
+          data: [25, 20, 20, 18, 20, 25, 30, 20, 20, 25, 15, 15, 15, 20, 15]
+        },
+        {
+          //new option, type will default to bar as that what is used to create the scale
+          type: "bar",
           label: "Score",
-          yAxisID: 'score',
-          backgroundColor: "#85e0e0",
-          borderColor: "#85e0e0",
+          backgroundColor: "#00b0f0",
+          borderColor: "#00b0f0",
           borderWidth: 1,
-          data: [10098,
+          data: [
+            10098,
             9000,
             8998,
             7888,
@@ -50,142 +68,112 @@ export class BarChartComponent implements OnInit {
             900,
             800,
             500,
-            100,
-          ]
-        },
-        {
-          label: "AVG Number of Days",
-          backgroundColor: "red",
-          borderColor: "red",
-          borderWidth: 1,
-          yAxisID: 'rest',
-          data: [3,
-            3,
-            3,
-            3,
-            4,
-            2,
-            5,
-            7,
-            8,
-            9,
-            9,
-            10,
-            15,
-            20,
-            25
-          ]
-        },
-        {
-          label: "# of Submissions",
-          backgroundColor: "gray",
-          borderColor: "gray",
-          borderWidth: 1,
-          yAxisID: 'rest',
-          data: [20,
-            18,
-            15,
-            12,
-            11,
-            6,
-            5,
-            5,
-            5,
-            4,
-            3,
-            4,
-            1
-          ]
-        },
-        {
-          label: "# of Interviews",
-          backgroundColor: "yellow",
-          borderColor: "yellow",
-          borderWidth: 1,
-          yAxisID: 'rest',
-          data: [16,
-            14,
-            11,
-            8,
-            7,
-            3,
-            2,
-            2,
-            2,
-            2,
-            1,
-            1,
-            1,
-            1,
-            0
-          ]
-        },
-        {
-          label: "# of Hires",
-          backgroundColor: "green",
-          borderColor: "green",
-          borderWidth: 1,
-          yAxisID: 'rest',
-          data: [10,
-            7,
-            6,
-            5,
-            3,
-            2,
-            1,
-            1,
-            1,
-            1,
-            1,
-            0,
-            0,
-            0,
-            0
+            100
           ]
         }
       ]
     };
-    // end of creating bar chart data
     this.chartOptions = {
       responsive: true,
       legend: {
-        position: "top"
+        position: "bottom",
+        labels: {
+          // fontFamily: "Comic Sans MS",
+          boxWidth: 30,
+          boxHeight: 1,
+          fontSize: 10
+        }
       },
       title: {
         display: true,
-        text: "Chart Title"
+        text: "Recruiter Performance VS Cost"
       },
       scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
+        xAxes: [
+          {
+            barPercentage: 0.4,
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+              display: false
+            }
           }
-        }, {
-          id: 'score',
-          type: 'linear',
-          position: 'left'
-        },
-        {
-          id: 'rest',
-          type: 'linear',
-          position: 'right',
-          ticks: {
-            max: 30,
-            min: 0
+        ],
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+              display: false
+            }
+          },
+          // {
+          //   id: "score",
+          //   type: "linear",
+          //   position: "left",
+          //   ticks: {
+          //     beginAtZero: true
+          //   },
+          //   gridLines: {
+          //     color: "rgba(0, 0, 0, 0)"
+          //   }
+          // },
+          {
+            id: "rest",
+            type: "linear",
+            position: "right",
+
+            ticks: {
+              max: 30,
+              min: 0,
+              callback: function(value, index, values) {
+                return value + "%";
+              }
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0)"
+            }
           }
-        }
         ]
-      }
-    }
+      },
+      elements: {
+        line: {
+          tension: 0
+        },
+        point: {
+          radius: 0
+        }
+      },
+      bezierCurve: false
+    };
   }
 
   ngOnInit() {
-    this.BarChart = new Chart('barChart', {
-      type: 'bar',
-      data: this.barChartData,
+    this.BarChart = new Chart("barChart", {
+      type: "bar",
+      data: this.data,
       options: this.chartOptions
     });
-
   }
-
 }
+
+// {
+//         datasets: [
+//           {
+//             label: "Bar Dataset",
+//             data: [10, 20, 30, 40],
+//             yAxisID: "score"
+//           },
+//           {
+//             label: "Line Dataset",
+//             data: [10, 5, 25, 17],
+//             yAxisID: "rest",
+//             fill: false,
+
+//             // Changes this dataset to become a line
+//             type: "line"
+//           }
+//         ],
+//         labels: ["January", "February", "March", "April"]
+//       },
