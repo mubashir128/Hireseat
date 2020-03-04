@@ -59,7 +59,7 @@ export class NavbarComponent implements OnInit {
         this.isSuperAdmin = true;
       }
     }
-    router.events.subscribe(val => {
+    router.events.subscribe((val) => {
       // see also
       if (val instanceof NavigationEnd) {
         // hiding notification while changes in route
@@ -71,19 +71,19 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this._forum.getUnAnsweredData().subscribe(
-      res => {
+      (res) => {
         this.questDataLenght = res;
         this.notificationLength = this.questDataLenght.length;
       },
-      err => console.log(err)
+      (err) => console.log(err)
     );
 
     if (this.loggedInUser.userRole == "employer") {
       this._forum
         .getAllUnAnsQuestionsByEmployerId(this.loggedInUser._id)
-        .subscribe(data => {
+        .subscribe((data) => {
           this.suggestedQueData = data;
-          this.suggestedQueData.forEach(element => {
+          this.suggestedQueData.forEach((element) => {
             if (element.QueAnsStaus == 1) {
               this.suggestedQueCount++;
             }
@@ -92,9 +92,9 @@ export class NavbarComponent implements OnInit {
     } else if (this.loggedInUser.userRole == "recruiter") {
       this._forum
         .getAllUnreadAnsQueByRecruiteId(this.loggedInUser._id)
-        .subscribe(data => {
+        .subscribe((data) => {
           this.suggestedQueData = data;
-          this.suggestedQueData.forEach(element => {
+          this.suggestedQueData.forEach((element) => {
             if (element.QueAnsStaus == 2) {
               this.suggestedQueAnsCount++;
             }
@@ -121,7 +121,7 @@ export class NavbarComponent implements OnInit {
     return shortened;
   }
   updateQueAns(id) {
-    this._forum.updateQueAnsReadStatus(id).subscribe(data => {});
+    this._forum.updateQueAnsReadStatus(id).subscribe((data) => {});
   }
 
   navigate(path) {
@@ -145,7 +145,7 @@ export class NavbarComponent implements OnInit {
     else this.buttonName = "Show";
   }
   onClick(event) {
-    console.log("clicked ");
+    // console.log("clicked ");
 
     if (!this._eref.nativeElement.contains(event.target))
       // or some similar check

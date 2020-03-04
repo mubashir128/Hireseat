@@ -50,7 +50,7 @@ export class AllPostComponent implements OnInit {
   }
 
   getAllBlogs(limit) {
-    this._blogservice.getBlogCategories().subscribe(res => {
+    this._blogservice.getBlogCategories().subscribe((res) => {
       this.catArray = res.data;
 
       this.dataService = this.completerService.local(
@@ -60,12 +60,12 @@ export class AllPostComponent implements OnInit {
       );
     });
     this._blogservice.getAllBlogPost(limit).subscribe(
-      res => {
+      (res) => {
         this.blogPostData = res.data;
         console.log(this.blogPostData.length);
         this.blogPostDataLength = this.blogPostData.length;
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
@@ -87,7 +87,7 @@ export class AllPostComponent implements OnInit {
 
   removeBlog() {
     this._blogservice.deleteBlog(this.deleteID).subscribe(
-      response => {
+      (response) => {
         if (response.result == "success") {
           Materialize.toast("Blog Deleted successfully", 1000, "rounded");
         } else {
@@ -95,7 +95,7 @@ export class AllPostComponent implements OnInit {
         }
         this.getAllBlogs(this.limit);
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
@@ -111,10 +111,10 @@ export class AllPostComponent implements OnInit {
     temp = text.split(",");
     // temp = this.blogSearchForm.value.category.split(",");
     this._blogservice.getBlogByCategory(temp, this.limit).subscribe(
-      response => {
+      (response) => {
         this.blogPostData = response.data;
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
