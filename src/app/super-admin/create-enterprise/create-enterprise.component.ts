@@ -107,16 +107,16 @@ export class CreateEnterpriseComponent implements OnInit {
       if (this.signin.valid) {
         this.spinner.show();
         this.userService.registerEnterprise(fd).subscribe(
-          data => {
+          (data) => {
             if (data.statustxt === "success") {
               this.spinner.hide();
               this.suBtnActive = true;
               jQuery("#registerMsg").modal("open");
-              // this.router.navigate(["/super-admin/user-list"]);
+              this.router.navigate(["/super-admin/user-list"]);
             }
             this.spinner.hide();
           },
-          error => {
+          (error) => {
             console.log(error);
             if (error == "Conflict") {
               Materialize.toast(
@@ -155,7 +155,7 @@ export class CreateEnterpriseComponent implements OnInit {
     var reader = new FileReader();
     this.imagePath = files;
     reader.readAsDataURL(files[0]);
-    reader.onload = _event => {
+    reader.onload = (_event) => {
       this.imgURL = reader.result;
     };
   }
