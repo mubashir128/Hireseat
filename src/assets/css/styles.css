@@ -1033,6 +1033,7 @@ ng2-dropdown-menu.dropdown {
   font-size: 18px;
   margin: 0;
   color: #0aafff;
+  width: 60%;
 }
 .recruitrList {
   display: flex;

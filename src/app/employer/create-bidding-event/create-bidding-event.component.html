@@ -4,7 +4,7 @@
     <form [formGroup]="auctionFrm" (ngSubmit)="submit()" novalidate>
         <div class="row flexWrap">
             <div class="input-field col s6 m4">
-                <input id="activationDate"  type="date" class="validate datepicker" name="activationDate">
+                <input id="activationDate" type="date" class="validate datepicker" name="activationDate">
                 <label for="activationDate" class="active">Activation Date</label>
             </div>
             <div class="input-field col s6 m4">
@@ -19,7 +19,8 @@
                     {{jobProfileName}}
                     <i class="material-icons right" style="cursor: pointer">arrow_drop_down</i>
                 </a>
-                <ul id="dropdown_jobProfile" class="dropdown-content"><!--  hide-on-small-only -->
+                <ul id="dropdown_jobProfile" class="dropdown-content">
+                    <!--  hide-on-small-only -->
                     <li *ngFor="let jobProfile of jp"><a
                             (click)="jobProfileVal(jobProfile.jobTitle,jobProfile._id)">{{jobProfile.jobTitle}}</a></li>
                 </ul>
@@ -28,7 +29,7 @@
                     <div *ngIf="f.selectedJobProfile.errors.required">Company Description is required</div>
                 </div>
             </div>
-        <!-- </div>
+            <!-- </div>
         <div class="row"> -->
             <!--  <div class="input-field col s6">
               <input id="resume-limit" type="text" class="validate" name="biddingEvent.resumeLimit" [(ngModel)]="biddingEvent.resumeLimit" formControlName="resumeLimit">
@@ -39,24 +40,24 @@
                 </div>
           </div> -->
             <div class="input-field col s6 m4">
-                <input id="reward-money" currencyMask type="text" class="validate"
-                    name="biddingEvent.rewardMoney" [(ngModel)]="biddingEvent.rewardMoneyFrom"
-                    formControlName="rewardMoneyFrom">
+                <input id="reward-money" currencyMask type="text" class="validate" name="biddingEvent.rewardMoney"
+                    [(ngModel)]="biddingEvent.rewardMoneyFrom" formControlName="rewardMoneyFrom">
                 <label for="reward-money" class="active">Placement Fee From</label>
-                
-                <div *ngIf="(f.rewardMoneyFrom.touched && f.rewardMoneyFrom.errors)" class="invalid-feedback" class="error">
+
+                <div *ngIf="(f.rewardMoneyFrom.touched && f.rewardMoneyFrom.errors)" class="invalid-feedback"
+                    class="error">
                     <div *ngIf="f.rewardMoneyFrom.errors.required">From Reward Money is required</div>
                     <div *ngIf="f.rewardMoneyFrom.errors.pattern">Numbers Only</div>
                 </div>
             </div>
 
             <div class="input-field col s6 m4">
-                <input id="reward-money" currencyMask type="text" class="validate"
-                    name="biddingEvent.rewardMoneyTo" [(ngModel)]="biddingEvent.rewardMoneyTo"
-                    formControlName="rewardMoneyTo">
+                <input id="reward-money" currencyMask type="text" class="validate" name="biddingEvent.rewardMoneyTo"
+                    [(ngModel)]="biddingEvent.rewardMoneyTo" formControlName="rewardMoneyTo">
                 <label for="reward-money" class="active">Placement Fee To</label>
                 <div *ngIf="f.rewardMoneyTo.touched" class="invalid-feedback" class="error">
-                    <div *ngIf="auctionFrm.hasError('invalidReward') && !f.rewardMoneyTo.errors?.required" >Can't be less than Placement Fee From</div>
+                    <div *ngIf="auctionFrm.hasError('invalidReward') && !f.rewardMoneyTo.errors?.required">Can't be less
+                        than Placement Fee From</div>
                 </div>
                 <div *ngIf="(f.rewardMoneyTo.touched && f.rewardMoneyTo.errors)" class="invalid-feedback" class="error">
                     <div *ngIf="f.rewardMoneyTo.errors.required">To Reward Money is required</div>
@@ -75,7 +76,7 @@
                     <label for="female">Private</label>
                 </div>
 
-                <div class="searchDivParent">
+                <!-- <div class="searchDivParent">
                     <div class="searchDiv">
                         <input type="text" placeholder="search">
                         <i class="fa fa-search" aria-hidden="true"></i>
@@ -89,8 +90,26 @@
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
-                            <div class="actionDiv">
-                                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                              <div class="actionDiv">
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                  </label>
+                            </div>
+                        </div>
+                        <div class="recruitrList">
+                            <h4>R1</h4>
+                            <div class="starDiv">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                              <div class="actionDiv">
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                  </label>
                             </div>
                         </div>
                         <div class="recruitrList">
@@ -102,60 +121,60 @@
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
                             <div class="actionDiv">
-                                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                         <div class="recruitrList">
-                                <h4>R1</h4>
-                                <div class="starDiv">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="actionDiv">
-                                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                                </div>
+                            <h4>R1</h4>
+                            <div class="starDiv">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
-                            <div class="recruitrList">
-                                <h4>R1</h4>
-                                <div class="starDiv">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="actionDiv">
-                                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                                </div>
+                            <div class="actionDiv">
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
-                            <div class="recruitrList">
-                                    <h4>R1</h4>
-                                    <div class="starDiv">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="actionDiv">
-                                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div class="recruitrList">
-                                    <h4>R1</h4>
-                                    <div class="starDiv">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="actionDiv">
-                                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="recruitrList">
+                            <h4>R1</h4>
+                            <div class="starDiv">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            <div class="actionDiv">
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="recruitrList">
+                            <h4>R1</h4>
+                            <div class="starDiv">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            <div class="actionDiv">
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
+                </div> -->
+
                 <div class="recruiterListMain">
                     <h3>Top Recruiters</h3>
                     <div class="recruiterListDiv">
@@ -168,7 +187,10 @@
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
                             <div class="actionDiv">
-                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                  </label>
                             </div>
                         </div>
                         <div class="recruitrList">
@@ -180,7 +202,10 @@
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
                             <div class="actionDiv">
-                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                  </label>
                             </div>
                         </div>
                         <div class="recruitrList">
@@ -192,11 +217,14 @@
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
                             <div class="actionDiv">
-                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                  </label>
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>
 
             </div>
 
@@ -213,35 +241,44 @@
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
                             <div class="actionDiv">
-                                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                  </label>
                             </div>
                         </div>
                         <div class="recruitrList">
-                                <h4>R1</h4>
-                                <div class="starDiv">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="actionDiv">
-                                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                                </div>
+                            <h4>R1</h4>
+                            <div class="starDiv">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
-                            <div class="recruitrList">
-                                    <h4>R1</h4>
-                                    <div class="starDiv">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="actionDiv">
-                                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                                    </div>
-                                </div>
+                            <div class="actionDiv">
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                  </label>
+                            </div>
+                        </div>
+                        <div class="recruitrList">
+                            <h4>R1</h4>
+                            <div class="starDiv">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            <div class="actionDiv">
+                                <label class="CheckBoxcontainer">
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                  </label>
+                            </div>
+                        </div>
                     </div>
-                </div>    
+                </div>
             </div>
 
             <div class="input-field col s6 m4"></div>
@@ -250,7 +287,7 @@
         <div class="center-align" style="margin-top:15px; margin-bottom:15px;">
             <button [disabled]="auctionFrm.valid==true ? false:true " type="submit"
                 class="waves-effect waves-light  commonBlueBtnN">Create</button>
-                <a  class="transparentBtnN waves-effect waves-light " (click)="goBack()"> Back </a> 
+            <a class="transparentBtnN waves-effect waves-light " (click)="goBack()"> Back </a>
         </div>
     </form>
 </div>
