@@ -978,3 +978,109 @@ ng2-dropdown-menu.dropdown {
   position: relative !important;
   z-index: 9999 !important;
 }
+
+/* new css */
+.radioGroup [type="radio"]:not(:checked), .radioGroup [type="radio"]:checked {
+  position: absolute;
+  opacity: 0;
+  top: 18px;
+  pointer-events: fill;
+  margin-left: 17px;
+}
+.radioGroup {
+  float: left;
+  height: 50px;
+}
+.searchDiv {
+  width: 100%;
+  float: left;
+  position: relative;
+}
+.searchDiv .fa{
+  position: absolute;
+  top: 10px;
+  font-size: 25px;
+  right: 20px;
+  cursor: pointer;
+}
+.searchDiv input[type="text"] {
+  border: 1px solid #0aafff !important;
+  border-radius: 25px !important;
+  padding: 0 60px 0 25px !important;
+  box-sizing: border-box !important;
+  color: #0aafff;
+  margin: 0 !important;
+}
+.searchDiv [type="radio"]:checked+label:after, .searchDiv [type="radio"].with-gap:checked+label:after {
+  background-color: #0aafff;
+}
+.searchDiv [type="radio"]:checked+label:after, .searchDiv [type="radio"].with-gap:checked+label:before, .searchDiv [type="radio"].with-gap:checked+label:after {
+  border: 2px solid #0aafff;
+}
+.recruiterListMain h3 {
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #0aafff;
+  padding-bottom: 10px;
+  color: #0aafff;
+}
+.starDiv .fa {
+  color: #FFC107;
+  margin: 0 5px;
+  font-size: 16px;
+}
+.recruitrList h4 {
+  font-size: 18px;
+  margin: 0;
+  color: #0aafff;
+}
+.recruitrList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #0aafff1a;
+  padding: 10px 15px;
+  margin-bottom: 5px;
+}
+.actionDiv .fa {
+  margin: 0 0px 0 5px;
+  font-size: 23px;
+}
+.actionDiv .fa-plus-circle {
+  color: #4CAF50;
+}
+.actionDiv .fa-minus-circle {
+  color: #F44336;
+}
+.recruiterListDiv {
+  box-shadow: 0 0 10px #ddd;
+  padding: 10px;
+  /* background-color: #f5f5f5f7; */
+}
+.recruiterListMain {
+  width: 100%;
+  float: left;
+}
+.searchDivParent {
+  width: 100%;
+  float: left;
+  position: relative;
+}
+.recriterSearchDiv {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 0 10px #ddd;
+  max-height: 200px;
+  overflow-x: auto;
+}
+.recriterSearchDiv .recruitrList {
+  /* background-color: #0aafff1a; */
+  background-color: transparent;
+  border-bottom: 1px solid #ddd;
+}
+.recriterSearchDiv .recruitrList:hover {
+  background-color: #0aafff1a;
+}
