@@ -36,3 +36,54 @@ and (max-width : 767px)  {
     margin-bottom: 0;
 }
 }
+
+
+
+
+.NewResumeForm .error {
+    color: red;
+    position: absolute;
+    bottom: -2px;
+}
+.NewResumeForm input {
+    height: 30px !important;
+}
+.NewResumeForm .input-field {
+    position: relative;
+    margin-top: 10px;
+}
+.subTitle {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 0 0 10px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 20px;
+}
+.NewResumeForm .fa{
+    color:#000;
+}
+.marB10{
+    margin-bottom: 10px;
+}
+.NewResumeForm textarea{
+    height: auto;
+}
+.NewResumeForm .wid100.center-align {
+    height: 200px !important;
+}
+.resumePriviewDiv .uploadBtn {
+    display: table-cell;
+    vertical-align: middle;
+}
+.resumePriviewDiv .grey {
+    width: 100%;
+    height: 100% !important;
+    display: table;
+}
+
+.resumePriviewDiv {
+    width: 50%;
+    vertical-align: middle;
+    margin: 10px auto 30px;
+    max-height: 200px;
+}

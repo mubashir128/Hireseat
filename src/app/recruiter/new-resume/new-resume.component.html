@@ -5,11 +5,11 @@
             <div class="section-header"> New Resume </div>
         </div>
         <form [formGroup]="newResumeFrm" (ngSubmit)="submit()" novalidate> 
-            <div style="display:table; width:100%; margin-bottom:0px;">
-                <div id="resume-preview" class="wid100 center-align" style="display:table-cell; width:50%; height:100%; vertical-align:middle;" >
+            <div style=" width:100%; margin-bottom:0px;">
+                <div id="resume-preview" class="wid100 center-align resumePriviewDiv"  >
                     <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2" [url] ="downloadURL"></app-pdf-viewer>
-                    <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text" *ngIf="fileUploaded===0">
-                        <div class="uploadBtn">
+                    <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text " *ngIf="fileUploaded===0" style="display:table;">
+                        <div class="uploadBtn" style="display:table-cell;">
                             <span>Upload Resume</span>
                             <input type="file" (change)="fileChange($event)">
                         </div>                      
@@ -18,17 +18,17 @@
                         <div class="determinate" style="width: {{uploadProgress}}%"></div>
                     </div> -->
                 </div>
-                <div id="resume-info" style="display:table-cell; border-left: solid #e0e0e0 1px;  width:50%; min-height:500px; padding:15px;">
+                <div class="NewResumeForm" id="resume-info" style=" border-left: solid #e0e0e0 1px;  width:100%; min-height:500px; padding:15px;">
                     <div class="row" style="margin-bottom:0px;">
-                        <div class="input-field col s12 m12 l12">
-                            <div>Candidate Name*</div>
+                        <div class="input-field col s6 m6 l6">
+                            <div> <i class="fa fa-user" aria-hidden="true"></i> Candidate Name*</div>
                             <input id="candidate-name" type="text" class="validate"  [(ngModel)]="resume.candidateName" formControlName="candidateName">
                             <div *ngIf="(f.candidateName.touched && f.candidateName.errors)" class="invalid-feedback" class="error">
                                 <div *ngIf="f.candidateName.errors.required">Candidate Name is required</div>                
                             </div>
                         </div>
-                        <div class="input-field col s12 m12 l12">
-                            <div>Social Security Number* (Last four digits)</div>
+                        <div class="input-field col s6 m6 l6">
+                            <div><i class="fa fa-lock" aria-hidden="true"></i> Social Security Number* (Last four digits)</div>
                             <input id="social-security-num" type="text" class="validate" name="resume.socialSecurityNum" [(ngModel)]="resume.socialSecurityNum" formControlName="socialSecurityNum" >
                             <div *ngIf="(f.socialSecurityNum.touched && f.socialSecurityNum.errors)" class="invalid-feedback" class="error">
                                 <div *ngIf="f.socialSecurityNum.errors.required">Social Security Number is required</div> 
@@ -37,8 +37,95 @@
                             <div class="error" *ngIf="f.socialSecurityNum.errors?.maxlength">
                                 4 Digits Only
                             </div> 
-                         
                         </div>
+                        <div class="input-field col s6 m6 l6">
+                            <div><i class="fa fa-briefcase" aria-hidden="true"></i> Job Title*</div>
+                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName">
+                        </div>
+                        <div class="input-field col s6 m6 l6">
+                            <div><i class="fa fa-envelope" aria-hidden="true"></i> Email</div>
+                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName">
+                           
+                        </div>
+                        <div class="input-field col s6 m6 l6">
+                            <div><i class="fa fa-phone" aria-hidden="true"></i> Phone NO.</div>
+                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName">
+                           
+                        </div>
+                        <div class="input-field col s6 m6 l6">
+                            <div><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
+                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName">
+                           
+                        </div>
+                        <div class="input-field col s12 m12 l12">
+                            <div><i class="fa fa-users" aria-hidden="true"></i> Previous two Employers</div>
+                            <div class="row">
+                                <div class="input-field col s6 m6 l6">
+                                    <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Employers 1">
+                                </div>
+                                <div class="input-field col s6 m6 l6">
+                                    <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Employers 1">
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="input-field col s12 m12 l12 iv">
+                            <div class="subTitle">Referels</div>
+                            <div class="row">
+                                <div class="input-field col s12 m12 l12">
+                                    <div><i class="fa fa-address-card" aria-hidden="true"></i> Referels 1</div>
+                                    <div class="row">
+                                        <div class="input-field col s6 m6 l6">
+                                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Job Title">
+                                        </div>
+                                        <div class="input-field col s6 m6 l6">
+                                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Email">
+                                        </div>
+                                        <div class="input-field col s6 m6 l6">
+                                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Phone No">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="input-field col s12 m12 l12">
+                                    <div><i class="fa fa-address-card" aria-hidden="true"></i> Referels 2</div>
+                                    <div class="row">
+                                        <div class="input-field col s6 m6 l6">
+                                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Job Title">
+                                        </div>
+                                        <div class="input-field col s6 m6 l6">
+                                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Email">
+                                        </div>
+                                        <div class="input-field col s6 m6 l6">
+                                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Phone No">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="input-field col s12 m12 l12">
+                                    <div><i class="fa fa-address-card" aria-hidden="true"></i> Referels 3</div>
+                                    <div class="row">
+                                        <div class="input-field col s6 m6 l6">
+                                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Job Title">
+                                        </div>
+                                        <div class="input-field col s6 m6 l6">
+                                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Email">
+                                        </div>
+                                        <div class="input-field col s6 m6 l6">
+                                            <input id="candidate-name" type="text" class="validate"  formControlName="candidateName" placeholder="Phone No">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="input-field col s12 m12 l12">
+                            <div class="marB10"><i class="fa fa-comment" aria-hidden="true"></i> Comments :</div>
+                            <textarea rows=4></textarea>
+                        </div>
+
                     </div>
                 </div>
             </div>
