@@ -1,89 +1,109 @@
-.section-header{
-    font-size: 20px;
-    color: #114488;
-    font-weight: 700;
+.section-header {
+  font-size: 20px;
+  color: #114488;
+  font-weight: 700;
 }
+
 /*================================ mobile responsive css start  ===============================*/
 
-@media only screen 
-and (min-width : 320px) 
-and (max-width : 767px)  {
-    .newResume{
-        padding: 0 !important;
-    }
-.wid100{
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .newResume {
+    padding: 0 !important;
+  }
+
+  .wid100 {
     width: 100% !important;
     display: table !important;
-}
-.grey.lighten-4 {
-    background-color: #fff!important;
+  }
+
+  .grey.lighten-4 {
+    background-color: #fff !important;
     padding: 0 15px;
     color: #fff !important;
     display: table-cell;
-}
-.file-field span {
+  }
+
+  .file-field span {
     font-size: 13px;
-}
-.uploadBtn{
+  }
+
+  .uploadBtn {
     background-color: #4db0f4;
     border-radius: 5px;
-}
-.card {
+  }
+
+  .card {
     width: 100%;
     float: left;
-}
-.marB0{
+  }
+
+  .marB0 {
     margin-bottom: 0;
+  }
 }
-}
-
-
-
 
 .NewResumeForm .error {
-    color: red;
-    position: absolute;
-    bottom: -2px;
+  color: red;
+  position: absolute;
+  bottom: -2px;
 }
+
 .NewResumeForm input {
-    height: 30px !important;
+  height: 30px !important;
 }
+
 .NewResumeForm .input-field {
-    position: relative;
-    margin-top: 10px;
+  position: relative;
+  margin-top: 10px;
 }
+
 .subTitle {
-    font-weight: bold;
-    font-size: 18px;
-    padding: 0 0 10px;
-    border-bottom: 1px solid #000;
-    margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid #000;
+  margin-bottom: 20px;
 }
-.NewResumeForm .fa{
-    color:#000;
+
+.NewResumeForm .fa {
+  color: #909090;
 }
-.marB10{
-    margin-bottom: 10px;
+
+.marB10 {
+  margin-bottom: 10px;
 }
-.NewResumeForm textarea{
-    height: auto;
+
+.NewResumeForm textarea {
+  height: auto;
 }
+
 .NewResumeForm .wid100.center-align {
-    height: 200px !important;
+  height: 200px !important;
 }
+
 .resumePriviewDiv .uploadBtn {
-    display: table-cell;
-    vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
 }
+
 .resumePriviewDiv .grey {
-    width: 100%;
-    height: 100% !important;
-    display: table;
+  width: 100%;
+  height: 100% !important;
+  display: table;
 }
 
 .resumePriviewDiv {
-    width: 50%;
-    vertical-align: middle;
-    margin: 10px auto 30px;
-    max-height: 200px;
+  width: 50%;
+  vertical-align: middle;
+  margin: 10px auto 30px;
+  max-height: 200px;
+}
+
+.resume-subtitle {
+  color: #0aafff;
+}
+
+.note {
+  color: #ccd1d3;
+
 }
