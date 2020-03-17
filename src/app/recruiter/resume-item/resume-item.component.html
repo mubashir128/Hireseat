@@ -1,5 +1,6 @@
 <div class="resume-item" *ngIf="resume.resumeType == 'system'">
-  <div class="sub-info" (click)="showResume()">
+  <!--  (click)="showResume()" -->
+  <div class="sub-info" (click)="edit()">
     <img src="assets/img/resume.png" style="display:inline-block; float:left; width:30%; height:auto; opacity:0.75;" />
     <div class="candidate-name" style="display:inline-block; float:right; width:70%; height:auto; padding-left:15px;">
       {{resume.candidateName}}</div>
@@ -8,8 +9,8 @@
   </div>
   <!-- <div class="divider"></div> -->
   <div class="footerAbsolute">
-    <a class="btn-flat" (click)="edit()" style="margin-right:0px; padding:0 1rem;"><i
-        class="material-icons grey-text">edit</i></a>
+    <!-- <a class="btn-flat" (click)="edit()" style="margin-right:0px; padding:0 1rem;"><i
+        class="material-icons grey-text">edit</i></a> -->
     <a class="btn-flat" (click)="delete()" style="margin-right:0px; padding:0 1rem;"><i
         class="material-icons grey-text">delete</i></a>
     <div class="btn-flat" style="margin-right:0px; padding:0 1rem;">
@@ -30,6 +31,7 @@
 
 
 <div class="resume-item" *ngIf="resume.resumeType == 'resume_bank'">
+  <!--  (click)="showResumeForResumeBank()" -->
   <div class="sub-info" (click)="showResumeForResumeBank()">
     <img src="assets/img/resume.png" style="display:inline-block; float:left; width:30%; height:auto; opacity:0.75;" />
     <div class="candidate-name" style="display:inline-block; float:right; width:70%; height:auto; padding-left:15px;">
@@ -50,9 +52,7 @@
       <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download grey-text"
           aria-hidden="true"></i></a>
     </div>
-    <!--  -->
-    <!-- <a class="btn-flat" (click)="showResumeForResumeBank()" style="margin-right:0px; padding:0 1rem; color:grey">
-      <i class="fa fa-download grey-text" aria-hidden="true"></i></a> -->
+
   </div>
 </div>
 

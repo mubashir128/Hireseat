@@ -14,10 +14,10 @@ export class ResumeItemComponent implements OnInit {
   @Output() selectedForDelete = new EventEmitter(false);
   resumeVisible: number = 0;
   public data: any;
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    jQuery(".card").mouseenter(function(e) {
+    jQuery(".card").mouseenter(function (e) {
       if (jQuery(this).find("> .card-reveal").length) {
         if (
           jQuery(e.target).is(jQuery(".card .activator")) ||
@@ -38,7 +38,7 @@ export class ResumeItemComponent implements OnInit {
         .closest(".card")
         .css("overflow", "hidden");
     });
-    jQuery(".card").mouseleave(function() {
+    jQuery(".card").mouseleave(function () {
       // Make Reveal animate down and display none
       jQuery(this)
         .find(".card-reveal")
@@ -48,7 +48,7 @@ export class ResumeItemComponent implements OnInit {
             duration: 225,
             queue: false,
             easing: "easeInOutQuad",
-            complete: function() {
+            complete: function () {
               jQuery(this).css({ display: "none" });
             }
           }
@@ -57,6 +57,7 @@ export class ResumeItemComponent implements OnInit {
   }
 
   showResume() {
+
     this.resumeVisible = 1;
   }
 
@@ -65,6 +66,8 @@ export class ResumeItemComponent implements OnInit {
   }
 
   edit() {
+    console.log('editing', this.resume);
+
     this.selectedForEdit.emit(this.resume);
   }
 
