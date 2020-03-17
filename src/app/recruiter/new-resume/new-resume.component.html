@@ -106,7 +106,7 @@
                 </div>
                 <div class="input-field col s6 m6 l6">
                   <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.Employers2"
-                    formControlName="Employers2" placeholder="Employer 1">
+                    formControlName="Employers2" placeholder="Employer 2">
                 </div>
               </div>
 
@@ -213,7 +213,7 @@
                 <span class="resume-subtitle">
                   Comments :
                 </span> </div>
-              <textarea rows=4 [(ngModel)]="resume.comments"></textarea>
+              <textarea rows=4 formControlName="comments" [(ngModel)]="resume.comments"></textarea>
             </div>
 
           </div>

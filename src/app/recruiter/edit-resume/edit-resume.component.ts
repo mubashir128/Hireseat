@@ -29,7 +29,28 @@ export class EditResumeComponent implements OnInit {
       this.downloadURL = this.resume.fileURL;
       this.editResumeFrm = this.formBuilder.group({
         candidateName: ['', Validators.compose([Validators.required])],
-        socialSecurityNum: ['', Validators.compose([Validators.required, Validators.maxLength(4)])]
+        socialSecurityNum: ['', Validators.compose([Validators.required, Validators.maxLength(4)])],
+        jobTitle: [""],
+        location: [""],
+        phoneNumber: [""],
+        email: [""],
+        Employers1: [""],
+        Employers2: [""],
+        skills: [""],
+        linkedIn: [""],
+        // 1st
+        referralJobTitle1: [""],
+        referralEmail1: [""],
+        referralPhoneNumber1: [""],
+        // 2nd
+        referralJobTitle2: [""],
+        referralEmail2: [""],
+        referralPhoneNumber2: [""],
+        // 3rd
+        referralJobTitle3: [""],
+        referralEmail3: [""],
+        referralPhoneNumber3: [""],
+        comments: [""]
       });
     }
     jQuery('#resume-preview').height(jQuery('#resume-info').height());

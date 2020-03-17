@@ -78,7 +78,8 @@ export class NewResumeComponent implements OnInit {
       // 3rd
       referralJobTitle3: [""],
       referralEmail3: [""],
-      referralPhoneNumber3: [""]
+      referralPhoneNumber3: [""],
+      comments: [""]
     });
   }
 

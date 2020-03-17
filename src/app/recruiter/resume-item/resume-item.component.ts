@@ -68,6 +68,36 @@ export class ResumeItemComponent implements OnInit {
   edit() {
     console.log('editing', this.resume);
 
+    // referralJobTitle1: undefined
+    // referralEmail1: undefined
+    // referralPhoneNumber1: undefined
+
+    // referralJobTitle2: undefined
+    // referralEmail2: undefined
+    // referralPhoneNumber2: undefined
+
+    // referralJobTitle3: undefined
+    // referralEmail3: undefined
+    // referralPhoneNumber3: undefined
+    this.resume.Employers1 = this.resume['previousEmployers'][0];
+    this.resume.Employers2 = this.resume['previousEmployers'][1];
+
+    this.resume.referralJobTitle1 = this.resume['referral'][0].referralJobTitle;
+    this.resume.referralEmail1 = this.resume['referral'][0].referralEmail;
+    this.resume.referralPhoneNumber1 = this.resume['referral'][0].referralPhoneNumber;
+
+
+
+    this.resume.referralJobTitle2 = this.resume['referral'][1].referralJobTitle;
+    this.resume.referralEmail2 = this.resume['referral'][1].referralEmail;
+    this.resume.referralPhoneNumber2 = this.resume['referral'][1].referralPhoneNumber;
+
+
+    this.resume.referralJobTitle3 = this.resume['referral'][2].referralJobTitle;
+    this.resume.referralEmail3 = this.resume['referral'][2].referralEmail;
+    this.resume.referralPhoneNumber3 = this.resume['referral'][2].referralPhoneNumber;
+
+
     this.selectedForEdit.emit(this.resume);
   }
 

@@ -53,6 +53,7 @@ export class ResumeListComponent implements OnInit {
   }
 
   editResume(resume: Resume) {
+    console.log(resume);
     this.selectedResume = resume;
     this.mode = 1;
   }

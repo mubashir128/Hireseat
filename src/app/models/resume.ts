@@ -57,7 +57,7 @@ export class Resume {
   referralEmail3: string;
   referralPhoneNumber3: number;
   comments: string;
-  constructor() {}
+  constructor() { }
 
   public static getSampleObject(): Resume {
     let sampleResume: Resume = new Resume();
@@ -116,6 +116,8 @@ export class Resume {
     blankResume.referralJobTitle3 = "";
     blankResume.referralEmail3 = "";
     blankResume.referralPhoneNumber3;
+
+    blankResume.comments = "";
     return blankResume;
   }
 }
