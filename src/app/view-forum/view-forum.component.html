@@ -54,7 +54,7 @@
                                 <div class="questionDivText">
                                     <h4>{{data.question}}</h4>
                                     <button class="answer" (click)="showAnsDiv(data._id)"><i class="fa fa-reply" aria-hidden="true"></i> Answer</button>
-                                    <div *ngIf="answerClick" class="questionDivTextReply" [id]="data._id">
+                                    <div class="questionDivTextReply" [id]="data._id">
                                         <textarea placeholder="Write Your Answer here.." formControlName="answerPost" id="answerspost"></textarea>
                                         <div *ngIf="postAnswer.hasError('','answerPost') && postAnswer.get('answerPost').touched"> Answer is required*</div>
                                         <button class="waves-effect waves-light btn" [disabled]="!postAnswer.valid" (click)="postAns(postAnswer.value,data._id,data.answersCount)"> post </button>

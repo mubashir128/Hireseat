@@ -114,14 +114,12 @@ export class ViewForumComponent implements OnInit {
     jQuery('#answermsdPop').modal('close');
   }
   showAnsDiv(id){
-    // console.log(id);
-    console.log(jQuery("#"+id).val())
-    if(this.answerClick==false  ){
-
-  this.answerClick=true;
-    }else{
-      this.answerClick=false;
+    let answerDiv=jQuery(".questionDivTextReply#"+id);
+    if(answerDiv.css("display") === 'none'){
+      answerDiv.css("display","block");
+      return;
     }
+    answerDiv.css("display","none");
   }
 
   textChanges(data){
