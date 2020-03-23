@@ -47,7 +47,10 @@
                 class="error">
                 <div *ngIf="f.socialSecurityNum.errors.required">Social Security Number is required
                 </div>
-                <div *ngIf="f.socialSecurityNum.errors.pattern">Numbers Only</div>
+                <!-- <div *ngIf="f.socialSecurityNum.errors?.pattern">Numbers Only</div> -->
+              </div>
+              <div class="error" *ngIf="f.socialSecurityNum.errors?.pattern">
+                Numbers Only
               </div>
               <div class="error" *ngIf="f.socialSecurityNum.errors?.maxlength">
                 4 Digits Only
@@ -71,6 +74,9 @@
               </div>
               <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.email"
                 formControlName="email">
+              <div *ngIf="(f.email.touched && f.email.errors)" class="invalid-feedback" class="error">
+                <div *ngIf="f.email.errors.emai">Enter valid email id</div>
+              </div>
 
             </div>
             <div class="input-field col s6 m6 l6">
@@ -81,6 +87,12 @@
               </div>
               <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.phoneNumber"
                 formControlName="phoneNumber">
+              <div *ngIf="(f.phoneNumber.touched && f.phoneNumber.errors)" class="invalid-feedback" class="error">
+                <div *ngIf="f.phoneNumber.errors.pattern">Numbers Only</div>
+              </div>
+              <div class="error" *ngIf="f.phoneNumber.errors?.maxlength">
+                10 Digits Only
+              </div>
 
             </div>
             <div class="input-field col s6 m6 l6">
@@ -159,6 +171,13 @@
                     <div class="input-field col s6 m6 l6">
                       <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralPhoneNumber1"
                         formControlName="referralPhoneNumber1" placeholder="Phone No">
+                      <div *ngIf="(f.referralPhoneNumber1.touched && f.referralPhoneNumber1.errors)"
+                        class="invalid-feedback" class="error">
+                        <div *ngIf="f.referralPhoneNumber1.errors.pattern">Numbers Only</div>
+                      </div>
+                      <div class="error" *ngIf="f.referralPhoneNumber1.errors?.maxlength">
+                        10 Digits Only
+                      </div>
                     </div>
                   </div>
 
@@ -179,6 +198,13 @@
                     <div class="input-field col s6 m6 l6">
                       <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralPhoneNumber2"
                         formControlName="referralPhoneNumber2" placeholder="Phone No">
+                      <div *ngIf="(f.referralPhoneNumber2.touched && f.referralPhoneNumber2.errors)"
+                        class="invalid-feedback" class="error">
+                        <div *ngIf="f.referralPhoneNumber2.errors.pattern">Numbers Only</div>
+                      </div>
+                      <div class="error" *ngIf="f.referralPhoneNumber2.errors?.maxlength">
+                        10 Digits Only
+                      </div>
                     </div>
                   </div>
 
@@ -201,6 +227,13 @@
                     <div class="input-field col s6 m6 l6">
                       <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralPhoneNumber3"
                         formControlName="referralPhoneNumber3" placeholder="Phone No">
+                      <div *ngIf="(f.referralPhoneNumber3.touched && f.referralPhoneNumber3.errors)"
+                        class="invalid-feedback" class="error">
+                        <div *ngIf="f.referralPhoneNumber3.errors.pattern">Numbers Only</div>
+                      </div>
+                      <div class="error" *ngIf="f.referralPhoneNumber3.errors?.maxlength">
+                        10 Digits Only
+                      </div>
                     </div>
                   </div>
 

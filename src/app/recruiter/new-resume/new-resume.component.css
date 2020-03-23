@@ -44,7 +44,7 @@
 
 .NewResumeForm .error {
   color: red;
-  position: absolute;
+  /* position: absolute; */
   bottom: -2px;
 }
 
@@ -105,5 +105,4 @@
 
 .note {
   color: #ccd1d3;
-
 }

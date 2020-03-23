@@ -122,6 +122,7 @@ import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.comp
 import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.component';
 import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
 import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
+import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -301,7 +302,12 @@ const appChildRoutes: Routes = [
       {
         path: "search-resume",
         component: SearchResumeComponent
+      },
+      {
+        path: "video-interview-room",
+        component: VideoInterviewRoomComponent
       }
+
     ],
     canActivate: [RecruiterGuard]
   },
@@ -422,7 +428,8 @@ const appChildRoutes: Routes = [
     BarChartComponent,
     LineChartComponent,
     PieChartComponent,
-    ScatterChartComponent
+    ScatterChartComponent,
+    VideoInterviewRoomComponent
   ],
   imports: [
     InfiniteScrollModule,
@@ -464,4 +471,4 @@ const appChildRoutes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

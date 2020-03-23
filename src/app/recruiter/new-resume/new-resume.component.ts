@@ -62,7 +62,9 @@ export class NewResumeComponent implements OnInit {
       jobTitle: [""],
       location: [""],
       phoneNumber: [""],
-      email: [""],
+      email: ["", [
+        Validators.email
+      ]],
       Employers1: [""],
       Employers2: [""],
       skills: [""],
@@ -70,15 +72,27 @@ export class NewResumeComponent implements OnInit {
       // 1st
       referralJobTitle1: [""],
       referralEmail1: [""],
-      referralPhoneNumber1: [""],
+      referralPhoneNumber1: ["",
+        Validators.compose([
+          Validators.pattern("[0-9]+"),
+          Validators.maxLength(10)
+        ])],
       // 2nd
       referralJobTitle2: [""],
       referralEmail2: [""],
-      referralPhoneNumber2: [""],
+      referralPhoneNumber2: ["",
+        Validators.compose([
+          Validators.pattern("[0-9]+"),
+          Validators.maxLength(10)
+        ])],
       // 3rd
       referralJobTitle3: [""],
       referralEmail3: [""],
-      referralPhoneNumber3: [""],
+      referralPhoneNumber3: ["",
+        Validators.compose([
+          Validators.pattern("[0-9]+"),
+          Validators.maxLength(10)
+        ])],
       comments: [""]
     });
   }
@@ -138,7 +152,7 @@ export class NewResumeComponent implements OnInit {
           console.log(error);
           if (error == "Conflict") {
             Materialize.toast(
-              "Social Security Number Should be unique !",
+              "Network error...!",
               1000
             );
           } else if (error) {
