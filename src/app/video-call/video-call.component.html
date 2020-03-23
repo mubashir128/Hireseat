@@ -1,0 +1,34 @@
+<div class="video-call-execution-tab">
+  <span class="back" routerLink='/recruiter/video-interview-room'>
+    < Back </span>
+
+      <iframe
+        src="https://tokbox.com/embed/embed/ot-embed.js?embedId=4184f128-8213-4978-9d0a-1106fc4d3655&room=DEFAULT_ROOM&iframe=true"
+        width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe>
+      <button id="myBtn" class="copy-link"
+        (click)="copyText('http://44.232.150.23/:4200/recruiter/video-interview-room/video-call')"
+        value="click to copy">
+        Copy link
+      </button>
+      <!-- call shared component -->
+      <!-- <app-candidate-video-call></app-candidate-video-call> -->
+
+      <!-- <div id="otEmbedContainer" style="width:800px; height:640px"></div>
+      <script
+        src="https://tokbox.com/embed/embed/ot-embed.js?embedId=4184f128-8213-4978-9d0a-1106fc4d3655&room=DEFAULT_ROOM"></script> -->
+
+      <!-- copy -->
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>link copied to clipboard</p>
+        </div>
+
+      </div>
+
+
+      <!--  -->
+</div>

@@ -177,7 +177,7 @@ h4.count {
   bottom: 100%;
   left: 53%;
   border: solid transparent;
-  content: " ";
+  content: ' ';
   height: 0;
   width: 0;
   position: absolute;
@@ -248,4 +248,13 @@ h4.count {
   /* padding: 10px 0px; */
   font-size: 22px;
   /* font-weight: bold; */
+}
+.interview-title {
+  display: flex;
+  justify-content: center;
+}
+.tab {
+  font-size: 20px;
+  color: #48aef3;
+  font-weight: 600;
 }

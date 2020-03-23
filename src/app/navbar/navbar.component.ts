@@ -35,6 +35,7 @@ export class NavbarComponent implements OnInit {
   suggestedQueAnsCount: number = 0;
   notificationLength: any;
   permaLink: any;
+  isCandidate = true;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -65,11 +66,31 @@ export class NavbarComponent implements OnInit {
         // hiding notification while changes in route
         this.show = false;
         this.buttonName = "Hide";
+
+        if (val.url === '/candidate-video-call') {
+          this.isCandidate = true;
+        } else {
+          this.isCandidate = false;
+        }
       }
     });
   }
 
   ngOnInit() {
+    this.router.events.subscribe((val) => {
+      // see also
+      if (val instanceof NavigationEnd) {
+        // hiding notification while changes in route
+        this.show = false;
+        this.buttonName = "Hide";
+
+        if (val.url === '/candidate-video-call') {
+          this.isCandidate = true;
+        } else {
+          this.isCandidate = false;
+        }
+      }
+    });
     this._forum.getUnAnsweredData().subscribe(
       (res) => {
         this.questDataLenght = res;
@@ -102,7 +123,7 @@ export class NavbarComponent implements OnInit {
         });
     }
 
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
       jQuery(".button-collapse").sideNav();
     });
     this.show = false;
@@ -121,7 +142,7 @@ export class NavbarComponent implements OnInit {
     return shortened;
   }
   updateQueAns(id) {
-    this._forum.updateQueAnsReadStatus(id).subscribe((data) => {});
+    this._forum.updateQueAnsReadStatus(id).subscribe((data) => { });
   }
 
   navigate(path) {

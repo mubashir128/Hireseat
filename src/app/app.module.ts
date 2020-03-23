@@ -123,6 +123,8 @@ import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.c
 import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
 import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
+import { VideoCallComponent } from './video-call/video-call.component';
+import { CandidateVideoCallComponent } from './candidate-video-call/candidate-video-call.component';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -169,6 +171,7 @@ const appRoutes: Routes = [
   { path: "job-post", component: JobpostComponent },
 
   { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] }
+
 ];
 
 const appChildRoutes: Routes = [
@@ -306,6 +309,10 @@ const appChildRoutes: Routes = [
       {
         path: "video-interview-room",
         component: VideoInterviewRoomComponent
+      },
+      {
+        path: "video-interview-room/video-call",
+        component: VideoCallComponent
       }
 
     ],
@@ -429,7 +436,9 @@ const appChildRoutes: Routes = [
     LineChartComponent,
     PieChartComponent,
     ScatterChartComponent,
-    VideoInterviewRoomComponent
+    VideoInterviewRoomComponent,
+    VideoCallComponent,
+    CandidateVideoCallComponent
   ],
   imports: [
     InfiniteScrollModule,
