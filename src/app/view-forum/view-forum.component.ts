@@ -182,4 +182,14 @@ var dateTime = date1+' '+time1;
       err=>{console.log(err)}
     );
    }
+
+   handleAnswerPost($event){
+     let postBtn=jQuery(jQuery($event.target)).parent().find("button[id='postAnswerBtn']");
+    if($event.target.value === ''){
+      postBtn.prop("disabled",true);
+      return;
+    }
+    postBtn.prop("disabled",false);
+   }
+
 }
