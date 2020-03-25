@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
   suggestedQueAnsCount: number = 0;
   notificationLength: any;
   permaLink: any;
-  isCandidate = true;
+  candidate = false;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -67,30 +67,22 @@ export class NavbarComponent implements OnInit {
         this.show = false;
         this.buttonName = "Hide";
 
-        if (val.url === '/candidate-video-call') {
-          this.isCandidate = true;
-        } else {
-          this.isCandidate = false;
+        if (val.url === '/video-call') {
+          console.log('On video call');
+          if (!localStorage.getItem('currentUser')) {
+            console.log('****there is no user show candidates window');
+            this.candidate = true;
+          } else {
+            console.log('recruiter on video call');
+            this.candidate = false;
+          }
         }
       }
     });
   }
 
   ngOnInit() {
-    this.router.events.subscribe((val) => {
-      // see also
-      if (val instanceof NavigationEnd) {
-        // hiding notification while changes in route
-        this.show = false;
-        this.buttonName = "Hide";
 
-        if (val.url === '/candidate-video-call') {
-          this.isCandidate = true;
-        } else {
-          this.isCandidate = false;
-        }
-      }
-    });
     this._forum.getUnAnsweredData().subscribe(
       (res) => {
         this.questDataLenght = res;

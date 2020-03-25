@@ -15,8 +15,7 @@ export class VideoInterviewRoomComponent implements OnInit {
   ngOnInit() {
   }
   onInterview() {
-    console.log('on interview');
 
-    this.router.navigate(['recruiter/video-interview-room/video-call']);
+    this.router.navigate(['video-call']);
   }
 }

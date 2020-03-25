@@ -170,8 +170,11 @@ const appRoutes: Routes = [
   { path: "upload-resume", component: UploadResumeComponent },
   { path: "job-post", component: JobpostComponent },
 
-  { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] }
-
+  { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
+  {
+    path: "video-call",
+    component: VideoCallComponent
+  }
 ];
 
 const appChildRoutes: Routes = [
@@ -310,10 +313,7 @@ const appChildRoutes: Routes = [
         path: "video-interview-room",
         component: VideoInterviewRoomComponent
       },
-      {
-        path: "video-interview-room/video-call",
-        component: VideoCallComponent
-      }
+
 
     ],
     canActivate: [RecruiterGuard]

@@ -8,6 +8,8 @@
   flex-direction: column;
 }
 .copy-link {
+  width: 40%;
+  margin-top: 10px;
   color: #48aef3;
   font-size: 20px;
   text-decoration: underline;
@@ -51,4 +53,38 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+.interview-title {
+  color: #48aef3;
+  display: flex;
+  justify-content: center;
+}
+.title {
+  font-size: 20px;
+}
+.borderBA a {
+  color: #0aafff !important;
+  background-color: #ffffff !important;
+}
+.hide-on-med-and-down li {
+  position: relative;
+}
+nav ul a {
+  color: #03a9f4;
+}
+#nav-mobile {
+  transform: none !important;
+}
+.mobileMenu-li {
+  color: #1c8ad8;
+  font-size: 14px;
+}
+.mobileMenu-li:hover {
+  color: #fff;
+  background-color: #48aef3;
+  font-weight: bold;
+}
+.hide-on-med-and-down li .borderBA {
+  color: #0aafff !important;
+  position: relative;
 }
