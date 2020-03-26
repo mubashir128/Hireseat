@@ -3,6 +3,7 @@ import { Component, OnInit,Input } from '@angular/core';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import { UserService } from '../../_services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { InteractCompService } from 'src/app/_services/interact-comp.service';
 
 declare var jQuery: any;
 
@@ -24,7 +25,7 @@ export class AskbuttonComponent implements OnInit {
   submitted = false;
   emailSubmitted = false;
   otpSubmitted = false;
-  constructor(private formBuilder: FormBuilder, private router: Router, private _Userservice: UserService,private route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private _Userservice: UserService,private route: ActivatedRoute,private _interactComp : InteractCompService) {
    
   }
   ngOnInit() {
@@ -155,19 +156,19 @@ export class AskbuttonComponent implements OnInit {
     const data=this.askQuesData;
     data.otp=userD.Otp;
     data.email=userD.email;
+
     this._Userservice.addQuestion(data).subscribe(
       res=>{
         if(res.status='success'){
-        this.msgForPopup=res.message;
-        this.emailConfirmPopup();
-         setTimeout(()=>{ 
-          window.location.reload();
-          this.router.navigate(['/forum'])
-          
-        }, 2000);
-            }
-        },
-      err=>console.log(err))
+          this.closeForumModel();
+          this.msgForPopup=res.message;
+          this.emailConfirmPopup();
+          this._interactComp.loadData({});
+        }
+      },err=>{
+        console.log(err);
+      }
+    );
 
     }
     else{

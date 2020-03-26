@@ -7,6 +7,7 @@ declare var jQuery: any;
 import { UserService } from '../_services/user.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { SuperAdminService } from '../_services/super-admin.service';
+import { InteractCompService } from '../_services/interact-comp.service';
 
 
 
@@ -46,7 +47,8 @@ export class ViewForumComponent implements OnInit {
   constructor(private _forum:ForumService,private formBuilder: FormBuilder,private userService:UserService,
     private router:Router,
     private authService:AuthenticationService,
-    public supperAdmin: SuperAdminService) 
+    public supperAdmin: SuperAdminService,
+    private _interactComp : InteractCompService) 
     {
       this.loggedInUser=this.userService.getUserData();
       if(this.loggedInUser != "no"){
@@ -62,6 +64,9 @@ export class ViewForumComponent implements OnInit {
         }
       }
 
+      this._interactComp.interact$.subscribe(res=>{
+        this.loadDataForQuestions(res);
+      });
 
      }
 
@@ -72,24 +77,12 @@ export class ViewForumComponent implements OnInit {
     
     
     jQuery('.modal').modal();
+
     //get all questions
-    this._forum.getQuestions().subscribe(
-      res=>{ this.questData=res;
-        // console.log(this.questData)
-        
-        //  this.questData.forEach((x) => {
-        //   this.postAnswer.push(this.formBuilder.group({
-        //     answerPost: this.formBuilder.control('', [Validators.required])
-        //   }))
-        // })
-      },
-      err=>console.log(err));
-      // console.log(this.questData)
+    this.getAllQuestions();
+
      //get questions with answers
-      this._forum.getAnswerData().subscribe(
-        res=>{ this.getAnswerData=res;
-        console.log(this.getAnswerData)},
-        err=>console.log(err));
+    this.getQuestionsAndAnswers();
 
         this.postAnswer=this.formBuilder.group({
               answerPost: this.formBuilder.control('', [Validators.required])
@@ -106,6 +99,30 @@ export class ViewForumComponent implements OnInit {
 
      
   }
+
+  getAllQuestions(){
+    this._forum.getQuestions().subscribe(res=>{
+        this.questData=res;
+      },err=>{
+        console.log(err)
+      }
+    );
+  }
+
+  getQuestionsAndAnswers(){
+    this._forum.getAnswerData().subscribe(res=>{
+        this.getAnswerData=res;
+        console.log(this.getAnswerData);
+      },err=>{
+        console.log(err)
+      }
+    );
+  }
+
+  loadDataForQuestions(obj){
+    this.getAllQuestions();
+  }
+
   answerPopup(){
     jQuery('#answermsdPop').modal('open');
     
