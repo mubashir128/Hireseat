@@ -104,7 +104,7 @@ export class ViewForumComponent implements OnInit {
     this._forum.getQuestions().subscribe(res=>{
         this.questData=res;
       },err=>{
-        console.log(err)
+        console.log(err);
       }
     );
   }
@@ -112,9 +112,8 @@ export class ViewForumComponent implements OnInit {
   getQuestionsAndAnswers(){
     this._forum.getAnswerData().subscribe(res=>{
         this.getAnswerData=res;
-        console.log(this.getAnswerData);
       },err=>{
-        console.log(err)
+        console.log(err);
       }
     );
   }
