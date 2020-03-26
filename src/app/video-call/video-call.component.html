@@ -39,27 +39,29 @@
       <div class="video-call-execution-tab">
         <span *ngIf="!candidate" class="back" routerLink='/recruiter/video-interview-room'>
           < Back </span>
+            <!-- live sujith-->
 
-            <!-- local -->
+            <!-- <iframe
+              src="https://tokbox.com/embed/embed/ot-embed.js?embedId=8fc687ac-4533-41d9-918d-97c3014b1673&room=DEFAULT_ROOM&iframe=true"
+              width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
+
+
+            <!-- test server pritam -->
+
+            <!-- <iframe
+              src="https://tokbox.com/embed/embed/ot-embed.js?embedId=6d73958c-99e5-4d8e-8663-507af3482d2c&room=DEFAULT_ROOM&iframe=true"
+              width="800px" height="640px" scrolling="auto" allow="microphone; camera"></iframe> -->
+
+            <!-- localhost pritam -->
+
             <iframe
               src="https://tokbox.com/embed/embed/ot-embed.js?embedId=f52f0311-3945-4f1a-a697-356260e9e33b&room=DEFAULT_ROOM&iframe=true"
               width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe>
-
-            <!-- live -->
-            <!-- <iframe
-              src="https://tokbox.com/embed/embed/ot-embed.js?embedId=4184f128-8213-4978-9d0a-1106fc4d3655&room=DEFAULT_ROOM&iframe=true"
-              width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
 
             <button *ngIf="!candidate" id="myBtn" class="copy-link"
               (click)="copyText('https://hireseat.com/video-call')" value="click to copy">
               Copy link
             </button>
-            <!-- call shared component -->
-            <!-- <app-candidate-video-call></app-candidate-video-call> -->
-
-            <!-- <div id="otEmbedContainer" style="width:800px; height:640px"></div>
-        <script
-          src="https://tokbox.com/embed/embed/ot-embed.js?embedId=4184f128-8213-4978-9d0a-1106fc4d3655&room=DEFAULT_ROOM"></script> -->
 
             <!-- copy -->
             <!-- The Modal -->
