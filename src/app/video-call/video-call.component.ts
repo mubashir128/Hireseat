@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-video-call',
@@ -39,7 +40,20 @@ export class VideoCallComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-    alert('Link copied to clipboard');
+    this.emailConfirmPopup();
   }
 
+  emailConfirmPopup() {
+    console.log("emailConfirmPopup");
+
+    jQuery("#emailConfirmPop").modal("open");
+    setTimeout(() => {
+      this.closeEmailConfirmpopup();
+    }, 3000);
+  }
+  closeEmailConfirmpopup() {
+    console.log("closing");
+
+    jQuery("#emailConfirmPop").modal("close");
+  }
 }
