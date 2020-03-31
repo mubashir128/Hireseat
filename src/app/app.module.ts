@@ -124,7 +124,6 @@ import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.comp
 import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
 import { VideoCallComponent } from './video-call/video-call.component';
-import { CandidateVideoCallComponent } from './candidate-video-call/candidate-video-call.component';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -217,6 +216,10 @@ const appChildRoutes: Routes = [
       {
         path: "dashboard",
         component: DashboardComponent
+      },
+      {
+        path: "video-interview-room",
+        component: VideoInterviewRoomComponent
       }
     ],
     canActivate: [EmployerGuard]
@@ -437,8 +440,7 @@ const appChildRoutes: Routes = [
     PieChartComponent,
     ScatterChartComponent,
     VideoInterviewRoomComponent,
-    VideoCallComponent,
-    CandidateVideoCallComponent
+    VideoCallComponent
   ],
   imports: [
     InfiniteScrollModule,

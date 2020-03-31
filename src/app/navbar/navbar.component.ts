@@ -68,12 +68,12 @@ export class NavbarComponent implements OnInit {
         this.buttonName = "Hide";
 
         if (val.url === '/video-call') {
-          console.log('On video call');
+          // console.log('On video call');
           if (!localStorage.getItem('currentUser')) {
-            console.log('****there is no user show candidates window');
+            // console.log('****there is no user show candidates window');
             this.candidate = true;
           } else {
-            console.log('recruiter on video call');
+            // console.log('recruiter on video call');
             this.candidate = false;
           }
         }

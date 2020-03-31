@@ -29,7 +29,7 @@ export class AskbuttonComponent implements OnInit {
     private router: Router,
     private _Userservice: UserService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
   ngOnInit() {
     this.verifyEmail = this.formBuilder.group({
       emailVerify: ["", [Validators.required, Validators.email]]
@@ -48,15 +48,15 @@ export class AskbuttonComponent implements OnInit {
     jQuery("#forumsPop1").modal("open");
   }
   emailConfirmPopup() {
-    console.log("emailConfirmPopup");
+    // console.log("emailConfirmPopup");
 
     jQuery("#emailConfirmPop").modal("open");
     setTimeout(() => {
       this.closeEmailConfirmpopup();
-    }, 3000);
+    }, 2000);
   }
   closeEmailConfirmpopup() {
-    console.log("closing");
+    // console.log("closing");
 
     jQuery("#emailConfirmPop").modal("close");
   }

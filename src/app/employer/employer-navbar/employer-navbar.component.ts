@@ -1,5 +1,5 @@
 
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tab } from '../models/tab';
 import { UserService } from 'src/app/_services/user.service';
@@ -17,24 +17,30 @@ export class EmployerNavbarComponent implements OnInit {
   public type: number = 0;
   public tabs1: Tab[];
   tabMenu: any;
-  constructor(private router: Router,private spinner: NgxSpinnerService,private userService: UserService) {
+  constructor(private router: Router, private spinner: NgxSpinnerService, private userService: UserService) {
     this.tabMenu = [
       {
-        id:1,
-        name:'Dashboard',
-        path:'/employer/dashboard',
+        id: 1,
+        name: 'Dashboard',
+        path: '/employer/dashboard',
         selected: true
       },
       {
-        id:2,
-        name:'Job Profiles',
-        path:'/employer/job-profile-list',
+        id: 2,
+        name: 'Job Profiles',
+        path: '/employer/job-profile-list',
         selected: false
       },
       {
-        id:3,
-        name:'Job Postings',
-        path:'/employer/bidding-event-list',
+        id: 3,
+        name: 'Job Postings',
+        path: '/employer/bidding-event-list',
+        selected: false
+      },
+      {
+        id: 4,
+        name: 'Video Interview Room',
+        path: '/employer/video-interview-room',
         selected: false
       }
     ]

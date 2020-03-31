@@ -29,6 +29,7 @@
     "angular5-csv": "^0.2.11",
     "chart.js": "^2.9.3",
     "core-js": "^2.5.4",
+    "jquery": "^3.4.1",
     "ng2-ckeditor": "^1.2.6",
     "ng2-completer": "^3.0.2",
     "ng2-social-share": "0.0.10",

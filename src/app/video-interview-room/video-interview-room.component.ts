@@ -10,12 +10,15 @@ export class VideoInterviewRoomComponent implements OnInit {
 
   constructor(
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+    // console.log(window.location.hostname);
+
   }
   onInterview() {
-
+    // window.open('http://' + window.location.hostname + '/video-call');
     this.router.navigate(['video-call']);
   }
 }
