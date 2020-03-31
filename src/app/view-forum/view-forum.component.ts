@@ -184,18 +184,17 @@ var dateTime = date1+' '+time1;
     
     let answerD={ans:ans.answerPost,quesUserId:id,answerBy:this.curerntUserId,answerByName:this.curerntUserName,answercount:answercount}
     
-    this._forum.addAnserData(answerD).subscribe(
-      res=>{
-       
+    this._forum.addAnserData(answerD).subscribe(res=>{
         this.msgForPopup=res.message;
         this.answerPopup();
-        setTimeout(()=>{ 
-          window.location.reload();
-     }, 2000);
-    
-
-      },
-      err=>{console.log(err)}
+        this.getQuestionsAndAnswers();
+        jQuery("#"+id).css("display","none");
+        setTimeout(()=>{
+          this.closeanswerPopup();
+        },2000);
+      },err=>{
+        console.log(err);
+      }
     );
    }
 

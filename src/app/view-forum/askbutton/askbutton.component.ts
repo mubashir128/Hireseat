@@ -163,6 +163,9 @@ export class AskbuttonComponent implements OnInit {
           this.closeForumModel();
           this.msgForPopup=res.message;
           this.emailConfirmPopup();
+          setTimeout(()=>{
+            this.closeEmailConfirmpopup();
+          },2000);
           this._interactComp.loadData({});
         }
       },err=>{
