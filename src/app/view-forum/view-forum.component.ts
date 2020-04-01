@@ -71,10 +71,7 @@ export class ViewForumComponent implements OnInit {
      }
 
   ngOnInit() {
-    let askusersDa=this.userService.getaskQuesUserId();
-    this.askusersData=JSON.parse(askusersDa);
-    
-    
+    this.loadDataFromStorage();
     
     jQuery('.modal').modal();
 
@@ -102,6 +99,7 @@ export class ViewForumComponent implements OnInit {
 
   getAllQuestions(){
     this._forum.getQuestions().subscribe(res=>{
+      this.loadDataFromStorage();
         this.questData=res;
       },err=>{
         console.log(err);
@@ -116,6 +114,11 @@ export class ViewForumComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  loadDataFromStorage(){
+    let askusersDa=this.userService.getaskQuesUserId();
+    this.askusersData=JSON.parse(askusersDa);
   }
 
   loadDataForQuestions(obj){

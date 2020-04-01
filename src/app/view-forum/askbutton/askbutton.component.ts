@@ -160,13 +160,7 @@ export class AskbuttonComponent implements OnInit {
     this._Userservice.addQuestion(data).subscribe(
       res=>{
         if(res.status='success'){
-          this.closeForumModel();
-          this.msgForPopup=res.message;
-          this.emailConfirmPopup();
-          setTimeout(()=>{
-            this.closeEmailConfirmpopup();
-          },2000);
-          this._interactComp.loadData({});
+          this.loadData(res);
         }
       },err=>{
         console.log(err);
@@ -181,18 +175,24 @@ export class AskbuttonComponent implements OnInit {
     data.otp=userD.Otp;
     data.email=userD.email;
     //console.log(data)
-    this._Userservice.addQuestion(data).subscribe(
-      res=>{
+    this._Userservice.addQuestion(data).subscribe(res=>{
         if(res.status='success'){
-        this.msgForPopup=res.message;
-        this.emailConfirmPopup();
-        window.location.reload();
-         setTimeout(()=>{ 
-          this.router.navigate(['/forum'])
-          }, 2000);
-            }
-        },
-      err=>console.log(err))
+          this.loadData(res);
+        }
+      },err=>{
+        console.log(err)
+      });
     }
   }
+
+  loadData(res){
+    this.closeForumModel();
+    this.msgForPopup=res.message;
+    this.emailConfirmPopup();
+    setTimeout(()=>{
+      this.closeEmailConfirmpopup();
+    },2000);
+    this._interactComp.loadData({});
+  }
+
 }
