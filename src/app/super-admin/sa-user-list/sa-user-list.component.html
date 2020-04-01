@@ -1,9 +1,14 @@
 <div>
+
+  <div class="inputDivMainN" *ngIf="!noBiddingEvents">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search here..."> 
+  </div>
+
   <div>
     <ul id="bidding-event-list" style="margin-top:8px;">
       <li
         *ngFor="
-          let user of userList | paginate: { itemsPerPage: 5, currentPage: p }
+          let user of userList | search : searchTerm | paginate: { itemsPerPage: itemsPerPageAre, currentPage: p }
         "
         style="cursor:pointer;"
       >
@@ -42,7 +47,7 @@
         <div class="divider"></div>
       </li>
     </ul>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <pagination-controls *ngIf="!noBiddingEvents" (pageChange)="p = $event"></pagination-controls>
   </div>
   <div *ngIf="noBiddingEvents">
     No Results to show

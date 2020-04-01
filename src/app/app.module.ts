@@ -122,6 +122,7 @@ import { EnterpriseNavbarComponent } from "./enterprise/enterprise-navbar/enterp
 import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/enterprise-user-list.component";
 import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
+import { SearchPipe } from '../search.pipe';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -432,7 +433,8 @@ const appChildRoutes: Routes = [
     EnterpriseDashboardComponent,
     EnterpriseNavbarComponent,
     EnterpriseUserListComponent,
-    CreateEmployerComponent
+    CreateEmployerComponent,
+    SearchPipe
   ],
   imports: [
     InfiniteScrollModule,

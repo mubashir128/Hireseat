@@ -10,7 +10,13 @@ declare var Materialize: any;
   styleUrls: ["./sa-user-list.component.css"]
 })
 export class SAUserListComponent implements OnInit {
+
+  p = 1;
   userList: any[];
+  itemsPerPageAre = 5;
+  noBiddingEvents=false;
+  private _searchTerm : any;
+
   constructor(
     private superAdmin: SuperAdminService,
     private userAuth: AuthenticationService,
@@ -27,6 +33,7 @@ export class SAUserListComponent implements OnInit {
       response => {
         if (response) {
           this.userList = response;
+          this.noBiddingEvents = this.userList.length === 0 ? true : false;
         }
       },
       error => {
@@ -64,4 +71,14 @@ export class SAUserListComponent implements OnInit {
       }
     );
   }
+
+  get searchTerm(){
+    return this._searchTerm;
+  }
+
+  set searchTerm(value){
+    this._searchTerm=value;
+    this.itemsPerPageAre = this._searchTerm === "" ? 5 : 100;
+  }
+
 }
