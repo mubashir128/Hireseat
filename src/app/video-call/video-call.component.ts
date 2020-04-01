@@ -10,26 +10,30 @@ declare var jQuery: any;
 export class VideoCallComponent implements OnInit {
   candidate = false;
   isRecruiter = true;
+  roomId: any;
   constructor(private router: Router) {
-    const userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
 
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url === '/video-call') {
+        if (val.url.includes('/video-call')) {
           console.log('On video call');
           if (!localStorage.getItem('currentUser')) {
-            console.log(userRole);
+
             // console.log('there is no user show candidates window');
 
             this.candidate = true;
+
+
+          } else {
+            // console.log('recruiter on video call');
+            const userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
+            this.candidate = false;
             if (userRole === 'employer') {
               this.isRecruiter = false;
             } else if (userRole === 'recruiter') {
               this.isRecruiter = true;
             }
-          } else {
-            // console.log('recruiter on video call');
-            this.candidate = false;
+            this.roomId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
           }
         }
       }
