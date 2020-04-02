@@ -23,6 +23,7 @@
     "@ckeditor/ckeditor5-build-classic": "^12.4.0",
     "@ckeditor/ckeditor5-media-embed": "^11.1.3",
     "@mdi/font": "^2.8.94",
+    "@opentok/client": "^2.17.0",
     "@tinymce/tinymce-angular": "^3.2.0",
     "angular-csv-ext": "^1.0.1",
     "angular2-csv": "^0.2.9",

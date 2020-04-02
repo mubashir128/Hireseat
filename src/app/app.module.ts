@@ -124,6 +124,9 @@ import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.comp
 import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
 import { VideoCallComponent } from './video-call/video-call.component';
+import { PublisherComponent } from './publisher/publisher.component';
+import { SubscriberComponent } from './subscriber/subscriber.component';
+import { OpentokService } from './_services/opentok.service';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -171,7 +174,7 @@ const appRoutes: Routes = [
 
   { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
   {
-    path: "video-call",
+    path: "video-call/:id",
     component: VideoCallComponent
   }
 ];
@@ -440,7 +443,9 @@ const appChildRoutes: Routes = [
     PieChartComponent,
     ScatterChartComponent,
     VideoInterviewRoomComponent,
-    VideoCallComponent
+    VideoCallComponent,
+    PublisherComponent,
+    SubscriberComponent
   ],
   imports: [
     InfiniteScrollModule,
@@ -469,6 +474,7 @@ const appChildRoutes: Routes = [
     AuthGuard,
     AuthenticationService,
     UserService,
+    OpentokService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
