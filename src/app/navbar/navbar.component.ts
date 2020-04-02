@@ -6,6 +6,8 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { SuperAdminService } from '../_services/super-admin.service';
 import {ForumService} from '../_services/forum.service';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
+import { WebsocketService } from '../websocket.service';
+import { Subject } from 'rxjs';
 
 declare var jQuery: any;
 declare var $: any;
@@ -32,6 +34,10 @@ status: boolean = false;
   suggestedQueData: any;
   suggestedQueCount:number=0;
   suggestedQueAnsCount:number = 0;
+
+  notificationObserver =new Subject();
+  notificationObserver$=this.notificationObserver.asObservable();
+
   constructor(
     private userService:UserService,
     private router:Router,
@@ -39,7 +45,8 @@ status: boolean = false;
     public supperAdmin: SuperAdminService,
     private route:ActivatedRoute,
     private _forum:ForumService,
-    private bidEventService :BiddingEventService
+    private bidEventService :BiddingEventService,
+    private _socket : WebsocketService
     ) {
    this.loggedInUser=this.userService.getUserData();
     if(this.loggedInUser != "no"){
@@ -56,9 +63,22 @@ status: boolean = false;
     }
    }
 
-  ngOnInit() {
+  async ngOnInit() {
   
-   
+    let obj=JSON.parse(localStorage.getItem("currentUser"));
+    if(obj !== null){
+      await this.initSocket(obj.token);
+    }
+
+    this._socket.addListener({
+      type : 1,
+      callback : this.notificationObserver
+    });
+
+    this.notificationObserver$.subscribe((res : any)=>{
+      this.handleData(res);
+    });
+
     this._forum.getUnAnsweredData().subscribe(
       res=>{ this.questDataLenght=res;
         
@@ -93,6 +113,22 @@ status: boolean = false;
     });
   
   }
+
+  async initSocket(token){
+    await this._socket.getInstance(token);
+  }
+
+  handleData(res : any){
+    switch(res.subType){
+      case 11 :
+        //add notification to list.
+        this.questDataLenght.unshift(res.result);
+        break;
+      default : 
+        break;
+    }
+  }
+
   updateQueAns(id){
     this._forum.updateQueAnsReadStatus(id).subscribe((data)=>{
     })
@@ -109,7 +145,7 @@ status: boolean = false;
     this.authService.logout();
     this.isAdmin=false;
     this.isLoggedIn= false;
-   
+    this._socket.socketClosed();
   }
   
   toggle() {

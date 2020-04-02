@@ -32,6 +32,7 @@ export class ViewForumComponent implements OnInit {
   getAnswerData=[];
   currUserData:any;
   postAnswer:FormGroup ;
+  postAnsw : FormGroup;
   searchQues:FormGroup;
   curerntUserId:String;
   curerntUserName:String;
@@ -87,13 +88,17 @@ export class ViewForumComponent implements OnInit {
             this.searchQues=this.formBuilder.group({
               question: this.formBuilder.control('', [Validators.required])
             })
-                
+              
+            this.postAnsw=this.formBuilder.group({
+              postAnsw1: this.formBuilder.control('', [Validators.required])
+            })
       
       this.currUserData=this._forum.getUserId();
       let CurreUser=JSON.parse(this.currUserData)
-      this.curerntUserId=CurreUser.userInfo._id
-      this.curerntUserName=CurreUser.userInfo.fullName;
-
+      if(CurreUser !== null){
+        this.curerntUserId=CurreUser.userInfo._id
+        this.curerntUserName=CurreUser.userInfo.fullName;
+      }
      
   }
 
