@@ -1,0 +1,7 @@
+#visioStopBtn {
+    position:absolute;
+    z-index:10;
+    width: 85%;
+    margin: 5px 3% 5px 3%;
+    bottom : 8px;
+}

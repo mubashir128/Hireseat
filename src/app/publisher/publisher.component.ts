@@ -1,5 +1,6 @@
 import { Component, ElementRef, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { OpentokService } from '../_services/opentok.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 const publish = () => {
 
@@ -14,11 +15,16 @@ const publish = () => {
 
 export class PublisherComponent implements AfterViewInit {
   @ViewChild('publisherDiv') publisherDiv: ElementRef;
+  @ViewChild('visioStopBtn') visioStopBtn: ElementRef;
+
   @Input() session: OT.Session;
   publisher: OT.Publisher;
   publishing: Boolean;
   publisherOptions: any;
-  constructor(private opentokService: OpentokService) {
+  constructor(
+    private opentokService: OpentokService,
+    private spinner: NgxSpinnerService
+  ) {
     this.publishing = false;
     this.publisherOptions = {
       insertMode: 'append',
@@ -30,6 +36,10 @@ export class PublisherComponent implements AfterViewInit {
       publishAudio: false,
       publishVideo: false
     };
+    // this.opentokService._publishedStream.subscribe(publisher => {
+    //   console.log('publisher status', publisher);
+
+    // });
   }
 
   ngAfterViewInit() {
@@ -41,19 +51,31 @@ export class PublisherComponent implements AfterViewInit {
         this.publish();
       }
       this.session.on('sessionConnected', () => this.publish());
+      this.session.on('sessionDisconnected', ((event) => {
+        console.log('sessionDisconnected', event);
+
+        alert('The session disconnected. ' + event.reason);
+      }));
     }
   }
 
   publish() {
+    this.spinner.show();
     this.session.publish(this.publisher, (err) => {
       if (err) {
+        this.spinner.hide();
+
         alert(err.message);
       } else {
-        console.log('******************', this.publisher);
+        this.spinner.hide();
 
+        // console.log('******************', this.publisher);
+        this.opentokService.setPublisher(this.publisher);
         this.publishing = true;
       }
     });
   }
-
+  // unpublish() {
+  //   this.session.unpublish(this.publisher);
+  // }
 }

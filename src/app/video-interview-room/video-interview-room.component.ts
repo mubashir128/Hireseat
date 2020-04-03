@@ -19,6 +19,6 @@ export class VideoInterviewRoomComponent implements OnInit {
   }
   onInterview() {
     // window.open('http://' + window.location.hostname + '/video-call');
-    this.router.navigate(['video-call']);
+    this.router.navigate(['video-call/1']);
   }
 }

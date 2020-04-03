@@ -73,14 +73,32 @@
                 <!-- api based calling -->
                 <div *ngIf="session">
                   <app-publisher [session]="session"></app-publisher>
-                  <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session"></app-subscriber>
+                  <ng-container *ngIf="allowSubscriber">
+                    <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session">
+                    </app-subscriber>
+                    <!-- <div *ngIf="candidate" (click)="unsubscribe(stream)">unsubscribe</div> -->
+
+                  </ng-container>
                 </div>
 
                 <!-- end api based calling -->
+                <ng-container *ngIf="!candidate">
+                  <button type="button" (click)="unpublish()" class="end-meeting">End Meeting</button>
+                </ng-container>
+                <!-- button for local -->
                 <button *ngIf="!candidate" id="myBtn" class="copy-link"
-                  (click)="copyText('https://www.hireseat.com/video-call')" value="click to copy">
+                  (click)="copyText('http://localhost:4200/video-call/'+toCopylinkPublishedStreamId)"
+                  value="click to copy">
                   Candidate Invitation Link
                 </button>
+                <!-- local end -->
+                <!-- button for live -->
+                <!-- <button *ngIf="!candidate" id="myBtn" class="copy-link"
+                  (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
+                  value="click to copy">
+                  Candidate Invitation Link
+                </button> -->
+                <!-- live end -->
 
 
       </div>
