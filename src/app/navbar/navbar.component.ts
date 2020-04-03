@@ -38,6 +38,9 @@ status: boolean = false;
   notificationObserver =new Subject();
   notificationObserver$=this.notificationObserver.asObservable();
 
+  getAllNotifications="getAllNotifications";
+  newNotification="newNotification";
+
   constructor(
     private userService:UserService,
     private router:Router,
@@ -76,14 +79,15 @@ status: boolean = false;
     });
 
     this.notificationObserver$.subscribe((res : any)=>{
-      this.handleData(res);
+      this.handleNotificationData(res);
     });
 
-    this._forum.getUnAnsweredData().subscribe(
-      res=>{ this.questDataLenght=res;
-        
-      },
-      err=>console.log(err));
+    this._socket.sendMessage({
+      type : 1,
+      data : {
+        subType : this.getAllNotifications
+      }
+    });
 
    if(this.loggedInUser.userRole == "employer"){
    this._forum.getAllUnAnsQuestionsByEmployerId(this.loggedInUser._id).subscribe(data=>{
@@ -118,10 +122,14 @@ status: boolean = false;
     await this._socket.getInstance(token);
   }
 
-  handleData(res : any){
+  handleNotificationData(res : any){
     switch(res.subType){
-      case 11 :
-        //add notification to list.
+      case this.getAllNotifications :
+        // add all notifications to list.
+        this.questDataLenght=res.data;
+        break;
+      case this.newNotification :
+        //add notification to start of list.
         this.questDataLenght.unshift(res.result);
         break;
       default : 
