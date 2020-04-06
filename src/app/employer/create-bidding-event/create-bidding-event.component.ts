@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BiddingEventService } from '../../_services/bidding-event.service';
+import { RecruiterProfile } from 'src/app/models/recruiter-profile';
 declare var jQuery: any;
 declare var Materialize: any;
 @Component({
@@ -20,6 +21,16 @@ export class CreateBiddingEventComponent implements OnInit {
   public jp: JobProfile[];
   public selectedJobProfile: any;
   public jobProfileName: string = "Select Job Profile";
+  recruiterList = [];
+  finalRecruiterList = [];
+  startList : any[]=[1,2,3,4,5];
+  itemsPerPageAreForTop = 5;
+  pTop = 1;
+  _searchTopTerm : any;
+  itemsPerPageAreForFinal = 5;
+  pFinal = 1;
+  _searchFinalTerm : any;
+  noBiddingEvents = false;
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {
     this.biddingEvent = new BiddingEvent();
@@ -27,6 +38,8 @@ export class CreateBiddingEventComponent implements OnInit {
 
   ngOnInit() {
    
+
+    this.getRecruiterList();
     this.getJobProfile();
     jQuery('.datepicker').on('mousedown',function(event){
         event.preventDefault();
@@ -123,6 +136,56 @@ export class CreateBiddingEventComponent implements OnInit {
     });
 
 
+  }
+
+  getRecruiterList(){
+    this.bidEventService.getRecruiterList().subscribe(res=>{
+      this.recruiterList=res;
+      this.handlePaginator();
+    },err=>{
+      console.log(err);
+    });
+  }
+
+  handlePaginator(){
+    this.noBiddingEvents = this.recruiterList.length === 0 ? true : false;
+  }
+
+  handleTopSelected($event){
+    console.log($event.target.checked," ",$event.target.name);
+    if($event.target.checked){
+      this.recruiterList.map(item=>{
+        if(item._id === $event.target.name){
+          this.finalRecruiterList.unshift(item);
+          let index=this.recruiterList.indexOf(item);
+          this.recruiterList.splice(index,1);
+          this.handlePaginator();
+        }
+      });
+    }
+  }
+
+  handleFinalSelected($event){
+    console.log($event.target.checked," ",$event.target.name);
+    if(!$event.target.checked){
+      this.finalRecruiterList.map(item=>{
+        if(item._id === $event.target.name){
+          this.recruiterList.unshift(item);
+          let index=this.finalRecruiterList.indexOf(item);
+          this.finalRecruiterList.splice(index,1);
+        }
+      });
+    }
+  }
+
+
+  get searchTopTerm(){
+    return this._searchTopTerm;
+  }
+
+  set searchTopTerm(value){
+    this._searchTopTerm=value;
+    this.itemsPerPageAreForTop = this._searchTopTerm === "" ? 5 : 100;
   }
 
   get f() { return this.auctionFrm.controls; }
