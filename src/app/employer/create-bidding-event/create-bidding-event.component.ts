@@ -24,7 +24,7 @@ export class CreateBiddingEventComponent implements OnInit {
   allRecruiterList = [];
   recruiterList = [];
   finalRecruiterList = [];
-  startList : any[]=[1,2,3,4,5];
+  startList : any[]=[1,2,3,4];
   itemsPerPageAreForTop = 5;
   pTop = 1;
   _searchTopTerm : any;
