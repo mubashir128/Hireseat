@@ -210,8 +210,8 @@ export class CreateBiddingEventComponent implements OnInit {
       this.extractData(this.allRecruiterList);
     }else{
       this.recruiterList=[];
-      this.finalRecruiterList=this.allRecruiterList;
-      this.finalRecruitersAre=[...this.publicRecruitersAre];
+      this.finalRecruiterList=[];
+      this.finalRecruitersAre=[];
       this.handlePaginator();
     }
   }
@@ -257,6 +257,7 @@ export class CreateBiddingEventComponent implements OnInit {
         this.biddingEvent.setEmployer(this.userService.getIUserData());
         this.biddingEvent.updateStatus();
         this.biddingEvent.setFinalRecruiters(this.finalRecruitersAre);
+        this.biddingEvent.setGlobalType(this.globalType);
         this.updateLocalStorage();
         this.bidEventService.createBiddingEvent(this.biddingEvent).subscribe((data: any) => {
           if (data.result == "inserted") {

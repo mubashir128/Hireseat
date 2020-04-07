@@ -40,6 +40,7 @@ export class BiddingEvent implements IBiddingEvent {
     jobLocation: string;    
     remainingTime:RemainingTime;
     finalRecruiters : any=[];
+    globalType : string;
 
     public static STATUS_EXPIRED = 'EXPIRED';
     public static STATUS_SCHEDULED = 'SCHEDULED';
@@ -115,6 +116,10 @@ export class BiddingEvent implements IBiddingEvent {
 
     setFinalRecruiters(list){
         this.finalRecruiters=list;
+    }
+
+    setGlobalType(type){
+        this.globalType=type;
     }
 
 }
