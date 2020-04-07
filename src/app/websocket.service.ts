@@ -40,7 +40,9 @@ export class WebsocketService {
   }
 
   sendMessage(obj : any){
-    this.socket.emit("message",JSON.stringify(obj));
+    if(this.socket !== undefined){
+      this.socket.emit("message",JSON.stringify(obj));
+    }
   }
 
   private onMessage(obj: string){
