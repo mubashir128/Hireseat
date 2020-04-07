@@ -21,6 +21,7 @@ export class CreateBiddingEventComponent implements OnInit {
   public jp: JobProfile[];
   public selectedJobProfile: any;
   public jobProfileName: string = "Select Job Profile";
+  allRecruiterList = [];
   recruiterList = [];
   finalRecruiterList = [];
   startList : any[]=[1,2,3,4,5];
@@ -30,7 +31,13 @@ export class CreateBiddingEventComponent implements OnInit {
   itemsPerPageAreForFinal = 5;
   pFinal = 1;
   _searchFinalTerm : any;
-  noBiddingEvents = false;
+  noBiddingEventsForTop = false;
+  noBiddingEventsForFinal = false;
+  tempRecruiters=[];
+  globalType="private";
+  publicRecruitersAre=[];
+  privateRecruitersAre=[];
+  finalRecruitersAre=[];
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {
     this.biddingEvent = new BiddingEvent();
@@ -140,25 +147,40 @@ export class CreateBiddingEventComponent implements OnInit {
 
   getRecruiterList(){
     this.bidEventService.getRecruiterList().subscribe(res=>{
-      this.recruiterList=res;
-      this.handlePaginator();
+      this.allRecruiterList=res;
+      this.extractData(res);
     },err=>{
       console.log(err);
     });
   }
 
+  extractData(res){
+    let previouslyInvitedRecruiters=this.userService.getUserData().previouslyInvitedRecruiters;
+    res.map(data=>{
+        if(previouslyInvitedRecruiters.includes(data._id)){
+          this.finalRecruiterList.push(data);
+          this.finalRecruitersAre.push(data._id);
+        }else{
+          this.recruiterList.push(data);
+        }
+        this.publicRecruitersAre.push(data._id);
+    });
+    this.handlePaginator();
+  }
+
   handlePaginator(){
-    this.noBiddingEvents = this.recruiterList.length === 0 ? true : false;
+    this.noBiddingEventsForTop = this.recruiterList.length === 0 ? true : false;
+    this.noBiddingEventsForFinal = this.finalRecruiterList.length === 0 ? true : false;
   }
 
   handleTopSelected($event){
-    console.log($event.target.checked," ",$event.target.name);
     if($event.target.checked){
       this.recruiterList.map(item=>{
         if(item._id === $event.target.name){
           this.finalRecruiterList.unshift(item);
           let index=this.recruiterList.indexOf(item);
           this.recruiterList.splice(index,1);
+          this.finalRecruitersAre.push(item._id);
           this.handlePaginator();
         }
       });
@@ -166,18 +188,33 @@ export class CreateBiddingEventComponent implements OnInit {
   }
 
   handleFinalSelected($event){
-    console.log($event.target.checked," ",$event.target.name);
     if(!$event.target.checked){
       this.finalRecruiterList.map(item=>{
         if(item._id === $event.target.name){
           this.recruiterList.unshift(item);
           let index=this.finalRecruiterList.indexOf(item);
           this.finalRecruiterList.splice(index,1);
+          this.finalRecruitersAre.splice(item,1);
+          this.handlePaginator();
         }
       });
     }
   }
 
+  handleGenderChange($event){
+    this.globalType=$event.target.value;
+    if($event.target.value === "private"){
+      this.finalRecruiterList=[];
+      this.finalRecruitersAre=[];
+      this.publicRecruitersAre=[];
+      this.extractData(this.allRecruiterList);
+    }else{
+      this.recruiterList=[];
+      this.finalRecruiterList=this.allRecruiterList;
+      this.finalRecruitersAre=[...this.publicRecruitersAre];
+      this.handlePaginator();
+    }
+  }
 
   get searchTopTerm(){
     return this._searchTopTerm;
@@ -186,6 +223,15 @@ export class CreateBiddingEventComponent implements OnInit {
   set searchTopTerm(value){
     this._searchTopTerm=value;
     this.itemsPerPageAreForTop = this._searchTopTerm === "" ? 5 : 100;
+  }
+
+  get searchFinalTerm(){
+    return this._searchFinalTerm;
+  }
+
+  set searchFinalTerm(value){
+    this._searchFinalTerm=value;
+    this.itemsPerPageAreForFinal = this._searchFinalTerm === "" ? 5 : 100;
   }
 
   get f() { return this.auctionFrm.controls; }
@@ -205,12 +251,12 @@ export class CreateBiddingEventComponent implements OnInit {
   }
 
   submit() {
-    
     if (this.selectedJobProfile) {
       this.spinner.show();
       if (!this.auctionFrm.invalid) {
         this.biddingEvent.setEmployer(this.userService.getIUserData());
         this.biddingEvent.updateStatus();
+        this.biddingEvent.setFinalRecruiters(this.finalRecruitersAre);
         this.bidEventService.createBiddingEvent(this.biddingEvent).subscribe((data: any) => {
           if (data.result == "inserted") {
             Materialize.toast('New Auction Created !', 4000);

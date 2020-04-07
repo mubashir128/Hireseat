@@ -70,110 +70,11 @@
 
             <div class="input-field col s6 m6">
                 <div class="radioGroup">
-                    <input type="radio" id="male" name="gender" value="male">
+                    <input type="radio" id="public" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="public" (change)="handleGenderChange($event)">
                     <label for="male">Public</label>
-                    <input type="radio" id="female" name="gender" value="female">
+                    <input type="radio" id="private" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="private" (change)="handleGenderChange($event)">
                     <label for="female">Private</label>
                 </div>
-                
-                <!-- <div class="searchDivParent">
-                    <div class="searchDiv">
-                        <input type="text" placeholder="search">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </div>
-                    <div class="recriterSearchDiv">
-                        <div class="recruitrList">
-                            <h4>R1</h4>
-                            <div class="starDiv">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                              <div class="actionDiv">
-                                <label class="CheckBoxcontainer">
-                                    <input type="checkbox" checked="checked">
-                                    <span class="checkmark"></span>
-                                  </label>
-                            </div>
-                        </div>
-                        <div class="recruitrList">
-                            <h4>R1</h4>
-                            <div class="starDiv">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                              <div class="actionDiv">
-                                <label class="CheckBoxcontainer">
-                                    <input type="checkbox" checked="checked">
-                                    <span class="checkmark"></span>
-                                  </label>
-                            </div>
-                        </div>
-                        <div class="recruitrList">
-                            <h4>R1</h4>
-                            <div class="starDiv">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                            <div class="actionDiv">
-                                <label class="CheckBoxcontainer">
-                                    <input type="checkbox" checked="checked">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="recruitrList">
-                            <h4>R1</h4>
-                            <div class="starDiv">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                            <div class="actionDiv">
-                                <label class="CheckBoxcontainer">
-                                    <input type="checkbox" checked="checked">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="recruitrList">
-                            <h4>R1</h4>
-                            <div class="starDiv">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                            <div class="actionDiv">
-                                <label class="CheckBoxcontainer">
-                                    <input type="checkbox" checked="checked">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="recruitrList">
-                            <h4>R1</h4>
-                            <div class="starDiv">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                            <div class="actionDiv">
-                                <label class="CheckBoxcontainer">
-                                    <input type="checkbox" checked="checked">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="recruiterListMain">
                     <h3>Top Recruiters</h3>
@@ -182,7 +83,7 @@
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </div>
                     <div class="recruiterListDiv" *ngIf="recruiterList.length" style="margin-top: 70px;">
-                        <div class="recruitrList" *ngFor="let item of recruiterList  | search : searchTopTerm | paginate: { itemsPerPage: itemsPerPageAreForTop, currentPage: pTop }">
+                        <div class="recruitrList" *ngFor="let item of recruiterList | search : searchTopTerm | paginate: { itemsPerPage: itemsPerPageAreForTop, currentPage: pTop }">
                             <h4>{{ item.fullName }}</h4>
                             <div class="starDiv" *ngFor="let star of startList">
                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -195,7 +96,7 @@
                             </div>
                         </div>
                     </div>
-                    <pagination-controls *ngIf="!noBiddingEvents" (pageChange)="pTop = $event"></pagination-controls>
+                    <pagination-controls *ngIf="!noBiddingEventsForTop" (pageChange)="pTop = $event"></pagination-controls>
                 </div>
 
             </div>
@@ -204,11 +105,11 @@
                 <div class="recruiterListMain">
                     <h3>Final Recruiters</h3>
                     <div class="searchDiv" style="margin-left: 10px;">
-                        <input type="text" placeholder="Search...">
+                        <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchFinalTerm" placeholder="Search...">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </div>
                     <div class="recruiterListDiv" *ngIf="finalRecruiterList.length" style="margin-top: 70px;">
-                        <div class="recruitrList" *ngFor="let item of finalRecruiterList">
+                        <div class="recruitrList" *ngFor="let item of finalRecruiterList  | search : searchFinalTerm | paginate: { itemsPerPage: itemsPerPageAreForFinal, currentPage: pFinal }">
                             <h4>{{ item.fullName }}</h4>
                             <div class="starDiv" *ngFor="let star of startList">
                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -221,6 +122,7 @@
                             </div>
                         </div>
                     </div>
+                    <pagination-controls *ngIf="!noBiddingEventsForFinal" (pageChange)="pFinal = $event"></pagination-controls>
                 </div>
             </div>
 
