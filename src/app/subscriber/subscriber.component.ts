@@ -2,6 +2,7 @@ import { Component, ElementRef, AfterViewInit, ViewChild, Input } from '@angular
 import * as OT from '@opentok/client';
 import { OpentokService } from '../_services/opentok.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subscriber',
@@ -16,23 +17,29 @@ export class SubscriberComponent implements AfterViewInit {
   subscriberOptions: any;
   constructor(
     private opentokService: OpentokService,
-    private spinner: NgxSpinnerService
-
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) {
     this.subscriberOptions = {
       insertMode: 'append',
-      width: '200px',
-      height: '200px',
+      width: '600px',
+      height: '600px',
       name: 'Subscriber',
       fitMode: 'cover',
-      style: { nameDisplayMode: 'on', buttonDisplayMode: 'on' },
-      publishAudio: false,
+      style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
+      publishAudio: true,
       publishVideo: true
     };
     // this.opentokService._publishedStream.subscribe(publisher => {
-    //   console.log('publisher status', publisher);
+    //   // console.log('publisher status', publisher);
 
     // });
+    this.opentokService._meetingEnd.subscribe((status) => {
+      // // console.log('status', status);
+      if (status) {
+
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -46,10 +53,25 @@ export class SubscriberComponent implements AfterViewInit {
       }
       this.spinner.hide();
 
-      console.log('from subscriber*******', this.stream);
+      // console.log('from subscriber*******', this.stream);
 
     });
+    this.session.signal(
+      {
+        data: "hello"
+      },
+      function (error) {
+        if (error) {
+          // console.log("signal error ("+ error.name + "): " + error.message);
+        } else {
+          // console.log("signal sent.");
+        }
+      }
+    );
   }
-
+  unsubscribe(subscriber) {
+    this.session.unsubscribe(subscriber);
+    this.router.navigate(['/'])
+  }
 
 }

@@ -2,8 +2,11 @@ app-publisher,
 app-subscriber {
   display: block;
   float: left;
+  margin-right: 1px;
 }
-
+.call {
+  display: flex;
+}
 .back {
   cursor: pointer;
   color: #48aef3;
@@ -14,7 +17,7 @@ app-subscriber {
   display: flex;
   flex-direction: column;
 }
-.copy-link {
+/* .copy-link {
   width: 40%;
   margin-top: 10px;
   color: #48aef3;
@@ -24,7 +27,7 @@ app-subscriber {
   border: none;
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
+} */
 
 /*modal*/
 .modal {
@@ -295,6 +298,8 @@ nav ul a {
 }
 /*ask question pop place holder css END*/
 .end-meeting {
+  margin-top: 20px;
+
   color: #dc3545;
   background-color: transparent;
   background-image: none;
@@ -316,4 +321,30 @@ nav ul a {
 }
 .end-meeting:focus {
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.copy-link {
+  margin-top: 20px;
+
+  color: #48aef3;
+  background-color: transparent;
+  background-image: none;
+  border-color: #48aef3;
+  cursor: pointer;
+  outline: none;
+  width: 200px;
+  height: 50px;
+}
+.copy-link:active {
+  color: #fff;
+  background-color: #48aef3;
+  border-color: #48aef3;
+}
+.copy-link:hover {
+  color: #fff;
+  background-color: #48aef3;
+  border-color: #48aef3;
+}
+.copy-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(72, 174, 243);
 }

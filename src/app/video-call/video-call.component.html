@@ -71,7 +71,10 @@
                   width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
 
                 <!-- api based calling -->
-                <div *ngIf="session">
+                <!-- <ng-container *ngIf="!candidate && meetingStatus">
+                  <button type="button" (click)="ngOnInit()" class="end-meeting">Start Meeting</button>
+                </ng-container> -->
+                <div class="call" *ngIf="session">
                   <app-publisher [session]="session"></app-publisher>
                   <ng-container *ngIf="allowSubscriber">
                     <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session">
@@ -83,21 +86,22 @@
 
                 <!-- end api based calling -->
                 <ng-container *ngIf="!candidate">
-                  <button type="button" (click)="unpublish()" class="end-meeting">End Meeting</button>
+                  <button type="button" (click)="ngOnDestroy()" class="end-meeting">End Meeting</button>
                 </ng-container>
+
                 <!-- button for local -->
-                <button *ngIf="!candidate" id="myBtn" class="copy-link"
+                <!-- <button *ngIf="!candidate" id="myBtn" class="copy-link"
                   (click)="copyText('http://localhost:4200/video-call/'+toCopylinkPublishedStreamId)"
                   value="click to copy">
                   Candidate Invitation Link
-                </button>
+                </button> -->
                 <!-- local end -->
                 <!-- button for live -->
-                <!-- <button *ngIf="!candidate" id="myBtn" class="copy-link"
+                <button *ngIf="!candidate" id="myBtn" class="copy-link"
                   (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
                   value="click to copy">
                   Candidate Invitation Link
-                </button> -->
+                </button>
                 <!-- live end -->
 
 

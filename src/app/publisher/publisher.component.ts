@@ -1,7 +1,6 @@
 import { Component, ElementRef, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { OpentokService } from '../_services/opentok.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
 const publish = () => {
 
 };
@@ -28,18 +27,34 @@ export class PublisherComponent implements AfterViewInit {
     this.publishing = false;
     this.publisherOptions = {
       insertMode: 'append',
-      width: '400px',
-      height: '400px',
+      width: '300px',
+      height: '300px',
       name: 'Publisher',
       fitMode: 'contain',
-      style: { nameDisplayMode: 'on', buttonDisplayMode: 'on' },
-      publishAudio: false,
-      publishVideo: false
+      style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
+      publishAudio: true,
+      publishVideo: true,
+      maxRatio: 3 / 2,
+      minRatio: 9 / 16,
+      fixedRatio: false,
+      alignItems: 'center',
+      bigClass: 'OT_big',
+      bigPercentage: 0.8,
+      bigFixedRatio: false,
+      bigAlignItems: 'center',
+      smallAlignItems: 'center',
+      bigMaxRatio: 3 / 2,
+      bigMinRatio: 9 / 16,
+      bigFirst: true,
+      animate: true,
+      window: window,
+      ignoreClass: 'OT_ignore',
     };
     // this.opentokService._publishedStream.subscribe(publisher => {
-    //   console.log('publisher status', publisher);
+    //   // console.log('publisher status', publisher);
 
     // });
+
   }
 
   ngAfterViewInit() {
@@ -52,7 +67,7 @@ export class PublisherComponent implements AfterViewInit {
       }
       this.session.on('sessionConnected', () => this.publish());
       this.session.on('sessionDisconnected', ((event) => {
-        console.log('sessionDisconnected', event);
+        // console.log('sessionDisconnected', event);
 
         alert('The session disconnected. ' + event.reason);
       }));
@@ -69,7 +84,7 @@ export class PublisherComponent implements AfterViewInit {
       } else {
         this.spinner.hide();
 
-        // console.log('******************', this.publisher);
+        // // console.log('******************', this.publisher);
         this.opentokService.setPublisher(this.publisher);
         this.publishing = true;
       }

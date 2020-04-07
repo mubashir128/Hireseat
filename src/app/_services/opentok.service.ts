@@ -6,8 +6,12 @@ import * as config from '../globalPath';
 @Injectable()
 export class OpentokService {
   private publisher = new BehaviorSubject([]);
+  private streamToCheck = new Subject();
+  private meetingEnd = new BehaviorSubject(false);
   // subscribe to this sub
   _publishedStream = this.publisher.asObservable();
+  _streamToChecked = this.streamToCheck.asObservable();
+  _meetingEnd = this.meetingEnd.asObservable();
   session: OT.Session;
   token: string;
 
@@ -15,6 +19,12 @@ export class OpentokService {
 
   getOT() {
     return OT;
+  }
+  setMeetingStatus(status) {
+    this.meetingEnd.next(status);
+  }
+  setStream(stream) {
+    this.streamToCheck.next(stream);
   }
   // setting up newly generated stream event by publisher
   setPublisher(publishedStreamEvent) {
@@ -30,7 +40,14 @@ export class OpentokService {
       });
 
   }
+  room(name) {
+    return fetch(config.SAMPLE_SERVER_BASE_URL + '/room/:name')
+      .then((data) => data.json())
+      .then((json) => {
+        console.log(json);
 
+      });
+  }
   connect() {
     return new Promise((resolve, reject) => {
       this.session.connect(this.token, (err) => {
@@ -47,8 +64,12 @@ export class OpentokService {
       if (error) {
         console.log(error);
       } else {
-        console.log("Connection forced to disconnect: " + stream.id);
+        console.log('Connection forced to disconnect: ' + stream.id);
       }
     });
+  }
+  unpublishSession(publisher) {
+    this.session.unpublish(publisher);
+    this.setMeetingStatus(true);
   }
 }
