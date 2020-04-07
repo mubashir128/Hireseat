@@ -35,7 +35,6 @@ export class CreateBiddingEventComponent implements OnInit {
   noBiddingEventsForFinal = false;
   tempRecruiters=[];
   globalType="private";
-  publicRecruitersAre=[];
   privateRecruitersAre=[];
   finalRecruitersAre=[];
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
@@ -163,7 +162,6 @@ export class CreateBiddingEventComponent implements OnInit {
         }else{
           this.recruiterList.push(data);
         }
-        this.publicRecruitersAre.push(data._id);
     });
     this.handlePaginator();
   }
@@ -203,15 +201,12 @@ export class CreateBiddingEventComponent implements OnInit {
 
   handleGenderChange($event){
     this.globalType=$event.target.value;
+    this.finalRecruiterList=[];
+    this.finalRecruitersAre=[];
     if($event.target.value === "private"){
-      this.finalRecruiterList=[];
-      this.finalRecruitersAre=[];
-      this.publicRecruitersAre=[];
       this.extractData(this.allRecruiterList);
     }else{
       this.recruiterList=[];
-      this.finalRecruiterList=[];
-      this.finalRecruitersAre=[];
       this.handlePaginator();
     }
   }
