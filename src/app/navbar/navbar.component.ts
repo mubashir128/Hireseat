@@ -73,6 +73,7 @@ status: boolean = false;
       await this.initSocket(obj.token);
     }
 
+    await this._socket.removeListener({type : 1});
     this._socket.addListener({
       type : 1,
       callback : this.notificationObserver

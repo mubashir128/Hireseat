@@ -68,4 +68,13 @@ export class WebsocketService {
   addListener(obj){
     this.listeners.push(obj);
   }
+
+  async removeListener(obj){
+    this.listeners.map(item=>{
+      if(item.type === obj.type){
+        this.listeners.splice(item,1);
+      }
+    });
+  }
+
 }
