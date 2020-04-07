@@ -257,6 +257,7 @@ export class CreateBiddingEventComponent implements OnInit {
         this.biddingEvent.setEmployer(this.userService.getIUserData());
         this.biddingEvent.updateStatus();
         this.biddingEvent.setFinalRecruiters(this.finalRecruitersAre);
+        this.updateLocalStorage();
         this.bidEventService.createBiddingEvent(this.biddingEvent).subscribe((data: any) => {
           if (data.result == "inserted") {
             Materialize.toast('New Auction Created !', 4000);
@@ -277,6 +278,12 @@ export class CreateBiddingEventComponent implements OnInit {
       this.spinner.hide();
       Materialize.toast('Please select Job Profile', 4000);
     }
+  }
+
+  updateLocalStorage(){
+    let currentUser=this.userService.getUser();
+    currentUser.userInfo.previouslyInvitedRecruiters=[...this.finalRecruitersAre];
+    localStorage.setItem("currentUser",JSON.stringify(currentUser));
   }
 
   goBack() {
