@@ -172,7 +172,7 @@ export class CreateBiddingEventComponent implements OnInit {
   }
 
   handleTopSearchTerm(){
-    this.searchTopTerm=this.searchTopTerm.substring(0,this.searchTopTerm.length-1);
+    this.searchTopTerm=this.searchTopTerm !== undefined ? this.searchTopTerm.substring(0,this.searchTopTerm.length-1) : this.searchTopTerm;
   }
 
   handleTopSelected($event){
@@ -197,7 +197,7 @@ export class CreateBiddingEventComponent implements OnInit {
           this.recruiterList.unshift(item);
           let index=this.finalRecruiterList.indexOf(item);
           this.finalRecruiterList.splice(index,1);
-          this.finalRecruitersAre.splice(item,1);
+          this.finalRecruitersAre.splice(item._id,1);
           this.handlePaginator();
         }
       });
