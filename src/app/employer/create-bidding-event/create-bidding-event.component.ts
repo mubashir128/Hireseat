@@ -171,6 +171,10 @@ export class CreateBiddingEventComponent implements OnInit {
     this.noBiddingEventsForFinal = this.finalRecruiterList.length === 0 ? true : false;
   }
 
+  handleTopSearchTerm(){
+    this.searchTopTerm=this.searchTopTerm.substring(0,this.searchTopTerm.length-1);
+  }
+
   handleTopSelected($event){
     if($event.target.checked){
       this.recruiterList.map(item=>{
@@ -179,6 +183,7 @@ export class CreateBiddingEventComponent implements OnInit {
           let index=this.recruiterList.indexOf(item);
           this.recruiterList.splice(index,1);
           this.finalRecruitersAre.push(item._id);
+          this.handleTopSearchTerm();
           this.handlePaginator();
         }
       });
