@@ -68,67 +68,66 @@
                 <p> per candidate </p>
             </div>
 
-            <div class="input-field col s6 m6">
+            <div class="input-field col s12 m12">
                 <div class="radioGroup">
                     <input type="radio" id="public" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="public" (change)="handleGenderChange($event)">
                     <label for="male">Public</label>
                     <input type="radio" id="private" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="private" (change)="handleGenderChange($event)">
                     <label for="female">Private</label>
                 </div>
-
-                <div class="recruiterListMain">
-                    <h3>Recruiters</h3>
-                    <div class="searchDiv">
-                        <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchTopTerm" placeholder="Search...">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </div>
-                    <div class="recruiterListDiv" *ngIf="recruiterList.length" style="margin-top: 70px;">
-                        <div class="recruitrList" *ngFor="let item of recruiterList | search : searchTopTerm | paginate: { itemsPerPage: itemsPerPageAreForTop, currentPage: pTop }">
-                            <h4>{{ item.fullName }}</h4>
-                            <div class="starDiv" *ngFor="let star of startList">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                            <div class="actionDiv">
-                                <label class="CheckBoxcontainer">
-                                    <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event)">
-                                    <span class="checkmark"></span>
-                                  </label>
+            </div>
+            <div *ngIf="globalType === 'private'">
+                <div class="input-field col s6 m6">
+                    <div class="recruiterListMain">
+                        <h3>Recruiters</h3>
+                        <div class="searchDiv">
+                            <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchTopTerm" placeholder="Search...">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+                        <div class="recruiterListDiv" *ngIf="recruiterList.length" style="margin-top: 70px;">
+                            <div class="recruitrList" *ngFor="let item of recruiterList | search : searchTopTerm | paginate: { itemsPerPage: itemsPerPageAreForTop, currentPage: pTop }">
+                                <h4>{{ item.fullName }}</h4>
+                                <div class="starDiv" *ngFor="let star of startList">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="actionDiv">
+                                    <label class="CheckBoxcontainer">
+                                        <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event)">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
+                        <pagination-controls *ngIf="!noBiddingEventsForTop" (pageChange)="pTop = $event"></pagination-controls>
                     </div>
-                    <pagination-controls *ngIf="!noBiddingEventsForTop" (pageChange)="pTop = $event"></pagination-controls>
+
                 </div>
 
-            </div>
-
-            <div class="input-field col s6 m6">
-                <div class="" style="margin-bottom: 50px;">
-                </div>
-                <div class="recruiterListMain">
-                    <h3>Final Recruiters</h3>
-                    <div class="searchDiv" style="margin-left: 0px;">
-                        <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchFinalTerm" placeholder="Search...">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </div>
-                    <div class="recruiterListDiv" *ngIf="finalRecruiterList.length" style="margin-top: 70px;">
-                        <div class="recruitrList" *ngFor="let item of finalRecruiterList  | search : searchFinalTerm | paginate: { itemsPerPage: itemsPerPageAreForFinal, currentPage: pFinal }">
-                            <h4>{{ item.fullName }}</h4>
-                            <div class="starDiv" *ngFor="let star of startList">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </div>
-                            <div class="actionDiv">
-                                <label class="CheckBoxcontainer">
-                                    <input type="checkbox" name="{{item._id}}" (change)="handleFinalSelected($event)" checked="checked">
-                                    <span class="checkmark"></span>
-                                  </label>
+                <div class="input-field col s6 m6">
+                    <div class="recruiterListMain">
+                        <h3>Final Recruiters</h3>
+                        <div class="searchDiv" style="margin-left: 0px;">
+                            <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchFinalTerm" placeholder="Search...">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+                        <div class="recruiterListDiv" *ngIf="finalRecruiterList.length" style="margin-top: 70px;">
+                            <div class="recruitrList" *ngFor="let item of finalRecruiterList  | search : searchFinalTerm | paginate: { itemsPerPage: itemsPerPageAreForFinal, currentPage: pFinal }">
+                                <h4>{{ item.fullName }}</h4>
+                                <div class="starDiv" *ngFor="let star of startList">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="actionDiv">
+                                    <label class="CheckBoxcontainer">
+                                        <input type="checkbox" name="{{item._id}}" (change)="handleFinalSelected($event)" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
+                        <pagination-controls *ngIf="!noBiddingEventsForFinal" (pageChange)="pFinal = $event"></pagination-controls>
                     </div>
-                    <pagination-controls *ngIf="!noBiddingEventsForFinal" (pageChange)="pFinal = $event"></pagination-controls>
                 </div>
             </div>
-
-            <div class="input-field col s6 m4"></div>
         </div>
         <div class="divider"></div>
         <div class="center-align" style="margin-top:15px; margin-bottom:15px;">
