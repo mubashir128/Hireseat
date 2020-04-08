@@ -93,7 +93,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.spinner.show();
-    this.opentokService.initSession().then((session: OT.Session) => {
+    this.opentokService.initSessionAPI('test').then((session: OT.Session) => {
       this.session = session;
       this.session.on('streamCreated', (event) => {
         this.spinner.hide();

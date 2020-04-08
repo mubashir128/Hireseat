@@ -2,9 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import * as OT from '@opentok/client';
 import * as config from '../globalPath';
-
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import * as myGlobals from '../globalPath';
 @Injectable()
 export class OpentokService {
+  public baseurl: any;
+
   private publisher = new BehaviorSubject([]);
   private streamToCheck = new Subject();
   private meetingEnd = new BehaviorSubject(false);
@@ -15,7 +19,9 @@ export class OpentokService {
   session: OT.Session;
   token: string;
 
-  constructor() { }
+  constructor() {
+    this.baseurl = myGlobals.baseUrl;
+  }
 
   getOT() {
     return OT;
@@ -34,6 +40,18 @@ export class OpentokService {
     return fetch(config.SAMPLE_SERVER_BASE_URL + '/session')
       .then((data) => data.json())
       .then((json) => {
+        this.session = this.getOT().initSession(json.apiKey, json.sessionId);
+        this.token = json.token;
+        return this.session;
+      });
+
+  }
+  initSessionAPI(name) {
+
+    return fetch(this.baseurl + 'api/room/' + name)
+      .then((data) => data.json())
+      .then((json) => {
+        console.log('nodejs', json);
         this.session = this.getOT().initSession(json.apiKey, json.sessionId);
         this.token = json.token;
         return this.session;
