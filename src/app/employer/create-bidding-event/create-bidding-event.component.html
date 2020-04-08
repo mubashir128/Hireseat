@@ -110,7 +110,7 @@
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
                         <div class="recruiterListDiv" *ngIf="finalRecruiterList.length" style="margin-top: 70px;">
-                            <div class="recruitrList" *ngFor="let item of finalRecruiterList  | search : searchFinalTerm | paginate: { itemsPerPage: itemsPerPageAreForFinal, currentPage: pFinal }">
+                            <div class="recruitrList" *ngFor="let item of finalRecruiterList | search : searchFinalTerm | paginate: { itemsPerPage: itemsPerPageAreForFinal, currentPage: pFinal }">
                                 <h4>{{ item.fullName }}</h4>
                                 <div class="starDiv" *ngFor="let star of startList">
                                     <i class="fa fa-star" aria-hidden="true"></i>
