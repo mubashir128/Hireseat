@@ -12,10 +12,12 @@ export class OpentokService {
   private publisher = new BehaviorSubject([]);
   private streamToCheck = new Subject();
   private meetingEnd = new BehaviorSubject(false);
+  private archivingID = new Subject();
   // subscribe to this sub
   _publishedStream = this.publisher.asObservable();
   _streamToChecked = this.streamToCheck.asObservable();
   _meetingEnd = this.meetingEnd.asObservable();
+  _archivingID = this.archivingID.asObservable();
   session: OT.Session;
   token: string;
 
@@ -25,6 +27,12 @@ export class OpentokService {
 
   getOT() {
     return OT;
+  }
+
+  setArchivingID(archivingID) {
+    console.log('##########setting archive ID######################', archivingID);
+
+    this.archivingID.next(archivingID);
   }
   setMeetingStatus(status) {
     this.meetingEnd.next(status);

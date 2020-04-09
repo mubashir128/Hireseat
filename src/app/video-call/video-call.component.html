@@ -83,7 +83,20 @@
 
                   </ng-container>
                 </div>
+                <!-- archive button -->
+                <div *ngIf="!candidate">
+                  <div id="buttons">
+                    <button type="button" class="start-button" *ngIf="startArchiveButton" (click)="startArchive()">Start
+                      Archive</button>
+                    <button type="button" class="stop-button" *ngIf="stopArchiveButton"
+                      (click)="stopArchive(archiveID)">Stop
+                      Archive</button>
+                    <button type="button" class="view-button" *ngIf="viewArchiveButton" (click)="viewArchive()">View
+                      Archive</button>
+                  </div>
 
+                </div>
+                <!-- End archive button-->
                 <!-- end api based calling -->
                 <ng-container *ngIf="!candidate">
                   <button type="button" (click)="ngOnDestroy()" class="end-meeting">End Meeting</button>
