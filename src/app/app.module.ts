@@ -124,6 +124,8 @@ import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.comp
 import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
 import { VideoCallComponent } from './video-call/video-call.component';
+import { SearchByNamePipe } from '../search-by-name.pipe';
+import { SearchByExperiencePipe } from '../search-by-experience.pipe';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -440,7 +442,9 @@ const appChildRoutes: Routes = [
     PieChartComponent,
     ScatterChartComponent,
     VideoInterviewRoomComponent,
-    VideoCallComponent
+    VideoCallComponent,
+    SearchByNamePipe,
+    SearchByExperiencePipe
   ],
   imports: [
     InfiniteScrollModule,
