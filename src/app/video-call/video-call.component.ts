@@ -5,6 +5,8 @@ import * as OT from '@opentok/client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { baseUrl } from '../globalPath';
+declare var jQuery: any;
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-video-call',
@@ -173,6 +175,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
       });
   }
+
+  // modal
   emailConfirmPopup() {
     // // console.log("emailConfirmPopup");
 
@@ -186,6 +190,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
     jQuery("#emailConfirmPop").modal("close");
   }
+
+  // end modal
 
   copyText(val: string) {
     const selBox = document.createElement('textarea');
