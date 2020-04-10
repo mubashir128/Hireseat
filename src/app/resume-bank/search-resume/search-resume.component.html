@@ -42,6 +42,23 @@
       <!-- <button type="submit" class="waves-effect waves-light btn">Search</button> -->
       <!-- </div> -->
     </div>
+    <div class="row">
+      <div class="skillInput">
+        <span>Note: Search by Name : </span>
+      </div>
+      <div class="inputDivMainN">
+        <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here...">
+      </div>    
+    </div>
+    <div class="row">
+      <div class="skillInput">
+        <span>Note: Search by Experience : </span>
+      </div>
+      <div class="inputDivMainNN">
+        <input type="number" [(ngModel)]="minSearchTerm" [ngModelOptions]="{standalone: true}" placeholder="Min Experience...">
+        <input type="number" style="margin-left: 20px;" [(ngModel)]="maxSearchTerm" [ngModelOptions]="{standalone: true}" placeholder="Max Experience...">
+      </div>
+    </div>
   </form>
 </div>
 
@@ -60,8 +77,7 @@
     <li
       class="resume-bank-item"
       *ngFor="
-        let searchedresume of searchedResume
-          | paginate: { itemsPerPage: 10, currentPage: p }
+        let searchedresume of searchedResume | searchByName : searchTerm | searchByExperience : minSearchTerm : maxSearchTerm | paginate: { itemsPerPage: itemsPerPageAre, currentPage: p }
       "
     >
       <div class="parentCommonDF">

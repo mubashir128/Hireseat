@@ -127,6 +127,8 @@ import { VideoCallComponent } from './video-call/video-call.component';
 import { PublisherComponent } from './publisher/publisher.component';
 import { SubscriberComponent } from './subscriber/subscriber.component';
 import { OpentokService } from './_services/opentok.service';
+import { SearchByNamePipe } from '../search-by-name.pipe';
+import { SearchByExperiencePipe } from '../search-by-experience.pipe';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -445,7 +447,9 @@ const appChildRoutes: Routes = [
     VideoInterviewRoomComponent,
     VideoCallComponent,
     PublisherComponent,
-    SubscriberComponent
+    SubscriberComponent,
+    SearchByNamePipe,
+    SearchByExperiencePipe
   ],
   imports: [
     InfiniteScrollModule,

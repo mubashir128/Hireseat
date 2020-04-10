@@ -16,9 +16,13 @@ export class SearchResumeComponent implements OnInit {
   public skillSets = [];
   public SearchFrm: FormGroup;
   public searchedResume: any = [];
-  public p = 0;
+  public p = 1;
+  public itemsPerPageAre = 10;
   tags: any;
   id: any;
+  _searchTerm : string;
+  _minSearchTerm : number;
+  _maxSearchTerm : number;
   constructor(
     private userService: UserService,
     private sanitizer: DomSanitizer,
@@ -141,4 +145,30 @@ export class SearchResumeComponent implements OnInit {
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
+
+  get searchTerm(){
+    return this._searchTerm;
+  }
+
+  set searchTerm(value){
+    this._searchTerm=value;
+    this.itemsPerPageAre = this._searchTerm === "" ? 10 : 100;
+  }
+
+  get minSearchTerm(){
+    return this._minSearchTerm;
+  }
+
+  set minSearchTerm(value){
+    this._minSearchTerm=value;
+  }
+
+  get maxSearchTerm(){
+    return this._maxSearchTerm;
+  }
+
+  set maxSearchTerm(value){
+    this._maxSearchTerm=value;
+  }
+
 }
