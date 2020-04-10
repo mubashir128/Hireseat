@@ -6,8 +6,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { baseUrl } from '../globalPath';
 
-declare var jQuery: any;
-
 @Component({
   selector: 'app-video-call',
   templateUrl: './video-call.component.html',
@@ -175,21 +173,6 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
       });
   }
-
-  copyText(val: string) {
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    this.emailConfirmPopup();
-  }
   emailConfirmPopup() {
     // // console.log("emailConfirmPopup");
 
@@ -203,6 +186,24 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
     jQuery("#emailConfirmPop").modal("close");
   }
+
+  copyText(val: string) {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    // alert('URL copied to clipboard');
+    this.emailConfirmPopup();
+
+  }
+
   // for publisher
   unpublishCall() {
     this.opentokService.setMeetingStatus(true);
