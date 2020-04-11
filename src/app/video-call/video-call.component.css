@@ -474,3 +474,117 @@ nav ul a {
 }
 
 /* end tokbox */
+
+/* feedback recruiters */
+
+.singleList {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 30px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  margin-bottom: 30px;
+  transition: 1s;
+  height: 210px;
+  background-color: #ffffff;
+}
+.resumeSingleList .PointsDiv.commonSingleInner {
+  border-right: 0px solid #999;
+}
+
+.commonSingleInner {
+  width: 25%;
+}
+.feedbackDiv.commonSingleInner {
+  width: 45%;
+}
+.PointsDiv.commonSingleInner {
+  border-right: 1px solid #999;
+}
+.PointsDivSingle {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  position: relative;
+}
+.PointsDivSingle h4 {
+  margin: 0 20px;
+  font-size: 16px;
+  color: #919191;
+  word-break: break-all;
+}
+.startDiv {
+  display: flex;
+}
+.feedbackDiv .PointsDivSingle h4 {
+  margin: 0 20px;
+  font-size: 19px;
+  color: #b6b6b6;
+  min-width: 150px;
+}
+.feedbackDiv .PointsDivSingle img {
+  margin: 0 5px;
+}
+.feedbackDiv .PointsDivSingle {
+  display: flex;
+  align-items: baseline;
+  margin: 10px 0;
+  justify-content: center;
+}
+.ActionDiv.commonSingleInner {
+  width: 30%;
+}
+.ActionDiv h5 {
+  color: #30496f;
+  font-size: 14px;
+}
+.comment {
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+.comment h4 {
+  font-size: 14px;
+  color: #747474;
+  margin: 0;
+}
+.overStart:hover {
+  filter: invert(300%);
+}
+.docDiv h4 {
+  color: #30496f;
+  font-size: 14px;
+}
+.commonRejectApprove {
+  width: auto;
+}
+.commonBtn {
+  min-width: 120px;
+  background-color: transparent;
+  margin: 10px 20px !important;
+  /*padding: 3px 0;*/
+  /* font-family: 'Rajdhani', sans-serif; */
+}
+.docSection {
+  width: 30%;
+  text-align: center;
+}
+.docDiv {
+  border-right: 1px solid #dbdbdb;
+  border-left: 1px solid #dbdbdb;
+}
+
+.ActionDiv.commonSingleInner {
+  width: 30%;
+  padding: 0 20px;
+}
+.commentTxt {
+  border-radius: 10px;
+  height: 5rem;
+}
+/* end feedback recruiters */
+.margin-T50 {
+  margin-top: 50px;
+}

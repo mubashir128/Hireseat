@@ -98,10 +98,14 @@
                 </div>
                 <!-- End archive button-->
                 <!-- end api based calling -->
-                <ng-container *ngIf="!candidate">
-                  <button type="button" (click)="ngOnDestroy()" class="end-meeting">End Meeting</button>
+                <ng-container *ngIf="!candidate && !isRecruiter">
+                  <button type="button" routerLink='/employer/video-interview-room' class="end-meeting">End
+                    Meeting</button>
                 </ng-container>
-
+                <ng-container *ngIf="!candidate && isRecruiter">
+                  <button type="button" routerLink='/recruiter/video-interview-room' class="end-meeting">End
+                    Meeting</button>
+                </ng-container>
                 <!-- button for local -->
                 <button *ngIf="!candidate" id="myBtn" class="copy-link"
                   (click)="copyText('http://localhost:4200/video-call/'+toCopylinkPublishedStreamId)"
@@ -119,7 +123,55 @@
 
 
       </div>
+      <!-- feedback area -->
+      <div class="singleList resumeSingleList margin-T50" id="animateinterview{{ i }}">
+        <div class="PointsDiv commonSingleInner">
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>Point 1</h4>
+
+          </div>
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>Point 2</h4>
+
+          </div>
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>Point 3</h4>
+
+          </div>
+        </div>
+
+        <div class="docSection">
+          <div class="docDiv">
+            <img src="assets/img/doc.png" class="img-responsive" id="img{{ i }}" />
+            <a [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank" download>
+              <h4>Download Resume</h4>
+            </a>
+          </div>
+        </div>
+
+
+
+        <div class="ActionDiv commonSingleInner ">
+          <div class="actionDivSingle">
+            <div class="">
+              <textarea class="commentTxt" rows="5" cols="4" [attr.id]="'Comments' + resume._id"></textarea>
+            </div>
+            <div class="docDiv">
+              <h4><span>Recruiter Cost:</span>{{ resume?.RecruiterCost }}</h4>
+            </div>
+          </div>
+        </div>
+        <!-- (click)="feedBack(resume._id,'yes','Comments' + resume._id)" -->
+
+      </div>
+      
+      <!-- end of feedback area -->
     </div>
+
+
   </div>
 </div>
 <ng-container *ngIf="candidate">

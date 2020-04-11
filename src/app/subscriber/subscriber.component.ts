@@ -27,8 +27,8 @@ export class SubscriberComponent implements AfterViewInit {
       name: 'Subscriber',
       fitMode: 'cover',
       style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
-      publishAudio: true,
-      publishVideo: true
+      publishAudio: false,
+      publishVideo: false
     };
     // this.opentokService._publishedStream.subscribe(publisher => {
     //   // console.log('publisher status', publisher);
