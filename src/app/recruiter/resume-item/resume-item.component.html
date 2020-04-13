@@ -3,9 +3,17 @@
   <div class="sub-info" (click)="edit()">
     <img src="assets/img/resume.png" style="display:inline-block; float:left; width:30%; height:auto; opacity:0.75;" />
     <div class="candidate-name" style="display:inline-block; float:right; width:70%; height:auto; padding-left:15px;">
-      {{resume.candidateName}}</div>
-    <span class="chipu">{{resume.jobTitle}} </span>
-    <span class="chipu">{{resume.skills}} </span>
+      <h3> {{resume.candidateName}}</h3>
+
+      <h4 class="title">Job Title</h4>
+      <div class="listDiv"><span class="chipu">{{resume.jobTitle}} </span> <span class="chipu">{{resume.skills}} </span>
+      </div>
+
+      <h4 class="title">Skill set</h4>
+      <div class="listDiv">
+        <span class="chipu">{{resume.jobTitle}} </span><span class="chipu">{{resume.skills}} </span>
+      </div>
+    </div>
   </div>
   <!-- <div class="divider"></div> -->
   <div class="footerAbsolute">
