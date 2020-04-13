@@ -7,10 +7,53 @@ import { Router } from '@angular/router';
   styleUrls: ['./video-interview-room.component.css']
 })
 export class VideoInterviewRoomComponent implements OnInit {
-
+  employerInterviewList: any;
+  recruiterInterviewList: any;
   constructor(
     private router: Router
   ) {
+    this.employerInterviewList = [
+      {
+        id: 1,
+        name: 'Tom',
+        role: 'Backend developer',
+        skills: [
+          'nodejs',
+          'mongodb',
+          'javascript'
+        ]
+      },
+      {
+        id: 2,
+        name: 'Shina',
+        role: 'UI/UX developer',
+        skills: [
+          'Figma Software',
+          'angular',
+          'javascript'
+        ]
+      },
+      {
+        id: 3,
+        name: 'Eric',
+        role: 'Frontend developer',
+        skills: [
+          'PHP',
+          'angular',
+          'javascript'
+        ]
+      },
+      {
+        id: 4,
+        name: 'Max',
+        role: 'Cloud architect',
+        skills: [
+          'AWS',
+          'Asure',
+          'Goolge cloude'
+        ]
+      }
+    ];
   }
 
   ngOnInit() {

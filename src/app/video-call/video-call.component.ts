@@ -28,7 +28,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   // archiving
   arcId: any;
   archiveID: any;
-  startArchiveButton = true;
+  startArchiveButton = false;
   stopArchiveButton = false;
   viewArchiveButton = false;
   meetingStatus = false;
@@ -109,6 +109,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     this.opentokService.initSessionAPI('test').then((session: OT.Session) => {
       this.session = session;
       console.log('session', this.session.sessionId);
+      this.startArchiveButton = true;
 
       this.session.on('streamCreated', (event) => {
         this.spinner.hide();

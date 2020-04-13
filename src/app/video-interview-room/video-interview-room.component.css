@@ -61,8 +61,42 @@
 .click-effect:before {
   animation: effect_dylan 0.8s ease-out;
 }
+
+/* cadidate details */
 .interview-list-container {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
 }
+.candidate-information {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  padding: 0px 50px 0px 80px;
+}
+.name {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+.role {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+.skillset {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+.can-details-title {
+  font-weight: 600;
+  width: 10%;
+  display: flex;
+  justify-content: flex-start;
+}
+/* end of candidate details */

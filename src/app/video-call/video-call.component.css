@@ -309,6 +309,7 @@ nav ul a {
   outline: none;
   width: 150px;
   height: 50px;
+  border-radius: 6px;
 }
 .end-meeting:active {
   color: #fff;
@@ -337,6 +338,7 @@ nav ul a {
   outline: none;
   width: 200px;
   height: 50px;
+  border-radius: 6px;
 }
 .copy-link:active {
   color: #fff;
@@ -357,24 +359,25 @@ nav ul a {
 .start-button {
   margin-top: 20px;
 
-  color: #3cfb40;
+  color: #000000;
   background-color: transparent;
   background-image: none;
-  border-color: #3cfb40;
+  border-color: #000000;
   cursor: pointer;
   outline: none;
-  width: 114px;
-  height: 35px;
+  width: 130px;
+  height: 50px;
+  border-radius: 6px;
 }
 .start-button:active {
   color: #fff;
-  background-color: #3cfb40;
-  border-color: #3cfb40;
+  background-color: #000000;
+  border-color: #000000;
 }
 .start-button:hover {
   color: #fff;
-  background-color: #3cfb40;
-  border-color: #3cfb40;
+  background-color: #000000;
+  border-color: #000000;
 }
 .start-button:focus {
   box-shadow: 0 0 0 0.2rem rgba(60, 251, 64);
@@ -391,8 +394,9 @@ nav ul a {
   border-color: #69271f;
   cursor: pointer;
   outline: none;
-  width: 114px;
-  height: 35px;
+  width: 130px;
+  height: 50px;
+  border-radius: 6px;
 }
 .stop-button:active {
   color: #fff;
@@ -412,15 +416,16 @@ nav ul a {
 /* view-button */
 .view-button {
   margin-top: 20px;
-
+  margin-left: 10px;
   color: #d8d35d;
   background-color: transparent;
   background-image: none;
   border-color: #d8d35d;
   cursor: pointer;
   outline: none;
-  width: 114px;
-  height: 35px;
+  width: 130px;
+  height: 50px;
+  border-radius: 6px;
 }
 .view-button:active {
   color: #fff;
@@ -587,4 +592,9 @@ nav ul a {
 /* end feedback recruiters */
 .margin-T50 {
   margin-top: 50px;
+}
+.archive-copylink {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
 }

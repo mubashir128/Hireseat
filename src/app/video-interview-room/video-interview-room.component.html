@@ -12,9 +12,28 @@
   </div>
   <div class="row">
     <div class="column">
-      <div class="card click-effect" (click)="onInterview()">
-        <h5>Interview Conference Room</h5>
-        <p>Click to Start Interview</p>
+      <div class="card click-effect" (click)="onInterview()"
+        *ngFor="let candidate of employerInterviewList; let i=index">
+        <div class="candidate-information">
+          <div class="name">
+            <span class="can-details-title">
+              Name :
+            </span>
+            {{candidate.name}}
+          </div>
+          <div class="role">
+            <span class="can-details-title">
+              Role :
+            </span>
+            {{candidate.role}}
+          </div>
+          <div class="skillset">
+            <span class="can-details-title">
+              Skills :
+            </span>
+            {{candidate.skills}}
+          </div>
+        </div>
       </div>
     </div>
   </div>
