@@ -123,6 +123,7 @@ import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/e
 import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { SearchPipe } from '../search.pipe';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -457,7 +458,8 @@ const appChildRoutes: Routes = [
     NgxTwitterTimelineModule,
     Ng2CompleterModule,
     SelectDropDownModule,
-    NgHighlightModule
+    NgHighlightModule,
+    NgMultiSelectDropDownModule
   ],
   providers: [
     AuthGuard,

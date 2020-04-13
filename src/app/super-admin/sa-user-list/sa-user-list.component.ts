@@ -3,6 +3,8 @@ import { SuperAdminService } from "../../_services/super-admin.service";
 import { AuthenticationService } from "../../_services/authentication.service";
 import { UserService } from "../../_services/user.service";
 import { Router } from "@angular/router";
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+
 declare var Materialize: any;
 @Component({
   selector: "app-sa-user-list",
@@ -13,10 +15,14 @@ export class SAUserListComponent implements OnInit {
 
   p = 1;
   userList: any[];
-  itemsPerPageAre = 5;
+  itemsPerPageAre = 10;
   noBiddingEvents=false;
   private _searchTerm : any;
 
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
+  itemsAre = [];
   constructor(
     private superAdmin: SuperAdminService,
     private userAuth: AuthenticationService,
@@ -25,11 +31,67 @@ export class SAUserListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getAllUsers();
+    this.getAllUsers({list : this.selectedItems});
+    this.dropdownListForUsers();
   }
 
-  getAllUsers() {
-    this.superAdmin.getAllUsers().subscribe(
+  dropdownListForUsers(){
+    this.dropdownList = [
+      { item_id: 1, item_text: 'super-admin' },
+      { item_id: 2, item_text: 'recruiter' },
+      { item_id: 3, item_text: 'employer' },
+      { item_id: 4, item_text: 'admin' },
+      { item_id: 5, item_text: 'enterprise' }
+    ];
+    
+    this.selectedItems=[...this.dropdownList];
+    this.itemsAre=["super-admin","recruiter","employer","admin","enterprise"];
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 5,
+      allowSearchFilter: false
+    };
+  }
+
+  onItemSelect(item : any) {
+    this.itemsAre.push(item.item_text);
+    this.getAllUsers({
+      list : this.itemsAre
+    });
+  }
+
+  onItemDeSelect(item: any){
+    let index=this.itemsAre.indexOf(item.item_text);
+    this.itemsAre.splice(index,1);
+    this.getAllUsers({
+      list : this.itemsAre
+    });
+  }
+
+  onSelectAll(items: any) {
+    this.itemsAre=[];
+    items.map(item=>{
+      this.itemsAre.push(item.item_text);
+    });
+    this.getAllUsers({
+      list : this.itemsAre
+    });
+  }
+
+  onDeSelectAll(items: any) {
+    this.itemsAre=[];
+    this.getAllUsers({
+      list : this.itemsAre
+    });
+  }
+
+  getAllUsers(obj) {
+    this.superAdmin.getAllUsers(obj).subscribe(
       response => {
         if (response) {
           this.userList = response;

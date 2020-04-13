@@ -8,8 +8,8 @@ import * as myGlobals from "../globalPath";
 })
 export class SuperAdminService {
   constructor(private http: HttpClient) {}
-  getAllUsers() {
-    return this.http.get<any[]>(myGlobals.baseUrl + "api/all-users").pipe(
+  getAllUsers(obj) {
+    return this.http.post<any[]>(myGlobals.baseUrl + "api/all-users",obj).pipe(
       map((result: any[]) => {
         return result;
       })

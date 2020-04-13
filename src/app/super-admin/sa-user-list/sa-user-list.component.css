@@ -82,3 +82,12 @@ and (max-width : 667px) {
     text-align: left;
     padding-right: 70px;
 }
+
+.selectUser {
+    margin: 0px;
+    color: #000;
+    box-sizing: border-box;
+    background-color: #fff;
+    text-align: left;
+    padding-right: 0px;
+}
