@@ -75,13 +75,13 @@
                   <button type="button" (click)="ngOnInit()" class="end-meeting">Start Meeting</button>
                 </ng-container> -->
                 <div class="call" *ngIf="session">
-                  <app-publisher [session]="session"></app-publisher>
                   <ng-container *ngIf="allowSubscriber">
                     <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session">
                     </app-subscriber>
                     <!-- <div *ngIf="candidate" (click)="unsubscribe(stream)">unsubscribe</div> -->
 
                   </ng-container>
+                  <app-publisher [session]="session"></app-publisher>
                 </div>
                 <!-- archive button -->
                 <ng-container *ngIf="!candidate">
