@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { SuperAdminService } from "../../_services/super-admin.service";
 import { AuthenticationService } from "../../_services/authentication.service";
 import { UserService } from "../../_services/user.service";
 import { Router } from "@angular/router";
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { fromEvent } from "rxjs";
+import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 
 declare var Materialize: any;
 @Component({
@@ -14,15 +15,19 @@ declare var Materialize: any;
 export class SAUserListComponent implements OnInit {
 
   p = 1;
-  userList: any[];
-  itemsPerPageAre = 10;
+  userList: any[]=[];
+  itemsPerPageAre = 1;
   noBiddingEvents=false;
-  private _searchTerm : any;
-
+  searchTerm : string;
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
-  itemsAre = [];
+  itemsAre = ["super-admin"];
+  paginatorMove=true;
+  createdAt=null;
+  pagesAre=[1];
+  @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
+
   constructor(
     private superAdmin: SuperAdminService,
     private userAuth: AuthenticationService,
@@ -31,8 +36,38 @@ export class SAUserListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getAllUsers({list : this.selectedItems});
+    this.getAllUsers({
+      list : this.itemsAre,
+      itemsPerPageAre : this.itemsPerPageAre,
+      onLoad : true
+    });
     this.dropdownListForUsers();
+  }
+
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.searchInputTerm.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(2000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.p=1;
+        this.pagesAre=[1];
+        this.userList=[];
+        if(this.searchTerm !== ""){
+          this.paginatorMove=false;
+        }else{
+          this.paginatorMove=true;
+        }
+        this.getAllUsers({
+          list : this.itemsAre,
+          searchTerm : this.searchTerm,
+          itemsPerPageAre : this.itemsPerPageAre
+        });
+      })
+    ).subscribe();
   }
 
   dropdownListForUsers(){
@@ -44,58 +79,55 @@ export class SAUserListComponent implements OnInit {
       { item_id: 5, item_text: 'enterprise' }
     ];
     
-    this.selectedItems=[...this.dropdownList];
-    this.itemsAre=["super-admin","recruiter","employer","admin","enterprise"];
+    this.selectedItems=[{ item_id: 1, item_text: 'super-admin' }];
 
     this.dropdownSettings = {
-      singleSelection: false,
+      singleSelection: true,
       idField: 'item_id',
       textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 5,
+      itemsShowLimit: 1,
       allowSearchFilter: false
     };
   }
 
   onItemSelect(item : any) {
+    this.itemsAre=[];
+    this.resetValues();
     this.itemsAre.push(item.item_text);
     this.getAllUsers({
-      list : this.itemsAre
+      list : this.itemsAre,
+      itemsPerPageAre : this.itemsPerPageAre,
+      onLoad : true
     });
   }
 
   onItemDeSelect(item: any){
-    let index=this.itemsAre.indexOf(item.item_text);
-    this.itemsAre.splice(index,1);
+    this.resetValues();
+    this.selectedItems=[{ item_id: 1, item_text: 'super-admin' }];
+    this.itemsAre=["super-admin"];
     this.getAllUsers({
-      list : this.itemsAre
+      list : this.itemsAre,
+      itemsPerPageAre : this.itemsPerPageAre,
+      onLoad : true
     });
   }
 
-  onSelectAll(items: any) {
-    this.itemsAre=[];
-    items.map(item=>{
-      this.itemsAre.push(item.item_text);
-    });
-    this.getAllUsers({
-      list : this.itemsAre
-    });
-  }
-
-  onDeSelectAll(items: any) {
-    this.itemsAre=[];
-    this.getAllUsers({
-      list : this.itemsAre
-    });
+  resetValues(){
+    this.userList=[];
+    this.p=1;
+    this.pagesAre=[1];
+    this.paginatorMove=true;
   }
 
   getAllUsers(obj) {
     this.superAdmin.getAllUsers(obj).subscribe(
       response => {
         if (response) {
-          this.userList = response;
-          this.noBiddingEvents = this.userList.length === 0 ? true : false;
+          if(response.length !== 0){
+            this.userList = [...this.userList,...response];
+            this.createdAt=response[response.length-1].createdAt;
+            this.noBiddingEvents=this.userList.length ===0 ? true : false;
+          }
         }
       },
       error => {
@@ -134,13 +166,20 @@ export class SAUserListComponent implements OnInit {
     );
   }
 
-  get searchTerm(){
-    return this._searchTerm;
-  }
-
-  set searchTerm(value){
-    this._searchTerm=value;
-    this.itemsPerPageAre = this._searchTerm === "" ? 5 : 100;
+  handlePaginator($event){
+    this.p=$event;
+    if(!this.paginatorMove){
+      return ;
+    }
+    if(this.pagesAre.indexOf($event) !== -1){
+      return ;
+    }
+    this.pagesAre.push($event);
+    this.getAllUsers({
+      list : this.itemsAre,
+      itemsPerPageAre : this.itemsPerPageAre,
+      createdAt : this.createdAt
+    });
   }
 
 }
