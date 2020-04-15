@@ -80,8 +80,8 @@ export class ResumeService {
     }))
   }
 
-  getResumeBySkillSets(skillsets){
-    return this.http.post<any>(this.baseurl+'api/getResumeBySkillSets',{skillsets:skillsets}).pipe(map((res:any)=>{
+  getResumeBySkillSets(obj){
+    return this.http.post<any>(this.baseurl+'api/getResumeBySkillSets',obj).pipe(map((res:any)=>{
       return res;
     }))
   }
