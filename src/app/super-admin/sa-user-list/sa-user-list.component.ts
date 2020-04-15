@@ -16,7 +16,7 @@ export class SAUserListComponent implements OnInit {
 
   p = 1;
   userList: any[]=[];
-  itemsPerPageAre = 1;
+  itemsPerPageAre = 10;
   noBiddingEvents=false;
   searchTerm : string;
   dropdownList = [];
