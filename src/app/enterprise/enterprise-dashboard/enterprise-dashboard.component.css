@@ -1,0 +1,21 @@
+nav ul a {
+  color: #03a9f4;
+}
+#nav-mobile {
+  transform: none !important;
+}
+.mobileMenu-li {
+  color: #1c8ad8;
+  font-size: 15px;
+}
+.mobileMenu-li:hover {
+  color: #fff;
+  background-color: #48aef3;
+  font-weight: bold;
+}
+.super-admin {
+  font-size: 20px;
+  color: #114488;
+  font-weight: 700;
+  padding: 8px;
+}

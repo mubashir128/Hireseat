@@ -5,7 +5,7 @@ import { AuthenticationService } from "../_services/authentication.service";
 import { SuperAdminService } from "../_services/super-admin.service";
 import { ForumService } from "../_services/forum.service";
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
-
+import { EnterpriseService } from "../_services/enterprise.service";
 declare var jQuery: any;
 declare var $: any;
 @Component({
@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
   isRecruiter: boolean = false;
   isAdmin: boolean = false;
   isSuperAdmin: boolean = false;
-
+  isEnterprise: boolean = false;
   status: boolean = false;
   public show: boolean = false;
   public buttonName: any = "Show";
@@ -34,6 +34,8 @@ export class NavbarComponent implements OnInit {
   suggestedQueCount: number = 0;
   suggestedQueAnsCount: number = 0;
   notificationLength: any;
+  showAdminDashboardButton: boolean = false;
+  showEnterpriseDashboardButton: boolean = false;
   permaLink: any;
   candidate = false;
   constructor(
@@ -44,6 +46,7 @@ export class NavbarComponent implements OnInit {
     private route: ActivatedRoute,
     private _forum: ForumService,
     private bidEventService: BiddingEventService,
+    public enterpriseService: EnterpriseService,
     private _eref: ElementRef
   ) {
     this.permaLink = window.location.href;
@@ -58,6 +61,8 @@ export class NavbarComponent implements OnInit {
         this.isAdmin = true;
       } else if (this.loggedInUser.userRole == "super-admin") {
         this.isSuperAdmin = true;
+      } else if (this.loggedInUser.userRole == "enterprise") {
+        this.isEnterprise = true;
       }
     }
     router.events.subscribe((val) => {
@@ -82,7 +87,8 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.showAdminDashboardButton = false;
+    this.showEnterpriseDashboardButton = false;
     this._forum.getUnAnsweredData().subscribe(
       (res) => {
         this.questDataLenght = res;
@@ -92,6 +98,8 @@ export class NavbarComponent implements OnInit {
     );
 
     if (this.loggedInUser.userRole == "employer") {
+      this.showAdminDashboardButton = false;
+      this.showEnterpriseDashboardButton = false;
       this._forum
         .getAllUnAnsQuestionsByEmployerId(this.loggedInUser._id)
         .subscribe((data) => {
@@ -103,6 +111,8 @@ export class NavbarComponent implements OnInit {
           });
         });
     } else if (this.loggedInUser.userRole == "recruiter") {
+      this.showAdminDashboardButton = false;
+      this.showEnterpriseDashboardButton = false;
       this._forum
         .getAllUnreadAnsQueByRecruiteId(this.loggedInUser._id)
         .subscribe((data) => {
@@ -113,6 +123,15 @@ export class NavbarComponent implements OnInit {
             }
           });
         });
+    } else if (this.loggedInUser.userRole == "super-admin") {
+      this.showAdminDashboardButton = true;
+      this.showEnterpriseDashboardButton = false;
+    } else if (this.loggedInUser.userRole == "enterprise") {
+      this.showEnterpriseDashboardButton = true;
+      this.showAdminDashboardButton = false;
+    } else {
+      this.showAdminDashboardButton = false;
+      this.showEnterpriseDashboardButton = false;
     }
 
     jQuery(document).ready(function () {

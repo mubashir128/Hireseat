@@ -63,9 +63,21 @@ export class HomeComponent implements OnInit {
     });
     jQuery(".modal").modal();
     this.spinner.show();
-    this._Userservice.getmeetup().subscribe(data => {
-      this.meetUpsData = data;
-    });
+    this._Userservice.getmeetup().subscribe(
+      (data) => {
+        if (data) {
+          this.meetUpsData = data;
+        } else {
+          console.log("data not received");
+          this.spinner.hide();
+        }
+      },
+      (err) => {
+        console.log("error ouccured");
+
+        this.spinner.hide();
+      }
+    );
     // this._Userservice.getTopRecruiter().subscribe((data) => {
     //   if (data.length > 0) {
     //     this.leaders = data;
@@ -81,7 +93,7 @@ export class HomeComponent implements OnInit {
 
     this.limit = this.pageCount() + 10;
     this._blogservice.getAllBlogPost(this.limit).subscribe(
-      res => {
+      (res) => {
         this.article = res.data;
         this.spinner.hide();
         // video uplodad
@@ -94,13 +106,13 @@ export class HomeComponent implements OnInit {
         //    }
         //  });
       },
-      error => {
+      (error) => {
         console.log(error);
         this.spinner.hide();
       }
     );
 
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.handleRequest(params["id"]);
     });
     this.verifyEmail = this.formBuilder.group({
@@ -230,10 +242,10 @@ export class HomeComponent implements OnInit {
     const email = this.verifyEmailData;
 
     this._Userservice.userverification(email).subscribe(
-      res => {
+      (res) => {
         // console.log(res)
       },
-      err => {
+      (err) => {
         console.log(err);
       }
     );
@@ -248,7 +260,7 @@ export class HomeComponent implements OnInit {
     const email = this.verifyEmailData;
 
     this._Userservice.sendEmail(email).subscribe(
-      res => {
+      (res) => {
         if ((res.status = "success")) {
           this.msgForPopup = res.message;
           //console.log(res)
@@ -259,7 +271,7 @@ export class HomeComponent implements OnInit {
           this.emailConfirmPopup();
         }
       },
-      err => console.log(err)
+      (err) => console.log(err)
     );
   }
   //verify otp functionality
@@ -275,7 +287,7 @@ export class HomeComponent implements OnInit {
     //console.log(this.verifyOtpData);
     const data = this.verifyOtpData;
     this._Userservice.checkOtpEm(data).subscribe(
-      res => {
+      (res) => {
         //console.log(res);
         this.verfStatus = res.data.isVerified;
 
@@ -288,7 +300,7 @@ export class HomeComponent implements OnInit {
           this.emailConfirmPopup();
         }
       },
-      err => {
+      (err) => {
         //console.log(err)
         this.msgForPopup = err;
         this.emailConfirmPopup();
@@ -325,7 +337,7 @@ export class HomeComponent implements OnInit {
       data.email = userD.email;
       console.log(data);
       this._Userservice.addQuestion(data).subscribe(
-        res => {
+        (res) => {
           if ((res.status = "success")) {
             this.msgForPopup = res.message;
             this.emailConfirmPopup();
@@ -334,7 +346,7 @@ export class HomeComponent implements OnInit {
             }, 2000);
           }
         },
-        err => console.log(err)
+        (err) => console.log(err)
       );
     } else {
       this.askQuesData = this.askQues.value;
@@ -344,7 +356,7 @@ export class HomeComponent implements OnInit {
       data.email = userD.email;
       //console.log(data)
       this._Userservice.addQuestion(data).subscribe(
-        res => {
+        (res) => {
           if ((res.status = "success")) {
             this.msgForPopup = res.message;
             this.emailConfirmPopup();
@@ -353,7 +365,7 @@ export class HomeComponent implements OnInit {
             }, 2000);
           }
         },
-        err => console.log(err)
+        (err) => console.log(err)
       );
     }
   }

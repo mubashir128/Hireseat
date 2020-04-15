@@ -11,7 +11,7 @@
           >
             <div class="row">
               <div class="page-title">
-                Create An Enterprise
+                Create an employer
               </div>
               <div class="divider"></div>
             </div>
@@ -97,7 +97,7 @@
                   formControlName="companyName"
                   autocomplete="off"
                 />
-                <label for="company-name">Enterprise Name</label>
+                <label for="company-name">Company Name</label>
                 <div
                   *ngIf="signin.controls['companyName'].hasError('required')"
                   class="error"
@@ -106,7 +106,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="input-field col s12 m12 l12">
                 <input
@@ -125,7 +124,6 @@
                 <label for="website-link">Website Link</label>
               </div>
             </div>
-
             <div class="row">
               <div class="input-field col s12 m12 l12">
                 <input
@@ -187,6 +185,8 @@
                 class="waves-effect waves-light commonBlueBtnN"
               >
                 <span *ngIf="suBtnActive">Register</span>
+                <!-- <i *ngIf="!suBtnActive" class="fa fa-spinner fa-spin" style="font-size:24px"></i> -->
+                <!-- <span *ngIf="!suBtnActive">please fill all field</span> -->
               </button>
             </div>
           </form>

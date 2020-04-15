@@ -117,6 +117,13 @@ import { SortPipe } from "./shared/pipes/sort.pipe";
 import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
 import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
 import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
+import { EnterpriseDashboardComponent } from "./enterprise/enterprise-dashboard/enterprise-dashboard.component";
+import { EnterpriseNavbarComponent } from "./enterprise/enterprise-navbar/enterprise-navbar.component";
+import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/enterprise-user-list.component";
+import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
+import { EnterpriseGuard } from "./_guards/enterprise.guard";
+import { SearchPipe } from '../search.pipe';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
 import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.component';
@@ -346,6 +353,21 @@ const appChildRoutes: Routes = [
     canActivate: [SupperAdminGuard]
   },
   {
+    path: "enterprise",
+    component: EnterpriseDashboardComponent,
+    children: [
+      {
+        path: "user-list",
+        component: EnterpriseUserListComponent
+      },
+      {
+        path: "create-employer",
+        component: CreateEmployerComponent
+      }
+    ],
+    canActivate: [EnterpriseGuard]
+  },
+  {
     path: "**",
     component: NotFoundComponent
   }
@@ -439,6 +461,11 @@ const appChildRoutes: Routes = [
     SafePdfPipe,
     CreateAdminComponent,
     CreateEnterpriseComponent,
+    EnterpriseDashboardComponent,
+    EnterpriseNavbarComponent,
+    EnterpriseUserListComponent,
+    CreateEmployerComponent,
+    SearchPipe,
     DashboardComponent,
     BarChartComponent,
     LineChartComponent,
@@ -472,7 +499,8 @@ const appChildRoutes: Routes = [
     NgxTwitterTimelineModule,
     Ng2CompleterModule,
     SelectDropDownModule,
-    NgHighlightModule
+    NgHighlightModule,
+    NgMultiSelectDropDownModule
   ],
   providers: [
     AuthGuard,

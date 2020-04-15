@@ -1,0 +1,43 @@
+<div class="">
+  <nav class="white">
+    <div class="nav-wrapper container">
+      <a [routerLink]="['/']" class="brand-logo"
+        ><img src="assets/img/navbar-logo.png" style="vertical-align:middle;"
+      /></a>
+      <a data-activates="mobile-demo" class="button-collapse"
+        ><i class="material-icons" style="color: #48aef3;">menu</i></a
+      >
+      <ul class="right hide-on-med-and-down">
+        <!--   <li><a [routerLink]="['/contact-us']">Contact Us</a>
+        <li><a [routerLink]="['/home/LeaderBoard']">Leader Board</a>
+        <li><a [routerLink]="['/home/TheRockRec']">The Rockstar Recruiter Community</a> -->
+        <!--  <li><a [routerLink]="['/rules']">Scoring Rules</a> -->
+        <!--  <li><a [routerLink]="['/employer/profile']">My Profile</a></li> -->
+        <li><span class="super-admin">Enterprise</span></li>
+        <li><a (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="side-nav" id="mobile-demo">
+    <!--  <li><a class="mobileMenu-li" (click)="navigate('/contact-us')">Contact Us</a>
+    <li><a class="mobileMenu-li" (click)="navigate('/home/LeaderBoard')">Leader Board</a>
+    <li><a class="mobileMenu-li" (click)="navigate('/home/TheRockRec')">The Rockstar Recruiter Community</a> -->
+    <!--  <li><a [routerLink]="['/rules']">Scoring Rules</a> -->
+    <!--  <li><a class="mobileMenu-li" (click)="navigate('/employer/profile')">My Profile</a></li> -->
+    <li><span class="super-admin">Enterprise</span></li>
+    <li><a class="mobileMenu-li" (click)="logout()">Logout</a></li>
+  </ul>
+</div>
+<div class="container" style="margin-top:15px;">
+  <div class="row">
+    <div class="col s12 m3 l3">
+      <app-enterprise-navbar></app-enterprise-navbar>
+      <!--  <app-employer-navbar (selected)="navigate($event)"></app-employer-navbar>  -->
+    </div>
+
+    <div class="col s12 m9 l9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

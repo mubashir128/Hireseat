@@ -6,11 +6,10 @@ import {
   RouterStateSnapshot
 } from "@angular/router";
 import { Observable } from "rxjs";
-
 @Injectable({
   providedIn: "root"
 })
-export class SupperAdminGuard implements CanActivate {
+export class EnterpriseGuard implements CanActivate {
   constructor(private router: Router) {}
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -28,7 +27,7 @@ export class SupperAdminGuard implements CanActivate {
       } else if (userRole == "admin") {
         this.router.navigate(["user-list"]);
         return false;
-      } else if (userRole == "super-admin") {
+      } else if (userRole == "enterprise" || userRole == "super-admin") {
         return true;
       }
     }

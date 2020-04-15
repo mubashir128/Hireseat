@@ -69,7 +69,33 @@ ul.listTerm {
   font-size: 20px;
   font-weight: bold;
   padding: 0 0 10px;
+  /* animation on init for header*/
+  animation-duration: 1200ms;
+  animation-name: blink;
+  animation-iteration-count: 1;
+  animation-direction: alternate;
+  -webkit-animation: blink 1200ms 1; /* Safari and Chrome */
 }
+/* animation on init */
+
+@keyframes blink {
+  from {
+    color: white;
+  }
+  to {
+    color: #33aaff;
+  }
+}
+@-webkit-keyframes blink {
+  from {
+    color: white;
+  }
+  to {
+    color: #33aaff;
+  }
+}
+/* animation on init  end*/
+
 .rightCondition {
   width: calc(100% - 340px);
   text-align: right;

@@ -39,7 +39,9 @@ export class BiddingEvent implements IBiddingEvent {
     employerCompanyName: string;
     jobLocation: string;    
     remainingTime:RemainingTime;
-    
+    finalRecruiters : any=[];
+    globalType : string;
+
     public static STATUS_EXPIRED = 'EXPIRED';
     public static STATUS_SCHEDULED = 'SCHEDULED';
     public static STATUS_ACTIVE = 'ACTIVE';
@@ -111,4 +113,13 @@ export class BiddingEvent implements IBiddingEvent {
       //  var remainingTime: RemainingTime = new RemainingTime();
         this.remainingTime = Utils.getRemainingTime(this);
     }
+
+    setFinalRecruiters(list){
+        this.finalRecruiters=list;
+    }
+
+    setGlobalType(type){
+        this.globalType=type;
+    }
+
 }

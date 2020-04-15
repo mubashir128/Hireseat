@@ -6,19 +6,20 @@ import * as myGlobals from "../globalPath";
 @Injectable({
   providedIn: "root"
 })
-export class SuperAdminService {
-  constructor(private http: HttpClient) { }
-  getAllUsers(obj) {
-    return this.http.post<any[]>(myGlobals.baseUrl + "api/all-users", obj).pipe(
-      map((result: any[]) => {
-        return result;
-      })
-    );
-  }
-
-  unSecureLogin(data) {
+export class EnterpriseService {
+  constructor(private http: HttpClient) {}
+  getAllEnterpriseUsers() {
     return this.http
-      .post<any>(myGlobals.baseUrl + "api/unsecure-login", data)
+      .get<any[]>(myGlobals.baseUrl + "api/all-enterprise-users")
+      .pipe(
+        map((result: any[]) => {
+          return result;
+        })
+      );
+  }
+  unSecureEnterpriseEmployerLogin(data) {
+    return this.http
+      .post<any>(myGlobals.baseUrl + "api/unsecure-enterprise-login", data)
       .pipe(
         map((result: any) => {
           localStorage.setItem(
@@ -29,9 +30,8 @@ export class SuperAdminService {
         })
       );
   }
-
-  checkSuperAdminEmail() {
-    if (localStorage.getItem("super-admin-email") != undefined) {
+  checkEnterpriseEmail() {
+    if (localStorage.getItem("enterprise-email") != undefined) {
       return true;
     } else {
       return false;

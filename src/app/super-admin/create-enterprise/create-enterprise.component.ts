@@ -31,6 +31,8 @@ export class CreateEnterpriseComponent implements OnInit {
     private _authService: AuthenticationService
   ) {
     this.signin = new FormGroup({
+      fullname: new FormControl(),
+      phoneNo: new FormControl(),
       companyName: new FormControl(),
       webSiteLink: new FormControl(),
       email: new FormControl(),
@@ -60,6 +62,8 @@ export class CreateEnterpriseComponent implements OnInit {
     const userRole = localUserInfo.userInfo.userRole;
 
     this.signin = new FormGroup({
+      fullname: new FormControl(res.fullname, [Validators.required]),
+      phoneNo: new FormControl(res.phoneNo, Validators.required),
       companyName: new FormControl(res.companyName, [Validators.required]),
       webSiteLink: new FormControl(res.webSiteLink, [Validators.required]),
       email: new FormControl(res.email, [
@@ -74,13 +78,13 @@ export class CreateEnterpriseComponent implements OnInit {
     });
 
     const fd = new FormData();
-    this.localRole = "enterprise-admin"; // admin role
+    this.localRole = "enterprise"; // admin role
     this.userroledata = 3;
     fd.append("userRole", this.localRole);
     fd.append("role", this.userroledata);
     fd.append("file", this.imagePath[0], this.imagePath[0].name);
-    fd.append("fullname", " ");
-    fd.append("phoneNo", " ");
+    fd.append("fullname", this.signin.controls.fullname.value);
+    fd.append("phoneNo", this.signin.controls.phoneNo.value);
     fd.append("companyName", this.signin.controls.companyName.value);
     fd.append("webSiteLink", this.signin.controls.webSiteLink.value);
     fd.append("email", this.signin.controls.email.value);
@@ -102,8 +106,8 @@ export class CreateEnterpriseComponent implements OnInit {
 
       if (this.signin.valid) {
         this.spinner.show();
-        this.userService.register(fd).subscribe(
-          data => {
+        this.userService.registerEnterprise(fd).subscribe(
+          (data) => {
             if (data.statustxt === "success") {
               this.spinner.hide();
               this.suBtnActive = true;
@@ -112,7 +116,7 @@ export class CreateEnterpriseComponent implements OnInit {
             }
             this.spinner.hide();
           },
-          error => {
+          (error) => {
             console.log(error);
             if (error == "Conflict") {
               Materialize.toast(
@@ -151,7 +155,7 @@ export class CreateEnterpriseComponent implements OnInit {
     var reader = new FileReader();
     this.imagePath = files;
     reader.readAsDataURL(files[0]);
-    reader.onload = _event => {
+    reader.onload = (_event) => {
       this.imgURL = reader.result;
     };
   }

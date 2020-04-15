@@ -4,7 +4,7 @@
     <form [formGroup]="auctionFrm" (ngSubmit)="submit()" novalidate>
         <div class="row flexWrap">
             <div class="input-field col s6 m4">
-                <input id="activationDate"  type="date" class="validate datepicker" name="activationDate">
+                <input id="activationDate" type="date" class="validate datepicker" name="activationDate">
                 <label for="activationDate" class="active">Activation Date</label>
             </div>
             <div class="input-field col s6 m4">
@@ -19,7 +19,8 @@
                     {{jobProfileName}}
                     <i class="material-icons right" style="cursor: pointer">arrow_drop_down</i>
                 </a>
-                <ul id="dropdown_jobProfile" class="dropdown-content"><!--  hide-on-small-only -->
+                <ul id="dropdown_jobProfile" class="dropdown-content">
+                    <!--  hide-on-small-only -->
                     <li *ngFor="let jobProfile of jp"><a
                             (click)="jobProfileVal(jobProfile.jobTitle,jobProfile._id)">{{jobProfile.jobTitle}}</a></li>
                 </ul>
@@ -28,7 +29,7 @@
                     <div *ngIf="f.selectedJobProfile.errors.required">Company Description is required</div>
                 </div>
             </div>
-        <!-- </div>
+            <!-- </div>
         <div class="row"> -->
             <!--  <div class="input-field col s6">
               <input id="resume-limit" type="text" class="validate" name="biddingEvent.resumeLimit" [(ngModel)]="biddingEvent.resumeLimit" formControlName="resumeLimit">
@@ -39,24 +40,24 @@
                 </div>
           </div> -->
             <div class="input-field col s6 m4">
-                <input id="reward-money" currencyMask type="text" class="validate"
-                    name="biddingEvent.rewardMoney" [(ngModel)]="biddingEvent.rewardMoneyFrom"
-                    formControlName="rewardMoneyFrom">
+                <input id="reward-money" currencyMask type="text" class="validate" name="biddingEvent.rewardMoney"
+                    [(ngModel)]="biddingEvent.rewardMoneyFrom" formControlName="rewardMoneyFrom">
                 <label for="reward-money" class="active">Placement Fee From</label>
-                
-                <div *ngIf="(f.rewardMoneyFrom.touched && f.rewardMoneyFrom.errors)" class="invalid-feedback" class="error">
+
+                <div *ngIf="(f.rewardMoneyFrom.touched && f.rewardMoneyFrom.errors)" class="invalid-feedback"
+                    class="error">
                     <div *ngIf="f.rewardMoneyFrom.errors.required">From Reward Money is required</div>
                     <div *ngIf="f.rewardMoneyFrom.errors.pattern">Numbers Only</div>
                 </div>
             </div>
 
             <div class="input-field col s6 m4">
-                <input id="reward-money" currencyMask type="text" class="validate"
-                    name="biddingEvent.rewardMoneyTo" [(ngModel)]="biddingEvent.rewardMoneyTo"
-                    formControlName="rewardMoneyTo">
+                <input id="reward-money" currencyMask type="text" class="validate" name="biddingEvent.rewardMoneyTo"
+                    [(ngModel)]="biddingEvent.rewardMoneyTo" formControlName="rewardMoneyTo">
                 <label for="reward-money" class="active">Placement Fee To</label>
                 <div *ngIf="f.rewardMoneyTo.touched" class="invalid-feedback" class="error">
-                    <div *ngIf="auctionFrm.hasError('invalidReward') && !f.rewardMoneyTo.errors?.required" >Can't be less than Placement Fee From</div>
+                    <div *ngIf="auctionFrm.hasError('invalidReward') && !f.rewardMoneyTo.errors?.required">Can't be less
+                        than Placement Fee From</div>
                 </div>
                 <div *ngIf="(f.rewardMoneyTo.touched && f.rewardMoneyTo.errors)" class="invalid-feedback" class="error">
                     <div *ngIf="f.rewardMoneyTo.errors.required">To Reward Money is required</div>
@@ -66,12 +67,72 @@
             <div class="input-field col s6 m4">
                 <p> per candidate </p>
             </div>
+
+            <div class="input-field col s12 m12">
+                <div class="radioGroup">
+                    <input type="radio" id="public" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="public" (change)="handleGenderChange($event)">
+                    <label for="male">Public</label>
+                    <input type="radio" id="private" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="private" (change)="handleGenderChange($event)">
+                    <label for="female">Private</label>
+                </div>
+            </div>
+            <div *ngIf="globalType === 'private'">
+                <div class="input-field col s6 m6">
+                    <div class="recruiterListMain">
+                        <h3>Recruiters</h3>
+                        <div class="searchDiv">
+                            <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchTopTerm" placeholder="Search...">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+                        <div class="recruiterListDiv" *ngIf="recruiterList.length" style="margin-top: 70px;">
+                            <div class="recruitrList" *ngFor="let item of recruiterList | search : searchTopTerm | paginate: { itemsPerPage: itemsPerPageAreForTop, currentPage: pTop }">
+                                <h4>{{ item.fullName }}</h4>
+                                <div class="starDiv" *ngFor="let star of startList">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="actionDiv">
+                                    <label class="CheckBoxcontainer">
+                                        <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event)">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <pagination-controls *ngIf="!noBiddingEventsForTop" (pageChange)="pTop = $event"></pagination-controls>
+                    </div>
+                </div>
+
+                <div class="input-field col s6 m6">
+                    <div class="recruiterListMain">
+                        <h3>Final Recruiters</h3>
+                        <div class="searchDiv" style="margin-left: 0px;">
+                            <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchFinalTerm" placeholder="Search...">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+                        <div class="recruiterListDiv" *ngIf="finalRecruiterList.length" style="margin-top: 70px;">
+                            <div class="recruitrList" *ngFor="let item of finalRecruiterList | search : searchFinalTerm | paginate: { itemsPerPage: itemsPerPageAreForFinal, currentPage: pFinal }">
+                                <h4>{{ item.fullName }}</h4>
+                                <div class="starDiv" *ngFor="let star of startList">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="actionDiv">
+                                    <label class="CheckBoxcontainer">
+                                        <input type="checkbox" name="{{item._id}}" (change)="handleFinalSelected($event)" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <pagination-controls *ngIf="!noBiddingEventsForFinal" (pageChange)="pFinal = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="divider"></div>
         <div class="center-align" style="margin-top:15px; margin-bottom:15px;">
             <button [disabled]="auctionFrm.valid==true ? false:true " type="submit"
                 class="waves-effect waves-light  commonBlueBtnN">Create</button>
-                <a  class="transparentBtnN waves-effect waves-light " (click)="goBack()"> Back </a> 
+            <a class="transparentBtnN waves-effect waves-light " (click)="goBack()"> Back </a>
         </div>
     </form>
 </div>

@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import * as myGlobals from '../globalPath';
 import { IBiddingEvent } from '../models/bidding-event'
 import { IJobProfile } from '../models/job-profile';
+import { IRecruiterProfile } from '../models/recruiter-profile';
 
 @Injectable({
   providedIn: 'root'
@@ -123,6 +124,12 @@ export class BiddingEventService {
     return this.http.put<IJobProfile>(this.baseurl+'api/updateJobProfile',info).pipe(map((res:IJobProfile)=>{    
       return res;
     }))
+  }
+
+  getRecruiterList(){
+    return this.http.get<IRecruiterProfile[]>(this.baseurl+'api/getRecruiterList').pipe(map((res:IRecruiterProfile[])=>{
+      return res;
+    }));
   }
 
 }
