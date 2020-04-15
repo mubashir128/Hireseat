@@ -1,5 +1,5 @@
 
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Tab } from '../models/tab';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -25,6 +25,8 @@ export class RecruiterNavbarComponent implements OnInit {
     this.tabs1.push(new Tab('/recruiter/won-bids', 'Selected Candidates', false));
     this.tabs1.push(new Tab('/recruiter/resume-list', 'Resume Repository', false));
     this.tabs1.push(new Tab('/recruiter/search-resume', 'Resume Bank', false));
+    this.tabs1.push(new Tab('/recruiter/video-interview-room', 'Video Interview Room', false));
+
   }
 
   ngOnInit() {

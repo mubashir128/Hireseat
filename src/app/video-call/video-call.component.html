@@ -1,0 +1,201 @@
+<!-- header for HR -->
+<ng-container *ngIf="!candidate">
+  <app-navbar></app-navbar>
+</ng-container>
+<!-- header for candidate -->
+<ng-container *ngIf="candidate">
+  <nav style="background:#E9F4FF;" class="customeNav">
+    <div class="nav-wrapper container">
+      <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
+          style="vertical-align:middle;" /></a>
+      <ul class="interview-title">
+        <li>
+          <a [routerLink]="['/video-call']" routerLinkActive="borderBA">
+            Interview
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/']" routerLinkActive="borderBA">
+            Home
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</ng-container>
+<div class="container" style="margin-top:15px;">
+  <div class="row">
+    <ng-container *ngIf="!candidate">
+      <div class="col s12 m3 l3">
+        <ng-container *ngIf="isRecruiter">
+          <app-recruiter-navbar></app-recruiter-navbar>
+        </ng-container>
+        <ng-container *ngIf="!isRecruiter">
+          <app-employer-navbar></app-employer-navbar>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="candidate">
+      <div class="col s12 m3 l3">
+      </div>
+    </ng-container>
+    <div class="col s12 m9 l9">
+
+      <div class="video-call-execution-tab">
+        <span *ngIf="!candidate && !isRecruiter" class="back" routerLink='/employer/video-interview-room'>
+          < Back </span>
+            <span *ngIf="!candidate && isRecruiter" class="back" routerLink='/recruiter/video-interview-room'>
+              < Back </span>
+                <!-- live sujith-->
+
+                <!-- <iframe
+              src="https://tokbox.com/embed/embed/ot-embed.js?embedId=8fc687ac-4533-41d9-918d-97c3014b1673&room=DEFAULT_ROOM&iframe=true"
+              width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
+
+                <!-- www -->
+                <!-- <iframe
+                  src="https://tokbox.com/embed/embed/ot-embed.js?embedId=31fc4129-0bf3-42d9-8ae9-62f2088669ab&room=DEFAULT_ROOM&iframe=true"
+                  width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
+
+
+                <!-- test server pritam -->
+
+                <!-- <iframe
+              src="https://tokbox.com/embed/embed/ot-embed.js?embedId=6d73958c-99e5-4d8e-8663-507af3482d2c&room=DEFAULT_ROOM&iframe=true"
+              width="800px" height="640px" scrolling="auto" allow="microphone; camera"></iframe> -->
+
+                <!-- localhost pritam -->
+
+                <!-- <iframe
+                  src="https://tokbox.com/embed/embed/ot-embed.js?embedId=f52f0311-3945-4f1a-a697-356260e9e33b&room=DEFAULT_ROOM&iframe=true"
+                  width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
+
+                <!-- api based calling -->
+                <!-- <ng-container *ngIf="!candidate && meetingStatus">
+                  <button type="button" (click)="ngOnInit()" class="end-meeting">Start Meeting</button>
+                </ng-container> -->
+                <div class="call" *ngIf="session">
+                  <ng-container *ngIf="allowSubscriber">
+                    <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session">
+                    </app-subscriber>
+                    <!-- <div *ngIf="candidate" (click)="unsubscribe(stream)">unsubscribe</div> -->
+
+                  </ng-container>
+                  <app-publisher [session]="session"></app-publisher>
+                </div>
+                <!-- archive button -->
+                <ng-container *ngIf="!candidate">
+                  <div class="archive-copylink">
+                    <div id="buttons">
+                      <button type="button" class="start-button" *ngIf="startArchiveButton"
+                        (click)="startArchive()">Start
+                        Archive</button>
+                      <button type="button" class="stop-button" *ngIf="stopArchiveButton"
+                        (click)="stopArchive(archiveID)">Stop
+                        Archive</button>
+                      <button type="button" class="view-button" *ngIf="viewArchiveButton" (click)="viewArchive()">View
+                        Archive</button>
+                    </div>
+
+                    <!-- button for local -->
+
+                    <button id="myBtn" class="copy-link"
+                      (click)="copyText('http://localhost:4200/video-call/'+toCopylinkPublishedStreamId)"
+                      value="click to copy">
+                      Candidate Invitation Link
+                    </button>
+                  </div>
+
+                  <!-- local end -->
+
+                  <!-- button for live -->
+                  <!-- <button *ngIf="!candidate" id="myBtn" class="copy-link"
+                  (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
+                  value="click to copy">
+                  Candidate Invitation Link
+                </button> -->
+                  <!-- live end -->
+                </ng-container>
+
+                <!-- End archive button-->
+                <!-- end api based calling -->
+                <ng-container *ngIf="!candidate && !isRecruiter">
+                  <button type="button" routerLink='/employer/video-interview-room' class="end-meeting">End
+                    Meeting</button>
+                </ng-container>
+                <ng-container *ngIf="!candidate && isRecruiter">
+                  <button type="button" routerLink='/recruiter/video-interview-room' class="end-meeting">End
+                    Meeting</button>
+                </ng-container>
+
+
+
+
+      </div>
+      <!-- feedback area -->
+      <div *ngIf="!candidate" class="singleList resumeSingleList margin-T50" id="animateinterview{{ i }}">
+        <div class="PointsDiv commonSingleInner">
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>Point 1</h4>
+
+          </div>
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>Point 2</h4>
+
+          </div>
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>Point 3</h4>
+
+          </div>
+        </div>
+
+        <div class="docSection">
+          <div class="docDiv">
+            <img src="assets/img/doc.png" class="img-responsive" id="img{{ i }}" />
+            <!-- <a [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank" download> -->
+            <h4>Download Resume</h4>
+            <!-- </a> -->
+          </div>
+        </div>
+
+
+
+        <div class="ActionDiv commonSingleInner ">
+          <div class="actionDivSingle">
+            <div class="">
+              <!-- [attr.id]="'Comments' + resume._id" -->
+              <textarea class="commentTxt" rows="5" cols="4"></textarea>
+            </div>
+            <div class="docDiv">
+              <h4><span>Recruiter Cost:</span>20</h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- end of feedback area -->
+    </div>
+
+
+  </div>
+</div>
+<ng-container *ngIf="candidate">
+  <app-footer></app-footer>
+</ng-container>
+
+
+<!--message pop up:START-->
+<div id="emailConfirmPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+  <a (click)="closeEmailConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+  <div class="modal-content videoModalContent">
+    <h4 class="slide-heading text-center"> Message</h4>
+    <div class="modalBodyPop">
+      <p>Link copied to Clipboard</p>
+    </div>
+  </div>
+</div>
+<!--message pop up:END-->

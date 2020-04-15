@@ -1,0 +1,102 @@
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 100%;
+  padding: 0 10px;
+}
+.head-column {
+  float: left;
+  width: 100%;
+  padding: 0 10px;
+}
+/* Remove extra left and right margins, due to padding */
+.row {
+  margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .head-column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 6px;
+  text-align: center;
+  background-color: #fff;
+  cursor: pointer;
+}
+.head-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  text-align: center;
+  background-color: #0aafff;
+}
+/**/
+.interview-heading {
+  font-size: 20px;
+  color: #fff;
+}
+.click-effect:focus {
+  outline: 0;
+  color: #fff;
+}
+.click-effect:before {
+  animation: effect_dylan 0.8s ease-out;
+}
+
+/* cadidate details */
+.interview-list-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.candidate-information {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  padding: 0px 50px 0px 80px;
+}
+.name {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+.role {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+.skillset {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+.can-details-title {
+  font-weight: 600;
+  width: 10%;
+  display: flex;
+  justify-content: flex-start;
+}
+/* end of candidate details */

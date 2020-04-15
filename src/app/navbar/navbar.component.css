@@ -100,7 +100,13 @@ nav ul a {
 .mobileHeadRe {
   display: none;
 }
-
+.notificationListOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 70px;
+  left: 0;
+}
 @media only screen and (min-width: 320px) and (max-width: 667px) {
   .mobileHeadRe {
     display: flex;
@@ -128,7 +134,7 @@ nav ul a {
   right: 0;
   padding: 0px 0px;
   top: 70px;
-  z-index: 99;
+  z-index: 999999;
   /* border: 1px solid #1c6fa9; */
   /* background-color: #48aef3; */
   background-color: #ffffff;
@@ -171,7 +177,7 @@ h4.count {
   bottom: 100%;
   left: 53%;
   border: solid transparent;
-  content: " ";
+  content: ' ';
   height: 0;
   width: 0;
   position: absolute;
@@ -203,8 +209,14 @@ h4.count {
 }
 .borderBA a {
   color: #0aafff;
+  background-color: #ffffff !important;
 }
-
+.notification-content {
+  background-color: #ffffff !important;
+}
+.notification-content:hover {
+  background-color: #e5f4ff !important;
+}
 /* width */
 .notificationListInner ul::-webkit-scrollbar {
   width: 5px;
@@ -236,4 +248,13 @@ h4.count {
   /* padding: 10px 0px; */
   font-size: 22px;
   /* font-weight: bold; */
+}
+.interview-title {
+  display: flex;
+  justify-content: center;
+}
+.tab {
+  font-size: 20px;
+  color: #48aef3;
+  font-weight: 600;
 }

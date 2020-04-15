@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ElementRef } from "@angular/core";
 import { UserService } from "../_services/user.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { AuthenticationService } from "../_services/authentication.service";
 import { SuperAdminService } from "../_services/super-admin.service";
 import { ForumService } from "../_services/forum.service";
@@ -11,7 +11,10 @@ declare var $: any;
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.css"]
+  styleUrls: ["./navbar.component.css"],
+  host: {
+    "(document:click)": "onClick($event)"
+  }
 })
 export class NavbarComponent implements OnInit {
   path: any = "assets/img/navbar-logo.png";
@@ -33,6 +36,8 @@ export class NavbarComponent implements OnInit {
   notificationLength: any;
   showAdminDashboardButton: boolean = false;
   showEnterpriseDashboardButton: boolean = false;
+  permaLink: any;
+  candidate = false;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -41,8 +46,10 @@ export class NavbarComponent implements OnInit {
     private route: ActivatedRoute,
     private _forum: ForumService,
     private bidEventService: BiddingEventService,
-    public enterpriseService: EnterpriseService
+    public enterpriseService: EnterpriseService,
+    private _eref: ElementRef
   ) {
+    this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != "no") {
       this.isLoggedIn = true;
@@ -58,17 +65,36 @@ export class NavbarComponent implements OnInit {
         this.isEnterprise = true;
       }
     }
+    router.events.subscribe((val) => {
+      // see also
+      if (val instanceof NavigationEnd) {
+        // hiding notification while changes in route
+        this.show = false;
+        this.buttonName = "Hide";
+
+        if (val.url === '/video-call') {
+          // console.log('On video call');
+          if (!localStorage.getItem('currentUser')) {
+            // console.log('****there is no user show candidates window');
+            this.candidate = true;
+          } else {
+            // console.log('recruiter on video call');
+            this.candidate = false;
+          }
+        }
+      }
+    });
   }
 
   ngOnInit() {
     this.showAdminDashboardButton = false;
     this.showEnterpriseDashboardButton = false;
     this._forum.getUnAnsweredData().subscribe(
-      res => {
+      (res) => {
         this.questDataLenght = res;
         this.notificationLength = this.questDataLenght.length;
       },
-      err => console.log(err)
+      (err) => console.log(err)
     );
 
     if (this.loggedInUser.userRole == "employer") {
@@ -76,9 +102,9 @@ export class NavbarComponent implements OnInit {
       this.showEnterpriseDashboardButton = false;
       this._forum
         .getAllUnAnsQuestionsByEmployerId(this.loggedInUser._id)
-        .subscribe(data => {
+        .subscribe((data) => {
           this.suggestedQueData = data;
-          this.suggestedQueData.forEach(element => {
+          this.suggestedQueData.forEach((element) => {
             if (element.QueAnsStaus == 1) {
               this.suggestedQueCount++;
             }
@@ -89,9 +115,9 @@ export class NavbarComponent implements OnInit {
       this.showEnterpriseDashboardButton = false;
       this._forum
         .getAllUnreadAnsQueByRecruiteId(this.loggedInUser._id)
-        .subscribe(data => {
+        .subscribe((data) => {
           this.suggestedQueData = data;
-          this.suggestedQueData.forEach(element => {
+          this.suggestedQueData.forEach((element) => {
             if (element.QueAnsStaus == 2) {
               this.suggestedQueAnsCount++;
             }
@@ -108,12 +134,26 @@ export class NavbarComponent implements OnInit {
       this.showEnterpriseDashboardButton = false;
     }
 
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
       jQuery(".button-collapse").sideNav();
     });
+    this.show = false;
+    this.buttonName = "Hide";
+  }
+
+  truncateHTML(text: string): string {
+    let charlimit = 20;
+    if (!text || text.length <= charlimit) {
+      return text;
+    }
+
+    let without_html = text.replace(/<(?:.|\n)*?>/gm, "");
+    let trim_space = without_html.trim().replace(/&nbsp;/g, "");
+    let shortened = trim_space.substring(0, charlimit) + "...";
+    return shortened;
   }
   updateQueAns(id) {
-    this._forum.updateQueAnsReadStatus(id).subscribe(data => {});
+    this._forum.updateQueAnsReadStatus(id).subscribe((data) => { });
   }
 
   navigate(path) {
@@ -135,5 +175,13 @@ export class NavbarComponent implements OnInit {
     // CHANGE THE NAME OF THE BUTTON.
     if (this.show) this.buttonName = "Hide";
     else this.buttonName = "Show";
+  }
+  onClick(event) {
+    // console.log("clicked ");
+
+    if (!this._eref.nativeElement.contains(event.target))
+      // or some similar check
+      this.show = false;
+    this.buttonName = "Hide";
   }
 }

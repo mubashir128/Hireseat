@@ -7,9 +7,9 @@ import * as myGlobals from "../globalPath";
   providedIn: "root"
 })
 export class SuperAdminService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   getAllUsers(obj) {
-    return this.http.post<any[]>(myGlobals.baseUrl + "api/all-users",obj).pipe(
+    return this.http.post<any[]>(myGlobals.baseUrl + "api/all-users", obj).pipe(
       map((result: any[]) => {
         return result;
       })
