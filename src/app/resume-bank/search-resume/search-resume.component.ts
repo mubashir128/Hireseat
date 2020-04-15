@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { UserService } from "src/app/_services/user.service";
 import { Router } from "@angular/router";
 import { ResumeService } from "src/app/_services/resume.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer } from "@angular/platform-browser";
+import { fromEvent } from "rxjs";
+import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 declare var jQuery: any;
 declare var Materialize: any;
 @Component({
@@ -16,9 +18,21 @@ export class SearchResumeComponent implements OnInit {
   public skillSets = [];
   public SearchFrm: FormGroup;
   public searchedResume: any = [];
-  public p = 0;
+  public p = 1;
+  public itemsPerPageAre = 10;
   tags: any;
   id: any;
+  searchTerm : string;
+  minSearchTerm : number;
+  maxSearchTerm : number;
+  itemsArray : any[]=[1];
+  createdAt = null;
+  onLoad = false;
+  paginateMove=false;
+  @ViewChild('searchByName') searchByName: ElementRef;
+  @ViewChild('searchByMinExperence') searchByMinExperence: ElementRef;
+  @ViewChild('searchByMaxExperence') searchByMaxExperence: ElementRef;
+
   constructor(
     private userService: UserService,
     private sanitizer: DomSanitizer,
@@ -27,7 +41,10 @@ export class SearchResumeComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.SearchFrm = this.formBuilder.group({
-      tags: ["", Validators.required]
+      tags: ["", Validators.required],
+      searchTerm : [""],
+      minSearchTerm : [],
+      maxSearchTerm : []
     });
   }
 
@@ -45,8 +62,79 @@ export class SearchResumeComponent implements OnInit {
         this.getSkillsets();
       }
     }
-    var skillset = null;
-    this.getResumesBySkills(skillset);
+    let obj={
+      skillsets : null,
+      itemsPerPageAre : this.itemsPerPageAre,
+      createdAt : this.createdAt,
+      searchType : "all",
+      onLoad : true
+    };
+    this.getResumesBySkills(obj);
+  }
+
+  ngAfterViewInit() {
+    // server-side search
+    this.searchTermByName();
+    this.searchTermByMinExperence();
+    this.searchTermByMaxExperence();
+  }
+
+  searchTermByName(){
+    fromEvent(this.searchByName.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.getResumesBySkills({
+          searchTerm : this.SearchFrm.value.searchTerm,
+          itemsPerPageAre : this.itemsPerPageAre,
+          searchType : "name"
+        });
+        this.p=1;
+        this.itemsArray=[1];
+        this.createdAt=null;
+        this.searchedResume=[];
+      })
+    )
+    .subscribe();
+  }
+
+  searchTermByMinExperence(){
+    fromEvent(this.searchByMinExperence.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.searchByExperiance();
+        this.p=1;
+        this.itemsArray=[1];
+        this.createdAt=null;
+        this.searchedResume=[];
+      })
+    )
+    .subscribe();
+  }
+
+  searchTermByMaxExperence(){
+    fromEvent(this.searchByMaxExperence.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.searchByExperiance();
+        this.p=1;
+        this.itemsArray=[1];
+        this.createdAt=null;
+        this.searchedResume=[];
+      })
+    )
+    .subscribe();
   }
 
   getSkillsets() {
@@ -64,20 +152,6 @@ export class SearchResumeComponent implements OnInit {
     );
   }
 
-  // submit() {
-  //   if (this.SearchFrm.valid) {
-  //     var skillSets = [];
-  //     this.SearchFrm.value.tags.forEach(element => {
-  //       skillSets.push(element.value);
-  //     });
-  //     this.getResumesBySkills(skillSets);
-  //   } else {
-  //     var skillset=null;
-  //     this.getResumesBySkills(skillset);
-  //     Materialize.toast('Select Skill Sets First !', 2000);
-  //     return;
-  //   }
-  // }
   onadd(event) {
     var skillSets = [];
     if (this.SearchFrm.valid) {
@@ -88,15 +162,31 @@ export class SearchResumeComponent implements OnInit {
       skillSets = null;
     }
 
-    this.getResumesBySkills(skillSets);
+    this.getResumesBySkills({
+      skillsets : skillSets,
+      searchTerm : this.SearchFrm.value.searchTerm,
+      itemsPerPageAre : this.itemsPerPageAre,
+      searchType : "skills"
+    });
+    this.p=1;
+    this.itemsArray=[1];
+    this.createdAt=null;
+    this.searchedResume=[];
   }
-  getResumesBySkills(skillSets) {
-    this.resumeService.getResumeBySkillSets(skillSets).subscribe(
+  getResumesBySkills(obj) {
+    this.resumeService.getResumeBySkillSets(obj).subscribe(
       (data: any) => {
-        if (data.length > 0) {
-          this.searchedResume = data;
-        } else {
-          this.searchedResume = [];
+        if (data.result.length > 0) {
+          this.searchedResume = [...this.searchedResume,...data.result];
+          if(data.paginate){
+            this.paginateMove=true;
+          }else{
+            this.paginateMove=false;
+          }
+
+          if(data.createAtIndex){
+            this.createdAt=data.result[data.result.length-1].createdAt;
+          }
         }
       },
       error => {
@@ -141,4 +231,34 @@ export class SearchResumeComponent implements OnInit {
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
+
+  searchByExperiance(){
+    let obj={
+      min : this.SearchFrm.value.minSearchTerm,
+      max : this.SearchFrm.value.maxSearchTerm,
+      itemsPerPageAre : this.itemsPerPageAre,
+      searchType : "experience"
+    };
+    this.createdAt=null;
+    this.getResumesBySkills(obj);
+  }
+
+  handlePagination($event){
+    this.p=$event;
+    if(!this.paginateMove){
+      return ;
+    }
+    if(this.itemsArray.indexOf($event) !== -1){
+      return ;
+    }
+    this.itemsArray.push($event);
+    let obj={
+      itemsPerPageAre : this.itemsPerPageAre,
+      createdAt : this.createdAt,
+      searchType : "all"
+    };
+    this.createdAt=null;
+    this.getResumesBySkills(obj);
+  }
+
 }

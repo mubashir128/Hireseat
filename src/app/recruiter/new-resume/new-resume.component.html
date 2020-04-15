@@ -1,56 +1,266 @@
 <div class="newResume" style="padding:30px;">
-    <a [routerLink]="['/recruiter/resume-list']"> <i class="material-icons left">chevron_left</i> Resume Repository</a>
-    <div class="card white" style="margin-top:30px;">
-        <div style="padding:20px; border-bottom: solid #e0e0e0 1px;">
-            <div class="section-header"> New Resume </div>
-        </div>
-        <form [formGroup]="newResumeFrm" (ngSubmit)="submit()" novalidate> 
-            <div style="display:table; width:100%; margin-bottom:0px;">
-                <div id="resume-preview" class="wid100 center-align" style="display:table-cell; width:50%; height:100%; vertical-align:middle;" >
-                    <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2" [url] ="downloadURL"></app-pdf-viewer>
-                    <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text" *ngIf="fileUploaded===0">
-                        <div class="uploadBtn">
-                            <span>Upload Resume</span>
-                            <input type="file" (change)="fileChange($event)">
-                        </div>                      
-                    </div>
-                    <!-- <div *ngIf="fileUploaded===1" class="progress">
+  <a [routerLink]="['/recruiter/resume-list']"> <i class="material-icons left">chevron_left</i> Resume Repository</a>
+  <div class="card white" style="margin-top:30px;">
+    <div style="padding:20px; border-bottom: solid #e0e0e0 1px;">
+      <div class="section-header"> New Resume </div>
+    </div>
+    <form [formGroup]="newResumeFrm" (ngSubmit)="submit()" novalidate>
+      <div style=" width:100%; margin-bottom:0px;">
+        <div id="resume-preview" class="wid100 center-align resumePriviewDiv">
+          <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
+            [url]="downloadURL"></app-pdf-viewer>
+          <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text "
+            *ngIf="fileUploaded===0" style="display:table;">
+            <div class="uploadBtn" style="display:table-cell;">
+              <span>Upload Resume</span>
+              <input type="file" (change)="fileChange($event)">
+            </div>
+          </div>
+          <!-- <div *ngIf="fileUploaded===1" class="progress">
                         <div class="determinate" style="width: {{uploadProgress}}%"></div>
                     </div> -->
+        </div>
+        <div class="NewResumeForm" id="resume-info"
+          style=" border-left: solid #e0e0e0 1px;  width:100%; min-height:500px; padding:15px;">
+          <div class="row" style="margin-bottom:0px;">
+            <div class="input-field col s6 m6 l6">
+              <div> <i class="fa fa-user" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Candidate Name*
+                </span>
+              </div>
+              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.candidateName"
+                formControlName="candidateName">
+              <div *ngIf="(f.candidateName.touched && f.candidateName.errors)" class="invalid-feedback" class="error">
+                <div *ngIf="f.candidateName.errors.required">Candidate Name is required</div>
+              </div>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div><i class="fa fa-lock" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Social Security Number* (Last four digits)
+                </span>
+              </div>
+              <input id="social-security-num" type="text" class="validate" name="resume.socialSecurityNum"
+                [(ngModel)]="resume.socialSecurityNum" formControlName="socialSecurityNum">
+              <div *ngIf="(f.socialSecurityNum.touched && f.socialSecurityNum.errors)" class="invalid-feedback"
+                class="error">
+                <div *ngIf="f.socialSecurityNum.errors.required">Social Security Number is required
                 </div>
-                <div id="resume-info" style="display:table-cell; border-left: solid #e0e0e0 1px;  width:50%; min-height:500px; padding:15px;">
-                    <div class="row" style="margin-bottom:0px;">
-                        <div class="input-field col s12 m12 l12">
-                            <div>Candidate Name*</div>
-                            <input id="candidate-name" type="text" class="validate"  [(ngModel)]="resume.candidateName" formControlName="candidateName">
-                            <div *ngIf="(f.candidateName.touched && f.candidateName.errors)" class="invalid-feedback" class="error">
-                                <div *ngIf="f.candidateName.errors.required">Candidate Name is required</div>                
-                            </div>
-                        </div>
-                        <div class="input-field col s12 m12 l12">
-                            <div>Social Security Number* (Last four digits)</div>
-                            <input id="social-security-num" type="text" class="validate" name="resume.socialSecurityNum" [(ngModel)]="resume.socialSecurityNum" formControlName="socialSecurityNum" >
-                            <div *ngIf="(f.socialSecurityNum.touched && f.socialSecurityNum.errors)" class="invalid-feedback" class="error">
-                                <div *ngIf="f.socialSecurityNum.errors.required">Social Security Number is required</div> 
-                                <div *ngIf="f.socialSecurityNum.errors.pattern">Numbers Only</div> 
-                            </div>
-                            <div class="error" *ngIf="f.socialSecurityNum.errors?.maxlength">
-                                4 Digits Only
-                            </div> 
-                         
-                        </div>
+                <!-- <div *ngIf="f.socialSecurityNum.errors?.pattern">Numbers Only</div> -->
+              </div>
+              <div class="error" *ngIf="f.socialSecurityNum.errors?.pattern">
+                Numbers Only
+              </div>
+              <div class="error" *ngIf="f.socialSecurityNum.errors?.maxlength">
+                4 Digits Only
+              </div>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div><i class="fa fa-briefcase" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Job Title
+                </span>
+              </div>
+              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.jobTitle"
+                formControlName="jobTitle">
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div><i class="fa fa-envelope" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+
+                  Email
+                </span>
+              </div>
+              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.email"
+                formControlName="email">
+              <div *ngIf="(f.email.touched && f.email.errors)" class="invalid-feedback" class="error">
+                <div *ngIf="f.email.errors.emai">Enter valid email id</div>
+              </div>
+
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div><i class="fa fa-phone" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Phone NO.
+                </span>
+              </div>
+              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.phoneNumber"
+                formControlName="phoneNumber">
+              <div *ngIf="(f.phoneNumber.touched && f.phoneNumber.errors)" class="invalid-feedback" class="error">
+                <div *ngIf="f.phoneNumber.errors.pattern">Numbers Only</div>
+              </div>
+              <div class="error" *ngIf="f.phoneNumber.errors?.maxlength">
+                10 Digits Only
+              </div>
+
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div><i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Location
+                </span>
+              </div>
+              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.location"
+                formControlName="location">
+
+            </div>
+            <div class="input-field col s12 m12 l12">
+              <div><i class="fa fa-users" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Current and Previous Employer
+                </span>
+              </div>
+              <div class="row">
+                <div class="input-field col s6 m6 l6">
+                  <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.Employers1"
+                    formControlName="Employers1" placeholder="Employer 1">
+                </div>
+                <div class="input-field col s6 m6 l6">
+                  <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.Employers2"
+                    formControlName="Employers2" placeholder="Employer 2">
+                </div>
+              </div>
+
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div><i class="fa fa-archive" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Skills
+                </span>
+              </div>
+              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.skills"
+                formControlName="skills">
+              <span class="note">
+                <span style="color: #f58e8e;">Note</span> : Enter Comma-separated values
+              </span>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div><i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Linked In
+                </span>
+              </div>
+              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.linkedIn"
+                formControlName="linkedIn">
+
+            </div>
+            <div class="input-field col s12 m12 l12 iv">
+              <div class="subTitle">
+                <span class="resume-subtitle">
+                  Referrals
+                </span>
+
+              </div>
+              <div class="row">
+                <div class="input-field col s12 m12 l12">
+                  <div><i class="fa fa-address-card" aria-hidden="true"></i>
+                    <span class="resume-subtitle">
+                      Referrals 1
+                    </span>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s6 m6 l6">
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralJobTitle1"
+                        formControlName="referralJobTitle1" placeholder="Job Title">
                     </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralEmail1"
+                        formControlName="referralEmail1" placeholder="Email">
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralPhoneNumber1"
+                        formControlName="referralPhoneNumber1" placeholder="Phone No">
+                      <div *ngIf="(f.referralPhoneNumber1.touched && f.referralPhoneNumber1.errors)"
+                        class="invalid-feedback" class="error">
+                        <div *ngIf="f.referralPhoneNumber1.errors.pattern">Numbers Only</div>
+                      </div>
+                      <div class="error" *ngIf="f.referralPhoneNumber1.errors?.maxlength">
+                        10 Digits Only
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
+                <div class="input-field col s12 m12 l12">
+                  <div><i class="fa fa-address-card" aria-hidden="true"></i> <span class="resume-subtitle">
+                      Referrals 2
+                    </span></div>
+                  <div class="row">
+                    <div class="input-field col s6 m6 l6">
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralJobTitle2"
+                        formControlName="referralJobTitle2" placeholder="Job Title">
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralEmail2"
+                        formControlName="referralEmail2" placeholder="Email">
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralPhoneNumber2"
+                        formControlName="referralPhoneNumber2" placeholder="Phone No">
+                      <div *ngIf="(f.referralPhoneNumber2.touched && f.referralPhoneNumber2.errors)"
+                        class="invalid-feedback" class="error">
+                        <div *ngIf="f.referralPhoneNumber2.errors.pattern">Numbers Only</div>
+                      </div>
+                      <div class="error" *ngIf="f.referralPhoneNumber2.errors?.maxlength">
+                        10 Digits Only
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="input-field col s12 m12 l12">
+                  <div><i class="fa fa-address-card" aria-hidden="true"></i>
+                    <span class="resume-subtitle">
+                      Referrals 3
+                    </span>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s6 m6 l6">
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralJobTitle3"
+                        formControlName="referralJobTitle3" placeholder="Job Title">
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralEmail3"
+                        formControlName="referralEmail3" placeholder="Email">
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.referralPhoneNumber3"
+                        formControlName="referralPhoneNumber3" placeholder="Phone No">
+                      <div *ngIf="(f.referralPhoneNumber3.touched && f.referralPhoneNumber3.errors)"
+                        class="invalid-feedback" class="error">
+                        <div *ngIf="f.referralPhoneNumber3.errors.pattern">Numbers Only</div>
+                      </div>
+                      <div class="error" *ngIf="f.referralPhoneNumber3.errors?.maxlength">
+                        10 Digits Only
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
-            <div class="divider"></div>
-            <div class=" row center-align marB0" style="padding:15px;">
-                <a class="waves-effect waves-light btn-flat" (click)="cancle()">Clear</a>
-                <button  type="submit" class="waves-effect waves-light btn">Create</button>
+            <div class="input-field col s12 m12 l12">
+              <div class="marB10"><i class="fa fa-comment" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Comments :
+                </span> </div>
+              <textarea rows=4 formControlName="comments" [(ngModel)]="resume.comments"></textarea>
             </div>
-        </form>
-    </div>
-    <div class="card red-text" style="margin-top:30px; padding:30px;">
-        Please Note! To ensure that other recruiters do not reach out to your candidate, 
-        please delete contact information from your candidate's resume before uploading.
-    </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class=" row center-align marB0" style="padding:15px;">
+        <a class="waves-effect waves-light btn-flat" (click)="cancle()">Clear</a>
+        <button type="submit" class="waves-effect waves-light btn">Create</button>
+      </div>
+    </form>
+  </div>
+  <div class="card red-text" style="margin-top:30px; padding:30px;">
+    Please Note! To ensure that other recruiters do not reach out to your candidate,
+    please delete contact information from your candidate's resume before uploading.
+  </div>
 </div>

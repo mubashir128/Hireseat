@@ -1,42 +1,51 @@
 <div class="">
+  <!-- <ng-container *ngIf="isCandidate">
+    <nav style="background:#E9F4FF;" class="customeNav">
+      <div class="nav-wrapper container">
+        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
+            style="vertical-align:middle;" /></a>
+        <ul class="interview-title">
+          <div class="tab">
+            Interview
+          </div>
+        </ul>
+
+      </div>
+    </nav>
+  </ng-container> -->
+  <!-- <ul class="side-nav" id="mobile-demo" *ngIf="isCandidate">
+    <li>
+      <a class="waves-effect waves-light btn">Interview</a>
+    </li>
+  </ul> -->
+  <!-- <ng-container *ngIf="!isCandidate"> -->
+
   <nav style="background:#E9F4FF;" class="customeNav">
     <div class="nav-wrapper container">
-      <a [routerLink]="['/']" class="brand-logo"
-        ><img src="assets/img/navbar-logo.png" style="vertical-align:middle;"
-      /></a>
-      <a data-activates="mobile-demo" class="button-collapse"
-        ><i style="color: #3af" class="material-icons">menu</i></a
-      >
+      <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
+          style="vertical-align:middle;" /></a>
+      <a data-activates="mobile-demo" class="button-collapse"><i style="color: #3af" class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li>
           <a [routerLink]="['/blog']" routerLinkActive="borderBA">Blog</a>
         </li>
         <li *ngIf="!isRecruiter || !isLoggedIn">
-          <a [routerLink]="['/forum']" routerLinkActive="borderBA"
-            >Ask a Recruiter
+          <a [routerLink]="['/forum']" routerLinkActive="borderBA">Ask a Recruiter
           </a>
         </li>
         <li>
           <a [routerLink]="['/upload-resume']" routerLinkActive="borderBA">
-            Resume Bank</a
-          >
+            Resume Bank</a>
         </li>
         <li>
-          <a [routerLink]="['/contact-us']" routerLinkActive="borderBA"
-            >Contact Us</a
-          >
+          <a [routerLink]="['/contact-us']" routerLinkActive="borderBA">Contact Us</a>
         </li>
         <li>
-          <a [routerLink]="['/job-post']" routerLinkActive="borderBA"
-            >Job Postings</a
-          >
+          <a [routerLink]="['/job-post']" routerLinkActive="borderBA">Job Postings</a>
         </li>
 
         <li *ngIf="!isLoggedIn">
-          <a
-            class="waves-effect waves-light btn btnSuccess"
-            [routerLink]="['/login']"
-          >
+          <a class="waves-effect waves-light btn btnSuccess" [routerLink]="['/login']">
             Sign up
           </a>
         </li>
@@ -44,60 +53,36 @@
           <a [routerLink]="['/login']" class="loginNtn">Login</a>
         </li>
         <li *ngIf="isAdmin && isLoggedIn">
-          <a [routerLink]="['/user-list']" routerLinkActive="borderBA"
-            >User List</a
-          >
+          <a [routerLink]="['/user-list']" routerLinkActive="borderBA">User List</a>
         </li>
         <li *ngIf="isRecruiter && isLoggedIn">
-          <a
-            [routerLink]="['/recruiter/bidding-event-list']"
-            routerLinkActive="borderBA"
-            >Recruiter</a
-          >
+          <a [routerLink]="['/recruiter/bidding-event-list']" routerLinkActive="borderBA">Recruiter</a>
         </li>
         <li *ngIf="showAdminDashboardButton">
-          <a
-            [routerLink]="['/super-admin/user-list']"
-            routerLinkActive="borderBA"
-            >Super Admin Dashboard</a
-          >
+          <a [routerLink]="['/super-admin/user-list']" routerLinkActive="borderBA">Super Admin Dashboard</a>
         </li>
         <!-- for recruiter profile -->
         <li *ngIf="isRecruiter && isLoggedIn">
           <a [routerLink]="['/recruiter/profile']" routerLinkActive="borderBA">
-            <img
-              src="assets/img/propic.png"
-              style="vertical-align:middle;height: 36px;width: 36px"
-            />
+            <img src="assets/img/propic.png" style="vertical-align:middle;height: 36px;width: 36px" />
           </a>
         </li>
         <!-- end of recruiter profile -->
 
         <!-- employeer profile -->
         <li *ngIf="isEmployer && isLoggedIn">
-          <a
-            [routerLink]="['/employer/job-profile-list']"
-            routerLinkActive="borderBA"
-            >Employer</a
-          >
+          <a [routerLink]="['/employer/dashboard']" routerLinkActive="borderBA">Employer</a>
         </li>
         <!-- end of employeer profile -->
         <!-- Enterprise profile -->
         <li *ngIf="isEnterprise && isLoggedIn">
-          <a
-            [routerLink]="['/enterprise/user-list']"
-            routerLinkActive="borderBA"
-            >Enterprise</a
-          >
+          <a [routerLink]="['/enterprise/user-list']" routerLinkActive="borderBA">Enterprise</a>
         </li>
         <!-- end of Enterprise profile -->
 
         <li *ngIf="isEmployer && isLoggedIn">
           <a [routerLink]="['/employer/profile']" routerLinkActive="borderBA">
-            <img
-              src="assets/img/propic.png"
-              style="vertical-align:middle;height: 36px;width: 36px"
-            />
+            <img src="assets/img/propic.png" style="vertical-align:middle;height: 36px;width: 36px" />
           </a>
         </li>
         <!-- <li *ngIf="isEmployer && isLoggedIn "><a [routerLink]="['/home/TheRockRec']">The Rockstar Recruiter Community</a> -->
@@ -110,37 +95,23 @@
               </div>
               <ul>
                 <li *ngFor="let ques of questDataLenght">
-                  <a
-                    [routerLink]="['/forum']"
-                    routerLinkActive="borderBA"
-                    *ngIf="!ques.isAnswered"
-                    >{{ ques.question }}</a
-                  >
+                  <a [routerLink]="['/forum']" routerLinkActive="notification-content" *ngIf="!ques.isAnswered"
+                    [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
                 </li>
                 <li *ngFor="let ques of suggestedQueData">
-                  <a
-                    [routerLink]="[
+                  <a [routerLink]="[
                       '/bidding-events/details',
                       ques?.biddingEventId
-                    ]"
-                    [queryParams]="{ queid: ques?._id }"
-                    routerLinkActive="borderBA"
-                    *ngIf="ques.QueAnsStaus == '1'"
-                    >{{ ques.question }}</a
-                  >
+                    ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
+                    *ngIf="ques.QueAnsStaus == '1'" [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
                 </li>
                 <li *ngFor="let ques of suggestedQueData">
-                  <a
-                    [routerLink]="[
+                  <a [routerLink]="[
                       '/bidding-events/details',
                       ques?.biddingEventId
-                    ]"
-                    [queryParams]="{ queid: ques?._id }"
-                    routerLinkActive="borderBA"
-                    *ngIf="ques.QueAnsStaus == '2' && isRecruiter"
-                    (click)="updateQueAns(ques?._id)"
-                    >{{ ques.question }}</a
-                  >
+                    ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
+                    *ngIf="ques.QueAnsStaus == '2' && isRecruiter" (click)="updateQueAns(ques?._id)"
+                    [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
                 </li>
               </ul>
             </div>
@@ -151,42 +122,36 @@
             <h4 class="count" *ngIf="notificationLength > 0">
               {{ questDataLenght?.length + suggestedQueCount }}
             </h4>
-            <img
-              src="assets/img/Notification-512.png"
-              style="vertical-align:middle;height: 40px;width: 40px"
-          /></a>
+            <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 40px;width: 40px" />
+          </a>
         </li>
         <li *ngIf="!isAdmin && isLoggedIn && isRecruiter">
-          <a (click)="toggle()"
-            ><h4 class="count" *ngIf="notificationLength > 0">
+          <a (click)="toggle()">
+            <h4 class="count" *ngIf="notificationLength > 0">
               {{ questDataLenght?.length + suggestedQueAnsCount }}
             </h4>
-            <img
-              src="assets/img/Notification-512.png"
-              style="vertical-align:middle;height: 40px;width: 40px"
-          /></a>
+            <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 40px;width: 40px" />
+          </a>
         </li>
 
-        <li
-          *ngIf="
+        <li *ngIf="
             isLoggedIn &&
             !this.supperAdmin.checkSuperAdminEmail() &&
             !this.enterpriseService.checkEnterpriseEmail()
-          "
-        >
-          <a class="waves-effect waves-light btn btnSuccess" (click)="logout()"
-            >Logout</a
-          >
+          ">
+          <a class="waves-effect waves-light btn btnSuccess" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>
   </nav>
+  <!-- </ng-container> -->
+
   <!-- [routerLink]="['/login']" -->
+  <!-- <ng-container *ngIf="!isCandidate"> -->
+
   <ul class="side-nav" id="mobile-demo">
     <li>
-      <a class="waves-effect waves-light btn" (click)="navigate('/home')"
-        >Home</a
-      >
+      <a class="waves-effect waves-light btn" (click)="navigate('/home')">Home</a>
     </li>
     <li *ngIf="!isLoggedIn">
       <a class="waves-effect waves-light btn" (click)="navigate('/login')">
@@ -194,9 +159,7 @@
       </a>
     </li>
     <li *ngIf="!isLoggedIn">
-      <a class="waves-effect waves-light btn" (click)="navigate('/login')"
-        >Login</a
-      >
+      <a class="waves-effect waves-light btn" (click)="navigate('/login')">Login</a>
     </li>
     <li>
       <a class="waves-effect waves-light btn" (click)="navigate('/forum')">
@@ -204,80 +167,50 @@
       </a>
     </li>
     <li>
-      <a
-        class="waves-effect waves-light btn"
-        (click)="navigate('/upload-resume')"
-      >
-        Resume Bank</a
-      >
+      <a class="waves-effect waves-light btn" (click)="navigate('/upload-resume')">
+        Resume Bank</a>
     </li>
     <li>
-      <a class="waves-effect waves-light btn" (click)="navigate('/job-post')"
-        >Job Postings</a
-      >
+      <a class="waves-effect waves-light btn" (click)="navigate('/job-post')">Job Postings</a>
     </li>
     <li *ngIf="isRecruiter && isLoggedIn">
-      <a
-        class="waves-effect waves-light btn"
-        [routerLink]="['/recruiter/bidding-event-list']"
-        routerLinkActive="borderBA"
-        >Recruiter</a
-      >
+      <a class="waves-effect waves-light btn" [routerLink]="['/recruiter/bidding-event-list']"
+        routerLinkActive="borderBA">Recruiter</a>
     </li>
     <!--  -->
     <li *ngIf="isEnterprise && isLoggedIn">
-      <a
-        class="waves-effect waves-light btn"
-        [routerLink]="['/enterprise/user-list']"
-        routerLinkActive="borderBA"
-        >Enterprise</a
-      >
+      <a class="waves-effect waves-light btn" [routerLink]="['/enterprise/user-list']"
+        routerLinkActive="borderBA">Enterprise</a>
     </li>
     <!--  -->
     <li *ngIf="isRecruiter && isLoggedIn">
-      <a
-        class="waves-effect waves-light btn"
-        (click)="navigate('/recruiter/profile')"
-        >My Profile</a
-      >
+      <a class="waves-effect waves-light btn" (click)="navigate('/recruiter/profile')">My Profile</a>
     </li>
     <li *ngIf="isEmployer && isLoggedIn">
-      <a
-        class="waves-effect waves-light btn"
-        [routerLink]="['/employer/job-profile-list']"
-        routerLinkActive="borderBA"
-        >Employer</a
-      >
+      <a class="waves-effect waves-light btn" [routerLink]="['/employer/dashboard']"
+        routerLinkActive="borderBA">Employer</a>
     </li>
 
     <li *ngIf="isEmployer && isLoggedIn">
-      <a
-        class="waves-effect waves-light btn"
-        (click)="navigate('/employer/profile')"
-        >My Profile</a
-      >
+      <a class="waves-effect waves-light btn" (click)="navigate('/employer/profile')">My Profile</a>
     </li>
 
     <li>
-      <a class="waves-effect waves-light btn" (click)="navigate('/blog')"
-        >Blog</a
-      >
+      <a class="waves-effect waves-light btn" (click)="navigate('/blog')">Blog</a>
     </li>
 
     <li *ngIf="isAdmin && isLoggedIn">
-      <a class="waves-effect waves-light btn" (click)="navigate('/user-list')"
-        >User List</a
-      >
+      <a class="waves-effect waves-light btn" (click)="navigate('/user-list')">User List</a>
     </li>
 
-    <li
-      *ngIf="
+    <li *ngIf="
         !this.supperAdmin.checkSuperAdminEmail() &&
         !this.enterpriseService.checkEnterpriseEmail() &&
         isLoggedIn
-      "
-    >
+      ">
       <a class="waves-effect waves-light btn " (click)="logout()">Logout</a>
     </li>
   </ul>
+  <!-- </ng-container> -->
+
 </div>

@@ -1,0 +1,98 @@
+<!-- header for HR -->
+<ng-container *ngIf="!candidate">
+  <app-navbar></app-navbar>
+</ng-container>
+<!-- header for candidate -->
+<ng-container *ngIf="candidate">
+  <nav style="background:#E9F4FF;" class="customeNav">
+    <div class="nav-wrapper container">
+      <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
+          style="vertical-align:middle;" /></a>
+      <ul class="interview-title">
+        <li>
+          <a [routerLink]="['/video-call']" routerLinkActive="borderBA">
+            Interview
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/']" routerLinkActive="borderBA">
+            Home
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</ng-container>
+<div class="container" style="margin-top:15px;">
+  <div class="row">
+    <ng-container *ngIf="!candidate">
+      <div class="col s12 m3 l3">
+        <ng-container *ngIf="isRecruiter">
+          <app-recruiter-navbar></app-recruiter-navbar>
+        </ng-container>
+        <ng-container *ngIf="!isRecruiter">
+          <app-employer-navbar></app-employer-navbar>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="candidate">
+      <div class="col s12 m3 l3">
+      </div>
+    </ng-container>
+    <div class="col s12 m9 l9">
+
+      <div class="video-call-execution-tab">
+        <span *ngIf="!candidate && !isRecruiter" class="back" routerLink='/employer/video-interview-room'>
+          < Back </span>
+            <span *ngIf="!candidate && isRecruiter" class="back" routerLink='/recruiter/video-interview-room'>
+              < Back </span>
+                <!-- live sujith-->
+
+                <!-- <iframe
+              src="https://tokbox.com/embed/embed/ot-embed.js?embedId=8fc687ac-4533-41d9-918d-97c3014b1673&room=DEFAULT_ROOM&iframe=true"
+              width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
+
+                <!-- www -->
+                <!-- <iframe
+                  src="https://tokbox.com/embed/embed/ot-embed.js?embedId=31fc4129-0bf3-42d9-8ae9-62f2088669ab&room=DEFAULT_ROOM&iframe=true"
+                  width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
+
+
+                <!-- test server pritam -->
+
+                <!-- <iframe
+              src="https://tokbox.com/embed/embed/ot-embed.js?embedId=6d73958c-99e5-4d8e-8663-507af3482d2c&room=DEFAULT_ROOM&iframe=true"
+              width="800px" height="640px" scrolling="auto" allow="microphone; camera"></iframe> -->
+
+                <!-- localhost pritam -->
+
+                <iframe
+                  src="https://tokbox.com/embed/embed/ot-embed.js?embedId=f52f0311-3945-4f1a-a697-356260e9e33b&room=DEFAULT_ROOM&iframe=true"
+                  width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe>
+
+                <!-- api based calling -->
+                <button *ngIf="!candidate" id="myBtn" class="copy-link"
+                  (click)="copyText('https://www.hireseat.com/video-call')" value="click to copy">
+                  Candidate Invitation Link
+                </button>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="candidate">
+  <app-footer></app-footer>
+</ng-container>
+
+<!--message pop up:START-->
+<div id="emailConfirmPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+  <a (click)="closeEmailConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+  <div class="modal-content videoModalContent">
+    <h4 class="slide-heading text-center"> Message</h4>
+    <div class="modalBodyPop">
+      <p>Link copied to Clipboard</p>
+    </div>
+  </div>
+</div>
+<!--message pop up:END-->

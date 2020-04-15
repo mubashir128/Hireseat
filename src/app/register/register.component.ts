@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
   userroledata: any;
   filepath: any;
   imgURL: any;
+  fileModel: any;
   public message: string;
   value: string | number | string[];
 
@@ -42,9 +43,9 @@ export class RegisterComponent implements OnInit {
       email: new FormControl(),
       password: new FormControl(),
       webSiteLink: new FormControl(),
-      companyName: new FormControl(),
-      file: new FormControl()
+      companyName: new FormControl()
     });
+    // file: new FormControl()
 
     this.localRole = localStorage.getItem("Role");
     if (this.localRole == "employer") {
@@ -79,7 +80,7 @@ export class RegisterComponent implements OnInit {
   formSubmit() {
     console.log(this.signin.value);
 
-    this.spinner.show();
+    // this.spinner.show();
     if (!this.signin.valid) {
       console.log("invalid form");
 
@@ -105,9 +106,9 @@ export class RegisterComponent implements OnInit {
       password: new FormControl(res.password, [
         Validators.required,
         Validators.minLength(5)
-      ]),
-      file: new FormControl(res.file, [Validators.required])
+      ])
     });
+    // file: new FormControl(res.file, [Validators.required])
 
     const fd = new FormData();
     // fd.userRole=this.localRole;
@@ -115,7 +116,11 @@ export class RegisterComponent implements OnInit {
     this.userroledata = this.localRole == "employer" ? 2 : 3;
     fd.append("userRole", this.localRole);
     fd.append("role", this.userroledata);
-    fd.append("file", this.imagePath[0], this.imagePath[0].name);
+    if (this.imagePath) {
+      fd.append("file", this.imagePath[0], this.imagePath[0].name);
+    } else {
+      fd.append("file", "");
+    }
     fd.append("fullname", this.signin.controls.fullname.value);
     fd.append("phoneNo", this.signin.controls.phoneNo.value);
 
@@ -176,20 +181,21 @@ export class RegisterComponent implements OnInit {
   }
   preview(files) {
     if (files.length === 0) return;
+    if (files) {
+      var mimeType = files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = "Only images are supported.";
+        return;
+      }
+      this.filepath = <File>files[0];
 
-    var mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      return;
+      var reader = new FileReader();
+      this.imagePath = files;
+      reader.readAsDataURL(files[0]);
+      reader.onload = _event => {
+        this.imgURL = reader.result;
+      };
     }
-    this.filepath = <File>files[0];
-
-    var reader = new FileReader();
-    this.imagePath = files;
-    reader.readAsDataURL(files[0]);
-    reader.onload = _event => {
-      this.imgURL = reader.result;
-    };
     // console.log(this.imagePath[0]['File'])
     // console.log(this.filepath)
   }

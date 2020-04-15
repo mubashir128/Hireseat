@@ -1,15 +1,22 @@
 <div class="resume-item" *ngIf="resume.resumeType == 'system'">
-  <div class="sub-info" (click)="showResume()">
+  <!--  (click)="showResume()" -->
+  <div class="sub-info" (click)="edit()">
     <img src="assets/img/resume.png" style="display:inline-block; float:left; width:30%; height:auto; opacity:0.75;" />
     <div class="candidate-name" style="display:inline-block; float:right; width:70%; height:auto; padding-left:15px;">
       {{resume.candidateName}}</div>
+    <span class="chipu">{{resume.jobTitle}} </span>
+    <span class="chipu">{{resume.skills}} </span>
   </div>
   <!-- <div class="divider"></div> -->
   <div class="footerAbsolute">
-    <a class="btn-flat" (click)="edit()" style="margin-right:0px; padding:0 1rem;"><i
-        class="material-icons grey-text">edit</i></a>
+    <!-- <a class="btn-flat" (click)="edit()" style="margin-right:0px; padding:0 1rem;"><i
+        class="material-icons grey-text">edit</i></a> -->
     <a class="btn-flat" (click)="delete()" style="margin-right:0px; padding:0 1rem;"><i
         class="material-icons grey-text">delete</i></a>
+    <div class="btn-flat" style="margin-right:0px; padding:0 1rem;">
+      <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download grey-text"
+          aria-hidden="true"></i></a>
+    </div>
   </div>
 </div>
 <div *ngIf="resumeVisible===1"
@@ -24,11 +31,14 @@
 
 
 <div class="resume-item" *ngIf="resume.resumeType == 'resume_bank'">
+  <!--  (click)="showResumeForResumeBank()" -->
   <div class="sub-info" (click)="showResumeForResumeBank()">
     <img src="assets/img/resume.png" style="display:inline-block; float:left; width:30%; height:auto; opacity:0.75;" />
     <div class="candidate-name" style="display:inline-block; float:right; width:70%; height:auto; padding-left:15px;">
-     <span class="block"> {{resume?.resumeBank_id?.firstName}} {{resume?.resumeBank_id?.lastName}}</span>
-      <span class="chipu">Resume Bank</span>
+      <span class="block"> {{resume?.resumeBank_id?.firstName}} {{resume?.resumeBank_id?.lastName}}</span>
+      <!-- <span class="chipu">Resume Bank</span> -->
+      <span class="chipu">{{resume?.resumeBank_id?.jobTitle}} </span>
+      <span class="chipu">{{resume?.resumeBank_id?.skills}} </span>
     </div>
   </div>
   <!-- <div class="divider"></div> -->
@@ -37,12 +47,22 @@
         class="material-icons grey-text">remove_red_eye</i></a>
     <a class="btn-flat" (click)="delete()" style="margin-right:0px; padding:0 1rem;"><i
         class="material-icons grey-text">delete</i></a>
+    <!--  -->
+    <div class="btn-flat" style="margin-right:0px; padding:0 1rem;">
+      <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download grey-text"
+          aria-hidden="true"></i></a>
+    </div>
+
   </div>
 </div>
 
 <div *ngIf="resumeVisible===2"
   style="z-index:1000; overflow:hidden; background:rgba(0,0,0,0.7); position:absolute; top:0; left:0; right:0; bottom:0; height:100%; width:100%;">
-  <div class="left white-text" style="padding:20px;">{{resume?.resumeBank_id?.firstName}} {{resume?.resumeBank_id?.lastName}}</div>
+  <div class="left white-text" style="padding:20px;">{{resume?.resumeBank_id?.firstName}}
+    {{resume?.resumeBank_id?.lastName}}</div>
+
+  <span class="chipu">{{resume.jobTitle}} </span>
+  <span class="chipu">{{resume.skills}} </span>
   <div class="right" style="padding:20px;"><a (click)="closeResume()" class="waves-effect waves-teal btn-floating"><i
         class="material-icons">close</i></a></div>
   <div class="resumeListPop" style="height:100%; width:100%; padding-left:20%; padding-right:20%; padding-top:5%;">

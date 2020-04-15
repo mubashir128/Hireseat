@@ -42,6 +42,24 @@
       <!-- <button type="submit" class="waves-effect waves-light btn">Search</button> -->
       <!-- </div> -->
     </div>
+    <div class="row">
+      <div class="skillInput">
+        <span>Note: Search by Name : </span>
+      </div>
+      <div class="inputDivMainN">
+        <input type="text" [(ngModel)]="searchTerm" formControlName="searchTerm" placeholder="Search here..." #searchByName>
+      </div>    
+    </div>
+    <div class="row">
+      <div class="skillInput">
+        <span>Note: Search by Experience : </span>
+      </div>
+      <div class="inputDivMainNN">
+        <input type="number" [(ngModel)]="minSearchTerm" formControlName="minSearchTerm" placeholder="Min Experience..." #searchByMinExperence>
+        <input type="number" style="margin-left: 10px;" [(ngModel)]="maxSearchTerm" formControlName="maxSearchTerm" placeholder="Max Experience..." #searchByMaxExperence>
+        <!-- <button class="waves-effect waves-light btn" style="margin-left: 10px;" (click)="searchByExperiance()">Search</button> -->
+      </div>
+    </div>
   </form>
 </div>
 
@@ -60,8 +78,7 @@
     <li
       class="resume-bank-item"
       *ngFor="
-        let searchedresume of searchedResume
-          | paginate: { itemsPerPage: 10, currentPage: p }
+        let searchedresume of searchedResume | paginate: { itemsPerPage: itemsPerPageAre, currentPage: p }
       "
     >
       <div class="parentCommonDF">
@@ -131,4 +148,4 @@
     </div>
   </div>
 </div>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<pagination-controls (pageChange)="handlePagination($event)"></pagination-controls>

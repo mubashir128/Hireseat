@@ -1,19 +1,13 @@
 <div style="background:#f5f5f5; height:100%;min-height:100vh; padding-top:4vh;">
   <div class="center-align" style="margin-bottom:30px;cursor: pointer;">
-    <a [routerLink]="['/']"><img src="assets/img/navbar-logo.png"/></a>
+    <a [routerLink]="['/']"><img src="assets/img/navbar-logo.png" /></a>
   </div>
 
   <div class="container">
     <div class="row">
       <div class="col s12 m8 l6  offset-m2 offset-l3">
         <div class="card row" style="padding:30px;">
-          <form
-            novalidate
-            (ngSubmit)="formSubmit()"
-            role="form"
-            [formGroup]="signin"
-            *ngIf="UserRoleSet"
-          >
+          <form novalidate (ngSubmit)="formSubmit()" role="form" [formGroup]="signin" *ngIf="UserRoleSet">
             <div class="row">
               <div class="page-title" *ngIf="localRole == 'employer'">
                 Create Employer Account
@@ -25,108 +19,57 @@
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input
-                  class="form-control"
-                  type="text"
-                  name="fullname"
-                  formControlName="fullname"
-                  autocomplete="off"
-                />
+                <input class="form-control" type="text" name="fullname" formControlName="fullname" autocomplete="off" />
                 <label for="name">Full Name</label>
-                <div
-                  *ngIf="signin.controls['fullname'].hasError('required')"
-                  class="error"
-                >
+                <div *ngIf="signin.controls['fullname'].hasError('required')" class="error">
                   Please Enter Full Name
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input
-                  type="email"
-                  class="form-control"
-                  name="email"
-                  formControlName="email"
-                  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
-                  autocomplete="off"
-                />
+                <input type="email" class="form-control" name="email" formControlName="email"
+                  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" autocomplete="off" />
                 <label for="email">Email</label>
-                <div
-                  *ngIf="signin.controls['email'].hasError('required')"
-                  class="error"
-                >
+                <div *ngIf="signin.controls['email'].hasError('required')" class="error">
                   Please Enter Email
                 </div>
-                <div
-                  *ngIf="signin.controls['email'].hasError('pattern')"
-                  class="error"
-                >
+                <div *ngIf="signin.controls['email'].hasError('pattern')" class="error">
                   Please Enter Valid Email
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="phoneNo"
-                  formControlName="phoneNo"
-                  pattern="[0-9]+"
-                  maxlength="10"
-                  minlength="10"
-                  autocomplete="off"
-                />
+                <input type="text" class="form-control" name="phoneNo" formControlName="phoneNo" pattern="[0-9]+"
+                  maxlength="10" minlength="10" autocomplete="off" />
                 <label for="phoneNumber">Phone Number</label>
-                <div
-                  *ngIf="signin.controls['phoneNo'].hasError('required')"
-                  class="error"
-                >
+                <div *ngIf="signin.controls['phoneNo'].hasError('required')" class="error">
                   Please Enter Phone Number
                 </div>
-                <div
-                  *ngIf="
+                <div *ngIf="
                     signin.controls['phoneNo'].hasError('pattern') ||
                     signin.controls['phoneNo'].hasError('minlength')
-                  "
-                  class="error"
-                >
+                  " class="error">
                   Please Enter Valid Phone Number
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="companyName"
-                  formControlName="companyName"
-                  autocomplete="off"
-                />
+                <input type="text" class="form-control" name="companyName" formControlName="companyName"
+                  autocomplete="off" />
                 <label for="company-name">Company Name</label>
-                <div
-                  *ngIf="signin.controls['companyName'].hasError('required')"
-                  class="error"
-                >
+                <div *ngIf="signin.controls['companyName'].hasError('required')" class="error">
                   Please Enter Company Name
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="webSiteLink"
-                  formControlName="webSiteLink"
-                  autocomplete="off"
-                />
-                <div
-                  *ngIf="signin.controls['webSiteLink'].hasError('required')"
-                  class="error"
-                >
+                <input type="text" class="form-control" name="webSiteLink" formControlName="webSiteLink"
+                  autocomplete="off" />
+                <div *ngIf="signin.controls['webSiteLink'].hasError('required')" class="error">
                   Please Enter Web Site
                 </div>
                 <label for="website-link">Website Link</label>
@@ -134,24 +77,12 @@
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input
-                  type="password"
-                  class="form-control"
-                  name="password"
-                  formControlName="password"
-                  minlength="5"
-                  autocomplete="off"
-                />
-                <div
-                  *ngIf="signin.controls['password'].hasError('required')"
-                  class="error"
-                >
+                <input type="password" class="form-control" name="password" formControlName="password" minlength="5"
+                  autocomplete="off" />
+                <div *ngIf="signin.controls['password'].hasError('required')" class="error">
                   Please Enter Password
                 </div>
-                <div
-                  *ngIf="signin.controls['password'].hasError('minlength')"
-                  class="error"
-                >
+                <div *ngIf="signin.controls['password'].hasError('minlength')" class="error">
                   Please Enter Minimum 5 Char password
                 </div>
                 <label for="password">Password</label>
@@ -161,40 +92,24 @@
               <div class="input-field col s12 m12 l12 ">
                 <label for="image" class="choseLabel">Profile Image</label>
                 <div class="uploadBtnDiv">
-                  <input
-                    #file
-                    type="file"
-                    accept="image/*"
-                    formControlName="file"
-                    (change)="preview(file.files)"
-                  />
+                  <input #file type="file" accept="image/*" [(ngModel)]="fileModel"
+                    [ngModelOptions]="{standalone: true}" (change)="preview(file.files)" />
+                  <!-- formControlName="file" -->
                   <button class="uploadBtn">choose profile image</button>
                 </div>
-                <img
-                  [src]="imgURL"
-                  height="200"
-                  *ngIf="imgURL"
-                  height="50px"
-                  width="50px"
-                />
-                <div
+                <img [src]="imgURL" *ngIf="imgURL" class="profile-image" />
+                <!-- <div
                   *ngIf="signin.controls['file'].hasError('required')"
                   class="error"
                 >
                   Please Select image
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="row terms-conditions">
               <div>
-                <input
-                  type="checkbox"
-                  class="filled-in"
-                  id="acceptTermsUnread"
-                  [(ngModel)]="acceptedTermsCondUnread"
-                  (click)="unReadTermsAndConditions()"
-                  [ngModelOptions]="{ standalone: true }"
-                />
+                <input type="checkbox" class="filled-in" id="acceptTermsUnread" [(ngModel)]="acceptedTermsCondUnread"
+                  (click)="unReadTermsAndConditions()" [ngModelOptions]="{ standalone: true }" />
 
                 <label for="acceptTermsUnread"></label>
               </div>
@@ -208,12 +123,8 @@
               <label for="acceptTerms" (click)="showTermsAndCond()">I accept the terms and conditions.</label>  -->
             </div>
             <div class="row  center-align">
-              <button
-                type="submit"
-                [disabled]="!suBtnActive"
-                [disabled]="!signin.form.valid"
-                class="waves-effect waves-light commonBlueBtnN"
-              >
+              <button type="submit" [disabled]="!suBtnActive || !signin.value"
+                class="waves-effect waves-light commonBlueBtnN">
                 <span *ngIf="suBtnActive">Register</span>
                 <!-- <i *ngIf="!suBtnActive" class="fa fa-spinner fa-spin" style="font-size:24px"></i> -->
                 <!-- <span *ngIf="!suBtnActive">please fill all field</span> -->
@@ -244,10 +155,7 @@
   </div>
   <div class="modal-footer">
     <div class="col s6 m6 l6 text-center">
-      <button
-        class="modal-close  waves-effect waves-light btn "
-        (click)="goHome()"
-      >
+      <button class="modal-close  waves-effect waves-light btn " (click)="goHome()">
         Ok
       </button>
     </div>
@@ -257,10 +165,7 @@
 <!-- // -->
 
 <!-- Term and Condition Model  -->
-<div
-  id="TermsAndCond"
-  class="modal modal-fixed-footer custFooterModal termAndCondition"
->
+<div id="TermsAndCond" class="modal modal-fixed-footer custFooterModal termAndCondition">
   <div class="modal-content terms">
     <h4 class="popHead">Terms And Conditions</h4>
     <h5>
@@ -467,16 +372,14 @@
       </p>
       <p>is not otherwise in compliance with these Terms of Service.</p>
     </div>
-    <P
-      >Each time you provide a Submission to the Web Site, you represent and
+    <P>Each time you provide a Submission to the Web Site, you represent and
       warrant that you have the right to provide such Submission, which means
       that you represent and warrant that:
     </P>
     <div class="agree">
       <P>you are the author of the Submission, or</P>
       <P> the Submission is not protected by copyright law, or</P>
-      <P
-        >you have express permission from the copyright owner to use the
+      <P>you have express permission from the copyright owner to use the
         Submission in connection with the Web Site; and
       </P>
       <p>

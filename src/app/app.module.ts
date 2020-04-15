@@ -124,6 +124,15 @@ import { CreateEmployerComponent } from "./enterprise/create-employer/create-emp
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { SearchPipe } from '../search.pipe';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { DashboardComponent } from './employer/dashboard/dashboard.component';
+import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
+import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.component';
+import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
+import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
+import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
+import { VideoCallComponent } from './video-call/video-call.component';
+import { SearchByNamePipe } from '../search-by-name.pipe';
+import { SearchByExperiencePipe } from '../search-by-experience.pipe';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -169,7 +178,11 @@ const appRoutes: Routes = [
   { path: "upload-resume", component: UploadResumeComponent },
   { path: "job-post", component: JobpostComponent },
 
-  { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] }
+  { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
+  {
+    path: "video-call",
+    component: VideoCallComponent
+  }
 ];
 
 const appChildRoutes: Routes = [
@@ -208,6 +221,14 @@ const appChildRoutes: Routes = [
       {
         path: "employer-Answere/:id",
         component: EmployeerAnsComponent
+      },
+      {
+        path: "dashboard",
+        component: DashboardComponent
+      },
+      {
+        path: "video-interview-room",
+        component: VideoInterviewRoomComponent
       }
     ],
     canActivate: [EmployerGuard]
@@ -299,7 +320,13 @@ const appChildRoutes: Routes = [
       {
         path: "search-resume",
         component: SearchResumeComponent
-      }
+      },
+      {
+        path: "video-interview-room",
+        component: VideoInterviewRoomComponent
+      },
+
+
     ],
     canActivate: [RecruiterGuard]
   },
@@ -435,7 +462,16 @@ const appChildRoutes: Routes = [
     EnterpriseNavbarComponent,
     EnterpriseUserListComponent,
     CreateEmployerComponent,
-    SearchPipe
+    SearchPipe,
+    DashboardComponent,
+    BarChartComponent,
+    LineChartComponent,
+    PieChartComponent,
+    ScatterChartComponent,
+    VideoInterviewRoomComponent,
+    VideoCallComponent,
+    SearchByNamePipe,
+    SearchByExperiencePipe
   ],
   imports: [
     InfiniteScrollModule,
@@ -478,4 +514,4 @@ const appChildRoutes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

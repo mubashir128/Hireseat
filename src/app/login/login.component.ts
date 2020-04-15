@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
     this.chkLoggedInUser = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "employer") {
-        this.router.navigate(["employer/bidding-event-list"]);
+        console.log("employer logged in ");
+
+        this.router.navigate(["employer/dashboard"]);
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
         this.router.navigate(["recruiter/bidding-event-list"]);
       } else if (this.chkLoggedInUser.userRole == "admin") {
@@ -72,17 +74,17 @@ export class LoginComponent implements OnInit {
     });
     if (this.login.valid) {
       this._AuthService.login(res).subscribe(
-        data => {
+        (data) => {
           if (data == "success") {
             this.userData = this.userService.getUserData();
             if (this.userData.userRole == "employer") {
-              this.router.navigate(["employer/bidding-event-list"]);
+              this.router.navigate(["employer/dashboard"]);
             } else if (this.userData.userRole == "recruiter") {
-              if (this.returnUrl) {
-                this.router.navigate([this.returnUrl]);
-              } else {
-                this.router.navigate(["recruiter/bidding-event-list"]);
-              }
+              // if (this.returnUrl) {
+              //   this.router.navigate([this.returnUrl]);
+              // } else {
+              this.router.navigate(["recruiter/bidding-event-list"]);
+              // }
             } else if (this.userData.userRole == "admin") {
               this.router.navigate(["user-list"]);
             } else if (this.userData.userRole == "super-admin") {
@@ -104,12 +106,14 @@ export class LoginComponent implements OnInit {
             this.suBtnActive = true;
           }
         },
-        error => {
+        (error) => {
           console.log(error);
           if (error == "wrong") {
             Materialize.toast("Enter valid details", 1000, "rounded");
           } else if (error == "fail") {
             Materialize.toast("Enter valid Password", 1000, "rounded");
+          } else {
+            Materialize.toast(error, 1000, "rounded");
           }
           this.status = null;
           this.suBtnActive = true;
