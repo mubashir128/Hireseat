@@ -15,17 +15,17 @@ declare var Materialize: any;
 export class SAUserListComponent implements OnInit {
 
   p = 1;
-  userList: any[]=[];
-  itemsPerPageAre = 10;
-  noBiddingEvents=false;
-  searchTerm : string;
+  pagesAre=[1];
+  createdAt=null;
   dropdownList = [];
   selectedItems = [];
+  userList: any[]=[];
+  paginatorMove=true;
+  searchTerm : string;
+  itemsPerPageAre = 100;
+  noBiddingEvents=false;
   dropdownSettings = {};
   itemsAre = ["super-admin"];
-  paginatorMove=true;
-  createdAt=null;
-  pagesAre=[1];
   @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
 
   constructor(
@@ -37,9 +37,9 @@ export class SAUserListComponent implements OnInit {
 
   ngOnInit() {
     this.getAllUsers({
+      onLoad : true,
       list : this.itemsAre,
-      itemsPerPageAre : this.itemsPerPageAre,
-      onLoad : true
+      itemsPerPageAre : this.itemsPerPageAre
     });
     this.dropdownListForUsers();
   }
@@ -54,8 +54,8 @@ export class SAUserListComponent implements OnInit {
       distinctUntilChanged(),
       tap((text) => {
         this.p=1;
-        this.pagesAre=[1];
         this.userList=[];
+        this.pagesAre=[1];
         if(this.searchTerm !== ""){
           this.paginatorMove=false;
         }else{
@@ -95,20 +95,20 @@ export class SAUserListComponent implements OnInit {
     this.resetValues();
     this.itemsAre.push(item.item_text);
     this.getAllUsers({
+      onLoad : true,
       list : this.itemsAre,
-      itemsPerPageAre : this.itemsPerPageAre,
-      onLoad : true
+      itemsPerPageAre : this.itemsPerPageAre
     });
   }
 
   onItemDeSelect(item: any){
     this.resetValues();
-    this.selectedItems=[{ item_id: 1, item_text: 'super-admin' }];
     this.itemsAre=["super-admin"];
+    this.selectedItems=[{ item_id: 1, item_text: 'super-admin' }];
     this.getAllUsers({
+      onLoad : true,
       list : this.itemsAre,
-      itemsPerPageAre : this.itemsPerPageAre,
-      onLoad : true
+      itemsPerPageAre : this.itemsPerPageAre
     });
   }
 
@@ -177,8 +177,8 @@ export class SAUserListComponent implements OnInit {
     this.pagesAre.push($event);
     this.getAllUsers({
       list : this.itemsAre,
-      itemsPerPageAre : this.itemsPerPageAre,
-      createdAt : this.createdAt
+      createdAt : this.createdAt,
+      itemsPerPageAre : this.itemsPerPageAre
     });
   }
 
