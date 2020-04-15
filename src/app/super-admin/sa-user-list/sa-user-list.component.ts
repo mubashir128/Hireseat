@@ -113,8 +113,8 @@ export class SAUserListComponent implements OnInit {
   }
 
   resetValues(){
-    this.userList=[];
     this.p=1;
+    this.userList=[];
     this.pagesAre=[1];
     this.paginatorMove=true;
   }
