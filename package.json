@@ -23,6 +23,7 @@
     "@ckeditor/ckeditor5-build-classic": "^12.4.0",
     "@ckeditor/ckeditor5-media-embed": "^11.1.3",
     "@mdi/font": "^2.8.94",
+    "@opentok/client": "^2.17.0",
     "@tinymce/tinymce-angular": "^3.2.0",
     "angular-csv-ext": "^1.0.1",
     "angular2-csv": "^0.2.9",
@@ -44,6 +45,7 @@
     "ngx-spinner": "^6.1.2",
     "ngx-text-highlight": "^0.1.6",
     "ngx-twitter-timeline": "^0.1.5",
+    "opentok-layout-js": "^3.4.0",
     "rxjs": "^6.0.0",
     "sharp": "^0.23.0",
     "zone.js": "^0.8.26"
@@ -53,6 +55,7 @@
     "@angular/cli": "~6.0.5",
     "@angular/compiler-cli": "^6.0.3",
     "@angular/language-service": "^6.0.3",
+    "@types/bootstrap": "^4.3.2",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
