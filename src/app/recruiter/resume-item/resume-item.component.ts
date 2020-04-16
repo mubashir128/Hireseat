@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Resume } from "../../models/resume";
 import { DomSanitizer } from "@angular/platform-browser";
+import { VideoCallingService } from '../../_services/video-calling.service';
+import { Subscription } from 'rxjs';
 
 declare var jQuery: any;
 @Component({
@@ -12,9 +14,13 @@ export class ResumeItemComponent implements OnInit {
   @Input() resume: Resume;
   @Output() selectedForEdit = new EventEmitter(false);
   @Output() selectedForDelete = new EventEmitter(false);
+  videoInterviewSubscription: Subscription;
   resumeVisible: number = 0;
   public data: any;
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer,
+    private videoCallingService: VideoCallingService) {
+
+  }
 
   ngOnInit() {
     jQuery(".card").mouseenter(function (e) {
@@ -108,7 +114,50 @@ export class ResumeItemComponent implements OnInit {
   showResumeForResumeBank() {
     this.resumeVisible = 2;
   }
+  onAddToInterviewList(resume) {
+    const payload = {
+      recruitersid: resume.recruiterKey,
+      candidatesId: resume._id,
+      candidateName: resume.candidateName,
+      skills: resume.skills,
+      jobTitle: resume.jobTitle
+    };
+    this.videoInterviewSubscription = this.videoCallingService.addToVideoInterviewRoomRecruiter(payload).subscribe(res => {
+      // console.log('****************', res);
+      if (res) {
+        resume.addedToVideoInterviewRoomByRecruiter = true;
+        this.emailConfirmPopup();
+      }
+    }, err => {
+      console.log('error occured', err);
 
+    });
+  }
+  viewCandidate(resume) {
+    // console.log('added resume ', resume);
+
+  }
+  viewVideo(url) {
+    // console.log(url);
+    window.open(url);
+  }
+
+  // modal
+  emailConfirmPopup() {
+    // // console.log("emailConfirmPopup");
+
+    jQuery("#emailConfirmPop").modal("open");
+    setTimeout(() => {
+      this.closeEmailConfirmpopup();
+    }, 1500);
+  }
+  closeEmailConfirmpopup() {
+    // // console.log("closing");
+
+    jQuery("#emailConfirmPop").modal("close");
+  }
+
+  // end modal
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }

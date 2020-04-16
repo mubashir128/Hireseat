@@ -80,13 +80,24 @@
   display: flex;
   justify-content: flex-end;
 }
-.title {
+.addToResumeList-title {
   height: auto;
   font-weight: 600;
   color: #37474f;
   cursor: pointer;
 }
-
+.addedToResumeList-title {
+  height: auto;
+  font-weight: 600;
+  color: #1f805b;
+  cursor: pointer;
+}
+.interviewSchedule-title {
+  height: auto;
+  font-weight: 600;
+  color: #2ea9fa;
+  cursor: pointer;
+}
 .candidate-name .title {
   font-size: 14px;
   margin: 10px 0 0px;

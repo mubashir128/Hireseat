@@ -1,5 +1,5 @@
 <!-- <div class="">
-  
+
   <nav class="white">
     <div class="nav-wrapper container">
       <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png" style="vertical-align:middle;" /></a>
@@ -13,9 +13,9 @@
 <!-- <li><a [routerLink]="['/blog']" style="color:#33AAFF;">Blog</a></li>
 
         <li><a  [routerLink]="['/forum']">Ask a Recruiter</a>
-           
+
         <li><a [routerLink]="['/recruiter/profile']">My Profile</a></li>
-        <li> 
+        <li>
         <ng-container *ngIf="show">
           <div class="notificationList" >
               <div class="notificationListInner" >
@@ -43,41 +43,34 @@
     <li><a class="mobileMenu-li" (click)="navigate('/recruiter/profile')" >My Profile</a></li>
     <li *ngIf="!this.supperAdmin.checkSuperAdminEmail()"><a class="mobileMenu-li" (click)="logout()">Logout</a></li>
   </ul>
- 
+
 </div> -->
 
 <app-navbar></app-navbar>
 <!-- for super admin -->
-<ng-container class="container" style="margin-top:15px;">
-  <div class="row">
-    <div
-      class="LogOutOption mobileHeadRe"
-      *ngIf="this.supperAdmin.checkSuperAdminEmail()"
-    >
-      <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
-      <a (click)="logoutSA()"> Logout </a>
-    </div>
-    <div class="col s12 m3 l3" *ngIf="!isOnProfile">
-      <app-recruiter-navbar
-        (selected)="navigate($event)"
-      ></app-recruiter-navbar>
-    </div>
-    <!-- <div class="col s12 m9 l9"> -->
-    <div
-      [ngClass]="{
-        'col s12 m12 l12': isOnProfile,
-        'col s12 m9 l9': !isOnProfile
-      }"
-    >
-      <div
-        class="LogOutOption desktopRe"
-        *ngIf="this.supperAdmin.checkSuperAdminEmail()"
-      >
+<ng-container style="margin-top:15px;">
+  <div class="container">
+    <div class="row">
+      <div class="LogOutOption mobileHeadRe" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
         <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
         <a (click)="logoutSA()"> Logout </a>
       </div>
-      <router-outlet></router-outlet>
+      <div class="col s12 m3 l3" *ngIf="!isOnProfile">
+        <app-recruiter-navbar (selected)="navigate($event)"></app-recruiter-navbar>
+      </div>
+      <!-- <div class="col s12 m9 l9"> -->
+      <div [ngClass]="{
+          'col s12 m12 l12': isOnProfile,
+          'col s12 m9 l9': !isOnProfile
+        }">
+        <div class="LogOutOption desktopRe" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
+          <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
+          <a (click)="logoutSA()"> Logout </a>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
+
 </ng-container>
 <!-- end for super admin -->

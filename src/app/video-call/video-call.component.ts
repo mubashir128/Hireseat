@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { baseUrl } from '../globalPath';
 declare var jQuery: any;
 import * as $ from 'jquery';
+import { VideoCallingService } from '../_services/video-calling.service';
 
 @Component({
   selector: 'app-video-call',
@@ -14,6 +15,7 @@ import * as $ from 'jquery';
   styleUrls: ['./video-call.component.css']
 })
 export class VideoCallComponent implements OnInit, OnDestroy {
+  message: any;
   candidate = false;
   isRecruiter = true;
   roomId: any;
@@ -32,12 +34,15 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   stopArchiveButton = false;
   viewArchiveButton = false;
   meetingStatus = false;
+  candidateInvitationLink = true;
+  candidateId: any;
   constructor(
     private ref: ChangeDetectorRef,
     private opentokService: OpentokService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private videoCallingService: VideoCallingService
   ) {
 
     this.changeDetectorRef = ref;
@@ -89,6 +94,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
             if (userRole === 'employer') {
               this.isRecruiter = false;
             } else if (userRole === 'recruiter') {
+
+              this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+              console.log('candidateId', this.candidateId);
               this.isRecruiter = true;
             }
           }
@@ -105,6 +113,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.candidateInvitationLink = true;
     this.spinner.show();
     this.opentokService.initSessionAPI('test').then((session: OT.Session) => {
       this.session = session;
@@ -178,13 +187,13 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   // modal
-  emailConfirmPopup() {
+  emailConfirmPopup(message, time) {
     // // console.log("emailConfirmPopup");
-
+    this.message = message;
     jQuery("#emailConfirmPop").modal("open");
     setTimeout(() => {
       this.closeEmailConfirmpopup();
-    }, 1500);
+    }, time);
   }
   closeEmailConfirmpopup() {
     // // console.log("closing");
@@ -193,7 +202,6 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   // end modal
-
   copyText(val: string) {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -207,7 +215,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     document.execCommand('copy');
     document.body.removeChild(selBox);
     // alert('URL copied to clipboard');
-    this.emailConfirmPopup();
+    this.emailConfirmPopup('Link copied to Clipboard', 1500);
 
   }
 
@@ -282,13 +290,28 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     this.stopArchiveButton = true;
   }
   viewArchive() {
-    // eslint-disable-line no-unused-vars
+    // store archived view
     $('#view').prop('disabled', true);
     this.viewArchiveButton = true;
-    console.log(baseUrl);
+    // console.log(baseUrl);
+    const payload = {
+      archiveId: this.archiveID,
+      candidateId: this.candidateId
+    };
+    // add subscription
+    this.videoCallingService.storeArchive(payload).subscribe(res => {
+      console.log(res);
+      if (res) {
+        this.emailConfirmPopup("The archived link is added to the candidate's resume", 3000);
+        this.viewArchiveButton = false;
+        this.candidateInvitationLink = false;
+      }
+    }, err => {
+      console.log('error', err);
 
+    });
     // window.location = SAMPLE_SERVER_BASE_URL + /archive/ + archiveID + '/view';
-    window.open(baseUrl + 'api/archive/' + this.archiveID + '/view');
+    // window.open(baseUrl + 'api/archive/' + this.archiveID + '/view');
   }
   // end of archiving
   ngOnDestroy() {

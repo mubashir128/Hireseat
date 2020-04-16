@@ -6,12 +6,12 @@
       <h3> {{resume.candidateName}}</h3>
 
       <h4 class="title">Job Title</h4>
-      <div class="listDiv"><span class="chipu">{{resume.jobTitle}} </span> <span class="chipu">{{resume.skills}} </span>
+      <div class="listDiv"><span class="chipu">{{resume.jobTitle}} </span>
       </div>
 
       <h4 class="title">Skill set</h4>
       <div class="listDiv">
-        <span class="chipu">{{resume.jobTitle}} </span><span class="chipu">{{resume.skills}} </span>
+        <span class="chipu">{{resume.skills}} </span>
       </div>
     </div>
   </div>
@@ -26,8 +26,17 @@
           aria-hidden="true"></i></a>
     </div>
     <div class="addToResumeList">
-      <span class="title">
+      <span class="addToResumeList-title" *ngIf="!resume.addedToVideoInterviewRoomByRecruiter"
+        (click)="onAddToInterviewList(resume)">
         Add to video interview
+      </span>
+      <span class="interviewSchedule-title" (click)="viewCandidate(resume)"
+        *ngIf="resume.addedToVideoInterviewRoomByRecruiter && !resume.interviewLinkedByRecruiter">
+        Interview scheduled
+      </span>
+      <span class="addedToResumeList-title" *ngIf="resume.interviewLinkedByRecruiter"
+        (click)="viewVideo(resume.interviewLinkedByRecruiter)">
+        View interview
       </span>
     </div>
   </div>
@@ -66,7 +75,7 @@
           aria-hidden="true"></i></a>
     </div>
     <div class="addToResumeList">
-      <span class="title">
+      <span class="addToResumeList-title" (click)="onAddToInterviewList(resume)">
         Add to video interview
       </span>
     </div>
@@ -86,3 +95,17 @@
     <app-pdf-viewer [url]="resume.resumeBank_id.resumeUrl"></app-pdf-viewer>
   </div>
 </div>
+
+
+
+<!--message pop up:START-->
+<div id="emailConfirmPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+  <a (click)="closeEmailConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+  <div class="modal-content videoModalContent">
+    <h4 class="slide-heading text-center">Interview Scheduled</h4>
+    <div class="modalBodyPop">
+      <p>Candidate added for an interview</p>
+    </div>
+  </div>
+</div>
+<!--message pop up:END-->

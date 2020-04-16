@@ -81,52 +81,58 @@
                     <!-- <div *ngIf="candidate" (click)="unsubscribe(stream)">unsubscribe</div> -->
 
                   </ng-container>
-                  <app-publisher [session]="session"></app-publisher>
-                </div>
-                <!-- archive button -->
-                <ng-container *ngIf="!candidate">
-                  <div class="archive-copylink">
-                    <div id="buttons">
-                      <button type="button" class="start-button" *ngIf="startArchiveButton"
-                        (click)="startArchive()">Start
-                        Archive</button>
-                      <button type="button" class="stop-button" *ngIf="stopArchiveButton"
-                        (click)="stopArchive(archiveID)">Stop
-                        Archive</button>
-                      <button type="button" class="view-button" *ngIf="viewArchiveButton" (click)="viewArchive()">View
-                        Archive</button>
-                    </div>
+                  <div class="publisher-container">
+                    <app-publisher [session]="session"></app-publisher>
+                    <!-- archive button -->
+                    <ng-container *ngIf="!candidate">
+                      <div class="archive-copylink">
+                        <!-- <div id="buttons"> -->
+                        <button type="button" class="start-button" *ngIf="startArchiveButton"
+                          (click)="startArchive()">Start
+                          Archive</button>
+                        <button type="button" class="stop-button" *ngIf="stopArchiveButton"
+                          (click)="stopArchive(archiveID)">Stop
+                          Archive</button>
+                        <button type="button" class="view-button" *ngIf="viewArchiveButton"
+                          (click)="viewArchive()">Submit
+                          Archive</button>
+                        <!-- </div> -->
 
-                    <!-- button for local -->
+                        <!-- button for local -->
 
-                    <button id="myBtn" class="copy-link"
-                      (click)="copyText('http://localhost:4200/video-call/'+toCopylinkPublishedStreamId)"
-                      value="click to copy">
-                      Candidate Invitation Link
-                    </button>
+                        <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink"
+                          (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
+                          value="click to copy">
+                          Candidate Invitation Link
+                        </button>
+                        <ng-container *ngIf="!candidate && !isRecruiter">
+                          <button type="button" routerLink='/employer/video-interview-room' class="end-meeting">
+                            End
+                            Meeting</button>
+                        </ng-container>
+                        <ng-container *ngIf="!candidate && isRecruiter">
+                          <button type="button" routerLink='/recruiter/video-interview-room' class="end-meeting">End
+                            Meeting</button>
+                        </ng-container>
+                      </div>
+
+                      <!-- local end -->
+
+                      <!-- button for live -->
+                      <!-- <button *ngIf="!candidate" id="myBtn" class="copy-link"
+                    (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
+                    value="click to copy">
+                    Candidate Invitation Link
+                  </button> -->
+                      <!-- live end -->
+
+                    </ng-container>
+                    <!-- archive and stop-copylink button end -->
                   </div>
 
-                  <!-- local end -->
+                </div>
 
-                  <!-- button for live -->
-                  <!-- <button *ngIf="!candidate" id="myBtn" class="copy-link"
-                  (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
-                  value="click to copy">
-                  Candidate Invitation Link
-                </button> -->
-                  <!-- live end -->
-                </ng-container>
 
-                <!-- End archive button-->
-                <!-- end api based calling -->
-                <ng-container *ngIf="!candidate && !isRecruiter">
-                  <button type="button" routerLink='/employer/video-interview-room' class="end-meeting">End
-                    Meeting</button>
-                </ng-container>
-                <ng-container *ngIf="!candidate && isRecruiter">
-                  <button type="button" routerLink='/recruiter/video-interview-room' class="end-meeting">End
-                    Meeting</button>
-                </ng-container>
 
 
 
@@ -194,7 +200,7 @@
   <div class="modal-content videoModalContent">
     <h4 class="slide-heading text-center"> Message</h4>
     <div class="modalBodyPop">
-      <p>Link copied to Clipboard</p>
+      <p>{{message}}</p>
     </div>
   </div>
 </div>

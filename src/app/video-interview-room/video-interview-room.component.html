@@ -12,20 +12,20 @@
   </div>
   <div class="row">
     <div class="column">
-      <div class="card click-effect" (click)="onInterview()"
-        *ngFor="let candidate of employerInterviewList; let i=index">
+      <div class="card click-effect" (click)="onInterview(candidate.candidateId)"
+        *ngFor="let candidate of interviewList; let i=index">
         <div class="candidate-information">
           <div class="name">
             <span class="can-details-title">
               Name :
             </span>
-            {{candidate.name}}
+            {{candidate.candidateName}}
           </div>
           <div class="role">
             <span class="can-details-title">
               Role :
             </span>
-            {{candidate.role}}
+            {{candidate.jobTitle}}
           </div>
           <div class="skillset">
             <span class="can-details-title">
