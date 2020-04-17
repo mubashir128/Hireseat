@@ -6,6 +6,10 @@ app-subscriber {
 }
 .call {
   display: flex;
+  flex-direction: column;
+}
+.screens {
+  display: flex;
 }
 .back {
   cursor: pointer;
@@ -601,6 +605,10 @@ nav ul a {
   align-items: center;
 }
 .publisher-container {
+  display: flex;
+  flex-direction: column;
+}
+.candidate-container {
   display: flex;
   flex-direction: column;
 }

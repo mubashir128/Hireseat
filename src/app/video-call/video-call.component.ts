@@ -182,7 +182,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         console.error(err);
         this.spinner.hide();
 
-        alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
+        alert('Unable to connect.');
       });
   }
 
@@ -304,7 +304,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       if (res) {
         this.emailConfirmPopup("The archived link is added to the candidate's resume", 3000);
         this.viewArchiveButton = false;
-        this.candidateInvitationLink = false;
+        // this.candidateInvitationLink = false;
+        this.startArchiveButton = true;
       }
     }, err => {
       console.log('error', err);
