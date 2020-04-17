@@ -8,6 +8,7 @@ import { baseUrl } from '../globalPath';
 declare var jQuery: any;
 import * as $ from 'jquery';
 import { VideoCallingService } from '../_services/video-calling.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-call',
@@ -15,6 +16,8 @@ import { VideoCallingService } from '../_services/video-calling.service';
   styleUrls: ['./video-call.component.css']
 })
 export class VideoCallComponent implements OnInit, OnDestroy {
+  userRole: any;
+  userId: any;
   message: any;
   candidate = false;
   isRecruiter = true;
@@ -36,17 +39,21 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   meetingStatus = false;
   candidateInvitationLink = true;
   candidateId: any;
+  candidateInfo: any;
+  responseArchivedId: any;
+  commentFromRecruiter: any;
   constructor(
     private ref: ChangeDetectorRef,
     private opentokService: OpentokService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
-    private videoCallingService: VideoCallingService
+    private videoCallingService: VideoCallingService,
+    private sanitizer: DomSanitizer,
   ) {
 
     this.changeDetectorRef = ref;
-
+    this.userId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
     // subscription to the published stream
     this.publishedStreamSubscription = this.opentokService._publishedStream.subscribe(publishedStream => {
       this.spinner.show();
@@ -89,11 +96,11 @@ export class VideoCallComponent implements OnInit, OnDestroy {
             this.allowSubscriber = true;
 
             // // console.log('recruiter on video call');
-            const userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
+            this.userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
             this.candidate = false;
-            if (userRole === 'employer') {
+            if (this.userRole === 'employer') {
               this.isRecruiter = false;
-            } else if (userRole === 'recruiter') {
+            } else if (this.userRole === 'recruiter') {
 
               this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
               console.log('candidateId', this.candidateId);
@@ -184,6 +191,16 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
         alert('Unable to connect.');
       });
+
+    // getting candidates resume by Id
+    const payload = {
+      candidateId: this.candidateId
+    };
+    this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
+      console.log(res);
+      this.candidateInfo = res.isCandidate;
+    });
+    // end resume candidate
   }
 
   // modal
@@ -302,6 +319,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     this.videoCallingService.storeArchive(payload).subscribe(res => {
       console.log(res);
       if (res) {
+        this.responseArchivedId = res.archiveId;
         this.emailConfirmPopup("The archived link is added to the candidate's resume", 3000);
         this.viewArchiveButton = false;
         // this.candidateInvitationLink = false;
@@ -313,6 +331,18 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     });
     // window.location = SAMPLE_SERVER_BASE_URL + /archive/ + archiveID + '/view';
     // window.open(baseUrl + 'api/archive/' + this.archiveID + '/view');
+  }
+  // submit recruiters review
+  submitReview() {
+    const payload = {
+      recruiterId: this.userId,
+      review: this.commentFromRecruiter,
+      archiveID: this.responseArchivedId
+    };
+  }
+
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   // end of archiving
   ngOnDestroy() {

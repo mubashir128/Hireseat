@@ -74,9 +74,9 @@
               </div>
               <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.email"
                 formControlName="email">
-              <div *ngIf="(f.email.touched && f.email.errors)" class="invalid-feedback" class="error">
-                <div *ngIf="f.email.errors.emai">Enter valid email id</div>
-              </div>
+                <div *ngIf="(f.email.touched && f.email.errors)" class="invalid-feedback" class="error">
+                  <div *ngIf="f.email.errors.required">Enter valid email</div>
+                </div>
 
             </div>
             <div class="input-field col s6 m6 l6">

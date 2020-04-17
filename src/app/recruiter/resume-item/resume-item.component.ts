@@ -137,9 +137,21 @@ export class ResumeItemComponent implements OnInit {
     // console.log('added resume ', resume);
 
   }
-  viewVideo(url) {
-    // console.log(url);
-    window.open(url);
+  viewVideo(archivedId) {
+    console.log(archivedId);
+    const payload = {
+      archivedId: archivedId
+    };
+    this.videoCallingService.getArchivedVideo(payload).subscribe(url => {
+      if (url) {
+        window.open(url.url);
+        console.log(url);
+
+      } else {
+        console.log('unable to load url');
+
+      }
+    });
   }
 
   // modal

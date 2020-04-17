@@ -492,7 +492,7 @@ nav ul a {
   padding: 30px;
   display: flex;
   /* align-items: center; */
-  justify-content: center;
+  justify-content: flex-start !important;
   margin-bottom: 30px;
   transition: 1s;
   height: 210px;
@@ -582,11 +582,11 @@ nav ul a {
 }
 .docDiv {
   border-right: 1px solid #dbdbdb;
-  border-left: 1px solid #dbdbdb;
+  /* border-left: 1px solid #dbdbdb; */
 }
 
 .ActionDiv.commonSingleInner {
-  width: 30%;
+  width: 70%;
   padding: 0 20px;
 }
 .commentTxt {

@@ -12,9 +12,8 @@
   </div>
   <div class="row">
     <div class="column">
-      <div class="card click-effect" (click)="onInterview(candidate.candidateId)"
-        *ngFor="let candidate of interviewList; let i=index">
-        <div class="candidate-information">
+      <div class="card click-effect" *ngFor="let candidate of interviewList; let i=index">
+        <div class="candidate-information" (click)="onInterview(candidate.candidateId)">
           <div class="name">
             <span class="can-details-title">
               Name :
@@ -33,6 +32,9 @@
             </span>
             {{candidate.skills}}
           </div>
+        </div>
+        <div class="trash-candidate">
+          <i class="fa fa-trash" (click)="trashCandidate(candidate)" aria-hidden="true"></i>
         </div>
       </div>
     </div>

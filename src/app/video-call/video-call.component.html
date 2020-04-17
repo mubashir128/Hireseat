@@ -146,7 +146,7 @@
       </div>
       <!-- feedback area -->
       <div *ngIf="!candidate" class="singleList resumeSingleList margin-T50" id="animateinterview{{ i }}">
-        <div class="PointsDiv commonSingleInner">
+        <!-- <div class="PointsDiv commonSingleInner">
           <div class="PointsDivSingle PointsDivSingleN">
             <img src="assets/img/checkIcon.png" class="img-responsive" />
             <h4>Point 1</h4>
@@ -162,14 +162,14 @@
             <h4>Point 3</h4>
 
           </div>
-        </div>
+        </div> -->
 
         <div class="docSection">
           <div class="docDiv">
-            <img src="assets/img/doc.png" class="img-responsive" id="img{{ i }}" />
-            <!-- <a [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank" download> -->
-            <h4>Download Resume</h4>
-            <!-- </a> -->
+            <img src="assets/img/doc.png" class="img-responsive" />
+            <a [attr.href]="transform(candidateInfo?.fileURL)" target="_blank" download>
+              <h4>Download Resume</h4>
+            </a>
           </div>
         </div>
 
@@ -181,10 +181,14 @@
               <!-- [attr.id]="'Comments' + resume._id" -->
               <textarea class="commentTxt" rows="5" cols="4"></textarea>
             </div>
-            <div class="docDiv">
+            <!-- <div class="docDiv">
               <h4><span>Recruiter Cost:</span>20</h4>
-            </div>
+            </div> -->
+
           </div>
+          <button id="myBtn" (click)="submitReview()" class="copy-link">
+            Submit review
+          </button>
         </div>
 
       </div>

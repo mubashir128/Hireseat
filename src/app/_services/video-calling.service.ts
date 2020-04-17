@@ -32,4 +32,23 @@ export class VideoCallingService {
       })
     );
   }
+  getArchivedVideo(payload) {
+    return this.http.post<any>(this.baseurl + 'api/getArchivedVideo', payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  traashCandidateFromInterviewList(payload) {
+    return this.http.post<any>(this.baseurl + 'api/trashCandidate', payload).pipe(map((res: any) => {
+      return res;
+    })
+    );
+  }
+  getCandidatesInfoById(payload) {
+    return this.http.post<any>(this.baseurl + 'api/getCandidatesInfo', payload).pipe(map((res: any) => {
+      return res;
+    })
+    );
+  }
 }

@@ -73,7 +73,7 @@
   flex-direction: column;
   width: 100%;
   height: auto;
-  padding: 0px 50px 0px 80px;
+  padding: 0px 0px 0px 80px;
 }
 .name {
   width: 100%;
@@ -98,5 +98,16 @@
   width: 10%;
   display: flex;
   justify-content: flex-start;
+}
+.card {
+  display: flex !important;
+}
+.fa-trash {
+  color: red !important;
+}
+.trash-candidate {
+  height: 30px;
+  padding-right: 20px;
+  font-size: 20px;
 }
 /* end of candidate details */

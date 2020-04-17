@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { VideoCallingService } from '../_services/video-calling.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-video-interview-room',
@@ -15,57 +16,18 @@ export class VideoInterviewRoomComponent implements OnInit {
   interviewList: any;
   constructor(
     private router: Router,
-    private videoCallingService: VideoCallingService
+    private videoCallingService: VideoCallingService,
+    private spinner: NgxSpinnerService,
   ) {
     this.userRole = JSON.parse(localStorage.getItem("currentUser")).userInfo
       .userRole;
     this.userId = JSON.parse(localStorage.getItem("currentUser")).userInfo
       ._id;
-    this.employerInterviewList = [
-      {
-        id: 1,
-        name: 'Tom',
-        role: 'Backend developer',
-        skills: [
-          'nodejs',
-          'mongodb',
-          'javascript'
-        ]
-      },
-      {
-        id: 2,
-        name: 'Shina',
-        role: 'UI/UX developer',
-        skills: [
-          'Figma Software',
-          'angular',
-          'javascript'
-        ]
-      },
-      {
-        id: 3,
-        name: 'Eric',
-        role: 'Frontend developer',
-        skills: [
-          'PHP',
-          'angular',
-          'javascript'
-        ]
-      },
-      {
-        id: 4,
-        name: 'Max',
-        role: 'Cloud architect',
-        skills: [
-          'AWS',
-          'Asure',
-          'Goolge cloude'
-        ]
-      }
-    ];
+
   }
 
   ngOnInit() {
+    this.spinner.show();
     // console.log(window.location.hostname);
     if (this.userRole === 'recruiter') {
       console.log(this.userId, this.userRole);
@@ -75,13 +37,17 @@ export class VideoInterviewRoomComponent implements OnInit {
       // get all candidates for interview
       this.videoCallingService.getAllRecruitersCandidates(payload).subscribe(res => {
         if (res) {
+          this.spinner.hide();
           this.interviewList = res;
           console.log('*******************************', this.interviewList);
         }
       }, err => {
+        this.spinner.hide();
         console.log(err);
       });
     } else if (this.userRole === 'employer') {
+      this.spinner.hide();
+
       //  get all candidates for interview
     }
 
@@ -89,5 +55,33 @@ export class VideoInterviewRoomComponent implements OnInit {
   onInterview(candidateId) {
     // window.open('http://' + window.location.hostname + '/video-call');
     this.router.navigate(['video-call/' + candidateId]);
+  }
+  trashCandidate(candidate) {
+    this.spinner.show();
+    console.log(candidate);
+    const payload = {
+      candidateId: candidate.candidateId
+    };
+    this.videoCallingService.traashCandidateFromInterviewList(payload).subscribe((res) => {
+      if (res) {
+
+        this.interviewList.map((can: any) => {
+          if (can.candidateId === payload.candidateId) {
+            const removeCandidate = this.interviewList.indexOf(can);
+            if (removeCandidate > -1) {
+              this.interviewList.splice(removeCandidate, 1);
+              this.spinner.hide();
+
+            }
+          }
+        });
+      } else {
+        this.spinner.hide();
+
+      }
+    }, err => {
+      this.spinner.hide();
+
+    });
   }
 }
