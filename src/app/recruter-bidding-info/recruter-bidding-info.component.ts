@@ -30,10 +30,10 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   suggestedResume: any;
   resumeid: any[];
   bididkey: any;
-  
+
   @HostListener('document:click', ['$event'])
 
-  // some issue while opening and closing custom dropdown done using hostlistener 
+  // some issue while opening and closing custom dropdown done using hostlistener
   // clickout(event) {
   //   console.log(event.target);
   //   if (jQuery(event.target).attr('id') == 'toggleDropdownId') {
@@ -54,7 +54,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   public resumePoints: FormGroup;
   myBids: any[];
   user: IUser;
-  p:any;
+  p: any;
   resumes: IResume[];
   ResumeList: any[] = [];
   errorMsg: boolean = false;
@@ -69,11 +69,11 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   public skillsPt: number;
   public experiencePt: number;
   public personalityPt: number;
-  tempResume:any;
+  tempResume: any;
   @Output() ResumeCount: EventEmitter<any> = new EventEmitter<any>();
   @Output() InterviewCount: EventEmitter<any> = new EventEmitter<any>();
   currentRecruterId: any;
-  showdropDown:boolean = false
+  showdropDown: boolean = false
   searchvalue: any;
   data: IResume[];
   showdropdown: boolean = false;
@@ -83,7 +83,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
     private bidService: BidService, private router: Router, private bidEventService: BiddingEventService,
     public spinner: NgxSpinnerService, private route: ActivatedRoute, private feedbackService: FeedbackService,
     private sanitizer: DomSanitizer, private eRef: ElementRef) {
-      
+
 
     this.loggedUser = this.userService.getUserData();
     this.bidFrm = this.formBuilder.group({
@@ -94,7 +94,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
       resumePoint1: ['', Validators.compose([Validators.required, Validators.maxLength(200)])],
       resumePoint2: ['', Validators.compose([Validators.required, Validators.maxLength(200)])],
       resumePoint3: ['', Validators.compose([Validators.required, Validators.maxLength(200)])],
-      recruiterCost:['',Validators.required]
+      recruiterCost: ['', Validators.required]
     });
 
     this.bid = new Bid();
@@ -110,14 +110,15 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   get frm() { return this.resumePoints.controls }
 
   ngOnChanges() {
-   
+    console.log('bidding event details from recruiter bidding info', this.biddingEvent);
+
     this.route.params.subscribe(params => { this.getJobprofileDetails(params['key']) });
 
     var userData = this.userService.getUser();
     this.currentRecruterId = userData.userInfo._id;
- 
-  
-  
+
+
+
     jQuery('select').material_select();
     jQuery('.modal').modal();
 
@@ -136,7 +137,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
         }
       }
     }
-    
+
     jQuery('.dropdown-button_resume').dropdown({
       inDuration: 300,
       outDuration: 225,
@@ -150,23 +151,23 @@ export class RecruterBiddingInfoComponent implements OnChanges {
 
     this.route.params.subscribe(params => { this.handleRequest(params['key']); });
   }
-  onfocus(e){
+  onfocus(e) {
     jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
- 
+
   }
-  getJobprofileDetails(bidid){
-   
+  getJobprofileDetails(bidid) {
+
     this.spinner.show();
-    
-    this.feedbackService.getJobprofileDetails(bidid).subscribe((response)=>{
+
+    this.feedbackService.getJobprofileDetails(bidid).subscribe((response) => {
       this.profileDetails = response.jobProfileKey;
-    
-        this.resumeService.getsuggestedresume(this.profileDetails._id).subscribe((res:any)=>{
-      
+
+      this.resumeService.getsuggestedresume(this.profileDetails._id).subscribe((res: any) => {
+
         this.suggestedResume = res;
-    })
+      })
       this.spinner.hide();
-    },(error)=>{
+    }, (error) => {
       console.log(error);
       this.spinner.hide();
     })
@@ -175,13 +176,13 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   openDropdown() {
 
     jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
-    
-   
-      this.showdropdown = true;
-    
+
+
+    this.showdropdown = true;
+
   }
-  toggle(event){
-    
+  toggle(event) {
+
     if (jQuery(event.target).attr('id') == 'toggleDropdownId') {
       jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
     } else {
@@ -189,27 +190,27 @@ export class RecruterBiddingInfoComponent implements OnChanges {
     }
 
   }
-  searchtext(event){
-    
-     this.resumes = this.tempResume; 
-     this.searchvalue = event.target.value;
-     if(this.searchvalue == ''){
-       return 
-     }
-     var regexp = new RegExp(this.searchvalue, 'i')
-     this.resumes = this.resumes.filter(resume => regexp.test(resume.candidateName));
-      return this.resumes
-     
+  searchtext(event) {
+
+    this.resumes = this.tempResume;
+    this.searchvalue = event.target.value;
+    if (this.searchvalue == '') {
+      return
+    }
+    var regexp = new RegExp(this.searchvalue, 'i')
+    this.resumes = this.resumes.filter(resume => regexp.test(resume.candidateName));
+    return this.resumes
+
   }
-  
+
   handleRequest(key) {
     this.feedbackService.getBidsByIdForRecruiter(key).subscribe((data) => {
       if (data != null) {
         this.ResumeList = data
         this.ResumeCount.emit(this.ResumeList.length);
-        this.feedbackService.getInterviewdResumeCount(key).subscribe((res)=>{
-         this.InterviewCount.emit(res);
-      });
+        this.feedbackService.getInterviewdResumeCount(key).subscribe((res) => {
+          this.InterviewCount.emit(res);
+        });
         if (!(this.ResumeList.length > 0)) {
           this.errorMsg = true;
         }
@@ -229,7 +230,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
 
 
 
- 
+
 
 
   transform(url) {
@@ -247,16 +248,16 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   }
 
 
-  
+
   populateBids() {
     this.spinner.show();
-  
+
     this.bidService.getAllBids(this.biddingEvent.$key).subscribe((data: IBid[]) => {
-       this.resumeid = data.map(function (obj) {
+      this.resumeid = data.map(function (obj) {
         return obj.resumeKey;
       });
       this.bids = data;
-     
+
       if (this.bids.length) {
         this.getBiddingDetails();
       }
@@ -269,7 +270,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   }
 
   getBiddingDetails() {
-    
+
     this.spinner.show();
     this.bidService.getBiddingDetails(this.biddingEvent.$key).subscribe((data: any) => {
       this.totalCandidateBidded = data.max;
@@ -284,11 +285,11 @@ export class RecruterBiddingInfoComponent implements OnChanges {
 
   populateMyBids() {
     this.spinner.show();
-    
+
     this.bidService.getRecruiterBids(this.loggedUser._id, this.biddingEvent.$key).subscribe((data: any) => {
       this.spinner.hide();
       this.myBids = data;
-   
+
       this.resumeid = data.resumeKey
 
 
@@ -297,46 +298,46 @@ export class RecruterBiddingInfoComponent implements OnChanges {
         this.spinner.hide();
         console.log(error);
       });
-     
+
   }
 
   populateResumes() {
     this.spinner.show();
-    this.route.params.subscribe(params => { 
+    this.route.params.subscribe(params => {
       this.bididkey = params['key'];
     })
-    
+
     this.resumeService.getAllResume().subscribe((data: IResume[]) => {
       var resumeList = [];
       if (data.length > 0) {
         data.forEach(element => {
-        
 
-       
+
+
           if (element.resumeType == 'resume_bank') {
             element.candidateName = element.resumeBank_id.firstName + " " + element.resumeBank_id.lastName
             resumeList.push(element)
           } else {
             resumeList.push(element);
-          } 
-        
-          
-          
+          }
+
+
+
         });
         this.isShow = true;
         this.resumes = resumeList;
-        this.tempResume =  this.resumes;
-       
+        this.tempResume = this.resumes;
+
       } else
         this.isShow = false;
 
       this.spinner.hide();
-    
+
     }, (error) => {
       this.spinner.hide();
       console.log(error);
     });
-    
+
   }
 
   selectedResumeVal(id, name) {
@@ -359,12 +360,12 @@ export class RecruterBiddingInfoComponent implements OnChanges {
       this.spinner.hide();
     });
   }
-  submitsuggestedBid(id,firstName,lastName){
-   
+  submitsuggestedBid(id, firstName, lastName) {
+
     this.selectedResume = new Resume();
     this.selectedResume._id = id;
-    this.CandidateName = firstName+lastName;
-    this.selectedResume.candidateName = firstName+lastName;
+    this.CandidateName = firstName + lastName;
+    this.selectedResume.candidateName = firstName + lastName;
     this.showPointsModal();
     // this.submitBid();
   }
@@ -373,8 +374,8 @@ export class RecruterBiddingInfoComponent implements OnChanges {
       this.spinner.show();
       this.bid.resumeKey = this.selectedResume._id;
       this.bid.candidateName = this.selectedResume.candidateName;
-     
-      if (this.bids.findIndex(obj => obj.resumeKey == this.bid.resumeKey  ) == -1) {
+
+      if (this.bids.findIndex(obj => obj.resumeKey == this.bid.resumeKey) == -1) {
         this.showPointsModal();
 
       } else {
@@ -410,13 +411,13 @@ export class RecruterBiddingInfoComponent implements OnChanges {
     this.bidService.createBid(this.bid).subscribe((data: any) => {
       if (data.result == "inserted") {
         Materialize.toast('Bid submitted successfully! !', 4000);
-        
-        this.resumeService.getsuggestedresume(this.profileDetails._id).subscribe((res:any)=>{
+
+        this.resumeService.getsuggestedresume(this.profileDetails._id).subscribe((res: any) => {
           this.suggestedResume = res;
           this.resumePoints.reset();
-      })
-      this.populateBids(); 
-         
+        })
+        this.populateBids();
+
         jQuery('#ThreePointsModel').modal('close');
         this.populateBids();
         this.populateMyBids();

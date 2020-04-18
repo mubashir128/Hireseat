@@ -51,4 +51,10 @@ export class VideoCallingService {
     })
     );
   }
+  submitRecruitersReview(payload) {
+    return this.http.post<any>(this.baseurl + 'api/recruiterReview', payload).pipe(map((res: any) => {
+      return res;
+    })
+    );
+  }
 }

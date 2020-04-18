@@ -40,18 +40,20 @@
 
       <div class="docSection">
         <div class="docDiv">
-          <img
-            src="assets/img/doc.png"
-            class="img-responsive"
-            id="img{{ i }}"
-          />
-          <a
-            [attr.href]="transform(resume?.resumeKey?.fileURL)"
-            target="_blank"
-            download
-          >
+          <img src="assets/img/doc.png" class="img-responsive" id="img{{ i }}" />
+          <a [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank" download>
             <h4>Download Resume</h4>
           </a>
+          <span *ngIf="resume?.resumeKey?.linkedIn" class="linkedIn-profile"
+            (click)="onLinkedIn(resume?.resumeKey?.linkedIn)">
+            <i class=" fa fa-linkedin" aria-hidden="true"></i>
+            LinkedIn
+          </span>
+          <span *ngIf="resume?.resumeKey?.interviewLinkedByRecruiter" class="view-interview"
+            (click)="seeVideo(resume?.resumeKey?.interviewLinkedByRecruiter)">
+            <i class="fa fa-video-camera" aria-hidden="true"></i>
+            View interview
+          </span>
         </div>
       </div>
 
@@ -64,38 +66,17 @@
                               <img src="assets/img/star.png" class="img-responsive overStart">
                               <img src="assets/img/star.png" class="img-responsive overStart"> -->
 
-              <input
-                type="radio"
-                id="{{ 'field1' + resume._id + '_star3' }}"
-                name="{{ 'rating1' + resume._id }}"
-                value="33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field1' + resume._id + '_star3' }}"
-              ></label>
+              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                value="33" /><label (click)="selectRating($event)" class="full"
+                for="{{ 'field1' + resume._id + '_star3' }}"></label>
 
-              <input
-                type="radio"
-                id="{{ 'field1' + resume._id + '_star2' }}"
-                name="{{ 'rating1' + resume._id }}"
-                value="15"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field1' + resume._id + '_star2' }}"
-              ></label>
+              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                value="15" /><label (click)="selectRating($event)" class="full"
+                for="{{ 'field1' + resume._id + '_star2' }}"></label>
 
-              <input
-                type="radio"
-                id="{{ 'field1' + resume._id + '_star1' }}"
-                name="{{ 'rating1' + resume._id }}"
-                value="-33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"
-              ></label>
+              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                value="-33" /><label (click)="selectRating($event)" class="full"
+                for="{{ 'field1' + resume._id + '_star1' }}"></label>
             </span>
           </div>
         </div>
@@ -103,38 +84,17 @@
           <h4>Experience Match</h4>
           <div class="startDiv">
             <span class="rating">
-              <input
-                type="radio"
-                id="{{ 'field2' + resume._id + '_star3' }}"
-                name="{{ 'rating2' + resume._id }}"
-                value="33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field2' + resume._id + '_star3' }}"
-              ></label>
+              <input type="radio" id="{{ 'field2' + resume._id + '_star3' }}" name="{{ 'rating2' + resume._id }}"
+                value="33" /><label (click)="selectRating($event)" class="full"
+                for="{{ 'field2' + resume._id + '_star3' }}"></label>
 
-              <input
-                type="radio"
-                id="{{ 'field2' + resume._id + '_star2' }}"
-                name="{{ 'rating2' + resume._id }}"
-                value="15"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field2' + resume._id + '_star2' }}"
-              ></label>
+              <input type="radio" id="{{ 'field2' + resume._id + '_star2' }}" name="{{ 'rating2' + resume._id }}"
+                value="15" /><label (click)="selectRating($event)" class="full"
+                for="{{ 'field2' + resume._id + '_star2' }}"></label>
 
-              <input
-                type="radio"
-                id="{{ 'field2' + resume._id + '_star1' }}"
-                name="{{ 'rating2' + resume._id }}"
-                value="-33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field2' + resume._id + '_star1' }}"
-              ></label>
+              <input type="radio" id="{{ 'field2' + resume._id + '_star1' }}" name="{{ 'rating2' + resume._id }}"
+                value="-33" /><label (click)="selectRating($event)" class="full"
+                for="{{ 'field2' + resume._id + '_star1' }}"></label>
             </span>
           </div>
         </div>
@@ -142,38 +102,17 @@
           <h4>Education Match</h4>
           <div class="startDiv">
             <span class="rating">
-              <input
-                type="radio"
-                id="{{ 'field3' + resume._id + '_star3' }}"
-                name="{{ 'rating3' + resume._id }}"
-                value="33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field3' + resume._id + '_star3' }}"
-              ></label>
+              <input type="radio" id="{{ 'field3' + resume._id + '_star3' }}" name="{{ 'rating3' + resume._id }}"
+                value="33" /><label (click)="selectRating($event)" class="full"
+                for="{{ 'field3' + resume._id + '_star3' }}"></label>
 
-              <input
-                type="radio"
-                id="{{ 'field3' + resume._id + '_star2' }}"
-                name="{{ 'rating3' + resume._id }}"
-                value="15"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field3' + resume._id + '_star2' }}"
-              ></label>
+              <input type="radio" id="{{ 'field3' + resume._id + '_star2' }}" name="{{ 'rating3' + resume._id }}"
+                value="15" /><label (click)="selectRating($event)" class="full"
+                for="{{ 'field3' + resume._id + '_star2' }}"></label>
 
-              <input
-                type="radio"
-                id="{{ 'field3' + resume._id + '_star1' }}"
-                name="{{ 'rating3' + resume._id }}"
-                value="-33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field3' + resume._id + '_star1' }}"
-              ></label>
+              <input type="radio" id="{{ 'field3' + resume._id + '_star1' }}" name="{{ 'rating3' + resume._id }}"
+                value="-33" /><label (click)="selectRating($event)" class="full"
+                for="{{ 'field3' + resume._id + '_star1' }}"></label>
             </span>
           </div>
         </div>
@@ -182,12 +121,7 @@
       <div class="ActionDiv commonSingleInner ">
         <div class="actionDivSingle">
           <div class="">
-            <textarea
-              class="commentTxt"
-              rows="5"
-              cols="4"
-              [attr.id]="'Comments' + resume._id"
-            ></textarea>
+            <textarea class="commentTxt" rows="5" cols="4" [attr.id]="'Comments' + resume._id"></textarea>
           </div>
           <div class="docDiv">
             <h4><span>Recruiter Cost:</span>{{ resume?.RecruiterCost }}</h4>
@@ -196,17 +130,11 @@
       </div>
       <!-- (click)="feedBack(resume._id,'yes','Comments' + resume._id)" -->
       <div class="approveBtnDiv">
-        <button
-          class="btn commonBtn RejectBtn"
-          (click)="feedBack(resume._id, 'no', 'Comments' + resume._id, i)"
-        >
+        <button class="btn commonBtn RejectBtn" (click)="feedBack(resume._id, 'no', 'Comments' + resume._id, i)">
           Reject
         </button>
-        <button
-          (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)"
-          class="btn commonBtn approveBtn"
-          id="approveBtn"
-        >
+        <button (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)" class="btn commonBtn approveBtn"
+          id="approveBtn">
           Interview
         </button>
       </div>
@@ -221,9 +149,7 @@
     <h4>Rating Points</h4>
     <div class="rankingMain">
       <div class="disF">
-        <a
-          ><img src="assets/img/reward_points.png" height="50px" width="50px"
-        /></a>
+        <a><img src="assets/img/reward_points.png" height="50px" width="50px" /></a>
         <div>
           <label for="company-reward">Ranking</label>
           <h5 id="recruiter-rewards" class="mar0">

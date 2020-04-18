@@ -15,8 +15,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IProfile, Profile } from 'src/app/profile/model/user-profile';
+import { VideoCallingService } from '../_services/video-calling.service';
 declare var jQuery;
-declare var $:any;
+declare var $: any;
 declare var Materialize;
 @Component({
   selector: 'app-bidding-info',
@@ -36,7 +37,7 @@ export class BiddingInfoComponent implements OnChanges {
   public resumePoints: FormGroup;
   myBids: any[];
   user: IUser;
-  p:any;
+  p: any;
   resumes: IResume[];
   ResumeList: any[] = [];
   errorMsg: boolean = false;
@@ -51,14 +52,16 @@ export class BiddingInfoComponent implements OnChanges {
   public skillsPt: number;
   public experiencePt: number;
   public personalityPt: number;
-  ratingPoints:any = { skillMatch : 0 ,  experienceMatch : 0 , educationMatch : 0,  rejectOrInterview : 0,commentPoints: 0 ,total : 0 }
+  ratingPoints: any = { skillMatch: 0, experienceMatch: 0, educationMatch: 0, rejectOrInterview: 0, commentPoints: 0, total: 0 }
   count: any;
   id: string;
 
-  constructor(private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
+  constructor(
+    private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
     private bidService: BidService, private router: Router, private bidEventService: BiddingEventService,
     public spinner: NgxSpinnerService, private route: ActivatedRoute, private feedbackService: FeedbackService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer, private videoCallingService: VideoCallingService
+  ) {
 
     this.loggedUser = this.userService.getUserData();
     this.bidFrm = this.formBuilder.group({
@@ -82,8 +85,8 @@ export class BiddingInfoComponent implements OnChanges {
   get frm() { return this.resumePoints.controls }
 
   ngOnChanges() {
- 
- 
+
+
 
 
     jQuery('.modal').modal();
@@ -130,68 +133,70 @@ export class BiddingInfoComponent implements OnChanges {
       this.spinner.hide();
     });
   }
-  animate(index){
-  // $('#approveBtn').on('click', function () {
+  animate(index) {
+    // $('#approveBtn').on('click', function () {
     var cart = $('.interview');
-    var imgtodrag = $('#img'+index).eq(0);
-   ;
+    var imgtodrag = $('#img' + index).eq(0);
+    ;
     if (imgtodrag) {
-        var imgclone = imgtodrag.clone()
-        
-            .offset({
-              
-            top: imgtodrag.offset().top,
-            left: imgtodrag.offset().left
-        })
-            .css({
-            'opacity': '0.5',
-                'position': 'absolute',
-                'height': '150px',
-                'width': '150px',
-                'z-index': '100'
-        })
-            .appendTo($('body'))
-            .animate({
-            'top': cart.offset().top + 10,
-                'left': cart.offset().left + 10,
-                'width': 75,
-                'height': 75
-        }, 1000, 'easeInOutExpo');
-        // setTimeout(function () {
-        //     cart.effect("shake", {
-        //         times: 2
-        //     }, 200);
-        // }, 1500);
+      var imgclone = imgtodrag.clone()
 
-        imgclone.animate({
-            'width': 100,
-                'height': 100
-        }, function () {
-            $(this).detach()
-        });
+        .offset({
+
+          top: imgtodrag.offset().top,
+          left: imgtodrag.offset().left
+        })
+        .css({
+          'opacity': '0.5',
+          'position': 'absolute',
+          'height': '150px',
+          'width': '150px',
+          'z-index': '100'
+        })
+        .appendTo($('body'))
+        .animate({
+          'top': cart.offset().top + 10,
+          'left': cart.offset().left + 10,
+          'width': 75,
+          'height': 75
+        }, 1000, 'easeInOutExpo');
+      // setTimeout(function () {
+      //     cart.effect("shake", {
+      //         times: 2
+      //     }, 200);
+      // }, 1500);
+
+      imgclone.animate({
+        'width': 100,
+        'height': 100
+      }, function () {
+        $(this).detach()
+      });
     }
-// });
-}
+    // });
+  }
   handleRequest(key) {
     this.feedbackService.getBidsById(key).subscribe((data) => {
       if (data != null) {
         this.ResumeList = data;
         this.ResumeCount.emit(this.ResumeList.length);
-        this.feedbackService.getInterviewdResumeCount(key).subscribe((res)=>{
-         this.InterviewCount.emit(res);
-      });
+        console.log('ResumeList****************', this.ResumeList);
+        this.feedbackService.getInterviewdResumeCount(key).subscribe((res) => {
+
+          this.InterviewCount.emit(res);
+        });
         if (!(this.ResumeList.length > 0)) {
           this.errorMsg = true;
-        }else{
-          this.ResumeList.forEach(el=>{
-            if(el.resumeKey){
-              if(el.resumeKey.resumeType ==  'resume_bank'){
-                el.resumeKey.fileURL=el.resumeKey.resumeBank_id.resumeUrl
-              }  
+        } else {
+          this.ResumeList.forEach(el => {
+            if (el.resumeKey) {
+              if (el.resumeKey.resumeType == 'resume_bank') {
+                el.resumeKey.fileURL = el.resumeKey.resumeBank_id.resumeUrl
+              }
             }
-                     
+
           })
-        }  
+        }
       } else {
         this.noRecords = true;
       }
@@ -206,72 +211,72 @@ export class BiddingInfoComponent implements OnChanges {
     jQuery(event.srcElement).nextAll().css({ "color": "#FFC107" });
   }
 
-  feedBack(resumeBidId, interviewOrReject,commentId,index) {
+  feedBack(resumeBidId, interviewOrReject, commentId, index) {
     var cart = $('.interview');
-    var imgtodrag = $('#img'+index).eq(0);
-    let element = document.getElementById('animateinterview'+index);
-              // element.className = 'singleListClick singleList resumeSingleList';
+    var imgtodrag = $('#img' + index).eq(0);
+    let element = document.getElementById('animateinterview' + index);
+    // element.className = 'singleListClick singleList resumeSingleList';
 
-   
-   
+
+
     this.skillsPt = (jQuery("input[name='" + 'rating1' + resumeBidId + "']:checked").val());
     this.experiencePt = (jQuery("input[name='" + 'rating2' + resumeBidId + "']:checked").val());
     this.personalityPt = (jQuery("input[name='" + 'rating3' + resumeBidId + "']:checked").val());
-      if(this.skillsPt == 33 && this.experiencePt == 33 && this.personalityPt == 33 && interviewOrReject == 'no'){
-        Materialize.toast("Can't reject with the highest rating !", 3000)
-        return
-      }
-    
+    if (this.skillsPt == 33 && this.experiencePt == 33 && this.personalityPt == 33 && interviewOrReject == 'no') {
+      Materialize.toast("Can't reject with the highest rating !", 3000)
+      return
+    }
+
     if (this.skillsPt != undefined && this.experiencePt != undefined && this.personalityPt != undefined) {
       if (imgtodrag && interviewOrReject == 'yes') {
         var imgclone = imgtodrag.clone()
-        
-            .offset({
-              
+
+          .offset({
+
             top: imgtodrag.offset().top,
             left: imgtodrag.offset().left
-        })
-            .css({
+          })
+          .css({
             'opacity': '0.5',
-                'position': 'absolute',
-                'height': '150px',
-                'width': '150px',
-                'z-index': '100'
-        })
-            .appendTo($('body'))
-            .animate({
+            'position': 'absolute',
+            'height': '150px',
+            'width': '150px',
+            'z-index': '100'
+          })
+          .appendTo($('body'))
+          .animate({
             'top': cart.offset().top + 10,
-                'left': cart.offset().left + 10,
-                'width': 75,
-                'height': 75
-        }, 1000, 'easeInOutExpo');
-        
+            'left': cart.offset().left + 10,
+            'width': 75,
+            'height': 75
+          }, 1000, 'easeInOutExpo');
+
 
         imgclone.animate({
-            'width': 100,
-                'height': 100
+          'width': 100,
+          'height': 100
         }, function () {
-            $(this).detach()
+          $(this).detach()
         });
-    }
-      this.ratingPoints.skillMatch = 50;          this.ratingPoints.experienceMatch = 50;
-      this.ratingPoints.educationMatch = 50;      this.ratingPoints.rejectOrInterview = 100;
+      }
+      this.ratingPoints.skillMatch = 50; this.ratingPoints.experienceMatch = 50;
+      this.ratingPoints.educationMatch = 50; this.ratingPoints.rejectOrInterview = 100;
       this.ratingPoints.total = this.ratingPoints.skillMatch + this.ratingPoints.experienceMatch + this.ratingPoints.educationMatch + this.ratingPoints.rejectOrInterview;
       /* let skillMatch = 50 ; let experienceMatch = 50 ; let educationMatch = 50 ; let rejectOrInterview = 100 ;
       var ratingPoints = skillMatch + experienceMatch + educationMatch + rejectOrInterview; */
       var comment = jQuery("#" + commentId).val();
-      if(comment.length>0 && comment.length<11){
+      if (comment.length > 0 && comment.length < 11) {
         this.ratingPoints.commentPoints = 200;
-        this.ratingPoints.total +=  this.ratingPoints.commentPoints;
-      }else if (comment.length>10 && comment.length<141){
+        this.ratingPoints.total += this.ratingPoints.commentPoints;
+      } else if (comment.length > 10 && comment.length < 141) {
         this.ratingPoints.commentPoints = 600;
-        this.ratingPoints.total +=  this.ratingPoints.commentPoints;
-      }else if(comment.length>140){
+        this.ratingPoints.total += this.ratingPoints.commentPoints;
+      } else if (comment.length > 140) {
         this.ratingPoints.commentPoints = 1000;
-        this.ratingPoints.total +=  this.ratingPoints.commentPoints;
-      }else{
+        this.ratingPoints.total += this.ratingPoints.commentPoints;
+      } else {
         this.ratingPoints.commentPoints = 0;
-        this.ratingPoints.total +=  this.ratingPoints.commentPoints;
+        this.ratingPoints.total += this.ratingPoints.commentPoints;
       }
       this.FeedObj.ratingPoints = this.ratingPoints.total;
       this.FeedObj.skillsPt = this.skillsPt;
@@ -285,10 +290,10 @@ export class BiddingInfoComponent implements OnChanges {
       setTimeout(() => {
         this.feedbackService.saveFeedBack(this.FeedObj).subscribe((data: any) => {
           if (data.res == "success") {
-          
-  
+
+
             this.getUsersProfile();
-           /*  jQuery('#ratingPoints').modal('open'); */
+            /*  jQuery('#ratingPoints').modal('open'); */
             this.route.params.subscribe(params => { this.handleRequest(params['key']); });
           } else {
             Materialize.toast('Something Went Wrong', 1000)
@@ -298,7 +303,7 @@ export class BiddingInfoComponent implements OnChanges {
         })
       }, 800);
 
-      
+
     } else {
       Materialize.toast('Please give the rating first', 1000)
     }
@@ -306,10 +311,10 @@ export class BiddingInfoComponent implements OnChanges {
 
 
   transform(url) {
-    if(url!=null){
+    if (url != null) {
       return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
-    
+
   }
 
   setupNewBid() {
@@ -338,8 +343,8 @@ export class BiddingInfoComponent implements OnChanges {
   }
 
   getBiddingDetails() {
-      this.spinner.show();
-      this.bidService.getBiddingDetails(this.biddingEvent.$key).subscribe((data: any) => {
+    this.spinner.show();
+    this.bidService.getBiddingDetails(this.biddingEvent.$key).subscribe((data: any) => {
       this.totalCandidateBidded = data.max;
       this.SelectedBid = data.min;
       this.spinner.hide();
@@ -452,5 +457,23 @@ export class BiddingInfoComponent implements OnChanges {
   createNewResume() {
     this.router.navigate(['/recruiter/resume-list']);
   }
+  seeVideo(archiveId) {
+    // call video call service
+    console.log(archiveId);
+    const payload = {
+      archivedId: archiveId
+    };
+    this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
+      if (res) {
+        console.log(res);
+        window.open(res.url);
+      }
+    }, err => {
+      console.log('network error');
 
+    });
+  }
+  onLinkedIn(profileLink) {
+    window.open(profileLink);
+  }
 }

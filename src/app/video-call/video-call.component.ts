@@ -42,6 +42,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   candidateInfo: any;
   responseArchivedId: any;
   commentFromRecruiter: any;
+  submitReviewButton: boolean;
   constructor(
     private ref: ChangeDetectorRef,
     private opentokService: OpentokService,
@@ -53,7 +54,6 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   ) {
 
     this.changeDetectorRef = ref;
-    this.userId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
     // subscription to the published stream
     this.publishedStreamSubscription = this.opentokService._publishedStream.subscribe(publishedStream => {
       this.spinner.show();
@@ -96,6 +96,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
             this.allowSubscriber = true;
 
             // // console.log('recruiter on video call');
+            this.userId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
+
             this.userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
             this.candidate = false;
             if (this.userRole === 'employer') {
@@ -121,15 +123,15 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.candidateInvitationLink = true;
-    this.spinner.show();
     this.opentokService.initSessionAPI('test').then((session: OT.Session) => {
+      this.spinner.show();
       this.session = session;
       console.log('session', this.session.sessionId);
       this.startArchiveButton = true;
 
       this.session.on('streamCreated', (event) => {
         this.spinner.hide();
-        // console.log('event.stream', event.stream);
+        console.log('event.stream', event.stream);
         this.streamId = event.stream.streamId;
         this.opentokService.setStream(this.streamId);
         this.streams.push(event.stream);
@@ -138,7 +140,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.session.on('streamDestroyed', (event) => {
         const idx = this.streams.indexOf(event.stream);
         if (idx > -1) {
-          // console.log('sessionDisconnected', event);
+          console.log('sessionDisconnected', event);
           this.streams.splice(idx, 1);
           this.changeDetectorRef.detectChanges();
         }
@@ -336,9 +338,19 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   submitReview() {
     const payload = {
       recruiterId: this.userId,
-      review: this.commentFromRecruiter,
-      archiveID: this.responseArchivedId
+      candidateId: this.candidateId,
+      review: this.commentFromRecruiter ? this.commentFromRecruiter : ''
     };
+    console.log(payload);
+    this.videoCallingService.submitRecruitersReview(payload).subscribe(res => {
+      if (res) {
+        console.log(res);
+        this.emailConfirmPopup("Review submitted successfully", 3000);
+      }
+    }, err => {
+      console.log(err);
+
+    });
   }
 
   transform(url) {
