@@ -181,9 +181,9 @@ h5 {
   list-style: none;
   padding: 0;
 }
-/* .singleList {
-  height: 240px !important;
-} */
+.singleList {
+  height: 230px !important;
+}
 .commonSingleInner {
   width: 25%;
 }

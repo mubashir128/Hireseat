@@ -8,7 +8,6 @@ import { baseUrl } from '../globalPath';
 declare var jQuery: any;
 import * as $ from 'jquery';
 import { VideoCallingService } from '../_services/video-calling.service';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-call',
@@ -49,8 +48,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     private router: Router,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
-    private videoCallingService: VideoCallingService,
-    private sanitizer: DomSanitizer,
+    private videoCallingService: VideoCallingService
   ) {
 
     this.changeDetectorRef = ref;
@@ -61,41 +59,41 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       if (publishedStream) {
         this.spinner.hide();
       }
-      // console.log('publishedStream', publishedStream['streamId']);
+      // // console.log('publishedStream', publishedStream['streamId']);
       this.toCopylinkPublishedStreamId = publishedStream['streamId'];
     });
     // END subscription to the published stream
     this.opentokService._meetingEnd.subscribe((meetingStatus) => {
-      console.log(meetingStatus);
+      // console.log(meetingStatus);
       this.meetingStatus = meetingStatus;
     });
-    // console.log('*****************************', this.activatedRoute.snapshot.paramMap.get('id'),
+    // // console.log('*****************************', this.activatedRoute.snapshot.paramMap.get('id'),
     // '########################', this.streamId);
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         if (val.url.includes('/video-call')) {
           // subscribing to a stream
           opentokService._streamToChecked.subscribe((res) => {
-            // console.log('!!!!!!!!!!!!!', res);
+            // // console.log('!!!!!!!!!!!!!', res);
             this.streamId = res;
             this.roomId = this.activatedRoute.snapshot.paramMap.get('id');
             if (this.roomId == this.streamId) {
-              // console.log('room id matched');
+              // // console.log('room id matched');
 
               this.allowSubscriber = true;
             }
           });
           // end of subscription to a stream
-          // // console.log('there is no user show candidates window');
+          // // // console.log('there is no user show candidates window');
 
-          // console.log('On video call');
+          // // console.log('On video call');
           if (!localStorage.getItem('currentUser')) {
 
             this.candidate = true;
           } else {
             this.allowSubscriber = true;
 
-            // // console.log('recruiter on video call');
+            // // // console.log('recruiter on video call');
             this.userId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
 
             this.userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
@@ -105,8 +103,17 @@ export class VideoCallComponent implements OnInit, OnDestroy {
             } else if (this.userRole === 'recruiter') {
 
               this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
-              console.log('candidateId', this.candidateId);
+              // console.log('candidateId', this.candidateId);
               this.isRecruiter = true;
+              // getting candidates resume by Id
+              const payload = {
+                candidateId: this.candidateId
+              };
+              this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
+                // console.log(res);
+                this.candidateInfo = res.isCandidate;
+              });
+              // end resume candidate
             }
           }
         }
@@ -114,7 +121,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     });
     // subscribing to archivingID
     this.opentokService._archivingID.subscribe((archiveID) => {
-      console.log('***********************', archiveID);
+      // console.log('***********************', archiveID);
       this.archiveID = archiveID;
     });
     // end subscribing
@@ -126,12 +133,12 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     this.opentokService.initSessionAPI('test').then((session: OT.Session) => {
       this.spinner.show();
       this.session = session;
-      console.log('session', this.session.sessionId);
+      // console.log('session', this.session.sessionId);
       this.startArchiveButton = true;
 
       this.session.on('streamCreated', (event) => {
         this.spinner.hide();
-        console.log('event.stream', event.stream);
+        // console.log('event.stream', event.stream);
         this.streamId = event.stream.streamId;
         this.opentokService.setStream(this.streamId);
         this.streams.push(event.stream);
@@ -140,22 +147,22 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.session.on('streamDestroyed', (event) => {
         const idx = this.streams.indexOf(event.stream);
         if (idx > -1) {
-          console.log('sessionDisconnected', event);
+          // console.log('sessionDisconnected', event);
           this.streams.splice(idx, 1);
           this.changeDetectorRef.detectChanges();
         }
       });
       this.session.on('sessionDisconnected', ((event) => {
-        // console.log('sessionDisconnected', event);
+        // // console.log('sessionDisconnected', event);
 
         alert('The session disconnected. ' + event.reason);
       }));
 
       this.session.on('archiveStarted', (event) => {
-        console.log(event);
+        // console.log(event);
 
         this.archiveID = event.id;
-        console.log('Archive started ' + this.archiveID);
+        // console.log('Archive started ' + this.archiveID);
         $('#stop').show();
         $('#start').hide();
         this.opentokService.setArchivingID(event.id);
@@ -165,10 +172,10 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       });
 
       this.session.on('archiveStopped', (event) => {
-        console.log(event);
+        // console.log(event);
 
         this.archiveID = event.id;
-        console.log('Archive stopped ' + this.archiveID);
+        // console.log('Archive stopped ' + this.archiveID);
         $('#start').hide();
         $('#stop').hide();
         $('#view').show();
@@ -179,7 +186,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       });
 
       this.session.on('sessionDisconnected', (event) => {
-        console.log('You were disconnected from the session.', event.reason);
+        // console.log('You were disconnected from the session.', event.reason);
       });
 
     })
@@ -194,20 +201,12 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         alert('Unable to connect.');
       });
 
-    // getting candidates resume by Id
-    const payload = {
-      candidateId: this.candidateId
-    };
-    this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
-      console.log(res);
-      this.candidateInfo = res.isCandidate;
-    });
-    // end resume candidate
+
   }
 
   // modal
   emailConfirmPopup(message, time) {
-    // // console.log("emailConfirmPopup");
+    // // // console.log("emailConfirmPopup");
     this.message = message;
     jQuery("#emailConfirmPop").modal("open");
     setTimeout(() => {
@@ -215,7 +214,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     }, time);
   }
   closeEmailConfirmpopup() {
-    // // console.log("closing");
+    // // // console.log("closing");
 
     jQuery("#emailConfirmPop").modal("close");
   }
@@ -268,19 +267,19 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
       complete: function complete() {
         // called when complete
-        console.log('startArchive() complete');
+        // console.log('startArchive() complete');
       },
 
       success: function success(event) {
         // called when successful
-        console.log('successfully called startArchive()', event);
+        // console.log('successfully called startArchive()', event);
         this.opentokService.setArchivingID(event.id);
         this.arcId = event.id;
       },
 
       error: function error() {
         // called when there is an error
-        console.log('error calling startArchive()');
+        // console.log('error calling startArchive()');
       }
     });
 
@@ -292,7 +291,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   stopArchive() {
-    console.log('archive ID while stoping', this.archiveID);
+    // console.log('archive ID while stoping', this.archiveID);
 
     // $.post(baseUrl + 'api/archive/' + this.archiveID + '/stop');
 
@@ -312,14 +311,14 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     // store archived view
     $('#view').prop('disabled', true);
     this.viewArchiveButton = true;
-    // console.log(baseUrl);
+    // // console.log(baseUrl);
     const payload = {
       archiveId: this.archiveID,
       candidateId: this.candidateId
     };
     // add subscription
     this.videoCallingService.storeArchive(payload).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       if (res) {
         this.responseArchivedId = res.archiveId;
         this.emailConfirmPopup("The archived link is added to the candidate's resume", 3000);
@@ -328,7 +327,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         this.startArchiveButton = true;
       }
     }, err => {
-      console.log('error', err);
+      // console.log('error', err);
 
     });
     // window.location = SAMPLE_SERVER_BASE_URL + /archive/ + archiveID + '/view';
@@ -341,21 +340,18 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       candidateId: this.candidateId,
       review: this.commentFromRecruiter ? this.commentFromRecruiter : ''
     };
-    console.log(payload);
+    // console.log(payload);
     this.videoCallingService.submitRecruitersReview(payload).subscribe(res => {
       if (res) {
-        console.log(res);
+        // console.log(res);
         this.emailConfirmPopup("Review submitted successfully", 3000);
       }
     }, err => {
-      console.log(err);
+      // console.log(err);
 
     });
   }
 
-  transform(url) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
   // end of archiving
   ngOnDestroy() {
     if (this.publisher) {

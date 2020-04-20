@@ -145,7 +145,7 @@
 
       </div>
       <!-- feedback area -->
-      <div *ngIf="!candidate" class="singleList resumeSingleList margin-T50" id="animateinterview{{ i }}">
+      <div *ngIf="!candidate" class="singleList resumeSingleList margin-T50">
         <!-- <div class="PointsDiv commonSingleInner">
           <div class="PointsDivSingle PointsDivSingleN">
             <img src="assets/img/checkIcon.png" class="img-responsive" />
@@ -167,9 +167,9 @@
         <div class="docSection">
           <div class="docDiv">
             <img src="assets/img/doc.png" class="img-responsive" />
-            <a [attr.href]="transform(candidateInfo?.fileURL)" target="_blank" download>
-              <h4>Download Resume</h4>
-            </a>
+            <!-- <a [attr.href]="transform(candidateInfo?.fileURL)" target="_blank" download> -->
+            <h4>Download Resume</h4>
+            <!-- </a> -->
           </div>
         </div>
 

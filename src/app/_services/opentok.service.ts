@@ -30,7 +30,7 @@ export class OpentokService {
   }
 
   setArchivingID(archivingID) {
-    console.log('##########setting archive ID######################', archivingID);
+    // console.log('##########setting archive ID######################', archivingID);
 
     this.archivingID.next(archivingID);
   }
@@ -59,7 +59,7 @@ export class OpentokService {
     return fetch(this.baseurl + 'api/room/' + name)
       .then((data) => data.json())
       .then((json) => {
-        console.log('nodejs', json);
+        // console.log('nodejs', json);
         this.session = this.getOT().initSession(json.apiKey, json.sessionId);
         this.token = json.token;
         return this.session;
@@ -70,7 +70,7 @@ export class OpentokService {
     return fetch(config.SAMPLE_SERVER_BASE_URL + '/room/:name')
       .then((data) => data.json())
       .then((json) => {
-        console.log(json);
+        // console.log(json);
 
       });
   }
@@ -88,9 +88,9 @@ export class OpentokService {
   forceUnpublish(stream) {
     this.session.forceUnpublish(stream, function (error) {
       if (error) {
-        console.log(error);
+        // console.log(error);
       } else {
-        console.log('Connection forced to disconnect: ' + stream.id);
+        // console.log('Connection forced to disconnect: ' + stream.id);
       }
     });
   }

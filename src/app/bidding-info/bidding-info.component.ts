@@ -129,7 +129,7 @@ export class BiddingInfoComponent implements OnChanges {
       }
       this.spinner.hide();
     }, (error) => {
-      console.log(error);
+      // console.log(error);
       this.spinner.hide();
     });
   }
@@ -180,7 +180,7 @@ export class BiddingInfoComponent implements OnChanges {
       if (data != null) {
         this.ResumeList = data;
         this.ResumeCount.emit(this.ResumeList.length);
-        console.log('ResumeList****************', this.ResumeList);
+        // console.log('ResumeList****************', this.ResumeList);
         this.feedbackService.getInterviewdResumeCount(key).subscribe((res) => {
 
           this.InterviewCount.emit(res);
@@ -201,7 +201,7 @@ export class BiddingInfoComponent implements OnChanges {
         this.noRecords = true;
       }
     }, (error) => {
-      console.log(error);
+      // console.log(error);
     })
   }
 
@@ -299,7 +299,7 @@ export class BiddingInfoComponent implements OnChanges {
             Materialize.toast('Something Went Wrong', 1000)
           }
         }, (error) => {
-          console.log(error)
+          // console.log(error)
         })
       }, 800);
 
@@ -338,7 +338,7 @@ export class BiddingInfoComponent implements OnChanges {
     },
       (error) => {
         this.spinner.hide();
-        console.log(error);
+        // console.log(error);
       });
   }
 
@@ -351,7 +351,7 @@ export class BiddingInfoComponent implements OnChanges {
     },
       (error) => {
         this.spinner.hide();
-        console.log(error);
+        // console.log(error);
       });
   }
 
@@ -363,7 +363,7 @@ export class BiddingInfoComponent implements OnChanges {
     },
       (error) => {
         this.spinner.hide();
-        console.log(error);
+        // console.log(error);
       });
   }
 
@@ -379,7 +379,7 @@ export class BiddingInfoComponent implements OnChanges {
       this.spinner.hide();
     }, (error) => {
       this.spinner.hide();
-      console.log(error);
+      // console.log(error);
     });
   }
 
@@ -396,7 +396,7 @@ export class BiddingInfoComponent implements OnChanges {
       this.biddingEvent = data;
       this.spinner.hide();
     }, (error) => {
-      console.log(error);
+      // console.log(error);
       this.spinner.hide();
     });
   }
@@ -447,7 +447,7 @@ export class BiddingInfoComponent implements OnChanges {
       this.spinner.hide();
     },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.spinner.hide();
         Materialize.toast('Something Went Wrong!', 4000);
       });
@@ -459,17 +459,17 @@ export class BiddingInfoComponent implements OnChanges {
   }
   seeVideo(archiveId) {
     // call video call service
-    console.log(archiveId);
+    // console.log(archiveId);
     const payload = {
       archivedId: archiveId
     };
     this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
       if (res) {
-        console.log(res);
+        // console.log(res);
         window.open(res.url);
       }
     }, err => {
-      console.log('network error');
+      // console.log('network error');
 
     });
   }
