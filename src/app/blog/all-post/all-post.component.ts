@@ -108,13 +108,12 @@ export class AllPostComponent implements OnInit {
     if (this.blogSearchForm.value.category == "") {
       this.getAllBlogs(this.limit);
     }
-    temp = text.split(",");
-    // temp = this.blogSearchForm.value.category.split(",");
+    temp = this.blogSearchForm.value.category.split(",");
     this._blogservice.getBlogByCategory(temp, this.limit).subscribe(
-      (response) => {
+      response => {
         this.blogPostData = response.data;
       },
-      (error) => {
+      error => {
         console.log(error);
       }
     );

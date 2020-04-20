@@ -116,6 +116,7 @@
     padding: 15px 15px;
 }
 .questionDivTextReply {
+    display: none;
     margin: 20px 0;
     text-align: right;
 }

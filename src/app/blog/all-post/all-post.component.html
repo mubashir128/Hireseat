@@ -6,12 +6,8 @@
       <div class="catogoryMain">
         <form [formGroup]="blogSearchForm" (ngSubmit)="seachBlog()">
           <div class="searchDiv">
-            <ng2-completer
-              class="serchInput"
-              formControlName="category"
-              [datasource]="dataService"
-              [minSearchLength]="0"
-            ></ng2-completer>
+            <ng2-completer class="serchInput" formControlName="category" [datasource]="dataService"
+              [minSearchLength]="0"></ng2-completer>
             <!-- <input type="text" class="serchInput"> -->
             <button class="commonBtn">Search Catagory</button>
           </div>
@@ -35,24 +31,14 @@
               <td>{{ data?.title }}</td>
               <td>{{ data?.author?.fullName }}</td>
               <td>
-                <span *ngFor="let cat of data?.categories"
-                  >{{ cat.categoryName }},</span
-                >
+                <span *ngFor="let cat of data?.categories">{{ cat.categoryName }},</span>
               </td>
               <td>{{ data.createdAt.substring(0, 10) }}</td>
               <td>{{ data.createdAt.substring(0, 10) }}</td>
               <td>
                 <div class="linkDiv">
-                  <a
-                    class="editLink cursor-pointer"
-                    (click)="editPost(data._id)"
-                    >Edit</a
-                  >
-                  <a
-                    class="deleteLink cursor-pointer"
-                    (click)="confirmDelete(data._id)"
-                    >Delete</a
-                  >
+                  <a class="editLink cursor-pointer" (click)="editPost(data._id)">Edit</a>
+                  <a class="deleteLink cursor-pointer" (click)="confirmDelete(data._id)">Delete</a>
                 </div>
               </td>
             </tr>
@@ -76,18 +62,12 @@
   </div>
   <div class="modal-footer">
     <div class="col s6 m6 l6 text-center">
-      <button
-        class="modal-close  waves-effect waves-light btn "
-        (click)="removeBlog()"
-      >
+      <button class="modal-close  waves-effect waves-light btn " (click)="removeBlog()">
         Yes
       </button>
     </div>
     <div class="col s6 m6 l6 text-center">
-      <button
-        class="modal-close  waves-effect waves-light btn "
-        (click)="closePopup()"
-      >
+      <button class="modal-close  waves-effect waves-light btn " (click)="closePopup()">
         No
       </button>
     </div>

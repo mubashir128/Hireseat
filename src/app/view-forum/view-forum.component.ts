@@ -7,6 +7,7 @@ declare var jQuery: any;
 import { UserService } from '../_services/user.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { SuperAdminService } from '../_services/super-admin.service';
+import { InteractCompService } from '../_services/interact-comp.service';
 
 
 
@@ -31,6 +32,7 @@ export class ViewForumComponent implements OnInit {
   getAnswerData=[];
   currUserData:any;
   postAnswer:FormGroup ;
+  postAnsw : FormGroup;
   searchQues:FormGroup;
   curerntUserId:String;
   curerntUserName:String;
@@ -46,7 +48,8 @@ export class ViewForumComponent implements OnInit {
   constructor(private _forum:ForumService,private formBuilder: FormBuilder,private userService:UserService,
     private router:Router,
     private authService:AuthenticationService,
-    public supperAdmin: SuperAdminService) 
+    public supperAdmin: SuperAdminService,
+    private _interactComp : InteractCompService) 
     {
       this.loggedInUser=this.userService.getUserData();
       if(this.loggedInUser != "no"){
@@ -62,34 +65,22 @@ export class ViewForumComponent implements OnInit {
         }
       }
 
+      this._interactComp.interact$.subscribe(res=>{
+        this.loadDataForQuestions(res);
+      });
 
      }
 
   ngOnInit() {
-    let askusersDa=this.userService.getaskQuesUserId();
-    this.askusersData=JSON.parse(askusersDa);
-    
-    
+    this.loadDataFromStorage();
     
     jQuery('.modal').modal();
+
     //get all questions
-    this._forum.getQuestions().subscribe(
-      res=>{ this.questData=res;
-        // console.log(this.questData)
-        
-        //  this.questData.forEach((x) => {
-        //   this.postAnswer.push(this.formBuilder.group({
-        //     answerPost: this.formBuilder.control('', [Validators.required])
-        //   }))
-        // })
-      },
-      err=>console.log(err));
-      // console.log(this.questData)
+    this.getAllQuestions();
+
      //get questions with answers
-      this._forum.getAnswerData().subscribe(
-        res=>{ this.getAnswerData=res;
-        console.log(this.getAnswerData)},
-        err=>console.log(err));
+    this.getQuestionsAndAnswers();
 
         this.postAnswer=this.formBuilder.group({
               answerPost: this.formBuilder.control('', [Validators.required])
@@ -97,15 +88,48 @@ export class ViewForumComponent implements OnInit {
             this.searchQues=this.formBuilder.group({
               question: this.formBuilder.control('', [Validators.required])
             })
-                
+              
+            this.postAnsw=this.formBuilder.group({
+              postAnsw1: this.formBuilder.control('', [Validators.required])
+            })
       
       this.currUserData=this._forum.getUserId();
       let CurreUser=JSON.parse(this.currUserData)
-      this.curerntUserId=CurreUser.userInfo._id
-      this.curerntUserName=CurreUser.userInfo.fullName;
-
+      if(CurreUser !== null){
+        this.curerntUserId=CurreUser.userInfo._id
+        this.curerntUserName=CurreUser.userInfo.fullName;
+      }
      
   }
+
+  getAllQuestions(){
+    this._forum.getQuestions().subscribe(res=>{
+      this.loadDataFromStorage();
+        this.questData=res;
+      },err=>{
+        console.log(err);
+      }
+    );
+  }
+
+  getQuestionsAndAnswers(){
+    this._forum.getAnswerData().subscribe(res=>{
+        this.getAnswerData=res;
+      },err=>{
+        console.log(err);
+      }
+    );
+  }
+
+  loadDataFromStorage(){
+    let askusersDa=this.userService.getaskQuesUserId();
+    this.askusersData=JSON.parse(askusersDa);
+  }
+
+  loadDataForQuestions(obj){
+    this.getAllQuestions();
+  }
+
   answerPopup(){
     jQuery('#answermsdPop').modal('open');
     
@@ -114,14 +138,12 @@ export class ViewForumComponent implements OnInit {
     jQuery('#answermsdPop').modal('close');
   }
   showAnsDiv(id){
-    // console.log(id);
-    console.log(jQuery("#"+id).val())
-    if(this.answerClick==false  ){
-
-  this.answerClick=true;
-    }else{
-      this.answerClick=false;
+    let answerDiv=jQuery(".questionDivTextReply#"+id);
+    if(answerDiv.css("display") === 'none'){
+      answerDiv.css("display","block");
+      return;
     }
+    answerDiv.css("display","none");
   }
 
   textChanges(data){
@@ -170,18 +192,27 @@ var dateTime = date1+' '+time1;
     
     let answerD={ans:ans.answerPost,quesUserId:id,answerBy:this.curerntUserId,answerByName:this.curerntUserName,answercount:answercount}
     
-    this._forum.addAnserData(answerD).subscribe(
-      res=>{
-       
+    this._forum.addAnserData(answerD).subscribe(res=>{
         this.msgForPopup=res.message;
         this.answerPopup();
-        setTimeout(()=>{ 
-          window.location.reload();
-     }, 2000);
-    
-
-      },
-      err=>{console.log(err)}
+        this.getQuestionsAndAnswers();
+        jQuery("#"+id).css("display","none");
+        setTimeout(()=>{
+          this.closeanswerPopup();
+        },2000);
+      },err=>{
+        console.log(err);
+      }
     );
    }
+
+   handleAnswerPost($event){
+     let postBtn=jQuery(jQuery($event.target)).parent().find("button[id='postAnswerBtn']");
+    if($event.target.value === ''){
+      postBtn.prop("disabled",true);
+      return;
+    }
+    postBtn.prop("disabled",false);
+   }
+
 }
