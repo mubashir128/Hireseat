@@ -17,6 +17,13 @@ export class ForumService {
       return res;
     }))
   }
+
+  getLimitedQuestions(obj){
+    return this.http.post<any>(this.baseurl+'api/getLimitedQuestions',obj).pipe(map((res:any)=>{    
+      return res;
+    }))
+  }
+
   getUserId(){
     return localStorage.getItem('currentUser');
   }

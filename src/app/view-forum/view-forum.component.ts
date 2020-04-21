@@ -9,9 +9,6 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { SuperAdminService } from '../_services/super-admin.service';
 import { InteractCompService } from '../_services/interact-comp.service';
 
-
-
-
 @Component({
   selector: 'app-view-forum',
   templateUrl: './view-forum.component.html',
@@ -19,10 +16,15 @@ import { InteractCompService } from '../_services/interact-comp.service';
   
 })
 export class ViewForumComponent implements OnInit {
-  @Input()questData:any;  
+  questData=[];
   public searchText : string;
 
+  p=1;
+  createdAt;
+  itemsAre = [1];
+  itemsPerPage=10;
   loggedInUser:any;
+  paginatorMove=true;
   isLoggedIn:boolean=false;
   isEmployer:boolean=false;
   isRecruiter:boolean=false;
@@ -77,21 +79,24 @@ export class ViewForumComponent implements OnInit {
     jQuery('.modal').modal();
 
     //get all questions
-    this.getAllQuestions();
+    this.getLimitedQuestions({
+      onLoad : true,
+      itemsPerPage : this.itemsPerPage
+    });
 
      //get questions with answers
     this.getQuestionsAndAnswers();
+      this.postAnswer=this.formBuilder.group({
+        answerPost: this.formBuilder.control('', [Validators.required])
+      })
 
-        this.postAnswer=this.formBuilder.group({
-              answerPost: this.formBuilder.control('', [Validators.required])
-            })
-            this.searchQues=this.formBuilder.group({
-              question: this.formBuilder.control('', [Validators.required])
-            })
-              
-            this.postAnsw=this.formBuilder.group({
-              postAnsw1: this.formBuilder.control('', [Validators.required])
-            })
+      this.searchQues=this.formBuilder.group({
+        question: this.formBuilder.control('', [Validators.required])
+      })
+            
+      this.postAnsw=this.formBuilder.group({
+        postAnsw1: this.formBuilder.control('', [Validators.required])
+      })
       
       this.currUserData=this._forum.getUserId();
       let CurreUser=JSON.parse(this.currUserData)
@@ -99,13 +104,16 @@ export class ViewForumComponent implements OnInit {
         this.curerntUserId=CurreUser.userInfo._id
         this.curerntUserName=CurreUser.userInfo.fullName;
       }
-     
   }
 
-  getAllQuestions(){
-    this._forum.getQuestions().subscribe(res=>{
+  getLimitedQuestions(obj){
+    this._forum.getLimitedQuestions(obj).subscribe(res=>{
+      this.paginatorMove=true;
       this.loadDataFromStorage();
-        this.questData=res;
+        if(res.length !== 0){
+          this.questData=[...this.questData, ...res];
+          this.createdAt=res[res.length-1].createdAt;
+        }
       },err=>{
         console.log(err);
       }
@@ -127,7 +135,7 @@ export class ViewForumComponent implements OnInit {
   }
 
   loadDataForQuestions(obj){
-    this.getAllQuestions();
+    this.questData.unshift(obj);
   }
 
   answerPopup(){
@@ -150,14 +158,23 @@ export class ViewForumComponent implements OnInit {
     if(data.question != ""){
       return;
     }
-    this.searchQuesData(data);
+
+    this.p=1;
+    this.itemsAre=[1];
+    this.questData=[];
+    this.getLimitedQuestions({
+      onLoad : true,
+      itemsPerPage : this.itemsPerPage
+    });
 
   }
   searchQuesData(data){
-    this._forum.searchQuestionData(data).subscribe(
-    res=>{this.questData=res.data;},
-    err=>{console.log(err)}
-  );
+    this.paginatorMove=false;
+    this._forum.searchQuestionData(data).subscribe(res=>{
+      this.questData=res.data;
+    },err =>{
+      console.log(err);
+    });
   }
   callback(time){
     // console.log(time)
@@ -213,6 +230,22 @@ var dateTime = date1+' '+time1;
       return;
     }
     postBtn.prop("disabled",false);
+   }
+
+   handlePaginator($event){
+     this.p = $event;
+     if(!this.paginatorMove){
+      return ;
+     }
+
+     if(this.itemsAre.includes($event)){
+      return ;
+     }
+     this.itemsAre.push($event);
+     this.getLimitedQuestions({
+      createdAt : this.createdAt,
+       itemsPerPage : this.itemsPerPage
+     });
    }
 
 }

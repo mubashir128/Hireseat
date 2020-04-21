@@ -38,64 +38,39 @@
               </div>
             </div>
           </div>
-
           <!--only question end  -->
 
           <div *ngIf="isLoggedIn">
             <ul>
-              <li *ngFor="
-                  let data of questData
-                    | paginate: { itemsPerPage: 10, currentPage: p };
-                  let i = index
-                " class="forumQustionBlock forumQustionCommonBlock">
+              <li *ngFor="let data of questData | paginate: { itemsPerPage: itemsPerPage, currentPage: p }"
+                class="forumQustionBlock forumQustionCommonBlock">
                 <form [formGroup]="postAnswer">
                   <div class="headDiv">
                     <h4>Questions for You</h4>
-                    <div *ngIf="data.isAnswered == false">
+                    <div *ngIf="data.isAnswered==false">
                       <i class="fa fa-star yellowStar" aria-hidden="true"></i>
                     </div>
                   </div>
-                  <p class="byAnnomus">Question added by : Anonymous user</p>
+                  <p class="byAnnomus"> Question added by : Anonymous user</p>
 
-                  <!--only question end  -->
+                  <div class="questionDivText">
+                    <h4>{{data.question}}</h4>
+                    <button class="answer" (click)="showAnsDiv(data._id)"><i class="fa fa-reply"
+                        aria-hidden="true"></i> Answer</button>
+                    <div class="questionDivTextReply" [id]="data._id">
+                      <textarea placeholder="Write Your Answer here.." formControlName="answerPost"
+                        id="answerspost" (keyup)="handleAnswerPost($event)"></textarea>
+                      <div *ngIf="postAnswer.hasError('','answerPost') && postAnswer.get('answerPost').touched">
+                        Answer is required*</div>
+                      <button class="waves-effect waves-light btn" id="postAnswerBtn" disabled
+                        (click)="postAns(postAnswer.value,data._id,data.answersCount)"> post </button>
+                    </div>
 
-                  <div *ngIf="isLoggedIn">
-                    <ul>
-                      <li *ngFor="let data of questData | paginate: { itemsPerPage: 10, currentPage: p }"
-                        class="forumQustionBlock forumQustionCommonBlock">
-                        <form [formGroup]="postAnswer">
-                          <div class="headDiv">
-                            <h4>Questions for You</h4>
-                            <div *ngIf="data.isAnswered==false">
-                              <i class="fa fa-star yellowStar" aria-hidden="true"></i>
-                            </div>
-                          </div>
-                          <p class="byAnnomus"> Question added by : Anonymous user</p>
-
-                          <div class="questionDivText">
-                            <h4>{{data.question}}</h4>
-                            <button class="answer" (click)="showAnsDiv(data._id)"><i class="fa fa-reply"
-                                aria-hidden="true"></i> Answer</button>
-                            <div class="questionDivTextReply" [id]="data._id">
-                              <textarea placeholder="Write Your Answer here.." formControlName="answerPost"
-                                id="answerspost" (keyup)="handleAnswerPost($event)"></textarea>
-                              <div *ngIf="postAnswer.hasError('','answerPost') && postAnswer.get('answerPost').touched">
-                                Answer is required*</div>
-                              <button class="waves-effect waves-light btn" id="postAnswerBtn" disabled
-                                (click)="postAns(postAnswer.value,data._id,data.answersCount)"> post </button>
-                            </div>
-
-                          </div>
-                        </form>
-                      </li>
-                    </ul>
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                   </div>
-                  <!-- </div> -->
                 </form>
               </li>
             </ul>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls (pageChange)="handlePaginator($event)"></pagination-controls>
           </div>
 
           <div class="forumAnswersBlock forumQustionCommonBlock" *ngFor="
