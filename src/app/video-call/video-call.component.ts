@@ -42,6 +42,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   responseArchivedId: any;
   commentFromRecruiter: any;
   submitReviewButton: boolean;
+  roomName: any;
   constructor(
     private ref: ChangeDetectorRef,
     private opentokService: OpentokService,
@@ -59,7 +60,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       if (publishedStream) {
         this.spinner.hide();
       }
-      // // console.log('publishedStream', publishedStream['streamId']);
+      console.log('publishedStream', publishedStream['streamId']);
       this.toCopylinkPublishedStreamId = publishedStream['streamId'];
     });
     // END subscription to the published stream
@@ -105,15 +106,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
               this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
               // console.log('candidateId', this.candidateId);
               this.isRecruiter = true;
-              // getting candidates resume by Id
-              const payload = {
-                candidateId: this.candidateId
-              };
-              this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
-                // console.log(res);
-                this.candidateInfo = res.isCandidate;
-              });
-              // end resume candidate
+
             }
           }
         }
@@ -129,8 +122,37 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+
     this.candidateInvitationLink = true;
-    this.opentokService.initSessionAPI('test').then((session: OT.Session) => {
+    // if (this.userRole === 'recruiter' || this.userRole === 'employer') {
+    // getting candidates resume by Id
+    this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+
+    const payload = {
+      candidateId: this.candidateId
+    };
+    this.videoCallingService.getCandidatesInfoById(payload).subscribe(async (res) => {
+      // console.log(res);
+      this.candidateInfo = await res.isCandidate;
+      this.roomName = this.candidateInfo.candidateName + this.candidateInfo._id;
+      console.log(this.roomName);
+      if (this.roomName) {
+        this.createSession(this.roomName);
+      } else {
+        console.log('room name not found');
+      }
+    });
+    // end resume candidate
+
+    // }
+
+
+
+  }
+  createSession(roomName) {
+
+    this.opentokService.initSessionAPI(roomName).then((session: OT.Session) => {
       this.spinner.show();
       this.session = session;
       // console.log('session', this.session.sessionId);
@@ -139,8 +161,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.session.on('streamCreated', (event) => {
         this.spinner.hide();
         // console.log('event.stream', event.stream);
-        this.streamId = event.stream.streamId;
-        this.opentokService.setStream(this.streamId);
+        // this.streamId = event.stream.streamId;
+        this.opentokService.setStream(this.candidateId);
         this.streams.push(event.stream);
         this.changeDetectorRef.detectChanges();
       });
@@ -201,7 +223,6 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         alert('Unable to connect.');
       });
 
-
   }
 
   // modal
@@ -238,23 +259,23 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   // for publisher
-  unpublishCall() {
-    this.opentokService.setMeetingStatus(true);
-    if (this.publisher) {
-      this.opentokService.unpublishSession(this.publisher);
-    }
-    this.publisher = null;
-    this.opentokService.setPublisher([]);
-    if (!this.publisher) {
-      if (!this.candidate && this.isRecruiter) {
-        this.router.navigate(['/recruiter/video-interview-room']);
-      } else if (!this.candidate && !this.isRecruiter) {
-        // this.session.unpublish(this.publisher);
-        this.router.navigate(['/employer/video-interview-room']);
-      }
-    }
+  // unpublishCall() {
+  //   this.opentokService.setMeetingStatus(true);
+  //   if (this.publisher) {
+  //     this.opentokService.unpublishSession(this.publisher);
+  //   }
+  //   this.publisher = null;
+  //   this.opentokService.setPublisher([]);
+  //   if (!this.publisher) {
+  //     if (!this.candidate && this.isRecruiter) {
+  //       this.router.navigate(['/recruiter/video-interview-room']);
+  //     } else if (!this.candidate && !this.isRecruiter) {
+  //       // this.session.unpublish(this.publisher);
+  //       this.router.navigate(['/employer/video-interview-room']);
+  //     }
+  //   }
 
-  }
+  // }
   //  archiving
 
   startArchive() {
