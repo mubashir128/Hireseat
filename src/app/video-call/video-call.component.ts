@@ -64,12 +64,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.toCopylinkPublishedStreamId = publishedStream['streamId'];
     });
     // END subscription to the published stream
-    this.opentokService._meetingEnd.subscribe((meetingStatus) => {
-      // console.log(meetingStatus);
-      this.meetingStatus = meetingStatus;
-    });
-    // // console.log('*****************************', this.activatedRoute.snapshot.paramMap.get('id'),
-    // '########################', this.streamId);
+
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         if (val.url.includes('/video-call')) {
@@ -79,15 +74,11 @@ export class VideoCallComponent implements OnInit, OnDestroy {
             this.streamId = res;
             this.roomId = this.activatedRoute.snapshot.paramMap.get('id');
             if (this.roomId == this.streamId) {
-              // // console.log('room id matched');
 
               this.allowSubscriber = true;
             }
           });
           // end of subscription to a stream
-          // // // console.log('there is no user show candidates window');
-
-          // // console.log('On video call');
           if (!localStorage.getItem('currentUser')) {
 
             this.candidate = true;
@@ -138,6 +129,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.roomName = this.candidateInfo.candidateName + this.candidateInfo._id;
       console.log(this.roomName);
       if (this.roomName) {
+        this.spinner.show();
+
         this.createSession(this.roomName);
       } else {
         console.log('room name not found');
@@ -152,8 +145,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
   createSession(roomName) {
 
+    this.spinner.show();
     this.opentokService.initSessionAPI(roomName).then((session: OT.Session) => {
-      this.spinner.show();
       this.session = session;
       // console.log('session', this.session.sessionId);
       this.startArchiveButton = true;

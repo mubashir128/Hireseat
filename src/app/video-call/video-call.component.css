@@ -16,6 +16,7 @@ app-subscriber {
   color: #48aef3;
   font-size: 20px;
   outline: none;
+  width: fit-content;
 }
 .video-call-execution-tab {
   display: flex;
@@ -611,4 +612,10 @@ nav ul a {
 .candidate-container {
   display: flex;
   flex-direction: column;
+}
+.back-name {
+  font-size: 14px;
+  cursor: pointer;
+  color: #48aef3;
+  outline: none;
 }
