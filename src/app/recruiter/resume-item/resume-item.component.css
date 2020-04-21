@@ -37,6 +37,7 @@
   background-color: white;
   padding: 15px 15px 70px 15px;
   position: relative;
+  /* max-height: 250px; */
 }
 .resume-item:hover {
   background-color: #f1f9ff;
@@ -106,3 +107,7 @@
   font-size: 18px;
   margin: 0 0;
 }
+/* .listDiv {
+  max-height: 70px;
+  overflow: scroll;
+} */

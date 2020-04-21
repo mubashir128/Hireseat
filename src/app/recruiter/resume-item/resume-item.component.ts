@@ -17,12 +17,16 @@ export class ResumeItemComponent implements OnInit {
   videoInterviewSubscription: Subscription;
   resumeVisible: number = 0;
   public data: any;
+  skillSet: any;
   constructor(private sanitizer: DomSanitizer,
     private videoCallingService: VideoCallingService) {
 
   }
 
   ngOnInit() {
+    this.skillSet = this.resume.skills.split(',');
+    console.log('******************', this.skillSet);
+
     jQuery(".card").mouseenter(function (e) {
       if (jQuery(this).find("> .card-reveal").length) {
         if (

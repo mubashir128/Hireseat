@@ -13,11 +13,14 @@ export class OpentokService {
   private streamToCheck = new Subject();
   private meetingEnd = new BehaviorSubject(false);
   private archivingID = new Subject();
+  private candidateID = new Subject();
+
   // subscribe to this sub
   _publishedStream = this.publisher.asObservable();
   _streamToChecked = this.streamToCheck.asObservable();
   _meetingEnd = this.meetingEnd.asObservable();
   _archivingID = this.archivingID.asObservable();
+  _getCandidateID = this.candidateID.asObservable();
   session: OT.Session;
   token: string;
 
@@ -43,6 +46,9 @@ export class OpentokService {
   // setting up newly generated stream event by publisher
   setPublisher(publishedStreamEvent) {
     this.publisher.next(publishedStreamEvent);
+  }
+  setCandidateId(id) {
+    this.candidateID.next(id);
   }
   initSession() {
     return fetch(config.SAMPLE_SERVER_BASE_URL + '/session')

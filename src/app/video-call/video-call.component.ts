@@ -8,6 +8,7 @@ import { baseUrl } from '../globalPath';
 declare var jQuery: any;
 import * as $ from 'jquery';
 import { VideoCallingService } from '../_services/video-calling.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-call',
@@ -48,7 +49,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     private router: Router,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
-    private videoCallingService: VideoCallingService
+    private videoCallingService: VideoCallingService,
+    private sanitizer: DomSanitizer
   ) {
 
     this.changeDetectorRef = ref;
@@ -59,16 +61,11 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       if (publishedStream) {
         this.spinner.hide();
       }
-      // // console.log('publishedStream', publishedStream['streamId']);
-      this.toCopylinkPublishedStreamId = publishedStream['streamId'];
     });
     // END subscription to the published stream
     this.opentokService._meetingEnd.subscribe((meetingStatus) => {
-      // console.log(meetingStatus);
       this.meetingStatus = meetingStatus;
     });
-    // // console.log('*****************************', this.activatedRoute.snapshot.paramMap.get('id'),
-    // '########################', this.streamId);
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         if (val.url.includes('/video-call')) {
@@ -83,45 +80,17 @@ export class VideoCallComponent implements OnInit, OnDestroy {
               this.allowSubscriber = true;
             }
           });
+          opentokService._getCandidateID.subscribe(id => {
+            console.log(id);
+            this.toCopylinkPublishedStreamId = id;
+
+          });
           // end of subscription to a stream
-          // // // console.log('there is no user show candidates window');
-
-          // // console.log('On video call');
-          if (!localStorage.getItem('currentUser')) {
-
-            this.candidate = true;
-          } else {
-            this.allowSubscriber = true;
-
-            // // // console.log('recruiter on video call');
-            this.userId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
-
-            this.userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
-            this.candidate = false;
-            if (this.userRole === 'employer') {
-              this.isRecruiter = false;
-            } else if (this.userRole === 'recruiter') {
-
-              this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
-              // console.log('candidateId', this.candidateId);
-              this.isRecruiter = true;
-              // getting candidates resume by Id
-              const payload = {
-                candidateId: this.candidateId
-              };
-              this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
-                // console.log(res);
-                this.candidateInfo = res.isCandidate;
-              });
-              // end resume candidate
-            }
-          }
         }
       }
     });
     // subscribing to archivingID
     this.opentokService._archivingID.subscribe((archiveID) => {
-      // console.log('***********************', archiveID);
       this.archiveID = archiveID;
     });
     // end subscribing
@@ -130,7 +99,41 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.candidateInvitationLink = true;
-    this.opentokService.initSessionAPI('test').then((session: OT.Session) => {
+    // candidate or interviewer
+    if (!localStorage.getItem('currentUser')) {
+      this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+
+      this.candidate = true;
+
+    } else {
+      this.allowSubscriber = true;
+
+      // // // console.log('recruiter on video call');
+      this.userId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
+
+      this.userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
+      this.candidate = false;
+      if (this.userRole === 'employer') {
+        this.isRecruiter = false;
+      } else if (this.userRole === 'recruiter') {
+
+        this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+        // console.log('candidateId', this.candidateId);
+        this.isRecruiter = true;
+        // getting candidates resume by Id
+        const payload = {
+          candidateId: this.candidateId
+        };
+        this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
+          // console.log(res);
+          this.candidateInfo = res.isCandidate;
+          this.opentokService.setCandidateId(this.candidateId);
+        });
+        // end resume candidate
+      }
+    }
+    //
+    this.opentokService.initSessionAPI(this.candidateId).then((session: OT.Session) => {
       this.spinner.show();
       this.session = session;
       // console.log('session', this.session.sessionId);
@@ -351,7 +354,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
     });
   }
-
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
   // end of archiving
   ngOnDestroy() {
     if (this.publisher) {

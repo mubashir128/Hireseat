@@ -46,37 +46,10 @@
           < Back </span>
             <span *ngIf="!candidate && isRecruiter" class="back" routerLink='/recruiter/video-interview-room'>
               < Back </span>
-                <!-- live sujith-->
 
-                <!-- <iframe
-              src="https://tokbox.com/embed/embed/ot-embed.js?embedId=8fc687ac-4533-41d9-918d-97c3014b1673&room=DEFAULT_ROOM&iframe=true"
-              width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
-
-                <!-- www -->
-                <!-- <iframe
-                  src="https://tokbox.com/embed/embed/ot-embed.js?embedId=31fc4129-0bf3-42d9-8ae9-62f2088669ab&room=DEFAULT_ROOM&iframe=true"
-                  width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
-
-
-                <!-- test server pritam -->
-
-                <!-- <iframe
-              src="https://tokbox.com/embed/embed/ot-embed.js?embedId=6d73958c-99e5-4d8e-8663-507af3482d2c&room=DEFAULT_ROOM&iframe=true"
-              width="800px" height="640px" scrolling="auto" allow="microphone; camera"></iframe> -->
-
-                <!-- localhost pritam -->
-
-                <!-- <iframe
-                  src="https://tokbox.com/embed/embed/ot-embed.js?embedId=f52f0311-3945-4f1a-a697-356260e9e33b&room=DEFAULT_ROOM&iframe=true"
-                  width=800 height=640 scrolling="auto" allow="microphone; camera"></iframe> -->
-
-                <!-- api based calling -->
-                <!-- <ng-container *ngIf="!candidate && meetingStatus">
-                  <button type="button" (click)="ngOnInit()" class="end-meeting">Start Meeting</button>
-                </ng-container> -->
                 <div class="call" *ngIf="session">
                   <div class="screens">
-                    <ng-container *ngIf="allowSubscriber">
+                    <ng-container>
                       <div class="candidate-container">
                         <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session">
                         </app-subscriber>
@@ -167,9 +140,9 @@
         <div class="docSection">
           <div class="docDiv">
             <img src="assets/img/doc.png" class="img-responsive" />
-            <!-- <a [attr.href]="transform(candidateInfo?.fileURL)" target="_blank" download> -->
-            <h4>Download Resume</h4>
-            <!-- </a> -->
+            <a [attr.href]="transform(candidateInfo?.fileURL)" target="_blank" download>
+              <h4>Download Resume</h4>
+            </a>
           </div>
         </div>
 
