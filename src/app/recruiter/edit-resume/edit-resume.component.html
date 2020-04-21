@@ -10,19 +10,34 @@
     </div>
     <form [formGroup]="editResumeFrm" (ngSubmit)="submit()" novalidate>
       <div style=" width:100%; margin-bottom:0px;">
-        <div id="resume-preview" class="wid100 center-align resumePriviewDiv">
-          <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
-            [url]="downloadURL"></app-pdf-viewer>
-          <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text "
-            *ngIf="fileUploaded===0" style="display:table;">
-            <div class="uploadBtn" style="display:table-cell;">
-              <span>Upload Resume</span>
-              <input type="file" (change)="fileChange($event)">
+        <div class="editResumeupperDiv">
+          <div id="resume-preview" class="wid100 center-align resumePriviewDiv">
+            <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
+              [url]="downloadURL"></app-pdf-viewer>
+            <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text "
+              *ngIf="fileUploaded===0" style="display:table;">
+              <div class="uploadBtn" style="display:table-cell;">
+                <span>Upload Resume</span>
+                <input type="file" (change)="fileChange($event)">
+              </div>
             </div>
+            <!-- <div *ngIf="fileUploaded===1" class="progress">
+                          <div class="determinate" style="width: {{uploadProgress}}%"></div>
+                      </div> -->
           </div>
-          <!-- <div *ngIf="fileUploaded===1" class="progress">
-                        <div class="determinate" style="width: {{uploadProgress}}%"></div>
-                    </div> -->
+
+          <div class="upperVideo">
+            <iframe src="https://www.youtube.com/watch?v=RLVaBrFxhhA"></iframe>
+          </div>
+        </div>
+        <div class="RecriterReview">
+          <!-- <label>Recruiter Review</label> -->
+          <div class="marB10">
+            <span class="resume-subtitle ">
+              Recruiter Review
+            </span>
+          </div>
+          <textarea rows="3" class="RecriterComment"></textarea>
         </div>
         <div class="NewResumeForm" id="resume-info"
           style=" border-left: solid #e0e0e0 1px;  width:100%; min-height:500px; padding:15px;">

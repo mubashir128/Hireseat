@@ -91,14 +91,33 @@
   height: 100% !important;
   display: table;
 }
-
+.editResumeupperDiv {
+  width: 100%;
+  height: 200px;
+  float: left;
+}
 .resumePriviewDiv {
-  width: 50%;
+  /* width: 50%;
   vertical-align: middle;
   margin: 10px auto 30px;
+  max-height: 200px; */
+  width: 30%;
+  float: left;
+  vertical-align: middle;
   max-height: 200px;
+  background-color: #afafaf;
+}
+.upperVideo{
+  width: 70%;
+  height: 100%;
+  float: right;
 }
 
+.upperVideo iframe{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 .resume-subtitle {
   color: #0aafff;
 }
@@ -108,4 +127,14 @@
 }
 .resume-repository-click {
   cursor: pointer;
+}
+.RecriterReview {
+  width: 100%;
+  float: left;
+  padding: 15px;
+}
+.RecriterComment{
+  border-radius: 5px;
+  padding: 5px;
+  min-height: 80px;
 }
