@@ -18,6 +18,7 @@ export class ResumeItemComponent implements OnInit {
   resumeVisible: number = 0;
   public data: any;
   skillSet: any;
+  loadVideo: any;
   constructor(private sanitizer: DomSanitizer,
     private videoCallingService: VideoCallingService) {
 

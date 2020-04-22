@@ -3,6 +3,7 @@ import { Resume } from '../../models/resume';
 import { Router } from '@angular/router';
 import { ResumeService } from '../../_services/resume.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { VideoCallingService } from '../../_services/video-calling.service';
 
 declare var jQuery: any;
 declare var Materialize: any;
@@ -19,7 +20,12 @@ export class EditResumeComponent implements OnInit {
   public editResumeFrm: FormGroup;
   downloadURL: string;
   fileUploaded: number = 0;
-  constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private resumeService: ResumeService,
+    private router: Router,
+    private videoCallingService: VideoCallingService
+  ) { }
 
   ngOnInit() {
     console.log(this.resume);
@@ -57,7 +63,23 @@ export class EditResumeComponent implements OnInit {
   }
 
   get f() { return this.editResumeFrm.controls; }
+  viewVideo(archivedId) {
+    console.log(archivedId);
+    const payload = {
+      archivedId: archivedId
+    };
+    this.videoCallingService.getArchivedVideo(payload).subscribe(url => {
+      if (url) {
+        console.log(url);
 
+
+
+      } else {
+        console.log('unable to load url');
+
+      }
+    });
+  }
   fileChange(event) {
 
     if (event.target.files) {
