@@ -95,6 +95,9 @@ export class AskbuttonComponent implements OnInit {
             localStorage.setItem('askQuestionUser', JSON.stringify(res.data))
           }
           this.emailConfirmPopup();
+          setTimeout(()=>{
+            this.closeEmailConfirmpopup();
+          },2000);
         }
       },
       err => console.log(err))
@@ -126,6 +129,9 @@ export class AskbuttonComponent implements OnInit {
           this.msgForPopup = res.message;
           this.emailConfirmPopup();
         }
+        setTimeout(()=>{
+          this.closeEmailConfirmpopup();
+        },2000);
       },
       err => {
         //console.log(err)
@@ -192,7 +198,7 @@ export class AskbuttonComponent implements OnInit {
     setTimeout(() => {
       this.closeEmailConfirmpopup();
     }, 2000);
-    this._interactComp.loadData({});
+    this._interactComp.loadData(res.data);
   }
 
 }
