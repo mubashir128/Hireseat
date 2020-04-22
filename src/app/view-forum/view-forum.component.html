@@ -24,7 +24,7 @@
         <div class="forumPageInner">
           <!--only Question start-->
           <div *ngIf="askusersData">
-            <div *ngFor="let data of questData">
+            <div *ngFor="let data of questData | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
               <div *ngIf="data.questionById == askusersData._id && !isLoggedIn"
                 class="forumQustionBlock forumQustionCommonBlock">
                 <form [formGroup]="postAnsw">
@@ -36,6 +36,9 @@
                   </div>
                 </form>
               </div>
+            </div>
+            <div *ngIf="!isLoggedIn">
+              <pagination-controls (pageChange)="handlePaginator($event)"></pagination-controls>
             </div>
           </div>
           <!--only question end  -->

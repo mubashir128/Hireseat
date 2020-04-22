@@ -52,33 +52,33 @@ export class ViewForumComponent implements OnInit {
     private authService:AuthenticationService,
     public supperAdmin: SuperAdminService,
     private _interactComp : InteractCompService) 
-    {
-      this.loggedInUser=this.userService.getUserData();
-      if(this.loggedInUser != "no"){
-        this.isLoggedIn=true;
-        if(this.loggedInUser.userRole =="employer"){
-          this.isEmployer=true;
-        }else if(this.loggedInUser.userRole =="recruiter"){
-          this.isRecruiter=true;
-        }else if(this.loggedInUser.userRole =="admin"){
-          this.isAdmin=true;
-        }else if(this.loggedInUser.userRole =="super-admin"){
-          this.isSuperAdmin = true;
-        }
+  {
+    this.loggedInUser=this.userService.getUserData();
+    if(this.loggedInUser != "no"){
+      this.isLoggedIn=true;
+      if(this.loggedInUser.userRole =="employer"){
+        this.isEmployer=true;
+      }else if(this.loggedInUser.userRole =="recruiter"){
+        this.isRecruiter=true;
+      }else if(this.loggedInUser.userRole =="admin"){
+        this.isAdmin=true;
+      }else if(this.loggedInUser.userRole =="super-admin"){
+        this.isSuperAdmin = true;
       }
+    }
 
-      this._interactComp.interact$.subscribe(res=>{
-        this.loadDataForQuestions(res);
-      });
+    this._interactComp.interact$.subscribe(res=>{
+      this.loadDataForQuestions(res);
+    });
 
-     }
+  }
 
   ngOnInit() {
     this.loadDataFromStorage();
     
     jQuery('.modal').modal();
 
-    //get all questions
+    //get limited questions
     this.getLimitedQuestions({
       onLoad : true,
       itemsPerPage : this.itemsPerPage
@@ -86,24 +86,25 @@ export class ViewForumComponent implements OnInit {
 
      //get questions with answers
     this.getQuestionsAndAnswers();
-      this.postAnswer=this.formBuilder.group({
-        answerPost: this.formBuilder.control('', [Validators.required])
-      })
+    
+    this.postAnswer=this.formBuilder.group({
+      answerPost: this.formBuilder.control('', [Validators.required])
+    })
 
-      this.searchQues=this.formBuilder.group({
-        question: this.formBuilder.control('', [Validators.required])
-      })
-            
-      this.postAnsw=this.formBuilder.group({
-        postAnsw1: this.formBuilder.control('', [Validators.required])
-      })
+    this.searchQues=this.formBuilder.group({
+      question: this.formBuilder.control('', [Validators.required])
+    })
+          
+    this.postAnsw=this.formBuilder.group({
+      postAnsw1: this.formBuilder.control('', [Validators.required])
+    })
       
-      this.currUserData=this._forum.getUserId();
-      let CurreUser=JSON.parse(this.currUserData)
-      if(CurreUser !== null){
-        this.curerntUserId=CurreUser.userInfo._id
-        this.curerntUserName=CurreUser.userInfo.fullName;
-      }
+    this.currUserData=this._forum.getUserId();
+    let CurreUser=JSON.parse(this.currUserData)
+    if(CurreUser !== null){
+      this.curerntUserId=CurreUser.userInfo._id
+      this.curerntUserName=CurreUser.userInfo.fullName;
+    }
   }
 
   getLimitedQuestions(obj){
