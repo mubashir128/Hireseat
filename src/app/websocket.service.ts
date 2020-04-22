@@ -57,7 +57,7 @@ export class WebsocketService {
   }
 
   private onClose(obj: any) {
-    console.log("connection closed : ", obj);
+    //  console.log("connection closed : ",obj);
     this.socket = undefined;
   }
 
