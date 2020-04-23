@@ -13,31 +13,39 @@
 <ul class="ListResume">
   <!-- other li div -->
   <li *ngFor="let resume of ResumeList; let i = index">
-    <div class="singleList resumeSingleList" id="animateinterview{{ i }}">
+    <div class="singleList employerResume resumeSingleList" id="animateinterview{{ i }}">
+      <div class="docSectionBtns">
+        <button class="downloadResume"><a [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank" download><i class="fa fa-cloud-download" aria-hidden="true"></i>Download Resume</a></button>
+        <button class="viewInterview" *ngIf="resume?.resumeKey?.interviewLinkedByRecruiter"
+        (click)="seeVideo(resume?.resumeKey?.interviewLinkedByRecruiter)">
+        <i class="fa fa-video-camera" aria-hidden="true"></i> View Interview</button>
+      </div>
+      <div class="singleListData">
       <div class="PointsDiv commonSingleInner">
         <div class="PointsDivSingle PointsDivSingleN">
           <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint1 | charlimit }}</h4>
+          <!-- <h4>{{ resume.StrongPoint1 | charlimit }}</h4> -->
+          <h4>{{ resume.StrongPoint1 }}</h4>
           <div class="OnHoverDiv">
             <h4>{{ resume.StrongPoint1 }}</h4>
           </div>
         </div>
         <div class="PointsDivSingle PointsDivSingleN">
           <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint2 | charlimit }}</h4>
+          <h4>{{ resume.StrongPoint2}}</h4>
           <div class="OnHoverDiv">
             <h4>{{ resume.StrongPoint2 }}</h4>
           </div>
         </div>
         <div class="PointsDivSingle PointsDivSingleN">
           <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint3 | charlimit }}</h4>
+          <h4>{{ resume.StrongPoint3 }}</h4>
           <div class="OnHoverDiv">
             <h4>{{ resume.StrongPoint3 }}</h4>
           </div>
         </div>
       </div>
-
+<!-- 
       <div class="docSection">
         <div class="docDiv">
           <img src="assets/img/doc.png" class="img-responsive" id="img{{ i }}" />
@@ -55,7 +63,7 @@
             View interview
           </span>
         </div>
-      </div>
+      </div> -->
 
       <div class="feedbackDiv commonSingleInner ">
         <div class="PointsDivSingle">
@@ -137,6 +145,7 @@
           id="approveBtn">
           Interview
         </button>
+      </div>
       </div>
     </div>
   </li>

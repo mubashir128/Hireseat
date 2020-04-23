@@ -180,12 +180,61 @@ h5 {
 .ListResume {
   list-style: none;
   padding: 0;
+  width: 100%;
+  float: left;
+  
+  height: calc(100vh - 580px);
+    overflow-y: scroll;
 }
 .singleList {
-  height: 230px !important;
+  /* height: 230px !important; */
+  height: auto !important;
+}
+.singleList.employerResume {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px 30px;
+  display: block; 
+  /* align-items: center; */
+ justify-content: unset;
+  margin-bottom: 30px;
+  transition: 1s;
+  height: 210px;
+  background-color: #ffffff;
+}
+.docSectionBtns {
+  text-align: right;
+  margin-bottom: 20px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.docSectionBtns button{
+  font-size: 15px;
+  min-width: 170px;
+  border-radius: 5px;
+  padding: 5px 20px;
+}
+.docSectionBtns button i{
+  margin-right: 10px;
+}
+button.downloadResume {
+  border: 2px solid #39aaff;
+  background-color: transparent;
+  color: #39aaff;
+}
+button.viewInterview {
+  margin-left: 10px;
+  background-color: green;
+  color: #fff;
+  border: 1px solid green;
+}
+.singleListData {
+  display: flex;
+  justify-content: center;
 }
 .commonSingleInner {
-  width: 25%;
+  /* width: 25%; */
+  width: 47%;
 }
 .feedbackDiv.commonSingleInner {
   width: 45%;
@@ -210,7 +259,7 @@ h5 {
 }
 .feedbackDiv .PointsDivSingle h4 {
   margin: 0 20px;
-  font-size: 19px;
+  font-size: 17px;
   color: #b6b6b6;
   min-width: 150px;
 }
@@ -220,7 +269,8 @@ h5 {
 .feedbackDiv .PointsDivSingle {
   display: flex;
   align-items: baseline;
-  margin: 10px 0;
+  /* margin: 10px 0; */
+  margin: 0 0 10px;
   justify-content: center;
 }
 .ActionDiv.commonSingleInner {
@@ -251,8 +301,12 @@ h5 {
 .commonRejectApprove {
   width: auto;
 }
+.approveBtnDiv .commonBtn{
+  margin-right: 0 !important;
+}
 .commonBtn {
-  min-width: 120px;
+  /* min-width: 120px; */
+  min-width: 150px;
   background-color: transparent;
   margin: 10px 20px !important;
   /*padding: 3px 0;*/
@@ -286,7 +340,7 @@ h5 {
   width: 20%;
 }
 .docSection {
-  width: 22%;
+  /* width: 22%; */
   text-align: center;
 }
 .docSection img {
@@ -533,7 +587,8 @@ table.highlight,
   cursor: pointer;
 }
 .fa-video-camera {
-  color: black;
+  /* color: black; */
+  color: #fff;
 }
 @media only screen and (min-width: 320px) and (max-width: 667px) {
   .modal.modal-fixed-footer.allResumePOp {
