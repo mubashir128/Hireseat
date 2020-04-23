@@ -183,8 +183,8 @@ h5 {
   width: 100%;
   float: left;
   
-  height: calc(100vh - 580px);
-    overflow-y: scroll;
+  /* height: calc(100vh - 580px);
+    overflow-y: scroll; */
 }
 .singleList {
   /* height: 230px !important; */
@@ -221,6 +221,12 @@ button.downloadResume {
   border: 2px solid #39aaff;
   background-color: transparent;
   color: #39aaff;
+}
+button.downloadResume:hover{
+  background-color: #39aaff;
+}
+button.downloadResume:hover a , button.downloadResume:hover a i{
+  color: #ffffff;
 }
 button.viewInterview {
   margin-left: 10px;
@@ -631,4 +637,21 @@ table.highlight,
     padding-right: 0;
     margin-right: 0 !important;
   }
+}
+
+/* New CSS */
+.interviewVideoDiv {
+  width: 100%;
+  float: left;
+  text-align: center;
+  /* z-index: 99; */
+}
+/* .stickyDiv{
+  position: sticky;
+  top: 0;
+  background-color: #999999;
+} */
+iframe.interviewVideo {
+  width: 50%;
+  height: 330px;
 }
