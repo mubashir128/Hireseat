@@ -101,13 +101,7 @@ export class NavbarComponent implements OnInit {
   async ngOnInit() {
     this.showAdminDashboardButton = false;
     this.showEnterpriseDashboardButton = false;
-    this._forum.getUnAnsweredData().subscribe(
-      (res) => {
-        this.questDataLenght = res;
-        this.notificationLength = this.questDataLenght.length;
-      },
-      (err) => console.log(err)
-    );
+
     let obj = JSON.parse(localStorage.getItem('currentUser'));
     if (obj !== null) {
       await this.initSocket(obj.token);
@@ -177,6 +171,7 @@ export class NavbarComponent implements OnInit {
   async initSocket(token) {
     await this._socket.getInstance(token);
   }
+
   truncateHTML(text: string): string {
     let charlimit = 20;
     if (!text || text.length <= charlimit) {
@@ -188,19 +183,26 @@ export class NavbarComponent implements OnInit {
     let shortened = trim_space.substring(0, charlimit) + '...';
     return shortened;
   }
+
   handleNotificationData(res: any) {
     switch (res.subType) {
       case this.getAllNotifications:
         // add all notifications to list.
         this.questDataLenght = res.data;
+        this.incrementNotificationCount();
         break;
       case this.newNotification:
         //add notification to start of list.
         this.questDataLenght.unshift(res.result);
+        this.incrementNotificationCount();
         break;
       default:
         break;
     }
+  }
+
+  incrementNotificationCount(){
+    this.notificationLength = this.questDataLenght.length;
   }
 
   updateQueAns(id) {
