@@ -20,6 +20,7 @@ export class EditResumeComponent implements OnInit {
   public editResumeFrm: FormGroup;
   downloadURL: string;
   fileUploaded: number = 0;
+  videoURl: any;
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
@@ -59,19 +60,22 @@ export class EditResumeComponent implements OnInit {
         comments: [""]
       });
     }
+    if (this.resume['interviewLinkedByRecruiter']) {
+      this.viewVideo(this.resume['interviewLinkedByRecruiter']);
+    }
     jQuery('#resume-preview').height(jQuery('#resume-info').height());
   }
 
   get f() { return this.editResumeFrm.controls; }
   viewVideo(archivedId) {
-    console.log(archivedId);
+    // console.log(archivedId);
     const payload = {
       archivedId: archivedId
     };
     this.videoCallingService.getArchivedVideo(payload).subscribe(url => {
       if (url) {
-        console.log(url);
-
+        this.videoURl = url.url;
+        console.log(this.videoURl);
 
 
       } else {
