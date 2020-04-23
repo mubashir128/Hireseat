@@ -26,7 +26,7 @@ export class ResumeItemComponent implements OnInit {
 
   ngOnInit() {
     this.skillSet = this.resume.skills.split(',');
-    console.log('******************', this.skillSet);
+    // console.log('******************', this.skillSet);
 
     jQuery(".card").mouseenter(function (e) {
       if (jQuery(this).find("> .card-reveal").length) {
@@ -77,7 +77,7 @@ export class ResumeItemComponent implements OnInit {
   }
 
   edit() {
-    console.log('editing', this.resume);
+    // console.log('editing', this.resume);
 
     // referralJobTitle1: undefined
     // referralEmail1: undefined

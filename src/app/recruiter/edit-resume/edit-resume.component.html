@@ -37,15 +37,19 @@
               [url]="videoURl"></app-pdf-viewer>
           </div>
         </div>
-        <div class="RecriterReview">
-          <!-- <label>Recruiter Review</label> -->
-          <div class="marB10">
-            <span class="resume-subtitle">
-              Recruiter Review
-            </span>
+        <ng-container *ngIf="videoURl">
+          <div class="RecriterReview">
+            <!-- <label>Recruiter Review</label> -->
+            <div class="marB10">
+              <span class="resume-subtitle">
+                Recruiter Review
+              </span>
+            </div>
+            <textarea rows="3" class="RecriterComment">{{resume['recruiterReview'][0].review}}</textarea>
           </div>
-          <textarea rows="3" class="RecriterComment">{{resume['recruiterReview'][0].review}}</textarea>
-        </div>
+
+        </ng-container>
+
         <div class="NewResumeForm" id="resume-info"
           style=" border-left: solid #e0e0e0 1px;  width:100%; min-height:500px; padding:15px;">
           <div class="row" style="margin-bottom:0px;">
