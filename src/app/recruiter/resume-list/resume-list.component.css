@@ -31,5 +31,5 @@ ul.resumeList {
     width: 100%;
     float: left;
     margin-bottom: 20px;
-    display: flex !important;
+    /* display: flex !important; */
 }
