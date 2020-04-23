@@ -13,7 +13,10 @@ import { AuthenticationService } from '../../_services/authentication.service';
 })
 export class UserlistComponent implements OnInit {
   UserList:any=[];
-  p:any;
+  p=1;
+  createdAt;
+  itemsAre=[1];
+  itemsPerPage=10;
   UserData:any;
   constructor(
     private _AuthService: AuthenticationService, 
@@ -25,14 +28,23 @@ export class UserlistComponent implements OnInit {
 
   ngOnInit() {
     this.UserData = this.userService.getUserData();
-    this.adminService.getAllUsers().subscribe((data)=>{
+    this.getUsers({
+      onLoad : true,
+      itemsPerPage : this.itemsPerPage
+    });
+  }
+
+  getUsers(obj){
+    this.adminService.getUsersForAdmin(obj).subscribe((data)=>{
       if(data.length > 0 ){
-        this.UserList=data;
-      }    
+        this.UserList=[...this.UserList,...data];
+        this.createdAt=this.UserList[this.UserList.length-1].refUserId.createdAt;
+      }
     },(error)=>{
       console.log(error);
     })
   }
+
   logoutSA(){
     this.supperAdmin.unSecureLogin({email:localStorage.getItem('super-admin-email')}).subscribe((response)=>{
       if(response){
@@ -44,4 +56,18 @@ export class UserlistComponent implements OnInit {
       console.log(error)
     })
   }
+
+  handlePaginator($event){
+    this.p=$event;
+    if(this.itemsAre.includes($event)){
+      return ;
+    }
+    this.itemsAre.push($event);
+    this.getUsers({
+      createdAt : this.createdAt,
+      itemsPerPage : this.itemsPerPage
+    });
+
+  }
+
 }

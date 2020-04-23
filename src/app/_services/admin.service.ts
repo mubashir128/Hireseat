@@ -17,4 +17,11 @@ export class AdminService {
       return res;
     }));
   }
+
+  getUsersForAdmin(obj){
+    return this.http.post<any[]>(this.baseurl+'api/getUsersForAdmin',obj).pipe(map((res:any[])=>{
+      return res;
+    }));
+  }
+
 }
