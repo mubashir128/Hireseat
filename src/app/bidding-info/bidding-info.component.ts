@@ -29,7 +29,7 @@ export class BiddingInfoComponent implements OnChanges {
   @Output() ResumeCount: EventEmitter<any> = new EventEmitter<any>();
   @Output() InterviewCount: EventEmitter<any> = new EventEmitter<any>();
   public userProfile: IProfile;
-  biddingStatus: number = 0;// 0:scheduled , -1:expired , 1:active
+  biddingStatus: number = 0; // 0:scheduled , -1:expired , 1:active
   bid: IBid;
   public loggedUser: any;
   bids: IBid[];
@@ -55,6 +55,7 @@ export class BiddingInfoComponent implements OnChanges {
   ratingPoints: any = { skillMatch: 0, experienceMatch: 0, educationMatch: 0, rejectOrInterview: 0, commentPoints: 0, total: 0 }
   count: any;
   id: string;
+  videoURL: any;
 
   constructor(
     private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
@@ -460,18 +461,25 @@ export class BiddingInfoComponent implements OnChanges {
   seeVideo(archiveId) {
     // call video call service
     // console.log(archiveId);
+    this.spinner.show();
     const payload = {
       archivedId: archiveId
     };
     this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
       if (res) {
         // console.log(res);
-        window.open(res.url);
-      }
+        this.videoURL = res.url;
+        // window.open(res.url);
+        this.spinner.hide();
+      } else { this.spinner.hide(); }
     }, err => {
+      this.spinner.hide();
       // console.log('network error');
 
     });
+  }
+  closeVide() {
+    this.videoURL = '';
   }
   onLinkedIn(profileLink) {
     window.open(profileLink);

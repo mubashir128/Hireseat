@@ -8,10 +8,19 @@
   </div>
 </div>
 
-
+<ng-container *ngIf="videoURL">
   <div class="interviewVideoDiv stickyDiv">
-    <iframe src="#" class="interviewVideo"></iframe>
+
+    <iframe [src]="videoURL | safePdf" class="interviewVideo" allowfullscreen></iframe>
+    <!-- <app-pdf-viewer [url]="videoURL">
+    </app-pdf-viewer> -->
+    <div class="close">
+      <i class="fa fa-window-close" aria-hidden="true" (click)="closeVide()"></i>
+      <!-- <i class="fa fa-times" aria-hidden="true"></i> -->
+    </div>
   </div>
+
+</ng-container>
 
 <div class="center-align" *ngIf="ResumeList.length == 0">
   <h3>Resume Not Found</h3>
@@ -21,37 +30,38 @@
   <li *ngFor="let resume of ResumeList; let i = index">
     <div class="singleList employerResume resumeSingleList" id="animateinterview{{ i }}">
       <div class="docSectionBtns">
-        <button class="downloadResume"><a [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank" download><i class="fa fa-cloud-download" aria-hidden="true"></i>Download Resume</a></button>
+        <button class="downloadResume"><a [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank"
+            download><i class="fa fa-cloud-download" aria-hidden="true"></i>Download Resume</a></button>
         <button class="viewInterview" *ngIf="resume?.resumeKey?.interviewLinkedByRecruiter"
-        (click)="seeVideo(resume?.resumeKey?.interviewLinkedByRecruiter)">
-        <i class="fa fa-video-camera" aria-hidden="true"></i> View Interview</button>
+          (click)="seeVideo(resume?.resumeKey?.interviewLinkedByRecruiter)">
+          <i class="fa fa-video-camera" aria-hidden="true"></i> View Interview</button>
       </div>
       <div class="singleListData">
-      <div class="PointsDiv commonSingleInner">
-        <div class="PointsDivSingle PointsDivSingleN">
-          <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <!-- <h4>{{ resume.StrongPoint1 | charlimit }}</h4> -->
-          <h4>{{ resume.StrongPoint1 }}</h4>
-          <div class="OnHoverDiv">
+        <div class="PointsDiv commonSingleInner">
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <!-- <h4>{{ resume.StrongPoint1 | charlimit }}</h4> -->
             <h4>{{ resume.StrongPoint1 }}</h4>
+            <div class="OnHoverDiv">
+              <h4>{{ resume.StrongPoint1 }}</h4>
+            </div>
           </div>
-        </div>
-        <div class="PointsDivSingle PointsDivSingleN">
-          <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint2}}</h4>
-          <div class="OnHoverDiv">
-            <h4>{{ resume.StrongPoint2 }}</h4>
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>{{ resume.StrongPoint2}}</h4>
+            <div class="OnHoverDiv">
+              <h4>{{ resume.StrongPoint2 }}</h4>
+            </div>
           </div>
-        </div>
-        <div class="PointsDivSingle PointsDivSingleN">
-          <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint3 }}</h4>
-          <div class="OnHoverDiv">
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
             <h4>{{ resume.StrongPoint3 }}</h4>
+            <div class="OnHoverDiv">
+              <h4>{{ resume.StrongPoint3 }}</h4>
+            </div>
           </div>
         </div>
-      </div>
-<!-- 
+        <!--
       <div class="docSection">
         <div class="docDiv">
           <img src="assets/img/doc.png" class="img-responsive" id="img{{ i }}" />
@@ -71,87 +81,87 @@
         </div>
       </div> -->
 
-      <div class="feedbackDiv commonSingleInner ">
-        <div class="PointsDivSingle">
-          <h4>Skill Match</h4>
-          <div class="startDiv">
-            <span class="rating">
-              <!--   <img src="assets/img/filledstar.png" class="img-responsive">
+        <div class="feedbackDiv commonSingleInner ">
+          <div class="PointsDivSingle">
+            <h4>Skill Match</h4>
+            <div class="startDiv">
+              <span class="rating">
+                <!--   <img src="assets/img/filledstar.png" class="img-responsive">
                               <img src="assets/img/star.png" class="img-responsive overStart">
                               <img src="assets/img/star.png" class="img-responsive overStart"> -->
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" /><label (click)="selectRating($event)" class="full"
-                for="{{ 'field1' + resume._id + '_star3' }}"></label>
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field1' + resume._id + '_star3' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" /><label (click)="selectRating($event)" class="full"
-                for="{{ 'field1' + resume._id + '_star2' }}"></label>
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field1' + resume._id + '_star2' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" /><label (click)="selectRating($event)" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+            </div>
+          </div>
+          <div class="PointsDivSingle">
+            <h4>Experience Match</h4>
+            <div class="startDiv">
+              <span class="rating">
+                <input type="radio" id="{{ 'field2' + resume._id + '_star3' }}" name="{{ 'rating2' + resume._id }}"
+                  value="33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field2' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field2' + resume._id + '_star2' }}" name="{{ 'rating2' + resume._id }}"
+                  value="15" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field2' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field2' + resume._id + '_star1' }}" name="{{ 'rating2' + resume._id }}"
+                  value="-33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field2' + resume._id + '_star1' }}"></label>
+              </span>
+            </div>
+          </div>
+          <div class="PointsDivSingle">
+            <h4>Education Match</h4>
+            <div class="startDiv">
+              <span class="rating">
+                <input type="radio" id="{{ 'field3' + resume._id + '_star3' }}" name="{{ 'rating3' + resume._id }}"
+                  value="33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field3' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field3' + resume._id + '_star2' }}" name="{{ 'rating3' + resume._id }}"
+                  value="15" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field3' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field3' + resume._id + '_star1' }}" name="{{ 'rating3' + resume._id }}"
+                  value="-33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field3' + resume._id + '_star1' }}"></label>
+              </span>
+            </div>
           </div>
         </div>
-        <div class="PointsDivSingle">
-          <h4>Experience Match</h4>
-          <div class="startDiv">
-            <span class="rating">
-              <input type="radio" id="{{ 'field2' + resume._id + '_star3' }}" name="{{ 'rating2' + resume._id }}"
-                value="33" /><label (click)="selectRating($event)" class="full"
-                for="{{ 'field2' + resume._id + '_star3' }}"></label>
 
-              <input type="radio" id="{{ 'field2' + resume._id + '_star2' }}" name="{{ 'rating2' + resume._id }}"
-                value="15" /><label (click)="selectRating($event)" class="full"
-                for="{{ 'field2' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field2' + resume._id + '_star1' }}" name="{{ 'rating2' + resume._id }}"
-                value="-33" /><label (click)="selectRating($event)" class="full"
-                for="{{ 'field2' + resume._id + '_star1' }}"></label>
-            </span>
+        <div class="ActionDiv commonSingleInner ">
+          <div class="actionDivSingle">
+            <div class="">
+              <textarea class="commentTxt" rows="5" cols="4" [attr.id]="'Comments' + resume._id"></textarea>
+            </div>
+            <div class="docDiv">
+              <h4><span>Recruiter Cost:</span>{{ resume?.RecruiterCost }}</h4>
+            </div>
           </div>
         </div>
-        <div class="PointsDivSingle">
-          <h4>Education Match</h4>
-          <div class="startDiv">
-            <span class="rating">
-              <input type="radio" id="{{ 'field3' + resume._id + '_star3' }}" name="{{ 'rating3' + resume._id }}"
-                value="33" /><label (click)="selectRating($event)" class="full"
-                for="{{ 'field3' + resume._id + '_star3' }}"></label>
-
-              <input type="radio" id="{{ 'field3' + resume._id + '_star2' }}" name="{{ 'rating3' + resume._id }}"
-                value="15" /><label (click)="selectRating($event)" class="full"
-                for="{{ 'field3' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field3' + resume._id + '_star1' }}" name="{{ 'rating3' + resume._id }}"
-                value="-33" /><label (click)="selectRating($event)" class="full"
-                for="{{ 'field3' + resume._id + '_star1' }}"></label>
-            </span>
-          </div>
+        <!-- (click)="feedBack(resume._id,'yes','Comments' + resume._id)" -->
+        <div class="approveBtnDiv">
+          <button class="btn commonBtn RejectBtn" (click)="feedBack(resume._id, 'no', 'Comments' + resume._id, i)">
+            Reject
+          </button>
+          <button (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)" class="btn commonBtn approveBtn"
+            id="approveBtn">
+            Interview
+          </button>
         </div>
-      </div>
-
-      <div class="ActionDiv commonSingleInner ">
-        <div class="actionDivSingle">
-          <div class="">
-            <textarea class="commentTxt" rows="5" cols="4" [attr.id]="'Comments' + resume._id"></textarea>
-          </div>
-          <div class="docDiv">
-            <h4><span>Recruiter Cost:</span>{{ resume?.RecruiterCost }}</h4>
-          </div>
-        </div>
-      </div>
-      <!-- (click)="feedBack(resume._id,'yes','Comments' + resume._id)" -->
-      <div class="approveBtnDiv">
-        <button class="btn commonBtn RejectBtn" (click)="feedBack(resume._id, 'no', 'Comments' + resume._id, i)">
-          Reject
-        </button>
-        <button (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)" class="btn commonBtn approveBtn"
-          id="approveBtn">
-          Interview
-        </button>
-      </div>
       </div>
     </div>
   </li>

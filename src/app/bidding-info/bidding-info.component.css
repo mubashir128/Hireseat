@@ -182,9 +182,8 @@ h5 {
   padding: 0;
   width: 100%;
   float: left;
-  
-  /* height: calc(100vh - 580px);
-    overflow-y: scroll; */
+  height: calc(100vh - 400px);
+  overflow: scroll;
 }
 .singleList {
   /* height: 230px !important; */
@@ -194,9 +193,9 @@ h5 {
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 20px 30px;
-  display: block; 
+  display: block;
   /* align-items: center; */
- justify-content: unset;
+  justify-content: unset;
   margin-bottom: 30px;
   transition: 1s;
   height: 210px;
@@ -208,13 +207,13 @@ h5 {
   padding: 0 0 20px;
   border-bottom: 1px solid #e5e5e5;
 }
-.docSectionBtns button{
+.docSectionBtns button {
   font-size: 15px;
   min-width: 170px;
   border-radius: 5px;
   padding: 5px 20px;
 }
-.docSectionBtns button i{
+.docSectionBtns button i {
   margin-right: 10px;
 }
 button.downloadResume {
@@ -222,10 +221,11 @@ button.downloadResume {
   background-color: transparent;
   color: #39aaff;
 }
-button.downloadResume:hover{
+button.downloadResume:hover {
   background-color: #39aaff;
 }
-button.downloadResume:hover a , button.downloadResume:hover a i{
+button.downloadResume:hover a,
+button.downloadResume:hover a i {
   color: #ffffff;
 }
 button.viewInterview {
@@ -307,7 +307,7 @@ button.viewInterview {
 .commonRejectApprove {
   width: auto;
 }
-.approveBtnDiv .commonBtn{
+.approveBtnDiv .commonBtn {
   margin-right: 0 !important;
 }
 .commonBtn {
@@ -645,6 +645,8 @@ table.highlight,
   float: left;
   text-align: center;
   /* z-index: 99; */
+  display: flex;
+  justify-content: center;
 }
 /* .stickyDiv{
   position: sticky;
@@ -654,4 +656,9 @@ table.highlight,
 iframe.interviewVideo {
   width: 50%;
   height: 330px;
+}
+.fa-window-close {
+  color: black;
+  font-size: 30px;
+  cursor: pointer;
 }
