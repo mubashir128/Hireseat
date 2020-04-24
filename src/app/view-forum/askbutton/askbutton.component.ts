@@ -198,7 +198,9 @@ export class AskbuttonComponent implements OnInit {
     setTimeout(() => {
       this.closeEmailConfirmpopup();
     }, 2000);
-    this._interactComp.loadData(res.data);
+    if(this._Userservice.getUser() === "no"){
+      this._interactComp.loadData(res.data);
+    }
   }
 
 }
