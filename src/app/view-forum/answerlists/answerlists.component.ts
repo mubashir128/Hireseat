@@ -57,44 +57,45 @@ export class AnswerlistsComponent implements OnInit {
         this.isSuperAdmin = true;
       }
     }
-    this._forum.getQuestions().subscribe(
-      res=>{ this.questData=res;
-        
-         
-      },
-      err=>console.log(err));
 
+    this._forum.getQuestions().subscribe(res=>{
+      this.questData=res;
+    },err => {
+      console.log(err);
+    });
 
     //get question
-
     this._forum.getQuestionById(this.id.id).subscribe(res=>{
-    this.questionData=res.data; },
-    err=>{console.log(err)})
+      this.questionData=res.data; 
+    },err=>{
+      console.log(err);
+    });
 
     //get all answers of particular question
-
     this._forum.getMulipleAnsByQuesId(this.id.id).subscribe(res=>{
-      this.answerData=res.data; 
-      console.log(res.data[0].createdAt)
-    },
-      err=>{console.log(err)})
+      this.answerData=res.data;
+    },err=>{
+      console.log(err);
+    });
 
-      this.postAnsw = this.formBuilder.group({
-        ans:['', [Validators.required]]
-      });  
+    this.postAnsw = this.formBuilder.group({
+      ans:['', [Validators.required]]
+    });  
 
-      this.currUserData=this._forum.getUserId();
-      let CurreUser=JSON.parse(this.currUserData)
-      this.curerntUserId=CurreUser.userInfo._id
+    this.currUserData=this._forum.getUserId();
+    let CurreUser=JSON.parse(this.currUserData)
+    this.curerntUserId=CurreUser.userInfo._id
 
   }
+
   showAnsDiv(){
     if(this.answerClick==false){
-  this.answerClick=true;
+      this.answerClick=true;
     }else{
       this.answerClick=false;
     }
   }
+  
   callback(time){
    
   let str = time; 
