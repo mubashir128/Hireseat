@@ -88,7 +88,7 @@
         </li>
         <!-- <li *ngIf="isEmployer && isLoggedIn "><a [routerLink]="['/home/TheRockRec']">The Rockstar Recruiter Community</a> -->
 
-        <ng-container id="notify" *ngIf="show && !isAdmin && isLoggedIn">
+        <ng-container id="notify" *ngIf="show && !isAdmin && isLoggedIn"  infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="50" [infiniteScrollContainer]="selector" [fromRoot]="true"(scrolled)="onScroll()">
           <div class="notificationList">
             <div class="notificationListInner">
               <div class="hederNotification">
@@ -121,7 +121,7 @@
         <li *ngIf="!isAdmin && isLoggedIn && isEmployer">
           <a (click)="toggle()">
             <h4 class="count" *ngIf="notificationLength > 0">
-              {{ questDataLenght?.length + suggestedQueCount }}
+              {{ notificationLength + suggestedQueCount }}
             </h4>
             <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 40px;width: 40px" />
           </a>
@@ -129,7 +129,7 @@
         <li *ngIf="!isAdmin && isLoggedIn && isRecruiter">
           <a (click)="toggle()">
             <h4 class="count" *ngIf="notificationLength > 0">
-              {{ questDataLenght?.length + suggestedQueAnsCount }}
+              {{ notificationLength + suggestedQueAnsCount }}
             </h4>
             <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 40px;width: 40px" />
           </a>

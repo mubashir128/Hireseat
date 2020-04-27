@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
   public show: boolean = false;
   public buttonName: any = 'Show';
   url: any;
-  questDataLenght: any;
+  questDataLenght: any = [];
   suggestedQueData: any;
   suggestedQueCount: number = 0;
   suggestedQueAnsCount: number = 0;
@@ -48,6 +48,9 @@ export class NavbarComponent implements OnInit {
 
   getAllNotifications = 'getAllNotifications';
   newNotification = 'newNotification';
+  limit = 15;
+  createdAt;
+  selector: string = '.notificationList';
 
   constructor(
     private userService: UserService,
@@ -120,7 +123,9 @@ export class NavbarComponent implements OnInit {
     this._socket.sendMessage({
       type: 1,
       data: {
-        subType: this.getAllNotifications
+        subType: this.getAllNotifications,
+        onLoad : true,
+        limit : this.limit
       }
     });
 
@@ -188,8 +193,11 @@ export class NavbarComponent implements OnInit {
     switch (res.subType) {
       case this.getAllNotifications:
         // add all notifications to list.
-        this.questDataLenght = res.data;
-        this.incrementNotificationCount();
+        if(res.data.length !==0 ){
+          this.questDataLenght = [...this.questDataLenght, ...res.data];
+          this.createdAt=this.questDataLenght[this.questDataLenght.length-1].createdAt;
+          this.notificationLength = res.count ? res.count : this.notificationLength
+        }
         break;
       case this.newNotification:
         //add notification to start of list.
@@ -240,4 +248,16 @@ export class NavbarComponent implements OnInit {
     }
     this.buttonName = 'Hide';
   }
+
+  onScroll() {
+    this._socket.sendMessage({
+      type: 1,
+      data: {
+        subType: this.getAllNotifications,
+        createdAt : this.createdAt,
+        limit : this.limit
+      }
+    });
+  }
+
 }
