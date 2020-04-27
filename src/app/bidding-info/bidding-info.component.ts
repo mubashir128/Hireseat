@@ -47,6 +47,7 @@ export class BiddingInfoComponent implements OnChanges {
   totalCandidateBidded: number = 0;
   SelectedBid: number = 0;
   CandidateName: String = "";
+  selectedIndex: any;
   isPrevBid: IBid[] = [];
   public FeedObj: any = {};
   public skillsPt: number;
@@ -458,9 +459,10 @@ export class BiddingInfoComponent implements OnChanges {
   createNewResume() {
     this.router.navigate(['/recruiter/resume-list']);
   }
-  seeVideo(archiveId) {
+  seeVideo(i, archiveId) {
     // call video call service
-    // console.log(archiveId);
+    console.log(i);
+    this.selectedIndex = i;
     this.spinner.show();
     const payload = {
       archivedId: archiveId

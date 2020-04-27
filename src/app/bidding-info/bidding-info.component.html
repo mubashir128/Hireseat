@@ -2,7 +2,6 @@
   <h4 class="allResume">All Recent Resumes ({{ ResumeList.length }})</h4>
   <div class="actionDIv">
     <h4>Points</h4>
-    <h4>Resume</h4>
     <h4>Feedback</h4>
     <h4>Action</h4>
   </div>
@@ -28,12 +27,18 @@
 <ul class="ListResume">
   <!-- other li div -->
   <li *ngFor="let resume of ResumeList; let i = index">
-    <div class="singleList employerResume resumeSingleList" id="animateinterview{{ i }}">
+    <div class="singleList employerResume resumeSingleList" [ngClass]="selectedIndex === i ? 'active-resume':false"
+      id="animateinterview{{ i }}">
       <div class="docSectionBtns">
-        <button class="downloadResume"><a [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank"
-            download><i class="fa fa-cloud-download" aria-hidden="true"></i>Download Resume</a></button>
+        <button class="downloadResume" [ngClass]="selectedIndex === i ? 'active-button':false">
+          <a [ngClass]="selectedIndex === i ? 'color-white':false" [attr.href]="transform(resume?.resumeKey?.fileURL)"
+            target="_blank" download>
+            <i class="fa fa-cloud-download" [ngClass]="selectedIndex === i ? 'color-white':false"
+              aria-hidden="true"></i>Download Resume
+          </a>
+        </button>
         <button class="viewInterview" *ngIf="resume?.resumeKey?.interviewLinkedByRecruiter"
-          (click)="seeVideo(resume?.resumeKey?.interviewLinkedByRecruiter)">
+          (click)="seeVideo(i,resume?.resumeKey?.interviewLinkedByRecruiter)">
           <i class="fa fa-video-camera" aria-hidden="true"></i> View Interview</button>
       </div>
       <div class="singleListData">
@@ -41,21 +46,21 @@
           <div class="PointsDivSingle PointsDivSingleN">
             <img src="assets/img/checkIcon.png" class="img-responsive" />
             <!-- <h4>{{ resume.StrongPoint1 | charlimit }}</h4> -->
-            <h4>{{ resume.StrongPoint1 }}</h4>
+            <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint1 }}</h4>
             <div class="OnHoverDiv">
               <h4>{{ resume.StrongPoint1 }}</h4>
             </div>
           </div>
           <div class="PointsDivSingle PointsDivSingleN">
             <img src="assets/img/checkIcon.png" class="img-responsive" />
-            <h4>{{ resume.StrongPoint2}}</h4>
+            <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint2}}</h4>
             <div class="OnHoverDiv">
               <h4>{{ resume.StrongPoint2 }}</h4>
             </div>
           </div>
           <div class="PointsDivSingle PointsDivSingleN">
             <img src="assets/img/checkIcon.png" class="img-responsive" />
-            <h4>{{ resume.StrongPoint3 }}</h4>
+            <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint3 }}</h4>
             <div class="OnHoverDiv">
               <h4>{{ resume.StrongPoint3 }}</h4>
             </div>
@@ -83,7 +88,7 @@
 
         <div class="feedbackDiv commonSingleInner ">
           <div class="PointsDivSingle">
-            <h4>Skill Match</h4>
+            <h4 [ngClass]="selectedIndex === i ? 'color-white':false">Skill Match</h4>
             <div class="startDiv">
               <span class="rating">
                 <!--   <img src="assets/img/filledstar.png" class="img-responsive">
@@ -105,7 +110,7 @@
             </div>
           </div>
           <div class="PointsDivSingle">
-            <h4>Experience Match</h4>
+            <h4 [ngClass]="selectedIndex === i ? 'color-white':false">Experience Match</h4>
             <div class="startDiv">
               <span class="rating">
                 <input type="radio" id="{{ 'field2' + resume._id + '_star3' }}" name="{{ 'rating2' + resume._id }}"
@@ -123,7 +128,7 @@
             </div>
           </div>
           <div class="PointsDivSingle">
-            <h4>Education Match</h4>
+            <h4 [ngClass]="selectedIndex === i ? 'color-white':false">Education Match</h4>
             <div class="startDiv">
               <span class="rating">
                 <input type="radio" id="{{ 'field3' + resume._id + '_star3' }}" name="{{ 'rating3' + resume._id }}"
@@ -145,10 +150,12 @@
         <div class="ActionDiv commonSingleInner ">
           <div class="actionDivSingle">
             <div class="">
-              <textarea class="commentTxt" rows="5" cols="4" [attr.id]="'Comments' + resume._id"></textarea>
+              <textarea class="commentTxt" [ngClass]="selectedIndex === i ? 'color-gray':false" rows="5" cols="4"
+                placeholder="Comment" [attr.id]="'Comments' + resume._id"></textarea>
             </div>
             <div class="docDiv">
-              <h4><span>Recruiter Cost:</span>{{ resume?.RecruiterCost }}</h4>
+              <h4 [ngClass]="selectedIndex === i ? 'color-white':false"><span>Recruiter
+                  Cost: </span> ${{ resume?.RecruiterCost }}</h4>
             </div>
           </div>
         </div>

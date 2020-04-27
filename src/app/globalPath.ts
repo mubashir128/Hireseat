@@ -3,7 +3,7 @@
 
 // local path with ip server path
 export const baseUrl = 'http://localhost:5000/'; // ip link
-export const SAMPLE_SERVER_BASE_URL = 'https://tokboxhireseat.herokuapp.com/'; // Sujith
+// export const SAMPLE_SERVER_BASE_URL = 'https://tokboxhireseat.herokuapp.com/'; // Sujith
 
 // Test Server
 // export const baseUrl = "http://44.232.150.23:5002/"; //ip link
