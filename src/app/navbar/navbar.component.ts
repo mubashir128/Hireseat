@@ -210,7 +210,7 @@ export class NavbarComponent implements OnInit {
   }
 
   incrementNotificationCount(){
-    this.notificationLength = this.questDataLenght.length;
+    this.notificationLength += 1;
   }
 
   updateQueAns(id) {
