@@ -9,8 +9,13 @@
 
 <ng-container *ngIf="videoURL">
   <div class="interviewVideoDiv stickyDiv">
+    <!-- video js -->
+    <video #target class="video-js" width="100%" height="100%" controls>
+      <source [src]="videoURL">
+    </video>
+    <!-- end video js -->
 
-    <iframe [src]="videoURL | safePdf" class="interviewVideo" allowfullscreen></iframe>
+    <!-- <iframe id="myVideo" [src]="videoURL | safePdf" class="interviewVideo" allowfullscreen></iframe> -->
     <!-- <app-pdf-viewer [url]="videoURL">
     </app-pdf-viewer> -->
     <div class="close">
@@ -18,9 +23,11 @@
       <!-- <i class="fa fa-times" aria-hidden="true"></i> -->
     </div>
   </div>
-
 </ng-container>
 
+<button (click)="setCurrentTime(4)">
+  Set Current time
+</button>
 <div class="center-align" *ngIf="ResumeList.length == 0">
   <h3>Resume Not Found</h3>
 </div>
@@ -47,23 +54,23 @@
             <img src="assets/img/checkIcon.png" class="img-responsive" />
             <!-- <h4>{{ resume.StrongPoint1 | charlimit }}</h4> -->
             <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint1 }}</h4>
-            <div class="OnHoverDiv">
+            <!-- <div class="OnHoverDiv">
               <h4>{{ resume.StrongPoint1 }}</h4>
-            </div>
+            </div> -->
           </div>
           <div class="PointsDivSingle PointsDivSingleN">
             <img src="assets/img/checkIcon.png" class="img-responsive" />
             <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint2}}</h4>
-            <div class="OnHoverDiv">
+            <!-- <div class="OnHoverDiv">
               <h4>{{ resume.StrongPoint2 }}</h4>
-            </div>
+            </div> -->
           </div>
           <div class="PointsDivSingle PointsDivSingleN">
             <img src="assets/img/checkIcon.png" class="img-responsive" />
             <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint3 }}</h4>
-            <div class="OnHoverDiv">
+            <!-- <div class="OnHoverDiv">
               <h4>{{ resume.StrongPoint3 }}</h4>
-            </div>
+            </div> -->
           </div>
         </div>
         <!--
@@ -73,11 +80,7 @@
           <a [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank" download>
             <h4>Download Resume</h4>
           </a>
-          <span *ngIf="resume?.resumeKey?.linkedIn" class="linkedIn-profile"
-            (click)="onLinkedIn(resume?.resumeKey?.linkedIn)">
-            <i class=" fa fa-linkedin" aria-hidden="true"></i>
-            LinkedIn
-          </span>
+
           <span *ngIf="resume?.resumeKey?.interviewLinkedByRecruiter" class="view-interview"
             (click)="seeVideo(resume?.resumeKey?.interviewLinkedByRecruiter)">
             <i class="fa fa-video-camera" aria-hidden="true"></i>

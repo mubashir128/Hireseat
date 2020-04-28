@@ -1,4 +1,6 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+@import '~video.js/dist/video-js.css';
+
 .rating {
   border: none;
   float: left;
@@ -182,7 +184,7 @@ h5 {
   padding: 0;
   width: 100%;
   float: left;
-  height: calc(100vh - 570px);
+  height: calc(100vh - 540px);
   overflow: scroll;
 }
 .singleList {
@@ -258,7 +260,8 @@ button.viewInterview {
   margin: 0 20px;
   font-size: 16px;
   color: #919191;
-  word-break: break-all;
+  /* word-break: break-all; */
+  word-wrap: break-word;
 }
 .startDiv {
   display: flex;
@@ -372,7 +375,9 @@ button.viewInterview {
   background-color: #03a9f4;
   color: white !important;
 }
-
+.btn {
+  background-color: #ffffff !important;
+}
 /* Second stars */
 
 .rating > input {
@@ -597,7 +602,7 @@ table.highlight,
 }
 .fa-video-camera {
   /* color: black; */
-  color: #fff;
+  color: #fff !important;
 }
 @media only screen and (min-width: 320px) and (max-width: 667px) {
   .modal.modal-fixed-footer.allResumePOp {
@@ -688,3 +693,9 @@ iframe.interviewVideo {
 .active-button:hover a i {
   color: black !important;
 }
+/* video js */
+.video-js {
+  width: 100%;
+  height: 100%;
+}
+/* end video js */

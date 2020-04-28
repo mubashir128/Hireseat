@@ -1,4 +1,7 @@
-import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import {
+  Component, Input, OnChanges, Output, EventEmitter,
+  AfterViewInit, ElementRef, ViewChild, ViewEncapsulation, OnDestroy, OnInit
+} from '@angular/core';
 import 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Bid, IBid } from '../models/bid';
@@ -16,15 +19,33 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IProfile, Profile } from 'src/app/profile/model/user-profile';
 import { VideoCallingService } from '../_services/video-calling.service';
+import videojs from 'video.js';
+
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
 @Component({
   selector: 'app-bidding-info',
   templateUrl: './bidding-info.component.html',
-  styleUrls: ['./bidding-info.component.css']
+  styleUrls: ['./bidding-info.component.css'],
+  encapsulation: ViewEncapsulation.None,
+
 })
-export class BiddingInfoComponent implements OnChanges {
+export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy, OnInit {
+  @ViewChild('target') target: ElementRef;
+  options: {
+    fluid: boolean,
+    aspectRatio: string,
+    autoplay: boolean,
+    controlls: boolean,
+    sources: {
+      src: string,
+      type: string,
+    }[],
+  };
+  player: videojs.Player;
+
+
   @Input() public biddingEvent: IBiddingEvent;
   @Output() ResumeCount: EventEmitter<any> = new EventEmitter<any>();
   @Output() InterviewCount: EventEmitter<any> = new EventEmitter<any>();
@@ -48,6 +69,7 @@ export class BiddingInfoComponent implements OnChanges {
   SelectedBid: number = 0;
   CandidateName: String = "";
   selectedIndex: any;
+
   isPrevBid: IBid[] = [];
   public FeedObj: any = {};
   public skillsPt: number;
@@ -57,12 +79,14 @@ export class BiddingInfoComponent implements OnChanges {
   count: any;
   id: string;
   videoURL: any;
+  vid: HTMLElement;
 
   constructor(
     private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
     private bidService: BidService, private router: Router, private bidEventService: BiddingEventService,
     public spinner: NgxSpinnerService, private route: ActivatedRoute, private feedbackService: FeedbackService,
-    private sanitizer: DomSanitizer, private videoCallingService: VideoCallingService
+    private sanitizer: DomSanitizer, private videoCallingService: VideoCallingService, private elementRef: ElementRef,
+
   ) {
 
     this.loggedUser = this.userService.getUserData();
@@ -78,19 +102,27 @@ export class BiddingInfoComponent implements OnChanges {
 
     this.bid = new Bid();
     this.populateResumes();
-
+    // this.vid = document.getElementById('myVideo');
   }
-
+  ngOnInit() {
+  }
 
   get f() { return this.bidFrm.controls; }
 
   get frm() { return this.resumePoints.controls }
+  ngAfterViewInit() {
+    // instantiate Video.js
+    if (this.videoURL) {
+      this.player = videojs(this.target.nativeElement, {
+        autoplay: true,
+        controlls: true
+      }, () => {
+        console.log('onPlayerReady', this);
+      });
+    }
 
+  }
   ngOnChanges() {
-
-
-
-
     jQuery('.modal').modal();
     jQuery('select').material_select();
     if (this.loggedUser != "no") {
@@ -461,6 +493,7 @@ export class BiddingInfoComponent implements OnChanges {
   }
   seeVideo(i, archiveId) {
     // call video call service
+    this.videoURL = '';
     console.log(i);
     this.selectedIndex = i;
     this.spinner.show();
@@ -483,7 +516,31 @@ export class BiddingInfoComponent implements OnChanges {
   closeVide() {
     this.videoURL = '';
   }
-  onLinkedIn(profileLink) {
-    window.open(profileLink);
+  seekVideo(time) {
+    this.player.currentTime(time);
+
+  }
+  setCurrentTime(seconds) {
+    // const video = document.getElementsByTagName('video')[0];
+    // try {
+    //   video.currentTime = seconds;
+    // } catch (e) {
+    //   // _V_.log(e);
+    //   console.log(e);
+
+    //   // this.warning(VideoJS.warnings.videoNotReady);
+    // }
+    try {
+      this.target.nativeElement.currentTime = seconds;
+    } catch (e) {
+      console.log(e);
+
+    }
+  }
+  ngOnDestroy(): void {
+    // destroy player
+    if (this.player) {
+      this.player.dispose();
+    }
   }
 }
