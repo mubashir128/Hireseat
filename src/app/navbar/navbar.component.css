@@ -132,7 +132,6 @@ nav ul a {
   position: absolute;
   width: 400px;
   height: 400px;
-  overflow: hidden;
   right: 0;
   padding: 0px 0px;
   top: 70px;
@@ -143,9 +142,6 @@ nav ul a {
   box-shadow: 0 0 6px #99999987;
   border-radius: 5px;
   border: 1px solid #33aaff;
-}
-.notificationList:hover {
-  overflow-y: auto;
 }
 .notificationList li {
   display: block;
@@ -265,19 +261,29 @@ h4.count {
   font-weight: 600;
 }
 
-.notificationList::-webkit-scrollbar {
-  width: 10px;
+.scrollNotification {
+  height : 353px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+}
+
+.scrollNotification:hover {
+  overflow-y: auto;
+}
+
+.scrollNotification::-webkit-scrollbar {
+  width: 8px;
   border-radius: 30px;
 }
 
-.notificationList::-webkit-scrollbar-thumb {
+.scrollNotification::-webkit-scrollbar-thumb {
   width: 12px;
-  background-color: #6C6968;    /* color of the scroll thumb */
+  background-color: #A8A2A0;    /* color of the scroll thumb */
   border-radius: 20px;       /* roundness of the scroll thumb */
 }
 
-.notificationList::-webkit-scrollbar-track {
+.scrollNotification::-webkit-scrollbar-track {
   background: #fff;
   border-radius: 30px;
-  background-color: #B8B2B0;
 }

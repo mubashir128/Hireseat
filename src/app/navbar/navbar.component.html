@@ -88,33 +88,35 @@
         </li>
         <!-- <li *ngIf="isEmployer && isLoggedIn "><a [routerLink]="['/home/TheRockRec']">The Rockstar Recruiter Community</a> -->
 
-        <ng-container id="notify" *ngIf="show && !isAdmin && isLoggedIn"  infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="50" [infiniteScrollContainer]="selector" [fromRoot]="true"(scrolled)="onScroll()">
+        <ng-container id="notify" *ngIf="show && !isAdmin && isLoggedIn">
           <div class="notificationList">
             <div class="notificationListInner">
               <div class="hederNotification">
                 <h4>Notification</h4>
               </div>
-              <ul>
-                <li *ngFor="let ques of questDataLenght">
-                  <a [routerLink]="['/forum']" routerLinkActive="notification-content" *ngIf="!ques.isAnswered"
-                    [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
-                </li>
-                <li *ngFor="let ques of suggestedQueData">
-                  <a [routerLink]="[
-                      '/bidding-events/details',
-                      ques?.biddingEventId
-                    ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
-                    *ngIf="ques.QueAnsStaus == '1'" [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
-                </li>
-                <li *ngFor="let ques of suggestedQueData">
-                  <a [routerLink]="[
-                      '/bidding-events/details',
-                      ques?.biddingEventId
-                    ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
-                    *ngIf="ques.QueAnsStaus == '2' && isRecruiter" (click)="updateQueAns(ques?._id)"
-                    [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
-                </li>
-              </ul>
+              <div class="scrollNotification" infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="50" [infiniteScrollContainer]="selector" [fromRoot]="true"(scrolled)="onScroll()">
+                <ul>
+                  <li *ngFor="let ques of questDataLenght">
+                    <a [routerLink]="['/forum']" routerLinkActive="notification-content" *ngIf="!ques.isAnswered"
+                      [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
+                  </li>
+                  <li *ngFor="let ques of suggestedQueData">
+                    <a [routerLink]="[
+                        '/bidding-events/details',
+                        ques?.biddingEventId
+                      ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
+                      *ngIf="ques.QueAnsStaus == '1'" [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
+                  </li>
+                  <li *ngFor="let ques of suggestedQueData">
+                    <a [routerLink]="[
+                        '/bidding-events/details',
+                        ques?.biddingEventId
+                      ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
+                      *ngIf="ques.QueAnsStaus == '2' && isRecruiter" (click)="updateQueAns(ques?._id)"
+                      [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </ng-container>

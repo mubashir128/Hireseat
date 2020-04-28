@@ -85,7 +85,7 @@
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
                         <div class="recruiterListDiv" *ngIf="recruiterList.length" style="margin-top: 70px;">
-                            <div class="recruitrList" *ngFor="let item of recruiterList | search : searchTopTerm | paginate: { itemsPerPage: itemsPerPageAreForTop, currentPage: pTop }">
+                            <div class="recruitrList" *ngFor="let item of recruiterList | search : searchTopTerm | paginate: {id: 'top', itemsPerPage: itemsPerPageAreForTop, currentPage: pTop }">
                                 <h4>{{ item.fullName }}</h4>
                                 <div class="starDiv" *ngFor="let star of startList">
                                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                         </div>
-                        <pagination-controls *ngIf="!noBiddingEventsForTop" (pageChange)="pTop = $event"></pagination-controls>
+                        <pagination-controls id="top" *ngIf="!noBiddingEventsForTop" (pageChange)="pTop = $event" maxSize="4" previousLabel="" nextLabel=""></pagination-controls>
                     </div>
                 </div>
 
@@ -110,20 +110,20 @@
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
                         <div class="recruiterListDiv" *ngIf="finalRecruiterList.length" style="margin-top: 70px;">
-                            <div class="recruitrList" *ngFor="let item of finalRecruiterList | search : searchFinalTerm | paginate: { itemsPerPage: itemsPerPageAreForFinal, currentPage: pFinal }">
+                            <div class="recruitrList" *ngFor="let item of finalRecruiterList | search : searchFinalTerm | paginate: {id: 'final', itemsPerPage: itemsPerPageAreForFinal, currentPage: pFinal }">
                                 <h4>{{ item.fullName }}</h4>
                                 <div class="starDiv" *ngFor="let star of startList">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </div>
                                 <div class="actionDiv">
                                     <label class="CheckBoxcontainer">
-                                        <input type="checkbox" name="{{item._id}}" (change)="handleFinalSelected($event)" checked="checked">
+                                        <input type="checkbox" name="{{item._id}}" (change)="handleFinalSelected($event)" checked="true">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <pagination-controls *ngIf="!noBiddingEventsForFinal" (pageChange)="pFinal = $event"></pagination-controls>
+                        <pagination-controls id="final" *ngIf="!noBiddingEventsForFinal" (pageChange)="pFinal = $event" maxSize="4" previousLabel="" nextLabel=""></pagination-controls>
                     </div>
                 </div>
             </div>

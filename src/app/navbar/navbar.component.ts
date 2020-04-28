@@ -50,7 +50,7 @@ export class NavbarComponent implements OnInit {
   newNotification = 'newNotification';
   limit = 15;
   createdAt;
-  selector: string = '.notificationList';
+  selector: string = '.scrollNotification';
 
   constructor(
     private userService: UserService,

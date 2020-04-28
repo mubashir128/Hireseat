@@ -25,10 +25,10 @@ export class CreateBiddingEventComponent implements OnInit {
   recruiterList = [];
   finalRecruiterList = [];
   startList : any[]=[1,2,3,4];
-  itemsPerPageAreForTop = 5;
+  itemsPerPageAreForTop = 10;
   pTop = 1;
   _searchTopTerm : any;
-  itemsPerPageAreForFinal = 5;
+  itemsPerPageAreForFinal = 10;
   pFinal = 1;
   _searchFinalTerm : any;
   noBiddingEventsForTop = false;
