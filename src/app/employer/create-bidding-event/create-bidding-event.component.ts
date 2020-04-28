@@ -214,6 +214,7 @@ export class CreateBiddingEventComponent implements OnInit {
     this.globalType=$event.target.value;
     this.finalRecruiterList=[];
     this.finalRecruitersAre=[];
+    this.finalRecruiterIds=[];
     if($event.target.value === "private"){
       this.extractData(this.allRecruiterList);
     }else{
