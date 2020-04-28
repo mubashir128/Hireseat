@@ -70,11 +70,11 @@ export class WebsocketService {
   }
 
   async removeListener(obj) {
-    this.listeners.map(item => {
-      if (item.type === obj.type) {
-        this.listeners.splice(item, 1);
+    for(let i=0;i<this.listeners.length;i++){
+      if (this.listeners[i].type === obj.type) {
+        this.listeners.splice(i, 1);
       }
-    });
+    }
   }
 
 }

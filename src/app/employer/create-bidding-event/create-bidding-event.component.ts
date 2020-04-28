@@ -25,10 +25,10 @@ export class CreateBiddingEventComponent implements OnInit {
   recruiterList = [];
   finalRecruiterList = [];
   startList : any[]=[1,2,3,4];
-  itemsPerPageAreForTop = 5;
+  itemsPerPageAreForTop = 10;
   pTop = 1;
   _searchTopTerm : any;
-  itemsPerPageAreForFinal = 5;
+  itemsPerPageAreForFinal = 10;
   pFinal = 1;
   _searchFinalTerm : any;
   noBiddingEventsForTop = false;
@@ -37,6 +37,7 @@ export class CreateBiddingEventComponent implements OnInit {
   globalType="private";
   privateRecruitersAre=[];
   finalRecruitersAre=[];
+  finalRecruiterIds=[];  
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {
     this.biddingEvent = new BiddingEvent();
@@ -44,12 +45,13 @@ export class CreateBiddingEventComponent implements OnInit {
 
   ngOnInit() {
    
-
     this.getRecruiterList();
     this.getJobProfile();
+
     jQuery('.datepicker').on('mousedown',function(event){
         event.preventDefault();
     })
+    
     jQuery('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 15 // Creates a dropdown of 15 years to control year
@@ -157,9 +159,12 @@ export class CreateBiddingEventComponent implements OnInit {
     let previouslyInvitedRecruiters=this.userService.getUserData().previouslyInvitedRecruiters;
     res.map(data=>{
         if(previouslyInvitedRecruiters.includes(data._id)){
+          data.isChecked=true;
           this.finalRecruiterList.push(data);
+          this.finalRecruiterIds.push(data._id);
           this.finalRecruitersAre.push(data._id);
         }else{
+          data.isChecked=false;
           this.recruiterList.push(data);
         }
     });
@@ -176,32 +181,33 @@ export class CreateBiddingEventComponent implements OnInit {
   }
 
   handleTopSelected($event){
-    if($event.target.checked){
-      this.recruiterList.map(item=>{
-        if(item._id === $event.target.name){
+    this.recruiterList.map(item=>{
+      if(item._id === $event.target.name){
+        item.isChecked=$event.target.checked;
+        if(!this.finalRecruiterIds.includes(item._id)){
           this.finalRecruiterList.unshift(item);
-          let index=this.recruiterList.indexOf(item);
-          this.recruiterList.splice(index,1);
+          this.finalRecruiterIds.push(item._id);
           this.finalRecruitersAre.push(item._id);
           this.handleTopSearchTerm();
           this.handlePaginator();
         }
-      });
-    }
+      }
+    });
   }
 
   handleFinalSelected($event){
-    if(!$event.target.checked){
-      this.finalRecruiterList.map(item=>{
-        if(item._id === $event.target.name){
-          this.recruiterList.unshift(item);
-          let index=this.finalRecruiterList.indexOf(item);
-          this.finalRecruiterList.splice(index,1);
-          this.finalRecruitersAre.splice(item._id,1);
-          this.handlePaginator();
+    this.finalRecruiterList.map(item=>{
+      if(item._id === $event.target.name){
+        item.isChecked=$event.target.checked;
+        if(!item.isChecked){
+          let index=this.finalRecruitersAre.indexOf(item._id);
+          this.finalRecruitersAre.splice(index,1);
+        }else{
+          this.finalRecruitersAre.push(item._id);
         }
-      });
-    }
+        this.handlePaginator();
+      }
+    });
   }
 
   handleGenderChange($event){

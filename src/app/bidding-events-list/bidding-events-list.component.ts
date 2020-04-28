@@ -44,6 +44,7 @@ export class BiddingEventsListComponent implements OnInit {
   }
 
   handleRequest(requestType: string) {   
+    console.log("--------------- : ",requestType);
     if(requestType == 'my'){     
       this.getMyBids();
     }else{

@@ -94,34 +94,36 @@
               <div class="hederNotification">
                 <h4>Notification</h4>
               </div>
-              <ul>
-                <li *ngFor="let ques of questDataLenght">
-                  <a [routerLink]="['/forum']" routerLinkActive="notification-content" *ngIf="!ques.isAnswered"
-                    [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
-                </li>
-                <li *ngFor="let ques of suggestedQueData">
-                  <a [routerLink]="[
-                      '/bidding-events/details',
-                      ques?.biddingEventId
-                    ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
-                    *ngIf="ques.QueAnsStaus == '1'" [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
-                </li>
-                <li *ngFor="let ques of suggestedQueData">
-                  <a [routerLink]="[
-                      '/bidding-events/details',
-                      ques?.biddingEventId
-                    ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
-                    *ngIf="ques.QueAnsStaus == '2' && isRecruiter" (click)="updateQueAns(ques?._id)"
-                    [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
-                </li>
-              </ul>
+              <div class="scrollNotification" infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="50" [infiniteScrollContainer]="selector" [fromRoot]="true"(scrolled)="onScroll()">
+                <ul>
+                  <li *ngFor="let ques of questDataLenght">
+                    <a [routerLink]="['/forum']" routerLinkActive="notification-content" *ngIf="!ques.isAnswered"
+                      [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
+                  </li>
+                  <li *ngFor="let ques of suggestedQueData">
+                    <a [routerLink]="[
+                        '/bidding-events/details',
+                        ques?.biddingEventId
+                      ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
+                      *ngIf="ques.QueAnsStaus == '1'" [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
+                  </li>
+                  <li *ngFor="let ques of suggestedQueData">
+                    <a [routerLink]="[
+                        '/bidding-events/details',
+                        ques?.biddingEventId
+                      ]" [queryParams]="{ queid: ques?._id }" routerLinkActive="notification-content"
+                      *ngIf="ques.QueAnsStaus == '2' && isRecruiter" (click)="updateQueAns(ques?._id)"
+                      [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </ng-container>
         <li *ngIf="!isAdmin && isLoggedIn && isEmployer">
           <a (click)="toggle()">
             <h4 class="count" *ngIf="notificationLength > 0">
-              {{ questDataLenght?.length + suggestedQueCount }}
+              {{ notificationLength + suggestedQueCount }}
             </h4>
             <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 40px;width: 40px" />
           </a>
@@ -129,7 +131,7 @@
         <li *ngIf="!isAdmin && isLoggedIn && isRecruiter">
           <a (click)="toggle()">
             <h4 class="count" *ngIf="notificationLength > 0">
-              {{ questDataLenght?.length + suggestedQueAnsCount }}
+              {{ notificationLength + suggestedQueAnsCount }}
             </h4>
             <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 40px;width: 40px" />
           </a>

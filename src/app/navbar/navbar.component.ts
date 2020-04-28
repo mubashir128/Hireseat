@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
   public show: boolean = false;
   public buttonName: any = 'Show';
   url: any;
-  questDataLenght: any;
+  questDataLenght: any = [];
   suggestedQueData: any;
   suggestedQueCount: number = 0;
   suggestedQueAnsCount: number = 0;
@@ -48,6 +48,9 @@ export class NavbarComponent implements OnInit {
 
   getAllNotifications = 'getAllNotifications';
   newNotification = 'newNotification';
+  limit = 15;
+  createdAt;
+  selector: string = '.scrollNotification';
 
   constructor(
     private userService: UserService,
@@ -101,13 +104,7 @@ export class NavbarComponent implements OnInit {
   async ngOnInit() {
     this.showAdminDashboardButton = false;
     this.showEnterpriseDashboardButton = false;
-    this._forum.getUnAnsweredData().subscribe(
-      (res) => {
-        this.questDataLenght = res;
-        this.notificationLength = this.questDataLenght.length;
-      },
-      (err) => console.log(err)
-    );
+
     let obj = JSON.parse(localStorage.getItem('currentUser'));
     if (obj !== null) {
       await this.initSocket(obj.token);
@@ -126,7 +123,9 @@ export class NavbarComponent implements OnInit {
     this._socket.sendMessage({
       type: 1,
       data: {
-        subType: this.getAllNotifications
+        subType: this.getAllNotifications,
+        onLoad : true,
+        limit : this.limit
       }
     });
 
@@ -177,6 +176,7 @@ export class NavbarComponent implements OnInit {
   async initSocket(token) {
     await this._socket.getInstance(token);
   }
+
   truncateHTML(text: string): string {
     let charlimit = 20;
     if (!text || text.length <= charlimit) {
@@ -188,19 +188,29 @@ export class NavbarComponent implements OnInit {
     let shortened = trim_space.substring(0, charlimit) + '...';
     return shortened;
   }
+
   handleNotificationData(res: any) {
     switch (res.subType) {
       case this.getAllNotifications:
         // add all notifications to list.
-        this.questDataLenght = res.data;
+        if(res.data.length !==0 ){
+          this.questDataLenght = [...this.questDataLenght, ...res.data];
+          this.createdAt=this.questDataLenght[this.questDataLenght.length-1].createdAt;
+          this.notificationLength = res.count ? res.count : this.notificationLength
+        }
         break;
       case this.newNotification:
         //add notification to start of list.
         this.questDataLenght.unshift(res.result);
+        this.incrementNotificationCount();
         break;
       default:
         break;
     }
+  }
+
+  incrementNotificationCount(){
+    this.notificationLength += 1;
   }
 
   updateQueAns(id) {
@@ -238,4 +248,16 @@ export class NavbarComponent implements OnInit {
     }
     this.buttonName = 'Hide';
   }
+
+  onScroll() {
+    this._socket.sendMessage({
+      type: 1,
+      data: {
+        subType: this.getAllNotifications,
+        createdAt : this.createdAt,
+        limit : this.limit
+      }
+    });
+  }
+
 }

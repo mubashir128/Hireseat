@@ -8,6 +8,8 @@ import { UserService } from '../_services/user.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { SuperAdminService } from '../_services/super-admin.service';
 import { InteractCompService } from '../_services/interact-comp.service';
+import { WebsocketService } from '../websocket.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-view-forum',
@@ -47,11 +49,16 @@ export class ViewForumComponent implements OnInit {
 
   show = false;
 
+  getQuestion="addQuestion";
+  questionObserver = new Subject();
+  questionObserver$ = this.questionObserver.asObservable();
+
   constructor(private _forum:ForumService,private formBuilder: FormBuilder,private userService:UserService,
     private router:Router,
     private authService:AuthenticationService,
     public supperAdmin: SuperAdminService,
-    private _interactComp : InteractCompService) 
+    private _interactComp : InteractCompService,
+    private _socket: WebsocketService,) 
   {
     this.loggedInUser=this.userService.getUserData();
     if(this.loggedInUser != "no"){
@@ -67,13 +74,41 @@ export class ViewForumComponent implements OnInit {
       }
     }
 
+    this.postAnswer=this.formBuilder.group({
+      answerPost: this.formBuilder.control('', [Validators.required])
+    })
+
+    this.searchQues=this.formBuilder.group({
+      question: this.formBuilder.control('', [Validators.required])
+    })
+          
+    this.postAnsw=this.formBuilder.group({
+      postAnsw1: this.formBuilder.control('', [Validators.required])
+    })
+
     this._interactComp.interact$.subscribe(res=>{
       this.loadDataForQuestions(res);
     });
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    let obj = JSON.parse(localStorage.getItem('currentUser'));
+    if (obj !== null) {
+      await this.initSocket(obj.token);
+    }
+
+    await this._socket.removeListener({ type: 2 });
+    this._socket.addListener({
+      type: 2,
+      callback: this.questionObserver
+    });
+
+    this.questionObserver$.subscribe((res: any) => {
+      this.handleQuestions(res);
+    });
+
     this.loadDataFromStorage();
     
     jQuery('.modal').modal();
@@ -86,24 +121,27 @@ export class ViewForumComponent implements OnInit {
 
      //get questions with answers
     this.getQuestionsAndAnswers();
-    
-    this.postAnswer=this.formBuilder.group({
-      answerPost: this.formBuilder.control('', [Validators.required])
-    })
-
-    this.searchQues=this.formBuilder.group({
-      question: this.formBuilder.control('', [Validators.required])
-    })
-          
-    this.postAnsw=this.formBuilder.group({
-      postAnsw1: this.formBuilder.control('', [Validators.required])
-    })
       
     this.currUserData=this._forum.getUserId();
     let CurreUser=JSON.parse(this.currUserData)
     if(CurreUser !== null){
       this.curerntUserId=CurreUser.userInfo._id
       this.curerntUserName=CurreUser.userInfo.fullName;
+    }
+  }
+
+  async initSocket(token) {
+    await this._socket.getInstance(token);
+  }
+
+  handleQuestions(res: any) {
+    switch (res.subType) {
+      case this.getQuestion:
+        // add all notifications to list.
+        this.questData.unshift(res.result);
+        break;
+      default:
+        break;
     }
   }
 

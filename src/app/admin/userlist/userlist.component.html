@@ -54,7 +54,7 @@
             <tr
               *ngFor="
                 let User of UserList
-                  | paginate: { itemsPerPage: 10, currentPage: p };
+                  | paginate: { itemsPerPage: itemsPerPage, currentPage: p };
                 let i = index
               "
               style="cursor:pointer;"
@@ -69,11 +69,7 @@
           </tbody>
         </table>
       </div>
-
-      <pagination-controls
-        (pageChange)="p = $event"
-        style="text-align: right;"
-      ></pagination-controls>
+      <pagination-controls (pageChange)="handlePaginator($event)" style="text-align: right;"></pagination-controls>
     </div>
   </div>
 </div>
