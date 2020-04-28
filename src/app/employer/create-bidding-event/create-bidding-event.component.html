@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="actionDiv">
                                     <label class="CheckBoxcontainer">
-                                        <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event)">
+                                        <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event)" [checked]="item.isChecked">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="actionDiv">
                                     <label class="CheckBoxcontainer">
-                                        <input type="checkbox" name="{{item._id}}" (change)="handleFinalSelected($event)" checked="true">
+                                        <input type="checkbox" name="{{item._id}}" (change)="handleFinalSelected($event)" [checked]="item.isChecked">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
