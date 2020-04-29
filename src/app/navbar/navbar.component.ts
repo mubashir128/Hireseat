@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
   suggestedQueData: any;
   suggestedQueCount: number = 0;
   suggestedQueAnsCount: number = 0;
-  notificationLength: any;
+  notificationLength: any=0;
   showAdminDashboardButton: boolean = false;
   showEnterpriseDashboardButton: boolean = false;
   permaLink: any;
