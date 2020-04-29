@@ -668,9 +668,9 @@ iframe.interviewVideo {
   height: 100%;
 }
 .fa-window-close {
-  color: black;
-  font-size: 30px;
-  cursor: pointer;
+  color: black !important;
+  font-size: 30px !important;
+  cursor: pointer !important;
 }
 .active-resume {
   background-color: #33aaff !important;
