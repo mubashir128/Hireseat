@@ -135,7 +135,6 @@ export class ResumeItemComponent implements OnInit {
       }
     }, err => {
       console.log('error occured', err);
-
     });
   }
   viewCandidate(resume) {

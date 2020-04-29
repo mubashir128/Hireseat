@@ -516,10 +516,7 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
   closeVide() {
     this.videoURL = '';
   }
-  seekVideo(time) {
-    this.player.currentTime(time);
 
-  }
   setCurrentTime(seconds) {
     // const video = document.getElementsByTagName('video')[0];
     // try {

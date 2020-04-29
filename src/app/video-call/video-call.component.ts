@@ -241,28 +241,10 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
   }
 
-  // for publisher
-  // unpublishCall() {
-  //   this.opentokService.setMeetingStatus(true);
-  //   if (this.publisher) {
-  //     this.opentokService.unpublishSession(this.publisher);
-  //   }
-  //   this.publisher = null;
-  //   this.opentokService.setPublisher([]);
-  //   if (!this.publisher) {
-  //     if (!this.candidate && this.isRecruiter) {
-  //       this.router.navigate(['/recruiter/video-interview-room']);
-  //     } else if (!this.candidate && !this.isRecruiter) {
-  //       // this.session.unpublish(this.publisher);
-  //       this.router.navigate(['/employer/video-interview-room']);
-  //     }
-  //   }
 
-  // }
   //  archiving
 
   startArchive() {
-    // eslint-disable-line no-unused-vars
     $.ajax({
       url: baseUrl + 'api/archive/start',
       type: 'POST',
