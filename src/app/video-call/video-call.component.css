@@ -619,3 +619,57 @@ nav ul a {
   color: #48aef3;
   outline: none;
 }
+.marL10{
+  margin-left: 10px;
+}
+.questionDivPopup {
+  width: 100%;
+  float: left;
+  padding: 10px 0;
+}
+.padd30{
+  padding: 30px 0 0;
+}
+.slide-heading.blueHeadng{
+  color: #03a9f4;
+}
+.formFeild{
+  width: 100%;
+  float: left;
+}
+.formFeild label.control-label {
+  min-width: 140px;
+  float: left;
+  font-size: 22px;
+  display: inline-block;
+  color: #03a9f4;
+}
+.inputDiv {
+  width: calc(100% - 140px);
+  float: right;
+}
+.TimeStampInput{
+  width: 25%;
+    float: left;
+}
+.inputDiv input, .TimeStampInput input{
+  height: 30px;
+  margin-bottom: 10px;
+}
+.popSubmitBtnDiv{
+  text-align: center;
+}
+.popSubmitBtnDiv a{
+  color: #03a9f4;
+  font-size: 29px;
+  margin: 30px 0 0;
+  display: inline-block;
+  font-weight: bold;
+}
+.noBord{
+  border: 0;
+  margin: 0;
+}
+.modal-content.blueBord{
+  border: 1px solid #035b95;
+}
