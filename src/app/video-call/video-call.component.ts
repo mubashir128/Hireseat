@@ -1,4 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from '@angular/forms';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { OpentokService } from '../_services/opentok.service';
 import * as OT from '@opentok/client';
@@ -16,6 +22,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./video-call.component.css']
 })
 export class VideoCallComponent implements OnInit, OnDestroy {
+  bookmarkSubscription: Subscription;
+  QuestionsGroup: FormGroup;
   userRole: any;
   userId: any;
   message: any;
@@ -51,9 +59,36 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
     private videoCallingService: VideoCallingService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private fb: FormBuilder
   ) {
+    this.QuestionsGroup = this.fb.group({
+      question1: new FormControl(null, [
+        Validators.max(200)
+      ]),
+      timeStamp1: new FormControl(null),
 
+      question2: new FormControl(null, [
+        Validators.max(200)
+      ]),
+      timeStamp2: new FormControl(null),
+
+      question3: new FormControl(null, [
+        Validators.max(200)
+      ]),
+      timeStamp3: new FormControl(null),
+
+      question4: new FormControl(null, [
+        Validators.max(200)
+      ]),
+      timeStamp4: new FormControl(null),
+
+      question5: new FormControl(null, [
+        Validators.max(200)
+      ]),
+      timeStamp5: new FormControl(null),
+
+    });
     this.changeDetectorRef = ref;
     // subscription to the published stream
     this.publishedStreamSubscription = this.opentokService._publishedStream.subscribe(publishedStream => {
@@ -344,6 +379,19 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     }, err => {
       // console.log(err);
 
+    });
+  }
+  bookmarkCandidate(resumeId, status) {
+    const payload = {
+      resumeId: resumeId,
+      status: status
+    };
+    this.bookmarkSubscription = this.videoCallingService.bookmarkCandidate(payload).subscribe(res => {
+      if (res) {
+        console.log('res from bookmark call', res);
+      }
+    }, err => {
+      console.log('error from bookmark call', err);
     });
   }
   transform(url) {

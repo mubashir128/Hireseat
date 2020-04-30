@@ -57,4 +57,10 @@ export class VideoCallingService {
     })
     );
   }
+  bookmarkCandidate(payload) {
+    return this.http.post<any>(this.baseurl + 'api/bookmarkCandidate', payload).pipe(map((res: any) => {
+      return res;
+    })
+    );
+  }
 }
