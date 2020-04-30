@@ -689,3 +689,26 @@ nav ul a {
   height: 40px;
   padding: 0 10px;
 }
+.upperBackDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.blueBtn.commButton {
+  border: 2px solid #e8c800;
+  color: #e8c800;
+  border-radius: 5px;
+  padding: 5px 20px;
+  background-color: transparent;
+}
+.blueBtn.commButton i{
+  color: #e8c800;
+  margin-right: 5px;
+}
+.commButton.filledBtn{
+  color: #ffffff;
+  background-color: #e8c800;
+}
+.commButton.filledBtn i{
+  color: #ffffff;
+}
