@@ -159,11 +159,14 @@
             </div> -->
 
           </div>
-          <button id="myBtn" class="copy-link marL10" (click)="questions()">
+          <button id="myBtn" class="copy-link commButton" (click)="questions()">
             Add Questions
           </button>
-          <button id="myBtn" (click)="submitReview()" class="copy-link">
+          <button id="myBtn" (click)="submitReview()" class="copy-link commButton marL10">
             Submit review
+          </button>
+          <button  class="copy-link commButton marL10">
+           Bookmarks
           </button>
 
         </div>
@@ -194,12 +197,12 @@
 <!--message pop up:END-->
 
 <!--Submit pop up:START-->
-<div id="questionsPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+<div id="questionsPop" class="modal videoModalMain forumPopMain forumMsgPopup addQuetionPopup">
   <a (click)="closeQuestionConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
-  <div class="modal-content videoModalContent blueBord">
+  <div class="modal-content videoModalContent blueBord addQuetion">
     <h4 class="slide-heading blueHeadng text-center"> Add Question Bookmarks/Time</h4>
     <div class="modalBodyPop noBord">
-      <form class="padd30">
+      <form class="padd10">
         <div class="questionDivPopup">
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 1</label>
