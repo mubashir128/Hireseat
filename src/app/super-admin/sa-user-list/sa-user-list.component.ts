@@ -50,7 +50,7 @@ export class SAUserListComponent implements OnInit {
     .pipe(
       map(event=>event),
       filter(Boolean),
-      debounceTime(2000),
+      debounceTime(1000),
       distinctUntilChanged(),
       tap((text) => {
         this.p=1;
