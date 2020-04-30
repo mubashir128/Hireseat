@@ -218,9 +218,17 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     }, time);
   }
   closeEmailConfirmpopup() {
-    // // // console.log("closing");
+    // console.log("closing");
 
     jQuery("#emailConfirmPop").modal("close");
+  }
+  questionConfirmPopup() {
+    // // // console.log("emailConfirmPopup");
+    jQuery("#questionsPop").modal("open");
+
+  }
+  closeQuestionConfirmpopup() {
+    jQuery("#questionsPop").modal("close");
   }
 
   // end modal
@@ -238,9 +246,10 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     document.body.removeChild(selBox);
     // alert('URL copied to clipboard');
     this.emailConfirmPopup('Link copied to Clipboard', 1500);
-
   }
-
+  questions() {
+    this.questionConfirmPopup();
+  }
 
   //  archiving
 

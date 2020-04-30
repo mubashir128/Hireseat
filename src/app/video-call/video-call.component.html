@@ -159,12 +159,13 @@
             </div> -->
 
           </div>
+          <button id="myBtn" class="copy-link marL10" (click)="questions()">
+            Add Questions
+          </button>
           <button id="myBtn" (click)="submitReview()" class="copy-link">
             Submit review
           </button>
-          <button id="myBtn" class="copy-link marL10">
-            Add Question
-          </button>
+
         </div>
 
       </div>
@@ -193,60 +194,90 @@
 <!--message pop up:END-->
 
 <!--Submit pop up:START-->
-<!-- <div id="emailConfirmPop" class="modal videoModalMain forumPopMain forumMsgPopup">-->
-  <a (click)="closeEmailConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+<div id="questionsPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+  <a (click)="closeQuestionConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
   <div class="modal-content videoModalContent blueBord">
     <h4 class="slide-heading blueHeadng text-center"> Add Question Bookmarks/Time</h4>
     <div class="modalBodyPop noBord">
-     <form class="padd30">
-       <div class="questionDivPopup">
-        <div class="form-group formFeild">
-          <label class="control-label" for="email">Question 1</label>
-          <div class="inputDiv">
-            <input type="text" class="form-control questionInput" id="question" name="question">
+      <form class="padd30">
+        <div class="questionDivPopup">
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">Question 1</label>
+            <div class="inputDiv">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
+          </div>
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">TimeStamp :</label>
+            <div class="TimeStampInput">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
           </div>
         </div>
-        <div class="form-group formFeild">
-          <label class="control-label" for="email">TimeStamp :</label>
-          <div class="TimeStampInput">
-            <input type="text" class="form-control questionInput" id="question" name="question">
+        <div class="questionDivPopup">
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">Question 2</label>
+            <div class="inputDiv">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
+          </div>
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">TimeStamp :</label>
+            <div class="TimeStampInput">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="questionDivPopup">
-        <div class="form-group formFeild">
-          <label class="control-label" for="email">Question 1</label>
-          <div class="inputDiv">
-            <input type="text" class="form-control questionInput" id="question" name="question">
+        <div class="questionDivPopup">
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">Question 3</label>
+            <div class="inputDiv">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
+          </div>
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">TimeStamp :</label>
+            <div class="TimeStampInput">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
           </div>
         </div>
-        <div class="form-group formFeild">
-          <label class="control-label" for="email">TimeStamp :</label>
-          <div class="TimeStampInput">
-            <input type="text" class="form-control questionInput" id="question" name="question">
+
+        <div class="questionDivPopup">
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">Question 4</label>
+            <div class="inputDiv">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
+          </div>
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">TimeStamp :</label>
+            <div class="TimeStampInput">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="questionDivPopup">
-        <div class="form-group formFeild">
-          <label class="control-label" for="email">Question 1</label>
-          <div class="inputDiv">
-            <input type="text" class="form-control questionInput" id="question" name="question">
+
+        <div class="questionDivPopup">
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">Question 5</label>
+            <div class="inputDiv">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
+          </div>
+          <div class="form-group formFeild">
+            <label class="control-label" for="email">TimeStamp :</label>
+            <div class="TimeStampInput">
+              <input type="text" class="form-control questionInput" id="question" name="question">
+            </div>
           </div>
         </div>
-        <div class="form-group formFeild">
-          <label class="control-label" for="email">TimeStamp :</label>
-          <div class="TimeStampInput">
-            <input type="text" class="form-control questionInput" id="question" name="question">
-          </div>
+        <div class="popSubmitBtnDiv">
+          <a href="#" class="subBtn">Submit</a>
         </div>
-      </div>
-      <div class="popSubmitBtnDiv">
-        <a href="#" class="subBtn">Submit</a>
-      </div>
-     </form>
+      </form>
 
     </div>
   </div>
-<!-- </div> -->
+</div>
 <!--Submit pop up:END-->
