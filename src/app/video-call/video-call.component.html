@@ -45,12 +45,23 @@
         <div class="upperBackDiv">
           <div class="backBtnDiv">
             <span *ngIf="!candidate && !isRecruiter" class="back" routerLink='/employer/video-interview-room'>
-              < Back </span>
-                <span *ngIf="!candidate && isRecruiter" class="back" routerLink='/recruiter/video-interview-room'>
-                  < Back </span>
+              < <span>
+                Back
+            </span>
+            </span>
+            <span *ngIf="!candidate && isRecruiter" class="back" routerLink='/recruiter/video-interview-room'>
+              < <span>
+                Back
+            </span> </span>
           </div>
-          <button class="blueBtn commButton">
-            <i class="fa fa-bookmark" aria-hidden="true"></i> Bookmarks
+          <button *ngIf="candidateInfo?.bookmark && !candidate" class="filledBtn commButton"
+            (click)="bookmarkCandidate(false)">
+            <i class="fa fa-bookmark" aria-hidden="true"></i> Bookmarked
+          </button>
+
+          <button *ngIf="!candidateInfo?.bookmark && !candidate" class="blueBtn commButton"
+            (click)="bookmarkCandidate(true)">
+            <i class="fa fa-bookmark" aria-hidden="true"></i> Bookmark
           </button>
         </div>
 
@@ -210,7 +221,7 @@
       <form [formGroup]="QuestionsGroup" (ngSubmit)="onSubmitQuestions()" class="padd30">
         <div class="questionDivPopup">
           <div class="form-group formFeild">
-            <label class="control-label" for="email">Question 1</label>
+            <label class="control-label" for="email">Question 1 :</label>
             <div class="inputDiv">
               <input type="text" class="form-control questionInput" name="question" formControlName="question1">
             </div>
@@ -218,13 +229,13 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp1 :</label>
             <div class="TimeStampInput">
-              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp1">
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp1">
             </div>
           </div>
         </div>
         <div class="questionDivPopup">
           <div class="form-group formFeild">
-            <label class="control-label" for="email">Question 2</label>
+            <label class="control-label" for="email">Question 2 :</label>
             <div class="inputDiv">
               <input type="text" class="form-control questionInput" name="question" formControlName="question2">
 
@@ -233,18 +244,18 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp2 :</label>
             <div class="TimeStampInput">
-              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp2">
-              <span *ngIf="QuestionsGroup.get('timeStamp2').invalid &&
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp2">
+              <!-- <span *ngIf="QuestionsGroup.get('timeStamp2').invalid &&
               (QuestionsGroup.get('timeStamp2').dirty ||
               QuestionsGroup.get('timeStamp2').touched)">
                 Enter number only.
-              </span>
+              </span> -->
             </div>
           </div>
         </div>
         <div class="questionDivPopup">
           <div class="form-group formFeild">
-            <label class="control-label" for="email">Question 3</label>
+            <label class="control-label" for="email">Question 3 :</label>
             <div class="inputDiv">
               <input type="text" class="form-control questionInput" name="question" formControlName="question3">
             </div>
@@ -252,14 +263,14 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp3 :</label>
             <div class="TimeStampInput">
-              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp3">
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp3">
             </div>
           </div>
         </div>
 
         <div class="questionDivPopup">
           <div class="form-group formFeild">
-            <label class="control-label" for="email">Question 4</label>
+            <label class="control-label" for="email">Question 4 :</label>
             <div class="inputDiv">
               <input type="text" class="form-control questionInput" name="question" formControlName="question4">
             </div>
@@ -267,14 +278,14 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp4 :</label>
             <div class="TimeStampInput">
-              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp4">
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp4">
             </div>
           </div>
         </div>
 
         <div class="questionDivPopup">
           <div class="form-group formFeild">
-            <label class="control-label" for="email">Question 5</label>
+            <label class="control-label" for="email">Question 5 :</label>
             <div class="inputDiv">
               <input type="text" class="form-control questionInput" name="question" formControlName="question5">
             </div>
@@ -282,13 +293,12 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp5 :</label>
             <div class="TimeStampInput">
-              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp5">
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp5">
             </div>
           </div>
         </div>
         <div class="popSubmitBtnDiv">
-          <!-- <a class="subBtn">Submit</a> -->
-          <button type="submit" class="subBtn">Submit</button>
+          <button type="submit" class="copy-link commButton marL10">Submit</button>
         </div>
       </form>
 

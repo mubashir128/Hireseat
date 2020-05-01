@@ -9,22 +9,25 @@
 
 <ng-container *ngIf="videoURL">
   <div class="interviewVideoDiv stickyDiv">
-    <div class="leftSideQuetion">
+    <div class="leftSideQuetion" *ngIf="currentResume?.resumeKey?.questionsByRecruiter[0]">
       <h2>Questions</h2>
 
       <div class="interviewQue">
-        <h4><a href="#">1. What do you want to do differently in your next role?</a></h4>
-        <h4><a href="#">2. What do you want to do differently in your next role?</a></h4>
-        <h4><a href="#">3. What do you want to do differently in your next role?</a></h4>
-        <h4><a href="#">4. What do you want to do differently in your next role?</a></h4>
-        <h4><a href="#">5. What do you want to do differently in your next role?</a></h4>
+        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp1)">{{questionsByRecruiter.question1}}</a></h4>
+        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp2)">{{questionsByRecruiter.question2}}</a></h4>
+        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp3)">{{questionsByRecruiter.question3}}</a></h4>
+        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp4)">{{questionsByRecruiter.question4}}</a></h4>
+        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp5)">{{questionsByRecruiter.question5}}</a></h4>
       </div>
-     
+
     </div>
     <!-- video js -->
-    <video #target class="video-js" width="100%" height="100%" controls>
-      <source [src]="videoURL">
-    </video>
+    <div class="video-interview"
+      [ngClass]="!currentResume?.resumeKey?.questionsByRecruiter[0]? 'video-js-without-questions': false">
+      <video #target class="video-js" controls>
+        <source [src]="videoURL">
+      </video>
+    </div>
     <!-- end video js -->
 
     <!-- <iframe id="myVideo" [src]="videoURL | safePdf" class="interviewVideo" allowfullscreen></iframe> -->
@@ -57,7 +60,7 @@
           </a>
         </button>
         <button class="viewInterview" *ngIf="resume?.resumeKey?.interviewLinkedByRecruiter"
-          (click)="seeVideo(i,resume?.resumeKey?.interviewLinkedByRecruiter)">
+          (click)="seeVideo(i,resume?.resumeKey?.interviewLinkedByRecruiter,resume)">
           <i class="fa fa-video-camera" aria-hidden="true"></i> View Interview</button>
       </div>
       <div class="singleListData">

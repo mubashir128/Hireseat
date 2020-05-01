@@ -80,6 +80,8 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
   id: string;
   videoURL: any;
   vid: HTMLElement;
+  currentResume: any;
+  questionsByRecruiter: any;
 
   constructor(
     private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
@@ -117,7 +119,7 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
         autoplay: true,
         controlls: true
       }, () => {
-        console.log('onPlayerReady', this);
+        // console.log('onPlayerReady', this);
       });
     }
 
@@ -491,10 +493,15 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
   createNewResume() {
     this.router.navigate(['/recruiter/resume-list']);
   }
-  seeVideo(i, archiveId) {
+  seeVideo(i, archiveId, resume) {
     // call video call service
+    this.currentResume = resume;
+    // console.log('currentResume :::::::::::', this.currentResume);
+    this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
+    // console.log('questionsByRecruiter', this.questionsByRecruiter);
+
     this.videoURL = '';
-    console.log(i);
+    // console.log(i);
     this.selectedIndex = i;
     this.spinner.show();
     const payload = {

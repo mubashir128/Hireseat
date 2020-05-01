@@ -74,27 +74,27 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       question1: new FormControl(null, [
         Validators.max(100)
       ]),
-      timeStamp1: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      timeStamp1: new FormControl(null),
 
       question2: new FormControl(null, [
         Validators.max(100)
       ]),
-      timeStamp2: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      timeStamp2: new FormControl(null),
 
       question3: new FormControl(null, [
         Validators.max(100)
       ]),
-      timeStamp3: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      timeStamp3: new FormControl(null),
 
       question4: new FormControl(null, [
         Validators.max(100)
       ]),
-      timeStamp4: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      timeStamp4: new FormControl(null),
 
       question5: new FormControl(null, [
         Validators.max(100)
       ]),
-      timeStamp5: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      timeStamp5: new FormControl(null),
 
     });
     this.changeDetectorRef = ref;
@@ -124,7 +124,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
             }
           });
           opentokService._getCandidateID.subscribe(id => {
-            console.log(id);
+            // console.log(id);
             this.toCopylinkPublishedStreamId = id;
 
           });
@@ -170,9 +170,10 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           candidateId: this.candidateId
         };
         this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
-          // console.log(res);
           this.candidateInfo = res.isCandidate;
           this.opentokService.setCandidateId(this.candidateId);
+          // console.log(this.candidateInfo);
+
         });
         // end resume candidate
       }
@@ -390,28 +391,62 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     });
   }
   onSubmitQuestions() {
-    console.log(this.QuestionsGroup.value);
+    // console.log(this.QuestionsGroup.value);
+    // convert mins into seconds
+    this.QuestionsGroup.get('timeStamp1')
+      .patchValue(this.minsToSeconds(this.QuestionsGroup.value.timeStamp1));
+    this.QuestionsGroup.get('timeStamp2')
+      .patchValue(this.minsToSeconds(this.QuestionsGroup.value.timeStamp2));
+    this.QuestionsGroup.get('timeStamp3')
+      .patchValue(this.minsToSeconds(this.QuestionsGroup.value.timeStamp3));
+    this.QuestionsGroup.get('timeStamp4')
+      .patchValue(this.minsToSeconds(this.QuestionsGroup.value.timeStamp4));
+    this.QuestionsGroup.get('timeStamp5')
+      .patchValue(this.minsToSeconds(this.QuestionsGroup.value.timeStamp5));
+
+
     const payload = {
       resumeId: this.candidateId,
       questions: this.QuestionsGroup.value
     };
-    console.log(payload);
+    // console.log(payload);
     this.askQuestionSubscription = this.videoCallingService.RecruiterQuestionsForCandidate(payload)
       .subscribe(res => {
         if (res) {
-          console.log('**********RES after adding quesitons*****************', res);
+          // console.log('**********RES after adding quesitons*****************', res);
+          this.QuestionsGroup.reset();
+          this.closeQuestionConfirmpopup();
         }
       }, err => console.log('error while adding questions', err));
 
   }
-  bookmarkCandidate(resumeId, status) {
+  minsToSeconds(min) {
+    // console.log(typeof min);
+    if (typeof min === 'string') {
+      if (!min.includes(':')) {
+
+        const secOnly = parseInt(min, 10);
+        return secOnly;
+
+      } else {
+        const intoSeconds = min.split(':');
+        const finalSeconds = Number(intoSeconds[0]) * 60 + Number(intoSeconds[1]);
+        return finalSeconds;
+      }
+    } else {
+      return min;
+    }
+
+  }
+  bookmarkCandidate(status) {
     const payload = {
-      resumeId: resumeId,
+      resumeId: this.candidateId,
       status: status
     };
     this.bookmarkSubscription = this.videoCallingService.bookmarkCandidate(payload).subscribe(res => {
       if (res) {
-        console.log('res from bookmark call', res);
+        // console.log('res from bookmark call', res);
+        this.candidateInfo.bookmark = res.status;
       }
     }, err => {
       console.log('error from bookmark call', err);

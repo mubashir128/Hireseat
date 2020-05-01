@@ -621,12 +621,12 @@ nav ul a {
 }
 
 /* Add question popup */
-.videoModalMain.forumPopMain.addQuetionPopup{
+.videoModalMain.forumPopMain.addQuetionPopup {
   max-width: 650px;
   background-color: transparent;
   padding-top: 0;
 }
-.marL10{
+.marL10 {
   margin-left: 10px;
 }
 .questionDivPopup {
@@ -634,13 +634,13 @@ nav ul a {
   float: left;
   padding: 5px 0;
 }
-.padd10{
+.padd10 {
   padding: 10px 0 0;
 }
-.slide-heading.blueHeadng{
+.slide-heading.blueHeadng {
   color: #03a9f4;
 }
-.formFeild{
+.formFeild {
   width: 100%;
   float: left;
 }
@@ -655,36 +655,37 @@ nav ul a {
   width: calc(100% - 140px);
   float: right;
 }
-.TimeStampInput{
+.TimeStampInput {
   width: 25%;
-    float: left;
+  float: left;
 }
-.inputDiv input, .TimeStampInput input{
+.inputDiv input,
+.TimeStampInput input {
   height: 30px;
   margin-bottom: 10px;
 }
-.popSubmitBtnDiv{
+.popSubmitBtnDiv {
   text-align: center;
 }
-.popSubmitBtnDiv a{
+.popSubmitBtnDiv a {
   color: #03a9f4;
   font-size: 29px;
   margin: 30px 0 0;
   display: inline-block;
   font-weight: bold;
 }
-.noBord{
+.noBord {
   border: 0;
   margin: 0;
 }
-.modal-content.blueBord{
+.modal-content.blueBord {
   border: 1px solid #035b95;
 }
-.modal-content.addQuetion{
+.modal-content.addQuetion {
   padding: 20px 0;
   width: 100%;
 }
-.copy-link.commButton{
+.copy-link.commButton {
   width: 150px;
   height: 40px;
   padding: 0 10px;
@@ -693,6 +694,7 @@ nav ul a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 48px;
 }
 .blueBtn.commButton {
   border: 2px solid #e8c800;
@@ -701,21 +703,25 @@ nav ul a {
   padding: 5px 20px;
   background-color: transparent;
 }
-.blueBtn.commButton i{
+.blueBtn.commButton i {
   color: #e8c800;
   margin-right: 5px;
 }
-.commButton.filledBtn{
+.commButton.filledBtn {
   color: #ffffff;
   background-color: #e8c800;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  padding: 5px 20px;
 }
-.commButton.filledBtn i{
+.commButton.filledBtn i {
   color: #ffffff;
+  margin-right: 5px;
 }
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }
