@@ -52,6 +52,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   commentFromRecruiter: any;
   submitReviewButton: boolean;
   roomName: any;
+  questions: any;
   constructor(
     private ref: ChangeDetectorRef,
     private opentokService: OpentokService,
@@ -62,6 +63,12 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private fb: FormBuilder
   ) {
+    this.questions = [
+      {
+        question: '',
+        timeStamp: ''
+      }
+    ];
     this.QuestionsGroup = this.fb.group({
       question1: new FormControl(null, [
         Validators.max(200)
@@ -282,7 +289,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     // alert('URL copied to clipboard');
     this.emailConfirmPopup('Link copied to Clipboard', 1500);
   }
-  questions() {
+  questionsPopUp() {
     this.questionConfirmPopup();
   }
 
@@ -380,6 +387,34 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       // console.log(err);
 
     });
+  }
+  onSubmitQuestions() {
+    console.log(this.QuestionsGroup.value);
+    this.questions = [
+      {
+        question: this.QuestionsGroup.value.question1,
+        timeStamp: this.QuestionsGroup.value.timeStamp1
+      },
+      {
+        question: this.QuestionsGroup.value.question2,
+        timeStamp: this.QuestionsGroup.value.timeStamp2
+      },
+      {
+        question: this.QuestionsGroup.value.question3,
+        timeStamp: this.QuestionsGroup.value.timeStamp3
+      },
+      {
+        question: this.QuestionsGroup.value.question4,
+        timeStamp: this.QuestionsGroup.value.timeStamp4
+      },
+      {
+        question: this.QuestionsGroup.value.question5,
+        timeStamp: this.QuestionsGroup.value.timeStamp5
+      }
+    ];
+    console.log(this.questions);
+
+
   }
   bookmarkCandidate(resumeId, status) {
     const payload = {

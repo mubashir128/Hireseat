@@ -159,7 +159,7 @@
             </div> -->
 
           </div>
-          <button id="myBtn" class="copy-link marL10" (click)="questions()">
+          <button id="myBtn" class="copy-link marL10" (click)="questionsPopUp()">
             Add Questions
           </button>
           <button id="myBtn" (click)="submitReview()" class="copy-link">
@@ -199,18 +199,18 @@
   <div class="modal-content videoModalContent blueBord">
     <h4 class="slide-heading blueHeadng text-center"> Add Question Bookmarks/Time</h4>
     <div class="modalBodyPop noBord">
-      <form class="padd30">
+      <form [formGroup]="QuestionsGroup" (ngSubmit)="onSubmitQuestions()" class="padd30">
         <div class="questionDivPopup">
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 1</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="question1">
             </div>
           </div>
           <div class="form-group formFeild">
-            <label class="control-label" for="email">TimeStamp :</label>
+            <label class="control-label" for="email">TimeStamp1 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp1">
             </div>
           </div>
         </div>
@@ -218,13 +218,13 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 2</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="question2">
             </div>
           </div>
           <div class="form-group formFeild">
-            <label class="control-label" for="email">TimeStamp :</label>
+            <label class="control-label" for="email">TimeStamp2 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp2">
             </div>
           </div>
         </div>
@@ -232,13 +232,13 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 3</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="question3">
             </div>
           </div>
           <div class="form-group formFeild">
-            <label class="control-label" for="email">TimeStamp :</label>
+            <label class="control-label" for="email">TimeStamp3 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp3">
             </div>
           </div>
         </div>
@@ -247,13 +247,13 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 4</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="question4">
             </div>
           </div>
           <div class="form-group formFeild">
-            <label class="control-label" for="email">TimeStamp :</label>
+            <label class="control-label" for="email">TimeStamp4 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp4">
             </div>
           </div>
         </div>
@@ -262,18 +262,19 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 5</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="question5">
             </div>
           </div>
           <div class="form-group formFeild">
-            <label class="control-label" for="email">TimeStamp :</label>
+            <label class="control-label" for="email">TimeStamp5 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" id="question" name="question">
+              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp5">
             </div>
           </div>
         </div>
         <div class="popSubmitBtnDiv">
-          <a href="#" class="subBtn">Submit</a>
+          <!-- <a class="subBtn">Submit</a> -->
+          <button type="submit" class="subBtn">Submit</button>
         </div>
       </form>
 
