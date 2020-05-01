@@ -63,4 +63,10 @@ export class VideoCallingService {
     })
     );
   }
+  RecruiterQuestionsForCandidate(payload) {
+    return this.http.post<any>(this.baseurl + 'api/RecruiterQuestionsForCandidate', payload).pipe(map((res: any) => {
+      return res;
+    })
+    );
+  }
 }

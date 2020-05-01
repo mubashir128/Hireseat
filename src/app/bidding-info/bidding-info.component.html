@@ -9,6 +9,18 @@
 
 <ng-container *ngIf="videoURL">
   <div class="interviewVideoDiv stickyDiv">
+    <div class="leftSideQuetion">
+      <h2>Questions</h2>
+
+      <div class="interviewQue">
+        <h4><a href="#">1. What do you want to do differently in your next role?</a></h4>
+        <h4><a href="#">2. What do you want to do differently in your next role?</a></h4>
+        <h4><a href="#">3. What do you want to do differently in your next role?</a></h4>
+        <h4><a href="#">4. What do you want to do differently in your next role?</a></h4>
+        <h4><a href="#">5. What do you want to do differently in your next role?</a></h4>
+      </div>
+     
+    </div>
     <!-- video js -->
     <video #target class="video-js" width="100%" height="100%" controls>
       <source [src]="videoURL">
@@ -25,9 +37,9 @@
   </div>
 </ng-container>
 
-<button (click)="setCurrentTime(4)">
+<!-- <button (click)="setCurrentTime(4)">
   Set Current time
-</button>
+</button> -->
 <div class="center-align" *ngIf="ResumeList.length == 0">
   <h3>Resume Not Found</h3>
 </div>

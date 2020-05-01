@@ -23,6 +23,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class VideoCallComponent implements OnInit, OnDestroy {
   bookmarkSubscription: Subscription;
+  askQuestionSubscription: Subscription;
   QuestionsGroup: FormGroup;
   userRole: any;
   userId: any;
@@ -71,29 +72,29 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     ];
     this.QuestionsGroup = this.fb.group({
       question1: new FormControl(null, [
-        Validators.max(200)
+        Validators.max(100)
       ]),
-      timeStamp1: new FormControl(null),
+      timeStamp1: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
 
       question2: new FormControl(null, [
-        Validators.max(200)
+        Validators.max(100)
       ]),
-      timeStamp2: new FormControl(null),
+      timeStamp2: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
 
       question3: new FormControl(null, [
-        Validators.max(200)
+        Validators.max(100)
       ]),
-      timeStamp3: new FormControl(null),
+      timeStamp3: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
 
       question4: new FormControl(null, [
-        Validators.max(200)
+        Validators.max(100)
       ]),
-      timeStamp4: new FormControl(null),
+      timeStamp4: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
 
       question5: new FormControl(null, [
-        Validators.max(200)
+        Validators.max(100)
       ]),
-      timeStamp5: new FormControl(null),
+      timeStamp5: new FormControl(null, [Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
 
     });
     this.changeDetectorRef = ref;
@@ -390,30 +391,17 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
   onSubmitQuestions() {
     console.log(this.QuestionsGroup.value);
-    this.questions = [
-      {
-        question: this.QuestionsGroup.value.question1,
-        timeStamp: this.QuestionsGroup.value.timeStamp1
-      },
-      {
-        question: this.QuestionsGroup.value.question2,
-        timeStamp: this.QuestionsGroup.value.timeStamp2
-      },
-      {
-        question: this.QuestionsGroup.value.question3,
-        timeStamp: this.QuestionsGroup.value.timeStamp3
-      },
-      {
-        question: this.QuestionsGroup.value.question4,
-        timeStamp: this.QuestionsGroup.value.timeStamp4
-      },
-      {
-        question: this.QuestionsGroup.value.question5,
-        timeStamp: this.QuestionsGroup.value.timeStamp5
-      }
-    ];
-    console.log(this.questions);
-
+    const payload = {
+      resumeId: this.candidateId,
+      questions: this.QuestionsGroup.value
+    };
+    console.log(payload);
+    this.askQuestionSubscription = this.videoCallingService.RecruiterQuestionsForCandidate(payload)
+      .subscribe(res => {
+        if (res) {
+          console.log('**********RES after adding quesitons*****************', res);
+        }
+      }, err => console.log('error while adding questions', err));
 
   }
   bookmarkCandidate(resumeId, status) {

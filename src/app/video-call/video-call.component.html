@@ -42,74 +42,81 @@
     <div class="col s12 m9 l9">
 
       <div class="video-call-execution-tab">
-        <span *ngIf="!candidate && !isRecruiter" class="back" routerLink='/employer/video-interview-room'>
-          < Back </span>
-            <span *ngIf="!candidate && isRecruiter" class="back" routerLink='/recruiter/video-interview-room'>
+        <div class="upperBackDiv">
+          <div class="backBtnDiv">
+            <span *ngIf="!candidate && !isRecruiter" class="back" routerLink='/employer/video-interview-room'>
               < Back </span>
+                <span *ngIf="!candidate && isRecruiter" class="back" routerLink='/recruiter/video-interview-room'>
+                  < Back </span>
+          </div>
+          <button class="blueBtn commButton">
+            <i class="fa fa-bookmark" aria-hidden="true"></i> Bookmarks
+          </button>
+        </div>
 
-                <div class="call" *ngIf="session">
-                  <div class="screens">
-                    <ng-container>
-                      <div class="candidate-container">
-                        <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session">
-                        </app-subscriber>
-                        <!-- <ng-container *ngIf="candidate">
+        <div class="call" *ngIf="session">
+          <div class="screens">
+            <ng-container>
+              <div class="candidate-container">
+                <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session">
+                </app-subscriber>
+                <!-- <ng-container *ngIf="candidate">
                           <button type="button" routerLink='/' class="end-meeting">End Meeting</button>
                         </ng-container> -->
-                      </div>
-                    </ng-container>
-                    <div class="publisher-container">
-                      <app-publisher [session]="session"></app-publisher>
-                      <!-- archive button -->
-                      <ng-container *ngIf="!candidate">
-                        <div class="archive-copylink">
-                          <!-- <div id="buttons"> -->
-                          <button type="button" class="start-button" *ngIf="startArchiveButton"
-                            (click)="startArchive()">Start Archive</button>
-                          <button type="button" class="stop-button" *ngIf="stopArchiveButton"
-                            (click)="stopArchive(archiveID)">Stop Archive</button>
-                          <button type="button" class="view-button" *ngIf="viewArchiveButton"
-                            (click)="viewArchive()">Submit Archive</button>
-                          <!-- </div> -->
+              </div>
+            </ng-container>
+            <div class="publisher-container">
+              <app-publisher [session]="session"></app-publisher>
+              <!-- archive button -->
+              <ng-container *ngIf="!candidate">
+                <div class="archive-copylink">
+                  <!-- <div id="buttons"> -->
+                  <button type="button" class="start-button" *ngIf="startArchiveButton" (click)="startArchive()">Start
+                    Archive</button>
+                  <button type="button" class="stop-button" *ngIf="stopArchiveButton"
+                    (click)="stopArchive(archiveID)">Stop Archive</button>
+                  <button type="button" class="view-button" *ngIf="viewArchiveButton" (click)="viewArchive()">Submit
+                    Archive</button>
+                  <!-- </div> -->
 
-                          <!-- button for local -->
+                  <!-- button for local -->
 
-                          <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink"
-                            (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
-                            value="click to copy">
-                            Candidate Invitation Link
-                          </button>
-                          <ng-container *ngIf="!candidate && !isRecruiter">
-                            <button type="button" routerLink='/employer/video-interview-room' class="end-meeting">
-                              End
-                              Meeting</button>
-                          </ng-container>
-                          <ng-container *ngIf="!candidate && isRecruiter">
-                            <button type="button" routerLink='/recruiter/video-interview-room' class="end-meeting">End
-                              Meeting</button>
-                          </ng-container>
-                        </div>
+                  <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink"
+                    (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
+                    value="click to copy">
+                    Candidate Invitation Link
+                  </button>
+                  <ng-container *ngIf="!candidate && !isRecruiter">
+                    <button type="button" routerLink='/employer/video-interview-room' class="end-meeting">
+                      End
+                      Meeting</button>
+                  </ng-container>
+                  <ng-container *ngIf="!candidate && isRecruiter">
+                    <button type="button" routerLink='/recruiter/video-interview-room' class="end-meeting">End
+                      Meeting</button>
+                  </ng-container>
+                </div>
 
-                        <!-- local end -->
+                <!-- local end -->
 
-                        <!-- button for live -->
-                        <!-- <button *ngIf="!candidate" id="myBtn" class="copy-link"
+                <!-- button for live -->
+                <!-- <button *ngIf="!candidate" id="myBtn" class="copy-link"
                       (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
                       value="click to copy">
                       Candidate Invitation Link
                     </button> -->
-                        <!-- live end -->
+                <!-- live end -->
 
-                      </ng-container>
-                      <!-- archive and stop-copylink button end -->
-                    </div>
-                  </div>
+              </ng-container>
+              <!-- archive and stop-copylink button end -->
+            </div>
+          </div>
 
-                  <ng-container *ngIf="candidate">
-                    <button type="button" routerLink='/' class="end-meeting">End Meeting</button>
-                  </ng-container>
+          <ng-container *ngIf="candidate">
+            <button type="button" routerLink='/' class="end-meeting">End Meeting</button>
+          </ng-container>
 
-                </div>
+        </div>
 
 
 
@@ -162,9 +169,10 @@
           <button id="myBtn" class="copy-link marL10" (click)="questionsPopUp()">
             Add Questions
           </button>
-          <button id="myBtn" (click)="submitReview()" class="copy-link">
+          <button id="myBtn" (click)="submitReview()" class="copy-link commButton marL10">
             Submit review
           </button>
+
 
         </div>
 
@@ -194,9 +202,9 @@
 <!--message pop up:END-->
 
 <!--Submit pop up:START-->
-<div id="questionsPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+<div id="questionsPop" class="modal videoModalMain forumPopMain forumMsgPopup addQuetionPopup">
   <a (click)="closeQuestionConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
-  <div class="modal-content videoModalContent blueBord">
+  <div class="modal-content videoModalContent blueBord addQuetion">
     <h4 class="slide-heading blueHeadng text-center"> Add Question Bookmarks/Time</h4>
     <div class="modalBodyPop noBord">
       <form [formGroup]="QuestionsGroup" (ngSubmit)="onSubmitQuestions()" class="padd30">
@@ -210,7 +218,7 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp1 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp1">
+              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp1">
             </div>
           </div>
         </div>
@@ -219,12 +227,18 @@
             <label class="control-label" for="email">Question 2</label>
             <div class="inputDiv">
               <input type="text" class="form-control questionInput" name="question" formControlName="question2">
+
             </div>
           </div>
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp2 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp2">
+              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp2">
+              <span *ngIf="QuestionsGroup.get('timeStamp2').invalid &&
+              (QuestionsGroup.get('timeStamp2').dirty ||
+              QuestionsGroup.get('timeStamp2').touched)">
+                Enter number only.
+              </span>
             </div>
           </div>
         </div>
@@ -238,7 +252,7 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp3 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp3">
+              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp3">
             </div>
           </div>
         </div>
@@ -253,7 +267,7 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp4 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp4">
+              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp4">
             </div>
           </div>
         </div>
@@ -268,7 +282,7 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp5 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp5">
+              <input type="number" class="form-control questionInput" name="question" formControlName="timeStamp5">
             </div>
           </div>
         </div>
