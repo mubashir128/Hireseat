@@ -10,6 +10,14 @@
     </div>
     <form [formGroup]="editResumeFrm" (ngSubmit)="submit()" novalidate>
       <div style=" width:100%; margin-bottom:0px;">
+        <div class="buttonsDiv">
+          <button id="myBtn" class="copy-link commButton" (click)="questions()">
+            Add Questions
+          </button>
+          <button  class="blueBtn commButton">
+            <i class="fa fa-bookmark" aria-hidden="true"></i> Bookmarks
+           </button>
+        </div>
         <div class="editResumeupperDiv">
           <ng-container *ngIf="!videoURl">
             <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
@@ -27,8 +35,8 @@
               </div>
             </div>
             <!-- <div *ngIf="fileUploaded===1" class="progress">
-                          <div class="determinate" style="width: {{uploadProgress}}%"></div>
-                      </div> -->
+                    <div class="determinate" style="width: {{uploadProgress}}%"></div>
+                  </div> -->
           </div>
 
           <div class="upperVideo" *ngIf="videoURl">

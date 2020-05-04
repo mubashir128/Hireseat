@@ -94,3 +94,6 @@
 img {
     border: 0;
 }
+.btn, .btn-large {
+    background-color: #03a9f4;
+}
