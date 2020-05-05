@@ -141,8 +141,6 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-
     this.candidateInvitationLink = true;
     // candidate or interviewer
     if (!localStorage.getItem('currentUser')) {

@@ -4,6 +4,7 @@
 .rating {
   border: none;
   float: left;
+  display: flex;
   /* margin: 0px 0px 0px 28px; */
 }
 
@@ -696,6 +697,7 @@ iframe.interviewVideo {
 .video-js {
   width: 100%;
   height: 100%;
+  outline: none;
 }
 .video-interview {
   width: 60%;
