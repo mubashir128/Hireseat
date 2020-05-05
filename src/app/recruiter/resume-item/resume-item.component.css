@@ -39,8 +39,7 @@
   background-color: white;
   padding: 15px 15px 70px 15px;
   position: relative;
-  height: 100%;
-  /* max-height: 250px; */
+  /* height: 100%; */
 }
 .resume-item:hover {
   background-color: #f1f9ff;
@@ -111,7 +110,32 @@
   font-size: 18px;
   margin: 0 0;
 }
-/* .listDiv {
-  max-height: 70px;
-  overflow: scroll;
-} */
+.skillSrcoll{
+  height: 150px;
+  overflow-y: auto;
+}
+/* Custom scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #999999; 
+  border-radius: 20px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  /* background: #03a9f4;  */
+  background: #afafaf; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2ea9fa; 
+}
+/* Custom scrollbar ends */
