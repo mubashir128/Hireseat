@@ -10,14 +10,29 @@
 <ng-container *ngIf="videoURL">
   <div class="interviewVideoDiv stickyDiv">
     <div class="leftSideQuetion" *ngIf="currentResume?.resumeKey?.questionsByRecruiter[0]">
-      <h2>Questions</h2>
+      <h2>Jump to below interview questions</h2>
 
       <div class="interviewQue">
-        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp1)">{{questionsByRecruiter.question1}}</a></h4>
-        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp2)">{{questionsByRecruiter.question2}}</a></h4>
-        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp3)">{{questionsByRecruiter.question3}}</a></h4>
-        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp4)">{{questionsByRecruiter.question4}}</a></h4>
-        <h4><a (click)="setCurrentTime(questionsByRecruiter.timeStamp5)">{{questionsByRecruiter.question5}}</a></h4>
+        <h4><a [ngClass]="questionNumber === 1 ? 'interview-bold':false"
+            (click)="setCurrentTime(questionsByRecruiter.timeStamp1,1)">
+            {{questionsByRecruiter.question1}}</a>
+        </h4>
+        <h4><a [ngClass]="questionNumber === 2 ? 'interview-bold':false"
+            (click)="setCurrentTime(questionsByRecruiter.timeStamp2,2)">
+            {{questionsByRecruiter.question2}}</a>
+        </h4>
+        <h4><a [ngClass]="questionNumber === 3 ? 'interview-bold':false"
+            (click)="setCurrentTime(questionsByRecruiter.timeStamp3,3)">
+            {{questionsByRecruiter.question3}}</a>
+        </h4>
+        <h4><a [ngClass]="questionNumber === 4 ? 'interview-bold':false"
+            (click)="setCurrentTime(questionsByRecruiter.timeStamp4,4)">
+            {{questionsByRecruiter.question4}}</a>
+        </h4>
+        <h4><a [ngClass]="questionNumber === 5 ? 'interview-bold':false"
+            (click)="setCurrentTime(questionsByRecruiter.timeStamp5,5)">
+            {{questionsByRecruiter.question5}}</a>
+        </h4>
       </div>
 
     </div>
@@ -52,21 +67,30 @@
     <div class="singleList employerResume resumeSingleList" [ngClass]="selectedIndex === i ? 'active-resume':false"
       id="animateinterview{{ i }}">
       <div class="docSectionBtns">
-        <button class="downloadResume" [ngClass]="selectedIndex === i ? 'active-button':false">
-          <a [ngClass]="selectedIndex === i ? 'color-white':false" [attr.href]="transform(resume?.resumeKey?.fileURL)"
-            target="_blank" download>
-            <i class="fa fa-cloud-download" [ngClass]="selectedIndex === i ? 'color-white':false"
-              aria-hidden="true"></i>Download Resume
-          </a>
-        </button>
-        <button class="viewInterview" *ngIf="resume?.resumeKey?.interviewLinkedByRecruiter"
-          (click)="seeVideo(i,resume?.resumeKey?.interviewLinkedByRecruiter,resume)">
-          <i class="fa fa-video-camera" aria-hidden="true"></i> View Interview</button>
+        <div class="candidate-name" [ngClass]="selectedIndex === i?'candidate-name-selected':false">
+          <span>
+            {{resume?.resumeKey?.candidateName}}
+          </span>
+        </div>
+        <div>
+          <button class="downloadResume" [ngClass]="selectedIndex === i ? 'active-button':false">
+            <a [ngClass]="selectedIndex === i ? 'color-white':false" [attr.href]="transform(resume?.resumeKey?.fileURL)"
+              target="_blank" download>
+              <i class="fa fa-cloud-download" [ngClass]="selectedIndex === i ? 'color-white':false"
+                aria-hidden="true"></i>Download Resume
+            </a>
+          </button>
+          <button class="viewInterview" *ngIf="resume?.resumeKey?.interviewLinkedByRecruiter"
+            (click)="seeVideo(i,resume?.resumeKey?.interviewLinkedByRecruiter,resume)">
+            <i class="fa fa-video-camera" aria-hidden="true"></i> View Interview</button>
+        </div>
       </div>
       <div class="singleListData">
         <div class="PointsDiv commonSingleInner">
           <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <img *ngIf="selectedIndex !== i" src="assets/img/checkIcon.png" class="img-responsive" />
+            <img *ngIf="selectedIndex === i" src="assets/img/checkIconWhite.png" class="white-tick" />
+
             <!-- <h4>{{ resume.StrongPoint1 | charlimit }}</h4> -->
             <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint1 }}</h4>
             <!-- <div class="OnHoverDiv">
@@ -74,14 +98,18 @@
             </div> -->
           </div>
           <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <img *ngIf="selectedIndex !== i" src="assets/img/checkIcon.png" class="img-responsive" />
+            <img *ngIf="selectedIndex === i" src="assets/img/checkIconWhite.png" class="white-tick" />
+
             <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint2}}</h4>
             <!-- <div class="OnHoverDiv">
               <h4>{{ resume.StrongPoint2 }}</h4>
             </div> -->
           </div>
           <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <img *ngIf="selectedIndex !== i" src="assets/img/checkIcon.png" class="img-responsive" />
+            <img *ngIf="selectedIndex === i" src="assets/img/checkIconWhite.png" class="white-tick" />
+
             <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint3 }}</h4>
             <!-- <div class="OnHoverDiv">
               <h4>{{ resume.StrongPoint3 }}</h4>
@@ -179,13 +207,19 @@
         </div>
         <!-- (click)="feedBack(resume._id,'yes','Comments' + resume._id)" -->
         <div class="approveBtnDiv">
-          <button class="btn commonBtn RejectBtn" (click)="feedBack(resume._id, 'no', 'Comments' + resume._id, i)">
-            Reject
-          </button>
           <button (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)" class="btn commonBtn approveBtn"
             id="approveBtn">
             Interview
           </button>
+          <button class="btn commonBtn RejectBtn" (click)="feedBack(resume._id, 'no', 'Comments' + resume._id, i)">
+            Reject
+          </button>
+          <span class="share-icon">
+
+            <i *ngIf="selectedIndex !== i" class="fa fa-share" style="color: #000000;" aria-hidden="true"></i>
+            <i *ngIf="selectedIndex === i" class="fa fa-share" style="color: #ffffff;" aria-hidden="true"></i>
+
+          </span>
         </div>
       </div>
     </div>

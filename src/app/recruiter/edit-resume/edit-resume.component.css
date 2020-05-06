@@ -142,6 +142,8 @@
 .buttonsDiv {
   padding: 15px;
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
 }
 .copy-link {
   color: #48aef3;
@@ -167,7 +169,7 @@
 .copy-link:focus {
   box-shadow: 0 0 0 0.2rem rgba(72, 174, 243);
 }
-.commButton{
+.commButton {
   width: 150px;
   height: 40px;
   padding: 0 10px;
@@ -185,14 +187,317 @@
   background-color: transparent;
   margin-left: 10px;
 }
-.blueBtn.commButton i{
+.blueBtn.commButton i {
   color: #e8c800;
   margin-right: 5px;
 }
-.commButton.filledBtn{
+.commButton.filledBtn {
   color: #ffffff;
   background-color: #e8c800;
 }
-.commButton.filledBtn i{
+.commButton.filledBtn i {
   color: #ffffff;
+}
+
+/*modal*/
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.interview-title {
+  color: #48aef3;
+  display: flex;
+  justify-content: center;
+}
+.title {
+  font-size: 20px;
+}
+.borderBA a {
+  color: #0aafff !important;
+  background-color: #ffffff !important;
+}
+.hide-on-med-and-down li {
+  position: relative;
+}
+nav ul a {
+  color: #03a9f4;
+}
+#nav-mobile {
+  transform: none !important;
+}
+.mobileMenu-li {
+  color: #1c8ad8;
+  font-size: 14px;
+}
+.mobileMenu-li:hover {
+  color: #fff;
+  background-color: #48aef3;
+  font-weight: bold;
+}
+.hide-on-med-and-down li .borderBA {
+  color: #0aafff !important;
+  position: relative;
+}
+
+/* popup design start */
+.modalBodyPop li {
+  list-style: circle !important;
+  font-size: 15px;
+  color: #000;
+}
+
+.modalBodyPop h5 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modalBodyPop {
+  border-top: 1px solid #ddd;
+  padding: 0 30px;
+  margin-bottom: 30px;
+}
+
+.questionDiv {
+  box-shadow: 0 0 5px #666;
+  padding: 20px;
+  border-radius: 5px;
+}
+.verifyDiv h5 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 15px;
+}
+.questionHead {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.profileImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ddd;
+}
+.queHeadtext {
+  margin: 0 0 0 20px;
+}
+.queHeadtext h4 {
+  margin: 0 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+.textFeildDivQ {
+  margin: 20px 0 0;
+  border-top: 1px solid #ddd;
+  padding: 20px 0 0;
+}
+.questionDiv input {
+  border: 1px solid #ddd !important;
+  height: 40px !important;
+  margin: 0px 0 0 !important;
+  box-shadow: 0 0 10px #ddd !important;
+  border-radius: 5px !important;
+  padding: 0 10px !important;
+  box-sizing: inherit !important;
+}
+.verifyDiv {
+  margin: 20px 0 0;
+  border-top: 1px solid #ddd;
+  padding: 20px 0 0;
+}
+
+.verifyDivInner button {
+  margin-left: 10px;
+  padding: 0;
+  min-width: 150px;
+}
+.verifyDivInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0 25px;
+  position: relative;
+}
+.text-right {
+  text-align: right;
+}
+.marT20 {
+  margin-top: 20px;
+}
+.modal.forumPopMain {
+  display: none;
+  position: fixed;
+  /* max-height: unset; */
+  max-height: 410px;
+
+  width: 100%;
+  max-width: 600px;
+  overflow: unset;
+}
+
+.textFeildDivQ textarea {
+  border: 1px solid #ddd !important;
+  height: auto !important;
+  margin: 0px 0 0 !important;
+  box-shadow: 0 0 10px #ddd !important;
+  border-radius: 5px !important;
+  padding: 10px 10px !important;
+  box-sizing: inherit !important;
+  min-height: 80px;
+}
+.forumPopMain .slide-heading {
+  margin: 0;
+  padding: 10px 30px;
+}
+.askQ {
+  text-align: center;
+}
+.forumMsgPopup p {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #101010;
+}
+.forumMsgPopup.forumPopMain {
+  max-width: 380px;
+  position: fixed;
+}
+.invalid-feedback {
+  color: red;
+  position: absolute;
+  left: 5px;
+  font-size: 14px;
+  bottom: -22px;
+  font-weight: bold;
+}
+.slide-heading {
+  font-size: 32px;
+  color: #114488;
+  font-weight: 700;
+  margin: 0px 0px 10px 0px;
+}
+.videoModalMain a.videoCloseBtn {
+  position: absolute;
+  top: -30px;
+  color: #fff !important;
+  z-index: 99999999;
+  right: 0;
+  font-size: 20px !important;
+  cursor: pointer;
+}
+/* popup end */
+/* Button */
+.button-a {
+  display: block;
+  position: relative;
+  float: left;
+  width: 120px;
+  padding: 0;
+  margin: 10px 20px 10px 0;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+
+/* end buton */
+
+/* // Button Css*/
+.btn-primary {
+  width: auto;
+  font-weight: 500;
+  height: 40px;
+  border-radius: none;
+  background-color: #03a9f4;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  transition: all ease 0.3s;
+  padding: 20px 20px;
+  margin-right: 10px;
+}
+.btn-primary:active {
+  box-shadow: 0 1px 2px #666;
+  transform: translateY(2px);
+}
+
+/*  */
+.btn-secondary {
+  width: auto;
+  font-weight: 500;
+  height: 40px;
+  border-radius: none;
+  background-color: #f0f341;
+  color: black;
+  font-size: 14px;
+  font-weight: 800;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  transition: all ease 0.3s;
+  padding: 20px 20px;
+}
+p {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-secondary:active {
+  box-shadow: 0 1px 2px #666;
+  transform: translateY(2px);
 }

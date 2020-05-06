@@ -82,6 +82,7 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
   vid: HTMLElement;
   currentResume: any;
   questionsByRecruiter: any;
+  questionNumber: any;
 
   constructor(
     private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
@@ -524,16 +525,10 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
     this.videoURL = '';
   }
 
-  setCurrentTime(seconds) {
-    // const video = document.getElementsByTagName('video')[0];
-    // try {
-    //   video.currentTime = seconds;
-    // } catch (e) {
-    //   // _V_.log(e);
-    //   console.log(e);
+  setCurrentTime(seconds, questionNumber) {
+    this.questionNumber = questionNumber;
+    console.log(this.questionNumber);
 
-    //   // this.warning(VideoJS.warnings.videoNotReady);
-    // }
     try {
       this.target.nativeElement.currentTime = seconds;
     } catch (e) {
