@@ -61,12 +61,8 @@ and (max-width : 667px) {
 }
 
 .inputDivMainN {
-    position: -webkit-sticky;
-    position: sticky;
     top: 10px;
-    background-color: #fff;
     z-index: 999;
-    padding: 5px 5px;
     text-align: center;
     box-sizing: border-box;
     border-radius: 5px;
@@ -91,3 +87,37 @@ and (max-width : 667px) {
     text-align: left;
     padding-right: 0px;
 }
+
+.tablink {
+    background-color: #33aaff;
+    color: #fff;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 17px;
+    width: 20%;
+    z-index: 1;
+    height: 40px;
+    text-align: center;
+    padding-top: 8px;
+    position: relative;
+    margin-bottom: 10px;
+}
+  
+.tablink:hover {
+    background-color: #27B1BD;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+    color: white;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+}
+
+#Home {background-color: red;}
+#News {background-color: green;}
+#Contact {background-color: blue;}
+#About {background-color: orange;}
