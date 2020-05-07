@@ -7,7 +7,7 @@ import { ForumService } from '../_services/forum.service';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
 import { EnterpriseService } from '../_services/enterprise.service';
 
-import { WebsocketService } from '../websocket.service';
+import { WebsocketService } from '../_services/websocket.service';
 import { Subject } from 'rxjs';
 
 declare var jQuery: any;

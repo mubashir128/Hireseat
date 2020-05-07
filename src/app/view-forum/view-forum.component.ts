@@ -8,7 +8,7 @@ import { UserService } from '../_services/user.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { SuperAdminService } from '../_services/super-admin.service';
 import { InteractCompService } from '../_services/interact-comp.service';
-import { WebsocketService } from '../websocket.service';
+import { WebsocketService } from '../_services/websocket.service';
 import { Subject } from 'rxjs';
 
 @Component({
