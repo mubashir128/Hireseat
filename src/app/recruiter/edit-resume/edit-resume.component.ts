@@ -166,7 +166,7 @@ export class EditResumeComponent implements OnInit {
           Materialize.toast('Resume Updated Successfully !', 2000);
           // this.router.navigate(['recruiter/resume-list']).then(() => window.location.reload());
           // this.router.navigate(['recruiter/resume-list']);
-          // this.goBack();
+          this.goBack();
 
 
         } else {

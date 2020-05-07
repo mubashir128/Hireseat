@@ -88,7 +88,7 @@
       <div class="singleListData">
         <div class="PointsDiv commonSingleInner">
           <div class="PointsDivSingle PointsDivSingleN">
-            <img *ngIf="selectedIndex !== i" src="assets/img/checkIcon.png" class="img-responsive" />
+            <img *ngIf="selectedIndex !== i" src="assets/img/checkIcon.png" class="green-tick" />
             <img *ngIf="selectedIndex === i" src="assets/img/checkIconWhite.png" class="white-tick" />
 
             <!-- <h4>{{ resume.StrongPoint1 | charlimit }}</h4> -->
@@ -98,7 +98,7 @@
             </div> -->
           </div>
           <div class="PointsDivSingle PointsDivSingleN">
-            <img *ngIf="selectedIndex !== i" src="assets/img/checkIcon.png" class="img-responsive" />
+            <img *ngIf="selectedIndex !== i" src="assets/img/checkIcon.png" class="green-tick" />
             <img *ngIf="selectedIndex === i" src="assets/img/checkIconWhite.png" class="white-tick" />
 
             <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint2}}</h4>
@@ -107,7 +107,7 @@
             </div> -->
           </div>
           <div class="PointsDivSingle PointsDivSingleN">
-            <img *ngIf="selectedIndex !== i" src="assets/img/checkIcon.png" class="img-responsive" />
+            <img *ngIf="selectedIndex !== i" src="assets/img/checkIcon.png" class="green-tick" />
             <img *ngIf="selectedIndex === i" src="assets/img/checkIconWhite.png" class="white-tick" />
 
             <h4 [ngClass]="selectedIndex === i ? 'color-white':false">{{ resume.StrongPoint3 }}</h4>

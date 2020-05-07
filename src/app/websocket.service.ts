@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as io from "socket.io-client";
+import * as io from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root'
@@ -9,28 +9,28 @@ export class WebsocketService {
   socket: any;
   listeners = [];
   socketUrl: any = "ws://localhost:5000/webSocket?token=";
-
+  // socketUrl: any = 'wss://hireseat.com:5000/webSocket?token=';
   constructor() {
   }
 
   async getInstance(token: any) {
     if (this.socket === undefined) {
-      this.socket = await io(this.socketUrl + "" + token);
+      this.socket = await io(this.socketUrl + '' + token);
       this.handleWebSocket();
     }
     return this.socket;
   }
 
   private handleWebSocket() {
-    this.socket.on("open", (data: any) => {
+    this.socket.on('open', (data: any) => {
       this.onOpen(data);
     });
 
-    this.socket.on("message", (data: any) => {
+    this.socket.on('message', (data: any) => {
       this.onMessage(data);
     });
 
-    this.socket.on("disconnect", (data: any) => {
+    this.socket.on('disconnect', (data: any) => {
       this.onClose(data);
     });
   }
@@ -41,7 +41,7 @@ export class WebsocketService {
 
   sendMessage(obj: any) {
     if (this.socket !== undefined) {
-      this.socket.emit("message", JSON.stringify(obj));
+      this.socket.emit('message', JSON.stringify(obj));
     }
   }
 
@@ -70,7 +70,7 @@ export class WebsocketService {
   }
 
   async removeListener(obj) {
-    for(let i=0;i<this.listeners.length;i++){
+    for (let i = 0; i < this.listeners.length; i++) {
       if (this.listeners[i].type === obj.type) {
         this.listeners.splice(i, 1);
       }

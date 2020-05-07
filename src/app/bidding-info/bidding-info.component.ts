@@ -174,8 +174,9 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
     // $('#approveBtn').on('click', function () {
     var cart = $('.interview');
     var imgtodrag = $('#img' + index).eq(0);
-    ;
-    if (imgtodrag) {
+    console.log(imgtodrag.length);
+
+    if (imgtodrag.length) {
       var imgclone = imgtodrag.clone()
 
         .offset({
@@ -244,32 +245,34 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
 
   selectRating(event) {
     jQuery(event.srcElement).parent().find("label").css({ "color": "#D8D8D8" });
+    // jQuery(event.srcElement).closest().find("label").css({ "color": "#D8D8D8" });
+
     jQuery(event.srcElement).css({ "color": "#FFC107" });
     jQuery(event.srcElement).nextAll().css({ "color": "#FFC107" });
   }
 
   feedBack(resumeBidId, interviewOrReject, commentId, index) {
     var cart = $('.interview');
-    var imgtodrag = $('#img' + index).eq(0);
+    var imgtodrag = $('.img' + index).eq(0);
     let element = document.getElementById('animateinterview' + index);
     // element.className = 'singleListClick singleList resumeSingleList';
 
 
+    console.log(imgtodrag);
 
     this.skillsPt = (jQuery("input[name='" + 'rating1' + resumeBidId + "']:checked").val());
     this.experiencePt = (jQuery("input[name='" + 'rating2' + resumeBidId + "']:checked").val());
     this.personalityPt = (jQuery("input[name='" + 'rating3' + resumeBidId + "']:checked").val());
     if (this.skillsPt == 33 && this.experiencePt == 33 && this.personalityPt == 33 && interviewOrReject == 'no') {
-      Materialize.toast("Can't reject with the highest rating !", 3000)
-      return
+      Materialize.toast("Can't reject with the highest rating !", 3000);
+      return;
     }
 
     if (this.skillsPt != undefined && this.experiencePt != undefined && this.personalityPt != undefined) {
-      if (imgtodrag && interviewOrReject == 'yes') {
+      if (imgtodrag.length && interviewOrReject == 'yes') {
         var imgclone = imgtodrag.clone()
 
           .offset({
-
             top: imgtodrag.offset().top,
             left: imgtodrag.offset().left
           })
@@ -298,7 +301,8 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
       }
       this.ratingPoints.skillMatch = 50; this.ratingPoints.experienceMatch = 50;
       this.ratingPoints.educationMatch = 50; this.ratingPoints.rejectOrInterview = 100;
-      this.ratingPoints.total = this.ratingPoints.skillMatch + this.ratingPoints.experienceMatch + this.ratingPoints.educationMatch + this.ratingPoints.rejectOrInterview;
+      this.ratingPoints.total = this.ratingPoints.skillMatch + this.ratingPoints.experienceMatch
+        + this.ratingPoints.educationMatch + this.ratingPoints.rejectOrInterview;
       /* let skillMatch = 50 ; let experienceMatch = 50 ; let educationMatch = 50 ; let rejectOrInterview = 100 ;
       var ratingPoints = skillMatch + experienceMatch + educationMatch + rejectOrInterview; */
       var comment = jQuery("#" + commentId).val();

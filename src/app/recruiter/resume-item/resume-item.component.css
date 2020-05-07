@@ -110,7 +110,7 @@
   font-size: 18px;
   margin: 0 0;
 }
-.skillSrcoll{
+.skillSrcoll {
   height: 150px;
   overflow-y: auto;
 }
@@ -123,19 +123,24 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #999999; 
+  box-shadow: inset 0 0 5px #999999;
   border-radius: 20px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   /* background: #03a9f4;  */
-  background: #afafaf; 
+  background: #afafaf;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #2ea9fa; 
+  background: #2ea9fa;
 }
 /* Custom scrollbar ends */
+.listDiv {
+  max-width: 280px;
+  max-height: 30px;
+  overflow: auto;
+}
