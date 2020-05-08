@@ -1,5 +1,5 @@
 
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input, ElementRef, ViewChild } from '@angular/core';
 import { BiddingEvent } from '../../models/bidding-event';
 import { UserService } from '../../_services/user.service';
 import { JobProfile } from '../../models/job-profile';
@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BiddingEventService } from '../../_services/bidding-event.service';
 import { RecruiterProfile } from 'src/app/models/recruiter-profile';
+import { map, debounceTime, distinctUntilChanged, tap, filter } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 declare var jQuery: any;
 declare var Materialize: any;
 @Component({
@@ -21,31 +23,26 @@ export class CreateBiddingEventComponent implements OnInit {
   public jp: JobProfile[];
   public selectedJobProfile: any;
   public jobProfileName: string = "Select Job Profile";
-  allRecruiterList = [];
-  recruiterList = [];
-  finalRecruiterList = [];
-  startList : any[]=[1,2,3,4];
-  itemsPerPageAreForTop = 10;
-  pTop = 1;
-  _searchTopTerm : any;
-  itemsPerPageAreForFinal = 10;
-  pFinal = 1;
-  _searchFinalTerm : any;
-  noBiddingEventsForTop = false;
-  noBiddingEventsForFinal = false;
-  tempRecruiters=[];
+
+  startList=[1,2,3,4,5];
   globalType="private";
-  privateRecruitersAre=[];
-  finalRecruitersAre=[];
-  finalRecruiterIds=[];  
+  searchTerm;
+  searchDataList = false;
+  topRecruiters = [];
+  searchedRecruiters = [];
+  finalRecruitersAre = [];
+  selectedRecruiters = [];
+
+  @ViewChild('searchInputTerm') searchInputTerm : ElementRef;
+
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {
     this.biddingEvent = new BiddingEvent();
   }
 
   ngOnInit() {
-   
-    this.getRecruiterList();
+    
+    this.getTopRecruiterList();
     this.getJobProfile();
 
     jQuery('.datepicker').on('mousedown',function(event){
@@ -76,7 +73,8 @@ export class CreateBiddingEventComponent implements OnInit {
       rewardMoneyFrom: ['', Validators.compose([Validators.required])],
       rewardMoneyTo: ['', Validators.compose([Validators.required])],
       activationDate: [],
-      expirydate: []
+      expirydate: [],
+      searchTerm : []
     },{validator: this.checkRewardMoney });
 
     var a = this;
@@ -146,99 +144,80 @@ export class CreateBiddingEventComponent implements OnInit {
 
   }
 
-  getRecruiterList(){
-    this.bidEventService.getRecruiterList().subscribe(res=>{
-      this.allRecruiterList=res;
-      this.extractData(res);
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.searchInputTerm.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+
+        this.getRecruiterList({
+          searchTerm : this.searchTerm
+        });
+
+      })
+    ).subscribe();
+  }
+
+  getRecruiterList(obj){
+    this.bidEventService.getRecruiterList(obj).subscribe(res=>{
+      this.searchedRecruiters=res;
+    },err=>{
+      console.log(err);
+    });
+  }
+
+  getTopRecruiterList(){
+    this.bidEventService.getTopRecruiterList().subscribe(res=>{
+      this.topRecruiters=res;
     },err=>{
       console.log(err);
     });
   }
 
   extractData(res){
-    let previouslyInvitedRecruiters=this.userService.getUserData().previouslyInvitedRecruiters;
-    res.map(data=>{
-        if(previouslyInvitedRecruiters.includes(data._id)){
-          data.isChecked=true;
-          this.finalRecruiterList.push(data);
-          this.finalRecruiterIds.push(data._id);
-          this.finalRecruitersAre.push(data._id);
-        }else{
-          data.isChecked=false;
-          this.recruiterList.push(data);
-        }
-    });
-    this.handlePaginator();
   }
 
-  handlePaginator(){
-    this.noBiddingEventsForTop = this.recruiterList.length === 0 ? true : false;
-    this.noBiddingEventsForFinal = this.finalRecruiterList.length === 0 ? true : false;
-  }
-
-  handleTopSearchTerm(){
-    this.searchTopTerm=this.searchTopTerm !== undefined ? this.searchTopTerm.substring(0,this.searchTopTerm.length-1) : this.searchTopTerm;
-  }
-
-  handleTopSelected($event){
-    this.recruiterList.map(item=>{
+  handleTopSelected($event,type){
+    let obj = type === 'top' ? this.topRecruiters : this.searchedRecruiters;
+    obj.map(item=>{
       if(item._id === $event.target.name){
-        item.isChecked=$event.target.checked;
-        if(!this.finalRecruiterIds.includes(item._id)){
-          this.finalRecruiterList.unshift(item);
-          this.finalRecruiterIds.push(item._id);
-          this.finalRecruitersAre.push(item._id);
-          this.handleTopSearchTerm();
-          this.handlePaginator();
+        if($event.target.checked){
+          if(this.finalRecruitersAre.indexOf(item._id) === -1){
+            item.isChecked=true;
+            this.selectedRecruiters.unshift(item);
+            this.finalRecruitersAre.unshift(item._id);
+          }
+        }else{
+          item.isChecked=false;
+          let index=this.finalRecruitersAre.indexOf(item._id);
+          if(index !== -1){
+            this.selectedRecruiters.splice(index,1);
+            this.finalRecruitersAre.splice(index,1);
+          }
         }
       }
     });
   }
 
-  handleFinalSelected($event){
-    this.finalRecruiterList.map(item=>{
+  handleSelected($event){
+    this.selectedRecruiters.map(item=>{
       if(item._id === $event.target.name){
-        item.isChecked=$event.target.checked;
-        if(!item.isChecked){
+          item.isChecked=false;
           let index=this.finalRecruitersAre.indexOf(item._id);
-          this.finalRecruitersAre.splice(index,1);
-        }else{
-          this.finalRecruitersAre.push(item._id);
-        }
-        this.handlePaginator();
+          if(index !== -1){
+            this.selectedRecruiters.splice(index,1);
+            this.finalRecruitersAre.splice(index,1);
+          }
       }
     });
   }
 
   handleGenderChange($event){
     this.globalType=$event.target.value;
-    this.finalRecruiterList=[];
-    this.finalRecruitersAre=[];
-    this.finalRecruiterIds=[];
-    if($event.target.value === "private"){
-      this.extractData(this.allRecruiterList);
-    }else{
-      this.recruiterList=[];
-      this.handlePaginator();
-    }
-  }
-
-  get searchTopTerm(){
-    return this._searchTopTerm;
-  }
-
-  set searchTopTerm(value){
-    this._searchTopTerm=value;
-    this.itemsPerPageAreForTop = this._searchTopTerm === "" ? 5 : 100;
-  }
-
-  get searchFinalTerm(){
-    return this._searchFinalTerm;
-  }
-
-  set searchFinalTerm(value){
-    this._searchFinalTerm=value;
-    this.itemsPerPageAreForFinal = this._searchFinalTerm === "" ? 5 : 100;
   }
 
   get f() { return this.auctionFrm.controls; }
