@@ -15,207 +15,162 @@
 <ul class="ListResume">
   <!-- other li div -->
   <li *ngFor="let resume of ResumeList; let i = index">
+
     <div class="singleList resumeSingleList" id="animate{{ i }}">
-      <div class="PointsDiv commonSingleInner">
-        <div class="PointsDivSingle PointsDivSingleN">
-          <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint1 | charlimit }}</h4>
-          <div class="OnHoverDiv">
+      <div class="card-head">
+        <div class="docSectionBtns">
+          <div class="candidate-name" [ngClass]="selectedIndex === i?'candidate-name-selected':false">
+            <span>
+              {{resume?.resumeKey?.candidateName}}
+            </span>
+          </div>
+          <div>
+            <button class="downloadResume" [ngClass]="selectedIndex === i ? 'active-button':false">
+              <a [ngClass]="selectedIndex === i ? 'color-white':false"
+                [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank" download>
+                <i class="fa fa-cloud-download" [ngClass]="selectedIndex === i ? 'color-white':false"
+                  aria-hidden="true"></i>Download Resume
+              </a>
+            </button>
+            <button class="viewInterview" *ngIf="resume?.resumeKey?.interviewLinkedByEmployer"
+              (click)="seeVideo(i,resume?.resumeKey?.interviewLinkedByEmployer,resume)">
+              <i class="fa fa-video-camera" aria-hidden="true"></i> View Interview</button>
+          </div>
+        </div>
+      </div>
+      <div class="candidate-content">
+        <div class="PointsDiv commonSingleInner">
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
             <h4>{{ resume.StrongPoint1 }}</h4>
+            <!-- <div class="OnHoverDiv">
+              <h4>{{ resume.StrongPoint1 }}</h4>
+            </div> -->
           </div>
-        </div>
-        <div class="PointsDivSingle PointsDivSingleN">
-          <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint2 | charlimit }}</h4>
-          <div class="OnHoverDiv">
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
             <h4>{{ resume.StrongPoint2 }}</h4>
+            <!-- <div class="OnHoverDiv">
+              <h4>{{ resume.StrongPoint2 }}</h4>
+            </div> -->
           </div>
-        </div>
-        <div class="PointsDivSingle PointsDivSingleN">
-          <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint3 | charlimit }}</h4>
-          <div class="OnHoverDiv">
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
             <h4>{{ resume.StrongPoint3 }}</h4>
+            <!-- <div class="OnHoverDiv">
+              <h4>{{ resume.StrongPoint3 }}</h4>
+            </div> -->
           </div>
         </div>
-      </div>
 
-      <div class="docSection">
-        <div class="docDiv">
-          <img
-            src="assets/img/doc.png"
-            class="img-responsive"
-            id="img{{ i }}"
-          />
-          <!-- transform(resume.resumeKey.fileURL) -->
-
-          <a
-            [attr.href]="transform(resume?.resumeKey?.fileURL)"
-            target="_blank"
-            download
-          >
-            <!-- (click)="dowloadResume(resume.resumeKey.fileURL)" -->
-            <h4>Download Resume</h4>
-          </a>
-        </div>
-      </div>
-
-      <div class="feedbackDiv commonSingleInner ">
-        <div class="PointsDivSingle">
-          <h4>Skill Match</h4>
-          <div class="startDiv">
-            <span class="rating">
-              <input
-                type="radio"
-                id="{{ 'field1' + resume._id + '_star3' }}"
-                name="{{ 'rating1' + resume._id }}"
-                value="33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field1' + resume._id + '_star3' }}"
-              ></label>
-
-              <input
-                type="radio"
-                id="{{ 'field1' + resume._id + '_star2' }}"
-                name="{{ 'rating1' + resume._id }}"
-                value="15"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field1' + resume._id + '_star2' }}"
-              ></label>
-
-              <input
-                type="radio"
-                id="{{ 'field1' + resume._id + '_star1' }}"
-                name="{{ 'rating1' + resume._id }}"
-                value="-33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"
-              ></label>
-            </span>
-          </div>
-        </div>
-        <div class="PointsDivSingle">
-          <h4>Experience Match</h4>
-          <div class="startDiv">
-            <span class="rating">
-              <input
-                type="radio"
-                id="{{ 'field2' + resume._id + '_star3' }}"
-                name="{{ 'rating2' + resume._id }}"
-                value="33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field2' + resume._id + '_star3' }}"
-              ></label>
-
-              <input
-                type="radio"
-                id="{{ 'field2' + resume._id + '_star2' }}"
-                name="{{ 'rating2' + resume._id }}"
-                value="15"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field2' + resume._id + '_star2' }}"
-              ></label>
-
-              <input
-                type="radio"
-                id="{{ 'field2' + resume._id + '_star1' }}"
-                name="{{ 'rating2' + resume._id }}"
-                value="-33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field2' + resume._id + '_star1' }}"
-              ></label>
-            </span>
-          </div>
-        </div>
-        <div class="PointsDivSingle">
-          <h4>Communication and Attitude</h4>
-          <div class="startDiv">
-            <span class="rating">
-              <input
-                type="radio"
-                id="{{ 'field3' + resume._id + '_star3' }}"
-                name="{{ 'rating3' + resume._id }}"
-                value="33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field3' + resume._id + '_star3' }}"
-              ></label>
-
-              <input
-                type="radio"
-                id="{{ 'field3' + resume._id + '_star2' }}"
-                name="{{ 'rating3' + resume._id }}"
-                value="15"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field3' + resume._id + '_star2' }}"
-              ></label>
-
-              <input
-                type="radio"
-                id="{{ 'field3' + resume._id + '_star1' }}"
-                name="{{ 'rating3' + resume._id }}"
-                value="-33"
-              /><label
-                (click)="selectRating($event)"
-                class="full"
-                for="{{ 'field3' + resume._id + '_star1' }}"
-              ></label>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="ActionDiv commonSingleInner ">
-        <div class="actionDivSingle">
-          <div class="">
-            <textarea
-              class="commentTxt"
-              rows="5"
-              cols="4"
-              [attr.id]="'Comments' + resume._id"
-            ></textarea>
-          </div>
+        <!-- <div class="docSection">
           <div class="docDiv">
-            <h4><span>Recruiter Cost:</span>{{ resume.RecruiterCost }}</h4>
+            <img
+              src="assets/img/doc.png"
+              class="img-responsive"
+              id="img{{ i }}"
+            />
+
+            <a
+              [attr.href]="transform(resume?.resumeKey?.fileURL)"
+              target="_blank"
+              download
+            >
+              <h4>Download Resume</h4>
+            </a>
           </div>
+        </div> -->
+
+        <div class="feedbackDiv commonSingleInner ">
+          <div class="PointsDivSingle">
+            <h4>Skill Match</h4>
+            <div class="startDiv">
+              <span class="rating">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field1' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field1' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+            </div>
+          </div>
+          <div class="PointsDivSingle">
+            <h4>Experience Match</h4>
+            <div class="startDiv">
+              <span class="rating">
+                <input type="radio" id="{{ 'field2' + resume._id + '_star3' }}" name="{{ 'rating2' + resume._id }}"
+                  value="33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field2' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field2' + resume._id + '_star2' }}" name="{{ 'rating2' + resume._id }}"
+                  value="15" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field2' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field2' + resume._id + '_star1' }}" name="{{ 'rating2' + resume._id }}"
+                  value="-33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field2' + resume._id + '_star1' }}"></label>
+              </span>
+            </div>
+          </div>
+          <div class="PointsDivSingle">
+            <h4>Communication and Attitude</h4>
+            <div class="startDiv">
+              <span class="rating">
+                <input type="radio" id="{{ 'field3' + resume._id + '_star3' }}" name="{{ 'rating3' + resume._id }}"
+                  value="33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field3' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field3' + resume._id + '_star2' }}" name="{{ 'rating3' + resume._id }}"
+                  value="15" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field3' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field3' + resume._id + '_star1' }}" name="{{ 'rating3' + resume._id }}"
+                  value="-33" /><label (click)="selectRating($event)" class="full"
+                  for="{{ 'field3' + resume._id + '_star1' }}"></label>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ActionDiv commonSingleInner ">
+          <div class="actionDivSingle">
+            <div class="">
+              <textarea class="commentTxt" rows="5" cols="4" [attr.id]="'Comments' + resume._id"></textarea>
+            </div>
+
+            <div class="docDiv">
+
+              <div class="text-center feedBackwidth">
+                <a (click)="showPreviousDetails(resume._id)" style="cursor:pointer;">See previous feedback</a>
+              </div>
+              <h4><span>Recruiter Cost:</span>${{ resume.RecruiterCost }}</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="approveBtnDiv">
+          <button (click)="onAddToInterviewList(resume)">
+            Schedule Interview
+          </button>
+          <button class="btn commonBtn approveBtn" (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)">
+            Hire
+          </button>
+          <button class="btn commonBtn RejectBtn" (click)="feedBack(resume._id, 'no', 'Comments' + resume._id, i)">
+            Reject
+          </button>
         </div>
       </div>
 
-      <div class="approveBtnDiv">
-        <button
-          class="btn commonBtn RejectBtn"
-          (click)="feedBack(resume._id, 'no', 'Comments' + resume._id, i)"
-        >
-          Reject
-        </button>
-        <button
-          class="btn commonBtn approveBtn"
-          (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)"
-        >
-          Hire
-        </button>
-      </div>
       <!--  <i class="pull-right fa fa-eye" title="View previous retting" style="cursor:pointer;" (click)="showPreviousDetails(resume._id)"></i> -->
-      <div class="text-center feedBackwidth">
-        <a (click)="showPreviousDetails(resume._id)" style="cursor:pointer;"
-          >See previous feedback</a
-        >
-      </div>
+      <!-- <div class="text-center feedBackwidth">
+        <a (click)="showPreviousDetails(resume._id)" style="cursor:pointer;">See previous feedback</a>
+      </div> -->
     </div>
   </li>
 
@@ -227,9 +182,7 @@
     <h4>Rating Points</h4>
     <div class="rankingMain">
       <div class="disF">
-        <a
-          ><img src="assets/img/reward_points.png" height="50px" width="50px"
-        /></a>
+        <a><img src="assets/img/reward_points.png" height="50px" width="50px" /></a>
         <div>
           <label for="company-reward">Ranking</label>
           <h5 id="recruiter-rewards" class="mar0">
@@ -289,7 +242,7 @@
     <ul class="ListResume">
       <!-- other li div -->
       <li>
-        <div class="singleList">
+        <div class="singleList popUp-resume">
           <div class="PointsDiv commonSingleInner">
             <div class="PointsDivSingle">
               <img src="assets/img/checkIcon.png" class="img-responsive" />
@@ -312,45 +265,18 @@
                 <!-- Here rendering static three redio buttion as par conditions -->
 
                 <!-- Render When skillsMatchPoints 33 -->
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.skillsMatchPoints == 33"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.skillsMatchPoints == 33">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When skillsMatchPoints 33 -->
 
@@ -358,44 +284,18 @@
 
                 <!-- Render When skillsMatchPoints 15 -->
 
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.skillsMatchPoints == 15"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.skillsMatchPoints == 15">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When skillsMatchPoints 15 -->
 
@@ -403,43 +303,18 @@
 
                 <!-- Render When skillsMatchPoints -33 -->
 
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.skillsMatchPoints == -33"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.skillsMatchPoints == -33">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When skillsMatchPoints -33 -->
 
@@ -447,42 +322,18 @@
 
                 <!-- Render When skillsMatchPoints 0 -->
 
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.skillsMatchPoints == 0"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.skillsMatchPoints == 0">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When skillsMatchPoints 0 -->
 
@@ -495,45 +346,18 @@
                 <!-- Here rendering static three redio buttion as par conditions -->
 
                 <!-- Render When experienceMatchPoints 33 -->
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.experienceMatchPoints == 33"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.experienceMatchPoints == 33">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When experienceMatchPoints 33 -->
 
@@ -541,44 +365,18 @@
 
                 <!-- Render When experienceMatchPoints 15 -->
 
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.experienceMatchPoints == 15"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.experienceMatchPoints == 15">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When experienceMatchPoints 15 -->
 
@@ -586,43 +384,18 @@
 
                 <!-- Render When experienceMatchPoints -33 -->
 
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.experienceMatchPoints == -33"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.experienceMatchPoints == -33">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When experienceMatchPoints -33 -->
 
@@ -630,42 +403,18 @@
 
                 <!-- Render When experienceMatchPoints 0 -->
 
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.experienceMatchPoints == 0"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.experienceMatchPoints == 0">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When experienceMatchPoints 0 -->
 
@@ -678,45 +427,18 @@
                 <!-- Here rendering static three redio buttion as par conditions -->
 
                 <!-- Render When personalityMatchPoints 33 -->
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.personalityMatchPoints == 33"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.personalityMatchPoints == 33">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When personalityMatchPoints 33 -->
 
@@ -724,44 +446,18 @@
 
                 <!-- Render When personalityMatchPoints 15 -->
 
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.personalityMatchPoints == 15"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.personalityMatchPoints == 15">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When personalityMatchPoints 15 -->
 
@@ -769,43 +465,18 @@
 
                 <!-- Render When personalityMatchPoints -33 -->
 
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.personalityMatchPoints == -33"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.personalityMatchPoints == -33">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    style="color:#FFC107"
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label style="color:#FFC107"
+                    class="full" for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When personalityMatchPoints -33 -->
 
@@ -813,42 +484,18 @@
 
                 <!-- Render When personalityMatchPoints 0 -->
 
-                <span
-                  class="rating"
-                  *ngIf="previousDetails?.personalityMatchPoints == 0"
-                >
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"
-                  ></label>
+                <span class="rating" *ngIf="previousDetails?.personalityMatchPoints == 0">
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star3' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star3' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="15"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star2' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="15" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star2' }}"></label>
 
-                  <input
-                    type="radio"
-                    id="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                    name="{{ 'rating1' + previousDetails?._id }}"
-                    value="-33"
-                    disabled
-                  /><label
-                    class="full"
-                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"
-                  ></label>
+                  <input type="radio" id="{{ 'field1' + previousDetails?._id + '_star1' }}"
+                    name="{{ 'rating1' + previousDetails?._id }}" value="-33" disabled /><label class="full"
+                    for="{{ 'field1' + previousDetails?._id + '_star1' }}"></label>
                 </span>
                 <!--// Render When personalityMatchPoints 0 -->
 
@@ -862,8 +509,7 @@
               <h5>Comment</h5>
               <div class="comment">
                 <h4>
-                  <span *ngIf="previousDetails?.comment == ''">NA</span
-                  >{{ previousDetails?.comment }}
+                  <span *ngIf="previousDetails?.comment == ''">NA</span>{{ previousDetails?.comment }}
                 </h4>
               </div>
             </div>
@@ -877,10 +523,8 @@
     <div>
       <div class="modal-footer">
         <div class="col s6 m6 l6">
-          <button
-            class="modal-close left waves-effect waves-light btn"
-            style="float: right !important; margin-right: 20px;"
-          >
+          <button class="modal-close left waves-effect waves-light btn"
+            style="float: right !important; margin-right: 20px;">
             CLOSE
           </button>
         </div>

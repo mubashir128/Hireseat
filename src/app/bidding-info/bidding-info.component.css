@@ -273,7 +273,7 @@ button.viewInterview {
 }
 .feedbackDiv .PointsDivSingle h4 {
   margin: 0 20px;
-  font-size: 17px;
+  font-size: 16px;
   color: #b6b6b6;
   min-width: 150px;
 }
@@ -776,4 +776,7 @@ iframe.interviewVideo {
 .candidate-name-selected {
   color: #fff;
   font-size: 20px;
+}
+.btn:focus {
+  background-color: #ffffff !important;
 }

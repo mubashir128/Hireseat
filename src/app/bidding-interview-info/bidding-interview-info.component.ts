@@ -15,10 +15,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IProfile, Profile } from 'src/app/profile/model/user-profile';
+import { VideoCallingService } from '../_services/video-calling.service';
+import { Subscription } from 'rxjs';
 
 declare var jQuery;
 
-declare var $:any;
+declare var $: any;
 declare var Materialize;
 
 @Component({
@@ -27,7 +29,7 @@ declare var Materialize;
   styleUrls: ['./bidding-interview-info.component.css']
 })
 export class BiddingInterviewInfoComponent implements OnChanges {
-
+  videoInterviewSubscription: Subscription;
   @Input() public biddingEvent: IBiddingEvent;
   @Output() InterviewCount: EventEmitter<any> = new EventEmitter<any>();
   @Output() HiredCount: EventEmitter<any> = new EventEmitter<any>();
@@ -55,14 +57,19 @@ export class BiddingInterviewInfoComponent implements OnChanges {
   public skillsPt: number;
   public experiencePt: number;
   public personalityPt: number;
-  previousDetails: any;  
-  ratingPoints:any = { skillMatch : 0 ,  experienceMatch : 0 , educationMatch : 0,  rejectOrHired : 0,commentPoints: 0 ,total : 0 };
+  previousDetails: any;
+  ratingPoints: any = { skillMatch: 0, experienceMatch: 0, educationMatch: 0, rejectOrHired: 0, commentPoints: 0, total: 0 };
   hiredcount: any;
+  videoURL: string;
+  currentResume: any;
+  selectedIndex: any;
 
-  constructor(private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
+  constructor(
+    private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
     private bidService: BidService, private router: Router, private bidEventService: BiddingEventService,
     public spinner: NgxSpinnerService, private route: ActivatedRoute, private feedbackService: FeedbackService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer, private videoCallingService: VideoCallingService
+  ) {
 
     this.loggedUser = this.userService.getUserData();
     this.bidFrm = this.formBuilder.group({
@@ -137,22 +144,22 @@ export class BiddingInterviewInfoComponent implements OnChanges {
     this.feedbackService.getInterviewdResume(key).subscribe((data) => {
       if (data != null) {
         this.ResumeList = data;
-        this.InterviewCount.emit(this.ResumeList.length);   
-        this.feedbackService.getHiredResumeCount(key).subscribe((res)=>{
+        this.InterviewCount.emit(this.ResumeList.length);
+        this.feedbackService.getHiredResumeCount(key).subscribe((res) => {
           this.HiredCount.emit(res);
-      })
+        })
         if (!(this.ResumeList.length > 0)) {
           this.errorMsg = true;
         }
-        this.ResumeList.forEach(el=>{
-          if(el.resumeKey){
-            if(el.resumeKey.resumeType ==  'resume_bank'){
-              el.resumeKey.fileURL=el.resumeKey.resumeBank_id.resumeUrl            
-            } 
+        this.ResumeList.forEach(el => {
+          if (el.resumeKey) {
+            if (el.resumeKey.resumeType == 'resume_bank') {
+              el.resumeKey.fileURL = el.resumeKey.resumeBank_id.resumeUrl
+            }
           }
-                   
+
         })
-        
+
       } else {
         this.noRecords = true;
       }
@@ -161,9 +168,9 @@ export class BiddingInterviewInfoComponent implements OnChanges {
     })
   }
 
-showPreviousDetails(bidId) {
+  showPreviousDetails(bidId) {
 
-  this.feedbackService.getBidsbyBidId(bidId).subscribe((response: any) => {
+    this.feedbackService.getBidsbyBidId(bidId).subscribe((response: any) => {
       this.previousDetails = response;
       this.openPreviousDetailModel();
     }, (error) => {
@@ -185,67 +192,67 @@ showPreviousDetails(bidId) {
     jQuery(event.srcElement).nextAll().css({ "color": "#FFC107" });
   }
 
-  feedBack(resumeBidId, interviewOrReject, commentId,index) {
+  feedBack(resumeBidId, interviewOrReject, commentId, index) {
     var cart = $('.hired');
-    var imgtodrag = $('#img'+index).eq(0);
-    let element = document.getElementById('animate'+index);
+    var imgtodrag = $('#img' + index).eq(0);
+    let element = document.getElementById('animate' + index);
     // element.className = 'singleListClick singleList resumeSingleList';
 
     this.skillsPt = (jQuery("input[name='" + 'rating1' + resumeBidId + "']:checked").val());
     this.experiencePt = (jQuery("input[name='" + 'rating2' + resumeBidId + "']:checked").val());
-    this.personalityPt = (jQuery("input[name='" + 'rating3' + resumeBidId + "']:checked").val()); 
-    if(this.skillsPt == 33 && this.experiencePt == 33 && this.personalityPt == 33 && interviewOrReject == 'no'){
+    this.personalityPt = (jQuery("input[name='" + 'rating3' + resumeBidId + "']:checked").val());
+    if (this.skillsPt == 33 && this.experiencePt == 33 && this.personalityPt == 33 && interviewOrReject == 'no') {
       Materialize.toast("Can't reject with the highest rating !", 3000)
       return
     }
     if (this.skillsPt != undefined && this.experiencePt != undefined && this.personalityPt != undefined) {
       if (imgtodrag && interviewOrReject == 'yes') {
         var imgclone = imgtodrag.clone()
-        
-            .offset({
-              
+
+          .offset({
+
             top: imgtodrag.offset().top,
             left: imgtodrag.offset().left
-        })
-            .css({
+          })
+          .css({
             'opacity': '0.5',
-                'position': 'absolute',
-                'height': '150px',
-                'width': '150px',
-                'z-index': '100'
-        })
-            .appendTo($('body'))
-            .animate({
+            'position': 'absolute',
+            'height': '150px',
+            'width': '150px',
+            'z-index': '100'
+          })
+          .appendTo($('body'))
+          .animate({
             'top': cart.offset().top + 10,
-                'left': cart.offset().left + 10,
-                'width': 75,
-                'height': 75
-        }, 500, 'easeInOutExpo');
-        
+            'left': cart.offset().left + 10,
+            'width': 75,
+            'height': 75
+          }, 500, 'easeInOutExpo');
+
 
         imgclone.animate({
-            'width': 100,
-                'height': 100
+          'width': 100,
+          'height': 100
         }, function () {
-            $(this).detach()
+          $(this).detach()
         });
-    }
-      this.ratingPoints.skillMatch = 100;          this.ratingPoints.experienceMatch = 100;
-      this.ratingPoints.educationMatch = 100;      this.ratingPoints.rejectOrHired = 1000;
+      }
+      this.ratingPoints.skillMatch = 100; this.ratingPoints.experienceMatch = 100;
+      this.ratingPoints.educationMatch = 100; this.ratingPoints.rejectOrHired = 1000;
       this.ratingPoints.total = this.ratingPoints.skillMatch + this.ratingPoints.experienceMatch + this.ratingPoints.educationMatch + this.ratingPoints.rejectOrHired;
       /* let skillMatch = 100; let experienceMatch = 100 ; let educationMatch = 100;let rejectOrHired = 1000;
       var ratingPoints = skillMatch + experienceMatch + educationMatch + rejectOrHired; */
       var comment = jQuery("#" + commentId).val();
-      if(comment.length>0 && comment.length<11){
-          this.ratingPoints.commentPoints = 200;
-          this.ratingPoints.total += this.ratingPoints.commentPoints;
-      }else if (comment.length>10 && comment.length<141){
+      if (comment.length > 0 && comment.length < 11) {
+        this.ratingPoints.commentPoints = 200;
+        this.ratingPoints.total += this.ratingPoints.commentPoints;
+      } else if (comment.length > 10 && comment.length < 141) {
         this.ratingPoints.commentPoints = 600;
         this.ratingPoints.total += this.ratingPoints.commentPoints;
-      }else if(comment.length>140){
+      } else if (comment.length > 140) {
         this.ratingPoints.commentPoints = 1000;
         this.ratingPoints.total += this.ratingPoints.commentPoints;
-      }else{
+      } else {
         this.ratingPoints.commentPoints = 0;
         this.ratingPoints.total += this.ratingPoints.commentPoints;
       }
@@ -258,15 +265,15 @@ showPreviousDetails(bidId) {
       this.FeedObj.employerKey = this.loggedUser._id;
       this.FeedObj.Comment = jQuery("#" + commentId).val() == "" && jQuery("#" + commentId).val() == undefined ? "" : jQuery("#" + commentId).val();
       element.className = 'singleListClick singleList resumeSingleList';
-      
+
       setTimeout(() => {
 
-        this.feedbackService.saveInterViewFeedBack(this.FeedObj).subscribe((data: any) => {        
+        this.feedbackService.saveInterViewFeedBack(this.FeedObj).subscribe((data: any) => {
           if (data.res == "success") {
             this.getUsersProfile();
             /* jQuery('#ratingPoints').modal('open'); */
             this.route.params.subscribe(params => { this.getInterviewdResume(params['key']); });
-       
+
           } else {
             Materialize.toast('Something Went Wrong', 1000)
           }
@@ -274,7 +281,7 @@ showPreviousDetails(bidId) {
           console.log(error)
         })
       }, 800);
-     
+
     } else {
       Materialize.toast('Please give the rating first', 1000)
     }
@@ -282,10 +289,10 @@ showPreviousDetails(bidId) {
 
 
   transform(url) {
-    if(url!=null){
+    if (url != null) {
       return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
-    
+
 
   }
 
@@ -429,6 +436,49 @@ showPreviousDetails(bidId) {
 
   createNewResume() {
     this.router.navigate(['/recruiter/resume-list']);
+  }
+
+  seeVideo(i, archiveId, resume) {
+    // call video call service
+    this.currentResume = resume;
+
+    this.videoURL = '';
+    // console.log(i);
+    this.selectedIndex = i;
+    this.spinner.show();
+    const payload = {
+      archivedId: archiveId
+    };
+    this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
+      if (res) {
+        // console.log(res);
+        this.videoURL = res.url;
+        // window.open(res.url);
+        this.spinner.hide();
+      } else { this.spinner.hide(); }
+    }, err => {
+      this.spinner.hide();
+      // console.log('network error');
+
+    });
+  }
+  onAddToInterviewList(resume) {
+    const payload = {
+      recruitersid: resume.recruiterKey,
+      candidatesId: resume._id,
+      candidateName: resume.candidateName,
+      skills: resume.skills,
+      jobTitle: resume.jobTitle
+    };
+    this.videoInterviewSubscription = this.videoCallingService.addToVideoInterviewRoomHM(payload).subscribe(res => {
+      // console.log('****************', res);
+      if (res) {
+        resume.addedToVideoInterviewRoomByEmployer = true;
+        // this.emailConfirmPopup();
+      }
+    }, err => {
+      console.log('error occured', err);
+    });
   }
 }
 

@@ -18,6 +18,13 @@ export class VideoCallingService {
       })
     );
   }
+  addToVideoInterviewRoomHM(payload) {
+    return this.http.post<any>(this.baseurl + 'api/addCandidateToEmployersList', payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
   getAllRecruitersCandidates(recruiterId) {
     return this.http.post<any>(this.baseurl + 'api/getAllRecruitersCandidatesList', recruiterId).pipe(
       map((res: any) => {
