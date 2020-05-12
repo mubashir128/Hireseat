@@ -91,11 +91,15 @@ h5 {
     width: 45%;
     /* float: left; */
     position: relative;
-    text-align: left;
+    /* text-align: left; */
+    text-align: center;
 }
 .candidate{
     width: 45%;
-    text-align: left;
+    /* text-align: left; */
+    text-align: center;
+    position: relative;
+    padding-bottom: 40px;
 }
 .recruiter:after{
     position: absolute;
@@ -110,11 +114,16 @@ h5 {
     background-color: transparent;
     color: #03a9f4;
     border: 1px solid #03a9f4;
-    font-size: 13px;
-    padding: 0px 10px;
+    /* font-size: 13px;
+    padding: 0px 10px; */
+    font-size: 12px;
+    padding: 0px 5px;
     border-radius: 5px;
     width: 100%;
     margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 .borderedBtn:hover{
     background-color: #03a9f4;
