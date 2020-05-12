@@ -72,6 +72,7 @@ export class BiddingInterviewInfoComponent implements OnChanges {
   ) {
 
     this.loggedUser = this.userService.getUserData();
+
     this.bidFrm = this.formBuilder.group({
       selectedResume: ['', Validators.compose([Validators.required])]
     });
@@ -131,7 +132,7 @@ export class BiddingInterviewInfoComponent implements OnChanges {
       if (data != null && data != undefined && data != "") {
         this.userProfile = data.res;
       } else {
-        Materialize.toast('Something went wrong', 1000)
+        Materialize.toast('Something went wrong', 1000);
       }
       this.spinner.hide();
     }, (error) => {
@@ -463,21 +464,26 @@ export class BiddingInterviewInfoComponent implements OnChanges {
     });
   }
   onAddToInterviewList(resume) {
+    console.log(resume);
     const payload = {
-      recruitersid: resume.recruiterKey,
-      candidatesId: resume._id,
-      candidateName: resume.candidateName,
-      skills: resume.skills,
-      jobTitle: resume.jobTitle
+      employersId: this.loggedUser._id,
+      candidatesId: resume.resumeKey._id,
+      candidateName: resume.resumeKey.candidateName,
+      skills: resume.resumeKey.skills,
+      jobTitle: resume.resumeKey.jobTitle
     };
+    console.log(payload);
+
     this.videoInterviewSubscription = this.videoCallingService.addToVideoInterviewRoomHM(payload).subscribe(res => {
       // console.log('****************', res);
       if (res) {
-        resume.addedToVideoInterviewRoomByEmployer = true;
-        // this.emailConfirmPopup();
+        resume.resumeKey.addedToVideoInterviewRoomByEmployer = true;
+        Materialize.toast('Candidate added to the interview room successfully!', 1000);
       }
     }, err => {
       console.log('error occured', err);
+      Materialize.toast('Something went wrong!', 1000);
+
     });
   }
 }

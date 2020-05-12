@@ -32,6 +32,13 @@ export class VideoCallingService {
       })
     );
   }
+  getAllEmployersCandidates(recruiterId) {
+    return this.http.post<any>(this.baseurl + 'api/getAllEmployersCandidatesList', recruiterId).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
   storeArchive(payload) {
     return this.http.post<any>(this.baseurl + 'api/storeArchive', payload).pipe(
       map((res: any) => {
@@ -48,6 +55,12 @@ export class VideoCallingService {
   }
   traashCandidateFromInterviewList(payload) {
     return this.http.post<any>(this.baseurl + 'api/trashCandidate', payload).pipe(map((res: any) => {
+      return res;
+    })
+    );
+  }
+  traashCandidateFromInterviewListEmployer(payload) {
+    return this.http.post<any>(this.baseurl + 'api/trashCandidateByEmployer', payload).pipe(map((res: any) => {
       return res;
     })
     );

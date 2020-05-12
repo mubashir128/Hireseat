@@ -410,7 +410,8 @@ export class RecruterBiddingInfoComponent implements OnChanges {
     this.bid.candidateName = this.selectedResume.candidateName;
     this.bidService.createBid(this.bid).subscribe((data: any) => {
       if (data.result == "inserted") {
-        Materialize.toast('Bid submitted successfully! !', 4000);
+
+        Materialize.toast('Candidate submitted successfully! !', 4000);
 
         this.resumeService.getsuggestedresume(this.profileDetails._id).subscribe((res: any) => {
           this.suggestedResume = res;

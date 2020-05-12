@@ -64,7 +64,7 @@
   margin: 20px 0 40px 0;
   font-size: 35px;
   font-weight: bold;
-  font-family: "Rajdhani", sans-serif;
+  font-family: 'Rajdhani', sans-serif;
 }
 .secHead span {
   color: #ff4526;
@@ -80,7 +80,7 @@
   color: #f0e31a;
   display: inline-block;
   font-weight: bold;
-  font-family: "Rajdhani", sans-serif;
+  font-family: 'Rajdhani', sans-serif;
 }
 
 /* tab style */
@@ -111,15 +111,14 @@
   flex: 1;
   padding-left: 56px;
   text-align: center;
-  font-family: "Rajdhani", sans-serif;
+  font-family: 'Rajdhani', sans-serif;
 }
 .bx-pager .bx-pager-item .arrow {
   border: solid #4e83d7;
   display: inline-block;
   padding: 13px;
   border-width: 0 1px 1px 0;
-  transform: translateY(21.5px) rotate(-45deg) skew(-16deg, -12deg)
-    translateX(24px);
+  transform: translateY(21.5px) rotate(-45deg) skew(-16deg, -12deg) translateX(24px);
   background-color: #30486f;
 }
 .bx-pager .bx-pager-item.active {
@@ -208,7 +207,7 @@
   background-color: #ffffff;
 }
 .commonSingleInner {
-  width: 25%;
+  width: 50%;
 }
 .feedbackDiv.commonSingleInner {
   width: 45%;
@@ -226,7 +225,7 @@
   margin: 0 20px;
   font-size: 16px;
   color: #919191;
-  word-break: break-all;
+  /* word-break: break-all; */
 }
 .startDiv {
   display: flex;
@@ -245,7 +244,8 @@
   display: flex;
   align-items: baseline;
   margin: 10px 0;
-  justify-content: center;
+  width: 90%;
+  justify-content: space-around;
 }
 .ActionDiv.commonSingleInner {
   width: 30%;
@@ -280,7 +280,7 @@
   background-color: transparent;
   margin: 10px 20px !important;
   /*padding: 3px 0;*/
-  font-family: "Rajdhani", sans-serif;
+  font-family: 'Rajdhani', sans-serif;
 }
 .commonBtn.RejectBtn {
   border: 1px solid #f32222;
@@ -331,11 +331,11 @@
   font-size: 1.25em;
   font-family: FontAwesome;
   display: inline-block;
-  content: "\f005";
+  content: '\f005';
 }
 
 .rating > .half:before {
-  content: "\f089";
+  content: '\f089';
   position: absolute;
 }
 
@@ -451,22 +451,22 @@ table.highlight,
 /*  [type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after{
     border: 0;
   } */
-[type="radio"]:not(:checked) + label:before,
-[type="radio"]:not(:checked) + label:after {
+[type='radio']:not(:checked) + label:before,
+[type='radio']:not(:checked) + label:after {
   border: none;
 }
-[type="radio"]:checked + label:after,
-[type="radio"].with-gap:checked + label:before,
-[type="radio"].with-gap:checked + label:after {
+[type='radio']:checked + label:after,
+[type='radio'].with-gap:checked + label:before,
+[type='radio'].with-gap:checked + label:after {
   border: none !important;
   background: none;
 }
-[type="radio"]:checked + label:after,
-[type="radio"].with-gap:checked + label:before,
-[type="radio"].with-gap:checked + label:after {
+[type='radio']:checked + label:after,
+[type='radio'].with-gap:checked + label:before,
+[type='radio'].with-gap:checked + label:after {
   border: none;
 }
-[type="radio"]:checked + label:before {
+[type='radio']:checked + label:before {
   border: 0px solid transparent;
 }
 
@@ -578,7 +578,7 @@ table.highlight,
   padding-right: 10px;
 }
 .cadidateDetails h6:after {
-  content: "";
+  content: '';
   position: absolute;
   width: 1px;
   height: 100%;
@@ -689,7 +689,7 @@ ul.resumeDrodown {
   bottom: 100%;
   left: 50%;
   border: solid transparent;
-  content: " ";
+  content: ' ';
   height: 0;
   width: 0;
   position: absolute;

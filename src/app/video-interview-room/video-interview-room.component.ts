@@ -30,7 +30,7 @@ export class VideoInterviewRoomComponent implements OnInit {
     this.spinner.show();
     // console.log(window.location.hostname);
     if (this.userRole === 'recruiter') {
-      console.log(this.userId, this.userRole);
+      // console.log(this.userId, this.userRole);
       const payload = {
         recruiterId: this.userId
       };
@@ -47,7 +47,20 @@ export class VideoInterviewRoomComponent implements OnInit {
       });
     } else if (this.userRole === 'employer') {
       this.spinner.hide();
-
+      const payload = {
+        employersId: this.userId
+      };
+      // get all candidates for interview
+      this.videoCallingService.getAllEmployersCandidates(payload).subscribe(res => {
+        if (res) {
+          this.spinner.hide();
+          this.interviewList = res;
+          console.log('*******************************', this.interviewList);
+        }
+      }, err => {
+        this.spinner.hide();
+        console.log(err);
+      });
       //  get all candidates for interview
     }
 

@@ -82,21 +82,22 @@
               <ng-container *ngIf="!candidate">
                 <div class="archive-copylink">
                   <!-- <div id="buttons"> -->
+                  <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink"
+                    (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
+                    value="click to copy">
+                    Candidate Invitation Link
+                  </button>
                   <button type="button" class="start-button" *ngIf="startArchiveButton" (click)="startArchive()">Start
-                    Archive</button>
+                    Recording</button>
                   <button type="button" class="stop-button" *ngIf="stopArchiveButton"
-                    (click)="stopArchive(archiveID)">Stop Archive</button>
+                    (click)="stopArchive(archiveID)">Stop Recording</button>
                   <button type="button" class="view-button" *ngIf="viewArchiveButton" (click)="viewArchive()">Submit
                     Archive</button>
                   <!-- </div> -->
 
                   <!-- button for local -->
 
-                  <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink"
-                    (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
-                    value="click to copy">
-                    Candidate Invitation Link
-                  </button>
+
                   <ng-container *ngIf="!candidate && !isRecruiter">
                     <button type="button" routerLink='/employer/video-interview-room' class="end-meeting">
                       End
@@ -177,7 +178,7 @@
             </div> -->
 
           </div>
-          <button id="myBtn" class="copy-link marL10" (click)="questionsPopUp()">
+          <button id="myBtn" *ngIf="isRecruiter" class="copy-link marL10" (click)="questionsPopUp()">
             Add Questions
           </button>
           <button id="myBtn" (click)="submitReview()" class="copy-link commButton marL10">
@@ -213,7 +214,7 @@
 <!--message pop up:END-->
 
 <!--Submit pop up:START-->
-<div id="questionsPop" class="modal videoModalMain forumPopMain forumMsgPopup addQuetionPopup">
+<div id="questionsPop" class="modal videoModalMain forumPopMain forumMsgPopup ad1dQuetionPopup">
   <a (click)="closeQuestionConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
   <div class="modal-content videoModalContent blueBord addQuetion">
     <h4 class="slide-heading blueHeadng text-center"> Add Question Bookmarks/Time</h4>

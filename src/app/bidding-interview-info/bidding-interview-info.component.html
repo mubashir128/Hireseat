@@ -1,7 +1,7 @@
 <div class="fullwidth">
   <h4 class="allResume">All Recent Resumes ({{ ResumeList.length }})</h4>
   <div class="actionDIv">
-    <h4>Points</h4>
+    <h4>Notes</h4>
     <h4>Resume</h4>
     <h4>Feedback</h4>
     <h4>Action</h4>
@@ -155,7 +155,10 @@
         </div>
 
         <div class="approveBtnDiv">
-          <button (click)="onAddToInterviewList(resume)">
+          <button *ngIf="resume.resumeKey.addedToVideoInterviewRoomByEmployer">
+            Interview scheduled
+          </button>
+          <button *ngIf="!resume.resumeKey.addedToVideoInterviewRoomByEmployer" (click)="onAddToInterviewList(resume)">
             Schedule Interview
           </button>
           <button class="btn commonBtn approveBtn" (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)">
@@ -233,7 +236,7 @@
     <div class="fullwidth">
       <h4 class="allResume marT0">Previous Feedback</h4>
       <div class="actionDIv marB20">
-        <h4>Points</h4>
+        <h4>Notes</h4>
         <h4>Feedback</h4>
         <h4>Comment</h4>
       </div>
