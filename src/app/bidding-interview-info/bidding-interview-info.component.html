@@ -158,7 +158,7 @@
           <button *ngIf="resume.resumeKey.addedToVideoInterviewRoomByEmployer">
             Interview scheduled
           </button>
-          <button *ngIf="!resume.resumeKey.addedToVideoInterviewRoomByEmployer" (click)="onAddToInterviewList(resume)">
+          <button class="btn commonBtn scheduleBtn" *ngIf="!resume.resumeKey.addedToVideoInterviewRoomByEmployer" (click)="onAddToInterviewList(resume)">
             Schedule Interview
           </button>
           <button class="btn commonBtn approveBtn" (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)">
