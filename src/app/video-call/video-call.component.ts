@@ -53,7 +53,6 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   commentFromRecruiter: any;
   submitReviewButton: boolean;
   roomName: any;
-  questions: any;
   constructor(
     private ref: ChangeDetectorRef,
     private opentokService: OpentokService,
@@ -64,12 +63,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private fb: FormBuilder
   ) {
-    this.questions = [
-      {
-        question: '',
-        timeStamp: ''
-      }
-    ];
+
     this.QuestionsGroup = this.fb.group({
       question1: new FormControl(null, [
         Validators.max(100)
@@ -158,6 +152,16 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.candidate = false;
       if (this.userRole === 'employer') {
         this.isRecruiter = false;
+        this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+        const payload = {
+          candidateId: this.candidateId
+        };
+        this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
+          this.candidateInfo = res.isCandidate;
+          this.opentokService.setCandidateId(this.candidateId);
+          // console.log(this.candidateInfo);
+
+        });
       } else if (this.userRole === 'recruiter') {
 
         this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -344,15 +348,16 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     $('#stop').show();
     this.stopArchiveButton = true;
   }
-  viewArchive() {
+  storeArchive() {
     // store archived view
     $('#view').prop('disabled', true);
     this.viewArchiveButton = true;
-    // // console.log(baseUrl);
     const payload = {
       archiveId: this.archiveID,
-      candidateId: this.candidateId
+      candidateId: this.candidateId,
+      userRole: this.userRole
     };
+    console.log(this.candidateId);
     // add subscription
     this.videoCallingService.storeArchive(payload).subscribe(res => {
       // console.log(res);
@@ -367,8 +372,6 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       // console.log('error', err);
 
     });
-    // window.location = SAMPLE_SERVER_BASE_URL + /archive/ + archiveID + '/view';
-    // window.open(baseUrl + 'api/archive/' + this.archiveID + '/view');
   }
   // submit recruiters review
   submitReview() {

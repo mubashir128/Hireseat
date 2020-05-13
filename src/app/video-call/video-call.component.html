@@ -54,12 +54,12 @@
                 Back
             </span> </span>
           </div>
-          <button *ngIf="candidateInfo?.bookmark && !candidate" class="filledBtn commButton"
+          <button *ngIf="candidateInfo?.bookmark && !candidate && isRecruiter" class="filledBtn commButton"
             (click)="bookmarkCandidate(false)">
             <i class="fa fa-bookmark" aria-hidden="true"></i> Bookmarked
           </button>
 
-          <button *ngIf="!candidateInfo?.bookmark && !candidate" class="blueBtn commButton"
+          <button *ngIf="!candidateInfo?.bookmark && !candidate && isRecruiter" class="blueBtn commButton"
             (click)="bookmarkCandidate(true)">
             <i class="fa fa-bookmark" aria-hidden="true"></i> Bookmark
           </button>
@@ -91,8 +91,8 @@
                     Recording</button>
                   <button type="button" class="stop-button" *ngIf="stopArchiveButton"
                     (click)="stopArchive(archiveID)">Stop Recording</button>
-                  <button type="button" class="view-button" *ngIf="viewArchiveButton" (click)="viewArchive()">Submit
-                    Archive</button>
+                  <button type="button" class="view-button" *ngIf="viewArchiveButton" (click)="storeArchive()">Submit
+                    Recording</button>
                   <!-- </div> -->
 
                   <!-- button for local -->
