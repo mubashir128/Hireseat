@@ -114,13 +114,14 @@ background-color: #48aef3;
 }
 .commonDiv span {
     background-color: #f1f1f1;
-    padding: 5px 20px;
+    padding: 5px 10px;
     margin: 3px 3px;
     display: inline-block;
     text-align: center;
     border-radius: 25px;
     line-height: 1.2;
     font-size: 14px;
+    width: 100%;
 }
 .table-border{
     box-shadow: 0 0 10px #ddd;

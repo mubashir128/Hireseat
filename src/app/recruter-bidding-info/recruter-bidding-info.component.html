@@ -455,8 +455,9 @@
         </div>
         <div class="input-field">
           Your Placement Fee
-          <input name="resumePoint3" formControlName="recruiterCost" type="text"
-            placeholder="Enter Your Placement Fee in $" class="validate" />
+          <input name="resumePoint3" formControlName="recruiterCost" type="text" 
+           class="validate"  placeholder="Enter Your Placement Fee in $"  />
+           
           <div *ngIf="frm.resumePoint3.touched && frm.resumePoint3.errors" class="invalid-feedback" class="error">
             <div *ngIf="frm.resumePoint3.errors.required">
               Placement fee is required
