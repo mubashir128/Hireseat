@@ -39,7 +39,7 @@
   background-color: white;
   padding: 15px 15px 70px 15px;
   position: relative;
-  /* height: 100%; */
+  height: 100%;
 }
 .resume-item:hover {
   background-color: #f1f9ff;
@@ -141,6 +141,6 @@
 /* Custom scrollbar ends */
 .listDiv {
   max-width: 280px;
-  max-height: 30px;
+  /* max-height: 30px; */
   overflow: auto;
 }

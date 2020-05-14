@@ -42,7 +42,8 @@ nav.customeNav {
 }
 nav.customeNav ul a {
   color: #1c2d41;
-  padding: 0 28px;
+  /* padding: 0 28px; */
+  padding: 0 20px;
 }
 .loginNtn {
   color: #33aaff !important;
