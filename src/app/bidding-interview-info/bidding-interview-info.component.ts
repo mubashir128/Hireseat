@@ -207,7 +207,7 @@ export class BiddingInterviewInfoComponent implements OnChanges {
       return
     }
     if (this.skillsPt != undefined && this.experiencePt != undefined && this.personalityPt != undefined) {
-      if (imgtodrag && interviewOrReject == 'yes') {
+      if (imgtodrag.length && interviewOrReject == 'yes') {
         var imgclone = imgtodrag.clone()
 
           .offset({

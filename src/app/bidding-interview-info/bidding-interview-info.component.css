@@ -249,7 +249,7 @@ h5 {
   width: 45%;
 }
 .PointsDiv.commonSingleInner {
-  border-right: 1px solid #999;
+  border-right: 1px solid #999 !important;
 }
 .PointsDivSingle {
   display: flex;
@@ -317,19 +317,40 @@ h5 {
   /*padding: 3px 0;*/
   /* font-family: 'Rajdhani', sans-serif; */
 }
-.commonBtn.scheduleBtn{
+.commonBtn.scheduleBtn {
+  font-size: 13px;
+  font-weight: 600;
+  height: 55px !important;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  background-color: #fff !important;
+  color: #f3c11d !important;
+  border: 1px solid #f3c11d !important;
+}
+.commonBtn.scheduledInterview {
   font-size: 13px;
   font-weight: 600;
   height: 55px !important;
   letter-spacing: 1px;
   line-height: 1.5;
   background-color: #f3c11d !important;
+  color: #fff !important;
   border: 1px solid #f3c11d !important;
 }
-.commonBtn.scheduleBtn:hover{
+.scheduledInterview:focus {
+  font-size: 13px;
+  font-weight: 600;
+  height: 55px !important;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  background-color: #f3c11d !important;
+  color: #fff !important;
   border: 1px solid #f3c11d !important;
-  background-color: transparent  !important;
-  color: #f3c11d !important;
+}
+.commonBtn.scheduleBtn:hover {
+  border: 1px solid #f3c11d !important;
+  background-color: #f3c11d !important;
+  color: #fff !important;
 }
 .commonBtn.RejectBtn {
   border: 1px solid #f32222;
@@ -507,7 +528,7 @@ table.highlight,
   border: 0px solid transparent;
 }
 .text-center {
-  display: ;
+  /* display: ; */
   text-align: center;
 }
 .rankingMain {
@@ -686,8 +707,18 @@ and (max-width : 667px) {
 .active-button:hover a i {
   color: black !important;
 }
+button.viewInterview {
+  margin-left: 10px;
+  background-color: green !important;
+  color: #fff;
+  border: 1px solid green !important;
+}
+.fa-video-camera {
+  /* color: black; */
+  color: #fff !important;
+}
 /* end card  */
 
-.btn:focus {
+/* .btn:focus {
   background-color: #ffffff !important;
-}
+} */

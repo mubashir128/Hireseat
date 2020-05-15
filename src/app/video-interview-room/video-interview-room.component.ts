@@ -75,26 +75,54 @@ export class VideoInterviewRoomComponent implements OnInit {
     const payload = {
       candidateId: candidate.candidateId
     };
-    this.videoCallingService.traashCandidateFromInterviewList(payload).subscribe((res) => {
-      if (res) {
+    if (this.userRole === 'recruiter') {
+      this.videoCallingService.traashCandidateFromInterviewList(payload).subscribe((res) => {
+        if (res) {
 
-        this.interviewList.map((can: any) => {
-          if (can.candidateId === payload.candidateId) {
-            const removeCandidate = this.interviewList.indexOf(can);
-            if (removeCandidate > -1) {
-              this.interviewList.splice(removeCandidate, 1);
-              this.spinner.hide();
+          this.interviewList.map((can: any) => {
+            if (can.candidateId === payload.candidateId) {
+              const removeCandidate = this.interviewList.indexOf(can);
+              if (removeCandidate > -1) {
+                this.interviewList.splice(removeCandidate, 1);
+                this.spinner.hide();
 
+              }
             }
-          }
-        });
-      } else {
+          });
+        } else {
+          this.spinner.hide();
+
+        }
+      }, err => {
         this.spinner.hide();
 
-      }
-    }, err => {
-      this.spinner.hide();
+      });
+    } else if (this.userRole === 'employer') {
+      this.videoCallingService.traashCandidateFromInterviewListEmployer(payload).subscribe((res) => {
+        if (res) {
 
-    });
+          this.interviewList.map((can: any) => {
+            if (can.candidateId === payload.candidateId) {
+              const removeCandidate = this.interviewList.indexOf(can);
+              if (removeCandidate > -1) {
+                this.interviewList.splice(removeCandidate, 1);
+                this.spinner.hide();
+
+              }
+            }
+          });
+        } else {
+          this.spinner.hide();
+
+        }
+      }, err => {
+        this.spinner.hide();
+
+      });
+    } else {
+      console.log('error user role not specified');
+
+    }
+
   }
 }

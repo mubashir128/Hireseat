@@ -2,7 +2,6 @@
   <h4 class="allResume">All Recent Resumes ({{ ResumeList.length }})</h4>
   <div class="actionDIv">
     <h4>Notes</h4>
-    <h4>Resume</h4>
     <h4>Feedback</h4>
     <h4>Action</h4>
   </div>
@@ -155,10 +154,11 @@
         </div>
 
         <div class="approveBtnDiv">
-          <button *ngIf="resume.resumeKey.addedToVideoInterviewRoomByEmployer">
+          <button class="btn commonBtn scheduledInterview" *ngIf="resume.resumeKey.addedToVideoInterviewRoomByEmployer">
             Interview scheduled
           </button>
-          <button class="btn commonBtn scheduleBtn" *ngIf="!resume.resumeKey.addedToVideoInterviewRoomByEmployer" (click)="onAddToInterviewList(resume)">
+          <button class="btn commonBtn scheduleBtn" *ngIf="!resume.resumeKey.addedToVideoInterviewRoomByEmployer"
+            (click)="onAddToInterviewList(resume)">
             Schedule Interview
           </button>
           <button class="btn commonBtn approveBtn" (click)="feedBack(resume._id, 'yes', 'Comments' + resume._id, i)">
@@ -249,15 +249,15 @@
           <div class="PointsDiv commonSingleInner">
             <div class="PointsDivSingle">
               <img src="assets/img/checkIcon.png" class="img-responsive" />
-              <h4>{{ previousDetails?.StrongPoint1 | charlimit }}</h4>
+              <h4>{{ previousDetails?.StrongPoint1 }}</h4>
             </div>
             <div class="PointsDivSingle">
               <img src="assets/img/checkIcon.png" class="img-responsive" />
-              <h4>{{ previousDetails?.StrongPoint2 | charlimit }}</h4>
+              <h4>{{ previousDetails?.StrongPoint2 }}</h4>
             </div>
             <div class="PointsDivSingle">
               <img src="assets/img/checkIcon.png" class="img-responsive" />
-              <h4>{{ previousDetails?.StrongPoint3 | charlimit }}</h4>
+              <h4>{{ previousDetails?.StrongPoint3 }}</h4>
             </div>
           </div>
 

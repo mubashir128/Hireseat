@@ -1,25 +1,9 @@
-<!-- <div *ngIf="mode===0">
-  <div  class="right-align">
-      <a class="waves-effect waves-light btn" [routerLink]="['/recruiter/new-resume']"> <i class="material-icons left">add</i> New Resume</a>
-  </div>
-  <div class="row" style="margin-top:15px;">
-      <div *ngFor="let resume of resumes" class="col s12 m6 l6">
-          <app-resume-item [resume]="resume" (selectedForEdit)="editResume($event)" (selectedForDelete)="deleteResume($event)"></app-resume-item>
-      </div>
-  </div>
-</div>
-<div *ngIf="mode===1">
-  <app-edit-resume [resume]="selectedResume" (back)="comeBack()" ></app-edit-resume>
-</div>
-<div *ngIf="noResume">
-        No Results to show
-</div> -->
 <div *ngIf="mode===0">
-  <div class="right-align">
+  <!-- <div class="right-align">
     <a class="waves-effect waves-light btn" [routerLink]="['/recruiter/new-resume']"> <i
         class="material-icons left">add</i> New Resume</a>
-  </div>
-  <div style="margin-top:15px;" *ngIf="!noResume">
+  </div> -->
+  <div *ngIf="!noResume">
     <ul class="resumeList">
       <li *ngFor="let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }"
         class="col s12 m12 l6 floatUns">
@@ -31,11 +15,18 @@
   </div>
 </div>
 <div *ngIf="mode===1">
-  <app-edit-resume [resume]="selectedResume" (back)="comeBack()" (getAllResume)="getAllResume($event)">
+  <app-edit-resume [resume]="selectedResume" (back)="comeBack()" (getAllResume)="getAllHiredResume($event)">
   </app-edit-resume>
 </div>
-<div *ngIf="noResume">
-  No Results to show
+<div *ngIf="noResume" class="no-content">
+
+  <ng-container *ngIf="!msg">
+    No Results to show
+  </ng-container>
+  <ng-container *ngIf="msg">
+    {{msg}}
+  </ng-container>
+
 </div>
 
 

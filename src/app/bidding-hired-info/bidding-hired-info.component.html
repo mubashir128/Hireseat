@@ -12,35 +12,60 @@
 <ul class="ListResume">
   <!-- other li div -->
   <li *ngFor="
-      let resume of hiredList | paginate: { itemsPerPage: 10, currentPage: p }
+      let resume of hiredList | paginate: { itemsPerPage: 10, currentPage: p };let i=index
     ">
     <div class="singleList" id="animateinterview{{ i }}"
       [ngClass]="{ myResume: currentRecruterId == resume.recruiterKey }">
-      <div class="PointsDiv commonSingleInner">
-        <div class="PointsDivSingle PointsDivSingleN">
-          <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint1 | charlimit }}</h4>
-          <div class="OnHoverDiv">
-            <h4>{{ resume.StrongPoint1 }}</h4>
+      <div class="card-head">
+        <div class="docSectionBtns">
+          <div class="candidate-name" [ngClass]="selectedIndex === i?'candidate-name-selected':false">
+            <span>
+              {{resume?.resumeKey?.candidateName}}
+            </span>
           </div>
-        </div>
-        <div class="PointsDivSingle PointsDivSingleN">
-          <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint2 | charlimit }}</h4>
-          <div class="OnHoverDiv">
-            <h4>{{ resume.StrongPoint2 }}</h4>
-          </div>
-        </div>
-        <div class="PointsDivSingle PointsDivSingleN">
-          <img src="assets/img/checkIcon.png" class="img-responsive" />
-          <h4>{{ resume.StrongPoint3 | charlimit }}</h4>
-          <div class="OnHoverDiv">
-            <h4>{{ resume.StrongPoint3 }}</h4>
+          <div>
+
+            <button class="downloadResume" [ngClass]="selectedIndex === i ? 'active-button':false">
+              <a [ngClass]="selectedIndex === i ? 'color-white':false"
+                [attr.href]="transform(resume?.resumeKey?.fileURL)" target="_blank" download>
+                <i class="fa fa-cloud-download" [ngClass]="selectedIndex === i ? 'color-white':false"
+                  aria-hidden="true"></i>Download Resume
+              </a>
+            </button>
+
+            <button class="viewInterview" *ngIf="resume?.resumeKey?.interviewLinkedByEmployer"
+              (click)="seeVideo(i,resume?.resumeKey?.interviewLinkedByEmployer,resume)">
+              <i class="fa fa-video-camera" aria-hidden="true"></i> View Interview</button>
           </div>
         </div>
       </div>
+      <div class="candidate-content">
 
-      <div class="docSection">
+        <div class="PointsDiv commonSingleInner">
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>{{ resume.StrongPoint1  }}</h4>
+            <!-- <div class="OnHoverDiv">
+            <h4>{{ resume.StrongPoint1 }}</h4>
+          </div> -->
+          </div>
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>{{ resume.StrongPoint2  }}</h4>
+            <!-- <div class="OnHoverDiv">
+            <h4>{{ resume.StrongPoint2 }}</h4>
+          </div> -->
+          </div>
+          <div class="PointsDivSingle PointsDivSingleN">
+            <img src="assets/img/checkIcon.png" class="img-responsive" />
+            <h4>{{ resume.StrongPoint3  }}</h4>
+            <!-- <div class="OnHoverDiv">
+            <h4>{{ resume.StrongPoint3 }}</h4>
+          </div> -->
+          </div>
+        </div>
+
+        <!-- <div class="docSection">
         <div class="docDiv">
           <img src="assets/img/doc.png" class="img-responsive" />
 
@@ -48,246 +73,247 @@
             <h4>Download Resume</h4>
           </a>
         </div>
-      </div>
+      </div> -->
 
-      <div class="feedbackDiv commonSingleInner ">
-        <div class="PointsDivSingle">
-          <h4>Skill Match</h4>
-          <div class="startDiv">
-            <!-- Here rendering static three redio buttion as par conditions -->
+        <div class="feedbackDiv commonSingleInner ">
+          <div class="PointsDivSingle">
+            <h4>Skill Match</h4>
+            <div class="startDiv">
+              <!-- Here rendering static three redio buttion as par conditions -->
 
-            <!-- Render When skillsMatchPoints 33 -->
-            <span class="rating" *ngIf="resume.interViewSkillsMatchPoints == 33">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star3' }}"></label>
+              <!-- Render When skillsMatchPoints 33 -->
+              <span class="rating" *ngIf="resume.interViewSkillsMatchPoints == 33">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star3' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star2' }}"></label>
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star2' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When skillsMatchPoints 33 -->
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When skillsMatchPoints 33 -->
 
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-            <!-- Render When skillsMatchPoints 15 -->
+              <!-- Render When skillsMatchPoints 15 -->
 
-            <span class="rating" *ngIf="resume.interViewSkillsMatchPoints == 15">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
+              <span class="rating" *ngIf="resume.interViewSkillsMatchPoints == 15">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star2' }}"></label>
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star2' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When skillsMatchPoints 15 -->
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When skillsMatchPoints 15 -->
 
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-            <!-- Render When skillsMatchPoints -33 -->
+              <!-- Render When skillsMatchPoints -33 -->
 
-            <span class="rating" *ngIf="resume.interViewSkillsMatchPoints == -33">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
+              <span class="rating" *ngIf="resume.interViewSkillsMatchPoints == -33">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When skillsMatchPoints -33 -->
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When skillsMatchPoints -33 -->
 
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-            <!-- Render When skillsMatchPoints 0 -->
+              <!-- Render When skillsMatchPoints 0 -->
 
-            <span class="rating" *ngIf="resume.interViewSkillsMatchPoints == 0">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
+              <span class="rating" *ngIf="resume.interViewSkillsMatchPoints == 0">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
 
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When skillsMatchPoints 0 -->
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When skillsMatchPoints 0 -->
 
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+            </div>
+          </div>
+          <div class="PointsDivSingle">
+            <h4>Experience Match</h4>
+            <div class="startDiv">
+              <!-- Here rendering static three redio buttion as par conditions -->
+
+              <!-- Render When experienceMatchPoints 33 -->
+              <span class="rating" *ngIf="resume.interViewExperienceMatchPoints == 33">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When experienceMatchPoints 33 -->
+
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+              <!-- Render When experienceMatchPoints 15 -->
+
+              <span class="rating" *ngIf="resume.interViewExperienceMatchPoints == 15">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When experienceMatchPoints 15 -->
+
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+              <!-- Render When experienceMatchPoints -33 -->
+
+              <span class="rating" *ngIf="resume.interViewExperienceMatchPoints == -33">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When experienceMatchPoints -33 -->
+
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+              <!-- Render When experienceMatchPoints 0 -->
+
+              <span class="rating" *ngIf="resume.interViewExperienceMatchPoints == 0">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When experienceMatchPoints 0 -->
+
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+            </div>
+          </div>
+          <div class="PointsDivSingle">
+            <h4>Communication and Attitude</h4>
+            <div class="startDiv">
+              <!-- Here rendering static three redio buttion as par conditions -->
+
+              <!-- Render When personalityMatchPoints 33 -->
+              <span class="rating" *ngIf="resume.interViewAttitudeandCommunicationPoints == 33">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When personalityMatchPoints 33 -->
+
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+              <!-- Render When personalityMatchPoints 15 -->
+
+              <span class="rating" *ngIf="resume.interViewAttitudeandCommunicationPoints == 15">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When personalityMatchPoints 15 -->
+
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+              <!-- Render When personalityMatchPoints -33 -->
+
+              <span class="rating" *ngIf="resume.interViewAttitudeandCommunicationPoints == -33">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label style="color:#FFC107" class="full"
+                  for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When personalityMatchPoints -33 -->
+
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+              <!-- Render When personalityMatchPoints 0 -->
+
+              <span class="rating" *ngIf="resume.interViewAttitudeandCommunicationPoints == 0">
+                <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
+                  value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
+                  value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
+
+                <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
+                  value="-33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star1' }}"></label>
+              </span>
+              <!--// Render When personalityMatchPoints 0 -->
+
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+            </div>
           </div>
         </div>
-        <div class="PointsDivSingle">
-          <h4>Experience Match</h4>
-          <div class="startDiv">
-            <!-- Here rendering static three redio buttion as par conditions -->
 
-            <!-- Render When experienceMatchPoints 33 -->
-            <span class="rating" *ngIf="resume.interViewExperienceMatchPoints == 33">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star3' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When experienceMatchPoints 33 -->
-
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-            <!-- Render When experienceMatchPoints 15 -->
-
-            <span class="rating" *ngIf="resume.interViewExperienceMatchPoints == 15">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When experienceMatchPoints 15 -->
-
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-            <!-- Render When experienceMatchPoints -33 -->
-
-            <span class="rating" *ngIf="resume.interViewExperienceMatchPoints == -33">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When experienceMatchPoints -33 -->
-
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-            <!-- Render When experienceMatchPoints 0 -->
-
-            <span class="rating" *ngIf="resume.interViewExperienceMatchPoints == 0">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When experienceMatchPoints 0 -->
-
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-          </div>
-        </div>
-        <div class="PointsDivSingle">
-          <h4>Communication and Attitude</h4>
-          <div class="startDiv">
-            <!-- Here rendering static three redio buttion as par conditions -->
-
-            <!-- Render When personalityMatchPoints 33 -->
-            <span class="rating" *ngIf="resume.interViewAttitudeandCommunicationPoints == 33">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star3' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When personalityMatchPoints 33 -->
-
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-            <!-- Render When personalityMatchPoints 15 -->
-
-            <span class="rating" *ngIf="resume.interViewAttitudeandCommunicationPoints == 15">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When personalityMatchPoints 15 -->
-
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-            <!-- Render When personalityMatchPoints -33 -->
-
-            <span class="rating" *ngIf="resume.interViewAttitudeandCommunicationPoints == -33">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label style="color:#FFC107" class="full"
-                for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When personalityMatchPoints -33 -->
-
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-            <!-- Render When personalityMatchPoints 0 -->
-
-            <span class="rating" *ngIf="resume.interViewAttitudeandCommunicationPoints == 0">
-              <input type="radio" id="{{ 'field1' + resume._id + '_star3' }}" name="{{ 'rating1' + resume._id }}"
-                value="33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star3' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star2' }}" name="{{ 'rating1' + resume._id }}"
-                value="15" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star2' }}"></label>
-
-              <input type="radio" id="{{ 'field1' + resume._id + '_star1' }}" name="{{ 'rating1' + resume._id }}"
-                value="-33" disabled /><label class="full" for="{{ 'field1' + resume._id + '_star1' }}"></label>
-            </span>
-            <!--// Render When personalityMatchPoints 0 -->
-
-            <!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-          </div>
-        </div>
-      </div>
-
-      <div class="ActionDiv commonSingleInner">
-        <div class="actionDivSingle">
-          <h5>Comment</h5>
-          <div class="comment">
-            <h4>
-              <span *ngIf="resume.comment == ''">NA</span>{{ resume.comment }}
-            </h4>
-          </div>
-          <div class="docDiv">
-            <h4><span>Recruiter Cost:</span>{{ resume.RecruiterCost }}</h4>
+        <div class="ActionDiv commonSingleInner">
+          <div class="actionDivSingle">
+            <h5>Comment</h5>
+            <div class="comment">
+              <h4>
+                <span *ngIf="resume.comment == ''">NA</span>{{ resume.comment }}
+              </h4>
+            </div>
+            <div class="docDiv">
+              <h4><span>Recruiter Cost:</span>{{ resume.RecruiterCost }}</h4>
+            </div>
           </div>
         </div>
       </div>

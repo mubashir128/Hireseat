@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Tab } from '../models/tab';
 import { UserService } from 'src/app/_services/user.service';
 import { IProfile } from 'src/app/profile/model/user-profile';
@@ -17,7 +17,13 @@ export class EmployerNavbarComponent implements OnInit {
   public type: number = 0;
   public tabs1: Tab[];
   tabMenu: any;
-  constructor(private router: Router, private spinner: NgxSpinnerService, private userService: UserService) {
+  constructor(
+    private router: Router,
+    private spinner: NgxSpinnerService,
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    const employerId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
     this.tabMenu = [
       {
         id: 1,
@@ -42,8 +48,14 @@ export class EmployerNavbarComponent implements OnInit {
         name: 'Video Interview Room',
         path: '/employer/video-interview-room',
         selected: false
+      },
+      {
+        id: 5,
+        name: 'My Candidates',
+        path: '/employer/mycandidates',
+        selected: false
       }
-    ]
+    ];
     // this.tabs1 = [];
     // this.tabs1.push(new Tab('/employer/job-profile-list', 'Job Profiles', true));
     // this.tabs1.push(new Tab('/employer/bidding-event-list', 'Job Postings', false));

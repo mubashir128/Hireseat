@@ -136,6 +136,7 @@ import { SubscriberComponent } from './subscriber/subscriber.component';
 import { OpentokService } from './_services/opentok.service';
 import { SearchByNamePipe } from '../search-by-name.pipe';
 import { SearchByExperiencePipe } from '../search-by-experience.pipe';
+import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -232,6 +233,10 @@ const appChildRoutes: Routes = [
       {
         path: "video-interview-room",
         component: VideoInterviewRoomComponent
+      },
+      {
+        path: "mycandidates",
+        component: MycandidatesComponent
       }
     ],
     canActivate: [EmployerGuard]
@@ -476,7 +481,8 @@ const appChildRoutes: Routes = [
     PublisherComponent,
     SubscriberComponent,
     SearchByNamePipe,
-    SearchByExperiencePipe
+    SearchByExperiencePipe,
+    MycandidatesComponent
   ],
   imports: [
     InfiniteScrollModule,
