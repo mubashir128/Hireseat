@@ -13,26 +13,50 @@
   background-color: #fafafa;
   padding: 0;
   max-height: 70%;
-  width: 22%;
+  width: 30%;
+  /* width: 22%; */
   margin: auto;
   overflow-y: auto;
-  border-radius: 2px;
+  border-radius: 5px;
   will-change: top, opacity;
+}
+.bluePopHead{
+  font-size: 27px;
+  color: #03a9f4;
 }
 .modal .modal-footer {
   border-radius: 0 0 2px 2px;
   background-color: #fafafa;
   padding: 4px 29px;
   height: 56px;
-  width: 76%;
-  text-align: right;
+  /* width: 76%; */
+  width: 100%;
+  /* text-align: right; */
 }
 ul.resumeList {
   width: 100%;
   float: left;
   margin-bottom: 20px;
-  /* display: flex !important; */
+  display: flex !important;
+  flex-wrap: wrap;
 }
 .btn {
   background-color: #03a9f4 !important;
+}
+.marT10{
+  margin-top: 10px;
+}
+
+.bodyPara{
+  font-size: 17px;
+  color: #5e5e5e;
+}
+.textCenter{
+  text-align: center;
+}
+.noBtn {
+  border: 2px solid #03a9f4;
+  background-color: #fff !important;
+  color: #03a9f4;
+  font-weight: 600;
 }

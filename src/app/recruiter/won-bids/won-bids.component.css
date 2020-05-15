@@ -121,7 +121,7 @@ background-color: #48aef3;
     border-radius: 25px;
     line-height: 1.2;
     font-size: 14px;
-    width: 100%;
+    /* width: 100%; */
 }
 .table-border{
     box-shadow: 0 0 10px #ddd;
