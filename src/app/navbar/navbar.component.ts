@@ -260,4 +260,8 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  getToQuestion(id){
+    this.router.navigate(['/question-details/', id]);
+  }
+
 }
