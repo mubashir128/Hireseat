@@ -65,7 +65,7 @@
         <!-- for recruiter profile -->
         <li *ngIf="isRecruiter && isLoggedIn">
           <a [routerLink]="['/recruiter/profile']" routerLinkActive="borderBA">
-            <img src="assets/img/propic.png" style="vertical-align:middle;height: 36px;width: 36px" />
+            <img src="assets/img/propic.png" style="vertical-align:middle;height: 30px;width: 30px" />
           </a>
         </li>
         <!-- end of recruiter profile -->
@@ -83,7 +83,7 @@
 
         <li *ngIf="isEmployer && isLoggedIn">
           <a [routerLink]="['/employer/profile']" routerLinkActive="borderBA">
-            <img src="assets/img/propic.png" style="vertical-align:middle;height: 36px;width: 36px" />
+            <img src="assets/img/propic.png" style="vertical-align:middle;height: 30px;width: 30px" />
           </a>
         </li>
         <!-- <li *ngIf="isEmployer && isLoggedIn "><a [routerLink]="['/home/TheRockRec']">The Rockstar Recruiter Community</a> -->
@@ -125,7 +125,7 @@
             <h4 class="count" *ngIf="notificationLength > 0">
               {{ notificationLength + suggestedQueCount }}
             </h4>
-            <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 40px;width: 40px" />
+            <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 30px;width: 30px" />
           </a>
         </li>
         <li *ngIf="!isAdmin && isLoggedIn && isRecruiter">
@@ -133,7 +133,7 @@
             <h4 class="count" *ngIf="notificationLength > 0">
               {{ notificationLength + suggestedQueAnsCount }}
             </h4>
-            <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 40px;width: 40px" />
+            <img src="assets/img/Notification-512.png" style="vertical-align:middle;height: 30px;width: 30px" />
           </a>
         </li>
 

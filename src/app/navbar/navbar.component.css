@@ -122,7 +122,9 @@ nav ul a {
   }
   nav.customeNav ul a {
     color: #1c2d41;
-    padding: 0 20px;
+    /* padding: 0 20px; */
+    padding: 0 10px;
+    font-size: 14px;
   }
 }
 
