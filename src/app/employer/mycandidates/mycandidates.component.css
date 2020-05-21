@@ -29,9 +29,13 @@
 }
 ul.resumeList {
   width: 100%;
-  float: left;
-  margin-bottom: 20px;
+  /* float: left;
+  margin-bottom: 20px; */
   /* display: flex !important; */
+}
+.resume-container {
+  display: flex;
+  flex-direction: column;
 }
 .btn {
   background-color: #03a9f4 !important;

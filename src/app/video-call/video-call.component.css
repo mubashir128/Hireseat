@@ -39,19 +39,20 @@ app-subscriber {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  /* padding-top: 100px; Location of the box */
+  /* background-color: #ffffff !important; */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  height: auto !important; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  /* background-color: rgb(0, 0, 0); Fallback color
+  background-color: rgba(0, 0, 0, 0.4); Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  /* background-color: #fefefe; */
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -196,11 +197,12 @@ nav ul a {
   display: none;
   position: fixed;
   /* max-height: unset; */
-  max-height: 410px;
-
-  width: 100%;
+  /* max-height: 410px; */
+  box-shadow: none !important;
+  /* width: 100%; */
   max-width: 600px;
   overflow: unset;
+  height: 100%;
 }
 
 .textFeildDivQ textarea {
@@ -227,7 +229,7 @@ nav ul a {
   color: #101010;
 }
 .forumMsgPopup.forumPopMain {
-  max-width: 380px;
+  max-width: 600px;
   position: fixed;
 }
 .invalid-feedback {
@@ -683,13 +685,15 @@ nav ul a {
 }
 .modal-content.addQuetion {
   padding: 20px 0;
+  background-color: #ffffff !important;
   width: 100%;
+  overflow: scroll;
 }
-.copy-link.commButton {
+/* .copy-link.commButton {
   width: 150px;
   height: 40px;
   padding: 0 10px;
-}
+} */
 .upperBackDiv {
   display: flex;
   align-items: center;
@@ -718,8 +722,8 @@ nav ul a {
   color: #ffffff;
   margin-right: 5px;
 }
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

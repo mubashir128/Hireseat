@@ -214,11 +214,11 @@
           <button class="btn commonBtn RejectBtn" (click)="feedBack(resume._id, 'no', 'Comments' + resume._id, i)">
             Reject
           </button>
-          <span class="share-icon">
-
-            <i *ngIf="selectedIndex !== i" class="fa fa-share" style="color: #000000;" aria-hidden="true"></i>
-            <i *ngIf="selectedIndex === i" class="fa fa-share" style="color: #ffffff;" aria-hidden="true"></i>
-
+          <span class="share-icon" *ngIf="resume.resumeKey.interviewLinkedByRecruiter">
+            <i *ngIf="selectedIndex !== i" class="fa fa-share" (click)="showShareModal(resume,biddingEvent)"
+              style="color: #000000;" aria-hidden="true"></i>
+            <i *ngIf="selectedIndex === i" class="fa fa-share" (click)="showShareModal(resume,biddingEvent)"
+              style="color: #ffffff;" aria-hidden="true"></i>
           </span>
         </div>
       </div>
@@ -275,6 +275,18 @@
       <button class="modal-close left waves-effect waves-light btn">
         Close
       </button>
+    </div>
+  </div>
+</div>
+
+<div id="shareEmailPopUp" class="modal">
+  <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
+  <div class="emailTemp">
+    <div class="form-group posRel">
+      <input type="text" class="form-control inputComm" placeholder="Enter an email id" [(ngModel)]="recipientEmail">
+    </div>
+    <div class="form-group textRight">
+      <button class="sendBtn" (click)="sendVideo()">SEND</button>
     </div>
   </div>
 </div>

@@ -20,6 +20,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { IProfile, Profile } from 'src/app/profile/model/user-profile';
 import { VideoCallingService } from '../_services/video-calling.service';
 import videojs from 'video.js';
+import { ShareVideoService } from '../_services/share-video.service';
+import { Subscription } from 'rxjs';
+import { materialize } from 'rxjs/operators';
 
 declare var jQuery;
 declare var $: any;
@@ -33,6 +36,9 @@ declare var Materialize;
 })
 export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy, OnInit {
   @ViewChild('target') target: ElementRef;
+  shareVideoSubscription: Subscription;
+  getArchivedVideoSubscription: Subscription;
+  seeArchivedVideoSubscription: Subscription;
   options: {
     fluid: boolean,
     aspectRatio: string,
@@ -83,13 +89,17 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
   currentResume: any;
   questionsByRecruiter: any;
   questionNumber: any;
+  recipientEmail: any;
+  shareResume: any;
+  shareBiddingEvent: any;
+  shareableVideoURL: any;
 
   constructor(
     private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
     private bidService: BidService, private router: Router, private bidEventService: BiddingEventService,
     public spinner: NgxSpinnerService, private route: ActivatedRoute, private feedbackService: FeedbackService,
     private sanitizer: DomSanitizer, private videoCallingService: VideoCallingService, private elementRef: ElementRef,
-
+    private shareVideService: ShareVideoService
   ) {
 
     this.loggedUser = this.userService.getUserData();
@@ -512,17 +522,13 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
     const payload = {
       archivedId: archiveId
     };
-    this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
+    this.seeArchivedVideoSubscription = this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
       if (res) {
-        // console.log(res);
         this.videoURL = res.url;
-        // window.open(res.url);
         this.spinner.hide();
       } else { this.spinner.hide(); }
     }, err => {
       this.spinner.hide();
-      // console.log('network error');
-
     });
   }
   closeVide() {
@@ -531,7 +537,7 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
 
   setCurrentTime(seconds, questionNumber) {
     this.questionNumber = questionNumber;
-    console.log(this.questionNumber);
+    // console.log(this.questionNumber);
 
     try {
       this.target.nativeElement.currentTime = seconds;
@@ -540,10 +546,82 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
 
     }
   }
+  // share process
+  showShareModal(resume, biddingEvent) {
+    jQuery('#shareEmailPopUp').modal('open');
+    console.log(resume, '**********************', biddingEvent);
+    this.shareResume = resume;
+    this.shareBiddingEvent = biddingEvent;
+    const archiveIdPayload = {
+      archivedId: resume.resumeKey.interviewLinkedByRecruiter
+    };
+    this.ArcivedVideoUrl(archiveIdPayload);
+  }
+  ArcivedVideoUrl(archiveId) {
+    this.getArchivedVideoSubscription = this.videoCallingService.getArchivedVideo(archiveId).subscribe(res => {
+      if (res) {
+        this.shareableVideoURL = res.url;
+        // console.log(this.shareableVideoURL);
+        this.spinner.hide();
+      } else { this.spinner.hide(); }
+    }, err => {
+      this.spinner.hide();
+    });
+
+  }
+  closeShareModal() {
+    jQuery('#shareEmailPopUp').modal('close');
+  }
+  async sendVideo() {
+    await this.share(this.shareResume, this.shareBiddingEvent);
+    jQuery('#shareEmailPopUp').modal('close');
+  }
+  share = async (resume, biddingEvent) => {
+    const subject = 'Hireseat' + ' - ' + biddingEvent.employerCompanyName + ' - '
+      + resume.resumeKey.jobTitle + ' - ' + resume.resumeKey.candidateName + ' Profile.';
+    // console.log(subject, this.loggedUser);
+
+    if (this.shareableVideoURL) {
+      const payload = {
+        employerId: this.loggedUser._id,
+        bidId: resume._id,
+        recipientEmail: this.recipientEmail,
+        videoUrl: this.shareableVideoURL,
+        fullName: resume.resumeKey.candidateName,
+        subject: subject,
+        points: {
+          point1: resume.StrongPoint1,
+          point2: resume.StrongPoint2,
+          point3: resume.StrongPoint3
+        }
+      };
+      this.shareVideoSubscription = await this.shareVideService.shareVideoViaEmail(payload).subscribe((res) => {
+        if (res) {
+          // console.log(res);
+          Materialize.toast('Email sent!', 3000);
+        }
+      }, err => {
+        console.log(err);
+        Materialize.toast('unable to send an email!', 3000);
+      });
+
+    }
+
+  }
+  // END share process
   ngOnDestroy(): void {
     // destroy player
     if (this.player) {
       this.player.dispose();
+    }
+    if (this.shareVideoSubscription) {
+      this.shareVideoSubscription.unsubscribe();
+    }
+    if (this.getArchivedVideoSubscription) {
+      this.getArchivedVideoSubscription.unsubscribe();
+    }
+    if (this.seeArchivedVideoSubscription) {
+      this.seeArchivedVideoSubscription.unsubscribe();
     }
   }
 }

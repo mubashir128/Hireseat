@@ -3,7 +3,7 @@
     <a class="waves-effect waves-light btn" [routerLink]="['/recruiter/new-resume']"> <i
         class="material-icons left">add</i> New Resume</a>
   </div> -->
-  <div *ngIf="!noResume">
+  <div class="resume-container" *ngIf="!noResume">
     <ul class="resumeList">
       <li *ngFor="let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }"
         class="col s12 m12 l6 floatUns">

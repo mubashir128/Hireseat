@@ -137,6 +137,7 @@ import { OpentokService } from './_services/opentok.service';
 import { SearchByNamePipe } from '../search-by-name.pipe';
 import { SearchByExperiencePipe } from '../search-by-experience.pipe';
 import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
+import { SharedVideoComponent } from './shared-video/shared-video.component';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -186,6 +187,10 @@ const appRoutes: Routes = [
   {
     path: "video-call/:id",
     component: VideoCallComponent
+  },
+  {
+    path: "shared-video/:token",
+    component: SharedVideoComponent
   }
 ];
 
@@ -482,7 +487,8 @@ const appChildRoutes: Routes = [
     SubscriberComponent,
     SearchByNamePipe,
     SearchByExperiencePipe,
-    MycandidatesComponent
+    MycandidatesComponent,
+    SharedVideoComponent
   ],
   imports: [
     InfiniteScrollModule,

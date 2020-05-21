@@ -55,7 +55,7 @@ export class VideoInterviewRoomComponent implements OnInit {
         if (res) {
           this.spinner.hide();
           this.interviewList = res;
-          console.log('*******************************', this.interviewList);
+          // console.log('*******************************', this.interviewList);
         }
       }, err => {
         this.spinner.hide();
@@ -71,7 +71,7 @@ export class VideoInterviewRoomComponent implements OnInit {
   }
   trashCandidate(candidate) {
     this.spinner.show();
-    console.log(candidate);
+    // console.log(candidate);
     const payload = {
       candidateId: candidate.candidateId
     };

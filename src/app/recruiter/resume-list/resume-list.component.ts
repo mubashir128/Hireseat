@@ -39,7 +39,7 @@ export class ResumeListComponent implements OnInit {
       // this.resumes[]
     },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.spinner.hide();
       });
   }
@@ -53,7 +53,7 @@ export class ResumeListComponent implements OnInit {
   }
 
   editResume(resume: Resume) {
-    console.log(resume);
+    // console.log(resume);
     this.selectedResume = resume;
     this.mode = 1;
   }
@@ -61,7 +61,7 @@ export class ResumeListComponent implements OnInit {
   confirmAction(resume: Resume) {
     jQuery('#DeleteConfirm').modal('open');
     this.selectedResumeDelete = resume;
-    // console.log(this.selectedResumeDelete)
+    // // console.log(this.selectedResumeDelete)
   }
 
   confirmedDeleteResume() {
@@ -80,7 +80,7 @@ export class ResumeListComponent implements OnInit {
         jQuery('#DeleteConfirm').modal('close');
       }, (error) => {
         this.spinner.hide();
-        console.log(error);
+        // console.log(error);
         Materialize.toast('Something Went Wrong!', 1000)
         this.confirmDel = false
         jQuery('#DeleteConfirm').modal('close');

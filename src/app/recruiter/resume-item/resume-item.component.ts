@@ -142,17 +142,17 @@ export class ResumeItemComponent implements OnInit {
 
   }
   viewVideo(archivedId) {
-    console.log(archivedId);
+    // console.log(archivedId);
     const payload = {
       archivedId: archivedId
     };
     this.videoCallingService.getArchivedVideo(payload).subscribe(url => {
       if (url) {
         window.open(url.url);
-        console.log(url);
+        // console.log(url);
 
       } else {
-        console.log('unable to load url');
+        // console.log('unable to load url');
 
       }
     });
