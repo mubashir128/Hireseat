@@ -96,14 +96,19 @@
 </ng-container>
 <ng-container *ngIf="!isTokenValid">
   <div class="invalid-token-container">
-    <span>
-      The token is expired! The video is no longer available.
+    <span class="msg">
+      This link is expired. It was only valid for 24 hours. Contact your Recruiter for another link.
     </span>
     <span>
-      <a [routerLink]="['/']" class="link">
-        www.hireseat.com
-      </a>
+      <span class="contact-email">
+        - contact@hireseat.com
+      </span>
+
     </span>
+    <div class="logo-section">
+      <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
+          style="vertical-align:middle;" /></a>
+    </div>
   </div>
 </ng-container>
 <div class="footer">

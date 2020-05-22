@@ -20,7 +20,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   currentResume: any;
   questionsByRecruiter: any;
   resume: any;
-  isTokenValid: boolean;
+  isTokenValid = true;
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
@@ -47,6 +47,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
     });
   }
+
   ngAfterViewInit() {
     // instantiate Video.js
     if (this.videoURL && this.isTokenValid) {
@@ -55,6 +56,8 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
         controlls: true
       }, () => {
         // console.log('onPlayerReady', this);
+      }, err => {
+        console.log('*************', err);
       });
     } else {
       console.log('token is not valid');
@@ -79,5 +82,6 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     }
 
   }
+
   ngOnDestroy(): void { }
 }

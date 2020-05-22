@@ -218,3 +218,11 @@ nav.customeNav {
     width: 20%;
   }
 }
+.msg {
+  font-size: 22px;
+  padding: 10px;
+}
+
+.contact-email {
+  font-size: 16px;
+}
