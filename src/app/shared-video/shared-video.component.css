@@ -197,7 +197,7 @@ nav.customeNav {
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .mainTemplate {
-    padding: 10px 10px 140px;
+    padding: 10px 15px 140px;
     display: flex;
     flex-direction: column-reverse;
   }
