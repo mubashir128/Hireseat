@@ -20,6 +20,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   currentResume: any;
   questionsByRecruiter: any;
   resume: any;
+  isTokenValid: boolean;
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
@@ -32,24 +33,32 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
     this.checkSharedTokenSubscription = this.sharedVideoService.checkSharedToken(this.token).subscribe((res) => {
       if (res) {
-        console.log(res);
+        // console.log(res);
         this.currentResume = res.bidData[0];
         this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
         this.resume = this.currentResume.resumeKey;
-        console.log(this.resume);
+        // console.log(this.resume);
         this.videoURL = res.videoUrl;
+        this.isTokenValid = true;
       }
+    }, err => {
+      // console.log(err, '***************************look up*********************');
+      this.isTokenValid = false;
+
     });
   }
   ngAfterViewInit() {
     // instantiate Video.js
-    if (this.videoURL) {
+    if (this.videoURL && this.isTokenValid) {
       this.player = videojs(this.target.nativeElement, {
         autoplay: true,
         controlls: true
       }, () => {
         // console.log('onPlayerReady', this);
       });
+    } else {
+      console.log('token is not valid');
+
     }
 
   }

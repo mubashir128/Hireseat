@@ -1,9 +1,14 @@
-body {
+/* body {
   margin: 0 auto;
   background-color: #f5f5f5;
-}
+} */
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+@import '~video.js/dist/video-js.css';
 .mainTemplate {
   padding: 0 150px;
+  overflow: scroll;
+  width: 100%;
+  height: calc(100vh - 64px);
 }
 .interviewVideoDiv {
   width: 100%;
@@ -24,9 +29,9 @@ body {
   height: 100%;
 }
 .video-js {
-  width: 100%;
-  height: 100%;
-  outline: none;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none !important;
 }
 .ListResume {
   list-style: none;
@@ -125,9 +130,9 @@ ul:not(.browser-default) > li {
   font-weight: 600;
 }
 .video-js {
-  width: 100%;
-  height: 100%;
-  outline: none;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none !important;
 }
 .video-interview {
   width: 60%;
@@ -155,9 +160,9 @@ nav.customeNav {
   border-bottom: 0px solid #34aafd;
 }
 .footer {
-  position: fixed;
+  /* position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: 0; */
   width: 100%;
   background-color: #fff;
   color: white;
@@ -166,4 +171,16 @@ nav.customeNav {
 .link {
   color: #34aafd;
   cursor: pointer;
+}
+.invalid-token-container {
+  width: 100%;
+  height: calc(100vh - 250px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.singleList {
+  border-radius: 0px !important;
+  margin-top: 10px !important;
 }
