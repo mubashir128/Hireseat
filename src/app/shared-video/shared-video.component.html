@@ -1,122 +1,122 @@
 <div class="mainPageBg">
-<ng-container>
-  <nav style="background:#E9F4FF;" class="customeNav">
-    <div class="nav-wrapper container">
-      <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
-          style="vertical-align:middle;" /></a>
-    </div>
-  </nav>
-</ng-container>
-<ng-container *ngIf="isTokenValid">
-  <div class="mainTemplate">
-    <ng-container>
-      <div class="interviewVideoDiv stickyDiv">
-        <div class="leftSideQuetion" *ngIf="currentResume?.resumeKey?.questionsByRecruiter[0]">
-          <h2>Jump to below interview questions</h2>
-
-          <div class="interviewQue">
-            <h4><a [ngClass]="questionNumber === 1 ? 'interview-bold':false"
-                (click)="setCurrentTime(questionsByRecruiter.timeStamp1,1)">
-                {{questionsByRecruiter.question1}}</a>
-            </h4>
-            <h4><a [ngClass]="questionNumber === 2 ? 'interview-bold':false"
-                (click)="setCurrentTime(questionsByRecruiter.timeStamp2,2)">
-                {{questionsByRecruiter.question2}}</a>
-            </h4>
-            <h4><a [ngClass]="questionNumber === 3 ? 'interview-bold':false"
-                (click)="setCurrentTime(questionsByRecruiter.timeStamp3,3)">
-                {{questionsByRecruiter.question3}}</a>
-            </h4>
-            <h4><a [ngClass]="questionNumber === 4 ? 'interview-bold':false"
-                (click)="setCurrentTime(questionsByRecruiter.timeStamp4,4)">
-                {{questionsByRecruiter.question4}}</a>
-            </h4>
-            <h4><a [ngClass]="questionNumber === 5 ? 'interview-bold':false"
-                (click)="setCurrentTime(questionsByRecruiter.timeStamp5,5)">
-                {{questionsByRecruiter.question5}}</a>
-            </h4>
-          </div>
-
-        </div>
-        <!-- video js -->
-        <div class="video-interview"
-          [ngClass]="!currentResume?.resumeKey?.questionsByRecruiter[0]? 'video-js-without-questions': false">
-          <video #target class="video-js" controls>
-            <source [src]="videoURL">
-          </video>
-        </div>
+  <ng-container>
+    <nav style="background:#E9F4FF;" class="customeNav">
+      <div class="nav-wrapper container">
+        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
+            style="vertical-align:middle;" /></a>
       </div>
-    </ng-container>
-    <div class="ListResume">
-      <!-- <ul class="ListResume"> -->
-      <!-- other li div -->
-      <!-- <li> -->
-      <div class="singleList employerResume resumeSingleList">
-        <div class="docSectionBtns">
-          <div class="candidate-name">
-            <span>
-              {{resume?.candidateName}}
-            </span>
+    </nav>
+  </ng-container>
+  <ng-container *ngIf="isTokenValid">
+    <div class="mainTemplate">
+      <ng-container>
+        <div class="interviewVideoDiv stickyDiv">
+          <div class="leftSideQuetion" *ngIf="currentResume?.resumeKey?.questionsByRecruiter[0]">
+            <h2>Jump to below interview questions</h2>
+
+            <div class="interviewQue">
+              <h4><a [ngClass]="questionNumber === 1 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp1,1)">
+                  {{questionsByRecruiter.question1}}</a>
+              </h4>
+              <h4><a [ngClass]="questionNumber === 2 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp2,2)">
+                  {{questionsByRecruiter.question2}}</a>
+              </h4>
+              <h4><a [ngClass]="questionNumber === 3 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp3,3)">
+                  {{questionsByRecruiter.question3}}</a>
+              </h4>
+              <h4><a [ngClass]="questionNumber === 4 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp4,4)">
+                  {{questionsByRecruiter.question4}}</a>
+              </h4>
+              <h4><a [ngClass]="questionNumber === 5 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp5,5)">
+                  {{questionsByRecruiter.question5}}</a>
+              </h4>
+            </div>
+
           </div>
-          <div>
-            <button class="downloadResume">
-              <a [attr.href]="transform(resume?.fileURL)" target="_blank" download>
-                <i class="fa fa-cloud-download" aria-hidden="true"></i>Download Resume
-              </a>
-            </button>
+          <!-- video js -->
+          <div class="video-interview"
+            [ngClass]="!currentResume?.resumeKey?.questionsByRecruiter[0]? 'video-js-without-questions': false">
+            <video #target class="video-js" controls>
+              <source [src]="videoURL">
+            </video>
           </div>
         </div>
-        <div class="singleListData">
-          <div class="PointsDiv commonSingleInner">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <img src="assets/img/checkIcon.png" class="green-tick" />
-
-              <h4>{{ currentResume.StrongPoint1 }}</h4>
-
+      </ng-container>
+      <div class="ListResume">
+        <!-- <ul class="ListResume"> -->
+        <!-- other li div -->
+        <!-- <li> -->
+        <div class="singleList employerResume resumeSingleList">
+          <div class="docSectionBtns">
+            <div class="candidate-name">
+              <span>
+                {{resume?.candidateName}}
+              </span>
             </div>
-            <div class="PointsDivSingle PointsDivSingleN">
-              <img src="assets/img/checkIcon.png" class="green-tick" />
-
-              <h4>{{ currentResume.StrongPoint2}}</h4>
-
-            </div>
-            <div class="PointsDivSingle PointsDivSingleN">
-              <img src="assets/img/checkIcon.png" class="green-tick" />
-
-              <h4>{{ currentResume.StrongPoint3 }}</h4>
-
+            <div>
+              <button class="downloadResume">
+                <a [attr.href]="transform(resume?.fileURL)" target="_blank" download>
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>Download Resume
+                </a>
+              </button>
             </div>
           </div>
+          <div class="singleListData">
+            <div class="PointsDiv commonSingleInner">
+              <div class="PointsDivSingle PointsDivSingleN">
+                <img src="assets/img/checkIcon.png" class="green-tick" />
 
+                <h4>{{ currentResume.StrongPoint1 }}</h4>
+
+              </div>
+              <div class="PointsDivSingle PointsDivSingleN">
+                <img src="assets/img/checkIcon.png" class="green-tick" />
+
+                <h4>{{ currentResume.StrongPoint2}}</h4>
+
+              </div>
+              <div class="PointsDivSingle PointsDivSingleN">
+                <img src="assets/img/checkIcon.png" class="green-tick" />
+
+                <h4>{{ currentResume.StrongPoint3 }}</h4>
+
+              </div>
+            </div>
+
+          </div>
         </div>
+        <!-- </li> -->
+        <!-- </ul> -->
       </div>
-      <!-- </li> -->
-      <!-- </ul> -->
     </div>
-  </div>
-</ng-container>
-<ng-container *ngIf="!isTokenValid">
-  <div class="invalid-token-container">
-    <span class="msg">
-      This link is expired. It was only valid for 24 hours. Contact your Recruiter for another link.
-    </span>
-    <span>
-      <span class="contact-email">
-        - contact@hireseat.com
+  </ng-container>
+  <ng-container *ngIf="!isTokenValid">
+    <div class="invalid-token-container">
+      <span class="msg">
+        This link is expired. It was only valid for 24 hours. Contact your Recruiter for another link.
       </span>
+      <span>
+        <span class="contact-email">
+          - contact@hireseat.com
+        </span>
 
-    </span>
-    <div class="logo-section">
-      <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
-          style="vertical-align:middle;" /></a>
+      </span>
+      <div class="logo-section">
+        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
+            style="vertical-align:middle;" /></a>
+      </div>
     </div>
+  </ng-container>
+  <div class="footer">
+    <a [routerLink]="['/']" class="brand-logo footerLogo"><img src="assets/img/HSfooterLogo.png"
+        style="vertical-align:middle;" /></a>
+    <a [routerLink]="['/']" class="link">
+      www.hireseat.com
+    </a>
   </div>
-</ng-container>
-<div class="footer">
-  <a [routerLink]="['/']" class="brand-logo footerLogo"><img src="assets/img/HSfooterLogo.png"
-      style="vertical-align:middle;" /></a>
-  <a [routerLink]="['/']" class="link">
-    www.hireseat.com
-  </a>
-</div>
 </div>

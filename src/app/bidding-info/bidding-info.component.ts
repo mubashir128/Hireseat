@@ -89,11 +89,12 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
   currentResume: any;
   questionsByRecruiter: any;
   questionNumber: any;
-  recipientEmail: any;
   shareResume: any;
   shareBiddingEvent: any;
   shareableVideoURL: any;
-
+  recipientEmail: any;
+  cc: any;
+  bcc: any;
   constructor(
     private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
     private bidService: BidService, private router: Router, private bidEventService: BiddingEventService,
@@ -586,6 +587,8 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
         employerId: this.loggedUser._id,
         bidId: resume._id,
         recipientEmail: this.recipientEmail,
+        cc: this.cc,
+        bcc: this.bcc,
         videoUrl: this.shareableVideoURL,
         fullName: resume.resumeKey.candidateName,
         subject: subject,
