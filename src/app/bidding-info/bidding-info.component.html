@@ -283,7 +283,17 @@
   <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
   <div class="emailTemp">
     <div class="form-group posRel">
-      <input type="text" class="form-control inputComm" placeholder="Enter an email id" [(ngModel)]="recipientEmail">
+      <p class="hideBtn"><a href="#">Hide CC / BCC</a></p>
+      <label>To </label>
+      <input type="text" class="form-control inputComm" [(ngModel)]="recipientEmail">
+    </div>
+    <div class="form-group posRel">
+      <label>CC </label>
+      <input type="text" class="form-control inputComm" [(ngModel)]="recipientEmail">
+    </div>
+    <div class="form-group posRel">
+      <label>BCC </label>
+      <input type="text" class="form-control inputComm" [(ngModel)]="recipientEmail">
     </div>
     <div class="form-group textRight">
       <button class="sendBtn" (click)="sendVideo()">SEND</button>
