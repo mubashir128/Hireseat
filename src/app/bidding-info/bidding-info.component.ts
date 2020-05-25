@@ -611,6 +611,11 @@ export class BiddingInfoComponent implements AfterViewInit, OnChanges, OnDestroy
     }
 
   }
+  numberWithCommas(x) {
+    if (x != null) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  }
   // END share process
   ngOnDestroy(): void {
     // destroy player

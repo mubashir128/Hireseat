@@ -201,7 +201,7 @@
             </div>
             <div class="docDiv">
               <h4 [ngClass]="selectedIndex === i ? 'color-white':false"><span>Recruiter
-                  Cost: </span> ${{ resume?.RecruiterCost }}</h4>
+                  Cost: </span> $ {{numberWithCommas(resume?.RecruiterCost)}}</h4>
             </div>
           </div>
         </div>

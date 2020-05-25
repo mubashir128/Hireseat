@@ -108,7 +108,7 @@ export class CreateJobProfileComponent implements OnInit {
 
   onSubmit() {
     if (this.jobProfileFrm.valid) {
-      this.spinner.show();  
+      this.spinner.show();
       this.bidEventService.createJobProfile(this.jp).subscribe((data: any) => {
         if (data.result === "inserted") {
           Materialize.toast('Job Profile Created Successfully', 1000)
@@ -152,16 +152,16 @@ export class CreateJobProfileComponent implements OnInit {
   onChange(event){
     this.jp.jobDescription;
   }
-   // Validation of salary 
+   // Validation of salary
    checkSalary(group: FormGroup) {
     let fromSalary = group.controls.salaryFrom.value;
     let toSalary = group.controls.salaryTo.value;
-    return Number(fromSalary) <= Number(toSalary) ? null : { invalidSalary: true }     
+    return Number(fromSalary) <= Number(toSalary) ? null : { invalidSalary: true }
   }
-  // Validation of reward Money 
+  // Validation of reward Money
 checkExperience(group: FormGroup) {
   let fromExperience = group.controls.experienceFrom.value;
   let toExperience = group.controls.experienceTo.value;
-  return Number(fromExperience) <= Number(toExperience) ? null : { invalidExperience: true }     
+  return Number(fromExperience) <= Number(toExperience) ? null : { invalidExperience: true }
 }
 }
