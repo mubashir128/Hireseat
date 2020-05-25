@@ -22,7 +22,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   questionsByRecruiter: any;
   resume: any;
 
-  isTokenValid = true;
+  isTokenValid = false;
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
