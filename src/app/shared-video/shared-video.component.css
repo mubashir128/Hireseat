@@ -203,7 +203,6 @@ nav.customeNav {
     display: flex;
     flex-direction: column-reverse;
   }
-
   .interviewVideoDiv {
     display: flex;
     flex-direction: column-reverse;
@@ -213,6 +212,7 @@ nav.customeNav {
   }
   .video-interview {
     width: 100%;
+    height: 260px !important;
   }
   .commonSingleInner {
     width: 100% !important;
