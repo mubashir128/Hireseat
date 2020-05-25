@@ -4,6 +4,7 @@ import { ShareVideoService } from '../_services/share-video.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-shared-video',
@@ -20,15 +21,18 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   currentResume: any;
   questionsByRecruiter: any;
   resume: any;
-  isTokenValid: boolean;
+
+  isTokenValid = true;
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
     private activatedRoute: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
 
     this.checkSharedTokenSubscription = this.sharedVideoService.checkSharedToken(this.token).subscribe((res) => {
@@ -40,24 +44,35 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
         // console.log(this.resume);
         this.videoURL = res.videoUrl;
         this.isTokenValid = true;
+        this.spinner.hide();
       }
     }, err => {
       // console.log(err, '***************************look up*********************');
       this.isTokenValid = false;
-
+      this.spinner.hide();
     });
   }
+
   ngAfterViewInit() {
     // instantiate Video.js
     if (this.videoURL && this.isTokenValid) {
+      this.spinner.show();
+
       this.player = videojs(this.target.nativeElement, {
         autoplay: true,
         controlls: true
       }, () => {
+        this.spinner.hide();
+
         // console.log('onPlayerReady', this);
+      }, err => {
+        console.log('*************', err);
+        this.spinner.hide();
+
       });
     } else {
       console.log('token is not valid');
+      this.spinner.hide();
 
     }
 
@@ -79,5 +94,6 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     }
 
   }
+
   ngOnDestroy(): void { }
 }
