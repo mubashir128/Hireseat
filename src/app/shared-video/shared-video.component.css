@@ -17,6 +17,10 @@
   min-height: calc(100vh - 134px);
   /* position: relative; */
 }
+.mainTempExpire{
+  padding: 20px 150px;
+  height: calc(100vh - 134px);
+} 
 .interviewVideoDiv {
   width: 100%;
   float: left;
@@ -164,10 +168,23 @@ ul:not(.browser-default) > li {
   background-color: #fff;
   color: white;
   text-align: center;
+  box-shadow: 0px 1px 10px #3e3e3e14;
   /* position: absolute;
   bottom: 0;
   left: 0; */
 }
+.invalid-token-container h2 {
+  font-size: 22px;
+  font-weight: bold;
+    color: #000000;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.invalid-token-container .contact-email h2 {
+  font-size: 21px;
+}
+
 @media only screen and (min-width: 990px) and (max-width: 1250px) {
   .nav-wrapper.container {
     width: 100% !important;
@@ -183,6 +200,7 @@ ul:not(.browser-default) > li {
   width: 100% !important;
   display: flex;
   justify-content: center;
+  box-shadow: 0px 1px 10px #3e3e3e14;
 }
 nav.customeNav {
   background: #fff !important;
@@ -201,11 +219,15 @@ nav.customeNav {
 }
 .invalid-token-container {
   width: 100%;
-  height: calc(100vh - 250px);
+  height: 100%;
+  /* height: calc(100vh - 250px); */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 30px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px #16161612;
 }
 .singleList {
   border-radius: 0px !important;
@@ -218,6 +240,10 @@ nav.customeNav {
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-end;
+    min-height: calc(100vh - 112px);
+  }
+  .mainTempExpire{
+    padding: 20px 15px;
     min-height: calc(100vh - 112px);
   }
   .interviewVideoDiv {
@@ -245,6 +271,15 @@ nav.customeNav {
     font-size: 15px;
     margin: 25px 0;
   }
+  .docSectionBtns button {
+    font-size: 13px !important;
+    min-width: 100px !important;
+    margin: 0 0 0 10px !important;
+    padding: 5px 10px !important;
+}
+  .PointsDivSingle h4 {
+    font-size: 14px;
+  }
   .singleList.employerResume {
     margin-bottom: 20px;
     margin-top: 0 !important;
@@ -252,12 +287,14 @@ nav.customeNav {
   .footer {
     height: 56px;
   }
-}
-.msg {
-  font-size: 22px;
-  padding: 10px;
-}
-
-.contact-email {
-  font-size: 16px;
+  .mainTempExpire .brand-logo img{
+    width: 100%;
+  }
+  .invalid-token-container h2 {
+    font-size: 19px !important;
+    margin: 10px 0 !important;
+  }
+  .contact-email h2{
+    font-size: 18px !important;
+  }
 }
