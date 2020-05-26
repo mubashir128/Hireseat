@@ -250,6 +250,8 @@ export class ResumeItemComponent implements OnInit, OnChanges {
     jQuery("#shareEmailPopUp").modal("close");
   }
   share = async (resume) => {
+    console.log('sharing the resume');
+
     const subject =
       "Hireseat" +
       " - " +
