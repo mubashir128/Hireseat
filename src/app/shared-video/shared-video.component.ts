@@ -23,6 +23,9 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   resume: any;
 
   isTokenValid = false;
+  isShareFromRecruiter: boolean;
+  isQuestion: boolean;
+  comments: any;
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
@@ -38,13 +41,29 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     this.checkSharedTokenSubscription = this.sharedVideoService.checkSharedToken(this.token).subscribe((res) => {
       if (res) {
         // console.log(res);
-        this.currentResume = res.bidData[0];
-        this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
-        this.resume = this.currentResume.resumeKey;
-        // console.log(this.resume);
-        this.videoURL = res.videoUrl;
-        this.isTokenValid = true;
-        this.spinner.hide();
+        if (res.from === 'recruiter') {
+          this.isShareFromRecruiter = true;
+          this.isTokenValid = true;
+          this.resume = res.resumeData[0];
+          this.videoURL = res.videoUrl;
+          this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
+          this.comments = this.resume.comments;
+          if (this.questionsByRecruiter.lenghth <= 0) {
+            this.isQuestion = false;
+          }
+        } else if (res.from === 'employer') {
+          this.isShareFromRecruiter = false;
+          this.currentResume = res.bidData[0];
+          this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
+          if (this.questionsByRecruiter.lenghth <= 0) {
+            this.isQuestion = false;
+          }
+          this.resume = this.currentResume.resumeKey;
+          // console.log(this.resume);
+          this.videoURL = res.videoUrl;
+          this.isTokenValid = true;
+          this.spinner.hide();
+        }
       }
     }, err => {
       // console.log(err, '***************************look up*********************');

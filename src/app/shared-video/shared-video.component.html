@@ -40,7 +40,7 @@
           </div>
           <!-- video js -->
           <div class="video-interview"
-            [ngClass]="!currentResume?.resumeKey?.questionsByRecruiter[0]? 'video-js-without-questions': false">
+            [ngClass]="!resume?.questionsByRecruiter[0]? 'video-js-without-questions': false">
             <video #target class="video-js" controls>
               <source [src]="videoURL">
             </video>
@@ -66,29 +66,46 @@
               </button>
             </div>
           </div>
-          <div class="singleListData">
-            <div class="PointsDiv commonSingleInner">
-              <div class="PointsDivSingle PointsDivSingleN">
-                <img src="assets/img/checkIcon.png" class="green-tick" />
+          <ng-container *ngIf="!isShareFromRecruiter">
 
-                <h4>{{ currentResume.StrongPoint1 }}</h4>
+            <div class="singleListData">
+              <div class="PointsDiv commonSingleInner">
+                <div class="PointsDivSingle PointsDivSingleN">
+                  <img src="assets/img/checkIcon.png" class="green-tick" />
 
+                  <h4>{{ currentResume.StrongPoint1 }}</h4>
+
+                </div>
+                <div class="PointsDivSingle PointsDivSingleN">
+                  <img src="assets/img/checkIcon.png" class="green-tick" />
+
+                  <h4>{{ currentResume.StrongPoint2}}</h4>
+
+                </div>
+                <div class="PointsDivSingle PointsDivSingleN">
+                  <img src="assets/img/checkIcon.png" class="green-tick" />
+
+                  <h4>{{ currentResume.StrongPoint3 }}</h4>
+
+                </div>
               </div>
-              <div class="PointsDivSingle PointsDivSingleN">
-                <img src="assets/img/checkIcon.png" class="green-tick" />
 
-                <h4>{{ currentResume.StrongPoint2}}</h4>
-
-              </div>
-              <div class="PointsDivSingle PointsDivSingleN">
-                <img src="assets/img/checkIcon.png" class="green-tick" />
-
-                <h4>{{ currentResume.StrongPoint3 }}</h4>
-
-              </div>
             </div>
+          </ng-container>
+          <ng-container *ngIf="isShareFromRecruiter">
+            <div class="singleListData">
+              <div class="PointsDiv commonSingleInner">
+                <div class="PointsDivSingle PointsDivSingleN">
 
-          </div>
+                  <h4>{{ comments }}</h4>
+
+                </div>
+
+              </div>
+
+            </div>
+          </ng-container>
+
         </div>
         <!-- </li> -->
         <!-- </ul> -->

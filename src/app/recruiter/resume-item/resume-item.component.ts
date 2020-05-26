@@ -55,7 +55,7 @@ export class ResumeItemComponent implements OnInit, OnChanges {
     private shareVideoService: ShareVideoService
   ) {
     this.loggedUser = this.userService.getUserData();
-    console.log(this.loggedUser);
+    // console.log(this.loggedUser);
   }
 
   ngOnInit() {

@@ -241,3 +241,7 @@ nav.customeNav {
 .contact-email {
   font-size: 16px;
 }
+.video-js-without-questions {
+  width: 100% !important;
+  height: 100% !important;
+}
