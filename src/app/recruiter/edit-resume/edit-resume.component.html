@@ -1,44 +1,79 @@
-<div class="newResume" style="padding:30px;">
-  <a (click)="goBack()"> <i class="material-icons left resume-repository-click">chevron_left</i>
+<div class="newResume" style="padding: 30px;">
+  <a (click)="goBack()">
+    <i class="material-icons left resume-repository-click">chevron_left</i>
     <span class="resume-repository-click">
       Resume Repository
     </span>
   </a>
-  <div class="card white" style="margin-top:30px;">
-    <div style="padding:20px; border-bottom: solid #e0e0e0 1px;">
-      <div class="section-header"> Edit Resume </div>
+  <div class="card white" style="margin-top: 30px;">
+    <div style="padding: 20px; border-bottom: solid #e0e0e0 1px;">
+      <div class="section-header">Edit Resume</div>
     </div>
     <form [formGroup]="editResumeFrm" (ngSubmit)="submit()" novalidate>
-      <div style=" width:100%; margin-bottom:0px;">
+      <div style="width: 100%; margin-bottom: 0px;">
         <div class="buttonsDiv">
-
           <!-- <div class="button" (click)="questionsPopUp()">
             Add Questions
           </div> -->
           <div class="btn-primary" (click)="questionConfirmPopup()">
             <span>Add questions</span>
           </div>
-          <div class="btn-secondary" *ngIf="!resume?.bookmark" (click)="bookmarkCandidate(true)">
+          <div
+            class="btn-secondary"
+            *ngIf="!resume?.bookmark"
+            (click)="bookmarkCandidate(true)"
+          >
             <span>Bookmark</span>
           </div>
-          <div class="btn-secondary" *ngIf="resume?.bookmark" (click)="bookmarkCandidate(false)">
+          <div
+            class="btn-secondary"
+            *ngIf="resume?.bookmark"
+            (click)="bookmarkCandidate(false)"
+          >
             <span>Bookmarked</span>
           </div>
         </div>
         <div class="editResumeupperDiv">
           <ng-container *ngIf="!videoURl">
-            <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
-              [url]="downloadURL"></app-pdf-viewer>
+            <app-pdf-viewer
+              style="
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+              "
+              *ngIf="fileUploaded === 2"
+              [url]="downloadURL"
+            ></app-pdf-viewer>
           </ng-container>
-          <div *ngIf="videoURl" id="resume-preview" class="wid100 center-align resumePriviewDiv">
-            <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
-              [url]="downloadURL"></app-pdf-viewer>
+          <div
+            *ngIf="videoURl"
+            id="resume-preview"
+            class="wid100 center-align resumePriviewDiv"
+          >
+            <app-pdf-viewer
+              style="
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+              "
+              *ngIf="fileUploaded === 2"
+              [url]="downloadURL"
+            ></app-pdf-viewer>
 
-            <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text "
-              *ngIf="fileUploaded===0" style="display:table;">
-              <div class="uploadBtn" style="display:table-cell;">
+            <div
+              class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+              *ngIf="fileUploaded === 0"
+              style="display: table;"
+            >
+              <div class="uploadBtn" style="display: table-cell;">
                 <span>Upload Resume</span>
-                <input type="file" (change)="fileChange($event)">
+                <input type="file" (change)="fileChange($event)" />
               </div>
             </div>
             <!-- <div *ngIf="fileUploaded===1" class="progress">
@@ -48,8 +83,18 @@
 
           <div class="upperVideo" *ngIf="videoURl">
             <!-- <iframe [src]="videoURl | safePdf"></iframe> -->
-            <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
-              [url]="videoURl"></app-pdf-viewer>
+            <app-pdf-viewer
+              style="
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+              "
+              *ngIf="fileUploaded === 2"
+              [url]="videoURl"
+            ></app-pdf-viewer>
           </div>
         </div>
         <ng-container *ngIf="videoURl">
@@ -60,228 +105,379 @@
                 Recruiter Review
               </span>
             </div>
-            <textarea rows="3" class="RecriterComment">{{resume['recruiterReview'][0].review}}</textarea>
+            <textarea rows="3" class="RecriterComment">{{
+              resume["recruiterReview"][0]["review"]
+            }}</textarea>
           </div>
-
         </ng-container>
 
-        <div class="NewResumeForm" id="resume-info"
-          style=" border-left: solid #e0e0e0 1px;  width:100%; min-height:500px; padding:15px;">
-          <div class="row" style="margin-bottom:0px;">
+        <div
+          class="NewResumeForm"
+          id="resume-info"
+          style="
+            border-left: solid #e0e0e0 1px;
+            width: 100%;
+            min-height: 500px;
+            padding: 15px;
+          "
+        >
+          <div class="row" style="margin-bottom: 0px;">
             <div class="input-field col s6 m6 l6">
-              <div> <i class="fa fa-user" aria-hidden="true"></i>
+              <div>
+                <i class="fa fa-user" aria-hidden="true"></i>
                 <span class="resume-subtitle">
                   Candidate Name*
                 </span>
               </div>
-              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.candidateName"
-                formControlName="candidateName">
-              <div *ngIf="(f.candidateName.touched && f.candidateName.errors)" class="invalid-feedback" class="error">
-                <div *ngIf="f.candidateName.errors.required">Candidate Name is required</div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                [(ngModel)]="resume.candidateName"
+                formControlName="candidateName"
+              />
+              <div
+                *ngIf="f.candidateName.touched && f.candidateName.errors"
+                class="invalid-feedback"
+                class="error"
+              >
+                <div *ngIf="f.candidateName.errors.required">
+                  Candidate Name is required
+                </div>
               </div>
             </div>
             <div class="input-field col s6 m6 l6">
-              <div><i class="fa fa-lock" aria-hidden="true"></i>
+              <div>
+                <i class="fa fa-lock" aria-hidden="true"></i>
                 <span class="resume-subtitle">
                   Social Security Number* (Last four digits)
                 </span>
               </div>
-              <input id="social-security-num" type="text" class="validate" name="resume.socialSecurityNum"
-                [(ngModel)]="resume.socialSecurityNum" formControlName="socialSecurityNum">
-              <div *ngIf="(f.socialSecurityNum.touched && f.socialSecurityNum.errors)" class="invalid-feedback"
-                class="error">
-                <div *ngIf="f.socialSecurityNum.errors.required">Social Security Number is required
+              <input
+                id="social-security-num"
+                type="text"
+                class="validate"
+                name="resume.socialSecurityNum"
+                [(ngModel)]="resume.socialSecurityNum"
+                formControlName="socialSecurityNum"
+              />
+              <div
+                *ngIf="
+                  f.socialSecurityNum.touched && f.socialSecurityNum.errors
+                "
+                class="invalid-feedback"
+                class="error"
+              >
+                <div *ngIf="f.socialSecurityNum.errors.required">
+                  Social Security Number is required
                 </div>
-                <div *ngIf="f.socialSecurityNum.errors.pattern">Numbers Only</div>
+                <div *ngIf="f.socialSecurityNum.errors.pattern">
+                  Numbers Only
+                </div>
               </div>
               <div class="error" *ngIf="f.socialSecurityNum.errors?.maxlength">
                 4 Digits Only
               </div>
             </div>
             <div class="input-field col s6 m6 l6">
-              <div><i class="fa fa-briefcase" aria-hidden="true"></i>
+              <div>
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
                 <span class="resume-subtitle">
                   Job Title
                 </span>
               </div>
-              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.jobTitle"
-                formControlName="jobTitle">
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                [(ngModel)]="resume.jobTitle"
+                formControlName="jobTitle"
+              />
             </div>
             <div class="input-field col s6 m6 l6">
-              <div><i class="fa fa-envelope" aria-hidden="true"></i>
+              <div>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span class="resume-subtitle">
-
                   Email
                 </span>
               </div>
-              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.email"
-                formControlName="email">
-
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                [(ngModel)]="resume.email"
+                formControlName="email"
+              />
             </div>
             <div class="input-field col s6 m6 l6">
-              <div><i class="fa fa-phone" aria-hidden="true"></i>
+              <div>
+                <i class="fa fa-phone" aria-hidden="true"></i>
                 <span class="resume-subtitle">
                   Phone NO.
                 </span>
               </div>
-              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.phoneNumber"
-                formControlName="phoneNumber">
-
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                [(ngModel)]="resume.phoneNumber"
+                formControlName="phoneNumber"
+              />
             </div>
             <div class="input-field col s6 m6 l6">
-              <div><i class="fa fa-map-marker" aria-hidden="true"></i>
+              <div>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span class="resume-subtitle">
                   Location
                 </span>
               </div>
-              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.location"
-                formControlName="location">
-
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                [(ngModel)]="resume.location"
+                formControlName="location"
+              />
             </div>
             <div class="input-field col s12 m12 l12">
-              <div><i class="fa fa-users" aria-hidden="true"></i>
+              <div>
+                <i class="fa fa-users" aria-hidden="true"></i>
                 <span class="resume-subtitle">
                   Current and Previous Employer
                 </span>
               </div>
               <div class="row">
                 <div class="input-field col s6 m6 l6">
-                  <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.Employers1"
-                    formControlName="Employers1" placeholder="Employer 1">
+                  <input
+                    id="candidate-name"
+                    type="text"
+                    class="validate"
+                    [(ngModel)]="resume.Employers1"
+                    formControlName="Employers1"
+                    placeholder="Employer 1"
+                  />
                 </div>
                 <div class="input-field col s6 m6 l6">
-                  <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.Employers2"
-                    formControlName="Employers2" placeholder="Employer 2">
+                  <input
+                    id="candidate-name"
+                    type="text"
+                    class="validate"
+                    [(ngModel)]="resume.Employers2"
+                    formControlName="Employers2"
+                    placeholder="Employer 2"
+                  />
                 </div>
               </div>
-
             </div>
             <div class="input-field col s6 m6 l6">
-              <div><i class="fa fa-archive" aria-hidden="true"></i>
+              <div>
+                <i class="fa fa-archive" aria-hidden="true"></i>
                 <span class="resume-subtitle">
                   Skills
                 </span>
               </div>
-              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.skills"
-                formControlName="skills">
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                [(ngModel)]="resume.skills"
+                formControlName="skills"
+              />
               <span class="note">
-                <span style="color: #f58e8e;">Note</span> : Enter Comma-separated values
+                <span style="color: #f58e8e;">Note</span> : Enter
+                Comma-separated values
               </span>
             </div>
             <div class="input-field col s6 m6 l6">
-              <div><i class="fa fa-linkedin-square" aria-hidden="true"></i>
+              <div>
+                <i class="fa fa-linkedin-square" aria-hidden="true"></i>
                 <span class="resume-subtitle">
                   Linked In
                 </span>
               </div>
-              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resume.linkedIn"
-                formControlName="linkedIn">
-
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                [(ngModel)]="resume.linkedIn"
+                formControlName="linkedIn"
+              />
             </div>
             <div class="input-field col s12 m12 l12 iv">
               <div class="subTitle">
                 <span class="resume-subtitle">
                   Referrals
                 </span>
-
               </div>
               <div class="row">
                 <div class="input-field col s12 m12 l12">
-                  <div><i class="fa fa-address-card" aria-hidden="true"></i>
+                  <div>
+                    <i class="fa fa-address-card" aria-hidden="true"></i>
                     <span class="resume-subtitle">
                       Referrals 1
                     </span>
                   </div>
                   <div class="row">
                     <div class="input-field col s6 m6 l6">
-                      <input id="candidate-name" type="text" class="validate" formControlName="referralJobTitle1"
-                        [(ngModel)]="resume.referralJobTitle1" placeholder="Job Title">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralJobTitle1"
+                        [(ngModel)]="resume.referralJobTitle1"
+                        placeholder="Job Title"
+                      />
                     </div>
                     <div class="input-field col s6 m6 l6">
-                      <input id="candidate-name" type="text" class="validate" formControlName="referralEmail1"
-                        [(ngModel)]="resume.referralEmail1" placeholder="Email">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralEmail1"
+                        [(ngModel)]="resume.referralEmail1"
+                        placeholder="Email"
+                      />
                     </div>
                     <div class="input-field col s6 m6 l6">
-                      <input id="candidate-name" type="text" class="validate" formControlName="referralPhoneNumber1"
-                        [(ngModel)]="resume.referralPhoneNumber1" placeholder="Phone No">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralPhoneNumber1"
+                        [(ngModel)]="resume.referralPhoneNumber1"
+                        placeholder="Phone No"
+                      />
                     </div>
                   </div>
-
                 </div>
                 <div class="input-field col s12 m12 l12">
-                  <div><i class="fa fa-address-card" aria-hidden="true"></i> <span class="resume-subtitle">
+                  <div>
+                    <i class="fa fa-address-card" aria-hidden="true"></i>
+                    <span class="resume-subtitle">
                       Referrals 2
-                    </span></div>
+                    </span>
+                  </div>
                   <div class="row">
                     <div class="input-field col s6 m6 l6">
-                      <input id="candidate-name" type="text" class="validate" formControlName="referralJobTitle2"
-                        [(ngModel)]="resume.referralJobTitle2" placeholder="Job Title">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralJobTitle2"
+                        [(ngModel)]="resume.referralJobTitle2"
+                        placeholder="Job Title"
+                      />
                     </div>
                     <div class="input-field col s6 m6 l6">
-                      <input id="candidate-name" type="text" class="validate" formControlName="referralEmail2"
-                        [(ngModel)]="resume.referralEmail2" placeholder="Email">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralEmail2"
+                        [(ngModel)]="resume.referralEmail2"
+                        placeholder="Email"
+                      />
                     </div>
                     <div class="input-field col s6 m6 l6">
-                      <input id="candidate-name" type="text" class="validate" formControlName="referralPhoneNumber2"
-                        [(ngModel)]="resume.referralPhoneNumber2" placeholder="Phone No">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralPhoneNumber2"
+                        [(ngModel)]="resume.referralPhoneNumber2"
+                        placeholder="Phone No"
+                      />
                     </div>
                   </div>
-
                 </div>
                 <div class="input-field col s12 m12 l12">
-                  <div><i class="fa fa-address-card" aria-hidden="true"></i>
+                  <div>
+                    <i class="fa fa-address-card" aria-hidden="true"></i>
                     <span class="resume-subtitle">
                       Referrals 3
                     </span>
                   </div>
                   <div class="row">
                     <div class="input-field col s6 m6 l6">
-                      <input id="candidate-name" type="text" class="validate" formControlName="referralJobTitle3"
-                        [(ngModel)]="resume.referralJobTitle3" placeholder="Job Title">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralJobTitle3"
+                        [(ngModel)]="resume.referralJobTitle3"
+                        placeholder="Job Title"
+                      />
                     </div>
                     <div class="input-field col s6 m6 l6">
-                      <input id="candidate-name" type="text" class="validate" formControlName="referralEmail3"
-                        [(ngModel)]="resume.referralEmail3" placeholder="Email">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralEmail3"
+                        [(ngModel)]="resume.referralEmail3"
+                        placeholder="Email"
+                      />
                     </div>
                     <div class="input-field col s6 m6 l6">
-                      <input id="candidate-name" type="text" class="validate" formControlName="referralPhoneNumber3"
-                        [(ngModel)]="resume.referralPhoneNumber3" placeholder="Phone No">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralPhoneNumber3"
+                        [(ngModel)]="resume.referralPhoneNumber3"
+                        placeholder="Phone No"
+                      />
                     </div>
                   </div>
-
                 </div>
               </div>
-
             </div>
             <div class="input-field col s12 m12 l12">
-              <div class="marB10"><i class="fa fa-comment" aria-hidden="true"></i>
+              <div class="marB10">
+                <i class="fa fa-comment" aria-hidden="true"></i>
                 <span class="resume-subtitle">
                   Comments :
-                </span> </div>
-              <textarea rows=4 formControlName="comments" [(ngModel)]="resume.comments"></textarea>
+                </span>
+              </div>
+              <textarea
+                rows="4"
+                formControlName="comments"
+                [(ngModel)]="resume.comments"
+              ></textarea>
             </div>
-
           </div>
         </div>
       </div>
       <div class="divider"></div>
-      <div class=" row center-align marB0" style="padding:15px;">
-        <a class="waves-effect waves-light btn-flat" (click)="goBack()">Cancel</a>
-        <button type="submit" class="waves-effect waves-light btn">Create</button>
+      <div class="row center-align marB0" style="padding: 15px;">
+        <a class="waves-effect waves-light btn-flat" (click)="goBack()"
+          >Cancel</a
+        >
+        <button type="submit" class="waves-effect waves-light btn">
+          Create
+        </button>
       </div>
     </form>
   </div>
-  <div class="card red-text" style="margin-top:30px; padding:30px;">
-    Please Note! To ensure that other recruiters do not reach out to your candidate,
-    please delete contact information from your candidate's resume before uploading.
+  <div class="card red-text" style="margin-top: 30px; padding: 30px;">
+    Please Note! To ensure that other recruiters do not reach out to your
+    candidate, please delete contact information from your candidate's resume
+    before uploading.
   </div>
 </div>
 
 <!--Submit pop up:START-->
-<div id="quesPop" class="modal videoModalMain forumPopMain forumMsgPopup addQuetionPopup">
-  <a (click)="closeQuestionConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+<div
+  id="quesPop"
+  class="modal videoModalMain forumPopMain forumMsgPopup addQuetionPopup"
+>
+  <a (click)="closeQuestionConfirmpopup()" class="videoCloseBtn"
+    ><i class="material-icons">close</i></a
+  >
   <div class="modal-content videoModalContent blueBord addQuetion">
-    <h4 class="slide-heading blueHeadng text-center"> Add Question Bookmarks/Time</h4>
+    <h4 class="slide-heading blueHeadng text-center">
+      Add Question Bookmarks/Time
+    </h4>
     <div class="modalBodyPop noBord">
       <!-- (ngSubmit)="onSubmitQuestions()" -->
       <form [formGroup]="QuestionsGroup" class="padd30">
@@ -289,13 +485,23 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 1 :</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" name="question" formControlName="question1">
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="question1"
+              />
             </div>
           </div>
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp1 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp1">
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="timeStamp1"
+              />
             </div>
           </div>
         </div>
@@ -303,14 +509,23 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 2 :</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" name="question" formControlName="question2">
-
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="question2"
+              />
             </div>
           </div>
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp2 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp2">
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="timeStamp2"
+              />
               <!-- <span *ngIf="QuestionsGroup.get('timeStamp2').invalid &&
               (QuestionsGroup.get('timeStamp2').dirty ||
               QuestionsGroup.get('timeStamp2').touched)">
@@ -323,13 +538,23 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 3 :</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" name="question" formControlName="question3">
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="question3"
+              />
             </div>
           </div>
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp3 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp3">
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="timeStamp3"
+              />
             </div>
           </div>
         </div>
@@ -338,13 +563,23 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 4 :</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" name="question" formControlName="question4">
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="question4"
+              />
             </div>
           </div>
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp4 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp4">
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="timeStamp4"
+              />
             </div>
           </div>
         </div>
@@ -353,21 +588,35 @@
           <div class="form-group formFeild">
             <label class="control-label" for="email">Question 5 :</label>
             <div class="inputDiv">
-              <input type="text" class="form-control questionInput" name="question" formControlName="question5">
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="question5"
+              />
             </div>
           </div>
           <div class="form-group formFeild">
             <label class="control-label" for="email">TimeStamp5 :</label>
             <div class="TimeStampInput">
-              <input type="text" class="form-control questionInput" name="question" formControlName="timeStamp5">
+              <input
+                type="text"
+                class="form-control questionInput"
+                name="question"
+                formControlName="timeStamp5"
+              />
             </div>
           </div>
         </div>
         <div class="popSubmitBtnDiv">
-          <button class="copy-link commButton marL10" (click)="onSubmitQuestions()">Submit</button>
+          <button
+            class="copy-link commButton marL10"
+            (click)="onSubmitQuestions()"
+          >
+            Submit
+          </button>
         </div>
       </form>
-
     </div>
   </div>
 </div>
