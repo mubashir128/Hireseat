@@ -14,30 +14,44 @@
 <div *ngIf="noResume">
         No Results to show
 </div> -->
-<div *ngIf="mode===0">
+<div *ngIf="mode === 0">
   <div class="right-align marT10">
-    <a class="waves-effect waves-light btn" [routerLink]="['/recruiter/new-resume']"> <i
-        class="material-icons left">add</i> New Resume</a>
+    <a
+      class="waves-effect waves-light btn"
+      [routerLink]="['/recruiter/new-resume']"
+    >
+      <i class="material-icons left">add</i> New Resume</a
+    >
   </div>
-  <div style="margin-top:15px;" *ngIf="!noResume">
+  <div style="margin-top: 15px;" *ngIf="!noResume">
     <ul class="resumeList">
-      <li *ngFor="let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }"
-        class="col s12 m12 l6 floatUns">
-        <app-resume-item [resume]="resume" (selectedForEdit)="editResume($event)"
-          (selectedForDelete)="deleteResume($event)"></app-resume-item>
+      <li
+        *ngFor="
+          let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }
+        "
+        class="col s12 m12 l6 floatUns"
+      >
+        <app-resume-item
+          [resume]="resume"
+          (selectedForEdit)="editResume($event)"
+          (selectedForDelete)="deleteResume($event)"
+        ></app-resume-item>
       </li>
     </ul>
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 </div>
-<div *ngIf="mode===1">
-  <app-edit-resume [resume]="selectedResume" (back)="comeBack()" (getAllResume)="getAllResume($event)">
+<div *ngIf="mode === 1">
+  <app-edit-resume
+    [resume]="selectedResume"
+    (back)="comeBack()"
+    (getAllResume)="getAllResume($event)"
+  >
   </app-edit-resume>
 </div>
 <div *ngIf="noResume">
   No Results to show
 </div>
-
 
 <div id="DeleteConfirm" class="modal">
   <div class="modal-content">
@@ -45,11 +59,17 @@
     <p class="bodyPara">Are want to sure delete this resume ?</p>
     <div class="modal-footer marT10">
       <div class="textCenter">
-        <button (click)="confirmedDeleteResume()" class="waves-effect waves-light btn">Yes</button>&nbsp;&nbsp;
-        <button class="modal-close waves-effect waves-light btn noBtn">No</button>
+        <button
+          (click)="confirmedDeleteResume()"
+          class="waves-effect waves-light btn"
+        >
+          Yes</button
+        >&nbsp;&nbsp;
+        <button class="modal-close waves-effect waves-light btn noBtn">
+          No
+        </button>
         <!-- <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a> -->
       </div>
     </div>
   </div>
-
 </div>
