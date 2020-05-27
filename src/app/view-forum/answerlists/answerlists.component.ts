@@ -130,30 +130,23 @@ export class AnswerlistsComponent implements OnInit {
   closeanswerPopup(){
     jQuery('#answermsdPop').modal('close');
   }
-  postAns(){
-     
+
+  postAns(){ 
     this.postAnsw.value['quesUserId']= this.questionData._id;
     this.postAnsw.value['answerBy']=  this.curerntUserId
    
     let answerD=this.postAnsw.value;
     if( this.curerntUserId){
-      this._forum.addAnserData(answerD).subscribe(
-        res=>{
-         
-           this.msgForPopup=res.message;
-           this.answerPopup();
-          setTimeout(()=>{ 
-            window.location.reload();
-       }, 2000);
-      },
-        err=>{console.log(err)}
-      );
+      this._forum.addAnserData(answerD).subscribe(res=>{
+        this.answerClick=false;
+        this.answerData.unshift(res.data[0]);
+      },(err)=>{
+        console.log(err);
+      });
     }
     else{
       console.log('your a re not logged in');
     }
-    
-    
   }
 
 }

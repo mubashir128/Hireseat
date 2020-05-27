@@ -80,7 +80,7 @@ export class ViewForumComponent implements OnInit {
       },
       err=>console.log(err));
      //get questions with answers
-      this._forum.getAnswerData().subscribe(
+      this._forum.getAnswerData({}).subscribe(
         res=>{ this.getAnswerData=res;},
         err=>console.log(err));
       

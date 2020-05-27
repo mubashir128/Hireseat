@@ -1,6 +1,4 @@
 .terms h4 {
-  font-size: 18px;
-  margin: 30px 0 0 !important;
   color: #000;
 }
 .terms p {
@@ -133,7 +131,7 @@ ul.listTerm {
 }
 
 .msgBox {
-  max-height: 30%;
+  max-height: 40%;
   width: 30%;
   top: 30%;
   overflow: hidden;

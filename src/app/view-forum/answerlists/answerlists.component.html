@@ -42,7 +42,7 @@
                             <h4>{{questionData.question }}</h4>
                             <div *ngIf="isLoggedIn"> 
 							   <button class="answer" (click)="showAnsDiv()"><i class="fa fa-reply" aria-hidden="true"></i> Answer</button>
-                                <div *ngIf="answerClick" class="questionDivTextReply">
+                                <div *ngIf="answerClick" class="questionDivTextReply" style="display: block !important;">
                                     <form [formGroup]="postAnsw">
                                     <textarea  placeholder="Write Your Answer here.." formControlName="ans" ></textarea>
                                     <div *ngIf="postAnsw.hasError('','ans') && postAnsw.get('ans').touched"> Answer is required*</div>

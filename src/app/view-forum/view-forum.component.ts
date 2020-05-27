@@ -8,7 +8,7 @@ import { UserService } from '../_services/user.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { SuperAdminService } from '../_services/super-admin.service';
 import { InteractCompService } from '../_services/interact-comp.service';
-import { WebsocketService } from '../websocket.service';
+import { WebsocketService } from '../_services/websocket.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -22,9 +22,13 @@ export class ViewForumComponent implements OnInit {
   public searchText : string;
 
   p=1;
+  p2=1;
   createdAt;
+  createdAtAnswer;
   itemsAre = [1];
+  itemsAnswerAre = [1];
   itemsPerPage=10;
+  itemsPerAnswerPage=10;
   loggedInUser:any;
   paginatorMove=true;
   isLoggedIn:boolean=false;
@@ -120,7 +124,11 @@ export class ViewForumComponent implements OnInit {
     });
 
      //get questions with answers
-    this.getQuestionsAndAnswers();
+    let answerObj={
+      onLoad : true,
+      limit : this.itemsPerAnswerPage
+    };
+    this.getQuestionsAndAnswers(answerObj);
       
     this.currUserData=this._forum.getUserId();
     let CurreUser=JSON.parse(this.currUserData)
@@ -159,9 +167,12 @@ export class ViewForumComponent implements OnInit {
     );
   }
 
-  getQuestionsAndAnswers(){
-    this._forum.getAnswerData().subscribe(res=>{
-        this.getAnswerData=res;
+  getQuestionsAndAnswers(obj){
+    this._forum.getAnswerData(obj).subscribe(res=>{
+        if(res.length!==0){
+          this.getAnswerData=[...this.getAnswerData, ...res];
+          this.createdAtAnswer=res[res.length-1].createdAt;
+        }
       },err=>{
         console.log(err);
       }
@@ -251,7 +262,6 @@ var dateTime = date1+' '+time1;
     this._forum.addAnserData(answerD).subscribe(res=>{
         this.msgForPopup=res.message;
         this.answerPopup();
-        this.getQuestionsAndAnswers();
         jQuery("#"+id).css("display","none");
         setTimeout(()=>{
           this.closeanswerPopup();
@@ -282,9 +292,22 @@ var dateTime = date1+' '+time1;
      }
      this.itemsAre.push($event);
      this.getLimitedQuestions({
-      createdAt : this.createdAt,
-       itemsPerPage : this.itemsPerPage
+        createdAt : this.createdAt,
+        itemsPerPage : this.itemsPerPage
      });
    }
+
+  handleAnswerPaginator($event){
+    this.p2 = $event;
+    if(this.itemsAnswerAre.includes($event)){
+      return ;
+    }
+    this.itemsAnswerAre.push($event);
+    let answerObj={
+      limit : this.itemsPerAnswerPage,
+      createdAt : this.createdAtAnswer
+    };
+    this.getQuestionsAndAnswers(answerObj);
+  }
 
 }

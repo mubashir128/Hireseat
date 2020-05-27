@@ -45,7 +45,7 @@
 
           <div *ngIf="isLoggedIn">
             <ul>
-              <li *ngFor="let data of questData | paginate: { itemsPerPage: itemsPerPage, currentPage: p }"
+              <li *ngFor="let data of questData | paginate: {id : 'paginator1', itemsPerPage: itemsPerPage, currentPage: p }"
                 class="forumQustionBlock forumQustionCommonBlock">
                 <form [formGroup]="postAnswer">
                   <div class="headDiv">
@@ -73,12 +73,11 @@
                 </form>
               </li>
             </ul>
-            <pagination-controls (pageChange)="handlePaginator($event)"></pagination-controls>
+            <pagination-controls id="paginator1" (pageChange)="handlePaginator($event)"></pagination-controls>
           </div>
 
           <div class="forumAnswersBlock forumQustionCommonBlock" *ngFor="
-              let data of getAnswerData | searchFilter: { answer: searchText }
-            ">
+              let data of getAnswerData | searchFilter: { answer: searchText } | paginate: {id : 'paginator2', itemsPerPage: itemsPerAnswerPage, currentPage: p2 } ">
             <div class="questionDivText">
               <h4>
                 <a [routerLink]="[
@@ -107,6 +106,7 @@
               <!-- <button (click)="show = !show">{{ show ? 'Show less': 'Show More' }}</button> -->
             </div>
           </div>
+          <pagination-controls id="paginator2" (pageChange)="handleAnswerPaginator($event)"></pagination-controls>
         </div>
       </div>
       <div class="stickyDiv">

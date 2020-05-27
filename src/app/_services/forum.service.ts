@@ -33,8 +33,8 @@ export class ForumService {
       return res;
     }))
   }
-  getAnswerData(){
-    return this.http.get<any>(this.baseurl+'api/getanswerData').pipe(map((res:any)=>{
+  getAnswerData(obj){
+    return this.http.post<any>(this.baseurl+'api/getanswerData',obj).pipe(map((res:any)=>{
       return res;
     }))
   }
