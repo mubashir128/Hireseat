@@ -15,22 +15,23 @@
       <div class="card click-effect" *ngFor="let candidate of interviewList; let i=index">
         <div class="candidate-information" (click)="onInterview(candidate.candidateId)">
           <div class="name">
-            <span class="can-details-title">
+            <!-- <span class="can-details-title">
               Name :
-            </span>
-            {{candidate.candidateName}}
+            </span> -->
+            <h3>{{candidate.candidateName}}</h3>
           </div>
           <div class="role">
-            <span class="can-details-title">
+            <label class="can-details-title">
               Role :
-            </span>
-            {{candidate.jobTitle}}
+            </label>
+            
+           <span class="candDetail">{{candidate.jobTitle}}</span> 
           </div>
           <div class="skillset">
-            <span class="can-details-title">
+            <label class="can-details-title">
               Skills :
-            </span>
-            {{candidate.skills}}
+            </label>
+           <span class="candDetail">{{candidate.skills}}</span> 
           </div>
         </div>
         <div class="trash-candidate">

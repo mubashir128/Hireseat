@@ -147,7 +147,7 @@
   justify-content: flex-end;
 }
 .copy-link {
-  margin-top: 20px;
+ 
   color: #48aef3;
   background-color: transparent;
   background-image: none;
@@ -172,7 +172,7 @@
   box-shadow: 0 0 0 0.2rem rgba(72, 174, 243);
 }
 .commButton {
-  width: 150px;
+  width: 100px;
   height: 40px;
   padding: 0 10px;
 }
@@ -508,6 +508,10 @@ p {
   transform: translateY(2px);
 }
 
+.quetionsBtn {
+  text-align: right;
+  padding: 15px;
+}
 /* ADD QUESTION POPUP */
 .slide-heading.blueHeadng {
   color: #03a9f4;
@@ -549,4 +553,5 @@ p {
 }
 .marL10 {
   margin-left: 10px;
+  margin-top: 20px;
 }
