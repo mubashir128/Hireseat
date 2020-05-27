@@ -2,13 +2,19 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import * as myGlobals from "../globalPath";
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: "root",
 })
 export class ShareVideoService {
   public baseurl: any;
+  private sharableResumeRecruiter = new Subject();
+  _sharableResumeRecruiter = this.sharableResumeRecruiter.asObservable();
   constructor(private http: HttpClient) {
     this.baseurl = myGlobals.baseUrl;
+  }
+  setResume(resume) {
+    this.sharableResumeRecruiter.next(resume);
   }
   shareVideoViaEmail(payload) {
     return this.http
@@ -39,13 +45,5 @@ export class ShareVideoService {
         })
       );
   }
-  checkSharedRecruiterToken(token) {
-    return this.http
-      .get<any>(this.baseurl + "api/checkSharedRecruiterToken/" + token)
-      .pipe(
-        map((res) => {
-          return res;
-        })
-      );
-  }
+
 }

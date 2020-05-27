@@ -56,6 +56,10 @@ export class ResumeItemComponent implements OnInit, OnChanges {
   ) {
     this.loggedUser = this.userService.getUserData();
     // console.log(this.loggedUser);
+    shareVideoService._sharableResumeRecruiter.subscribe((res) => {
+      // console.log('subscribeed', res);
+      this.shareResume = res;
+    });
   }
 
   ngOnInit() {
@@ -217,12 +221,13 @@ export class ResumeItemComponent implements OnInit, OnChanges {
   showShareModal(resume) {
     console.log(resume, "**********************");
     jQuery("#shareEmailPopUp").modal("open");
-    this.shareResume = resume;
-    // this.shareBiddingEvent = biddingEvent;
-    const archiveIdPayload = {
-      archivedId: resume.interviewLinkedByRecruiter,
-    };
-    this.ArcivedVideoUrl(archiveIdPayload);
+    this.shareVideoService.setResume(resume);
+    // this.shareResume = resume;
+    // // this.shareBiddingEvent = biddingEvent;
+    // const archiveIdPayload = {
+    //   archivedId: resume.interviewLinkedByRecruiter,
+    // };
+    // this.ArcivedVideoUrl(archiveIdPayload);
   }
   ArcivedVideoUrl(archiveId) {
     this.getArchivedVideoSubscription = this.videoCallingService
@@ -231,65 +236,103 @@ export class ResumeItemComponent implements OnInit, OnChanges {
         (res) => {
           if (res) {
             this.shareableVideoURL = res.url;
-            // console.log(this.shareableVideoURL);
+            console.log(this.shareableVideoURL);
             this.spinner.hide();
+            return true;
           } else {
             this.spinner.hide();
+            return false;
+
           }
         },
         (err) => {
+
           this.spinner.hide();
+          return false;
+
         }
       );
   }
   closeShareModal() {
     jQuery("#shareEmailPopUp").modal("close");
   }
-  async sendVideo() {
-    await this.share(this.shareResume);
-    jQuery("#shareEmailPopUp").modal("close");
+  sendVideo() {
+    // this.share(this.shareResume);
+    // jQuery("#shareEmailPopUp").modal("close");
   }
-  share = async (resume) => {
-    console.log('sharing the resume');
+  async share(resume) {
+    console.log('sharing the resume', this.recipientEmail, this.cc, this.bcc);
 
     const subject =
       "Hireseat" +
       " - " +
       this.loggedUser.companyName +
       " - " +
-      resume.jobTitle +
+      this.shareResume.jobTitle +
       " - " +
-      resume.candidateName +
+      this.shareResume.candidateName +
       " Profile.";
-    // console.log(subject, this.loggedUser);
+    // console.log(subject, '&&&&&&&&&&&&&&&&&&&************', this.shareResume);
+    const archiveIdPayload = {
+      archivedId: this.shareResume.interviewLinkedByRecruiter,
+    };
+    // getting url
+    this.getArchivedVideoSubscription = this.videoCallingService
+      .getArchivedVideo(archiveIdPayload)
+      .subscribe(
+        (res) => {
+          if (res) {
+            this.shareableVideoURL = res.url;
+            console.log(this.shareableVideoURL);
+            this.spinner.hide();
+            if (this.shareableVideoURL) {
+              const payload = {
+                recruiterId: this.loggedUser._id,
+                resumeId: this.shareResume._id,
+                recipientEmail: this.recipientEmail,
+                cc: this.cc,
+                bcc: this.bcc,
+                videoUrl: this.shareableVideoURL,
+                fullName: this.shareResume.candidateName,
+                subject: subject,
+                comment: this.shareResume.comments
+              };
+              this.shareVideoSubscription = this.shareVideoService
+                .shareVideoViaRecruiterEmail(payload)
+                .subscribe(
+                  (res) => {
+                    if (res) {
+                      console.log(res);
+                      Materialize.toast(res.msg, 3000);
+                      jQuery("#shareEmailPopUp").modal("close");
 
-    if (this.shareableVideoURL) {
-      const payload = {
-        recruiterId: this.loggedUser._id,
-        resumeId: resume._id,
-        recipientEmail: this.recipientEmail,
-        cc: this.cc,
-        bcc: this.bcc,
-        videoUrl: this.shareableVideoURL,
-        fullName: resume.candidateName,
-        subject: subject,
-      };
-      this.shareVideoSubscription = await this.shareVideoService
-        .shareVideoViaRecruiterEmail(payload)
-        .subscribe(
-          (res) => {
-            if (res) {
-              // console.log(res);
-              Materialize.toast("Email sent!", 3000);
+                    }
+                  },
+                  (err) => {
+                    console.log(err);
+                    Materialize.toast("unable to send an email!", 3000);
+                    jQuery("#shareEmailPopUp").modal("close");
+                  }
+                );
+            } else {
+              console.log('no sharable video available');
+              Materialize.toast("no sharable video available", 3000);
+
             }
-          },
-          (err) => {
-            console.log(err);
-            Materialize.toast("unable to send an email!", 3000);
+          } else {
+            this.spinner.hide();
           }
-        );
-    }
-  };
+        },
+        (err) => {
+          this.spinner.hide();
+          return false;
+
+        }
+      );
+    // got url
+
+
+  }
   // END share process
 
   transform(url) {
