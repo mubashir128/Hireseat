@@ -138,6 +138,7 @@
   padding: 5px;
   min-height: 80px;
 }
+
 /* UPPER BTNS */
 .buttonsDiv {
   padding: 15px;
@@ -146,6 +147,7 @@
   justify-content: flex-end;
 }
 .copy-link {
+  margin-top: 20px;
   color: #48aef3;
   background-color: transparent;
   background-image: none;
@@ -204,14 +206,12 @@
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  height: auto; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
 }
 
 /* Modal Content */
@@ -222,7 +222,12 @@
   border: 1px solid #888;
   width: 80%;
 }
-
+.modal-content.addQuetion {
+  padding: 20px 0;
+  background-color: #ffffff !important;
+  width: 100%;
+  /* overflow: scroll; */
+}
 /* The Close Button */
 .close {
   color: #aaaaaa;
@@ -361,11 +366,12 @@ nav ul a {
   display: none;
   position: fixed;
   /* max-height: unset; */
-  max-height: 410px;
-
-  width: 100%;
+  /* max-height: 410px; */
+  box-shadow: none !important;
+  /* width: 100%; */
   max-width: 600px;
   overflow: unset;
+  height: 100%;
 }
 
 .textFeildDivQ textarea {
@@ -392,7 +398,7 @@ nav ul a {
   color: #101010;
 }
 .forumMsgPopup.forumPopMain {
-  max-width: 380px;
+  max-width: 600px;
   position: fixed;
 }
 .invalid-feedback {
@@ -500,4 +506,47 @@ p {
 .btn-secondary:active {
   box-shadow: 0 1px 2px #666;
   transform: translateY(2px);
+}
+
+/* ADD QUESTION POPUP */
+.slide-heading.blueHeadng {
+  color: #03a9f4;
+}
+.noBord {
+  border: 0;
+  margin: 0;
+}
+.questionDivPopup {
+  width: 100%;
+  float: left;
+  padding: 5px 0;
+}
+.formFeild {
+  width: 100%;
+  float: left;
+}
+.formFeild label.control-label {
+  min-width: 140px;
+  float: left;
+  font-size: 20px;
+  display: inline-block;
+  color: #03a9f4;
+}
+.inputDiv {
+  width: calc(100% - 140px);
+  float: right;
+}
+.inputDiv input, .TimeStampInput input {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.TimeStampInput {
+  width: 25%;
+  float: left;
+}
+.popSubmitBtnDiv {
+  text-align: center;
+}
+.marL10 {
+  margin-left: 10px;
 }
