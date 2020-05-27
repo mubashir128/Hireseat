@@ -13,6 +13,7 @@ declare var jQuery: any;
   styleUrls: ['./resume-list.component.css']
 })
 export class ResumeListComponent implements OnInit {
+  p=1;
   resumes: IResume[];
   selectedResume: Resume;
   noResume: boolean = true;

@@ -4,6 +4,10 @@
         class="material-icons left">add</i> New Resume</a>
   </div> -->
   <div class="resume-container" *ngIf="!noResume">
+    <div class="right-align marT10">
+      <a class="waves-effect waves-light btn" [routerLink]="['/employer/new-resume']">
+        <i class="material-icons left">add</i> New Resume</a>
+    </div>
     <ul class="resumeList">
       <li *ngFor="let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }"
         class="col s12 m12 l6 floatUns">

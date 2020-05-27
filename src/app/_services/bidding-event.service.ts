@@ -126,10 +126,16 @@ export class BiddingEventService {
     }))
   }
 
-  getRecruiterList(){
-    return this.http.get<IRecruiterProfile[]>(this.baseurl+'api/getRecruiterList').pipe(map((res:IRecruiterProfile[])=>{
+  getRecruiterList(obj){
+    return this.http.post<IRecruiterProfile[]>(this.baseurl+'api/getRecruiterList',obj).pipe(map((res:IRecruiterProfile[])=>{
       return res;
     }));
   }
 
+  getTopRecruiterList(){
+    return this.http.get<IRecruiterProfile[]>(this.baseurl+'api/getTopRecruiterList').pipe(map((res:IRecruiterProfile[])=>{
+      return res;
+    }));
+  }
+  
 }

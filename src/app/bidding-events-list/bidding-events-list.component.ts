@@ -43,8 +43,7 @@ export class BiddingEventsListComponent implements OnInit {
   ngOnInit() {
   }
 
-  handleRequest(requestType: string) {   
-    console.log("--------------- : ",requestType);
+  handleRequest(requestType: string) {
     if(requestType == 'my'){     
       this.getMyBids();
     }else{
