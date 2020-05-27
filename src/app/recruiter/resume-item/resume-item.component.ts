@@ -256,7 +256,8 @@ export class ResumeItemComponent implements OnInit, OnChanges {
   }
   async share(resume) {
     // console.log('sharing the resume', this.recipientEmail, this.cc, this.bcc);
-
+    jQuery("#shareEmailPopUp").modal("close");
+    this.spinner.show();
     const subject =
       "Hireseat" +
       " - " +
@@ -299,6 +300,7 @@ export class ResumeItemComponent implements OnInit, OnChanges {
                       // console.log(res);
                       Materialize.toast(res.msg, 3000);
                       jQuery("#shareEmailPopUp").modal("close");
+                      this.spinner.hide();
 
                     }
                   },
@@ -306,11 +308,14 @@ export class ResumeItemComponent implements OnInit, OnChanges {
                     // console.log(err);
                     Materialize.toast("unable to send an email!", 3000);
                     jQuery("#shareEmailPopUp").modal("close");
+                    this.spinner.hide();
+
                   }
                 );
             } else {
               // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 3000);
+              this.spinner.hide();
 
             }
           } else {
