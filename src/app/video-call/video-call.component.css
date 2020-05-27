@@ -687,7 +687,7 @@ nav ul a {
   padding: 20px 0;
   background-color: #ffffff !important;
   width: 100%;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 /* .copy-link.commButton {
   width: 150px;
