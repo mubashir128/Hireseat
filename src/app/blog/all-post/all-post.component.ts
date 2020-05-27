@@ -17,7 +17,7 @@ export class AllPostComponent implements OnInit {
   blogPostData: any;
   deleteID: any;
   blogSearchForm: FormGroup;
-  protected dataService: CompleterData;
+  dataService: CompleterData;
   catArray: any[] = [];
   limit: any = 100;
   searchCatagory: any;

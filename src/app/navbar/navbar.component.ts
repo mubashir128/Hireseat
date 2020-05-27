@@ -9,6 +9,7 @@ import { EnterpriseService } from '../_services/enterprise.service';
 
 import { WebsocketService } from '../_services/websocket.service';
 import { Subject } from 'rxjs';
+import { PushNotificationService } from '../_services/push-notification.service';
 
 declare var jQuery: any;
 declare var $: any;
@@ -62,12 +63,14 @@ export class NavbarComponent implements OnInit {
     private bidEventService: BiddingEventService,
     private _socket: WebsocketService,
     private _eref: ElementRef,
-    public enterpriseService: EnterpriseService
+    public enterpriseService: EnterpriseService,
+    private _pushNotify : PushNotificationService
   ) {
     this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != 'no') {
       this.isLoggedIn = true;
+      this._pushNotify.pushNotification();
       if (this.loggedInUser.userRole == 'employer') {
         this.isEmployer = true;
       } else if (this.loggedInUser.userRole == 'recruiter') {
