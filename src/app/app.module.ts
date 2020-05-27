@@ -34,7 +34,7 @@ import { EditJobProfileComponent } from "./employer/edit-job-profile/edit-job-pr
 import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
 import { BiddingInfoComponent } from "./bidding-info/bidding-info.component";
 import { ResumeListComponent } from "./recruiter/resume-list/resume-list.component";
-import { NewResumeComponent } from "./recruiter/new-resume/new-resume.component";
+import { NewResumeComponent } from './recruiter/new-resume/new-resume.component';
 import { ResumeItemComponent } from "./recruiter/resume-item/resume-item.component";
 import { PdfViewerComponent } from "./recruiter/pdf-viewer/pdf-viewer.component";
 import { EditResumeComponent } from "./recruiter/edit-resume/edit-resume.component";
@@ -242,6 +242,10 @@ const appChildRoutes: Routes = [
       {
         path: "mycandidates",
         component: MycandidatesComponent
+      },
+      {
+        path: "new-resume",
+        component: NewResumeComponent
       }
     ],
     canActivate: [EmployerGuard]

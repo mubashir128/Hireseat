@@ -210,7 +210,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       }));
 
       this.session.on('archiveStarted', (event) => {
-        // console.log(event);
+        // console.log('archiving started',event);
 
         this.archiveID = event.id;
         // console.log('Archive started ' + this.archiveID);
