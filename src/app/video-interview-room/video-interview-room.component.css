@@ -68,12 +68,16 @@
   flex-direction: column;
   margin-top: 10px;
 }
+span.interview-heading {
+  color: #ffffff;
+  font-size: 20px;
+}
 .candidate-information {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: auto;
-  padding: 0px 0px 0px 80px;
+  padding: 10px;
 }
 .name {
   width: 100%;
@@ -81,33 +85,51 @@
   display: flex;
   justify-content: flex-start;
 }
+.name h3{
+  font-size: 20px;
+  margin: 0 0 10px 0;
+  color: #48aef3;
+}
 .role {
   width: 100%;
   height: auto;
   display: flex;
   justify-content: flex-start;
+  margin: 5px 0;
 }
 .skillset {
   width: 100%;
   height: auto;
   display: flex;
   justify-content: flex-start;
+  margin: 5px 0;
 }
 .can-details-title {
   font-weight: 600;
-  width: 10%;
+  min-width: 10%;
   display: flex;
   justify-content: flex-start;
+  font-size: 15px;
+  color: #333333;
+}
+span.candDetail {
+  text-align: left;
+  color: #666666;
+  font-size: 15px;
+  display: inline-block;
+  width: calc(100% - 10%);
+  word-break: break-word;
 }
 .card {
   display: flex !important;
 }
 .fa-trash {
-  color: red !important;
+  color: #e00909 !important;
+  font-size: 18px;
 }
 .trash-candidate {
   height: 30px;
-  padding-right: 20px;
+  padding-right: 10px;
   font-size: 20px;
 }
 /* end of candidate details */
