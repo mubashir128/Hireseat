@@ -20,6 +20,11 @@ export class ResumeListComponent implements OnInit {
   confirmDel: boolean = false;
   selectedResumeDelete: Resume;
   mode: number = 0; // 0: resume list, 1: edit resume
+  showdropdown = false;
+  tempResume;
+  searchvalue;
+  CandidateName;
+  selectedResumeIs;
   constructor(private router: Router, private resumeService: ResumeService, private spinner: NgxSpinnerService) {
     this.getAllResume();
     jQuery('.modal').modal();
@@ -28,8 +33,10 @@ export class ResumeListComponent implements OnInit {
   getAllResume() {
     this.spinner.show();
     this.resumeService.getAllResume().subscribe((data: IResume[]) => {
+      console.log("data : ",data);
       if (data.length > 0) {
         this.resumes = data;
+        this.tempResume = this.resumes;
         this.noResume = false;
         this.spinner.hide();
       } else {
@@ -98,6 +105,51 @@ export class ResumeListComponent implements OnInit {
 
   comeBack() {
     this.mode = 0;
+  }
+
+  toggle(event) {
+    if (jQuery(event.target).attr('id') == 'toggleDropdownId') {
+      jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
+    } else {
+      jQuery("#dropdown_jobProfile_resume").removeClass("dropdown-toggle");
+    }
+  }
+
+  openDropdown() {
+    jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
+    this.showdropdown = true;
+  }
+
+  searchtext(event) {
+    this.searchResume(event.target.value);
+  }
+
+  searchResume(value){
+    this.searchvalue = value;
+    if (this.searchvalue == '') {
+      this.resumes=this.tempResume;
+      return ;
+    }
+
+    console.log(this.resumes,"    ",this.searchvalue);
+    this.resumes = this.tempResume.filter(resume => {
+      let name=resume.resumeBank_id.firstName+" "+resume.resumeBank_id.lastName;
+      return (name === this.searchvalue);
+    });
+  }
+
+  onfocus(e) {
+    jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
+  }
+
+  selectedResumeVal(id, name, lName) {
+    this.selectedResumeIs = name+" "+lName;
+    this.selectedResumeIs = new Resume();
+    this.selectedResumeIs._id = id;
+    this.CandidateName = name+" "+lName;
+    this.selectedResumeIs.candidateName = name+" "+lName;
+    this.searchResume(this.selectedResumeIs.candidateName );
+    jQuery("#dropdown_jobProfile_resume").removeClass("dropdown-toggle");
   }
 
 }

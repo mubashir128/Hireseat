@@ -19,16 +19,61 @@
     <a class="waves-effect waves-light btn" [routerLink]="['/recruiter/new-resume']">
       <i class="material-icons left">add</i> New Resume</a>
   </div>
-  <div style="margin-top: 15px;" *ngIf="!noResume">
-    <ul class="resumeList">
-      <li *ngFor="
-          let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }
-        " class="col s12 m12 l6 floatUns">
-        <app-resume-item [resume]="resume" (selectedForEdit)="editResume($event)"
-          (selectedForDelete)="deleteResume($event)"></app-resume-item>
-      </li>
-    </ul>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  <div style="margin-top : 10px;">
+    <div class="col s9 m9 l9 posrelDiv">
+      <!-- <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="selectedResume" [multiple]="false" [config]="{displayKey:candidateName,search:true}" [options]="resumes"></ngx-select-dropdown> -->
+      <!-- <div class="searchDropdownMain"> -->
+      <div class="input-field" (click)="toggle($event)">
+        <label style="padding-left:20px;" for="jobProfiler" for="selectedResumeIs"
+          [ngClass]="{ hide: selectedResumeIs }">Select Resume</label>
+        <input type="hidden" name="selectedResumeIs" id="selectedResumeIs" [(ngModel)]="selectedResumeIs"
+          formControlName="selectedResumeIs" />
+        <a class="dropdown-button_resume" data-activates="dropdown_jobProfile_resume">
+          {{ CandidateName }}
+        </a>
+        <i id="toggleDropdownId" class="material-icons right" style="cursor: pointer;" (click)="openDropdown($event)">
+          arrow_drop_down
+        </i>
+      </div>
+      <div id="dropdown_jobProfile_resume" class="dropdown-content bidDropDown">
+        <div class="searchDivList">
+          <input type="text" (input)="searchtext($event)" (focus)="onfocus($event)" placeholder="search"
+            autocomplete="off" class="searchBox"
+            style="padding: 0 20px; box-sizing: border-box; position: relative; margin: 0;" />
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </div>
+        <ul class="resumeDrodown">
+          <li *ngFor="let resume of tempResume">
+            <a [ngClass]="{ myclass: resume._id | inArray: resume?._id }"
+              (click)="selectedResumeVal(resume?._id, resume?.resumeBank_id.firstName, resume?.resumeBank_id.lastName)"
+              class="noCSSjustClosingDiv">{{ resume.resumeBank_id.firstName+" "+resume.resumeBank_id.lastName }} , years of experience :
+              {{ resume?.resumeBank_id?.experience || "fresher" }} ,
+              <span *ngFor="let skill of resume.resumeBank_id?.tags">{{
+                skill?.display
+              }}</span></a>
+          </li>
+        </ul>
+      </div>
+      <!-- </div> -->
+    </div>
+    <div class="col s3 m3 l3">
+      <button type="submit" class="waves-effect waves-light btn pull-right whiteBtn">
+        Submit Candidate
+      </button>
+    </div>
+
+    <div style="margin-top: 15px;" *ngIf="!noResume">
+      <ul class="resumeList">
+        <li *ngFor="
+            let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }
+          " class="col s12 m12 l6 floatUns">
+          <app-resume-item [resume]="resume" (selectedForEdit)="editResume($event)"
+            (selectedForDelete)="deleteResume($event)"></app-resume-item>
+        </li>
+      </ul>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
   </div>
 </div>
 <div *ngIf="mode === 1">

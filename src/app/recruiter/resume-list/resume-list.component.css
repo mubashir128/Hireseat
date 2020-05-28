@@ -59,3 +59,35 @@ ul.resumeList {
   color: #03a9f4;
   font-weight: 600;
 }
+
+.posrelDiv {
+  position: relative;
+}
+
+.dropdown-content.bidDropDown i {
+  right: 20px;
+  position: absolute;
+  top: 15px;
+  color: #878787;
+}
+
+ul.resumeDrodown {
+  max-height : 300px;
+  overflow : auto;
+  margin: 0;
+}
+
+.whiteBtn,
+.whiteBtn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.dropdown-toggle {
+  width: 393px;
+  position: absolute;
+  top: 51px;
+  left: 0px;
+  display: block;
+  opacity: 1;
+}
