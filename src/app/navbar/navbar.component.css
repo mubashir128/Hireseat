@@ -134,7 +134,8 @@ nav ul a {
 .notificationList {
   position: absolute;
   width: 400px;
-  height: 400px;
+  /* height: 400px; */
+  height: auto;
   right: 0;
   padding: 0px 0px;
   top: 70px;
@@ -180,7 +181,7 @@ h4.count {
 .notificationListInner:after,
 .notificationListInner:before {
   bottom: 100%;
-  left: 53%;
+  left: 56%;
   border: solid transparent;
   content: ' ';
   height: 0;
@@ -189,10 +190,9 @@ h4.count {
   pointer-events: none;
 }
 .notificationListInner ul a {
-  padding: 5px 20px !important;
-  /* border-bottom: 1px solid #fff; */
+  padding: 8px 20px !important;
   border-bottom: 1px solid #e7e7e7;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: normal;
   /* background-color: #f4f4f4; */
   background-color: #ffffff;
@@ -251,7 +251,7 @@ h4.count {
 .hederNotification h4 {
   margin: 0;
   /* padding: 10px 0px; */
-  font-size: 22px;
+  font-size: 20px;
   /* font-weight: bold; */
 }
 .interview-title {
@@ -265,8 +265,8 @@ h4.count {
 }
 
 .scrollNotification {
-  height : 353px;
-  overflow: hidden;
+  max-height: 400px;
+  overflow: auto;
   position: relative;
   border-radius: 5px;
 }
