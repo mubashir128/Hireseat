@@ -219,15 +219,9 @@ export class ResumeItemComponent implements OnInit, OnChanges {
 
   // share process
   showShareModal(resume) {
-    console.log(resume, "**********************");
+    // console.log(resume, "**********************");
     jQuery("#shareEmailPopUp").modal("open");
     this.shareVideoService.setResume(resume);
-    // this.shareResume = resume;
-    // // this.shareBiddingEvent = biddingEvent;
-    // const archiveIdPayload = {
-    //   archivedId: resume.interviewLinkedByRecruiter,
-    // };
-    // this.ArcivedVideoUrl(archiveIdPayload);
   }
   ArcivedVideoUrl(archiveId) {
     this.getArchivedVideoSubscription = this.videoCallingService
@@ -261,8 +255,9 @@ export class ResumeItemComponent implements OnInit, OnChanges {
     // jQuery("#shareEmailPopUp").modal("close");
   }
   async share(resume) {
-    console.log('sharing the resume', this.recipientEmail, this.cc, this.bcc);
-
+    // console.log('sharing the resume', this.recipientEmail, this.cc, this.bcc);
+    jQuery("#shareEmailPopUp").modal("close");
+    this.spinner.show();
     const subject =
       "Hireseat" +
       " - " +
@@ -283,7 +278,7 @@ export class ResumeItemComponent implements OnInit, OnChanges {
         (res) => {
           if (res) {
             this.shareableVideoURL = res.url;
-            console.log(this.shareableVideoURL);
+            // console.log(this.shareableVideoURL);
             this.spinner.hide();
             if (this.shareableVideoURL) {
               const payload = {
@@ -302,21 +297,25 @@ export class ResumeItemComponent implements OnInit, OnChanges {
                 .subscribe(
                   (res) => {
                     if (res) {
-                      console.log(res);
+                      // console.log(res);
                       Materialize.toast(res.msg, 3000);
                       jQuery("#shareEmailPopUp").modal("close");
+                      this.spinner.hide();
 
                     }
                   },
                   (err) => {
-                    console.log(err);
+                    // console.log(err);
                     Materialize.toast("unable to send an email!", 3000);
                     jQuery("#shareEmailPopUp").modal("close");
+                    this.spinner.hide();
+
                   }
                 );
             } else {
-              console.log('no sharable video available');
+              // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 3000);
+              this.spinner.hide();
 
             }
           } else {

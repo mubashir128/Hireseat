@@ -65,6 +65,7 @@
     left: 0;
     height: 20px;
     width: 20px;
+    margin-top: 13px;
     background-color: #eee;
     border: 1px solid #2196F3;
   }
@@ -131,3 +132,36 @@ and (max-width : 767px) {
     }
 }
 /*================================ Mobile responsive css ends  ===============================*/
+
+.listHeading {
+  margin-bottom:5px;
+  color: #33aaff;
+  text-align: center;
+  font-size: 20px;
+}
+
+.searchData {
+  position: relative;
+  border: 1px solid #33aaff;
+  width: 93%;
+  max-height: 500px;
+  margin-left: 18px;
+  margin-top: 5px;
+  overflow-y: auto;
+}
+
+.searchData::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 30px;
+}
+
+.searchData::-webkit-scrollbar-thumb {
+  width: 12px;
+  background-color: #A8A2A0;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+}
+
+.searchData::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 30px;
+}

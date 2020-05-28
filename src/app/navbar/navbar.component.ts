@@ -7,7 +7,7 @@ import { ForumService } from '../_services/forum.service';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
 import { EnterpriseService } from '../_services/enterprise.service';
 
-import { WebsocketService } from '../websocket.service';
+import { WebsocketService } from '../_services/websocket.service';
 import { Subject } from 'rxjs';
 
 declare var jQuery: any;
@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
   suggestedQueData: any;
   suggestedQueCount: number = 0;
   suggestedQueAnsCount: number = 0;
-  notificationLength: any;
+  notificationLength: any=0;
   showAdminDashboardButton: boolean = false;
   showEnterpriseDashboardButton: boolean = false;
   permaLink: any;
@@ -258,6 +258,10 @@ export class NavbarComponent implements OnInit {
         limit : this.limit
       }
     });
+  }
+
+  getToQuestion(id){
+    this.router.navigate(['/question-details/', id]);
   }
 
 }

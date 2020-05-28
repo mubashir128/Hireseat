@@ -7,6 +7,7 @@ import { fromEvent } from "rxjs";
 import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 
 declare var Materialize: any;
+declare var jQuery: any;
 @Component({
   selector: "app-sa-user-list",
   templateUrl: "./sa-user-list.component.html",
@@ -25,7 +26,8 @@ export class SAUserListComponent implements OnInit {
   itemsPerPageAre = 100;
   noBiddingEvents=false;
   dropdownSettings = {};
-  itemsAre = ["super-admin"];
+  itemsIs = "super-admin";
+
   @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
 
   constructor(
@@ -38,10 +40,10 @@ export class SAUserListComponent implements OnInit {
   ngOnInit() {
     this.getAllUsers({
       onLoad : true,
-      list : this.itemsAre,
+      user : this.itemsIs,
       itemsPerPageAre : this.itemsPerPageAre
     });
-    this.dropdownListForUsers();
+    jQuery("#"+this.itemsIs).css("background-color","#27B1BD");
   }
 
   ngAfterViewInit() {
@@ -50,7 +52,7 @@ export class SAUserListComponent implements OnInit {
     .pipe(
       map(event=>event),
       filter(Boolean),
-      debounceTime(2000),
+      debounceTime(1000),
       distinctUntilChanged(),
       tap((text) => {
         this.p=1;
@@ -62,54 +64,12 @@ export class SAUserListComponent implements OnInit {
           this.paginatorMove=true;
         }
         this.getAllUsers({
-          list : this.itemsAre,
+          user : this.itemsIs,
           searchTerm : this.searchTerm,
           itemsPerPageAre : this.itemsPerPageAre
         });
       })
     ).subscribe();
-  }
-
-  dropdownListForUsers(){
-    this.dropdownList = [
-      { item_id: 1, item_text: 'super-admin' },
-      { item_id: 2, item_text: 'recruiter' },
-      { item_id: 3, item_text: 'employer' },
-      { item_id: 4, item_text: 'admin' },
-      { item_id: 5, item_text: 'enterprise' }
-    ];
-    
-    this.selectedItems=[{ item_id: 1, item_text: 'super-admin' }];
-
-    this.dropdownSettings = {
-      singleSelection: true,
-      idField: 'item_id',
-      textField: 'item_text',
-      itemsShowLimit: 1,
-      allowSearchFilter: false
-    };
-  }
-
-  onItemSelect(item : any) {
-    this.itemsAre=[];
-    this.resetValues();
-    this.itemsAre.push(item.item_text);
-    this.getAllUsers({
-      onLoad : true,
-      list : this.itemsAre,
-      itemsPerPageAre : this.itemsPerPageAre
-    });
-  }
-
-  onItemDeSelect(item: any){
-    this.resetValues();
-    this.itemsAre=["super-admin"];
-    this.selectedItems=[{ item_id: 1, item_text: 'super-admin' }];
-    this.getAllUsers({
-      onLoad : true,
-      list : this.itemsAre,
-      itemsPerPageAre : this.itemsPerPageAre
-    });
   }
 
   resetValues(){
@@ -135,6 +95,7 @@ export class SAUserListComponent implements OnInit {
       }
     );
   }
+  
   loginUser(userEmail) {
     localStorage.setItem(
       "super-admin-email",
@@ -176,10 +137,26 @@ export class SAUserListComponent implements OnInit {
     }
     this.pagesAre.push($event);
     this.getAllUsers({
-      list : this.itemsAre,
+      user : this.itemsIs,
       createdAt : this.createdAt,
       itemsPerPageAre : this.itemsPerPageAre
     });
+  }
+
+  checkUser(user){
+    this.addProperties(user);
+    this.resetValues();
+    this.getAllUsers({
+      user : user,
+      onLoad : true,
+      itemsPerPageAre : this.itemsPerPageAre
+    });
+  }
+
+  addProperties(user){
+    jQuery("#"+this.itemsIs).css("background-color","#33aaff");
+    this.itemsIs=user;
+    jQuery("#"+user).css("background-color","#27B1BD");
   }
 
 }

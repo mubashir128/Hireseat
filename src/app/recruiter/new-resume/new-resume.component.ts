@@ -20,6 +20,7 @@ export class NewResumeComponent implements OnInit {
   fileUploaded: number = 0;
   uploadProgress: number = 0;
   public newResumeFrm: FormGroup;
+  userRole: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,6 +35,7 @@ export class NewResumeComponent implements OnInit {
       this.resume.recruiterKey = this.chkLoggedInUser._id;
     } else {
     }
+    this.userRole = this.chkLoggedInUser.userRole;
   }
 
   ngOnInit() {
@@ -123,7 +125,7 @@ export class NewResumeComponent implements OnInit {
         },
         (error) => {
           this.spinner.hide();
-          console.log(error);
+          // console.log(error);
           if (error) {
             Materialize.toast("Something Went Wrong !", 1000);
           }
@@ -149,7 +151,7 @@ export class NewResumeComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           if (error == "Conflict") {
             Materialize.toast(
               "Network error...!",
