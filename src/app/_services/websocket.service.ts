@@ -8,8 +8,8 @@ export class WebsocketService {
 
   socket: any;
   listeners = [];
-  // socketUrl: any = "ws://localhost:5000/webSocket?token=";
-  socketUrl: any = 'wss://hireseat.com:5000/webSocket?token=';
+  socketUrl: any = "ws://localhost:5000/webSocket?token=";    //local url
+  // socketUrl: any = 'wss://hireseat.com:5000/webSocket?token=';   //host url
   constructor() {
   }
 
