@@ -34,6 +34,122 @@
           </div>
         </div>
         <div class="editResumeupperDiv">
+            <div class="interviewVideoDiv stickyDiv">
+              <div class="leftSideQuetion">
+                <h2>Jump to below interview questions</h2>
+          
+                <div class="interviewQue">
+                  <!-- <div class="QuestionInner"> -->
+                    <h4><a [ngClass]="questionNumber === 1 ? 'interview-bold':false"
+                        (click)="setCurrentTime(questionsByRecruiter.timeStamp1,1)">
+                        1. thtjytukuykuyk</a>
+                    </h4>
+                    <!-- <div class="OnHoverDiv">
+                      <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry</h4>
+                    </div> -->
+                  <!-- </div> -->
+                  <h4><a [ngClass]="questionNumber === 2 ? 'interview-bold':false"
+                      (click)="setCurrentTime(questionsByRecruiter.timeStamp2,2)">
+                      2. yjytjytjty</a>
+                  </h4>
+                  <h4><a [ngClass]="questionNumber === 3 ? 'interview-bold':false"
+                      (click)="setCurrentTime(questionsByRecruiter.timeStamp3,3)">
+                     3. jyjtyhg</a>
+                  </h4>
+                  <h4><a [ngClass]="questionNumber === 4 ? 'interview-bold':false"
+                      (click)="setCurrentTime(questionsByRecruiter.timeStamp4,4)">
+                     4. erfrreu</a>
+                  </h4>
+                  <h4><a [ngClass]="questionNumber === 5 ? 'interview-bold':false"
+                      (click)="setCurrentTime(questionsByRecruiter.timeStamp5,5)">
+                      5. jujjngfbgfht</a>
+                  </h4>
+                </div>
+          
+              </div>
+              <!-- video js -->
+              <div class="video-interview">
+                <video #target class="video-js" controls>
+                  <source [src]="videoURL">
+                </video>
+              </div>
+              <!-- end video js -->
+          
+              <!-- <iframe id="myVideo" [src]="videoURL | safePdf" class="interviewVideo" allowfullscreen></iframe> -->
+              <!-- <app-pdf-viewer [url]="videoURL">
+              </app-pdf-viewer> -->
+           
+            </div>
+          <!-- <ng-container *ngIf="!videoURl">
+            <app-pdf-viewer
+              style="
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+              "
+              *ngIf="fileUploaded === 2"
+              [url]="downloadURL"
+            ></app-pdf-viewer>
+          </ng-container>
+          <div
+            *ngIf="videoURl"
+            id="resume-preview"
+            class="wid100 center-align resumePriviewDiv"
+          >
+            <app-pdf-viewer
+              style="
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+              "
+              *ngIf="fileUploaded === 2"
+              [url]="downloadURL"
+            ></app-pdf-viewer>
+
+            <div
+              class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+              *ngIf="fileUploaded === 0"
+              style="display: table;"
+            >
+              <div class="uploadBtn" style="display: table-cell;">
+                <span>Upload Resume</span>
+                <input type="file" (change)="fileChange($event)" />
+              </div>
+            </div> -->
+
+
+            <!-- <div *ngIf="fileUploaded===1" class="progress">
+                    <div class="determinate" style="width: {{uploadProgress}}%"></div>
+                  </div> -->
+
+
+          <!-- </div> -->
+
+          <!-- <div class="upperVideo" *ngIf="videoURl"> -->
+            <!-- <iframe [src]="videoURl | safePdf"></iframe> -->
+            <!-- <app-pdf-viewer
+              style="
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+              "
+              *ngIf="fileUploaded === 2"
+              [url]="videoURl"
+            ></app-pdf-viewer>
+          </div> -->
+        </div>
+   
+
+        <div class="resumePreview">
           <ng-container *ngIf="!videoURl">
             <app-pdf-viewer
               style="
@@ -75,30 +191,16 @@
                 <span>Upload Resume</span>
                 <input type="file" (change)="fileChange($event)" />
               </div>
-            </div>
+            </div> 
+
+
             <!-- <div *ngIf="fileUploaded===1" class="progress">
                     <div class="determinate" style="width: {{uploadProgress}}%"></div>
                   </div> -->
+
+
           </div>
 
-          <div class="upperVideo" *ngIf="videoURl">
-            <!-- <iframe [src]="videoURl | safePdf"></iframe> -->
-            <app-pdf-viewer
-              style="
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                height: 100%;
-                width: 100%;
-              "
-              *ngIf="fileUploaded === 2"
-              [url]="videoURl"
-            ></app-pdf-viewer>
-          </div>
-        </div>
-        <div class="quetionsBtn">
-          <button class="copy-link commButton">add</button>
         </div>
         <ng-container *ngIf="videoURl">
           <div class="RecriterReview">
@@ -623,3 +725,4 @@
   </div>
 </div>
 <!--Submit pop up:END-->
+
