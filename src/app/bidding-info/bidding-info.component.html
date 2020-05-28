@@ -10,7 +10,7 @@
 <ng-container *ngIf="videoURL">
   <div class="interviewVideoDiv stickyDiv">
     <div class="leftSideQuetion" *ngIf="currentResume?.resumeKey?.questionsByRecruiter[0]">
-      <h2>Jump to below interview questions</h2>
+      <h2>Click on Below Interview Questions to Skip</h2>
 
       <div class="interviewQue">
         <h4><a [ngClass]="questionNumber === 1 ? 'interview-bold':false"
