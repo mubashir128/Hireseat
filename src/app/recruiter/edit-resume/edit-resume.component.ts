@@ -20,6 +20,7 @@ import { Subscription } from "rxjs";
 
 declare var jQuery: any;
 import * as $ from "jquery";
+import { ElementRef, ViewChild } from '@angular/core';
 declare var Materialize: any;
 
 @Component({
@@ -28,6 +29,8 @@ declare var Materialize: any;
   styleUrls: ["./edit-resume.component.css"],
 })
 export class EditResumeComponent implements OnInit, OnChanges {
+  @ViewChild("target") target: ElementRef;
+
   bookmarkSubscription: Subscription;
   askQuestionSubscription: Subscription;
   @Input() resume: Resume;
@@ -37,6 +40,8 @@ export class EditResumeComponent implements OnInit, OnChanges {
   public editResumeFrm: FormGroup;
   downloadURL: string;
   fileUploaded = 0;
+  questionNumber: any;
+  questionsByRecruiter: any;
   videoURl: any;
   candidateId: any;
   constructor(
@@ -72,7 +77,7 @@ export class EditResumeComponent implements OnInit, OnChanges {
     console.log(this.resume);
     this.candidateId = this.resume._id;
     console.log(this.candidateId);
-
+    this.questionsByRecruiter = this.resume['questionsByRecruiter'][0];
     if (this.resume && this.resume.fileURL) {
       this.fileUploaded = 2;
       this.downloadURL = this.resume.fileURL;
@@ -269,6 +274,16 @@ export class EditResumeComponent implements OnInit, OnChanges {
           console.log("error from bookmark call", err);
         }
       );
+  }
+  setCurrentTime(seconds, questionNumber) {
+    this.questionNumber = questionNumber;
+    // console.log(this.questionNumber);
+
+    try {
+      this.target.nativeElement.currentTime = seconds;
+    } catch (e) {
+      console.log(e);
+    }
   }
   questionsPopUp() {
     this.questionConfirmPopup();
