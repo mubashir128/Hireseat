@@ -37,7 +37,6 @@ ul.resumeList {
   width: 100%;
   float: left;
   margin-bottom: 20px;
-  display: flex !important;
   flex-wrap: wrap;
 }
 .btn {
@@ -62,6 +61,7 @@ ul.resumeList {
 
 .posrelDiv {
   position: relative;
+  background-color: #fff;
 }
 
 .dropdown-content.bidDropDown i {
@@ -84,9 +84,9 @@ ul.resumeDrodown {
 }
 
 .dropdown-toggle {
-  width: 393px;
+  width: 100%;
   position: absolute;
-  top: 51px;
+  top: 40px;
   left: 0px;
   display: block;
   opacity: 1;

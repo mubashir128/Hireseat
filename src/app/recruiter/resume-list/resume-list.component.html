@@ -21,22 +21,24 @@
   </div>
 
   <div style="margin-top : 10px;">
-    <div class="col s9 m9 l9 posrelDiv">
+    <div class="col s12 m12 l12 posrelDiv">
       <!-- <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="selectedResume" [multiple]="false" [config]="{displayKey:candidateName,search:true}" [options]="resumes"></ngx-select-dropdown> -->
       <!-- <div class="searchDropdownMain"> -->
       <div class="input-field" (click)="toggle($event)">
-        <label style="padding-left:20px;" for="jobProfiler" for="selectedResumeIs"
-          [ngClass]="{ hide: selectedResumeIs }">Select Resume</label>
-        <input type="hidden" name="selectedResumeIs" id="selectedResumeIs" [(ngModel)]="selectedResumeIs"
-          formControlName="selectedResumeIs" />
-        <a class="dropdown-button_resume" data-activates="dropdown_jobProfile_resume">
-          {{ CandidateName }}
-        </a>
-        <i id="toggleDropdownId" class="material-icons right" style="cursor: pointer;" (click)="openDropdown($event)">
-          arrow_drop_down
-        </i>
+        <form [formGroup]="searchResumeBid">
+          <label style="margin-top: -15px;" for="jobProfiler" for="selectedResumeIs"
+            [ngClass]="{ hide: selectedResumeIs }">Select Resume</label>
+          <input type="hidden" name="selectedResumeIs" id="selectedResumeIs" [(ngModel)]="selectedResumeIs"
+            formControlName="selectedResumeIs" />
+          <a class="dropdown-button_resume" data-activates="dropdown_jobProfile_resume">
+            {{ CandidateName }}
+          </a>
+          <i id="toggleDropdownId" class="material-icons right" style="cursor: pointer;" (click)="openDropdown($event)">
+            arrow_drop_down
+          </i>
+        </form>
       </div>
-      <div id="dropdown_jobProfile_resume" class="dropdown-content bidDropDown">
+      <div id="dropdown_jobProfile_resume" *ngIf="toggleSearch" class="dropdown-content bidDropDown dropdown-toggle">
         <div class="searchDivList">
           <input type="text" (input)="searchtext($event)" (focus)="onfocus($event)" placeholder="search"
             autocomplete="off" class="searchBox"
@@ -56,11 +58,6 @@
         </ul>
       </div>
       <!-- </div> -->
-    </div>
-    <div class="col s3 m3 l3">
-      <button type="submit" class="waves-effect waves-light btn pull-right whiteBtn">
-        Submit Candidate
-      </button>
     </div>
 
     <div style="margin-top: 15px;" *ngIf="!noResume">

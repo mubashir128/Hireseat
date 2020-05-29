@@ -43,10 +43,7 @@ export class RecruiterHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    const checkSA = this.supperAdmin.checkSuperAdminEmail();
-
-    console.log(checkSA);
-
+    
     this.spinner.show();
     setTimeout(() => {
       this.spinner.hide();

@@ -5,6 +5,7 @@ import { Resume, IResume } from '../../models/resume';
 import { ResumeService } from '../../_services/resume.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { isEmpty } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -22,21 +23,27 @@ export class ResumeListComponent implements OnInit {
   mode: number = 0; // 0: resume list, 1: edit resume
   showdropdown = false;
   tempResume;
+  temp2Resume;
   searchvalue;
   CandidateName;
   selectedResumeIs;
-  constructor(private router: Router, private resumeService: ResumeService, private spinner: NgxSpinnerService) {
+  toggleSearch=false;
+  public searchResumeBid : FormGroup;
+  constructor(private router: Router, private resumeService: ResumeService, private spinner: NgxSpinnerService, private formBuilder: FormBuilder) {
     this.getAllResume();
     jQuery('.modal').modal();
+    this.searchResumeBid = this.formBuilder.group({
+      selectedResumeIs : ['']
+    });
   }
 
   getAllResume() {
     this.spinner.show();
     this.resumeService.getAllResume().subscribe((data: IResume[]) => {
-      console.log("data : ",data);
       if (data.length > 0) {
         this.resumes = data;
         this.tempResume = this.resumes;
+        this.temp2Resume=[...this.tempResume];
         this.noResume = false;
         this.spinner.hide();
       } else {
@@ -108,11 +115,8 @@ export class ResumeListComponent implements OnInit {
   }
 
   toggle(event) {
-    if (jQuery(event.target).attr('id') == 'toggleDropdownId') {
-      jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
-    } else {
-      jQuery("#dropdown_jobProfile_resume").removeClass("dropdown-toggle");
-    }
+    this.tempResume=[...this.temp2Resume];
+    this.toggleSearch=!this.toggleSearch;
   }
 
   openDropdown() {
@@ -127,15 +131,28 @@ export class ResumeListComponent implements OnInit {
   searchResume(value){
     this.searchvalue = value;
     if (this.searchvalue == '') {
-      this.resumes=this.tempResume;
+      this.resumes=[...this.temp2Resume];
+      this.tempResume=[...this.temp2Resume];
       return ;
     }
 
-    console.log(this.resumes,"    ",this.searchvalue);
-    this.resumes = this.tempResume.filter(resume => {
+    var regexp = new RegExp(this.searchvalue, 'i')
+    this.resumes = this.temp2Resume.filter(resume => {
       let name=resume.resumeBank_id.firstName+" "+resume.resumeBank_id.lastName;
-      return (name === this.searchvalue);
+      return regexp.test(name);
     });
+
+    // this.resumes = this.temp2Resume.filter(resume => {
+    //   let name=resume.resumeBank_id.firstName+" "+resume.resumeBank_id.lastName;
+    //   return (name === this.searchvalue);
+    // });
+
+    var regexp = new RegExp(this.searchvalue, 'i')
+    this.tempResume = this.temp2Resume.filter(resume => {
+      let name=resume.resumeBank_id.firstName+" "+resume.resumeBank_id.lastName;
+      return regexp.test(name);
+    });
+
   }
 
   onfocus(e) {
@@ -149,7 +166,7 @@ export class ResumeListComponent implements OnInit {
     this.CandidateName = name+" "+lName;
     this.selectedResumeIs.candidateName = name+" "+lName;
     this.searchResume(this.selectedResumeIs.candidateName );
-    jQuery("#dropdown_jobProfile_resume").removeClass("dropdown-toggle");
+    this.toggleSearch=false;
   }
 
 }
