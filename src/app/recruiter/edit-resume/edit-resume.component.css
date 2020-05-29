@@ -632,7 +632,7 @@ iframe.interviewVideo {
   color: #33aaff !important;
 }
 .interviewQue {
-  max-height: 167px;
+  height: 100%;
   overflow-y: auto;
 }
 /* Quetion hover */
