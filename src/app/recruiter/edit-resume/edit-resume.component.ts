@@ -1,10 +1,15 @@
 import {
   Component,
-  OnInit,
   Input,
+  OnChanges,
   Output,
   EventEmitter,
-  OnChanges,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+  ViewEncapsulation,
+  OnDestroy,
+  OnInit,
 } from "@angular/core";
 import { Resume } from "../../models/resume";
 import { Router } from "@angular/router";
@@ -20,7 +25,8 @@ import { Subscription } from "rxjs";
 
 declare var jQuery: any;
 import * as $ from "jquery";
-import { ElementRef, ViewChild } from '@angular/core';
+import videojs from "video.js";
+
 declare var Materialize: any;
 
 @Component({
@@ -28,8 +34,9 @@ declare var Materialize: any;
   templateUrl: "./edit-resume.component.html",
   styleUrls: ["./edit-resume.component.css"],
 })
-export class EditResumeComponent implements OnInit, OnChanges {
-  @ViewChild("target") target: ElementRef;
+export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit {
+  @ViewChild("playVideo") videojsPlay: ElementRef;
+  player: videojs.Player;
 
   bookmarkSubscription: Subscription;
   askQuestionSubscription: Subscription;
@@ -42,8 +49,9 @@ export class EditResumeComponent implements OnInit, OnChanges {
   fileUploaded = 0;
   questionNumber: any;
   questionsByRecruiter: any;
-  videoURl: any;
+  videoURL: any;
   candidateId: any;
+  recruiterReview: any;
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
@@ -77,7 +85,6 @@ export class EditResumeComponent implements OnInit, OnChanges {
     console.log(this.resume);
     this.candidateId = this.resume._id;
     console.log(this.candidateId);
-    this.questionsByRecruiter = this.resume['questionsByRecruiter'][0];
     if (this.resume && this.resume.fileURL) {
       this.fileUploaded = 2;
       this.downloadURL = this.resume.fileURL;
@@ -113,8 +120,40 @@ export class EditResumeComponent implements OnInit, OnChanges {
     if (this.resume["interviewLinkedByRecruiter"]) {
       this.viewVideo(this.resume["interviewLinkedByRecruiter"]);
     }
+    this.recruiterReview = this.resume['recruiterReview'];
+    this.questionsByRecruiter = this.resume['questionsByRecruiter'][0];
+    // setting up values for QuestionsGroup
+    this.QuestionsGroup.setValue({
+      question1: this.questionsByRecruiter.question1,
+      question2: this.questionsByRecruiter.question2,
+      question3: this.questionsByRecruiter.question3,
+      question4: this.questionsByRecruiter.question4,
+      question5: this.questionsByRecruiter.question5,
+      timeStamp1: this.questionsByRecruiter.timeStamp1,
+      timeStamp2: this.questionsByRecruiter.timeStamp2,
+      timeStamp3: this.questionsByRecruiter.timeStamp3,
+      timeStamp4: this.questionsByRecruiter.timeStamp4,
+      timeStamp5: this.questionsByRecruiter.timeStamp5
+    });
+
     jQuery("#resume-preview").height(jQuery("#resume-info").height());
   }
+  ngAfterViewInit() {
+    // instantiate Video.js
+    if (this.videoURL) {
+      this.player = videojs(
+        this.videojsPlay.nativeElement,
+        {
+          autoplay: true,
+          controlls: true,
+        },
+        () => {
+          console.log('onPlayerReady', this);
+        }
+      );
+    }
+  }
+
   questionConfirmPopup() {
     jQuery("#quesPop").modal("open");
   }
@@ -125,14 +164,15 @@ export class EditResumeComponent implements OnInit, OnChanges {
     return this.editResumeFrm.controls;
   }
   viewVideo(archivedId) {
+    this.videoURL = "";
     // console.log(archivedId);
     const payload = {
       archivedId: archivedId,
     };
     this.videoCallingService.getArchivedVideo(payload).subscribe((url) => {
       if (url) {
-        this.videoURl = url.url;
-        console.log(this.videoURl);
+        this.videoURL = url.url;
+        console.log(this.videoURL);
       } else {
         console.log("unable to load url");
       }
@@ -280,7 +320,7 @@ export class EditResumeComponent implements OnInit, OnChanges {
     // console.log(this.questionNumber);
 
     try {
-      this.target.nativeElement.currentTime = seconds;
+      this.videojsPlay.nativeElement.currentTime = seconds;
     } catch (e) {
       console.log(e);
     }
@@ -288,4 +328,5 @@ export class EditResumeComponent implements OnInit, OnChanges {
   questionsPopUp() {
     this.questionConfirmPopup();
   }
+
 }

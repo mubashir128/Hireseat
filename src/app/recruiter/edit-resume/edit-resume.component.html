@@ -26,8 +26,8 @@
           </div>
         </div>
         <div class="editResumeupperDiv">
-          <div class="interviewVideoDiv stickyDiv">
-            <div class="leftSideQuetion">
+          <div class="interviewVideoDiv stickyDiv" *ngIf="videoURL">
+            <div class="leftSideQuetion" *ngIf="questionsByRecruiter">
               <h2>Jump to below interview questions</h2>
 
               <div class="interviewQue">
@@ -36,33 +36,29 @@
                     (click)="setCurrentTime(questionsByRecruiter.timeStamp1,1)">
                     {{questionsByRecruiter.question1}}</a>
                 </h4>
-                <!-- <div class="OnHoverDiv">
-                      <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry</h4>
-                    </div> -->
-                <!-- </div> -->
+
                 <h4><a [ngClass]="questionNumber === 2 ? 'interview-bold':false"
                     (click)="setCurrentTime(questionsByRecruiter.timeStamp2,2)">
-                    {{questionsByRecruiter.question1}}</a>
+                    {{questionsByRecruiter.question2}}</a>
                 </h4>
                 <h4><a [ngClass]="questionNumber === 3 ? 'interview-bold':false"
                     (click)="setCurrentTime(questionsByRecruiter.timeStamp3,3)">
-                    {{questionsByRecruiter.question1}}</a>
+                    {{questionsByRecruiter.question3}}</a>
                 </h4>
                 <h4><a [ngClass]="questionNumber === 4 ? 'interview-bold':false"
                     (click)="setCurrentTime(questionsByRecruiter.timeStamp4,4)">
-                    {{questionsByRecruiter.question1}}</a>
+                    {{questionsByRecruiter.question4}}</a>
                 </h4>
                 <h4><a [ngClass]="questionNumber === 5 ? 'interview-bold':false"
                     (click)="setCurrentTime(questionsByRecruiter.timeStamp5,5)">
-                    {{questionsByRecruiter.question1}}</a>
+                    {{questionsByRecruiter.question5}}</a>
                 </h4>
               </div>
-
             </div>
             <!-- video js -->
-            <div class="video-interview">
-              <video #target class="video-js" controls>
-                <source [src]="videoURl">
+            <div class="video-interview" [ngClass]="!questionsByRecruiter? 'video-js-without-questions': false">
+              <video #playVideo class="video-js" controls>
+                <source [src]="videoURL">
               </video>
             </div>
             <!-- end video js -->
@@ -142,7 +138,7 @@
 
 
         <div class="resumePreview">
-          <ng-container *ngIf="!videoURl">
+          <ng-container *ngIf="!videoURL">
             <app-pdf-viewer style="
                 top: 0;
                 left: 0;
@@ -152,7 +148,7 @@
                 width: 100%;
               " *ngIf="fileUploaded === 2" [url]="downloadURL"></app-pdf-viewer>
           </ng-container>
-          <div *ngIf="videoURl" id="resume-preview" class="wid100 center-align resumePriviewDiv">
+          <div *ngIf="videoURL" id="resume-preview" class="wid100 center-align resumePriviewDiv">
             <app-pdf-viewer style="
                 top: 0;
                 left: 0;
@@ -179,7 +175,7 @@
           </div>
 
         </div>
-        <ng-container *ngIf="videoURl">
+        <ng-container *ngIf="recruiterReview.length > 0">
           <div class="RecriterReview">
             <!-- <label>Recruiter Review</label> -->
             <div class="marB10">
@@ -187,9 +183,9 @@
                 Recruiter Review
               </span>
             </div>
-            <textarea rows="3" class="RecriterComment">{{
-              resume["recruiterReview"][0]["review"]
-            }}</textarea>
+            <textarea rows="3" class="RecriterComment">
+              {{resume["recruiterReview"][0]["review"]}}
+            </textarea>
           </div>
         </ng-container>
 
