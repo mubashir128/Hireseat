@@ -37,7 +37,6 @@ ul.resumeList {
   width: 100%;
   float: left;
   margin-bottom: 20px;
-  display: flex !important;
   flex-wrap: wrap;
 }
 .btn {
@@ -58,4 +57,37 @@ ul.resumeList {
   background-color: #fff !important;
   color: #03a9f4;
   font-weight: 600;
+}
+
+.posrelDiv {
+  position: relative;
+  background-color: #fff;
+}
+
+.dropdown-content.bidDropDown i {
+  right: 20px;
+  position: absolute;
+  top: 15px;
+  color: #878787;
+}
+
+ul.resumeDrodown {
+  max-height : 300px;
+  overflow : auto;
+  margin: 0;
+}
+
+.whiteBtn,
+.whiteBtn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  display: block;
+  opacity: 1;
 }

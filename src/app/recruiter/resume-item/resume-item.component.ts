@@ -63,9 +63,8 @@ export class ResumeItemComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.skillSet = this.resume.skills.split(",");
-    // console.log('******************', this.skillSet);
 
+    this.skillSet = this.resume.skills.split(",");
     jQuery(".card").mouseenter(function (e) {
       if (jQuery(this).find("> .card-reveal").length) {
         if (
