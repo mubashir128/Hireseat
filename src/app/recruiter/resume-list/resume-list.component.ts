@@ -14,7 +14,7 @@ declare var jQuery: any;
   styleUrls: ['./resume-list.component.css']
 })
 export class ResumeListComponent implements OnInit {
-  p=1;
+  p = 1;
   resumes: IResume[];
   selectedResume: Resume;
   noResume: boolean = true;
@@ -27,13 +27,13 @@ export class ResumeListComponent implements OnInit {
   searchvalue;
   CandidateName;
   selectedResumeIs;
-  toggleSearch=false;
-  public searchResumeBid : FormGroup;
+  toggleSearch = false;
+  public searchResumeBid: FormGroup;
   constructor(private router: Router, private resumeService: ResumeService, private spinner: NgxSpinnerService, private formBuilder: FormBuilder) {
-    this.getAllResume();
+    // this.getAllResume();
     jQuery('.modal').modal();
     this.searchResumeBid = this.formBuilder.group({
-      selectedResumeIs : ['']
+      selectedResumeIs: ['']
     });
   }
 
@@ -43,7 +43,7 @@ export class ResumeListComponent implements OnInit {
       if (data.length > 0) {
         this.resumes = data;
         this.tempResume = this.resumes;
-        this.temp2Resume=[...this.tempResume];
+        this.temp2Resume = [...this.tempResume];
         this.noResume = false;
         this.spinner.hide();
       } else {
@@ -60,6 +60,7 @@ export class ResumeListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllResume();
     jQuery('.modal').modal();
   }
 
@@ -115,8 +116,8 @@ export class ResumeListComponent implements OnInit {
   }
 
   toggle(event) {
-    this.tempResume=[...this.temp2Resume];
-    this.toggleSearch=!this.toggleSearch;
+    this.tempResume = [...this.temp2Resume];
+    this.toggleSearch = !this.toggleSearch;
   }
 
   openDropdown() {
@@ -125,20 +126,22 @@ export class ResumeListComponent implements OnInit {
   }
 
   searchtext(event) {
+    console.log(event.target.value);
+
     this.searchResume(event.target.value);
   }
 
-  searchResume(value){
+  searchResume(value) {
     this.searchvalue = value;
     if (this.searchvalue == '') {
-      this.resumes=[...this.temp2Resume];
-      this.tempResume=[...this.temp2Resume];
-      return ;
+      this.resumes = [...this.temp2Resume];
+      this.tempResume = [...this.temp2Resume];
+      return;
     }
 
     var regexp = new RegExp(this.searchvalue, 'i')
     this.resumes = this.temp2Resume.filter(resume => {
-      let name=resume.resumeBank_id.firstName+" "+resume.resumeBank_id.lastName;
+      let name = resume.candidateName;
       return regexp.test(name);
     });
 
@@ -149,7 +152,7 @@ export class ResumeListComponent implements OnInit {
 
     var regexp = new RegExp(this.searchvalue, 'i')
     this.tempResume = this.temp2Resume.filter(resume => {
-      let name=resume.resumeBank_id.firstName+" "+resume.resumeBank_id.lastName;
+      let name = resume.candidateName;
       return regexp.test(name);
     });
 
@@ -160,13 +163,13 @@ export class ResumeListComponent implements OnInit {
   }
 
   selectedResumeVal(id, name, lName) {
-    this.selectedResumeIs = name+" "+lName;
+    this.selectedResumeIs = name;
     this.selectedResumeIs = new Resume();
     this.selectedResumeIs._id = id;
-    this.CandidateName = name+" "+lName;
-    this.selectedResumeIs.candidateName = name+" "+lName;
-    this.searchResume(this.selectedResumeIs.candidateName );
-    this.toggleSearch=false;
+    this.CandidateName = name;
+    this.selectedResumeIs.candidateName = name;
+    this.searchResume(this.selectedResumeIs.candidateName);
+    this.toggleSearch = false;
   }
 
 }

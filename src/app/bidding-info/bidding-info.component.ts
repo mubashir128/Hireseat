@@ -10,41 +10,41 @@ import {
   ViewEncapsulation,
   OnDestroy,
   OnInit,
-} from "@angular/core";
-import "rxjs";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Bid, IBid } from "../models/bid";
-import { IBiddingEvent, BiddingEvent } from "../models/bidding-event";
-import { BidService } from "../_services/bid.service";
-import { IUser } from "../models/user";
-import { UserService } from "../_services/user.service";
-import { ResumeService } from "../_services/resume.service";
-import { IResume, Resume } from "../models/resume";
-import { BiddingEventService } from "../_services/bidding-event.service";
-import { FeedbackService } from "src/app/_services/feedback.service";
-import { Router } from "@angular/router";
-import { NgxSpinnerService } from "ngx-spinner";
-import { ActivatedRoute } from "@angular/router";
-import { DomSanitizer } from "@angular/platform-browser";
-import { IProfile, Profile } from "src/app/profile/model/user-profile";
-import { VideoCallingService } from "../_services/video-calling.service";
-import videojs from "video.js";
-import { ShareVideoService } from "../_services/share-video.service";
-import { Subscription } from "rxjs";
-import { materialize } from "rxjs/operators";
+} from '@angular/core';
+import 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Bid, IBid } from '../models/bid';
+import { IBiddingEvent, BiddingEvent } from '../models/bidding-event';
+import { BidService } from '../_services/bid.service';
+import { IUser } from '../models/user';
+import { UserService } from '../_services/user.service';
+import { ResumeService } from '../_services/resume.service';
+import { IResume, Resume } from '../models/resume';
+import { BiddingEventService } from '../_services/bidding-event.service';
+import { FeedbackService } from 'src/app/_services/feedback.service';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { IProfile, Profile } from 'src/app/profile/model/user-profile';
+import { VideoCallingService } from '../_services/video-calling.service';
+import videojs from 'video.js';
+import { ShareVideoService } from '../_services/share-video.service';
+import { Subscription } from 'rxjs';
+import { materialize } from 'rxjs/operators';
 
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
 @Component({
-  selector: "app-bidding-info",
-  templateUrl: "./bidding-info.component.html",
-  styleUrls: ["./bidding-info.component.css"],
+  selector: 'app-bidding-info',
+  templateUrl: './bidding-info.component.html',
+  styleUrls: ['./bidding-info.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class BiddingInfoComponent
   implements AfterViewInit, OnChanges, OnDestroy, OnInit {
-  @ViewChild("target") target: ElementRef;
+  @ViewChild('target') target: ElementRef;
   shareVideoSubscription: Subscription;
   getArchivedVideoSubscription: Subscription;
   seeArchivedVideoSubscription: Subscription;
@@ -81,7 +81,7 @@ export class BiddingInfoComponent
   isShow: boolean = false;
   totalCandidateBidded: number = 0;
   SelectedBid: number = 0;
-  CandidateName: String = "";
+  CandidateName: String = '';
   selectedIndex: any;
 
   isPrevBid: IBid[] = [];
@@ -127,20 +127,20 @@ export class BiddingInfoComponent
   ) {
     this.loggedUser = this.userService.getUserData();
     this.bidFrm = this.formBuilder.group({
-      selectedResume: ["", Validators.compose([Validators.required])],
+      selectedResume: ['', Validators.compose([Validators.required])],
     });
 
     this.resumePoints = this.formBuilder.group({
-      resumePoint1: ["", Validators.compose([Validators.required])],
-      resumePoint2: ["", Validators.compose([Validators.required])],
-      resumePoint3: ["", Validators.compose([Validators.required])],
+      resumePoint1: ['', Validators.compose([Validators.required])],
+      resumePoint2: ['', Validators.compose([Validators.required])],
+      resumePoint3: ['', Validators.compose([Validators.required])],
     });
 
     this.bid = new Bid();
     this.populateResumes();
     // this.vid = document.getElementById('myVideo');
   }
-  ngOnInit() {}
+  ngOnInit() { }
 
   get f() {
     return this.bidFrm.controls;
@@ -165,9 +165,9 @@ export class BiddingInfoComponent
     }
   }
   ngOnChanges() {
-    jQuery(".modal").modal();
-    jQuery("select").material_select();
-    if (this.loggedUser != "no") {
+    jQuery('.modal').modal();
+    jQuery('select').material_select();
+    if (this.loggedUser != 'no') {
       if (this.biddingEvent) {
         if (this.biddingEvent.status === BiddingEvent.STATUS_ACTIVE) {
           this.biddingStatus = 1;
@@ -183,18 +183,18 @@ export class BiddingInfoComponent
       }
     }
 
-    jQuery(".dropdown-button").dropdown({
+    jQuery('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,
       constrainWidth: false, // Does not change width of dropdown to that of the activator
       hover: false, // Activate on hover
       gutter: 0, // Spacing from edge
       belowOrigin: false, // Displays dropdown below the button
-      alignment: "left", // Displays dropdown with edge aligned to the left of button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false, // Stops event propagation activationDate
     });
     this.route.params.subscribe((params) => {
-      this.handleRequest(params["key"]);
+      this.handleRequest(params['key']);
     });
   }
 
@@ -203,10 +203,10 @@ export class BiddingInfoComponent
       .getUserProfile(this.userService.getUserData().userRole)
       .subscribe(
         (data: any) => {
-          if (data != null && data != undefined && data != "") {
+          if (data != null && data != undefined && data != '') {
             this.userProfile = data.res;
           } else {
-            Materialize.toast("Something went wrong", 1000);
+            Materialize.toast('Something went wrong', 1000);
           }
           this.spinner.hide();
         },
@@ -218,8 +218,8 @@ export class BiddingInfoComponent
   }
   animate(index) {
     // $('#approveBtn').on('click', function () {
-    var cart = $(".interview");
-    var imgtodrag = $("#img" + index).eq(0);
+    var cart = $('.interview');
+    var imgtodrag = $('#img' + index).eq(0);
     console.log(imgtodrag.length);
 
     if (imgtodrag.length) {
@@ -231,13 +231,13 @@ export class BiddingInfoComponent
           left: imgtodrag.offset().left,
         })
         .css({
-          opacity: "0.5",
-          position: "absolute",
-          height: "150px",
-          width: "150px",
-          "z-index": "100",
+          opacity: '0.5',
+          position: 'absolute',
+          height: '150px',
+          width: '150px',
+          'z-index': '100',
         })
-        .appendTo($("body"))
+        .appendTo($('body'))
         .animate(
           {
             top: cart.offset().top + 10,
@@ -246,10 +246,10 @@ export class BiddingInfoComponent
             height: 75,
           },
           1000,
-          "easeInOutExpo"
+          'easeInOutExpo'
         );
       // setTimeout(function () {
-      //     cart.effect("shake", {
+      //     cart.effect('shake', {
       //         times: 2
       //     }, 200);
       // }, 1500);
@@ -283,7 +283,7 @@ export class BiddingInfoComponent
           } else {
             this.ResumeList.forEach((el) => {
               if (el.resumeKey) {
-                if (el.resumeKey.resumeType == "resume_bank") {
+                if (el.resumeKey.resumeType == 'resume_bank') {
                   el.resumeKey.fileURL = el.resumeKey.resumeBank_id.resumeUrl;
                 }
               }
@@ -300,37 +300,37 @@ export class BiddingInfoComponent
   }
 
   selectRating(event) {
-    jQuery(event.srcElement).parent().find("label").css({ color: "#D8D8D8" });
-    // jQuery(event.srcElement).closest().find("label").css({ "color": "#D8D8D8" });
+    jQuery(event.srcElement).parent().find('label').css({ color: '#D8D8D8' });
+    // jQuery(event.srcElement).closest().find('label').css({ 'color': '#D8D8D8' });
 
-    jQuery(event.srcElement).css({ color: "#FFC107" });
-    jQuery(event.srcElement).nextAll().css({ color: "#FFC107" });
+    jQuery(event.srcElement).css({ color: '#FFC107' });
+    jQuery(event.srcElement).nextAll().css({ color: '#FFC107' });
   }
 
   feedBack(resumeBidId, interviewOrReject, commentId, index) {
-    var cart = $(".interview");
-    var imgtodrag = $(".img" + index).eq(0);
-    let element = document.getElementById("animateinterview" + index);
+    var cart = $('.interview');
+    var imgtodrag = $('.img' + index).eq(0);
+    let element = document.getElementById('animateinterview' + index);
     // element.className = 'singleListClick singleList resumeSingleList';
 
     console.log(imgtodrag);
 
     this.skillsPt = jQuery(
-      "input[name='" + "rating1" + resumeBidId + "']:checked"
+      "input[name='' + 'rating1' + resumeBidId + '']:checked"
     ).val();
     this.experiencePt = jQuery(
-      "input[name='" + "rating2" + resumeBidId + "']:checked"
+      "input[name='' + 'rating2' + resumeBidId + '']:checked"
     ).val();
     this.personalityPt = jQuery(
-      "input[name='" + "rating3" + resumeBidId + "']:checked"
+      "input[name='' + 'rating3' + resumeBidId + '']:checked"
     ).val();
     if (
       this.skillsPt == 33 &&
       this.experiencePt == 33 &&
       this.personalityPt == 33 &&
-      interviewOrReject == "no"
+      interviewOrReject == 'no'
     ) {
-      Materialize.toast("Can't reject with the highest rating !", 3000);
+      Materialize.toast("Can't reject with the highest rating!", 3000);
       return;
     }
 
@@ -339,7 +339,7 @@ export class BiddingInfoComponent
       this.experiencePt != undefined &&
       this.personalityPt != undefined
     ) {
-      if (imgtodrag.length && interviewOrReject == "yes") {
+      if (imgtodrag.length && interviewOrReject == 'yes') {
         var imgclone = imgtodrag
           .clone()
 
@@ -348,13 +348,13 @@ export class BiddingInfoComponent
             left: imgtodrag.offset().left,
           })
           .css({
-            opacity: "0.5",
-            position: "absolute",
-            height: "150px",
-            width: "150px",
-            "z-index": "100",
+            opacity: '0.5',
+            position: 'absolute',
+            height: '150px',
+            width: '150px',
+            'z-index': '100',
           })
-          .appendTo($("body"))
+          .appendTo($('body'))
           .animate(
             {
               top: cart.offset().top + 10,
@@ -363,7 +363,7 @@ export class BiddingInfoComponent
               height: 75,
             },
             1000,
-            "easeInOutExpo"
+            'easeInOutExpo'
           );
 
         imgclone.animate(
@@ -387,7 +387,7 @@ export class BiddingInfoComponent
         this.ratingPoints.rejectOrInterview;
       /* let skillMatch = 50 ; let experienceMatch = 50 ; let educationMatch = 50 ; let rejectOrInterview = 100 ;
       var ratingPoints = skillMatch + experienceMatch + educationMatch + rejectOrInterview; */
-      var comment = jQuery("#" + commentId).val();
+      var comment = jQuery('#' + commentId).val();
       if (comment.length > 0 && comment.length < 11) {
         this.ratingPoints.commentPoints = 200;
         this.ratingPoints.total += this.ratingPoints.commentPoints;
@@ -406,26 +406,26 @@ export class BiddingInfoComponent
       this.FeedObj.experiencePt = this.experiencePt;
       this.FeedObj.personalityPt = this.personalityPt;
       this.FeedObj.interviewOrReject =
-        interviewOrReject == "yes" ? true : false;
+        interviewOrReject == 'yes' ? true : false;
       this.FeedObj.employerKey = this.loggedUser._id;
       this.FeedObj.BidId = resumeBidId;
       this.FeedObj.Comment =
-        jQuery("#" + commentId).val() == "" &&
-        jQuery("#" + commentId).val() == undefined
-          ? ""
-          : jQuery("#" + commentId).val();
-      element.className = "singleListClick singleList resumeSingleList";
+        jQuery('#' + commentId).val() == '' &&
+          jQuery('#' + commentId).val() == undefined
+          ? ''
+          : jQuery('#' + commentId).val();
+      element.className = 'singleListClick singleList resumeSingleList';
       setTimeout(() => {
         this.feedbackService.saveFeedBack(this.FeedObj).subscribe(
           (data: any) => {
-            if (data.res == "success") {
+            if (data.res == 'success') {
               this.getUsersProfile();
               /*  jQuery('#ratingPoints').modal('open'); */
               this.route.params.subscribe((params) => {
-                this.handleRequest(params["key"]);
+                this.handleRequest(params['key']);
               });
             } else {
-              Materialize.toast("Something Went Wrong", 1000);
+              Materialize.toast('Something Went Wrong', 1000);
             }
           },
           (error) => {
@@ -434,7 +434,7 @@ export class BiddingInfoComponent
         );
       }, 800);
     } else {
-      Materialize.toast("Please give the rating first", 1000);
+      Materialize.toast('Please give the rating first', 1000);
     }
   }
 
@@ -552,16 +552,16 @@ export class BiddingInfoComponent
       ) {
         this.showPointsModal();
       } else {
-        Materialize.toast("Your candidate is already bidding.", 4000);
+        Materialize.toast('Your candidate is already bidding.', 4000);
       }
       this.spinner.hide();
     } else {
-      Materialize.toast("Select Resume.", 4000);
+      Materialize.toast('Select Resume.', 4000);
     }
   }
 
   showPointsModal() {
-    jQuery("#ThreePointsModel").modal("open");
+    jQuery('#ThreePointsModel').modal('open');
   }
 
   submitresumePoints() {
@@ -579,27 +579,27 @@ export class BiddingInfoComponent
     this.bid.candidateName = this.selectedResume.candidateName;
     this.bidService.createBid(this.bid).subscribe(
       (data: any) => {
-        if (data.result == "inserted") {
-          Materialize.toast("Bid submitted successfully! !", 4000);
-          jQuery("#ThreePointsModel").modal("close");
+        if (data.result == 'inserted') {
+          Materialize.toast('Bid submitted successfully! !', 4000);
+          jQuery('#ThreePointsModel').modal('close');
           this.populateBids();
           this.populateMyBids();
           this.populateResumes();
         } else {
-          Materialize.toast("Something Went Wrong!", 4000);
+          Materialize.toast('Something Went Wrong!', 4000);
         }
         this.spinner.hide();
       },
       (error) => {
         // console.log(error);
         this.spinner.hide();
-        Materialize.toast("Something Went Wrong!", 4000);
+        Materialize.toast('Something Went Wrong!', 4000);
       }
     );
   }
 
   createNewResume() {
-    this.router.navigate(["/recruiter/resume-list"]);
+    this.router.navigate(['/recruiter/resume-list']);
   }
   seeVideo(i, archiveId, resume) {
     // call video call service
@@ -608,7 +608,7 @@ export class BiddingInfoComponent
     this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
     // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
-    this.videoURL = "";
+    this.videoURL = '';
     // console.log(i);
     this.selectedIndex = i;
     this.spinner.show();
@@ -632,7 +632,7 @@ export class BiddingInfoComponent
       );
   }
   closeVide() {
-    this.videoURL = "";
+    this.videoURL = '';
   }
 
   setCurrentTime(seconds, questionNumber) {
@@ -647,8 +647,8 @@ export class BiddingInfoComponent
   }
   // share process
   showShareModal(resume, biddingEvent) {
-    jQuery("#shareEmailPopUp").modal("open");
-    console.log(resume, "**********************", biddingEvent);
+    jQuery('#shareEmailPopUp').modal('open');
+    console.log(resume, '**********************', biddingEvent);
     this.shareResume = resume;
     this.shareBiddingEvent = biddingEvent;
     const archiveIdPayload = {
@@ -675,22 +675,22 @@ export class BiddingInfoComponent
       );
   }
   closeShareModal() {
-    jQuery("#shareEmailPopUp").modal("close");
+    jQuery('#shareEmailPopUp').modal('close');
   }
   async sendVideo() {
     await this.share(this.shareResume, this.shareBiddingEvent);
-    jQuery("#shareEmailPopUp").modal("close");
+    jQuery('#shareEmailPopUp').modal('close');
   }
   share = async (resume, biddingEvent) => {
     const subject =
-      "Hireseat" +
-      " - " +
+      'Hireseat' +
+      ' - ' +
       biddingEvent.employerCompanyName +
-      " - " +
+      ' - ' +
       resume.resumeKey.jobTitle +
-      " - " +
+      ' - ' +
       resume.resumeKey.candidateName +
-      " Profile.";
+      ' Profile.';
     // console.log(subject, this.loggedUser);
 
     if (this.shareableVideoURL) {
@@ -715,12 +715,12 @@ export class BiddingInfoComponent
           (res) => {
             if (res) {
               // console.log(res);
-              Materialize.toast("Email sent!", 3000);
+              Materialize.toast('Email sent!', 3000);
             }
           },
           (err) => {
             console.log(err);
-            Materialize.toast("unable to send an email!", 3000);
+            Materialize.toast('unable to send an email!', 3000);
           }
         );
     }
@@ -728,7 +728,7 @@ export class BiddingInfoComponent
   // END share process
   numberWithCommas(x) {
     if (x != null) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
   }
   ngOnDestroy(): void {

@@ -146,7 +146,7 @@ export class RecruiterQuestionComponent implements OnInit {
         subType: "askedQuestion"
       }
     });
-    
+
     this.quetionsData=[...this.tempQuestionData];
   }
 

@@ -94,7 +94,6 @@ import { CreateImagePostComponent } from "./blog/create-image-post/create-image-
 import { EditBlogComponent } from "./blog/edit-blog/edit-blog.component";
 import { EditTagComponent } from "./blog/edit-blog/edit-tag/edit-tag.component";
 import { SocialShareComponent } from "src/app/blog/frontend/single-page/social-share/social-share.component";
-import { CeiboShare } from "ng2-social-share";
 import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
 import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
 
@@ -123,7 +122,6 @@ import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/e
 import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { SearchPipe } from '../search.pipe';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
 import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.component';
@@ -138,6 +136,8 @@ import { SearchByNamePipe } from '../search-by-name.pipe';
 import { SearchByExperiencePipe } from '../search-by-experience.pipe';
 import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
 import { SharedVideoComponent } from './shared-video/shared-video.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -463,7 +463,6 @@ const appChildRoutes: Routes = [
     EditBlogComponent,
     EditTagComponent,
     SocialShareComponent,
-    CeiboShare,
     AllBlogTagComponent,
     RecruiterComponent,
 
@@ -516,7 +515,7 @@ const appChildRoutes: Routes = [
     Ng2CompleterModule,
     SelectDropDownModule,
     NgHighlightModule,
-    NgMultiSelectDropDownModule
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     AuthGuard,
