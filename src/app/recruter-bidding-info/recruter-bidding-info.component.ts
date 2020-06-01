@@ -110,14 +110,11 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   get frm() { return this.resumePoints.controls }
 
   ngOnChanges() {
-    console.log('bidding event details from recruiter bidding info', this.biddingEvent);
 
     this.route.params.subscribe(params => { this.getJobprofileDetails(params['key']) });
 
     var userData = this.userService.getUser();
     this.currentRecruterId = userData.userInfo._id;
-
-
 
     jQuery('select').material_select();
     jQuery('.modal').modal();

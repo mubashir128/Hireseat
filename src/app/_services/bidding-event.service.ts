@@ -57,34 +57,13 @@ export class BiddingEventService {
       return res;
     })) 
   }
-  addRecruiterQuetions(info){
-    return this.http.post<IBiddingEvent>(this.baseurl+'api/addRecruiterQuetions',info).pipe(map((res:IBiddingEvent)=>{
-      return res;
-    }))
-  }
-  AddRecruiterQueAns(info){
-    return this.http.post<IBiddingEvent>(this.baseurl+'api/AddRecruiterQueAns',info).pipe(map((res:IBiddingEvent)=>{
-      return res;
-    }))
-  }
-  getAllQuestions(id,type){
-    return this.http.get<IBiddingEvent>(this.baseurl+'api/getAllQuestions/'+id + '/' + type).pipe(map((res:IBiddingEvent)=>{    
-      return res;
-    }))
-  }
-  getQuestions(info){
-    return this.http.post<IBiddingEvent>(this.baseurl+'api/getQuestions',info).pipe(map((res:IBiddingEvent)=>{
-      return res;
-    }))
-    
-  }
+
   getBiddingEvents(){
     return this.http.get<IBiddingEvent[]>(this.baseurl+'api/getBiddingEvents').pipe(map((res:IBiddingEvent[])=>{    
       return res;
     }))
   }
   
-
   getBiddingEventById(id:any){
     return this.http.get<IBiddingEvent>(this.baseurl+'api/getBiddingEventById/'+id).pipe(map((res:IBiddingEvent)=>{    
       return res;
