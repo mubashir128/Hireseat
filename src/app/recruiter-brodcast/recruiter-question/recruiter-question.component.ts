@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { DomSanitizer} from '@angular/platform-browser'
+import { WebsocketService } from 'src/app/_services/websocket.service';
+import { Subject } from 'rxjs';
 
 declare var Materialize;
 @Component({
@@ -22,33 +24,65 @@ export class RecruiterQuestionComponent implements OnInit {
   showdata: boolean= true;
   searchTerm: string;
   queid: string;
+  questionObserver = new Subject();
+  questionObserver$ = this.questionObserver.asObservable();
 
-  constructor(private router: Router,private completerService: CompleterService, private route: ActivatedRoute,private bidEventService:BiddingEventService) {
+  constructor(private router: Router,private completerService: CompleterService, private route: ActivatedRoute,private bidEventService:BiddingEventService,private _socket: WebsocketService) {
+  }
 
-   }
+  async ngOnInit() {
 
-  ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
     this.id = this.route.snapshot.paramMap.get('key');
      this.route.queryParams.subscribe(params => {
       this.queid = params['queid']
     })
+
+    await this._socket.removeListener({ type: 3 });
+    this._socket.addListener({
+      type: 3,
+      callback: this.questionObserver
+    });
+
+    this.questionObserver$.subscribe((res: any) => {
+      this.handleQuestionData(res);
+    });
+
+    this._socket.sendMessage({
+      type: 3,
+      data: {
+        subType: "getAllQuestions",
+        data : {
+          _id : this.id,
+          type : this.user.userRole
+        }
+      }
+    });
+
     // console.log(this.queid);
     this.bidEventService.getBiddingEventById(this.id).subscribe((data)=>{
-     
       this.biddingEvent = data;
-    })
-    this.bidEventService.getAllQuestions(this.id,this.user.userRole).subscribe((data)=>{
-     
-      this.quetionsData = data;
-      // console.log(this.quetionsData);
-      this.dataService = this.completerService.local(this.quetionsData, 'question', 'question');
+    });
 
-     
-    })
-    // console.log(this.user);
+    // this.bidEventService.getAllQuestions(this.id,this.user.userRole).subscribe((data)=>{ 
+    //   this.quetionsData = data;
+    //   console.log(this.quetionsData);
+    //   this.dataService = this.completerService.local(this.quetionsData, 'question', 'question');
+    // });
     
   }
+
+  handleQuestionData(res: any) {
+    switch (res.subType) {
+      case "getAllNotifications" :
+        console.log("socket data : ",res.data);
+        this.quetionsData = res.data;
+        break;
+      default:
+        break;
+    }
+  }
+
   showDiv(){
     this.showdata = !this.showdata;
   }
