@@ -57,6 +57,7 @@ export class Resume {
   referralEmail3: string;
   referralPhoneNumber3: number;
   comments: string;
+  bookmark;
   constructor() { }
 
   public static getSampleObject(): Resume {
