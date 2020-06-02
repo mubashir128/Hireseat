@@ -4,7 +4,46 @@
         class="material-icons left">add</i> New Resume</a>
   </div> -->
   <div class="resume-container" *ngIf="!noResume">
-    <div class="right-align marT10">
+    <div class="right-align mainTopBar marT10">
+      <div class="posrelDiv dropdownMain">
+        <!-- <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="selectedResume" [multiple]="false" [config]="{displayKey:candidateName,search:true}" [options]="resumes"></ngx-select-dropdown> -->
+        <!-- <div class="searchDropdownMain"> -->
+        <div class="input-field" (click)="toggle($event)">
+          <form [formGroup]="searchResumeBid">
+            <label style="margin-top: -15px;" for="jobProfiler" for="selectedResumeIs"
+              [ngClass]="{ hide: selectedResumeIs }"></label>
+            <input type="hidden" name="selectedResumeIs" id="selectedResumeIs" class="selectedResume"
+              placeholder="Select Resume" />
+            <a class="dropdown-button_resume" data-activates="dropdown_jobProfile_resume">
+              {{ CandidateName }}
+            </a>
+            <i id="toggleDropdownId" class="material-icons right" style="cursor: pointer;"
+              (click)="openDropdown($event)">
+              arrow_drop_down
+            </i>
+          </form>
+        </div>
+        <div id="dropdown_jobProfile_resume" *ngIf="toggleSearch" class="dropdown-content bidDropDown dropdown-toggle">
+          <div class="searchDivList">
+            <input type="text" (input)="searchtext($event)" (focus)="onfocus($event)" placeholder="search"
+              autocomplete="off" class="searchBox" [(ngModel)]="CandidateName"
+              style="padding: 0 20px; box-sizing: border-box; position: relative; margin: 0;" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
+          <ul class="resumeDrodown">
+            <li *ngFor="let resume of tempResume">
+              <a [ngClass]="{ myclass: resume._id | inArray: resume?._id }"
+                (click)="selectedResumeVal(resume?._id, resume?.candidateName)"
+                class="noCSSjustClosingDiv">{{ resume.candidateName}} , years of experience :
+                {{ resume?.experience || "fresher" }} ,
+                <span *ngFor="let skill of resume?.tags">{{
+                  skill?.display
+                }}</span></a>
+            </li>
+          </ul>
+        </div>
+        <!-- </div> -->
+      </div>
       <a class="waves-effect waves-light btn" [routerLink]="['/employer/new-resume']">
         <i class="material-icons left">add</i>New Candidate</a>
     </div>

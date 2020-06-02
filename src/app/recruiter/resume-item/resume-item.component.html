@@ -42,18 +42,19 @@
       <i (click)="showShareModal(resume)" class="fa fa-share" aria-hidden="true"></i>
     </div>
     <div class="addToResumeList">
-      <span class="addToResumeList-title" *ngIf="!resume.addedToVideoInterviewRoomByRecruiter"
+      <span class="addToResumeList-title"
+        *ngIf="!(resume.addedToVideoInterviewRoomByRecruiter || resume.addedToVideoInterviewRoomByEmployer)"
         (click)="onAddToInterviewList(resume)">
         Add to video interview
       </span>
       <span class="interviewSchedule-title" (click)="viewCandidate(resume)" *ngIf="
-          resume.addedToVideoInterviewRoomByRecruiter &&
-          !resume.interviewLinkedByRecruiter
+          (resume.addedToVideoInterviewRoomByRecruiter || resume.addedToVideoInterviewRoomByEmployer) &&
+          !(resume.interviewLinkedByRecruiter || resume.interviewLinkedByEmployer)
         ">
         Interview scheduled
       </span>
-      <span class="addedToResumeList-title" *ngIf="resume.interviewLinkedByRecruiter"
-        (click)="viewVideo(resume.interviewLinkedByRecruiter)">
+      <span class="addedToResumeList-title"
+        *ngIf="resume.interviewLinkedByRecruiter || resume.interviewLinkedByEmployer" (click)="viewVideo(resume)">
         View interview
       </span>
     </div>

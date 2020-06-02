@@ -49,6 +49,7 @@ export class PublisherComponent implements AfterViewInit {
       animate: true,
       window: window,
       ignoreClass: 'OT_ignore',
+      position: 'relative'
     };
     // this.opentokService._publishedStream.subscribe(publisher => {
     //   // console.log('publisher status', publisher);

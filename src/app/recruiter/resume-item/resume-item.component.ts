@@ -159,42 +159,91 @@ export class ResumeItemComponent implements OnInit, OnChanges {
     this.resumeVisible = 2;
   }
   onAddToInterviewList(resume) {
-    const payload = {
-      recruitersid: resume.recruiterKey,
-      candidatesId: resume._id,
-      candidateName: resume.candidateName,
-      skills: resume.skills,
-      jobTitle: resume.jobTitle,
-    };
-    this.videoInterviewSubscription = this.videoCallingService
-      .addToVideoInterviewRoomRecruiter(payload)
-      .subscribe(
-        (res) => {
+    if (this.loggedUser.userRole === 'employer') {
+      const payload = {
+        employersId: this.loggedUser._id,
+        candidatesId: resume._id,
+        candidateName: resume.candidateName,
+        skills: resume.skills,
+        jobTitle: resume.jobTitle
+      };
+      this.videoInterviewSubscription = this.videoCallingService.addToVideoInterviewRoomHM(payload).subscribe(res => {
+        // console.log('****************', res);
+        if (res) {
           // console.log('****************', res);
-          if (res) {
-            resume.addedToVideoInterviewRoomByRecruiter = true;
-            this.emailConfirmPopup();
-          }
-        },
-        (err) => {
-          console.log("error occured", err);
+
+          resume.resumeKey.addedToVideoInterviewRoomByEmployer = true;
+          Materialize.toast('The Candidate is added to the interview room successfully!', 1000);
         }
-      );
+      }, err => {
+        console.log('error occured', err);
+        Materialize.toast('Something went wrong!', 1000);
+
+      });
+    } else if (this.loggedUser.userRole === 'recruiter') {
+      const payload = {
+        recruitersid: resume.recruiterKey,
+        candidatesId: resume._id,
+        candidateName: resume.candidateName,
+        skills: resume.skills,
+        jobTitle: resume.jobTitle,
+      };
+      this.videoInterviewSubscription = this.videoCallingService
+        .addToVideoInterviewRoomRecruiter(payload)
+        .subscribe(
+          (res) => {
+            // console.log('****************', res);
+            if (res) {
+              resume.addedToVideoInterviewRoomByRecruiter = true;
+              // this.emailConfirmPopup();
+              Materialize.toast('The Candidate is added to the interview room successfully!', 1000);
+
+            }
+          },
+          (err) => {
+            console.log("error occured", err);
+            Materialize.toast('Something went wrong!', 1000);
+
+          }
+        );
+    }
   }
   viewCandidate(resume) {
     // console.log('added resume ', resume);
   }
-  viewVideo(archivedId) {
-    // console.log(archivedId);
-    const payload = {
-      archivedId: archivedId,
-    };
+  viewVideo(resume) {
+    console.log(resume);
+    if (this.loggedUser.userRole === 'employer') {
+      if (resume.interviewLinkedByEmployer) {
+        const payload = {
+          archivedId: resume.interviewLinkedByEmployer,
+        };
+        this.getVideo(payload);
+      } else {
+        Materialize.toast('Interview is not done yet!,  Hiring manager', 3000);
+      }
+    } else if (this.loggedUser.userRole === 'recruiter') {
+      if (resume.interviewLinkedByRecruiter) {
+        const payload = {
+          archivedId: resume.interviewLinkedByRecruiter,
+        };
+        this.getVideo(payload);
+      } else {
+        Materialize.toast('Interview is not done yet!,  Recruiter', 3000);
+
+      }
+    }
+
+  }
+  getVideo(payload) {
     this.videoCallingService.getArchivedVideo(payload).subscribe((url) => {
       if (url) {
         window.open(url.url);
         // console.log(url);
       } else {
         // console.log('unable to load url');
+        Materialize.toast('unable to load url', 3000);
+
       }
     });
   }

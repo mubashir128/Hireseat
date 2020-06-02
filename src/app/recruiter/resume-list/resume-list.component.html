@@ -23,7 +23,8 @@
         <form [formGroup]="searchResumeBid">
           <label style="margin-top: -15px;" for="jobProfiler" for="selectedResumeIs"
             [ngClass]="{ hide: selectedResumeIs }"></label>
-          <input type="hidden" name="selectedResumeIs" id="selectedResumeIs" class="selectedResume" placeholder="Select Resume" />
+          <input type="hidden" name="selectedResumeIs" id="selectedResumeIs" class="selectedResume"
+            placeholder="Select Resume" />
           <a class="dropdown-button_resume" data-activates="dropdown_jobProfile_resume">
             {{ CandidateName }}
           </a>
@@ -58,7 +59,7 @@
   </div>
 
   <div style="margin-top : 10px;">
-    
+
 
     <div style="margin-top: 15px;" *ngIf="!noResume">
       <ul class="resumeList">

@@ -5,6 +5,7 @@ import { Resume, IResume } from '../../models/resume';
 import { ResumeService } from '../../_services/resume.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { isEmpty } from 'rxjs/operators';
+import { FormGroup, FormBuilder } from '@angular/forms';
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -21,19 +22,34 @@ export class MycandidatesComponent implements OnInit {
   selectedResumeDelete: Resume;
   mode = 0; // 0: resume list, 1: edit resume
   msg: any;
+  showdropdown = false;
+  tempResume;
+  temp2Resume;
+  searchvalue;
+  CandidateName;
+  selectedResumeIs;
+  toggleSearch = false;
+  public searchResumeBid: FormGroup;
   constructor(
     private router: Router,
     private resumeService: ResumeService,
     private spinner: NgxSpinnerService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder
+
   ) {
     this.resumes = [];
     jQuery('.modal').modal();
+    this.searchResumeBid = this.formBuilder.group({
+      selectedResumeIs: ['']
+    });
   }
 
   getAllHiredResume() {
     this.spinner.show();
     this.resumeService.getSpecificHiredCandidates().subscribe((data: any) => {
+      // console.log(data);
+
       if (data.msg) {
         this.msg = data.msg;
       }
@@ -44,6 +60,8 @@ export class MycandidatesComponent implements OnInit {
             this.resumes.push(element.resumeKey);
           }
         });
+        this.tempResume = this.resumes;
+        this.temp2Resume = [...this.tempResume];
 
         this.spinner.hide();
       } else {
@@ -55,11 +73,30 @@ export class MycandidatesComponent implements OnInit {
         this.spinner.hide();
       });
   }
+  getEmployerAddedResumes() {
+    this.spinner.show();
+    this.resumeService.getEmployerAddedResumes().subscribe((data: IResume[]) => {
+      // console.log(data.resumes);
+      const resumes = data['resumes'];
+      if (resumes.length > 0) {
+        resumes.forEach(ele => {
+          this.resumes.push(ele);
 
+        });
+
+        this.tempResume = this.resumes;
+        this.temp2Resume = [...this.tempResume];
+      }
+    }, err => {
+      console.log(err);
+
+    });
+  }
   ngOnInit() {
     this.resumes = [];
 
     this.getAllHiredResume();
+    this.getEmployerAddedResumes();
     jQuery('.modal').modal();
   }
 
@@ -68,7 +105,7 @@ export class MycandidatesComponent implements OnInit {
   }
 
   editResume(resume: Resume) {
-    console.log(resume);
+    // console.log(resume);
     this.selectedResume = resume;
     this.mode = 1;
   }
@@ -112,6 +149,59 @@ export class MycandidatesComponent implements OnInit {
   comeBack() {
     this.resumes = [];
     this.mode = 0;
+  }
+  toggle(event) {
+    this.tempResume = [...this.temp2Resume];
+    this.toggleSearch = !this.toggleSearch;
+  }
+
+  openDropdown() {
+    jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
+    this.showdropdown = true;
+  }
+  selectedResumeVal(id, name, lName) {
+    this.selectedResumeIs = name;
+    this.selectedResumeIs = new Resume();
+    this.selectedResumeIs._id = id;
+    this.CandidateName = name;
+    this.selectedResumeIs.candidateName = name;
+    this.searchResume(this.selectedResumeIs.candidateName);
+    this.toggleSearch = false;
+  }
+  searchtext(event) {
+    // console.log(event.target.value);
+
+    this.searchResume(event.target.value);
+  }
+  onfocus(e) {
+    jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
+  }
+
+  searchResume(value) {
+    this.searchvalue = value;
+    if (this.searchvalue == '') {
+      this.resumes = [...this.temp2Resume];
+      this.tempResume = [...this.temp2Resume];
+      return;
+    }
+
+    var regexp = new RegExp(this.searchvalue, 'i')
+    this.resumes = this.temp2Resume.filter(resume => {
+      let name = resume.candidateName;
+      return regexp.test(name);
+    });
+
+    // this.resumes = this.temp2Resume.filter(resume => {
+    //   let name=resume.resumeBank_id.firstName+" "+resume.resumeBank_id.lastName;
+    //   return (name === this.searchvalue);
+    // });
+
+    var regexp = new RegExp(this.searchvalue, 'i')
+    this.tempResume = this.temp2Resume.filter(resume => {
+      let name = resume.candidateName;
+      return regexp.test(name);
+    });
+
   }
 
 }

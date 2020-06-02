@@ -43,6 +43,11 @@ export class ResumeService {
       return res;
     }));
   }
+  getEmployerAddedResumes() {
+    return this.http.get<IResume[]>(this.baseurl + 'api/getEmployersResume').pipe(map((res: IResume[]) => {
+      return res;
+    }));
+  }
   // get all hired candidates against employer id
   getSpecificHiredCandidates() {
     return this.http.get<any>(this.baseurl + 'api/getSpecificHiredCandidates').pipe(map((res: any) => {

@@ -34,7 +34,7 @@
                 <!-- <div class="QuestionInner"> -->
                 <h4><a [ngClass]="questionNumber === 1 ? 'interview-bold':false"
                     (click)="setCurrentTime(questionsByRecruiter.timeStamp1,1)">
-                    {{questionsByRecruiter.question1}}</a>
+                    {{questionsByRecruiter?.question1}}</a>
                 </h4>
 
                 <h4><a [ngClass]="questionNumber === 2 ? 'interview-bold':false"

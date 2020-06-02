@@ -29,7 +29,12 @@ export class ResumeListComponent implements OnInit {
   selectedResumeIs;
   toggleSearch = false;
   public searchResumeBid: FormGroup;
-  constructor(private router: Router, private resumeService: ResumeService, private spinner: NgxSpinnerService, private formBuilder: FormBuilder) {
+  constructor(
+    private router: Router,
+    private resumeService: ResumeService,
+    private spinner: NgxSpinnerService,
+    private formBuilder: FormBuilder
+  ) {
     // this.getAllResume();
     jQuery('.modal').modal();
     this.searchResumeBid = this.formBuilder.group({
@@ -126,7 +131,7 @@ export class ResumeListComponent implements OnInit {
   }
 
   searchtext(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
 
     this.searchResume(event.target.value);
   }

@@ -4,6 +4,7 @@ export interface IResume {
   _id?: String;
   socialSecurityNum: string;
   recruiterKey: string;
+  employerKey: string;
   jobType: string;
   candidateName: string;
   resumeType: string;
@@ -16,6 +17,8 @@ export class Resume {
   candidateName: string;
   socialSecurityNum: string;
   recruiterKey: string;
+  employerKey: string;
+
   jobType: string;
   public static JOB_TYPE_FULL_TIME = "FULL_TIME";
   public static JOB_TYPE_PART_TIME = "PART_TIME";
