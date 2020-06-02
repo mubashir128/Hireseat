@@ -101,7 +101,7 @@
 }
 .editResumeupperDiv {
   width: 100%;
-  min-height: 300px;
+  max-height: 300px;
   padding: 0 15px;
   display: flex;
   justify-content: space-between;

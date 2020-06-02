@@ -59,7 +59,6 @@ ul.resumeList {
   color: #03a9f4;
   font-weight: 600;
 }
-
 .posrelDiv {
   position: relative;
   background-color: #fff;
@@ -77,13 +76,11 @@ ul.resumeDrodown {
   overflow : auto;
   margin: 0;
 }
-
 .whiteBtn,
 .whiteBtn:hover {
   background-color: #fff;
   color: #000;
 }
-
 .dropdown-toggle {
   width: 100%;
   position: absolute;
@@ -125,7 +122,7 @@ a.waves-effect.waves-light.btn.newResumeBtn {
   text-align: left;
   display: inline-block;
   position: relative;
-  padding: 10px;
+  padding: 10px 20px;
 }
 .dropdownMain i.right {
   float: right;
