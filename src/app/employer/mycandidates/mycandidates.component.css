@@ -107,3 +107,11 @@ a.waves-effect.waves-light.btn.newResumeBtn {
 .waves-effect {
   width: 240px !important;
 }
+.dropdown-button_resume {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  display: inline-block;
+  position: relative;
+  padding: 10px;
+}
