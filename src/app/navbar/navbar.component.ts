@@ -63,14 +63,12 @@ export class NavbarComponent implements OnInit {
     private bidEventService: BiddingEventService,
     private _socket: WebsocketService,
     private _eref: ElementRef,
-    public enterpriseService: EnterpriseService,
-    private _pushNotify : PushNotificationService
+    public enterpriseService: EnterpriseService
   ) {
     this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != 'no') {
       this.isLoggedIn = true;
-      this._pushNotify.pushNotification();
       if (this.loggedInUser.userRole == 'employer') {
         this.isEmployer = true;
       } else if (this.loggedInUser.userRole == 'recruiter') {
@@ -199,7 +197,7 @@ export class NavbarComponent implements OnInit {
         if(res.data.length !==0 ){
           this.questDataLenght = [...this.questDataLenght, ...res.data];
           this.createdAt=this.questDataLenght[this.questDataLenght.length-1].createdAt;
-          this.notificationLength = res.count ? res.count : this.notificationLength
+          this.notificationLength = res.count ? res.count : this.notificationLength;
         }
         break;
       case this.newNotification:

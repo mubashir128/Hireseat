@@ -3,7 +3,7 @@ import { SwPush } from '@angular/service-worker';
 import { HttpClient } from '@angular/common/http';
 import * as myGlobals from "../globalPath";
 
-const VAPID_PUBLIC ='BD3wdfpmpdO5bCqT_mS_-OmS81RAatMrIa0mqhqlJnkkTSNR4tCWAkIUah5-frzLfbtdyff8qpvwGI8Utro_PZU';
+const VAPID_PUBLIC ='BKbeJtJWvlwlD_LHdhPEircqJx55MpR5TAES2swafZV1VojRwsclQ0liF8cpPmoAgW-WiAdxJqHn0zgVmZ5chbo';
 
 @Injectable({
   providedIn: 'root'
