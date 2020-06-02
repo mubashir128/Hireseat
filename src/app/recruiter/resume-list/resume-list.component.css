@@ -22,7 +22,7 @@
 }
 .bluePopHead{
   font-size: 27px;
-  color: #03a9f4;
+  color: #44606d;
 }
 .modal .modal-footer {
   border-radius: 0 0 2px 2px;
@@ -122,8 +122,10 @@ a.waves-effect.waves-light.btn.newResumeBtn {
 .dropdown-button_resume{
   width: 100%;
   height: 100%;
+  text-align: left;
   display: inline-block;
   position: relative;
+  padding: 10px;
 }
 .dropdownMain i.right {
   float: right;
@@ -131,4 +133,7 @@ a.waves-effect.waves-light.btn.newResumeBtn {
   position: absolute;
   top: 20%;
   right: 2%;
+}
+li.floatUns.marginUns {
+  margin-left: unset;
 }

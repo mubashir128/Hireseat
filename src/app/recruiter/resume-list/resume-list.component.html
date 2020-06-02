@@ -65,7 +65,7 @@
       <ul class="resumeList">
         <li *ngFor="
             let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }
-          " class="col s12 m12 l6 floatUns">
+          " class="col s12 m12 l6 floatUns marginUns">
           <app-resume-item [resume]="resume" (selectedForEdit)="editResume($event)"
             (selectedForDelete)="deleteResume($event)"></app-resume-item>
         </li>
