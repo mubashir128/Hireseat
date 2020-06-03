@@ -17,7 +17,7 @@
         
         <div class="quetion onlyQue nobord" *ngIf="!quetionAns.Ans">
             <h5><Span class="labelclass">Q.{{index + 1}} </Span> <span>{{quetionAns.question}}</span> <span class="queCount">{{quetionAns.questionCount}}</span></h5>
-            <a (click)="showpostAns(index,quetionAns._id)" >Post your response > ></a>
+            <a (click)="showpostAns(index,quetionAns._id,quetionAns.EmployerId,quetionAns.RecruiterId)" >Post your response > ></a>
           </div>
         
       </div>

@@ -19,7 +19,8 @@ export class RecruiterQuestionComponent implements OnInit {
   id: any;
   question: any;
   result: any;
-  quetionsData: any;
+  quetionsData = [];
+  tempQuestionData = [];
   protected dataService: CompleterData;
   showdata: boolean= true;
   searchTerm: string;
@@ -27,7 +28,7 @@ export class RecruiterQuestionComponent implements OnInit {
   questionObserver = new Subject();
   questionObserver$ = this.questionObserver.asObservable();
 
-  constructor(private router: Router,private completerService: CompleterService, private route: ActivatedRoute,private bidEventService:BiddingEventService,private _socket: WebsocketService) {
+  constructor(private router: Router,private completerService: CompleterService, private route: ActivatedRoute,private bidEventService:BiddingEventService, private _socket: WebsocketService) {
   }
 
   async ngOnInit() {
@@ -35,8 +36,13 @@ export class RecruiterQuestionComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
     this.id = this.route.snapshot.paramMap.get('key');
      this.route.queryParams.subscribe(params => {
-      this.queid = params['queid']
+      this.queid = params['queid'];
     })
+
+    let obj = JSON.parse(localStorage.getItem('currentUser'));
+    if (obj !== null) {
+      await this.initSocket(obj.token);
+    }
 
     await this._socket.removeListener({ type: 3 });
     this._socket.addListener({
@@ -51,77 +57,97 @@ export class RecruiterQuestionComponent implements OnInit {
     this._socket.sendMessage({
       type: 3,
       data: {
+        _id : this.id,
         subType: "getAllQuestions",
-        data : {
-          _id : this.id,
-          type : this.user.userRole
-        }
+        type : JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole
       }
     });
 
-    // console.log(this.queid);
     this.bidEventService.getBiddingEventById(this.id).subscribe((data)=>{
       this.biddingEvent = data;
     });
-
-    // this.bidEventService.getAllQuestions(this.id,this.user.userRole).subscribe((data)=>{ 
-    //   this.quetionsData = data;
-    //   console.log(this.quetionsData);
-    //   this.dataService = this.completerService.local(this.quetionsData, 'question', 'question');
-    // });
     
+  }
+
+  async initSocket(token) {
+    await this._socket.getInstance(token);
   }
 
   handleQuestionData(res: any) {
     switch (res.subType) {
-      case "getAllNotifications" :
-        console.log("socket data : ",res.data);
-        this.quetionsData = res.data;
+      case "getAllQuestions" :
+        // add all questions to list.
+        if(res.data.length > 0){
+          this.quetionsData = res.data;
+          this.tempQuestionData = res.data;
+        }
         break;
+      case "question" :
+        // add question to list.
+        if(res.result){
+          this.question = '';
+          Materialize.toast('Question added successfully', 1000)
+          this.quetionsData.push(res.data.data);
+          this.tempQuestionData.push(res.data.data);
+        }
+        break;
+      case "answer" :
+          // add answer to list.
+          this.updateElement(res.data.result);
+          Materialize.toast('Answer added', 1000);
+          break;
       default:
         break;
+    }
+  }
+
+  updateElement(obj){
+    for(let i=0;i<this.quetionsData.length;i++){
+        if(this.quetionsData[i]._id === obj._id){
+          this.quetionsData[i].Ans=obj.Ans;
+          break;
+        }
     }
   }
 
   showDiv(){
     this.showdata = !this.showdata;
   }
+
   updateSearch(e) {
     this.question = e.target.value;
-    // console.log(this.question);
-    var info = {
-      question: this.question,
-      biddingEventId:this.biddingEvent._id
+    
+    if(this.question === ''){
+      this.quetionsData=[...this.tempQuestionData];
+      return ;
     }
-    this.bidEventService.getQuestions(info).subscribe((data)=>{
-      // console.log(data);
-      this.quetionsData = data;
-    })
+
+    var regexp = new RegExp(this.question, 'i');
+    this.quetionsData = this.tempQuestionData.filter(question => {
+      let name=question.question;
+      return regexp.test(name);
+    });
+
   }
 
   AskQuestions(){
     var info = {
-      question: this.question,
-      biddingEventId:this.biddingEvent._id,
-      RecruiterId:this.user,     
-      EmployerId:this.biddingEvent.employerKey,
-      JobProfile:this.biddingEvent.jobProfileKey
-   };
-      this.bidEventService.addRecruiterQuetions(info).subscribe((res)=>{
-      this.result = res;
-        if(this.result.result == "inserted"){
-          Materialize.toast('Question added successfully', 1000)
-          this.question = '';
-          this.bidEventService.getAllQuestions(this.id,this.user.userRole).subscribe((data)=>{
-     
-            this.quetionsData = data;
-            
-            
-            
-          })
-        }
-      })
-    }
-  
+      question : this.question,
+      biddingEventId : this.biddingEvent._id,
+      RecruiterId : this.user,
+      EmployerId : this.biddingEvent.employerKey,
+      JobProfile : this.biddingEvent.jobProfileKey
+    };
+
+    this._socket.sendMessage({
+      type: 3,
+      data: {
+        info : info,
+        subType: "askedQuestion"
+      }
+    });
+
+    this.quetionsData=[...this.tempQuestionData];
+  }
 
 }

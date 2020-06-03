@@ -9,6 +9,7 @@ import { RemainingTime } from "../models/remaining-time";
 import { Utils } from "../models/utils/utils";
 import { BiddingInfoComponent } from "../bidding-info/bidding-info.component";
 import { FeedbackService } from "../_services/feedback.service";
+import { PushNotificationService } from "../_services/push-notification.service";
 declare var CryptoJS: any;
 declare var jQuery: any;
 @Component({
@@ -38,7 +39,8 @@ export class BiddingEventDetailsComponent implements OnInit {
     private _AuthService: AuthenticationService,
     private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private _pushNotify : PushNotificationService
   ) {
     let a = this;
     this.Base64 = {
@@ -172,6 +174,11 @@ export class BiddingEventDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get("key");
+
+    let obj = JSON.parse(localStorage.getItem('currentUser'));
+    if (obj !== null) {
+      this._pushNotify.pushNotification();
+    }
 
     this.feedbackService.getBidsByIdCount(this.id).subscribe(res => {
       this.resumecount = res;
