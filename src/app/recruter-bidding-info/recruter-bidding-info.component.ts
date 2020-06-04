@@ -79,10 +79,18 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   showdropdown: boolean = false;
   // resumeData = ["5dc163ceb2ca5513b07a8cc6","5dc161a4b2ca5513b07a8cc2","5dc161ffb2ca5513b07a8cc4","5dc3d3b414707b09f405916c","5dc3e9d014707b09f4059176","5dc2c88114e68e1a946e3368"];
   Data = [];
-  constructor(private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
-    private bidService: BidService, private router: Router, private bidEventService: BiddingEventService,
-    public spinner: NgxSpinnerService, private route: ActivatedRoute, private feedbackService: FeedbackService,
-    private sanitizer: DomSanitizer, private eRef: ElementRef) {
+  constructor(
+    public userService: UserService,
+    private resumeService: ResumeService,
+    private formBuilder: FormBuilder,
+    private bidService: BidService,
+    private router: Router,
+    private bidEventService: BiddingEventService,
+    public spinner: NgxSpinnerService,
+    private route: ActivatedRoute,
+    private feedbackService: FeedbackService,
+    private sanitizer: DomSanitizer,
+    private eRef: ElementRef) {
 
 
     this.loggedUser = this.userService.getUserData();

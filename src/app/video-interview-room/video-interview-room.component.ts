@@ -39,7 +39,7 @@ export class VideoInterviewRoomComponent implements OnInit {
         if (res) {
           this.spinner.hide();
           this.interviewList = res;
-          console.log('*******************************', this.interviewList);
+          // console.log('*******************************', this.interviewList);
         }
       }, err => {
         this.spinner.hide();

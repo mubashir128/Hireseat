@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { VideoCallingService } from '../_services/video-calling.service';
+import { UserService } from '../_services/user.service';
 @Component({
   selector: 'app-bidding-hired-info',
   templateUrl: './bidding-hired-info.component.html',
@@ -23,7 +24,8 @@ export class BiddingHiredInfoComponent implements OnInit {
     private feedbackService: FeedbackService,
     private sanitizer: DomSanitizer,
     public spinner: NgxSpinnerService,
-    private videoCallingService: VideoCallingService
+    private videoCallingService: VideoCallingService,
+    public userService: UserService
   ) { }
 
   ngOnInit() {

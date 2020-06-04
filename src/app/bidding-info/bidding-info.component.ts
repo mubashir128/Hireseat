@@ -111,7 +111,7 @@ export class BiddingInfoComponent
   cc: any;
   bcc: any;
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private resumeService: ResumeService,
     private formBuilder: FormBuilder,
     private bidService: BidService,

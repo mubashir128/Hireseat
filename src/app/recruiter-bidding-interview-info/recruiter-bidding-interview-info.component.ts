@@ -27,45 +27,43 @@ export class RecruiterBiddingInterviewInfoComponent implements OnChanges {
   @HostListener('document:click', ['$event'])
   @Output() InterviewCount: EventEmitter<any> = new EventEmitter<any>();
   @Output() HiredCount: EventEmitter<any> = new EventEmitter<any>();
-  //some issue while opening and closing custom dropdown done using hostlistener 
-  clickout(event) {
-    if (jQuery(event.target).attr('id') == 'toggleDropdownId') {
-      jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
-    } else {
-      jQuery("#dropdown_jobProfile_resume").removeClass("dropdown-toggle");
-    }
-
-  }
+  // some issue while opening and closing custom dropdown done using hostlistener
 
 
-
-  biddingStatus: number = 0;// 0:scheduled , -1:expired , 1:active
+  biddingStatus = 0; // 0:scheduled , -1:expired , 1:active
   bid: IBid;
   public loggedUser: any;
   bids: IBid[];
-  p:any;
+  p: any;
   public bidFrm: FormGroup;
   public resumePoints: FormGroup;
   myBids: any[];
   user: IUser;
   resumes: IResume[];
   ResumeList: any[] = [];
-  errorMsg: boolean = false;
-  noRecords: boolean = false;
+  errorMsg = false;
+  noRecords = false;
   selectedResume: IResume;
-  isShow: boolean = false;
-  totalCandidateBidded: number = 0;
-  SelectedBid: number = 0;
-  CandidateName: String = "";
+  isShow = false;
+  totalCandidateBidded = 0;
+  SelectedBid = 0;
+  CandidateName: String = '';
   isPrevBid: IBid[] = [];
   public FeedObj: any = {};
   public skillsPt: number;
   public experiencePt: number;
   public personalityPt: number;
 
-  currentRecruterId:any;
+  currentRecruterId: any;
+  clickout(event) {
+    if (jQuery(event.target).attr('id') == 'toggleDropdownId') {
+      jQuery('#dropdown_jobProfile_resume').addClass('dropdown-toggle');
+    } else {
+      jQuery('#dropdown_jobProfile_resume').removeClass('dropdown-toggle');
+    }
 
-  constructor(private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
+  }
+  constructor(public userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
     private bidService: BidService, private router: Router, private bidEventService: BiddingEventService,
     public spinner: NgxSpinnerService, private route: ActivatedRoute, private feedbackService: FeedbackService,
     private sanitizer: DomSanitizer, private eRef: ElementRef) {
@@ -91,16 +89,16 @@ export class RecruiterBiddingInterviewInfoComponent implements OnChanges {
 
   get f() { return this.bidFrm.controls; }
 
-  get frm() { return this.resumePoints.controls }
+  get frm() { return this.resumePoints.controls; }
 
   ngOnChanges() {
 
-    var userData = this.userService.getUser();
+    let userData = this.userService.getUser();
     this.currentRecruterId = userData.userInfo._id;
     jQuery('select').material_select();
     jQuery('.modal').modal();
 
-    if (this.loggedUser != "no") {
+    if (this.loggedUser != 'no') {
       if (this.biddingEvent) {
         if (this.biddingEvent.status === BiddingEvent.STATUS_ACTIVE) {
           this.biddingStatus = 1;
@@ -132,18 +130,18 @@ export class RecruiterBiddingInterviewInfoComponent implements OnChanges {
   }
 
   toggleDropdown() {
-    jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
+    jQuery('#dropdown_jobProfile_resume').addClass('dropdown-toggle');
   }
 
-  
+
   getInterviewdResume(key) {
     this.feedbackService.getInterviewdResumeForRecruiter(key).subscribe((data) => {
       if (data != null) {
         this.ResumeList = data;
-        this.InterviewCount.emit(this.ResumeList.length);   
-        this.feedbackService.getHiredResumeCount(key).subscribe((res)=>{
+        this.InterviewCount.emit(this.ResumeList.length);
+        this.feedbackService.getHiredResumeCount(key).subscribe((res) => {
           this.HiredCount.emit(res);
-      })
+        });
         if (!(this.ResumeList.length > 0)) {
           this.errorMsg = true;
         }
@@ -152,15 +150,16 @@ export class RecruiterBiddingInterviewInfoComponent implements OnChanges {
       }
     }, (error) => {
       console.log(error);
-    })
+    });
   }
-  
+
   setupNewBid() {
     this.bid = new Bid();
     this.bid.biddingEventKey = this.biddingEvent.$key;
     this.bid.recruiterKey = this.loggedUser._id;
-    if (this.loggedUser.companyName)
+    if (this.loggedUser.companyName) {
       this.bid.recruiterName = this.loggedUser.companyName;
+    }
     this.populateBids();
     this.populateMyBids();
   }
@@ -209,10 +208,12 @@ export class RecruiterBiddingInterviewInfoComponent implements OnChanges {
     this.spinner.show();
     this.resumeService.getAllResume().subscribe((data: IResume[]) => {
       this.resumes = data;
-      if (this.resumes.length > 0)
+      if (this.resumes.length > 0) {
         this.isShow = true;
-      else
+      }
+      else {
         this.isShow = false;
+      }
 
       this.spinner.hide();
     }, (error) => {
@@ -226,7 +227,7 @@ export class RecruiterBiddingInterviewInfoComponent implements OnChanges {
     this.selectedResume._id = id;
     this.CandidateName = name;
     this.selectedResume.candidateName = name;
-    jQuery("#dropdown_jobProfile_resume").removeClass("dropdown-toggle");
+    jQuery('#dropdown_jobProfile_resume').removeClass('dropdown-toggle');
 
   }
 
@@ -275,7 +276,7 @@ export class RecruiterBiddingInterviewInfoComponent implements OnChanges {
     this.bid.resumeKey = this.selectedResume._id;
     this.bid.candidateName = this.selectedResume.candidateName;
     this.bidService.createBid(this.bid).subscribe((data: any) => {
-      if (data.result == "inserted") {
+      if (data.result == 'inserted') {
         Materialize.toast('Bid submitted successfully! !', 4000);
         jQuery('#ThreePointsModel').modal('close');
         this.populateBids();

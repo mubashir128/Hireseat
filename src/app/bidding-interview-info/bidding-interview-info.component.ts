@@ -65,7 +65,7 @@ export class BiddingInterviewInfoComponent implements OnChanges {
   selectedIndex: any;
 
   constructor(
-    private userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
+    public userService: UserService, private resumeService: ResumeService, private formBuilder: FormBuilder,
     private bidService: BidService, private router: Router, private bidEventService: BiddingEventService,
     public spinner: NgxSpinnerService, private route: ActivatedRoute, private feedbackService: FeedbackService,
     private sanitizer: DomSanitizer, private videoCallingService: VideoCallingService

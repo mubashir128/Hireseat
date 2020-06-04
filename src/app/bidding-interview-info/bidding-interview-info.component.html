@@ -148,7 +148,7 @@
               <div class="text-center feedBackwidth">
                 <a (click)="showPreviousDetails(resume._id)" style="cursor:pointer;">See previous feedback</a>
               </div>
-              <h4><span>Recruiter Cost:</span>${{ resume.RecruiterCost }}</h4>
+              <h4><span>Recruiter Cost:</span>${{ userService.numberWithCommas(resume.RecruiterCost) }}</h4>
             </div>
           </div>
         </div>

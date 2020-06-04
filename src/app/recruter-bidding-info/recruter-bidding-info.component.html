@@ -392,7 +392,7 @@
           </div>
           <span>
             <h5>Recruiter Cost:</h5>
-            <h6>$ {{ resume.RecruiterCost }}</h6>
+            <h6>$ {{ userService.numberWithCommas(resume.RecruiterCost) }}</h6>
           </span>
         </div>
       </div>
@@ -455,9 +455,9 @@
         </div>
         <div class="input-field">
           Your Placement Fee
-          <input name="resumePoint3" formControlName="recruiterCost" type="text" 
-           class="validate"  placeholder="Enter Your Placement Fee in $"  />
-           
+          <input name="resumePoint3" formControlName="recruiterCost" type="text" class="validate"
+            placeholder="Enter Your Placement Fee in $" />
+
           <div *ngIf="frm.resumePoint3.touched && frm.resumePoint3.errors" class="invalid-feedback" class="error">
             <div *ngIf="frm.resumePoint3.errors.required">
               Placement fee is required

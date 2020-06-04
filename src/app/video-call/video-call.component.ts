@@ -135,6 +135,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    jQuery('.modal').modal();
     this.candidateInvitationLink = true;
     // candidate or interviewer
     if (!localStorage.getItem('currentUser')) {
