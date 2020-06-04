@@ -314,7 +314,7 @@ export class BiddingInfoComponent
     let element = document.getElementById('animateinterview' + index);
     // element.className = 'singleListClick singleList resumeSingleList';
 
-    console.log(imgtodrag);
+    // console.log(imgtodrag);
 
     this.skillsPt = (jQuery("input[name='" + 'rating1' + resumeBidId + "']:checked").val());
     this.experiencePt = (jQuery("input[name='" + 'rating2' + resumeBidId + "']:checked").val());
