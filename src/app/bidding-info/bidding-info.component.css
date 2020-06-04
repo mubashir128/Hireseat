@@ -189,8 +189,8 @@ h5 {
   float: left;
   /* height: calc(100vh - 540px);
   overflow: scroll; */
-  max-height: calc(100vh - 430px);
-  overflow-y: scroll;
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
 }
 .singleList {
   /* height: 230px !important; */
