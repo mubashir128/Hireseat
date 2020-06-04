@@ -167,6 +167,7 @@ export class BiddingInfoComponent
   ngOnChanges() {
     jQuery('.modal').modal();
     jQuery('select').material_select();
+
     if (this.loggedUser != 'no') {
       if (this.biddingEvent) {
         if (this.biddingEvent.status === BiddingEvent.STATUS_ACTIVE) {
@@ -315,15 +316,9 @@ export class BiddingInfoComponent
 
     console.log(imgtodrag);
 
-    this.skillsPt = jQuery(
-      "input[name='' + 'rating1' + resumeBidId + '']:checked"
-    ).val();
-    this.experiencePt = jQuery(
-      "input[name='' + 'rating2' + resumeBidId + '']:checked"
-    ).val();
-    this.personalityPt = jQuery(
-      "input[name='' + 'rating3' + resumeBidId + '']:checked"
-    ).val();
+    this.skillsPt = (jQuery("input[name='" + 'rating1' + resumeBidId + "']:checked").val());
+    this.experiencePt = (jQuery("input[name='" + 'rating2' + resumeBidId + "']:checked").val());
+    this.personalityPt = (jQuery("input[name='" + 'rating3' + resumeBidId + "']:checked").val());
     if (
       this.skillsPt == 33 &&
       this.experiencePt == 33 &&
