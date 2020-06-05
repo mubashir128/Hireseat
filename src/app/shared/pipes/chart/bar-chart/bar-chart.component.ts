@@ -1,38 +1,28 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Chart } from "chart.js";
+import { ChartService } from "src/app/_services/chart.service";
+
 @Component({
   selector: "app-bar-chart",
   templateUrl: "./bar-chart.component.html",
   styleUrls: ["./bar-chart.component.css"]
 })
 export class BarChartComponent implements OnInit {
-  BarChart = [{}];
+  topRecruiters = [];
+  BarChart;
   barChartData = {};
   chartOptions: any;
   data: any;
-  constructor() {
-    // declairing bar chart data
+  chartObj : any;
+  labels = [];
+  ratingPoints = [];
+  selectedCount = [];
+  @Input() recruiterData;
 
-    // end of creating bar chart data
+  constructor(private _chart : ChartService) {
 
     this.data = {
-      labels: [
-        "Recruiter1",
-        "Recruiter2",
-        "Recruiter3",
-        "Recruiter4",
-        "Recruiter5",
-        "Recruiter6",
-        "Recruiter7",
-        "Recruiter8",
-        "Recruiter9",
-        "Recruiter10",
-        "Recruiter11",
-        "Recruiter12",
-        "Recruiter13",
-        "Recruiter14",
-        "Recruiter15"
-      ],
+      labels: [],
       datasets: [
         {
           label: "Fee",
@@ -43,8 +33,7 @@ export class BarChartComponent implements OnInit {
           borderColor: "red",
           borderWidth: 3,
           fill: false,
-
-          data: [25, 20, 20, 18, 20, 25, 30, 20, 20, 25, 15, 15, 15, 20, 15]
+          data: [25, 20, 20, 18, 20]
         },
         {
           //new option, type will default to bar as that what is used to create the scale
@@ -53,27 +42,13 @@ export class BarChartComponent implements OnInit {
           backgroundColor: "#00b0f0",
           borderColor: "#00b0f0",
           borderWidth: 1,
-          data: [
-            10098,
-            9000,
-            8998,
-            7888,
-            7000,
-            6050,
-            5001,
-            2000,
-            1998,
-            1500,
-            1100,
-            900,
-            800,
-            500,
-            100
-          ]
+          data: []
         }
       ]
     };
+    
     this.chartOptions = {
+      onClick : this.handleLineChartClick,
       responsive: true,
       legend: {
         position: "bottom",
@@ -108,24 +83,13 @@ export class BarChartComponent implements OnInit {
               display: false
             }
           },
-          // {
-          //   id: "score",
-          //   type: "linear",
-          //   position: "left",
-          //   ticks: {
-          //     beginAtZero: true
-          //   },
-          //   gridLines: {
-          //     color: "rgba(0, 0, 0, 0)"
-          //   }
-          // },
           {
             id: "rest",
             type: "linear",
             position: "right",
 
             ticks: {
-              max: 30,
+              max: 100,
               min: 0,
               callback: function(value, index, values) {
                 return value + "%";
@@ -150,30 +114,48 @@ export class BarChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.BarChart = new Chart("barChart", {
-      type: "bar",
-      data: this.data,
-      options: this.chartOptions
+
+    this._chart.topRecruitersRatingPoints().subscribe(async(res)=>{
+      this.topRecruiters=res.result;
+      await this.updateData(res);
+      await this.handleData(res.result,res.data);
+      this.data.labels=this.labels;
+      this.data.datasets[1].data=this.ratingPoints;
+      this.data.datasets[0].data=this.selectedCount;
+      this.BarChart = new Chart("barChart", {
+        type: "bar",
+        data: this.data,
+        options: this.chartOptions
+      });
+    });
+
+  }
+
+  async updateData(res){
+    await res.result.map(item=>{
+      this.labels.push(item.fullName);
+      this.ratingPoints.push(item.ratingPoints);
     });
   }
+
+  async handleData(result,data){
+    await result.map(item=>{
+      let count=0;
+      let sum=0;
+      for(let i=0;i<data.length;i++){
+        if(item._id === data[i].recruiterKey && data[i].hired){
+          count++;
+          sum+=data[i].RecruiterCost;
+        }
+        if(i === data.length-1){
+          Number.isNaN(sum/count) ? this.selectedCount.push(0) : this.selectedCount.push(sum/count);
+        }
+      }
+    });
+  }
+
+  handleLineChartClick(){
+    this.chartObj=this;
+  }
+
 }
-
-// {
-//         datasets: [
-//           {
-//             label: "Bar Dataset",
-//             data: [10, 20, 30, 40],
-//             yAxisID: "score"
-//           },
-//           {
-//             label: "Line Dataset",
-//             data: [10, 5, 25, 17],
-//             yAxisID: "rest",
-//             fill: false,
-
-//             // Changes this dataset to become a line
-//             type: "line"
-//           }
-//         ],
-//         labels: ["January", "February", "March", "April"]
-//       },
