@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
+import * as myGlobals from '../globalPath';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,9 @@ export class WebsocketService {
 
   socket: any;
   listeners = [];
-  // socketUrl: any = "ws://localhost:5000/webSocket?token=";
-  socketUrl: any = 'wss://hireseat.com:5000/webSocket?token=';
+  socketUrl : any;
   constructor() {
+    this.socketUrl = myGlobals.socketUrl;
   }
 
   async getInstance(token: any) {
