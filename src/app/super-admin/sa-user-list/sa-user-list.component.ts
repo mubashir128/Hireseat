@@ -16,17 +16,17 @@ declare var jQuery: any;
 export class SAUserListComponent implements OnInit {
 
   p = 1;
-  pagesAre=[1];
-  createdAt=null;
+  pagesAre = [1];
+  createdAt = null;
   dropdownList = [];
   selectedItems = [];
-  userList: any[]=[];
-  paginatorMove=true;
-  searchTerm : string;
+  userList: any[] = [];
+  paginatorMove = true;
+  searchTerm: string;
   itemsPerPageAre = 100;
-  noBiddingEvents=false;
+  noBiddingEvents = false;
   dropdownSettings = {};
-  itemsIs = "super-admin";
+  itemsIs: any;
 
   @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
 
@@ -35,58 +35,65 @@ export class SAUserListComponent implements OnInit {
     private userAuth: AuthenticationService,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
+    const saTab = localStorage.getItem('saTab');
+    if (saTab) {
+      this.itemsIs = saTab;
+    } else {
+      this.itemsIs = "super-admin";
+    }
     this.getAllUsers({
-      onLoad : true,
-      user : this.itemsIs,
-      itemsPerPageAre : this.itemsPerPageAre
+      onLoad: true,
+      user: this.itemsIs,
+      itemsPerPageAre: this.itemsPerPageAre
     });
-    jQuery("#"+this.itemsIs).css("background-color","#27B1BD");
+    jQuery("#" + this.itemsIs).css("background-color", "#27B1BD");
   }
 
   ngAfterViewInit() {
     // server-side search
-    fromEvent(this.searchInputTerm.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        this.p=1;
-        this.userList=[];
-        this.pagesAre=[1];
-        if(this.searchTerm !== ""){
-          this.paginatorMove=false;
-        }else{
-          this.paginatorMove=true;
-        }
-        this.getAllUsers({
-          user : this.itemsIs,
-          searchTerm : this.searchTerm,
-          itemsPerPageAre : this.itemsPerPageAre
-        });
-      })
-    ).subscribe();
+    fromEvent(this.searchInputTerm.nativeElement, 'keyup')
+      .pipe(
+        map(event => event),
+        filter(Boolean),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.p = 1;
+          this.userList = [];
+          this.pagesAre = [1];
+          if (this.searchTerm !== "") {
+            this.paginatorMove = false;
+          } else {
+            this.paginatorMove = true;
+          }
+          this.getAllUsers({
+            user: this.itemsIs,
+            searchTerm: this.searchTerm,
+            itemsPerPageAre: this.itemsPerPageAre
+          });
+        })
+      ).subscribe();
   }
 
-  resetValues(){
-    this.p=1;
-    this.userList=[];
-    this.pagesAre=[1];
-    this.paginatorMove=true;
+  resetValues() {
+    this.p = 1;
+    this.userList = [];
+    this.pagesAre = [1];
+    this.paginatorMove = true;
   }
 
   getAllUsers(obj) {
     this.superAdmin.getAllUsers(obj).subscribe(
       response => {
         if (response) {
-          if(response.length !== 0){
-            this.userList = [...this.userList,...response];
-            this.createdAt=response[response.length-1].createdAt;
-            this.noBiddingEvents=this.userList.length ===0 ? true : false;
+          if (response.length !== 0) {
+            this.userList = [...this.userList, ...response];
+            this.createdAt = response[response.length - 1].createdAt;
+            this.noBiddingEvents = this.userList.length === 0 ? true : false;
+            localStorage.setItem('saTab', obj.user);
           }
         }
       },
@@ -95,7 +102,7 @@ export class SAUserListComponent implements OnInit {
       }
     );
   }
-  
+
   loginUser(userEmail) {
     localStorage.setItem(
       "super-admin-email",
@@ -127,36 +134,36 @@ export class SAUserListComponent implements OnInit {
     );
   }
 
-  handlePaginator($event){
-    this.p=$event;
-    if(!this.paginatorMove){
-      return ;
+  handlePaginator($event) {
+    this.p = $event;
+    if (!this.paginatorMove) {
+      return;
     }
-    if(this.pagesAre.indexOf($event) !== -1){
-      return ;
+    if (this.pagesAre.indexOf($event) !== -1) {
+      return;
     }
     this.pagesAre.push($event);
     this.getAllUsers({
-      user : this.itemsIs,
-      createdAt : this.createdAt,
-      itemsPerPageAre : this.itemsPerPageAre
+      user: this.itemsIs,
+      createdAt: this.createdAt,
+      itemsPerPageAre: this.itemsPerPageAre
     });
   }
 
-  checkUser(user){
+  checkUser(user) {
     this.addProperties(user);
     this.resetValues();
     this.getAllUsers({
-      user : user,
-      onLoad : true,
-      itemsPerPageAre : this.itemsPerPageAre
+      user: user,
+      onLoad: true,
+      itemsPerPageAre: this.itemsPerPageAre
     });
   }
 
-  addProperties(user){
-    jQuery("#"+this.itemsIs).css("background-color","#33aaff");
-    this.itemsIs=user;
-    jQuery("#"+user).css("background-color","#27B1BD");
+  addProperties(user) {
+    jQuery("#" + this.itemsIs).css("background-color", "#33aaff");
+    this.itemsIs = user;
+    jQuery("#" + user).css("background-color", "#27B1BD");
   }
 
 }
