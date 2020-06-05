@@ -2,9 +2,13 @@
 // export const baseUrl = 'http://192.168.100.21:5000/';
 
 // local path with ip server path
+<<<<<<< HEAD
 export const baseUrl = 'http://localhost:5000/'; // ip link
 // socketUrl
 export const socketUrl = "ws://localhost:5000/webSocket?token=";
+=======
+export const baseUrl = 'http://localhost:5002/'; // ip link
+>>>>>>> c9fa7fa0585b47c1813f929c2437f800f22042db
 // export const SAMPLE_SERVER_BASE_URL = 'https://tokboxhireseat.herokuapp.com/'; // Sujith
 
 // Test Server
