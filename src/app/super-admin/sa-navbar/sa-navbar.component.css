@@ -1,8 +1,12 @@
+.collection {
+  margin: 1rem 0;
+}
+
 .collection .collection-item-one {
   border-bottom: none;
   background-color: #fff;
   line-height: 1.5rem;
-  padding: 10px 14px;
+  /* padding: 10px 14px; */
   margin: 0;
 }
 .collection a.collection-item-one {
@@ -18,4 +22,10 @@
 }
 .collection-item-one {
   cursor: pointer;
+}
+.collection-item-one.padd10{
+  padding: 12px 15px;
+}
+.listDiv ul{
+  margin: 0;
 }

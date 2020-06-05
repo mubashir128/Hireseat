@@ -89,13 +89,16 @@ and (max-width : 667px) {
 }
 
 .tablink {
-    background-color: #33aaff;
-    color: #fff;
+    /* background-color: #33aaff;
+    color: #fff; */
+    background-color: #ffffff !important;
+    color: #33aaff !important;
+    border-bottom: 1px solid #33aaff !important;
     float: left;
     border: none;
     outline: none;
     cursor: pointer;
-    font-size: 17px;
+    font-size: 16px;
     width: 20%;
     z-index: 1;
     height: 40px;
@@ -105,9 +108,14 @@ and (max-width : 667px) {
     margin-bottom: 10px;
 }
   
-.tablink:hover {
+/* .tablink:hover {
     background-color: #27B1BD;
-}
+} */
+.tablink:hover{
+    background-color: #33aaff !important;
+    color: #ffffff !important;
+    box-shadow: 0px 3px 5px #00000047;
+  }
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
