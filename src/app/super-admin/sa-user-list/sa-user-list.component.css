@@ -1,131 +1,139 @@
-#bidding-event-list{
-    margin: 0.5rem 0 1rem 0;
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
+#bidding-event-list {
+  margin: 0.5rem 0 1rem 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
 }
 .bid-event-item:hover {
-    background-color: #E9F4FF;
+  background-color: #e9f4ff;
 }
 .bid-event-item {
-    -moz-transition: all .1s ease-in;
-    -o-transition: all .1s ease-in;
-    -webkit-transition: all .1s ease-in;
-    transition: all .1s ease-in;
-    background-color: white;
-	display: flex;
-    align-items: center;
-    justify-content: space-between;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.active-bidding-event{
-    background-color: #33aaff;
-    color: #fff;
+.active-bidding-event {
+  background-color: #33aaff;
+  color: #fff;
 }
-.scheduled-bidding-event{
-    background-color:#b3e5fc;
-    color: #546e7a;
+.scheduled-bidding-event {
+  background-color: #b3e5fc;
+  color: #546e7a;
 }
-.expired-bidding-event{
-    background-color:#cfd8dc;
-    color: #546e7a;
+.expired-bidding-event {
+  background-color: #cfd8dc;
+  color: #546e7a;
 }
-.reward{
-    background-color:#cfd8dc;
-    color: #546e7a;
+.reward {
+  background-color: #cfd8dc;
+  color: #546e7a;
 }
-.job-title{
-    font-size:20px;
-    color:#37474f;
-    color:#114488;
-    font-weight:700;
+.job-title {
+  font-size: 20px;
+  color: #37474f;
+  color: #114488;
+  font-weight: 700;
 }
-.company-name{
-/*     font-size:14px;
+.company-name {
+  /*     font-size:14px;
     color:#607d8b; */
-    font-size: 16px;
-    color: #333;
+  font-size: 16px;
+  color: #333;
 }
 
-
-
-@media only screen 
-and (min-width : 320px) 
-and (max-width : 667px) {
-    .chip {
-        margin-right: 0!important;
-        display: flex!important;
-        justify-content: center;
-    }
-    .BtnDivBuilding {
-        width: 25%!important;
-    }
+@media only screen and (min-width: 320px) and (max-width: 667px) {
+  .chip {
+    margin-right: 0 !important;
+    display: flex !important;
+    justify-content: center;
+  }
+  .BtnDivBuilding {
+    width: 25% !important;
+  }
 }
 
 .inputDivMainN {
-    top: 10px;
-    z-index: 999;
-    text-align: center;
-    box-sizing: border-box;
-    border-radius: 5px;
+  top: 10px;
+  z-index: 999;
+  text-align: center;
+  box-sizing: border-box;
+  border-radius: 5px;
 }
 .inputDivMainN input {
-    margin: 0;
-    color: #000;
-    padding: 0px 10px;
-    border: 1px solid #ddd;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #fff;
-    text-align: left;
-    padding-right: 70px;
+  margin: 0;
+  color: #000;
+  padding: 0px 10px;
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  text-align: left;
+  padding-right: 70px;
 }
 
 .selectUser {
-    margin: 0px;
-    color: #000;
-    box-sizing: border-box;
-    background-color: #fff;
-    text-align: left;
-    padding-right: 0px;
+  margin: 0px;
+  color: #000;
+  box-sizing: border-box;
+  background-color: #fff;
+  text-align: left;
+  padding-right: 0px;
 }
 
 .tablink {
-    /* background-color: #33aaff;
+  /* background-color: #33aaff;
     color: #fff; */
-    background-color: #ffffff !important;
-    color: #33aaff !important;
-    border-bottom: 1px solid #33aaff !important;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 16px;
-    width: 20%;
-    z-index: 1;
-    height: 40px;
-    text-align: center;
-    padding-top: 8px;
-    position: relative;
-    margin-bottom: 10px;
+  background-color: #ffffff !important;
+  color: #33aaff !important;
+  border-bottom: 1px solid #33aaff !important;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  width: 20%;
+  z-index: 1;
+  height: 40px;
+  text-align: center;
+  padding-top: 8px;
+  position: relative;
+  margin-bottom: 10px;
 }
-  
+
 /* .tablink:hover {
     background-color: #27B1BD;
 } */
-.tablink:hover{
-    background-color: #33aaff !important;
-    color: #ffffff !important;
-    box-shadow: 0px 3px 5px #00000047;
-  }
-
+.tablink:hover {
+  background-color: #33aaff !important;
+  color: #ffffff !important;
+  box-shadow: 0px 3px 5px #00000047;
+}
+.tablinkActive {
+  background-color: #33aaff !important;
+  color: #ffffff !important;
+  box-shadow: 0px 3px 5px #00000047;
+}
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-    color: white;
-    display: none;
-    padding: 100px 20px;
-    height: 100%;
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
 }
 
-#Home {background-color: red;}
-#News {background-color: green;}
-#Contact {background-color: blue;}
-#About {background-color: orange;}
+#Home {
+  background-color: red;
+}
+#News {
+  background-color: green;
+}
+#Contact {
+  background-color: blue;
+}
+#About {
+  background-color: orange;
+}

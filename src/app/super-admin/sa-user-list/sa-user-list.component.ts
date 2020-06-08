@@ -38,6 +38,8 @@ export class SAUserListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.searchInputTerm.nativeElement.style.cursor, 'pointer';
+    // document.getElementById("searchText").style.cursor = "pointer";
     const saTab = localStorage.getItem('saTab');
     if (saTab) {
       this.itemsIs = saTab;
@@ -49,7 +51,7 @@ export class SAUserListComponent implements OnInit {
       user: this.itemsIs,
       itemsPerPageAre: this.itemsPerPageAre
     });
-    jQuery("#" + this.itemsIs).css("background-color", "#27B1BD");
+    // jQuery("#" + this.itemsIs).css("background-color", "#33aaff");
   }
 
   ngAfterViewInit() {
@@ -124,30 +126,11 @@ export class SAUserListComponent implements OnInit {
           } else if (response.userInfo.userRole == "enterprise") {
             this.router.navigate(["enterprise/user-list"]);
           }
-        } else {
-          Materialize.toast("Enter valid details", 1000, "rounded");
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  handlePaginator($event) {
-    this.p = $event;
-    if (!this.paginatorMove) {
-      return;
-    }
-    if (this.pagesAre.indexOf($event) !== -1) {
-      return;
-    }
-    this.pagesAre.push($event);
-    this.getAllUsers({
-      user: this.itemsIs,
-      createdAt: this.createdAt,
-      itemsPerPageAre: this.itemsPerPageAre
-    });
+          e rtyu = `12  zVRF4BGT5NHY67UJMTCG4R`
+          user: this.itemsIs,
+            createdAt: this.createdAt,
+              itemsPerPageAre: this.itemsPerPageAre
+        });
   }
 
   checkUser(user) {
@@ -161,9 +144,9 @@ export class SAUserListComponent implements OnInit {
   }
 
   addProperties(user) {
-    jQuery("#" + this.itemsIs).css("background-color", "#33aaff");
+    // jQuery("#" + this.itemsIs).css("background-color", "#33aaff");
     this.itemsIs = user;
-    jQuery("#" + user).css("background-color", "#27B1BD");
+    // jQuery("#" + user).css("background-color", "#27B1BD");
   }
 
 }

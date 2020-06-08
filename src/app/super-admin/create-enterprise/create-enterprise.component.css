@@ -14,7 +14,7 @@
 }
 .agree p:after {
   position: absolute;
-  content: "";
+  content: '';
   width: 5px;
   height: 5px;
   background-color: #000;
@@ -193,7 +193,7 @@ ul.listTerm {
 .terms-conditions {
   display: flex;
 }
-[type="checkbox"]:checked + label:before {
+[type='checkbox']:checked + label:before {
   border-right: 2px solid #309c24a8 !important;
   border-bottom: 2px solid #26a69a !important;
 }
@@ -202,10 +202,13 @@ ul.listTerm {
 .asterisk {
   color: red;
 
-  content: "\002A";
+  content: '\002A';
 }
 /*  this is for checkbox which is on registration's unread condiotions */
-[type="checkbox"] + label {
+[type='checkbox'] + label {
   margin-right: 30px !important;
   padding-left: 0px !important;
+}
+.card {
+  margin: unset !important;
 }

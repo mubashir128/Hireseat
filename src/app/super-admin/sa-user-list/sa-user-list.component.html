@@ -2,54 +2,40 @@
 
   <div>
     <ul class="">
-      <li class="tablink" id="super-admin" (click)="checkUser('super-admin')">Super-admin</li>
-      <li class="tablink" id="admin" (click)="checkUser('admin')">Admin</li>
-      <li class="tablink" id="recruiter" (click)="checkUser('recruiter')">Recruiter</li>
-      <li class="tablink" id="employer" (click)="checkUser('employer')">Employeer</li>
-      <li class="tablink" id="enterprise" (click)="checkUser('enterprise')">Enterprise</li>
+      <li class="tablink" id="super-admin" [ngClass]="itemsIs === 'super-admin'?'tablinkActive':false"
+        (click)="checkUser('super-admin')">Super-admin</li>
+      <li class="tablink" id="admin" [ngClass]="itemsIs === 'admin'?'tablinkActive':false" (click)="checkUser('admin')">
+        Admin</li>
+      <li class="tablink" id="recruiter" [ngClass]="itemsIs === 'recruiter'?'tablinkActive':false"
+        (click)="checkUser('recruiter')">Recruiter</li>
+      <li class="tablink" id="employer" [ngClass]="itemsIs === 'employer'?'tablinkActive':false"
+        (click)="checkUser('employer')">Employeer</li>
+      <li class="tablink" id="enterprise" [ngClass]="itemsIs === 'enterprise'?'tablinkActive':false"
+        (click)="checkUser('enterprise')">Enterprise</li>
     </ul>
   </div>
 
   <div class="inputDivMainN" *ngIf="!noBiddingEvents">
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Search here..." #searchInputTerm> 
+    <input type="text" id="searchText" [(ngModel)]="searchTerm" placeholder="Search here..." #searchInputTerm>
   </div>
 
   <div>
     <ul id="bidding-event-list" style="margin-top:8px;">
-      <li
-        *ngFor="
+      <li *ngFor="
           let user of userList | paginate: { itemsPerPage: itemsPerPageAre, currentPage: p }
-        "
-        style="cursor:pointer;"
-      >
-        <div
-          class="bid-event-item"
-          (click)="loginUser(user.email)"
-          style="padding:15px;"
-        >
-          <div
-            style="display:inline-block; width:12%;heigth:auto; vertical-align:top;"
-          >
-            <img
-              class="responsive-img"
-              src="../../../assets/img/employee.png"
-              style="width:100%;opacity:0.2;padding:15px;"
-            />
+        " style="cursor:pointer;">
+        <div class="bid-event-item" (click)="loginUser(user.email)" style="padding:15px;">
+          <div style="display:inline-block; width:12%;heigth:auto; vertical-align:top;">
+            <img class="responsive-img" src="../../../assets/img/employee.png"
+              style="width:100%;opacity:0.2;padding:15px;" />
           </div>
-          <div
-            style="display:inline-block;width:50%;height:auto;padding-left:15px;vertical-align:top;"
-          >
+          <div style="display:inline-block;width:50%;height:auto;padding-left:15px;vertical-align:top;">
             <div class="job-title">{{ user.fullName }}</div>
             <div class="company-name">{{ user.email }}</div>
           </div>
-          <div
-            class="BtnDivBuilding"
-            style="display:inline-block;width:50%; float:right;vertical-align:top;text-align:right;"
-          >
-            <div
-              class="chip active-bidding-event"
-              style="display:inline-block; vertical-align:top;"
-            >
+          <div class="BtnDivBuilding"
+            style="display:inline-block;width:50%; float:right;vertical-align:top;text-align:right;">
+            <div class="chip active-bidding-event" style="display:inline-block; vertical-align:top;">
               {{ user.userRole }}
             </div>
           </div>
