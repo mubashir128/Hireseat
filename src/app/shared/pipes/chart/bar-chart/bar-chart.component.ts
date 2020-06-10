@@ -93,7 +93,7 @@ export class BarChartComponent implements OnInit {
             position: "right",
 
             ticks: {
-              max: 100,
+              max: 1000,
               min: 0,
               callback: function(value, index, values) {
                 return value + "%";
@@ -207,7 +207,7 @@ export class BarChartComponent implements OnInit {
       for(let i=0;i<data.length;i++){
         if(item._id === data[i].recruiterKey && data[i].hired){
           count++;
-          sum+=data[i].RecruiterCost;
+          sum+=data[i].recAvg;
         }
         if(i === data.length-1){
           Number.isNaN(sum/count) ? this.selectedCount.push(0) : this.selectedCount.push(sum/count);
