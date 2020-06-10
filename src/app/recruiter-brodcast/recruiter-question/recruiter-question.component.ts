@@ -41,7 +41,7 @@ export class RecruiterQuestionComponent implements OnInit {
 
     let obj = JSON.parse(localStorage.getItem('currentUser'));
     if (obj !== null) {
-      await this.initSocket(obj.token);
+      await this.initSocket(obj.token,obj.userInfo.userRole);
     }
 
     await this._socket.removeListener({ type: 3 });
@@ -69,11 +69,15 @@ export class RecruiterQuestionComponent implements OnInit {
     
   }
 
-  async initSocket(token) {
-    await this._socket.getInstance(token);
+  async initSocket(token,userRole) {
+    await this._socket.getInstance(token,userRole);
   }
 
   handleQuestionData(res: any) {
+    if(res.data.biddingEventId !== this.id && res.subType !== "getAllQuestions"){
+      return ;
+    }
+
     switch (res.subType) {
       case "getAllQuestions" :
         // add all questions to list.
@@ -87,13 +91,13 @@ export class RecruiterQuestionComponent implements OnInit {
         if(res.result){
           this.question = '';
           Materialize.toast('Question added successfully', 1000)
-          this.quetionsData.push(res.data.data);
-          this.tempQuestionData.push(res.data.data);
+          this.quetionsData.push(res.data);
+          this.tempQuestionData.push(res.data);
         }
         break;
       case "answer" :
           // add answer to list.
-          this.updateElement(res.data.result);
+          this.updateElement(res.data);
           Materialize.toast('Answer added', 1000);
           break;
       default:
