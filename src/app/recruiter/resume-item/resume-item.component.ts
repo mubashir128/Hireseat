@@ -29,7 +29,7 @@ declare var Materialize;
   styleUrls: ["./resume-item.component.css"],
   encapsulation: ViewEncapsulation.None,
 })
-export class ResumeItemComponent implements OnInit, OnChanges {
+export class ResumeItemComponent implements OnInit, OnChanges, OnDestroy {
   getArchivedVideoSubscription: Subscription;
   shareVideoSubscription: Subscription;
   @Input() resume: Resume;
@@ -385,4 +385,17 @@ export class ResumeItemComponent implements OnInit, OnChanges {
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
+
+  ngOnDestroy(): void {
+    if (this.shareVideoSubscription) {
+      this.shareVideoSubscription.unsubscribe();
+    }
+    if (this.getArchivedVideoSubscription) {
+      this.getArchivedVideoSubscription.unsubscribe();
+    }
+    if (this.videoInterviewSubscription) {
+      this.videoInterviewSubscription.unsubscribe();
+    }
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
 import 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Bid, IBid } from '../models/bid';
@@ -28,7 +28,7 @@ declare var Materialize;
   templateUrl: './bidding-interview-info.component.html',
   styleUrls: ['./bidding-interview-info.component.css']
 })
-export class BiddingInterviewInfoComponent implements OnChanges {
+export class BiddingInterviewInfoComponent implements OnChanges, OnDestroy {
   videoInterviewSubscription: Subscription;
   @Input() public biddingEvent: IBiddingEvent;
   @Output() InterviewCount: EventEmitter<any> = new EventEmitter<any>();
@@ -486,5 +486,12 @@ export class BiddingInterviewInfoComponent implements OnChanges {
 
     });
   }
+
+  ngOnDestroy(): void {
+    if (this.videoInterviewSubscription) {
+      this.videoInterviewSubscription.unsubscribe();
+    }
+  }
+
 }
 

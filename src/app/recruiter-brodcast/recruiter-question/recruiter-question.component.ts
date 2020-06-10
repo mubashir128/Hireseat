@@ -54,12 +54,14 @@ export class RecruiterQuestionComponent implements OnInit {
       this.handleQuestionData(res);
     });
 
+    let userInfo=JSON.parse(localStorage.getItem('currentUser')).userInfo;
     this._socket.sendMessage({
       type: 3,
       data: {
         _id : this.id,
-        subType: "getAllQuestions",
-        type : JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole
+        personId : userInfo._id,
+        type : userInfo.userRole,
+        subType: "getAllQuestions"
       }
     });
 

@@ -467,7 +467,13 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     this.publisher = null;
     if (this.publishedStreamSubscription) {
       this.publishedStreamSubscription.unsubscribe();
-
+    }
+    
+    if (this.bookmarkSubscription) {
+      this.bookmarkSubscription.unsubscribe();
+    }
+    if (this.askQuestionSubscription) {
+      this.askQuestionSubscription.unsubscribe();
     }
 
     $('#start').show();

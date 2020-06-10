@@ -34,7 +34,7 @@ declare var Materialize: any;
   templateUrl: "./edit-resume.component.html",
   styleUrls: ["./edit-resume.component.css"],
 })
-export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit {
+export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @ViewChild("playVideo") videojsPlay: ElementRef;
   player: videojs.Player;
 
@@ -327,6 +327,15 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit {
   }
   questionsPopUp() {
     this.questionConfirmPopup();
+  }
+
+  ngOnDestroy(): void {
+    if (this.askQuestionSubscription) {
+      this.askQuestionSubscription.unsubscribe();
+    }
+    if (this.bookmarkSubscription) {
+      this.bookmarkSubscription.unsubscribe();
+    }
   }
 
 }
