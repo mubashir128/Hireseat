@@ -4,6 +4,10 @@ app-subscriber {
   float: left;
   margin-right: 1px;
 }
+.hidevideo {
+  width: 20%;
+  height: 20px;
+}
 .call {
   display: flex;
   flex-direction: column;

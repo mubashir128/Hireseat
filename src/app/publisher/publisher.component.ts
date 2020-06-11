@@ -20,6 +20,7 @@ export class PublisherComponent implements AfterViewInit {
   publisher: OT.Publisher;
   publishing: Boolean;
   publisherOptions: any;
+  hideVideo = false;
   constructor(
     private opentokService: OpentokService,
     private spinner: NgxSpinnerService
@@ -55,6 +56,12 @@ export class PublisherComponent implements AfterViewInit {
     //   // console.log('publisher status', publisher);
 
     // });
+
+  }
+  isVideo(status) {
+    console.log('************', event);
+    this.hideVideo = status;
+    // this.publisher.publishVideo(false);
 
   }
 

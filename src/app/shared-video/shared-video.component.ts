@@ -22,7 +22,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   questionsByRecruiter: any;
   resume: any;
 
-  isTokenValid = false;
+  isTokenValid: boolean;
   isShareFromRecruiter: boolean;
   isQuestion: boolean;
   comments: any;
@@ -31,7 +31,8 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     private sharedVideoService: ShareVideoService,
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+
   ) { }
 
   ngOnInit() {
@@ -39,20 +40,25 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
 
     this.checkSharedTokenSubscription = this.sharedVideoService.checkSharedToken(this.token).subscribe((res) => {
+      this.spinner.show();
+      // debugger
       if (res) {
         // console.log(res);
         if (res.from === 'recruiter') {
+
           this.isShareFromRecruiter = true;
           this.isTokenValid = true;
           this.resume = res.resumeData[0];
           this.videoURL = res.videoUrl;
           this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
-          console.log('questionsByRecruiter', this.questionsByRecruiter);
+          // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
           this.comments = this.resume.comments;
           if (this.questionsByRecruiter.lenghth <= 0) {
             this.isQuestion = false;
           }
+          this.spinner.hide();
+
         } else if (res.from === 'employer') {
           this.isShareFromRecruiter = false;
           this.currentResume = res.bidData[0];
@@ -87,12 +93,12 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
         // console.log('onPlayerReady', this);
       }, err => {
-        console.log('*************', err);
+        // console.log('*************', err);
         this.spinner.hide();
 
       });
     } else {
-      console.log('token is not valid');
+      // console.log('token is not valid');
       this.spinner.hide();
 
     }
@@ -100,12 +106,16 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   }
   setCurrentTime(seconds, questionNumber) {
     this.questionNumber = questionNumber;
-    console.log(this.questionNumber);
+    // console.log(this.questionNumber);
+    this.spinner.show();
 
     try {
       this.target.nativeElement.currentTime = seconds;
+      this.spinner.hide();
+
     } catch (e) {
-      console.log(e);
+      // console.log(e);
+      this.spinner.hide();
 
     }
   }

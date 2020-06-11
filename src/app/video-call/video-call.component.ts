@@ -53,6 +53,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   commentFromRecruiter: any;
   submitReviewButton: boolean;
   roomName: any;
+  hideVideo = false;
   constructor(
     private ref: ChangeDetectorRef,
     private opentokService: OpentokService,
@@ -458,6 +459,18 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   // end of archiving
+
+
+  isVideo(status) {
+    this.hideVideo = status;
+    if (this.hideVideo) {
+      this.publisher.publishVideo(false);
+    } else if (!this.hideVideo) {
+      this.publisher.publishVideo(true);
+
+    }
+  }
+
   ngOnDestroy() {
     if (this.publisher) {
       this.opentokService.setMeetingStatus(true);

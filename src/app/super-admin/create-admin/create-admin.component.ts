@@ -35,10 +35,10 @@ declare var $: any;
 })
 export class CreateAdminComponent implements OnInit, ControlValueAccessor {
   // file validator
-  @HostListener("change", ["$event.target.files"]) onChange = _ => {};
-  @HostListener("blur") onTouched = () => {};
+  @HostListener("change", ["$event.target.files"]) onChange = _ => { };
+  @HostListener("blur") onTouched = () => { };
 
-  writeValue(value) {}
+  writeValue(value) { }
   registerOnChange(fn: any) {
     this.onChange = fn;
   }
@@ -77,7 +77,7 @@ export class CreateAdminComponent implements OnInit, ControlValueAccessor {
 
     const userRole = JSON.parse(window.localStorage.getItem("currentUser"))
       .userInfo.userRole;
-    console.log(userRole);
+    // console.log(userRole);
   }
 
   // on submit form
@@ -122,7 +122,7 @@ export class CreateAdminComponent implements OnInit, ControlValueAccessor {
     fd.append("password", this.signin.controls.password.value);
 
     if (!this.signin.valid) {
-      console.log("invalid form");
+      // console.log("invalid form");
       Materialize.toast("Please complete the form.", 1000);
       this.spinner.hide();
     }
@@ -130,7 +130,7 @@ export class CreateAdminComponent implements OnInit, ControlValueAccessor {
     if (userRole === "super-admin") {
       this.spinner.show();
 
-      console.log("yes super admin is active");
+      // console.log("yes super admin is active");
 
       this.suBtnActive = true;
       var res = this.signin.value;
