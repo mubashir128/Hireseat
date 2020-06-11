@@ -14,9 +14,9 @@ export class WebsocketService {
     this.socketUrl = myGlobals.socketUrl;
   }
 
-  async getInstance(token: any) {
+  async getInstance(token: any,userRole : string) {
     if (this.socket === undefined) {
-      this.socket = await io(this.socketUrl + '' + token);
+      this.socket = await io(this.socketUrl + '?token=' + token + "&userRole=" + userRole);
       this.handleWebSocket();
     }
     return this.socket;

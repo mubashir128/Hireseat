@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Chart } from "chart.js";
-import { ChartService } from "src/app/_services/chart.service";
+import { Subject } from "rxjs";
+import { WebsocketService } from "src/app/_services/websocket.service";
 
 @Component({
   selector: "app-bar-chart",
@@ -9,6 +10,7 @@ import { ChartService } from "src/app/_services/chart.service";
 })
 export class BarChartComponent implements OnInit {
   topRecruiters = [];
+  biddingDetails = [];
   BarChart;
   barChartData = {};
   chartOptions: any;
@@ -18,8 +20,10 @@ export class BarChartComponent implements OnInit {
   ratingPoints = [];
   selectedCount = [];
   @Input() recruiterData;
+  barChartObserver = new Subject();
+  barChartObserver$ = this.barChartObserver.asObservable();
 
-  constructor(private _chart : ChartService) {
+  constructor(private _socket: WebsocketService) {
 
     this.data = {
       labels: [],
@@ -33,7 +37,7 @@ export class BarChartComponent implements OnInit {
           borderColor: "red",
           borderWidth: 3,
           fill: false,
-          data: [25, 20, 20, 18, 20]
+          data: []
         },
         {
           //new option, type will default to bar as that what is used to create the scale
@@ -89,7 +93,7 @@ export class BarChartComponent implements OnInit {
             position: "right",
 
             ticks: {
-              max: 100,
+              max: 1000,
               min: 0,
               callback: function(value, index, values) {
                 return value + "%";
@@ -113,22 +117,92 @@ export class BarChartComponent implements OnInit {
     };
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    this._chart.topRecruitersRatingPoints().subscribe(async(res)=>{
-      this.topRecruiters=res.result;
-      await this.updateData(res);
-      await this.handleData(res.result,res.data);
-      this.data.labels=this.labels;
-      this.data.datasets[1].data=this.ratingPoints;
-      this.data.datasets[0].data=this.selectedCount;
-      this.BarChart = new Chart("barChart", {
-        type: "bar",
-        data: this.data,
-        options: this.chartOptions
-      });
+    await this._socket.removeListener({ type: 4 });
+    this._socket.addListener({
+      type: 4,
+      callback: this.barChartObserver
     });
 
+    this.barChartObserver$.subscribe((res: any) => {
+      this.handleBarChartData(res);
+    });
+
+    this._socket.sendMessage({
+      type: 4,
+      data: {
+        subType: "getAllBarChartData"
+      }
+    });
+
+  }
+
+  async handleBarChartData(res : any){
+    switch (res.subType) {
+      case "getAllBarChartData" :
+        this.topRecruiters=res.data.result;
+        this.biddingDetails=res.data.data;
+        await this.updateData(res.data);
+        await this.handleData(res.data.result,res.data.data);
+        this.data.labels=this.labels;
+        this.data.datasets[1].data=this.ratingPoints;
+        this.data.datasets[0].data=this.selectedCount;
+        this.renderBarChartData();
+        break;
+      case "increaseRatingPoints" :
+        this.updateBarChartRatingPoints(res.data);
+        break;
+      case "increaseHiredCount" : 
+        this.updateBarChartHiredCount(res.data);
+        break;
+      case "pushNewCreatedBid" : 
+        this.pushNewCreatedBid(res.data);
+        break;
+      default:
+        break;
+    }
+  }
+
+  pushNewCreatedBid(data){
+    for(let i=0;i<this.topRecruiters.length;i++){
+      if(this.topRecruiters[i]._id === data.recruiterKey){
+        this.biddingDetails.push(data);
+        break;
+      }
+    }
+  }
+
+  updateBarChartRatingPoints(obj){
+    let count=0;
+    this.topRecruiters.map(item=>{
+      if(item._id === obj._id){
+        this.ratingPoints[count]=obj.ratingPoints;
+        this.data.datasets[1].data=this.ratingPoints;
+        this.BarChart.update();
+      }
+      count++;
+    });
+  }
+
+  async updateBarChartHiredCount(obj){
+    await this.biddingDetails.map(bid=>{
+      if(bid._id === obj.bidId){
+        bid.hired=true;
+      }
+    });
+    this.selectedCount=[];
+    await this.handleData(this.topRecruiters,this.biddingDetails);
+    this.data.datasets[0].data=this.selectedCount;
+    this.BarChart.update();
+  }
+
+  renderBarChartData(){
+    this.BarChart = new Chart("barChart", {
+      type: "bar",
+      data: this.data,
+      options: this.chartOptions
+    });
   }
 
   async updateData(res){
@@ -145,7 +219,7 @@ export class BarChartComponent implements OnInit {
       for(let i=0;i<data.length;i++){
         if(item._id === data[i].recruiterKey && data[i].hired){
           count++;
-          sum+=data[i].RecruiterCost;
+          sum+=data[i].recAvg;
         }
         if(i === data.length-1){
           Number.isNaN(sum/count) ? this.selectedCount.push(0) : this.selectedCount.push(sum/count);

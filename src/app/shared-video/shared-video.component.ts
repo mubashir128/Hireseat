@@ -126,5 +126,9 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {
+    if (this.checkSharedTokenSubscription) {
+      this.checkSharedTokenSubscription.unsubscribe();
+    }
+  }
 }

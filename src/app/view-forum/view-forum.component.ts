@@ -100,7 +100,7 @@ export class ViewForumComponent implements OnInit {
 
     let obj = JSON.parse(localStorage.getItem('currentUser'));
     if (obj !== null) {
-      await this.initSocket(obj.token);
+      await this.initSocket(obj.token,obj.userInfo.userRole);
     }
 
     await this._socket.removeListener({ type: 2 });
@@ -138,8 +138,8 @@ export class ViewForumComponent implements OnInit {
     }
   }
 
-  async initSocket(token) {
-    await this._socket.getInstance(token);
+  async initSocket(token,userRole) {
+    await this._socket.getInstance(token,userRole);
   }
 
   handleQuestions(res: any) {

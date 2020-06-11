@@ -9,7 +9,6 @@ import { EnterpriseService } from '../_services/enterprise.service';
 
 import { WebsocketService } from '../_services/websocket.service';
 import { Subject } from 'rxjs';
-import { PushNotificationService } from '../_services/push-notification.service';
 
 declare var jQuery: any;
 declare var $: any;
@@ -44,8 +43,8 @@ export class NavbarComponent implements OnInit {
   permaLink: any;
   candidate = false;
 
-  notificationObserver = new Subject();
-  notificationObserver$ = this.notificationObserver.asObservable();
+notificationObserver = new Subject();
+notificationObserver$ = this.notificationObserver.asObservable();
 
   getAllNotifications = 'getAllNotifications';
   newNotification = 'newNotification';
@@ -108,7 +107,7 @@ export class NavbarComponent implements OnInit {
 
     let obj = JSON.parse(localStorage.getItem('currentUser'));
     if (obj !== null) {
-      await this.initSocket(obj.token);
+      await this.initSocket(obj.token,obj.userInfo.userRole);
     }
 
     await this._socket.removeListener({ type: 1 });
@@ -174,8 +173,8 @@ export class NavbarComponent implements OnInit {
     this.buttonName = 'Hide';
   }
 
-  async initSocket(token) {
-    await this._socket.getInstance(token);
+  async initSocket(token,userRole) {
+    await this._socket.getInstance(token,userRole);
   }
 
   truncateHTML(text: string): string {

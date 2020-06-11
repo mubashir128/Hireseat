@@ -41,7 +41,7 @@ export class EmployeerAnsComponent implements OnInit {
   
     let obj = JSON.parse(localStorage.getItem('currentUser'));
     if (obj !== null) {
-      await this.initSocket(obj.token);
+      await this.initSocket(obj.token,obj.userInfo.userRole);
     }
 
     await this._socket.removeListener({ type: 3 });
@@ -54,22 +54,28 @@ export class EmployeerAnsComponent implements OnInit {
       this.handleQuestionData(res);
     });
 
+    let userInfo=JSON.parse(localStorage.getItem('currentUser')).userInfo;
     this._socket.sendMessage({
       type: 3,
       data: {
         _id : this.id,
-        type : JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole,
+        personId : userInfo._id,
+        type : userInfo.userRole,
         subType: "getAllQuestions"
       }
     });
     
   }
 
-  async initSocket(token) {
-    await this._socket.getInstance(token);
+  async initSocket(token,userRole) {
+    await this._socket.getInstance(token,userRole);
   }
 
   handleQuestionData(res: any) {
+    if(res.data.biddingEventId !== this.id && res.subType !== "getAllQuestions"){
+      return ;
+    }
+
     switch (res.subType) {
       case "getAllQuestions" :
         // add all questions to list.
@@ -83,7 +89,7 @@ export class EmployeerAnsComponent implements OnInit {
         // add question to list.
         if(res.result){
           Materialize.toast('New Question asked', 1000);
-          this.quetionsData.push(res.data.data);
+          this.quetionsData.push(res.data);
           this.count++;
         }
         break;
@@ -92,7 +98,7 @@ export class EmployeerAnsComponent implements OnInit {
           this.count--;
           this.answer='';
           this.show=false;
-          this.updateElement(res.data.result);
+          this.updateElement(res.data);
           Materialize.toast('Answer posted', 1000);
           break;
       default:
