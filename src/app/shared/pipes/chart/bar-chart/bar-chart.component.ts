@@ -150,14 +150,26 @@ export class BarChartComponent implements OnInit {
         this.data.datasets[0].data=this.selectedCount;
         this.renderBarChartData();
         break;
-      case "updateRatingPoints" :
+      case "increaseRatingPoints" :
         this.updateBarChartRatingPoints(res.data);
         break;
-      case "updateHiredCount" : 
+      case "increaseHiredCount" : 
         this.updateBarChartHiredCount(res.data);
+        break;
+      case "pushNewCreatedBid" : 
+        this.pushNewCreatedBid(res.data);
         break;
       default:
         break;
+    }
+  }
+
+  pushNewCreatedBid(data){
+    for(let i=0;i<this.topRecruiters.length;i++){
+      if(this.topRecruiters[i]._id === data.recruiterKey){
+        this.biddingDetails.push(data);
+        break;
+      }
     }
   }
 
