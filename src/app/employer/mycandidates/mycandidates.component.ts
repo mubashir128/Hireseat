@@ -46,6 +46,8 @@ export class MycandidatesComponent implements OnInit {
   }
 
   getAllHiredResume() {
+    this.getEmployerAddedResumes();
+
     this.spinner.show();
     this.resumeService.getSpecificHiredCandidates().subscribe((data: any) => {
       // console.log(data);
@@ -74,6 +76,8 @@ export class MycandidatesComponent implements OnInit {
       });
   }
   getEmployerAddedResumes() {
+    console.log('getEmployerAddedResumes');
+
     this.spinner.show();
     this.resumeService.getEmployerAddedResumes().subscribe((data: IResume[]) => {
       // console.log(data.resumes);
@@ -96,7 +100,7 @@ export class MycandidatesComponent implements OnInit {
     this.resumes = [];
 
     this.getAllHiredResume();
-    this.getEmployerAddedResumes();
+    // this.getEmployerAddedResumes();
     jQuery('.modal').modal();
   }
 

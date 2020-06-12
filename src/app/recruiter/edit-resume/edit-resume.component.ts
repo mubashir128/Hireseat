@@ -82,9 +82,9 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
     jQuery("select").material_select();
   }
   ngOnInit() {
-    console.log(this.resume);
+    // console.log(this.resume);
     this.candidateId = this.resume._id;
-    console.log(this.candidateId);
+    // console.log(this.candidateId);
     if (this.resume && this.resume.fileURL) {
       this.fileUploaded = 2;
       this.downloadURL = this.resume.fileURL;
@@ -123,18 +123,20 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
     this.recruiterReview = this.resume['recruiterReview'];
     this.questionsByRecruiter = this.resume['questionsByRecruiter'][0];
     // setting up values for QuestionsGroup
-    this.QuestionsGroup.setValue({
-      question1: this.questionsByRecruiter.question1,
-      question2: this.questionsByRecruiter.question2,
-      question3: this.questionsByRecruiter.question3,
-      question4: this.questionsByRecruiter.question4,
-      question5: this.questionsByRecruiter.question5,
-      timeStamp1: this.questionsByRecruiter.timeStamp1,
-      timeStamp2: this.questionsByRecruiter.timeStamp2,
-      timeStamp3: this.questionsByRecruiter.timeStamp3,
-      timeStamp4: this.questionsByRecruiter.timeStamp4,
-      timeStamp5: this.questionsByRecruiter.timeStamp5
-    });
+    if (this.questionsByRecruiter) {
+      this.QuestionsGroup.setValue({
+        question1: this.questionsByRecruiter.question1,
+        question2: this.questionsByRecruiter.question2,
+        question3: this.questionsByRecruiter.question3,
+        question4: this.questionsByRecruiter.question4,
+        question5: this.questionsByRecruiter.question5,
+        timeStamp1: this.questionsByRecruiter.timeStamp1,
+        timeStamp2: this.questionsByRecruiter.timeStamp2,
+        timeStamp3: this.questionsByRecruiter.timeStamp3,
+        timeStamp4: this.questionsByRecruiter.timeStamp4,
+        timeStamp5: this.questionsByRecruiter.timeStamp5
+      });
+    }
 
     jQuery("#resume-preview").height(jQuery("#resume-info").height());
   }
@@ -148,7 +150,7 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
           controlls: true,
         },
         () => {
-          console.log('onPlayerReady', this);
+          // console.log('onPlayerReady', this);
         }
       );
     }
@@ -172,7 +174,7 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
     this.videoCallingService.getArchivedVideo(payload).subscribe((url) => {
       if (url) {
         this.videoURL = url.url;
-        console.log(this.videoURL);
+        // console.log(this.videoURL);
       } else {
         console.log("unable to load url");
       }

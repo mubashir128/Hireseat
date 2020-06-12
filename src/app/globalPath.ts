@@ -31,8 +31,4 @@ export const socketUrl = "ws://localhost:5000/webSocket";
 // test server path
 // export const baseUrl = 'https://hireseat.com:5002/';
 // socketUrl
-<<<<<<< HEAD
-// export const socketUrl = "wss://hireseat.com:5002/webSocket?token=";
-=======
 // export const socketUrl = "wss://hireseat.com:5002/webSocket";
->>>>>>> 5fd437fa1d2d73707ed705d8c927ddd91e84dd63
