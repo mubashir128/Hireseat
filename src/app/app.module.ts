@@ -135,9 +135,10 @@ import { OpentokService } from './_services/opentok.service';
 import { SearchByNamePipe } from '../search-by-name.pipe';
 import { SearchByExperiencePipe } from '../search-by-experience.pipe';
 import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
-import { SharedVideoComponent } from './shared-video/shared-video.component';
+// import { SharedVideoComponent } from './shared-video/shared-video.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AppRoutingModule } from './/app-routing.module';
 
 const appRoutes: Routes = [
   { path: "forum", component: ViewForumComponent },
@@ -190,7 +191,7 @@ const appRoutes: Routes = [
   },
   {
     path: "shared-video/:token",
-    component: SharedVideoComponent
+    loadChildren: './shared-video/shared-video.module#SharedVideoModule'
   }
 ];
 
@@ -491,7 +492,7 @@ const appChildRoutes: Routes = [
     SearchByNamePipe,
     SearchByExperiencePipe,
     MycandidatesComponent,
-    SharedVideoComponent
+    // SharedVideoComponent
   ],
   imports: [
     InfiniteScrollModule,
@@ -515,7 +516,8 @@ const appChildRoutes: Routes = [
     Ng2CompleterModule,
     SelectDropDownModule,
     NgHighlightModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    AppRoutingModule
   ],
   providers: [
     AuthGuard,

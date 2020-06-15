@@ -36,6 +36,8 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    console.log('welcome to lazyloading');
+
     this.spinner.show();
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
 
