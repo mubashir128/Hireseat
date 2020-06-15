@@ -93,7 +93,7 @@ export class BarChartComponent implements OnInit {
             position: "right",
 
             ticks: {
-              max: 1000,
+              max: 100,
               min: 0,
               callback: function(value, index, values) {
                 return value + "%";
