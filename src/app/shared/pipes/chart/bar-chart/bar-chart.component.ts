@@ -26,7 +26,7 @@ export class BarChartComponent implements OnInit {
   constructor(private _socket: WebsocketService) {
 
     this.data = {
-      labels: [],
+      labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
       datasets: [
         {
           label: "Fee",
@@ -37,7 +37,7 @@ export class BarChartComponent implements OnInit {
           borderColor: "red",
           borderWidth: 3,
           fill: false,
-          data: []
+          data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         },
         {
           // new option, type will default to bar as that what is used to create the scale
@@ -46,7 +46,7 @@ export class BarChartComponent implements OnInit {
           backgroundColor: "#00b0f0",
           borderColor: "#00b0f0",
           borderWidth: 1,
-          data: []
+          data: [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
         }
       ]
     };
@@ -119,6 +119,8 @@ export class BarChartComponent implements OnInit {
 
   async ngOnInit() {
 
+    this.renderBarChartData();
+
     await this._socket.removeListener({ type: 4 });
     this._socket.addListener({
       type: 4,
@@ -148,7 +150,7 @@ export class BarChartComponent implements OnInit {
         this.data.labels = this.labels;
         this.data.datasets[1].data = this.ratingPoints;
         this.data.datasets[0].data = this.selectedCount;
-        this.renderBarChartData();
+        this.BarChart.update();
         break;
       case "increaseRatingPoints":
         this.updateBarChartRatingPoints(res.data);
