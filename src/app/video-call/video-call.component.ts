@@ -136,6 +136,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('hgvgv');
+
     jQuery('.modal').modal();
     this.candidateInvitationLink = true;
     // candidate or interviewer
@@ -481,7 +483,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     if (this.publishedStreamSubscription) {
       this.publishedStreamSubscription.unsubscribe();
     }
-    
+
     if (this.bookmarkSubscription) {
       this.bookmarkSubscription.unsubscribe();
     }

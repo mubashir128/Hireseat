@@ -128,9 +128,9 @@ import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.c
 import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
 import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
-import { VideoCallComponent } from './video-call/video-call.component';
-import { PublisherComponent } from './publisher/publisher.component';
-import { SubscriberComponent } from './subscriber/subscriber.component';
+// import { VideoCallComponent } from './video-call/video-call.component';
+// import { PublisherComponent } from './publisher/publisher.component';
+// import { SubscriberComponent } from './subscriber/subscriber.component';
 import { OpentokService } from './_services/opentok.service';
 import { SearchByNamePipe } from '../search-by-name.pipe';
 import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -187,7 +187,7 @@ const appRoutes: Routes = [
   { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
   {
     path: "video-call/:id",
-    component: VideoCallComponent
+    loadChildren: './video-call/video-call.module#VideoCallModule'
   },
   {
     path: "shared-video/:token",
@@ -486,9 +486,9 @@ const appChildRoutes: Routes = [
     PieChartComponent,
     ScatterChartComponent,
     VideoInterviewRoomComponent,
-    VideoCallComponent,
-    PublisherComponent,
-    SubscriberComponent,
+    // VideoCallComponent,
+    // PublisherComponent,
+    // SubscriberComponent,
     SearchByNamePipe,
     SearchByExperiencePipe,
     MycandidatesComponent,
@@ -534,6 +534,10 @@ const appChildRoutes: Routes = [
       useClass: ErrorInterceptor,
       multi: true
     }
+  ],
+  exports: [
+    FooterComponent,
+    NavbarComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
