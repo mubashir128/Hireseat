@@ -34,6 +34,15 @@ export class ShareVideoService {
         })
       );
   }
+  checkCandidateSharedToken(token) {
+    return this.http
+      .get<any>(this.baseurl + "api/checkCandidateSharedToken/" + token)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
   // Recruiter
 
   shareVideoViaRecruiterEmail(payload) {
