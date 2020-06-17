@@ -89,4 +89,10 @@ export class VideoCallingService {
     })
     );
   }
+  CandidateShareVideoViaEmail(payload) {
+    return this.http.post<any>(this.baseurl + 'api/CandidateShareVideoViaEmail', payload).pipe(map((res: any) => {
+      return res;
+    })
+    );
+  }
 }
