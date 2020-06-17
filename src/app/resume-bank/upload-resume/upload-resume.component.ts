@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ResumeService } from "src/app/_services/resume.service";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ResumeBank } from "src/app/models/resumebank";
+import { ResumeBank,ResumeVideo } from "src/app/models/resumebank";
 import * as lib from "../../lib-functions";
+import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
+import { fromEvent } from "rxjs";
 declare var jQuery: any;
 declare var Materialize: any;
 @Component({
@@ -13,17 +15,23 @@ declare var Materialize: any;
 })
 export class UploadResumeComponent implements OnInit {
   public newResumeFrm: FormGroup;
+  public newResumeFrm2: FormGroup;
   downloadURL: string = "";
   fileUploaded: number = 0;
   resume: ResumeBank;
+  resumeVideo : ResumeVideo;
   tags: any;
   public skillSets = [];
+  @ViewChild('searchByEmail') searchByEmail : ElementRef;
+  submitVideoCandidate=true;
+
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
     private spinner: NgxSpinnerService
   ) {
     this.resume = new ResumeBank();
+    this.resumeVideo=new ResumeVideo();
   }
 
   ngOnInit() {
@@ -52,6 +60,45 @@ export class UploadResumeComponent implements OnInit {
           Validators.maxLength(2)
         ])
       ]
+    });
+
+    this.newResumeFrm2 = this.formBuilder.group({
+      email: ['', [Validators.required,Validators.email]],
+      time : ['',Validators.required]
+    });
+
+  }
+
+  ngAfterViewInit() {
+    // server-side search
+    this.searchTermByEmail();
+  }
+
+  searchTermByEmail(){
+    fromEvent(this.searchByEmail.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.getResumeCandidates({
+          email : this.resumeVideo.email
+        });
+      })
+    )
+    .subscribe();
+  }
+
+  getResumeCandidates(obj){
+    this.resumeService.getResumeCandidates(obj).subscribe(res=>{
+      console.log("res : ",res);
+      if(res.result.length !== 0){
+        this.submitVideoCandidate=false;
+      }else{
+        this.submitVideoCandidate=true;
+      }
+
     });
   }
 
@@ -167,4 +214,21 @@ export class UploadResumeComponent implements OnInit {
       }
     );
   }
+
+  submitVideo(){
+    if (this.newResumeFrm2.valid) {
+      console.log("valid --- : ",this.resumeVideo);
+    }else{
+      Materialize.toast('Please Fill the form fields !', 1000);
+    }
+  }
+
+  handleHoursChange($event){
+    this.resumeVideo.time=$event.target.value;
+  }
+
+  get f2() {
+    return this.newResumeFrm2.controls;
+  }
+
 }

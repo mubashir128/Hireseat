@@ -22,3 +22,13 @@ export class ResumeBank {
      }
     jobPostProfieId:String
 }
+
+export class ResumeVideo {
+    email : string;
+    time : any;
+    
+    constructor(){
+        this.email='';
+        this.time='1Hour';
+    }
+}
