@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ResumeService } from "src/app/_services/resume.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ResumeBank,ResumeVideo } from "src/app/models/resumebank";
 import * as lib from "../../lib-functions";
+import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
+import { fromEvent } from "rxjs";
 declare var jQuery: any;
 declare var Materialize: any;
 @Component({
@@ -20,6 +22,8 @@ export class UploadResumeComponent implements OnInit {
   resumeVideo : ResumeVideo;
   tags: any;
   public skillSets = [];
+  @ViewChild('searchByEmail') searchByEmail : ElementRef;
+  submitVideoCandidate=true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,9 +64,42 @@ export class UploadResumeComponent implements OnInit {
 
     this.newResumeFrm2 = this.formBuilder.group({
       email: ['', [Validators.required,Validators.email]],
-      hours : ['',Validators.required]
+      time : ['',Validators.required]
     });
 
+  }
+
+  ngAfterViewInit() {
+    // server-side search
+    this.searchTermByEmail();
+  }
+
+  searchTermByEmail(){
+    fromEvent(this.searchByEmail.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.getResumeCandidates({
+          email : this.resumeVideo.email
+        });
+      })
+    )
+    .subscribe();
+  }
+
+  getResumeCandidates(obj){
+    this.resumeService.getResumeCandidates(obj).subscribe(res=>{
+      console.log("res : ",res);
+      if(res.result.length !== 0){
+        this.submitVideoCandidate=false;
+      }else{
+        this.submitVideoCandidate=true;
+      }
+
+    });
   }
 
   getSkillset() {
@@ -187,7 +224,7 @@ export class UploadResumeComponent implements OnInit {
   }
 
   handleHoursChange($event){
-    this.resumeVideo.hours=$event.target.value;
+    this.resumeVideo.time=$event.target.value;
   }
 
   get f2() {

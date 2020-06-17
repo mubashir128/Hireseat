@@ -25,10 +25,10 @@ export class ResumeBank {
 
 export class ResumeVideo {
     email : string;
-    hours : any;
+    time : any;
     
     constructor(){
         this.email='';
-        this.hours='1';
+        this.time='1Hour';
     }
 }

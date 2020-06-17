@@ -160,7 +160,7 @@
             <div class="input-field col s12 m12 l12 text-left">
               <div class="Bcolor">Email</div>
               <input id="candidate-name" type="text" class="validate" [(ngModel)]="resumeVideo.email"
-                formControlName="email">
+                formControlName="email" #searchByEmail>
               <div *ngIf="(f2.email.touched && f2.email.errors)" class="invalid-feedback" class="error">
                 <div *ngIf="f2.email.errors.required">Enter valid email</div>
               </div>
@@ -169,18 +169,18 @@
               <div class="Bcolor">Link Expiration Time</div>
               <div class="input-field col s12 m12">
                 <div class="radioGroup">
-                    <input type="radio" id="1" name="hours" formControlName="hours" [(ngModel)]="resumeVideo.hours" value="1" (change)="handleHoursChange($event)">
+                    <input type="radio" id="1Hour" name="time" formControlName="time" [(ngModel)]="resumeVideo.time" value="1Hour" (change)="handleHoursChange($event)">
                     <label for="1Hour">1 Hour</label>
-                    <input type="radio" id="2" name="hours" formControlName="hours" [(ngModel)]="resumeVideo.hours" value="2" (change)="handleHoursChange($event)">
-                    <label for="2Hour">2 Hour</label>
-                    <input type="radio" id="3" name="hours" formControlName="hours" [(ngModel)]="resumeVideo.hours" value="3" (change)="handleHoursChange($event)">
-                    <label for="3Hour">3 Hour</label>
+                    <input type="radio" id="1Day" name="time" formControlName="time" [(ngModel)]="resumeVideo.time" value="1Day" (change)="handleHoursChange($event)">
+                    <label for="1Day">1 Day</label>
+                    <input type="radio" id="1Week" name="time" formControlName="time" [(ngModel)]="resumeVideo.time" value="1Week" (change)="handleHoursChange($event)">
+                    <label for="1Week">1 Week</label>
                 </div>
               </div>
             </div>
             <div class="input-field col s12 m12 l12 text-left">
               <div class="row center-align mar0PaddB20">
-                <button type="submit" class="waves-effect waves-light btn commonBlueBtnN">Submit</button>
+                <button type="submit" class="waves-effect waves-light btn commonBlueBtnN" [disabled]="submitVideoCandidate">Submit</button>
               </div>
             </div>
           </div>
