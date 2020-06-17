@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ResumeService } from "src/app/_services/resume.service";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ResumeBank } from "src/app/models/resumebank";
+import { ResumeBank,ResumeVideo } from "src/app/models/resumebank";
 import * as lib from "../../lib-functions";
 declare var jQuery: any;
 declare var Materialize: any;
@@ -13,17 +13,21 @@ declare var Materialize: any;
 })
 export class UploadResumeComponent implements OnInit {
   public newResumeFrm: FormGroup;
+  public newResumeFrm2: FormGroup;
   downloadURL: string = "";
   fileUploaded: number = 0;
   resume: ResumeBank;
+  resumeVideo : ResumeVideo;
   tags: any;
   public skillSets = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
     private spinner: NgxSpinnerService
   ) {
     this.resume = new ResumeBank();
+    this.resumeVideo=new ResumeVideo();
   }
 
   ngOnInit() {
@@ -53,6 +57,12 @@ export class UploadResumeComponent implements OnInit {
         ])
       ]
     });
+
+    this.newResumeFrm2 = this.formBuilder.group({
+      email: ['', [Validators.required,Validators.email]],
+      hours : ['',Validators.required]
+    });
+
   }
 
   getSkillset() {
@@ -167,4 +177,21 @@ export class UploadResumeComponent implements OnInit {
       }
     );
   }
+
+  submitVideo(){
+    if (this.newResumeFrm2.valid) {
+      console.log("valid --- : ",this.resumeVideo);
+    }else{
+      Materialize.toast('Please Fill the form fields !', 1000);
+    }
+  }
+
+  handleHoursChange($event){
+    this.resumeVideo.hours=$event.target.value;
+  }
+
+  get f2() {
+    return this.newResumeFrm2.controls;
+  }
+
 }

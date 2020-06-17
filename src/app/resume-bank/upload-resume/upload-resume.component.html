@@ -5,151 +5,188 @@
       Looking for new career opportunities?<br />
       Drop your resume off to the best recruiters in NYC
     </div>
-    <div class="slide-sub-heading">Upload your Resume</div>
   </div>
-  <div class="center-align formDivParent" id="ResuemFrm">
-    <form [formGroup]="newResumeFrm" (ngSubmit)="submit()" novalidate>
-      <div>
-        <div id="resume-info" class="inputPlaceColor">
-          <div class="row marB0">
-            <div class="input-field col s12 m12 l12 ">
-              <ng-container class="pdf-view">
-                <app-pdf-viewer
-                  *ngIf="fileUploaded === 2"
-                  [url]="downloadURL"
-                ></app-pdf-viewer>
-              </ng-container>
-              <div
-                class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
-                *ngIf="fileUploaded === 0"
-              >
-                <div>
-                  <span>Upload Resume</span>
-                  <input type="file" (change)="fileChange($event)" />
-                </div>
-              </div>
-            </div>
-            <div class="input-field col s12 m12 l12 text-left">
-              <div class="Bcolor">First Name*</div>
-              <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                [(ngModel)]="resume.firstName"
-                formControlName="firstName"
-              />
-              <div
-                *ngIf="f.firstName.touched && f.firstName.errors"
-                class="invalid-feedback"
-                class="error"
-              >
-                <div *ngIf="f.firstName.errors.required">
-                  First name is required
-                </div>
-                <div *ngIf="f.firstName.errors.pattern">
-                  First name contains only alphabets
-                </div>
-              </div>
-            </div>
-            <div class="input-field col s12 m12 l12 text-left">
-              <div class="Bcolor">Last Name*</div>
-              <input
-                id="social-security-num"
-                type="text"
-                class="validate"
-                name="resume.lastName"
-                [(ngModel)]="resume.lastName"
-                formControlName="lastName"
-              />
-              <div
-                *ngIf="f.lastName.touched && f.lastName.errors"
-                class="invalid-feedback"
-                class="error"
-              >
-                <div *ngIf="f.lastName.errors.required">
-                  Last name is required
-                </div>
-                <div *ngIf="f.lastName.errors.pattern">
-                  Last name contains only alphabets
-                </div>
-              </div>
-            </div>
-            <div class="input-field col s12 m12 l12 text-left">
-              <div class="Bcolor">Select the skill sets*</div>
-              <!-- [onlyFromAutocomplete]="true" -->
-              <tag-input
-                [(ngModel)]="resume.tags"
-                formControlName="tags"
-                [placeholder]="''"
-                [addOnBlur]="true"
-                [secondaryPlaceholder]="''"
-                (onAdd)="addTag($event)"
-                (onRemove)="removeTag($event)"
-              >
-                <tag-input-dropdown
-                  [autocompleteItems]="skillSets"
-                  [keepOpen]="false"
-                  [showDropdownIfEmpty]="true"
-                  [dynamicUpdate]="false"
+  <div class="row" style="margin-left: 15px;">
+    <div class="center-align formDivParent col" id="ResuemFrm">
+      <form [formGroup]="newResumeFrm" (ngSubmit)="submit()" novalidate>
+        <div>
+          <div id="resume-info" class="inputPlaceColor">
+            <div class="row marB0">
+              <div class="slide-sub-heading">Upload your Resume</div>
+              <div class="input-field col s12 m12 l12 ">
+                <ng-container class="pdf-view">
+                  <app-pdf-viewer
+                    *ngIf="fileUploaded === 2"
+                    [url]="downloadURL"
+                  ></app-pdf-viewer>
+                </ng-container>
+                <div
+                  class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+                  *ngIf="fileUploaded === 0"
                 >
-                </tag-input-dropdown>
-              </tag-input>
-              <div
-                *ngIf="f.tags.touched && f.tags.errors"
-                class="invalid-feedback"
-                class="error"
-              >
-                <div *ngIf="f.tags.errors.required">
-                  Skill sets are required
+                  <div>
+                    <span>Upload Resume</span>
+                    <input type="file" (change)="fileChange($event)" />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="input-field col s12 m12 l12 text-left">
-              <div class="Bcolor">Years Of Experience*</div>
-              <input
-                id="social-security-num"
-                type="text"
-                class="validate"
-                name="resume.experience"
-                [(ngModel)]="resume.experience"
-                formControlName="experience"
-              />
-              <div
-                *ngIf="f.experience.touched && f.experience.errors"
-                class="invalid-feedback"
-                class="error"
-              >
-                <div *ngIf="f.experience.errors.required">
-                  Years of experience is required
+              <div class="input-field col s12 m12 l12 text-left">
+                <div class="Bcolor">First Name*</div>
+                <input
+                  id="candidate-name"
+                  type="text"
+                  class="validate"
+                  [(ngModel)]="resume.firstName"
+                  formControlName="firstName"
+                />
+                <div
+                  *ngIf="f.firstName.touched && f.firstName.errors"
+                  class="invalid-feedback"
+                  class="error"
+                >
+                  <div *ngIf="f.firstName.errors.required">
+                    First name is required
+                  </div>
+                  <div *ngIf="f.firstName.errors.pattern">
+                    First name contains only alphabets
+                  </div>
                 </div>
-                <div *ngIf="f.experience.errors.pattern">Number Only</div>
+              </div>
+              <div class="input-field col s12 m12 l12 text-left">
+                <div class="Bcolor">Last Name*</div>
+                <input
+                  id="social-security-num"
+                  type="text"
+                  class="validate"
+                  name="resume.lastName"
+                  [(ngModel)]="resume.lastName"
+                  formControlName="lastName"
+                />
+                <div
+                  *ngIf="f.lastName.touched && f.lastName.errors"
+                  class="invalid-feedback"
+                  class="error"
+                >
+                  <div *ngIf="f.lastName.errors.required">
+                    Last name is required
+                  </div>
+                  <div *ngIf="f.lastName.errors.pattern">
+                    Last name contains only alphabets
+                  </div>
+                </div>
+              </div>
+              <div class="input-field col s12 m12 l12 text-left">
+                <div class="Bcolor">Select the skill sets*</div>
+                <!-- [onlyFromAutocomplete]="true" -->
+                <tag-input
+                  [(ngModel)]="resume.tags"
+                  formControlName="tags"
+                  [placeholder]="''"
+                  [addOnBlur]="true"
+                  [secondaryPlaceholder]="''"
+                  (onAdd)="addTag($event)"
+                  (onRemove)="removeTag($event)"
+                >
+                  <tag-input-dropdown
+                    [autocompleteItems]="skillSets"
+                    [keepOpen]="false"
+                    [showDropdownIfEmpty]="true"
+                    [dynamicUpdate]="false"
+                  >
+                  </tag-input-dropdown>
+                </tag-input>
+                <div
+                  *ngIf="f.tags.touched && f.tags.errors"
+                  class="invalid-feedback"
+                  class="error"
+                >
+                  <div *ngIf="f.tags.errors.required">
+                    Skill sets are required
+                  </div>
+                </div>
+              </div>
+              <div class="input-field col s12 m12 l12 text-left">
+                <div class="Bcolor">Years Of Experience*</div>
+                <input
+                  id="social-security-num"
+                  type="text"
+                  class="validate"
+                  name="resume.experience"
+                  [(ngModel)]="resume.experience"
+                  formControlName="experience"
+                />
+                <div
+                  *ngIf="f.experience.touched && f.experience.errors"
+                  class="invalid-feedback"
+                  class="error"
+                >
+                  <div *ngIf="f.experience.errors.required">
+                    Years of experience is required
+                  </div>
+                  <div *ngIf="f.experience.errors.pattern">Number Only</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class=" row center-align mar0PaddB20">
-        <a
-          class="waves-effect waves-light btn-flat cancelBtn transparentBtnN"
-          [routerLink]="['/home']"
-          >Cancel</a
-        >
-        <button
-          type="submit"
-          class="waves-effect waves-light btn commonBlueBtnN"
-        >
-          Save
-        </button>
-      </div>
-    </form>
+        <div class=" row center-align mar0PaddB20">
+          <a
+            class="waves-effect waves-light btn-flat cancelBtn transparentBtnN"
+            [routerLink]="['/home']"
+            >Cancel</a
+          >
+          <button
+            type="submit"
+            class="waves-effect waves-light btn commonBlueBtnN"
+          >
+            Save
+          </button>
+        </div>
+      </form>
 
-    <!--  <div class="slide-sub-heading"> The Search for the Best Recruiter in the World </div>
-	  <div class="slide-body" style="width:70%; margin:auto;"> An open platform for Rockstar Recruiters to prove they are
-		the best.
-		When great recruiters compete, Hiring Managers get the best candidates faster and Rockstar Recruiters
-		develop and expand their brand and reputation.
-	  </div> -->
+      <!--  <div class="slide-sub-heading"> The Search for the Best Recruiter in the World </div>
+      <div class="slide-body" style="width:70%; margin:auto;"> An open platform for Rockstar Recruiters to prove they are
+      the best.
+      When great recruiters compete, Hiring Managers get the best candidates faster and Rockstar Recruiters
+      develop and expand their brand and reputation.
+      </div> -->
+    </div>
+    <div class="col" style="width: 50%;">
+      <div class="row marB0">
+        <form [formGroup]="newResumeFrm2" (ngSubmit)="submitVideo()" novalidate>
+          <div class="slide-sub-heading">Retrive Your Video Candidate Profile</div>
+          <div class="input-field col s12 m12 l12" style="margin-top: 70px;">
+            <div class="input-field col s12 m12 l12 text-left">
+              <div class="Bcolor">Email</div>
+              <input id="candidate-name" type="text" class="validate" [(ngModel)]="resumeVideo.email"
+                formControlName="email">
+              <div *ngIf="(f2.email.touched && f2.email.errors)" class="invalid-feedback" class="error">
+                <div *ngIf="f2.email.errors.required">Enter valid email</div>
+              </div>
+            </div>
+            <div class="input-field col s12 m12 l12 text-left">
+              <div class="Bcolor">Link Expiration Time</div>
+              <div class="input-field col s12 m12">
+                <div class="radioGroup">
+                    <input type="radio" id="1" name="hours" formControlName="hours" [(ngModel)]="resumeVideo.hours" value="1" (change)="handleHoursChange($event)">
+                    <label for="1Hour">1 Hour</label>
+                    <input type="radio" id="2" name="hours" formControlName="hours" [(ngModel)]="resumeVideo.hours" value="2" (change)="handleHoursChange($event)">
+                    <label for="2Hour">2 Hour</label>
+                    <input type="radio" id="3" name="hours" formControlName="hours" [(ngModel)]="resumeVideo.hours" value="3" (change)="handleHoursChange($event)">
+                    <label for="3Hour">3 Hour</label>
+                </div>
+              </div>
+            </div>
+            <div class="input-field col s12 m12 l12 text-left">
+              <div class="row center-align mar0PaddB20">
+                <button type="submit" class="waves-effect waves-light btn commonBlueBtnN">Submit</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 <app-media></app-media>
