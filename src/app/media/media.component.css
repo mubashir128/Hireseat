@@ -476,7 +476,7 @@
 }
 .stickyBtn{
     position: fixed !important;
-    bottom: 150px !important;
+    bottom: 50px !important;
     right: 100px !important;
     z-index: 99 !important;
     outline: none !important;
