@@ -27,9 +27,9 @@ import { AppModule } from '../app.module';
     OpentokService
   ],
   declarations: [
-    VideoCallComponent,
-    PublisherComponent,
-    SubscriberComponent,
+    // VideoCallComponent,
+    // PublisherComponent,
+    // SubscriberComponent,
   ],
 })
 export class VideoCallModule { }
