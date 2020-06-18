@@ -249,7 +249,7 @@ export class UploadResumeComponent implements OnInit {
             this.videoURL = res.url;
             // return res.url;
             // if (this.videoURL) {
-            const subject = 'Hireseat' + this.requestedResume.jobTitle + this.requestedResume.candidateName;
+            const subject = 'Hireseat ' + this.requestedResume.candidateName;
             const emailPayload = {
               resumeId: this.requestedResume._id,
               recipientEmail: this.resumeVideo.email,
@@ -261,6 +261,8 @@ export class UploadResumeComponent implements OnInit {
             };
             this.sendEmailSubscription = this.videoCallingService.CandidateShareVideoViaEmail(emailPayload).subscribe(res => {
               console.log(res);
+      Materialize.toast('Email sent', 3000);
+
             }, err => {
               console.log(err);
             });

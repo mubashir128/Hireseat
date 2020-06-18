@@ -159,10 +159,7 @@
       <div class="articleDiv70">
         <h4 class="SecHeading blackHed">Article</h4>
         <div class="row mar0 flexWrap scrollDiv">
-          <div
-            class="col m12 l6 marB20"
-            *ngFor="let article of article; let i = index"
-          >
+          <div class="col m12 l6 marB20" *ngFor="let article of article; let i = index">
             <div *ngIf="i < 4" class="ArticleDiv">
               <h5>{{ article?.updatedAt | date }}</h5>
               <h4>{{ article?.title }}</h4>
@@ -171,35 +168,22 @@
               </div>
 
               <div *ngIf="article.video != null" class="postimage">
-                <video
-                  id="selectedVideo"
-                  height="100%"
-                  width="100%"
-                  controls
-                  [src]="article?.video"
-                >
+                <video id="selectedVideo" height="100%" width="100%" controls [src]="article?.video">
                   Your browser does not support the video tag.
                 </video>
               </div>
 
               <div *ngIf="article.embbedded" class="postimage">
                 <!-- <div *ngIf="article?.embbedded!= 'null' " [innerHtml]="safe(article.embbedded)"> </div> -->
-                <iframe
-                  *ngIf="article?.embbedded != 'null'"
-                  width="100%"
-                  height="100%"
-                  [src]="article?.embbedded | safe"
-                ></iframe>
+                <iframe *ngIf="article?.embbedded != 'null'" width="100%" height="100%"
+                  [src]="article?.embbedded | safe"></iframe>
               </div>
 
-              <p
-                *ngIf="
+              <p *ngIf="
                   !article?.featuredImage &&
                   !article?.embbedded &&
                   article?.video == null
-                "
-                [innerHtml]="truncateHTML(article?.description)"
-              ></p>
+                " [innerHtml]="truncateHTML(article?.description)"></p>
               <a [routerLink]="['/blog/', article.blogurl]">Read More</a>
             </div>
           </div>
@@ -209,25 +193,17 @@
       <div class="articleDiv30">
         <h4 class="SecHeading ">Twitter</h4>
         <div class="boxDiv">
-          <ngx-twitter-timeline
-            data-width="280"
-            data-height="300"
-            [data]="{
+          <ngx-twitter-timeline data-width="280" data-height="300" [data]="{
               sourceType: 'url',
               url: 'https://twitter.com/HireSeat?ref_src=twsrc%5Etfw'
-            }"
-            [opts]="{ tweetLimit: 3 }"
-          ></ngx-twitter-timeline>
+            }" [opts]="{ tweetLimit: 3 }"></ngx-twitter-timeline>
         </div>
       </div>
     </div>
   </div>
   <!--=========================== 4th section end ===============================-->
   <!--========================== recruter section 5th start =============================-->
-  <div
-    class="recruterMain"
-    *ngFor="let meetUpsData of meetUpsData; let i = index"
-  >
+  <div class="recruterMain" *ngFor="let meetUpsData of meetUpsData; let i = index">
     <div class="recruterInner" *ngIf="i < 1">
       <img src="assets/img/staue.png" class="staueIcon" />
       <h4 class="SecHeading text-center">{{ meetUpsData?.group.name }}</h4>
