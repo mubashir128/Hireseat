@@ -18,7 +18,7 @@ export interface IBiddingEvent {
   resumeLimit: number;
   employerCompanyName: string;
   jobLocation: string;
-
+  createdAt : any;
 }
 
 export class BiddingEvent implements IBiddingEvent {
@@ -45,7 +45,7 @@ export class BiddingEvent implements IBiddingEvent {
   remainingTime: RemainingTime;
   finalRecruiters: any = [];
   globalType: string;
-
+  createdAt : any;
 
   constructor() {
   }
