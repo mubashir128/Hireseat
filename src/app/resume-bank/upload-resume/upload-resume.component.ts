@@ -88,9 +88,11 @@ export class UploadResumeComponent implements OnInit {
       .pipe(
         map(event => event),
         filter(Boolean),
-        debounceTime(1000),
+        debounceTime(2000),
         distinctUntilChanged(),
         tap((text) => {
+          console.log(text);
+
           this.getResumeCandidates({
             email: this.resumeVideo.email
           });
