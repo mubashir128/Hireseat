@@ -285,6 +285,8 @@ export class UploadResumeComponent implements OnInit {
         };
         this.sendEmailSubscription = this.videoCallingService.CandidateShareVideoViaEmail(emailPayload).subscribe(res => {
           // console.log(res);
+          Materialize.toast('Email sent', 3000);
+
         }, err => {
           console.log(err);
         });
