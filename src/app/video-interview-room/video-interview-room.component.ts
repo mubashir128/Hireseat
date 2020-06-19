@@ -67,6 +67,8 @@ export class VideoInterviewRoomComponent implements OnInit {
   }
   onInterview(candidateId) {
     // window.open('http://' + window.location.hostname + '/video-call');
+    console.log('calling', candidateId);
+
     this.router.navigate(['video-call/' + candidateId]);
   }
   trashCandidate(candidate) {

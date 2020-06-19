@@ -138,267 +138,45 @@ import { MycandidatesComponent } from './employer/mycandidates/mycandidates.comp
 // import { SharedVideoComponent } from './shared-video/shared-video.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
+import { SharedComponentsModule } from './shared/shared-components/shared-components.module';
 
-const appRoutes: Routes = [
-  { path: "forum", component: ViewForumComponent },
-
-  { path: "question-details/:id", component: AnswerlistsComponent },
-
-  { path: "register", component: RegisterComponent },
-  { path: "login", component: LoginComponent },
-  {
-    path: "employer",
-    component: EmployerHomeComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "recruiter",
-    component: RecruiterHomeComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "bidding-events/details/:key",
-    component: BiddingEventDetailsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "event/feedback/candidate/resumes/:key",
-    component: RecruiterFeedbackComponent
-  },
-  {
-    path: "user/email/verification/check/:key",
-    component: EmailVerificationComponent
-  },
-  {
-    path: "user/forgot/password/check/hireseat/:key",
-    component: ForgotPasswordResetComponent
-  },
-  { path: "employer/feedback/:key", component: FeedbackResumesComponent },
-  { path: "rules", component: AuctionrulesComponent },
-  { path: "contact-us", component: ContactUsComponent },
-  { path: "Forgot-Password", component: ForgotPasswordComponent },
-  { path: "home", component: HomeComponent },
-  { path: "home/:id", component: HomeComponent },
-  { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "upload-resume", component: UploadResumeComponent },
-  { path: "job-post", component: JobpostComponent },
-
-  { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
-  {
-    path: "video-call/:id",
-    component: VideoCallComponent
-  },
-  {
-    path: "shared-video/:token",
-    loadChildren: './shared-video/shared-video.module#SharedVideoModule'
-  }
-];
-
-const appChildRoutes: Routes = [
-  {
-    path: "employer",
-    component: EmployerHomeComponent,
-    children: [
-      {
-        path: "profile",
-        component: ProfileComponent
-      },
-      {
-        path: "job-profile-list",
-        component: JobProfileListComponent
-      },
-      {
-        path: "create-job-profile",
-        component: CreateJobProfileComponent
-      },
-      {
-        path: "bidding-event-list",
-        component: BiddingEventsListComponent
-      },
-      {
-        path: "create-bidding-event",
-        component: CreateBiddingEventComponent
-      },
-      {
-        path: "edit-job-profile",
-        component: EditJobProfileComponent
-      },
-      {
-        path: "feedback-list",
-        component: FeedbackListComponent
-      },
-      {
-        path: "employer-Answere/:id",
-        component: EmployeerAnsComponent
-      },
-      {
-        path: "dashboard",
-        component: DashboardComponent
-      },
-      {
-        path: "video-interview-room",
-        component: VideoInterviewRoomComponent
-      },
-      {
-        path: "mycandidates",
-        component: MycandidatesComponent
-      },
-      {
-        path: "new-resume",
-        component: NewResumeComponent
-      }
-    ],
-    canActivate: [EmployerGuard]
-  },
-  {
-    path: "blog-posts",
-    component: BlogMainComponent,
-    children: [
-      {
-        path: "create-post",
-        component: CreatePostComponent
-      },
-      {
-        path: "edit-post/:blogID",
-        component: EditBlogComponent
-      },
-      {
-        path: "create-image-post",
-        component: CreateImagePostComponent
-      },
-      {
-        path: "all-post",
-        component: AllPostComponent
-      },
-      {
-        path: "create-categories",
-        component: CreateCategoryComponent
-      },
-      {
-        path: "edit-categories",
-        component: EditCategoryComponent
-      }
-    ],
-    canActivate: [AdminGuard]
-  },
-  {
-    path: "blog",
-    component: AllBlogsComponent
-  },
-  {
-    path: "blog/categories/:url",
-    component: AllBlogCategoriesComponent
-  },
-  {
-    path: "blog/tags/:url",
-    component: AllBlogTagComponent
-  },
-  {
-    path: "blog/:url",
-    component: SinglePageComponent
-  },
-  {
-    path: "blog/:url",
-    component: SinglePageComponent
-  },
-
-  {
-    path: "recruiter",
-    component: RecruiterHomeComponent,
-    children: [
-      {
-        path: "profile",
-        component: ProfileComponent
-      },
-      {
-        path: "bidding-event-list",
-        component: BiddingEventsListComponent
-      },
-      {
-        path: "bidding-event-list/:type",
-        component: BiddingEventsListComponent
-      },
-      {
-        path: "recruiter-question/:id",
-        component: RecruiterQuestionComponent
-      },
-      {
-        path: "resume-list",
-        component: ResumeListComponent
-      },
-      {
-        path: "new-resume",
-        component: NewResumeComponent
-      },
-      {
-        path: "won-bids",
-        component: WonBidsComponent
-      },
-      {
-        path: "search-resume",
-        component: SearchResumeComponent
-      },
-      {
-        path: "video-interview-room",
-        component: VideoInterviewRoomComponent
-      },
-
-
-    ],
-    canActivate: [RecruiterGuard]
-  },
-  {
-    path: "super-admin",
-    component: SADashboardComponent,
-    children: [
-      {
-        path: "user-list",
-        component: SAUserListComponent
-      },
-      {
-        path: "create-admin",
-        component: CreateAdminComponent
-      },
-      {
-        path: "create-enterprise",
-        component: CreateEnterpriseComponent
-      }
-    ],
-    canActivate: [SupperAdminGuard]
-  },
-  {
-    path: "enterprise",
-    component: EnterpriseDashboardComponent,
-    children: [
-      {
-        path: "user-list",
-        component: EnterpriseUserListComponent
-      },
-      {
-        path: "create-employer",
-        component: CreateEmployerComponent
-      }
-    ],
-    canActivate: [EnterpriseGuard]
-  },
-  {
-    path: "**",
-    component: NotFoundComponent
-  }
-];
 
 @NgModule({
+  imports: [
+    AppRoutingModule,
+    InfiniteScrollModule,
+    EditorModule,
+    TagInputModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    HttpClientModule,
+    NgxCurrencyModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    NgxPaginationModule,
+    NgxMaskModule.forRoot(),
+    Angular2CsvModule,
+    CKEditorModule,
+    NgxTwitterTimelineModule,
+    Ng2CompleterModule,
+    SelectDropDownModule,
+    NgHighlightModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    SharedComponentsModule,
+  ],
   declarations: [
     AppComponent,
-    TimeFormat,
-    SafePipe,
     LimitPipe,
     RegisterComponent,
     LoginComponent,
-    HomeComponent,
-    NavbarComponent,
-    FooterComponent,
+    // TimeFormat,
+    // SafePipe,
+    // HomeComponent,
+    // NavbarComponent,
+    // FooterComponent,
+    // MediaComponent,
     EmployerHomeComponent,
     EmployerNavbarComponent,
     AuctionrulesComponent,
@@ -444,7 +222,6 @@ const appChildRoutes: Routes = [
     SAUserListComponent,
     SANavbarComponent,
     ViewForumComponent,
-    MediaComponent,
     QuestionsComponent,
     SearchFilterPipe,
     AskbuttonComponent,
@@ -493,31 +270,6 @@ const appChildRoutes: Routes = [
     SearchByExperiencePipe,
     MycandidatesComponent,
     // SharedVideoComponent
-  ],
-  imports: [
-    InfiniteScrollModule,
-    EditorModule,
-    TagInputModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    HttpClientModule,
-    NgxCurrencyModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxSpinnerModule,
-    NgxPaginationModule,
-    RouterModule.forRoot(appRoutes),
-    RouterModule.forChild(appChildRoutes),
-    NgxMaskModule.forRoot(),
-    Angular2CsvModule,
-
-    CKEditorModule,
-    NgxTwitterTimelineModule,
-    Ng2CompleterModule,
-    SelectDropDownModule,
-    NgHighlightModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    AppRoutingModule
   ],
   providers: [
     AuthGuard,

@@ -88,9 +88,11 @@ export class UploadResumeComponent implements OnInit {
       .pipe(
         map(event => event),
         filter(Boolean),
-        debounceTime(1000),
+        debounceTime(2000),
         distinctUntilChanged(),
         tap((text) => {
+          console.log(text);
+
           this.getResumeCandidates({
             email: this.resumeVideo.email
           });
@@ -228,7 +230,7 @@ export class UploadResumeComponent implements OnInit {
 
   async submitVideo() {
     if (this.newResumeFrm2.valid) {
-      // console.log("valid --- : ", this.resumeVideo);
+      console.log("valid --- : ", this.resumeVideo);
       if (this.requestedResume.interviewLinkedByRecruiter) {
         const payload = {
           archivedId: this.requestedResume.interviewLinkedByRecruiter,
