@@ -100,21 +100,13 @@ export class UploadResumeComponent implements OnInit {
   }
 
   getResumeCandidates(obj) {
-    this.spinner.show();
     this.resumeService.getResumeCandidates(obj).subscribe(res => {
-      console.log("res : ", res);
       if (res.result.length !== 0) {
         this.requestedResume = res.result[0];
-        this.spinner.hide();
-        console.log(' found', this.requestedResume);
         this.emailFound = true;
         this.submitVideoCandidate = false;
       } else {
-        this.spinner.hide();
-
-        console.log('not found');
         this.emailFound = false;
-
         this.submitVideoCandidate = true;
       }
 
