@@ -91,7 +91,6 @@ export class UploadResumeComponent implements OnInit {
         debounceTime(2000),
         distinctUntilChanged(),
         tap((text) => {
-          console.log(text);
 
           this.getResumeCandidates({
             email: this.resumeVideo.email
@@ -102,6 +101,8 @@ export class UploadResumeComponent implements OnInit {
   }
 
   getResumeCandidates(obj) {
+    // console.log(obj);
+    // debugger
     this.resumeService.getResumeCandidates(obj).subscribe(res => {
       if (res.result.length !== 0) {
         this.requestedResume = res.result[0];
@@ -230,14 +231,14 @@ export class UploadResumeComponent implements OnInit {
 
   async submitVideo() {
     if (this.newResumeFrm2.valid) {
-      console.log("valid --- : ", this.resumeVideo);
+      // console.log("valid --- : ", this.resumeVideo);
       if (this.requestedResume.interviewLinkedByRecruiter) {
         const payload = {
           archivedId: this.requestedResume.interviewLinkedByRecruiter,
           expires: this.seconds
         };
         this.getArchiveVideoForCandidateSubscription = this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
-          console.log(res);
+          // console.log(res);
           if (res) {
             this.spinner.hide();
             this.videoURL = res.url;
@@ -254,7 +255,7 @@ export class UploadResumeComponent implements OnInit {
               expireTime: this.ms
             };
             this.sendEmailSubscription = this.videoCallingService.CandidateShareVideoViaEmail(emailPayload).subscribe(res => {
-              console.log(res);
+              // console.log(res);
               Materialize.toast('Email sent', 3000);
 
             }, err => {
@@ -270,7 +271,7 @@ export class UploadResumeComponent implements OnInit {
         });
         console.log(this.videoURL);
       } else {
-        console.log('this candidate does not have any videos');
+        // console.log('this candidate does not have any videos');
         this.videoURL = '';
         const subject = 'Hireseat' + this.requestedResume.jobTitle + this.requestedResume.candidateName;
         const emailPayload = {
@@ -283,7 +284,7 @@ export class UploadResumeComponent implements OnInit {
           expireTime: this.ms
         };
         this.sendEmailSubscription = this.videoCallingService.CandidateShareVideoViaEmail(emailPayload).subscribe(res => {
-          console.log(res);
+          // console.log(res);
         }, err => {
           console.log(err);
         });
