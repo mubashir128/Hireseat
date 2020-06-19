@@ -1,9 +1,12 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ResumeService } from "src/app/_services/resume.service";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ResumeBank } from "src/app/models/resumebank";
+import { ResumeBank, ResumeVideo } from "src/app/models/resumebank";
 import * as lib from "../../lib-functions";
+import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
+import { fromEvent, Subscription } from "rxjs";
+import { VideoCallingService } from '../../_services/video-calling.service';
 declare var jQuery: any;
 declare var Materialize: any;
 @Component({
@@ -12,18 +15,32 @@ declare var Materialize: any;
   styleUrls: ["./upload-resume.component.css"]
 })
 export class UploadResumeComponent implements OnInit {
+  getArchiveVideoForCandidateSubscription: Subscription;
+  sendEmailSubscription: Subscription;
   public newResumeFrm: FormGroup;
+  public newResumeFrm2: FormGroup;
   downloadURL: string = "";
   fileUploaded: number = 0;
   resume: ResumeBank;
+  resumeVideo: ResumeVideo;
   tags: any;
   public skillSets = [];
+  @ViewChild('searchByEmail') searchByEmail: ElementRef;
+  submitVideoCandidate = true;
+  emailFound = true;
+  requestedResume: any;
+  seconds = 3600;
+  ms = 3600000;
+  videoURL: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private videoCallingService: VideoCallingService
   ) {
     this.resume = new ResumeBank();
+    this.resumeVideo = new ResumeVideo();
   }
 
   ngOnInit() {
@@ -52,6 +69,55 @@ export class UploadResumeComponent implements OnInit {
           Validators.maxLength(2)
         ])
       ]
+    });
+
+    this.newResumeFrm2 = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      time: ['', Validators.required]
+    });
+
+  }
+
+  ngAfterViewInit() {
+    // server-side search
+    this.searchTermByEmail();
+  }
+
+  searchTermByEmail() {
+    fromEvent(this.searchByEmail.nativeElement, 'keyup')
+      .pipe(
+        map(event => event),
+        filter(Boolean),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.getResumeCandidates({
+            email: this.resumeVideo.email
+          });
+        })
+      )
+      .subscribe();
+  }
+
+  getResumeCandidates(obj) {
+    this.spinner.show();
+    this.resumeService.getResumeCandidates(obj).subscribe(res => {
+      console.log("res : ", res);
+      if (res.result.length !== 0) {
+        this.requestedResume = res.result[0];
+        this.spinner.hide();
+        console.log(' found', this.requestedResume);
+        this.emailFound = true;
+        this.submitVideoCandidate = false;
+      } else {
+        this.spinner.hide();
+
+        console.log('not found');
+        this.emailFound = false;
+
+        this.submitVideoCandidate = true;
+      }
+
     });
   }
 
@@ -167,4 +233,95 @@ export class UploadResumeComponent implements OnInit {
       }
     );
   }
+
+  async submitVideo() {
+    if (this.newResumeFrm2.valid) {
+      // console.log("valid --- : ", this.resumeVideo);
+      if (this.requestedResume.interviewLinkedByRecruiter) {
+        const payload = {
+          archivedId: this.requestedResume.interviewLinkedByRecruiter,
+          expires: this.seconds
+        };
+        this.getArchiveVideoForCandidateSubscription = this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
+          console.log(res);
+          if (res) {
+            this.spinner.hide();
+            this.videoURL = res.url;
+            // return res.url;
+            // if (this.videoURL) {
+            const subject = 'Hireseat ' + this.requestedResume.candidateName;
+            const emailPayload = {
+              resumeId: this.requestedResume._id,
+              recipientEmail: this.resumeVideo.email,
+              fullName: this.requestedResume.candidateName,
+              videoUrl: this.videoURL,
+              subject: subject,
+              comment: this.requestedResume.comments,
+              expireTime: this.ms
+            };
+            this.sendEmailSubscription = this.videoCallingService.CandidateShareVideoViaEmail(emailPayload).subscribe(res => {
+              console.log(res);
+      Materialize.toast('Email sent', 3000);
+
+            }, err => {
+              console.log(err);
+            });
+            // }
+          } else {
+            this.spinner.hide();
+
+            console.log('unable to load the video');
+            // return false;
+          }
+        });
+        console.log(this.videoURL);
+      } else {
+        console.log('this candidate does not have any videos');
+        this.videoURL = '';
+        const subject = 'Hireseat' + this.requestedResume.jobTitle + this.requestedResume.candidateName;
+        const emailPayload = {
+          resumeId: this.requestedResume._id,
+          recipientEmail: this.resumeVideo.email,
+          fullName: this.requestedResume.candidateName,
+          videoUrl: this.videoURL,
+          subject: subject,
+          comment: this.requestedResume.comments,
+          expireTime: this.ms
+        };
+        this.sendEmailSubscription = this.videoCallingService.CandidateShareVideoViaEmail(emailPayload).subscribe(res => {
+          console.log(res);
+        }, err => {
+          console.log(err);
+        });
+      }
+    } else {
+      Materialize.toast('Please Fill the form fields !', 1000);
+    }
+  }
+  getArchivedVideo(payload) {
+    this.spinner.show();
+    this.getArchiveVideoForCandidateSubscription = this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
+      console.log(res);
+      if (res) {
+        this.spinner.hide();
+        this.videoURL = res.url;
+        // return res.url;
+      } else {
+        this.spinner.hide();
+
+        console.log('unable to load the video');
+        // return false;
+      }
+    });
+  }
+  handleHoursChange($event, s, ms) {
+    this.resumeVideo.time = $event.target.value;
+    this.seconds = s;
+    this.ms = ms;
+  }
+
+  get f2() {
+    return this.newResumeFrm2.controls;
+  }
+
 }

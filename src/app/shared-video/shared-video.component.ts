@@ -36,17 +36,19 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.log('welcome to lazyloading');
 
     this.spinner.show();
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
-
-    this.checkSharedTokenSubscription = this.sharedVideoService.checkSharedToken(this.token).subscribe((res) => {
-      this.spinner.show();
-      // debugger
-      if (res) {
-        // console.log(res);
-        if (res.from === 'recruiter') {
+    const isCandidate = this.token.split('@')[1];
+    // console.log('welcome to lazyloading', this.token, isCandidate);
+    if (isCandidate === 'candidate') {
+      const candidateToken = this.token.split('@')[0];
+      this.checkSharedTokenSubscription = this.sharedVideoService.checkCandidateSharedToken(candidateToken).subscribe((res) => {
+        this.spinner.show();
+        // debugger
+        if (res) {
+          // console.log(res);
+          // if (res.from === 'recruiter') {
 
           this.isShareFromRecruiter = true;
           this.isTokenValid = true;
@@ -61,25 +63,55 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
           }
           this.spinner.hide();
 
-        } else if (res.from === 'employer') {
-          this.isShareFromRecruiter = false;
-          this.currentResume = res.bidData[0];
-          this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
-          if (this.questionsByRecruiter.lenghth <= 0) {
-            this.isQuestion = false;
-          }
-          this.resume = this.currentResume.resumeKey;
-          // console.log(this.resume);
-          this.videoURL = res.videoUrl;
-          this.isTokenValid = true;
-          this.spinner.hide();
+          // }
         }
-      }
-    }, err => {
-      // console.log(err, '***************************look up*********************');
-      this.isTokenValid = false;
-      this.spinner.hide();
-    });
+      }, err => {
+        // console.log(err, '***************************look up*********************');
+        this.isTokenValid = false;
+        this.spinner.hide();
+      });
+    } else {
+      this.checkSharedTokenSubscription = this.sharedVideoService.checkSharedToken(this.token).subscribe((res) => {
+        this.spinner.show();
+        // debugger
+        if (res) {
+          // console.log(res);
+          if (res.from === 'recruiter') {
+
+            this.isShareFromRecruiter = true;
+            this.isTokenValid = true;
+            this.resume = res.resumeData[0];
+            this.videoURL = res.videoUrl;
+            this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
+            // console.log('questionsByRecruiter', this.questionsByRecruiter);
+
+            this.comments = this.resume.comments;
+            if (this.questionsByRecruiter.lenghth <= 0) {
+              this.isQuestion = false;
+            }
+            this.spinner.hide();
+
+          } else if (res.from === 'employer') {
+            this.isShareFromRecruiter = false;
+            this.currentResume = res.bidData[0];
+            this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
+            if (this.questionsByRecruiter.lenghth <= 0) {
+              this.isQuestion = false;
+            }
+            this.resume = this.currentResume.resumeKey;
+            // console.log(this.resume);
+            this.videoURL = res.videoUrl;
+            this.isTokenValid = true;
+            this.spinner.hide();
+          }
+        }
+      }, err => {
+        // console.log(err, '***************************look up*********************');
+        this.isTokenValid = false;
+        this.spinner.hide();
+      });
+    }
+
   }
 
   ngAfterViewInit() {
