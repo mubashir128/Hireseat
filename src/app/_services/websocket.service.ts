@@ -16,7 +16,9 @@ export class WebsocketService {
 
   async getInstance(token: any,userRole : string) {
     if (this.socket === undefined) {
-      this.socket = await io(this.socketUrl + '?token=' + token + "&userRole=" + userRole);
+      this.socket = await io(this.socketUrl + '?token=' + token + "&userRole=" + userRole,{
+        reconnect:false
+      });
       this.handleWebSocket();
     }
     return this.socket;
@@ -59,11 +61,11 @@ export class WebsocketService {
 
   private onClose(obj: any) {
     //  console.log("connection closed : ",obj);
-    this.socket = undefined;
   }
-
+  
   socketClosed() {
     this.socket.close();
+    this.socket = undefined;
   }
 
   addListener(obj) {
