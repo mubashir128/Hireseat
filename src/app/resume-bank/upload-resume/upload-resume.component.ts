@@ -236,7 +236,7 @@ export class UploadResumeComponent implements OnInit {
 
   async submitVideo() {
     if (this.newResumeFrm2.valid) {
-      // console.log("valid --- : ", this.resumeVideo);
+      console.log("valid --- : ", this.resumeVideo);
       if (this.requestedResume.interviewLinkedByRecruiter) {
         const payload = {
           archivedId: this.requestedResume.interviewLinkedByRecruiter,
@@ -261,7 +261,7 @@ export class UploadResumeComponent implements OnInit {
             };
             this.sendEmailSubscription = this.videoCallingService.CandidateShareVideoViaEmail(emailPayload).subscribe(res => {
               console.log(res);
-      Materialize.toast('Email sent', 3000);
+              Materialize.toast('Email sent', 3000);
 
             }, err => {
               console.log(err);

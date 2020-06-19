@@ -7,17 +7,16 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    // children: [
-
-    // ]
-  },
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
-    path: 'home/:id',
-    component: HomeComponent
+    children: [
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: 'home/:id',
+        component: HomeComponent
+      }
+    ]
   }
 
 ];
