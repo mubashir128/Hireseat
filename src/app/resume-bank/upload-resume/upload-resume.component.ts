@@ -269,7 +269,7 @@ export class UploadResumeComponent implements OnInit {
             // return false;
           }
         });
-        console.log(this.videoURL);
+        // console.log(this.videoURL);
       } else {
         // console.log('this candidate does not have any videos');
         this.videoURL = '';
@@ -298,7 +298,7 @@ export class UploadResumeComponent implements OnInit {
   getArchivedVideo(payload) {
     this.spinner.show();
     this.getArchiveVideoForCandidateSubscription = this.videoCallingService.getArchivedVideo(payload).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       if (res) {
         this.spinner.hide();
         this.videoURL = res.url;
