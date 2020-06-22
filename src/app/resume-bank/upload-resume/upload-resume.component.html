@@ -1,12 +1,14 @@
 <app-navbar></app-navbar>
 <div class="mainDivUploadRes">
+  
   <div class="center-align  ">
     <div class="slide-heading headerDiv">
       Looking for new career opportunities?<br />
       Drop your resume off to the best recruiters in NYC
     </div>
   </div>
-  <div class="row" style="margin-left: 15px;">
+  <div class="container">
+  <div class="row">
     <div class="center-align formDivParent col" id="ResuemFrm">
       <form [formGroup]="newResumeFrm" (ngSubmit)="submit()" novalidate>
         <div>
@@ -96,11 +98,11 @@
       develop and expand their brand and reputation.
       </div> -->
     </div>
-    <div class="col" style="width: 50%;">
+    <div class="col width50">
       <div class="row marB0">
         <form [formGroup]="newResumeFrm2" (ngSubmit)="submitVideo()" novalidate>
-          <div class="slide-sub-heading">Retrive Your Video Candidate Profile</div>
-          <div class="input-field col s12 m12 l12" style="margin-top: 70px;">
+          <div class="slide-sub-heading marB60">Retrive Your Video Candidate Profile</div>
+          <div class="input-field col s12 m12 l12 " >
             <div class="input-field col s12 m12 l12 text-left">
               <div class="Bcolor">Email</div>
               <input id="candidate-name" type="text" class="validate" [(ngModel)]="resumeVideo.email"
@@ -139,6 +141,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 <app-media></app-media>
 
