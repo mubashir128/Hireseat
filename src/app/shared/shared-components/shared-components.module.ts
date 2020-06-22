@@ -9,6 +9,8 @@ import { SafePipe } from '../../blog/frontend/safepipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { QuestionsComponent } from 'src/app/view-forum/questions/questions.component';
+import { AskbuttonComponent } from 'src/app/view-forum/askbutton/askbutton.component';
 
 @NgModule({
   imports: [
@@ -25,14 +27,18 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     NavbarComponent,
     MediaComponent,
     TimeFormat,
-    SafePipe
+    SafePipe,
+    QuestionsComponent,
+    AskbuttonComponent,
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     MediaComponent,
     TimeFormat,
-    SafePipe
+    SafePipe,
+    QuestionsComponent,
+    AskbuttonComponent,
   ]
 })
 export class SharedComponentsModule { }

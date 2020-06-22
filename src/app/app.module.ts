@@ -2,7 +2,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { TagInputModule } from "ngx-chips";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { RouterModule, Routes, ParamMap } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -11,14 +10,11 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxPaginationModule } from "ngx-pagination";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
-import { HomeComponent } from "./home/home.component";
 import { AuthenticationService } from "./_services/authentication.service";
 import { UserService } from "./_services/user.service";
 import { AuthGuard } from "./_guards/auth.guard";
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { ErrorInterceptor } from "./_helpers/error.interceptor";
-import { NavbarComponent } from "./navbar/navbar.component";
-import { FooterComponent } from "./footer/footer.component";
 import { EmployerHomeComponent } from "./employer/employer-home/employer-home.component";
 import { EmployerNavbarComponent } from "./employer/employer-navbar/employer-navbar.component";
 import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
@@ -66,16 +62,6 @@ import { CKEditorModule } from "ng2-ckeditor";
 import { SADashboardComponent } from "./super-admin/sa-dashboard/sa-dashboard.component";
 import { SAUserListComponent } from "./super-admin/sa-user-list/sa-user-list.component";
 import { SANavbarComponent } from "./super-admin/sa-navbar/sa-navbar.component";
-import { SupperAdminGuard } from "./_guards/supper-admin.guard";
-import { EmployerGuard } from "./_guards/employer.guard";
-import { RecruiterGuard } from "./_guards/recruiter.guard";
-import { AdminGuard } from "./_guards/admin.guard";
-import { ViewForumComponent } from "./view-forum/view-forum.component";
-import { MediaComponent } from "./media/media.component";
-import { QuestionsComponent } from "./view-forum/questions/questions.component";
-import { SearchFilterPipe } from "./view-forum/search-filter.pipe";
-import { AskbuttonComponent } from "./view-forum/askbutton/askbutton.component";
-import { AnswerlistsComponent } from "./view-forum/answerlists/answerlists.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
 import { BlogMaiComponent } from "./blog/blog-mai/blog-mai.component";
@@ -83,7 +69,6 @@ import { CreatePostComponent } from "./blog/create-post/create-post.component";
 import { BlogNavComponent } from "./blog/blog-nav/blog-nav.component";
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { CreateCategoryComponent } from "./blog/create-category/create-category.component";
-//import { AllPostComponent } from './all-post/all-post.component';
 import { EditCategoryComponent } from "./blog/edit-blog/edit-category/edit-category.component";
 import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
 import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
@@ -96,22 +81,16 @@ import { EditTagComponent } from "./blog/edit-blog/edit-tag/edit-tag.component";
 import { SocialShareComponent } from "src/app/blog/frontend/single-page/social-share/social-share.component";
 import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
 import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
-
-// import { CKEditorModule } from 'ngx-ckeditor';
-// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { Ng2CompleterModule } from "ng2-completer";
 import { Angular2CsvModule } from "angular2-csv";
-import { TimeFormat } from "./home/pipe";
 import { RecruiterComponent } from "./recruiter-cost/recruiter/recruiter.component";
 import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-question/recruiter-question.component";
 import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
 import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
-
 import { NgHighlightModule } from "ngx-text-highlight";
 import { SelectDropDownModule } from "ngx-select-dropdown";
 import { inArrayPipe } from "./recruter-bidding-info/inArrayPipe";
 import { LimitPipe } from "./../charlimit";
-import { SafePipe } from "./blog/frontend/safepipe";
 import { SortPipe } from "./shared/pipes/sort.pipe";
 import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
 import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
@@ -120,7 +99,6 @@ import { EnterpriseDashboardComponent } from "./enterprise/enterprise-dashboard/
 import { EnterpriseNavbarComponent } from "./enterprise/enterprise-navbar/enterprise-navbar.component";
 import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/enterprise-user-list.component";
 import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
-import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { SearchPipe } from '../search.pipe';
 import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
@@ -135,12 +113,11 @@ import { OpentokService } from './_services/opentok.service';
 import { SearchByNamePipe } from '../search-by-name.pipe';
 import { SearchByExperiencePipe } from '../search-by-experience.pipe';
 import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
-// import { SharedVideoComponent } from './shared-video/shared-video.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedComponentsModule } from './shared/shared-components/shared-components.module';
-
+import { AnswerlistsComponent } from "./view-forum/answerlists/answerlists.component";
 
 @NgModule({
   imports: [
@@ -171,12 +148,6 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     LimitPipe,
     RegisterComponent,
     LoginComponent,
-    // TimeFormat,
-    // SafePipe,
-    // HomeComponent,
-    // NavbarComponent,
-    // FooterComponent,
-    // MediaComponent,
     EmployerHomeComponent,
     EmployerNavbarComponent,
     AuctionrulesComponent,
@@ -221,10 +192,6 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     SADashboardComponent,
     SAUserListComponent,
     SANavbarComponent,
-    ViewForumComponent,
-    QuestionsComponent,
-    SearchFilterPipe,
-    AskbuttonComponent,
     AnswerlistsComponent,
     BlogMainComponent,
     BlogMaiComponent,
@@ -268,8 +235,7 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     SubscriberComponent,
     SearchByNamePipe,
     SearchByExperiencePipe,
-    MycandidatesComponent,
-    // SharedVideoComponent
+    MycandidatesComponent
   ],
   providers: [
     AuthGuard,

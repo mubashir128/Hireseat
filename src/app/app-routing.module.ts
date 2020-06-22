@@ -37,12 +37,10 @@ import { SupperAdminGuard } from "./_guards/supper-admin.guard";
 import { EmployerGuard } from "./_guards/employer.guard";
 import { RecruiterGuard } from "./_guards/recruiter.guard";
 import { AdminGuard } from "./_guards/admin.guard";
-import { ViewForumComponent } from "./view-forum/view-forum.component";
 import { AnswerlistsComponent } from "./view-forum/answerlists/answerlists.component";
 import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
 import { CreatePostComponent } from "./blog/create-post/create-post.component";
 import { CreateCategoryComponent } from "./blog/create-category/create-category.component";
-//import { AllPostComponent } from './all-post/all-post.component';
 import { EditCategoryComponent } from "./blog/edit-blog/edit-category/edit-category.component";
 import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
 import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
@@ -51,9 +49,6 @@ import { AllPostComponent } from "./blog/all-post/all-post.component";
 import { CreateImagePostComponent } from "./blog/create-image-post/create-image-post.component";
 import { EditBlogComponent } from "./blog/edit-blog/edit-blog.component";
 import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
-
-// import { CKEditorModule } from 'ngx-ckeditor';
-// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-question/recruiter-question.component";
 import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
 import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
@@ -68,9 +63,10 @@ import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
 import { VideoCallComponent } from './video-call/video-call.component';
 import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
-import { environment } from '../environments/environment';
 const appRoutes: Routes = [
-  { path: "forum", component: ViewForumComponent },
+  // { path: "forum", component: ViewForumComponent },
+  { path: "forum", loadChildren: './view-forum/view-forum.module#ViewForumModule' },
+
 
   { path: "question-details/:id", component: AnswerlistsComponent },
 
@@ -107,8 +103,6 @@ const appRoutes: Routes = [
   { path: "rules", component: AuctionrulesComponent },
   { path: "contact-us", component: ContactUsComponent },
   { path: "Forgot-Password", component: ForgotPasswordComponent },
-  // { path: "home", component: HomeComponent },
-  // { path: "home/:id", component: HomeComponent },
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "home", loadChildren: './home/home.module#HomeModule' },
 
