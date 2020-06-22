@@ -2,14 +2,14 @@
   <form [formGroup]="SearchFrm" novalidate>
     <div class="row">
       <div
-        class="input-field disFlex col s12 m12 l12"
+        class="input-field disFlex s12 m12 l12"
         style="text-align: left;"
       >
         <div class="inputInnerDiv">
           <div class="skillInput">Select the skill sets*</div>
           <span>Note: select skills from dropdown</span>
           <tag-input
-            class="borderBott borderBottN "
+            class="borderBott borderBottN skillBorBott"
             [(ngModel)]="tags"
             formControlName="tags"
             [addOnBlur]="true"
@@ -44,7 +44,7 @@
     </div>
     <div class="row">
       <div class="skillInput">
-        <span>Note: Search by Name : </span>
+        <span class="note"><span style="color: #f58e8e;">Note:</span> Search by Name : </span>
       </div>
       <div class="inputDivMainN">
         <input type="text" [(ngModel)]="searchTerm" formControlName="searchTerm" placeholder="Search here..." #searchByName>
@@ -52,7 +52,7 @@
     </div>
     <div class="row">
       <div class="skillInput">
-        <span>Note: Search by Experience : </span>
+        <span class="note"><span style="color: #f58e8e;">Note:</span> Search by Experience : </span>
       </div>
       <div class="inputDivMainNN">
         <input type="number" [(ngModel)]="minSearchTerm" formControlName="minSearchTerm" placeholder="Min Experience..." #searchByMinExperence>
