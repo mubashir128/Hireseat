@@ -68,7 +68,7 @@ const appRoutes: Routes = [
   { path: "forum", loadChildren: './view-forum/view-forum.module#ViewForumModule' },
 
 
-  { path: "question-details/:id", component: AnswerlistsComponent },
+  { path: "question-details/:id", loadChildren: './view-forum/answerlists/answerlists.module#AnswerlistsModule' },
 
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },

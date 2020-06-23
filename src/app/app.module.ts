@@ -117,7 +117,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedComponentsModule } from './shared/shared-components/shared-components.module';
-import { AnswerlistsComponent } from "./view-forum/answerlists/answerlists.component";
+// import { AnswerlistsComponent } from "./view-forum/answerlists/answerlists.component";
 
 @NgModule({
   imports: [
@@ -192,7 +192,7 @@ import { AnswerlistsComponent } from "./view-forum/answerlists/answerlists.compo
     SADashboardComponent,
     SAUserListComponent,
     SANavbarComponent,
-    AnswerlistsComponent,
+    // AnswerlistsComponent,
     BlogMainComponent,
     BlogMaiComponent,
     CreatePostComponent,
