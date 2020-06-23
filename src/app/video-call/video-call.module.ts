@@ -8,9 +8,7 @@ import { OpentokService } from '../_services/opentok.service';
 import { VideoCallComponent } from './video-call.component';
 import { PublisherComponent } from '../publisher/publisher.component';
 import { SubscriberComponent } from '../subscriber/subscriber.component';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { FooterComponent } from '../footer/footer.component';
-import { AppModule } from '../app.module';
+import { SharedComponentsModule } from '../shared/shared-components/shared-components.module';
 
 @NgModule({
   imports: [
@@ -19,17 +17,15 @@ import { AppModule } from '../app.module';
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
-    AppModule,
-    NavbarComponent,
-    FooterComponent
+    SharedComponentsModule
   ],
   providers: [
     OpentokService
   ],
   declarations: [
-    // VideoCallComponent,
-    // PublisherComponent,
-    // SubscriberComponent,
+    VideoCallComponent,
+    PublisherComponent,
+    SubscriberComponent,
   ],
 })
 export class VideoCallModule { }

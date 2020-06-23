@@ -37,7 +37,6 @@ import { SupperAdminGuard } from "./_guards/supper-admin.guard";
 import { EmployerGuard } from "./_guards/employer.guard";
 import { RecruiterGuard } from "./_guards/recruiter.guard";
 import { AdminGuard } from "./_guards/admin.guard";
-import { AnswerlistsComponent } from "./view-forum/answerlists/answerlists.component";
 import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
 import { CreatePostComponent } from "./blog/create-post/create-post.component";
 import { CreateCategoryComponent } from "./blog/create-category/create-category.component";
@@ -61,14 +60,17 @@ import { CreateEmployerComponent } from "./enterprise/create-employer/create-emp
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
-import { VideoCallComponent } from './video-call/video-call.component';
+// import { VideoCallComponent } from './video-call/video-call.component';
 import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
 const appRoutes: Routes = [
   // { path: "forum", component: ViewForumComponent },
   { path: "forum", loadChildren: './view-forum/view-forum.module#ViewForumModule' },
-
-
   { path: "question-details/:id", loadChildren: './view-forum/answerlists/answerlists.module#AnswerlistsModule' },
+  { path: "home", loadChildren: './home/home.module#HomeModule' },
+  {
+    path: "video-call/:id",
+    loadChildren: './video-call/video-call.module#VideoCallModule'
+  },
 
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
@@ -104,7 +106,6 @@ const appRoutes: Routes = [
   { path: "contact-us", component: ContactUsComponent },
   { path: "Forgot-Password", component: ForgotPasswordComponent },
   { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "home", loadChildren: './home/home.module#HomeModule' },
 
   { path: "upload-resume", component: UploadResumeComponent },
   { path: "job-post", component: JobpostComponent },
@@ -112,12 +113,8 @@ const appRoutes: Routes = [
   { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
   // {
   //   path: "video-call/:id",
-  //   loadChildren: './video-call/video-call.module#VideoCallModule'
+  //   component: VideoCallComponent
   // },
-  {
-    path: "video-call/:id",
-    component: VideoCallComponent
-  },
   {
     path: "shared-video/:token",
     loadChildren: './shared-video/shared-video.module#SharedVideoModule'

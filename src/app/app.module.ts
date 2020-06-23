@@ -16,7 +16,7 @@ import { AuthGuard } from "./_guards/auth.guard";
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { ErrorInterceptor } from "./_helpers/error.interceptor";
 import { EmployerHomeComponent } from "./employer/employer-home/employer-home.component";
-import { EmployerNavbarComponent } from "./employer/employer-navbar/employer-navbar.component";
+// import { EmployerNavbarComponent } from "./employer/employer-navbar/employer-navbar.component";
 import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
 import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { ProfileComponent } from "./profile/profile.component";
@@ -106,9 +106,9 @@ import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.c
 import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
 import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
-import { VideoCallComponent } from './video-call/video-call.component';
-import { PublisherComponent } from './publisher/publisher.component';
-import { SubscriberComponent } from './subscriber/subscriber.component';
+// import { VideoCallComponent } from './video-call/video-call.component';
+// import { PublisherComponent } from './publisher/publisher.component';
+// import { SubscriberComponent } from './subscriber/subscriber.component';
 import { OpentokService } from './_services/opentok.service';
 import { SearchByNamePipe } from '../search-by-name.pipe';
 import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -149,7 +149,7 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     RegisterComponent,
     LoginComponent,
     EmployerHomeComponent,
-    EmployerNavbarComponent,
+    // EmployerNavbarComponent,
     AuctionrulesComponent,
     ContactUsComponent,
     ProfileComponent,
@@ -158,7 +158,7 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     BiddingEventsListComponent,
     CreateBiddingEventComponent,
     RecruiterHomeComponent,
-    RecruiterNavbarComponent,
+    // RecruiterNavbarComponent,
     EditJobProfileComponent,
     BiddingEventDetailsComponent,
     BiddingInfoComponent,
@@ -230,9 +230,9 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     PieChartComponent,
     ScatterChartComponent,
     VideoInterviewRoomComponent,
-    VideoCallComponent,
-    PublisherComponent,
-    SubscriberComponent,
+    // VideoCallComponent,
+    // PublisherComponent,
+    // SubscriberComponent,
     SearchByNamePipe,
     SearchByExperiencePipe,
     MycandidatesComponent

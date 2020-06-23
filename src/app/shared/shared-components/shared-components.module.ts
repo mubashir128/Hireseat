@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { QuestionsComponent } from 'src/app/view-forum/questions/questions.component';
 import { AskbuttonComponent } from 'src/app/view-forum/askbutton/askbutton.component';
+import { RecruiterNavbarComponent } from 'src/app/recruiter/recruiter-navbar/recruiter-navbar.component';
+import { EmployerNavbarComponent } from 'src/app/employer/employer-navbar/employer-navbar.component';
 
 @NgModule({
   imports: [
@@ -30,6 +32,8 @@ import { AskbuttonComponent } from 'src/app/view-forum/askbutton/askbutton.compo
     SafePipe,
     QuestionsComponent,
     AskbuttonComponent,
+    RecruiterNavbarComponent,
+    EmployerNavbarComponent
   ],
   exports: [
     FooterComponent,
@@ -39,6 +43,8 @@ import { AskbuttonComponent } from 'src/app/view-forum/askbutton/askbutton.compo
     SafePipe,
     QuestionsComponent,
     AskbuttonComponent,
+    RecruiterNavbarComponent,
+    EmployerNavbarComponent
   ]
 })
 export class SharedComponentsModule { }
