@@ -95,10 +95,10 @@ import { SortPipe } from "./shared/pipes/sort.pipe";
 import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
 import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
 import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
-import { EnterpriseDashboardComponent } from "./enterprise/enterprise-dashboard/enterprise-dashboard.component";
-import { EnterpriseNavbarComponent } from "./enterprise/enterprise-navbar/enterprise-navbar.component";
-import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/enterprise-user-list.component";
-import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
+// import { EnterpriseDashboardComponent } from "./enterprise/enterprise-dashboard/enterprise-dashboard.component";
+// import { EnterpriseNavbarComponent } from "./enterprise/enterprise-navbar/enterprise-navbar.component";
+// import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/enterprise-user-list.component";
+// import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
 import { SearchPipe } from '../search.pipe';
 import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
@@ -219,10 +219,10 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     SafePdfPipe,
     CreateAdminComponent,
     CreateEnterpriseComponent,
-    EnterpriseDashboardComponent,
-    EnterpriseNavbarComponent,
-    EnterpriseUserListComponent,
-    CreateEmployerComponent,
+    // EnterpriseDashboardComponent,
+    // EnterpriseNavbarComponent,
+    // EnterpriseUserListComponent,
+    // CreateEmployerComponent,
     SearchPipe,
     DashboardComponent,
     BarChartComponent,

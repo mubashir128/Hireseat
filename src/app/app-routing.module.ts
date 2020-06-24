@@ -311,7 +311,7 @@ const appChildRoutes: Routes = [
   {
     path: "enterprise",
     loadChildren: './enterprise/enterprise.module#EnterpriseModule',
-    canLoad: [EnterpriseGuard]
+    canActivate: [EnterpriseGuard]
   },
   {
     path: "**",

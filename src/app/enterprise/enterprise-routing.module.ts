@@ -12,14 +12,14 @@ const routes: Routes = [
     children: [
       {
         path: "user-list",
-        component: EnterpriseUserListComponent
+        loadChildren: './enterprise-user-list/enterprise-user-list.module#EnterpriseUserListModule'
       },
       {
         path: "create-employer",
-        component: CreateEmployerComponent
+        loadChildren: './create-employer/create-employer.module#CreateEmployerModule'
       }
     ],
-    canActivate: [EnterpriseGuard]
+    // canActivate: [EnterpriseGuard]
   },
 ];
 
