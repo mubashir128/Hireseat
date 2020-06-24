@@ -274,40 +274,30 @@ const appChildRoutes: Routes = [
     ],
     canActivate: [RecruiterGuard]
   },
-  {
-    path: "super-admin",
-    component: SADashboardComponent,
-    children: [
-      {
-        path: "user-list",
-        component: SAUserListComponent
-      },
-      {
-        path: "create-admin",
-        component: CreateAdminComponent
-      },
-      {
-        path: "create-enterprise",
-        component: CreateEnterpriseComponent
-      }
-    ],
-    canActivate: [SupperAdminGuard]
-  },
   // {
-  //   path: "enterprise",
-  //   component: EnterpriseDashboardComponent,
+  //   path: "super-admin",
+  //   component: SADashboardComponent,
   //   children: [
   //     {
   //       path: "user-list",
-  //       component: EnterpriseUserListComponent
+  //       component: SAUserListComponent
   //     },
   //     {
-  //       path: "create-employer",
-  //       component: CreateEmployerComponent
+  //       path: "create-admin",
+  //       component: CreateAdminComponent
+  //     },
+  //     {
+  //       path: "create-enterprise",
+  //       component: CreateEnterpriseComponent
   //     }
   //   ],
-  //   canActivate: [EnterpriseGuard]
+  //   canActivate: [SupperAdminGuard]
   // },
+  {
+    path: "super-admin",
+    loadChildren: './super-admin/super-admin.module#SuperAdminModule',
+    canActivate: [SupperAdminGuard]
+  },
   {
     path: "enterprise",
     loadChildren: './enterprise/enterprise.module#EnterpriseModule',

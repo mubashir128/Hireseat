@@ -59,9 +59,6 @@ import { UploadResumeComponent } from "./resume-bank/upload-resume/upload-resume
 import { SearchResumeComponent } from "./resume-bank/search-resume/search-resume.component";
 import { UserlistComponent } from "./admin/userlist/userlist.component";
 import { CKEditorModule } from "ng2-ckeditor";
-import { SADashboardComponent } from "./super-admin/sa-dashboard/sa-dashboard.component";
-import { SAUserListComponent } from "./super-admin/sa-user-list/sa-user-list.component";
-import { SANavbarComponent } from "./super-admin/sa-navbar/sa-navbar.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
 import { BlogMaiComponent } from "./blog/blog-mai/blog-mai.component";
@@ -93,12 +90,6 @@ import { inArrayPipe } from "./recruter-bidding-info/inArrayPipe";
 import { LimitPipe } from "./../charlimit";
 import { SortPipe } from "./shared/pipes/sort.pipe";
 import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
-import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
-import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
-// import { EnterpriseDashboardComponent } from "./enterprise/enterprise-dashboard/enterprise-dashboard.component";
-// import { EnterpriseNavbarComponent } from "./enterprise/enterprise-navbar/enterprise-navbar.component";
-// import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/enterprise-user-list.component";
-// import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
 import { SearchPipe } from '../search.pipe';
 import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
@@ -106,9 +97,6 @@ import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.c
 import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
 import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
-// import { VideoCallComponent } from './video-call/video-call.component';
-// import { PublisherComponent } from './publisher/publisher.component';
-// import { SubscriberComponent } from './subscriber/subscriber.component';
 import { OpentokService } from './_services/opentok.service';
 import { SearchByNamePipe } from '../search-by-name.pipe';
 import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -117,8 +105,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedComponentsModule } from './shared/shared-components/shared-components.module';
-// import { AnswerlistsComponent } from "./view-forum/answerlists/answerlists.component";
 
+// import { SADashboardComponent } from "./super-admin/sa-dashboard/sa-dashboard.component";
+// import { SAUserListComponent } from "./super-admin/sa-user-list/sa-user-list.component";
+// import { SANavbarComponent } from "./super-admin/sa-navbar/sa-navbar.component";
+
+// import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
+// import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
 @NgModule({
   imports: [
     AppRoutingModule,
@@ -189,10 +182,6 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     UploadResumeComponent,
     SearchResumeComponent,
     UserlistComponent,
-    SADashboardComponent,
-    SAUserListComponent,
-    SANavbarComponent,
-    // AnswerlistsComponent,
     BlogMainComponent,
     BlogMaiComponent,
     CreatePostComponent,
@@ -217,12 +206,6 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     inArrayPipe,
     SortPipe,
     SafePdfPipe,
-    CreateAdminComponent,
-    CreateEnterpriseComponent,
-    // EnterpriseDashboardComponent,
-    // EnterpriseNavbarComponent,
-    // EnterpriseUserListComponent,
-    // CreateEmployerComponent,
     SearchPipe,
     DashboardComponent,
     BarChartComponent,
@@ -230,9 +213,6 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     PieChartComponent,
     ScatterChartComponent,
     VideoInterviewRoomComponent,
-    // VideoCallComponent,
-    // PublisherComponent,
-    // SubscriberComponent,
     SearchByNamePipe,
     SearchByExperiencePipe,
     MycandidatesComponent
