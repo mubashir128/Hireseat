@@ -293,20 +293,25 @@ const appChildRoutes: Routes = [
     ],
     canActivate: [SupperAdminGuard]
   },
+  // {
+  //   path: "enterprise",
+  //   component: EnterpriseDashboardComponent,
+  //   children: [
+  //     {
+  //       path: "user-list",
+  //       component: EnterpriseUserListComponent
+  //     },
+  //     {
+  //       path: "create-employer",
+  //       component: CreateEmployerComponent
+  //     }
+  //   ],
+  //   canActivate: [EnterpriseGuard]
+  // },
   {
     path: "enterprise",
-    component: EnterpriseDashboardComponent,
-    children: [
-      {
-        path: "user-list",
-        component: EnterpriseUserListComponent
-      },
-      {
-        path: "create-employer",
-        component: CreateEmployerComponent
-      }
-    ],
-    canActivate: [EnterpriseGuard]
+    loadChildren: './enterprise/enterprise.module#EnterpriseModule',
+    canLoad: [EnterpriseGuard]
   },
   {
     path: "**",
