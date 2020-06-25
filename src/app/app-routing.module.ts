@@ -51,26 +51,21 @@ import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.c
 import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-question/recruiter-question.component";
 import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
 import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
-
-import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
-import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
-import { EnterpriseDashboardComponent } from "./enterprise/enterprise-dashboard/enterprise-dashboard.component";
-import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/enterprise-user-list.component";
-import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
 // import { VideoCallComponent } from './video-call/video-call.component';
 import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
+import { VideoCallComponent } from './video-call/video-call.component';
 const appRoutes: Routes = [
   // { path: "forum", component: ViewForumComponent },
   { path: "forum", loadChildren: './view-forum/view-forum.module#ViewForumModule' },
   { path: "question-details/:id", loadChildren: './view-forum/answerlists/answerlists.module#AnswerlistsModule' },
   { path: "home", loadChildren: './home/home.module#HomeModule' },
-  {
-    path: "video-call/:id",
-    loadChildren: './video-call/video-call.module#VideoCallModule'
-  },
+  // {
+  //   path: "video-call/:id",
+  //   loadChildren: './video-call/video-call.module#VideoCallModule'
+  // },
 
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
@@ -111,10 +106,10 @@ const appRoutes: Routes = [
   { path: "job-post", component: JobpostComponent },
 
   { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
-  // {
-  //   path: "video-call/:id",
-  //   component: VideoCallComponent
-  // },
+  {
+    path: "video-call/:id",
+    component: VideoCallComponent
+  },
   {
     path: "shared-video/:token",
     loadChildren: './shared-video/shared-video.module#SharedVideoModule'
@@ -274,25 +269,6 @@ const appChildRoutes: Routes = [
     ],
     canActivate: [RecruiterGuard]
   },
-  // {
-  //   path: "super-admin",
-  //   component: SADashboardComponent,
-  //   children: [
-  //     {
-  //       path: "user-list",
-  //       component: SAUserListComponent
-  //     },
-  //     {
-  //       path: "create-admin",
-  //       component: CreateAdminComponent
-  //     },
-  //     {
-  //       path: "create-enterprise",
-  //       component: CreateEnterpriseComponent
-  //     }
-  //   ],
-  //   canActivate: [SupperAdminGuard]
-  // },
   {
     path: "super-admin",
     loadChildren: './super-admin/super-admin.module#SuperAdminModule',

@@ -23,9 +23,9 @@ import { SharedComponentsModule } from '../shared/shared-components/shared-compo
     OpentokService
   ],
   declarations: [
-    VideoCallComponent,
-    PublisherComponent,
-    SubscriberComponent,
+    // VideoCallComponent,
+    // PublisherComponent,
+    // SubscriberComponent,
   ],
 })
 export class VideoCallModule { }

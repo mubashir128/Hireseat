@@ -105,6 +105,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedComponentsModule } from './shared/shared-components/shared-components.module';
+import { VideoCallComponent } from './video-call/video-call.component';
+import { PublisherComponent } from './publisher/publisher.component';
+import { SubscriberComponent } from './subscriber/subscriber.component';
 
 // import { SADashboardComponent } from "./super-admin/sa-dashboard/sa-dashboard.component";
 // import { SAUserListComponent } from "./super-admin/sa-user-list/sa-user-list.component";
@@ -215,7 +218,11 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     VideoInterviewRoomComponent,
     SearchByNamePipe,
     SearchByExperiencePipe,
-    MycandidatesComponent
+    MycandidatesComponent,
+    VideoCallComponent,
+    PublisherComponent,
+    SubscriberComponent,
+
   ],
   providers: [
     AuthGuard,
