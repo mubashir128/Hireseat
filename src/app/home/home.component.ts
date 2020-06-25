@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // scroll to top
-    $(document).ready(function() {
+    $(document).ready(function () {
       $("html, body").animate(
         {
           scrollTop: 0
@@ -94,8 +94,10 @@ export class HomeComponent implements OnInit {
     this.limit = this.pageCount() + 10;
     this._blogservice.getAllBlogPost(this.limit).subscribe(
       (res) => {
+
         this.article = res.data;
         this.spinner.hide();
+        console.log(this.article);
         // video uplodad
         //  res.data.forEach((data,i) => {
         //    if(data.video || data.embbedded ){

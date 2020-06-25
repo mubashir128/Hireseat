@@ -91,7 +91,8 @@ export class ResumeService {
   }
 
   getResumeCandidates(obj) {
-    return this.http.post<any>(this.baseurl + 'api/getResumeCandidates',obj).pipe(map((res: any) => {
+
+    return this.http.post<any>(this.baseurl + 'api/getResumeCandidates', obj).pipe(map((res: any) => {
       return res;
     }))
   }

@@ -2,7 +2,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { TagInputModule } from "ngx-chips";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { RouterModule, Routes, ParamMap } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -11,16 +10,13 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxPaginationModule } from "ngx-pagination";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
-import { HomeComponent } from "./home/home.component";
 import { AuthenticationService } from "./_services/authentication.service";
 import { UserService } from "./_services/user.service";
 import { AuthGuard } from "./_guards/auth.guard";
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { ErrorInterceptor } from "./_helpers/error.interceptor";
-import { NavbarComponent } from "./navbar/navbar.component";
-import { FooterComponent } from "./footer/footer.component";
 import { EmployerHomeComponent } from "./employer/employer-home/employer-home.component";
-import { EmployerNavbarComponent } from "./employer/employer-navbar/employer-navbar.component";
+// import { EmployerNavbarComponent } from "./employer/employer-navbar/employer-navbar.component";
 import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
 import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { ProfileComponent } from "./profile/profile.component";
@@ -63,19 +59,6 @@ import { UploadResumeComponent } from "./resume-bank/upload-resume/upload-resume
 import { SearchResumeComponent } from "./resume-bank/search-resume/search-resume.component";
 import { UserlistComponent } from "./admin/userlist/userlist.component";
 import { CKEditorModule } from "ng2-ckeditor";
-import { SADashboardComponent } from "./super-admin/sa-dashboard/sa-dashboard.component";
-import { SAUserListComponent } from "./super-admin/sa-user-list/sa-user-list.component";
-import { SANavbarComponent } from "./super-admin/sa-navbar/sa-navbar.component";
-import { SupperAdminGuard } from "./_guards/supper-admin.guard";
-import { EmployerGuard } from "./_guards/employer.guard";
-import { RecruiterGuard } from "./_guards/recruiter.guard";
-import { AdminGuard } from "./_guards/admin.guard";
-import { ViewForumComponent } from "./view-forum/view-forum.component";
-import { MediaComponent } from "./media/media.component";
-import { QuestionsComponent } from "./view-forum/questions/questions.component";
-import { SearchFilterPipe } from "./view-forum/search-filter.pipe";
-import { AskbuttonComponent } from "./view-forum/askbutton/askbutton.component";
-import { AnswerlistsComponent } from "./view-forum/answerlists/answerlists.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
 import { BlogMaiComponent } from "./blog/blog-mai/blog-mai.component";
@@ -83,7 +66,6 @@ import { CreatePostComponent } from "./blog/create-post/create-post.component";
 import { BlogNavComponent } from "./blog/blog-nav/blog-nav.component";
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { CreateCategoryComponent } from "./blog/create-category/create-category.component";
-//import { AllPostComponent } from './all-post/all-post.component';
 import { EditCategoryComponent } from "./blog/edit-blog/edit-category/edit-category.component";
 import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
 import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
@@ -96,31 +78,18 @@ import { EditTagComponent } from "./blog/edit-blog/edit-tag/edit-tag.component";
 import { SocialShareComponent } from "src/app/blog/frontend/single-page/social-share/social-share.component";
 import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
 import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
-
-// import { CKEditorModule } from 'ngx-ckeditor';
-// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { Ng2CompleterModule } from "ng2-completer";
 import { Angular2CsvModule } from "angular2-csv";
-import { TimeFormat } from "./home/pipe";
 import { RecruiterComponent } from "./recruiter-cost/recruiter/recruiter.component";
 import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-question/recruiter-question.component";
 import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
 import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
-
 import { NgHighlightModule } from "ngx-text-highlight";
 import { SelectDropDownModule } from "ngx-select-dropdown";
 import { inArrayPipe } from "./recruter-bidding-info/inArrayPipe";
 import { LimitPipe } from "./../charlimit";
-import { SafePipe } from "./blog/frontend/safepipe";
 import { SortPipe } from "./shared/pipes/sort.pipe";
 import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
-import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
-import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
-import { EnterpriseDashboardComponent } from "./enterprise/enterprise-dashboard/enterprise-dashboard.component";
-import { EnterpriseNavbarComponent } from "./enterprise/enterprise-navbar/enterprise-navbar.component";
-import { EnterpriseUserListComponent } from "./enterprise/enterprise-user-list/enterprise-user-list.component";
-import { CreateEmployerComponent } from "./enterprise/create-employer/create-employer.component";
-import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { SearchPipe } from '../search.pipe';
 import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
@@ -128,279 +97,55 @@ import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.c
 import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
 import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
 import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
-import { VideoCallComponent } from './video-call/video-call.component';
-import { PublisherComponent } from './publisher/publisher.component';
-import { SubscriberComponent } from './subscriber/subscriber.component';
 import { OpentokService } from './_services/opentok.service';
 import { SearchByNamePipe } from '../search-by-name.pipe';
 import { SearchByExperiencePipe } from '../search-by-experience.pipe';
 import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
-// import { SharedVideoComponent } from './shared-video/shared-video.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
+import { SharedComponentsModule } from './shared/shared-components/shared-components.module';
+import { VideoCallComponent } from './video-call/video-call.component';
+import { PublisherComponent } from './publisher/publisher.component';
+import { SubscriberComponent } from './subscriber/subscriber.component';
 
-const appRoutes: Routes = [
-  { path: "forum", component: ViewForumComponent },
+// import { SADashboardComponent } from "./super-admin/sa-dashboard/sa-dashboard.component";
+// import { SAUserListComponent } from "./super-admin/sa-user-list/sa-user-list.component";
+// import { SANavbarComponent } from "./super-admin/sa-navbar/sa-navbar.component";
 
-  { path: "question-details/:id", component: AnswerlistsComponent },
-
-  { path: "register", component: RegisterComponent },
-  { path: "login", component: LoginComponent },
-  {
-    path: "employer",
-    component: EmployerHomeComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "recruiter",
-    component: RecruiterHomeComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "bidding-events/details/:key",
-    component: BiddingEventDetailsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "event/feedback/candidate/resumes/:key",
-    component: RecruiterFeedbackComponent
-  },
-  {
-    path: "user/email/verification/check/:key",
-    component: EmailVerificationComponent
-  },
-  {
-    path: "user/forgot/password/check/hireseat/:key",
-    component: ForgotPasswordResetComponent
-  },
-  { path: "employer/feedback/:key", component: FeedbackResumesComponent },
-  { path: "rules", component: AuctionrulesComponent },
-  { path: "contact-us", component: ContactUsComponent },
-  { path: "Forgot-Password", component: ForgotPasswordComponent },
-  { path: "home", component: HomeComponent },
-  { path: "home/:id", component: HomeComponent },
-  { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "upload-resume", component: UploadResumeComponent },
-  { path: "job-post", component: JobpostComponent },
-
-  { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
-  {
-    path: "video-call/:id",
-    component: VideoCallComponent
-  },
-  {
-    path: "shared-video/:token",
-    loadChildren: './shared-video/shared-video.module#SharedVideoModule'
-  }
-];
-
-const appChildRoutes: Routes = [
-  {
-    path: "employer",
-    component: EmployerHomeComponent,
-    children: [
-      {
-        path: "profile",
-        component: ProfileComponent
-      },
-      {
-        path: "job-profile-list",
-        component: JobProfileListComponent
-      },
-      {
-        path: "create-job-profile",
-        component: CreateJobProfileComponent
-      },
-      {
-        path: "bidding-event-list",
-        component: BiddingEventsListComponent
-      },
-      {
-        path: "create-bidding-event",
-        component: CreateBiddingEventComponent
-      },
-      {
-        path: "edit-job-profile",
-        component: EditJobProfileComponent
-      },
-      {
-        path: "feedback-list",
-        component: FeedbackListComponent
-      },
-      {
-        path: "employer-Answere/:id",
-        component: EmployeerAnsComponent
-      },
-      {
-        path: "dashboard",
-        component: DashboardComponent
-      },
-      {
-        path: "video-interview-room",
-        component: VideoInterviewRoomComponent
-      },
-      {
-        path: "mycandidates",
-        component: MycandidatesComponent
-      },
-      {
-        path: "new-resume",
-        component: NewResumeComponent
-      }
-    ],
-    canActivate: [EmployerGuard]
-  },
-  {
-    path: "blog-posts",
-    component: BlogMainComponent,
-    children: [
-      {
-        path: "create-post",
-        component: CreatePostComponent
-      },
-      {
-        path: "edit-post/:blogID",
-        component: EditBlogComponent
-      },
-      {
-        path: "create-image-post",
-        component: CreateImagePostComponent
-      },
-      {
-        path: "all-post",
-        component: AllPostComponent
-      },
-      {
-        path: "create-categories",
-        component: CreateCategoryComponent
-      },
-      {
-        path: "edit-categories",
-        component: EditCategoryComponent
-      }
-    ],
-    canActivate: [AdminGuard]
-  },
-  {
-    path: "blog",
-    component: AllBlogsComponent
-  },
-  {
-    path: "blog/categories/:url",
-    component: AllBlogCategoriesComponent
-  },
-  {
-    path: "blog/tags/:url",
-    component: AllBlogTagComponent
-  },
-  {
-    path: "blog/:url",
-    component: SinglePageComponent
-  },
-  {
-    path: "blog/:url",
-    component: SinglePageComponent
-  },
-
-  {
-    path: "recruiter",
-    component: RecruiterHomeComponent,
-    children: [
-      {
-        path: "profile",
-        component: ProfileComponent
-      },
-      {
-        path: "bidding-event-list",
-        component: BiddingEventsListComponent
-      },
-      {
-        path: "bidding-event-list/:type",
-        component: BiddingEventsListComponent
-      },
-      {
-        path: "recruiter-question/:id",
-        component: RecruiterQuestionComponent
-      },
-      {
-        path: "resume-list",
-        component: ResumeListComponent
-      },
-      {
-        path: "new-resume",
-        component: NewResumeComponent
-      },
-      {
-        path: "won-bids",
-        component: WonBidsComponent
-      },
-      {
-        path: "search-resume",
-        component: SearchResumeComponent
-      },
-      {
-        path: "video-interview-room",
-        component: VideoInterviewRoomComponent
-      },
-
-
-    ],
-    canActivate: [RecruiterGuard]
-  },
-  {
-    path: "super-admin",
-    component: SADashboardComponent,
-    children: [
-      {
-        path: "user-list",
-        component: SAUserListComponent
-      },
-      {
-        path: "create-admin",
-        component: CreateAdminComponent
-      },
-      {
-        path: "create-enterprise",
-        component: CreateEnterpriseComponent
-      }
-    ],
-    canActivate: [SupperAdminGuard]
-  },
-  {
-    path: "enterprise",
-    component: EnterpriseDashboardComponent,
-    children: [
-      {
-        path: "user-list",
-        component: EnterpriseUserListComponent
-      },
-      {
-        path: "create-employer",
-        component: CreateEmployerComponent
-      }
-    ],
-    canActivate: [EnterpriseGuard]
-  },
-  {
-    path: "**",
-    component: NotFoundComponent
-  }
-];
-
+// import { CreateAdminComponent } from "./super-admin/create-admin/create-admin.component";
+// import { CreateEnterpriseComponent } from "./super-admin/create-enterprise/create-enterprise.component";
 @NgModule({
+  imports: [
+    AppRoutingModule,
+    InfiniteScrollModule,
+    EditorModule,
+    TagInputModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    HttpClientModule,
+    NgxCurrencyModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    NgxPaginationModule,
+    NgxMaskModule.forRoot(),
+    Angular2CsvModule,
+    CKEditorModule,
+    NgxTwitterTimelineModule,
+    Ng2CompleterModule,
+    SelectDropDownModule,
+    NgHighlightModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    SharedComponentsModule,
+  ],
   declarations: [
     AppComponent,
-    TimeFormat,
-    SafePipe,
     LimitPipe,
     RegisterComponent,
     LoginComponent,
-    HomeComponent,
-    NavbarComponent,
-    FooterComponent,
     EmployerHomeComponent,
-    EmployerNavbarComponent,
+    // EmployerNavbarComponent,
     AuctionrulesComponent,
     ContactUsComponent,
     ProfileComponent,
@@ -409,7 +154,7 @@ const appChildRoutes: Routes = [
     BiddingEventsListComponent,
     CreateBiddingEventComponent,
     RecruiterHomeComponent,
-    RecruiterNavbarComponent,
+    // RecruiterNavbarComponent,
     EditJobProfileComponent,
     BiddingEventDetailsComponent,
     BiddingInfoComponent,
@@ -440,15 +185,6 @@ const appChildRoutes: Routes = [
     UploadResumeComponent,
     SearchResumeComponent,
     UserlistComponent,
-    SADashboardComponent,
-    SAUserListComponent,
-    SANavbarComponent,
-    ViewForumComponent,
-    MediaComponent,
-    QuestionsComponent,
-    SearchFilterPipe,
-    AskbuttonComponent,
-    AnswerlistsComponent,
     BlogMainComponent,
     BlogMaiComponent,
     CreatePostComponent,
@@ -473,12 +209,6 @@ const appChildRoutes: Routes = [
     inArrayPipe,
     SortPipe,
     SafePdfPipe,
-    CreateAdminComponent,
-    CreateEnterpriseComponent,
-    EnterpriseDashboardComponent,
-    EnterpriseNavbarComponent,
-    EnterpriseUserListComponent,
-    CreateEmployerComponent,
     SearchPipe,
     DashboardComponent,
     BarChartComponent,
@@ -486,38 +216,13 @@ const appChildRoutes: Routes = [
     PieChartComponent,
     ScatterChartComponent,
     VideoInterviewRoomComponent,
-    VideoCallComponent,
-    PublisherComponent,
-    SubscriberComponent,
     SearchByNamePipe,
     SearchByExperiencePipe,
     MycandidatesComponent,
-    // SharedVideoComponent
-  ],
-  imports: [
-    InfiniteScrollModule,
-    EditorModule,
-    TagInputModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    HttpClientModule,
-    NgxCurrencyModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxSpinnerModule,
-    NgxPaginationModule,
-    RouterModule.forRoot(appRoutes),
-    RouterModule.forChild(appChildRoutes),
-    NgxMaskModule.forRoot(),
-    Angular2CsvModule,
+    VideoCallComponent,
+    PublisherComponent,
+    SubscriberComponent,
 
-    CKEditorModule,
-    NgxTwitterTimelineModule,
-    Ng2CompleterModule,
-    SelectDropDownModule,
-    NgHighlightModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    AppRoutingModule
   ],
   providers: [
     AuthGuard,

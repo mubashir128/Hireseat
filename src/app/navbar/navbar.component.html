@@ -94,11 +94,12 @@
               <div class="hederNotification">
                 <h4>Notification</h4>
               </div>
-              <div class="scrollNotification" infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="50" [infiniteScrollContainer]="selector" [fromRoot]="true"(scrolled)="onScroll()">
+              <div class="scrollNotification" infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="50"
+                [infiniteScrollContainer]="selector" [fromRoot]="true" (scrolled)="onScroll()">
                 <ul>
                   <li *ngFor="let ques of questDataLenght">
-                    <a (click)="getToQuestion(ques._id)" [routerLink]="" routerLinkActive="notification-content" *ngIf="!ques.isAnswered"
-                      [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
+                    <a (click)="getToQuestion(ques._id)" [routerLink]="" routerLinkActive="notification-content"
+                      *ngIf="!ques.isAnswered" [innerHtml]="truncateHTML(ques.question)">{{ ques.question }}</a>
                   </li>
                   <li *ngFor="let ques of suggestedQueData">
                     <a [routerLink]="[

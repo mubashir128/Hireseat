@@ -209,7 +209,7 @@ ul:not(.browser-default) > li {
   width: 100% !important;
   display: flex;
   justify-content: center;
-  box-shadow: 0px 1px 10px #3e3e3e14;
+  /* box-shadow: 0px 1px 10px #3e3e3e14; */
 }
 nav.customeNav {
   background: #fff !important;
@@ -310,4 +310,41 @@ nav.customeNav {
 .video-js-without-questions {
   width: 100% !important;
   height: 100% !important;
+}
+
+/* loader */
+.loader-container {
+  width: 100%;
+  height: -webkit-fill-available;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
