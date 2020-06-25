@@ -70,15 +70,15 @@
 
             <div class="input-field col s12 m12">
                 <div class="radioGroup">
-                    <input type="radio" id="public" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="public" (change)="handleGenderChange($event)">
+                    <input type="radio" id="public" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="public">
                     <label for="male">Public</label>
-                    <input type="radio" id="private" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="private" (change)="handleGenderChange($event)">
+                    <input type="radio" id="private" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="private">
                     <label for="female">Private</label>
                 </div>
             </div>
             <div class="title" style="margin-bottom:5px;" *ngIf="globalType === 'private'">Select Recruiters</div>
             <div class="searchDiv" *ngIf="globalType === 'private'">
-                <input type="text" formControlName="searchTerm" [(ngModel)]="searchTerm" placeholder="Search..." (focus)="searchDataList = true" #searchInputTerm>
+                <input type="text" class="searchRecruiter" formControlName="searchTerm" [(ngModel)]="searchTerm" placeholder="Search..." (focus)="searchDataList = true" #searchInputTerm>
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>
 

@@ -1,14 +1,43 @@
 <div>
-   
-    <div class="right-align" >
-        <a *ngIf="!hideAddBtn" class="waves-effect waves-light btn" [routerLink]="['/employer/create-bidding-event']"> <i class="material-icons left">add</i> New Job Posting</a>
-    </div>
-    <div class="row" style="width: 100%; margin-left: 1px;">
-        <div class="skillInput">
-            <span>Note: Search by Name : </span>
+    <div class="row">
+        <div class="left-align">
+            <div class="input-field col s3 m3 topMargin">
+                <input id="activationDate" type="date" class="validate datepicker" name="activationDate">
+                <label for="activationDate" class="active">Start Date</label>
+            </div>
+            <div class="input-field col s3 m3 topMargin">
+                <input id="expiryDate" type="date" class="validate datepicker" name="expiryDate">
+                <label for="expiryDate" class="active">End Date</label>
+            </div>
         </div>
-        <div class="inputDivMainN">
-          <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here..." #searchByName>
+        <div class="right-align" >
+            <a *ngIf="!hideAddBtn" class="waves-effect waves-light btn" [routerLink]="['/employer/create-bidding-event']"> <i class="material-icons left">add</i> New Job Posting</a>
+        </div>
+    </div>
+    <div class="row" style="width: 100%; margin-left: 1px;" *ngIf="!hideAddBtn">
+        <div class="col s6">
+            <div class="input-field col s6">
+                <label for="jobProfiler" class="active">Select Job Profile</label>
+                <input type="hidden" name="selectedJobProfile" [(ngModel)]="selectedJobType" [ngModelOptions]="{standalone: true}">
+                <a class="dropdown-button" data-activates="dropdown_jobProfileType">
+                    {{jobProfileType}}
+                    <i class="material-icons right" style="cursor: pointer">arrow_drop_down</i>
+                </a>
+                <ul id="dropdown_jobProfileType" class="dropdown-content">
+                    <!--  hide-on-small-only -->
+                    <li *ngFor="let jobType of jp">
+                        <a (click)="jobProfileVal(jobType.type,jobType._id)">{{jobType.type}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="skillInput">
+                <span>Note: Search by Name : </span>
+            </div>
+            <div class="inputDivMainN">
+            <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here..." #searchByName>
+            </div>
         </div>
     </div>
     <div *ngIf="!noBiddingEvents">

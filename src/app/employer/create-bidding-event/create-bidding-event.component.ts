@@ -15,7 +15,10 @@ declare var Materialize: any;
 @Component({
   selector: 'app-create-bidding-event',
   templateUrl: './create-bidding-event.component.html',
-  styleUrls: ['./create-bidding-event.component.css']
+  styleUrls: ['./create-bidding-event.component.css'],
+  host: {
+    '(document:click)': 'onClick($event)'
+  }
 })
 export class CreateBiddingEventComponent implements OnInit {
   biddingEvent: BiddingEvent;
@@ -32,7 +35,7 @@ export class CreateBiddingEventComponent implements OnInit {
   searchedRecruiters = [];
   finalRecruitersAre = [];
   selectedRecruiters = [];
-
+  
   @ViewChild('searchInputTerm') searchInputTerm : ElementRef;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
@@ -140,8 +143,6 @@ export class CreateBiddingEventComponent implements OnInit {
         }
       }
     });
-
-
   }
 
   ngAfterViewInit() {
@@ -153,7 +154,6 @@ export class CreateBiddingEventComponent implements OnInit {
       debounceTime(1000),
       distinctUntilChanged(),
       tap((text) => {
-
         this.getRecruiterList({
           searchTerm : this.searchTerm
         });
@@ -165,6 +165,7 @@ export class CreateBiddingEventComponent implements OnInit {
   getRecruiterList(obj){
     this.bidEventService.getRecruiterList(obj).subscribe(res=>{
       this.searchedRecruiters=res;
+      jQuery(".searchData").scrollTop(0);
     },err=>{
       console.log(err);
     });
@@ -214,10 +215,6 @@ export class CreateBiddingEventComponent implements OnInit {
           }
       }
     });
-  }
-
-  handleGenderChange($event){
-    this.globalType=$event.target.value;
   }
 
   get f() { return this.auctionFrm.controls; }
@@ -279,10 +276,17 @@ export class CreateBiddingEventComponent implements OnInit {
 
  // Validation of reward Money 
   checkRewardMoney(group: FormGroup) {
-  let fromReward = group.controls.rewardMoneyFrom.value;
-  let toReward = group.controls.rewardMoneyTo.value;
-  return Number(fromReward) <= Number(toReward) ? null : { invalidReward: true }     
-}
+    let fromReward = group.controls.rewardMoneyFrom.value;
+    let toReward = group.controls.rewardMoneyTo.value;
+    return Number(fromReward) <= Number(toReward) ? null : { invalidReward: true }     
+  }
 
+  onClick(event) {
+    if (this.searchInputTerm !== undefined && this.searchInputTerm.nativeElement.contains(event.target)) {
+      jQuery(".searchData").css("display","block");
+    }else{
+      jQuery(".searchData").css("display","none");
+    } 
+  }
   
 }

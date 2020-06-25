@@ -5,6 +5,7 @@ import { Tab } from '../models/tab';
 import { UserService } from 'src/app/_services/user.service';
 import { IProfile } from 'src/app/profile/model/user-profile';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 declare var jQuery: any;
 declare var Materialize: any;
 @Component({
@@ -21,7 +22,8 @@ export class EmployerNavbarComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private userService: UserService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private _subList : SubscriberslistService
   ) {
     const employerId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
     this.tabMenu = [
@@ -70,8 +72,23 @@ export class EmployerNavbarComponent implements OnInit {
     });
 
     this.SelectItem(this.router.url);
+
+    this._subList.activeDashboard$.subscribe(res=>{
+      this.handleActiveList(res);
+    });
+
   }
 
+  handleActiveList(obj){
+    this.tabMenu.forEach(tab => {
+      if (tab.name === "Dashboard"){
+        tab.selected = true;
+      }
+      else{
+        tab.selected = false;
+      }
+    });
+  }
 
   SelectItem(item) {
     this.tabMenu.forEach(tab => {

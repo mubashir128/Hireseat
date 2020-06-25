@@ -23,7 +23,7 @@ export class BiddingEventsListComponent implements OnInit {
   searchTerm;
   search = false;
   itemsList = [1];
-  itemsPerPage = 5;
+  itemsPerPage = 10;
   public chkLoggedInUser:any;
   public hideAddBtn:boolean;
   public biddingEvents: BiddingEvent[]=[];
@@ -33,16 +33,22 @@ export class BiddingEventsListComponent implements OnInit {
   selectedBiddingEvent: IBiddingEvent;
   public noBiddingEvents:boolean=true;
   @ViewChild('searchByName') searchByName: ElementRef;
+  jobProfileType : any="public";
+  selectedJobType : any;
+  jp = [];
 
+  startDate : any;
+  endDate : any;
   constructor(private router: Router,private cdr:ChangeDetectorRef,private spinner:NgxSpinnerService,private userService:UserService,private biddingService:BidService, private route: ActivatedRoute,private bidEventService:BiddingEventService) { 
     this.chkLoggedInUser=this.userService.getUserData();
     if(this.chkLoggedInUser != "no"){
        if(this.chkLoggedInUser.userRole=="employer"){
           let obj={
               onLoad : true,
+              type : this.jobProfileType === "public" ? false : true,
               itemsPerPage : this.itemsPerPage
           }
-          this.getJobProfileBidding(obj); 
+          this.getJobProfileBidding(obj);
           this.hideAddBtn=false;
        }else if(this.chkLoggedInUser.userRole=="recruiter"){
         this.route.params.subscribe(params => { this.handleRequest(params['type']); });        
@@ -54,11 +60,98 @@ export class BiddingEventsListComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.jp=[{
+      _id : 1,
+      type : "public"
+    },{
+      _id : 2,
+      type : "private"
+    }];
+
+    jQuery('.datepicker').on('mousedown',function(event){
+      event.preventDefault();
+    })
+  
+    jQuery('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+
+    var a = this;
+    var activationDate_input = jQuery('#activationDate').pickadate();
+    var activationDate_picker = activationDate_input.pickadate('picker');
+
+    var expiryDate_input = jQuery('#expiryDate').pickadate();
+    var expiryDate_picker = expiryDate_input.pickadate('picker');
+
+    activationDate_picker.set('select', new Date());
+    expiryDate_picker.set('select', new Date());
+
+    a.startDate=new Date(activationDate_picker.get('select').pick).getTime();
+    a.endDate=new Date(expiryDate_picker.get('select').pick).getTime();
+
+    activationDate_picker.on({
+      
+      set: function () {
+        let temp: Date = new Date(activationDate_picker.get('select').pick);
+        a.startDate=temp.getTime();
+        if( !(temp.getTime() <= a.endDate)){
+          Materialize.toast('Activation date should not be greater than Expiry date.', 4000);
+          activationDate_picker.set('select', new Date());
+        }else{
+          this.searchTerm=true;
+          let obj={
+            dateSearch : true,
+            startDate : (a.startDate / 1000),
+            endDate : (a.endDate / 1000),
+            itemsPerPage : a.itemsPerPage,
+            type : a.jobProfileType === "public" ? false : true
+          }
+          a.getJobProfileBidding(obj);
+          a.resetValues();
+        }
+      }
+      
+    });
+
+    expiryDate_picker.on({
+     
+      set: function () {
+        let temp: Date = new Date(expiryDate_picker.get('select').pick);
+        a.endDate=temp.getTime();
+        if( !(temp.getTime() >= a.startDate)){
+          Materialize.toast('Expiry date should be greater than Activation Date.', 4000);
+          expiryDate_picker.set('select', new Date());
+        }else{
+          this.searchTerm=true;
+          let obj={
+            dateSearch : true,
+            startDate : (a.startDate / 1000),
+            endDate : (a.endDate / 1000),
+            itemsPerPage : a.itemsPerPage,
+            type : a.jobProfileType === "public" ? false : true
+          }
+          a.getJobProfileBidding(obj);
+          a.resetValues();
+        }
+      }
+    });
+
+  }
+
+  resetValues(){
+    this.p=1;
+    this.itemsList=[1];
+    this.createdAt=null;
+    this.biddingEvents=[];
   }
 
   ngAfterViewInit() {
     // server-side search
-    this.searchTermByName();
+    if(!this.hideAddBtn){
+      this.searchTermByName();
+    }
   }
 
   searchTermByName(){
@@ -73,13 +166,11 @@ export class BiddingEventsListComponent implements OnInit {
         this.getJobProfileBidding({
           search : this.search,
           searchTerm : this.searchTerm,
+          type : this.jobProfileType === "public" ? false : true,
           itemsPerPage : this.searchTerm === "" ? this.itemsPerPage : undefined,
           onLoad : this.searchTerm === "" ? true : undefined
         });
-        this.p=1;
-        this.itemsList=[1];
-        this.createdAt=null;
-        this.biddingEvents=[];
+        this.resetValues();
       })
     )
     .subscribe();
@@ -92,26 +183,32 @@ export class BiddingEventsListComponent implements OnInit {
       this.getAllBidEvents();
     }
   }
+
   onDelete(event){
     this.bidEventService.deletejobPost(event,this.chkLoggedInUser._id).subscribe((data)=>{
-      console.log(data);
-      
       if(data){
         Materialize.toast('JobPost Deleted Successfully !', 1000); 
         jQuery('#DeleteConfirm'+event).modal('close'); 
-        this.getJobProfileBidding({});
+        this.removeElementFromBiddingList(event);
       }
     },(error)=>{
-    
       Materialize.toast(error, 1000);
-      jQuery('#DeleteConfirm'+event).modal('close');  
+      jQuery('#DeleteConfirm'+event).modal('close');
     })
+  }
+
+  removeElementFromBiddingList(id){
+    for(let i=0;i<this.biddingEvents.length;i++){
+      if(this.biddingEvents[i]._id === id){
+        this.biddingEvents.splice(i,1);
+        break;
+      }
+    }
   }
 
   getJobProfileBidding(obj){
     this.spinner.show();
-    this.bidEventService.getBiddingEvents(obj).subscribe((data:BiddingEvent[])=>{   
-      console.log("---- : ",data);
+    this.bidEventService.getBiddingEvents(obj).subscribe((data:BiddingEvent[])=>{
       if(data.length > 0){
         this.biddingEvents=[...this.biddingEvents, ...data];
         this.createdAt = data[data.length - 1].createdAt;
@@ -161,8 +258,8 @@ export class BiddingEventsListComponent implements OnInit {
   }
   
 
-   onSelect(biddingEvent_Id) {
-     this.router.navigate(['/bidding-events/details/' + biddingEvent_Id]);
+  onSelect(biddingEvent_Id) {
+    this.router.navigate(['/bidding-events/details/' + biddingEvent_Id]);
   }
 
   handlePagination($event){
@@ -173,9 +270,28 @@ export class BiddingEventsListComponent implements OnInit {
     this.itemsList.push($event);
     let obj={
       createdAt : this.createdAt,
+      type : this.jobProfileType === "public" ? false : true,
       itemsPerPage : this.itemsPerPage
     }
-    this.getJobProfileBidding(obj); 
+    this.getJobProfileBidding(obj);
+  }
+
+  jobProfileVal(val, id){
+    if(this.jobProfileType === val){
+      return ;
+    }
+
+    this.p=1;
+    this.itemsList=[1];
+    this.biddingEvents=[];
+    this.jobProfileType=val;
+
+    this.getJobProfileBidding({
+      onLoad : true,
+      type : this.jobProfileType === "public" ? false : true,
+      itemsPerPage : this.itemsPerPage
+    });
+
   }
 
 }
