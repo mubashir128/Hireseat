@@ -1,7 +1,11 @@
-import { IBiddingEvent, BiddingEvent } from '../bidding-event';
+import { IBiddingEvent } from '../bidding-event';
 import { RemainingTime } from '../remaining-time'
 
 export class Utils {
+    public static STATUS_EXPIRED = 'EXPIRED';
+    public static STATUS_SCHEDULED = 'SCHEDULED';
+    public static STATUS_ACTIVE = 'ACTIVE';
+
     public static generatePushID = (function () {
         // Modeled after base64 web-safe chars, but ordered by ASCII.
         var PUSH_CHARS = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
@@ -102,8 +106,8 @@ export class Utils {
             // Ongoing or expired Bid
             if (timeSinceExpiry > 0) {
                 // Ongoing Bid
-                if (biddingEvent.status !== BiddingEvent.STATUS_ACTIVE) {
-                    biddingEvent.status = BiddingEvent.STATUS_ACTIVE;
+                if (biddingEvent.status !== this.STATUS_ACTIVE) {
+                    biddingEvent.status = this.STATUS_ACTIVE;
                     remainingTime.biddingStatusChanged = true;
                 }
                 remainingTime.remainingDays = Math.floor((((timeSinceExpiry / 60) / 60) / 24));
@@ -114,15 +118,15 @@ export class Utils {
 
             } else {
                 // Expired Bid
-                if (biddingEvent.status !== BiddingEvent.STATUS_EXPIRED) {
-                    biddingEvent.status = BiddingEvent.STATUS_EXPIRED;
+                if (biddingEvent.status !== this.STATUS_EXPIRED) {
+                    biddingEvent.status = this.STATUS_EXPIRED;
                     remainingTime.biddingStatusChanged = true;
                 }
             }
         } else {
             // Scheduled Bid
-            if (biddingEvent.status !== BiddingEvent.STATUS_SCHEDULED) {
-                biddingEvent.status = BiddingEvent.STATUS_SCHEDULED;
+            if (biddingEvent.status !== this.STATUS_SCHEDULED) {
+                biddingEvent.status = this.STATUS_SCHEDULED;
                 remainingTime.biddingStatusChanged = true;
             }
             remainingTime.remainingDays = Math.floor((((timeSinceActivation / 60) / 60) / 24));
