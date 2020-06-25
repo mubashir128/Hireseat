@@ -1,4 +1,10 @@
 <!-- <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#33AAFF" type="cube-transition"></ngx-spinner> -->
+
+<ng-container *ngIf="!isTokenValid">
+  <div class="loader-container">
+    <div class="loader"></div>
+  </div>
+</ng-container>
 <div class="mainPageBg">
   <ng-container>
     <nav style="background:#E9F4FF;" class="customeNav">
@@ -110,7 +116,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngIf="!isTokenValid">
+  <ng-container *ngIf="showError">
     <div class="mainTempExpire">
       <div class="invalid-token-container">
         <span class="msg">

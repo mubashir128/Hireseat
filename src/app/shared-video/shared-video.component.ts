@@ -26,6 +26,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   isShareFromRecruiter: boolean;
   isQuestion: boolean;
   comments: any;
+  showError = false;
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
@@ -36,7 +37,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
+    this.isTokenValid = false;
     this.spinner.show();
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
     const isCandidate = this.token.split('@')[1];
@@ -68,6 +69,9 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
       }, err => {
         // console.log(err, '***************************look up*********************');
         this.isTokenValid = false;
+        if (!this.isTokenValid) {
+          this.showError = true;
+        }
         this.spinner.hide();
       });
     } else {
@@ -108,6 +112,9 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
       }, err => {
         // console.log(err, '***************************look up*********************');
         this.isTokenValid = false;
+        if (!this.isTokenValid) {
+          this.showError = true;
+        }
         this.spinner.hide();
       });
     }
