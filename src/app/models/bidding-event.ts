@@ -23,9 +23,9 @@ export interface IBiddingEvent {
 
 export class BiddingEvent implements IBiddingEvent {
 
-  public static STATUS_EXPIRED = 'EXPIRED';
-  public static STATUS_SCHEDULED = 'SCHEDULED';
-  public static STATUS_ACTIVE = 'ACTIVE';
+  public static STATUS_EXPIRED = Utils.STATUS_EXPIRED;
+  public static STATUS_SCHEDULED = Utils.STATUS_SCHEDULED;
+  public static STATUS_ACTIVE = Utils.STATUS_ACTIVE;
   activationDate: number;
   expiryDate: number;
   status: string;
