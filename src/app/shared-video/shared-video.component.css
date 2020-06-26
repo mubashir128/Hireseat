@@ -244,12 +244,16 @@ nav.customeNav {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
+  .MainTempMiddle{
+    min-height: calc(100vh - 112px);
+  }
   .mainTemplate {
-    padding: 20px 15px 110px;
+    /* padding: 20px 15px 110px; */
+    padding: 20px 15px 20px;
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-end;
-    min-height: calc(100vh - 112px);
+    
   }
   .mainTempExpire {
     padding: 20px 15px;
@@ -258,12 +262,14 @@ nav.customeNav {
   .interviewVideoDiv {
     display: flex;
     flex-direction: column-reverse;
+    height: auto;
   }
   .leftSideQuetion {
     width: 100%;
   }
   .video-interview {
     width: 100%;
+    height: auto;
     /* height: 260px !important; */
   }
   .video-interview .video-js {

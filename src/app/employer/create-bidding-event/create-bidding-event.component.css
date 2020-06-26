@@ -104,6 +104,18 @@
     transform: rotate(45deg);
   }
 /*********************** custom check box css end *************************/
+
+/*********************** radio btn css start *************************/
+[type="radio"]+label:before, [type="radio"]+label:after{
+  left: -15px;
+}
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label {
+  margin-right: 40px;
+  padding-left: 15px;
+}
+/*********************** radio btn css ends *************************/
+
 /*==================================== responsive css start  =================================*/
 /*================================ i-pad responsive css start  ===============================*/
 

@@ -993,7 +993,7 @@ ng2-dropdown-menu.dropdown {
   opacity: 0;
   top: 18px;
   pointer-events: fill;
-  margin-left: 17px;
+  /* margin-left: 17px; */
 }
 .radioGroup {
   float: left;
