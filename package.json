@@ -30,6 +30,7 @@
     "angular-csv-ext": "^1.0.1",
     "angular2-csv": "^0.2.9",
     "angular5-csv": "^0.2.11",
+    "aws-sdk": "^2.705.0",
     "chart.js": "^2.9.3",
     "core-js": "^2.5.4",
     "jquery": "^3.4.1",
