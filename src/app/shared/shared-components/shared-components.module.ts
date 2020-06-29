@@ -34,6 +34,8 @@ import { BarChartComponent } from '../pipes/chart/bar-chart/bar-chart.component'
 import { ScatterChartComponent } from '../pipes/chart/scatter-chart/scatter-chart.component';
 import { SearchByNamePipe } from 'src/search-by-name.pipe';
 import { SearchByExperiencePipe } from 'src/search-by-experience.pipe';
+import { SidebarComponent } from 'src/app/admin/sidebar/sidebar.component';
+import { EditTagComponent } from 'src/app/blog/edit-blog/edit-tag/edit-tag.component';
 
 @NgModule({
   imports: [
@@ -79,7 +81,9 @@ import { SearchByExperiencePipe } from 'src/search-by-experience.pipe';
     BarChartComponent,
     LineChartComponent,
     PieChartComponent,
-    ScatterChartComponent
+    ScatterChartComponent,
+    SidebarComponent,
+    // EditTagComponent
   ],
   exports: [
     FooterComponent,
@@ -114,7 +118,9 @@ import { SearchByExperiencePipe } from 'src/search-by-experience.pipe';
     BarChartComponent,
     LineChartComponent,
     PieChartComponent,
-    ScatterChartComponent
+    ScatterChartComponent,
+    SidebarComponent,
+    // EditTagComponent
   ]
 })
 export class SharedComponentsModule { }

@@ -20,20 +20,24 @@ import { UserlistComponent } from "./admin/userlist/userlist.component";
 import { SupperAdminGuard } from "./_guards/supper-admin.guard";
 import { EmployerGuard } from "./_guards/employer.guard";
 import { AdminGuard } from "./_guards/admin.guard";
-import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
-import { CreatePostComponent } from "./blog/create-post/create-post.component";
-import { CreateCategoryComponent } from "./blog/create-category/create-category.component";
-import { EditCategoryComponent } from "./blog/edit-blog/edit-category/edit-category.component";
 import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
 import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
 import { SinglePageComponent } from "./blog/frontend/single-page/single-page.component";
-import { AllPostComponent } from "./blog/all-post/all-post.component";
-import { CreateImagePostComponent } from "./blog/create-image-post/create-image-post.component";
-import { EditBlogComponent } from "./blog/edit-blog/edit-blog.component";
+
+
 import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
 import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { VideoCallComponent } from './video-call/video-call.component';
+
+import { AllPostComponent } from "./blog/all-post/all-post.component";
+import { CreateImagePostComponent } from "./blog/create-image-post/create-image-post.component";
+import { EditBlogComponent } from "./blog/edit-blog/edit-blog.component";
+import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
+import { CreatePostComponent } from "./blog/create-post/create-post.component";
+import { CreateCategoryComponent } from "./blog/create-category/create-category.component";
+import { EditCategoryComponent } from "./blog/edit-blog/edit-category/edit-category.component";
+
 import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
 import { DashboardComponent } from './employer/dashboard/dashboard.component';
 import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
@@ -217,36 +221,41 @@ const appChildRoutes: Routes = [
   //   ],
   //   canActivate: [RecruiterGuard]
   // },
+  // {
+  //   path: "blog-posts",
+  //   component: BlogMainComponent,
+  //   children: [
+  //     {
+  //       path: "create-post",
+  //       component: CreatePostComponent
+  //     },
+  //     {
+  //       path: "edit-post/:blogID",
+  //       component: EditBlogComponent
+  //     },
+  //     {
+  //       path: "create-image-post",
+  //       component: CreateImagePostComponent
+  //     },
+  //     {
+  //       path: "all-post",
+  //       component: AllPostComponent
+  //     },
+  //     {
+  //       path: "create-categories",
+  //       component: CreateCategoryComponent
+  //     },
+  //     {
+  //       path: "edit-categories",
+  //       component: EditCategoryComponent
+  //     }
+  //   ],
+  //   canActivate: [AdminGuard]
+  // }
+
   {
     path: "blog-posts",
-    component: BlogMainComponent,
-    children: [
-      {
-        path: "create-post",
-        component: CreatePostComponent
-      },
-      {
-        path: "edit-post/:blogID",
-        component: EditBlogComponent
-      },
-      {
-        path: "create-image-post",
-        component: CreateImagePostComponent
-      },
-      {
-        path: "all-post",
-        component: AllPostComponent
-      },
-      {
-        path: "create-categories",
-        component: CreateCategoryComponent
-      },
-      {
-        path: "edit-categories",
-        component: EditCategoryComponent
-      }
-    ],
-    canActivate: [AdminGuard]
+    loadChildren: './blog/blog.module#BlogModule'
   },
   {
     path: "blog",
