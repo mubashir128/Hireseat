@@ -51,7 +51,7 @@ export class BiddingEventsListComponent implements OnInit {
           this.getJobProfileBidding(obj);
           this.hideAddBtn=false;
        }else if(this.chkLoggedInUser.userRole=="recruiter"){
-        this.route.params.subscribe(params => { this.handleRequest(params['type']); });        
+        this.route.params.subscribe(params => { this.handleRequest(params['type']); });
         this.hideAddBtn=true;     
        }
     }else{
@@ -85,18 +85,22 @@ export class BiddingEventsListComponent implements OnInit {
     var expiryDate_input = jQuery('#expiryDate').pickadate();
     var expiryDate_picker = expiryDate_input.pickadate('picker');
 
-    activationDate_picker.set('select', new Date());
-    expiryDate_picker.set('select', new Date());
-
-    a.startDate=new Date(activationDate_picker.get('select').pick).getTime();
-    a.endDate=new Date(expiryDate_picker.get('select').pick).getTime();
-
     activationDate_picker.on({
       
       set: function () {
         let temp: Date = new Date(activationDate_picker.get('select').pick);
         a.startDate=temp.getTime();
-        if( !(temp.getTime() <= a.endDate)){
+        if(a.endDate === undefined){
+          this.searchTerm=true;
+          let obj={
+            dateSearch : true,
+            startDate : (a.startDate / 1000),
+            itemsPerPage : a.itemsPerPage,
+            type : a.jobProfileType === "public" ? false : true
+          }
+          a.getJobProfileBidding(obj);
+          a.resetValues();
+        }else if( !(temp.getTime() <= a.endDate)){
           Materialize.toast('Activation date should not be greater than Expiry date.', 4000);
           activationDate_picker.set('select', new Date());
         }else{
@@ -104,7 +108,7 @@ export class BiddingEventsListComponent implements OnInit {
           let obj={
             dateSearch : true,
             startDate : (a.startDate / 1000),
-            endDate : (a.endDate / 1000),
+            endDate : (a.endDate / 1000) + (12 * 60 * 60),
             itemsPerPage : a.itemsPerPage,
             type : a.jobProfileType === "public" ? false : true
           }
@@ -120,7 +124,17 @@ export class BiddingEventsListComponent implements OnInit {
       set: function () {
         let temp: Date = new Date(expiryDate_picker.get('select').pick);
         a.endDate=temp.getTime();
-        if( !(temp.getTime() >= a.startDate)){
+        if(a.startDate === undefined){
+          this.searchTerm=true;
+          let obj={
+            dateSearch : true,
+            endDate : (a.endDate / 1000) + (12 * 60 * 60),
+            itemsPerPage : a.itemsPerPage,
+            type : a.jobProfileType === "public" ? false : true
+          }
+          a.getJobProfileBidding(obj);
+          a.resetValues();
+        }else if( !(temp.getTime() >= a.startDate)){
           Materialize.toast('Expiry date should be greater than Activation Date.', 4000);
           expiryDate_picker.set('select', new Date());
         }else{
@@ -128,7 +142,7 @@ export class BiddingEventsListComponent implements OnInit {
           let obj={
             dateSearch : true,
             startDate : (a.startDate / 1000),
-            endDate : (a.endDate / 1000),
+            endDate : (a.endDate / 1000) + (12 * 60 * 60),
             itemsPerPage : a.itemsPerPage,
             type : a.jobProfileType === "public" ? false : true
           }
