@@ -136,7 +136,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('hgvgv');
+    // console.log('hgvgv');
 
     jQuery('.modal').modal();
     this.candidateInvitationLink = true;
@@ -163,13 +163,11 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
           this.candidateInfo = res.isCandidate;
           this.opentokService.setCandidateId(this.candidateId);
-          // console.log(this.candidateInfo);
 
         });
       } else if (this.userRole === 'recruiter') {
 
         this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
-        // console.log('candidateId', this.candidateId);
         this.isRecruiter = true;
         // getting candidates resume by Id
         const payload = {
@@ -178,23 +176,23 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
           this.candidateInfo = res.isCandidate;
           this.opentokService.setCandidateId(this.candidateId);
-          // console.log(this.candidateInfo);
-
         });
         // end resume candidate
       }
     }
     //
+    this.createOpenTokSession();
+  }
+  createOpenTokSession() {
+    console.log('createOpenTokSession');
+
     this.opentokService.initSessionAPI(this.candidateId).then((session: OT.Session) => {
       this.spinner.show();
       this.session = session;
-      // console.log('session', this.session.sessionId);
       this.startArchiveButton = true;
 
       this.session.on('streamCreated', (event) => {
         this.spinner.hide();
-        // console.log('event.stream', event.stream);
-        // this.streamId = event.stream.streamId;
         this.opentokService.setStream(this.candidateId);
         this.streams.push(event.stream);
         this.changeDetectorRef.detectChanges();
@@ -202,24 +200,20 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.session.on('streamDestroyed', (event) => {
         const idx = this.streams.indexOf(event.stream);
         if (idx > -1) {
-          // console.log('sessionDisconnected', event);
           this.streams.splice(idx, 1);
           this.changeDetectorRef.detectChanges();
         }
       });
       this.session.on('sessionDisconnected', ((event) => {
-        // // console.log('sessionDisconnected', event);
 
         alert('The session disconnected. ' + event.reason);
       }));
 
       this.session.on('archiveStarted', (event) => {
-        // console.log('archiving started',event);
 
         this.archiveID = event.id;
-        // console.log('Archive started ' + this.archiveID);
-        $('#stop').show();
-        $('#start').hide();
+        // $('#stop').show();
+        // $('#start').hide();
         this.opentokService.setArchivingID(event.id);
         this.startArchiveButton = false;
         this.stopArchiveButton = true;
@@ -227,22 +221,18 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       });
 
       this.session.on('archiveStopped', (event) => {
-        // console.log(event);
 
         this.archiveID = event.id;
-        // console.log('Archive stopped ' + this.archiveID);
-        $('#start').hide();
-        $('#stop').hide();
-        $('#view').show();
+        // $('#start').hide();
+        // $('#stop').hide();
+        // $('#view').show();
 
         this.startArchiveButton = false;
         this.stopArchiveButton = false;
         this.viewArchiveButton = true;
       });
 
-      this.session.on('sessionDisconnected', (event) => {
-        // console.log('You were disconnected from the session.', event.reason);
-      });
+
 
     })
       .then(() => {
@@ -255,9 +245,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
         alert('Unable to connect.');
       });
-
   }
-
   // modal
   emailConfirmPopup(message, time) {
     // // // console.log("emailConfirmPopup");

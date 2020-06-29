@@ -28,6 +28,13 @@ import { inArrayPipe } from '../pipes/inArrayPipe';
 import { PdfViewerComponent } from 'src/app/recruiter/pdf-viewer/pdf-viewer.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BiddingEventItemComponent } from '../../bidding-event-item/bidding-event-item.component';
+import { LineChartComponent } from '../pipes/chart/line-chart/line-chart.component';
+import { PieChartComponent } from '../pipes/chart/pie-chart/pie-chart.component';
+import { BarChartComponent } from '../pipes/chart/bar-chart/bar-chart.component';
+import { ScatterChartComponent } from '../pipes/chart/scatter-chart/scatter-chart.component';
+import { SearchByNamePipe } from 'src/search-by-name.pipe';
+import { SearchByExperiencePipe } from 'src/search-by-experience.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -54,6 +61,8 @@ import { BiddingEventItemComponent } from '../../bidding-event-item/bidding-even
     SortPipe,
     SafePdfPipe,
     SearchPipe,
+    SearchByNamePipe,
+    SearchByExperiencePipe,
     // end of pipes
 
     PdfViewerComponent,
@@ -64,7 +73,13 @@ import { BiddingEventItemComponent } from '../../bidding-event-item/bidding-even
     ProfileComponent,
     NewResumeComponent,
     VideoInterviewRoomComponent,
-    BiddingEventItemComponent
+    BiddingEventItemComponent,
+
+    // 
+    BarChartComponent,
+    LineChartComponent,
+    PieChartComponent,
+    ScatterChartComponent
   ],
   exports: [
     FooterComponent,
@@ -82,6 +97,9 @@ import { BiddingEventItemComponent } from '../../bidding-event-item/bidding-even
     SortPipe,
     SafePdfPipe,
     SearchPipe,
+
+    SearchByNamePipe,
+    SearchByExperiencePipe,
     BiddingEventItemComponent,
     PdfViewerComponent,
     ResumeItemComponent,
@@ -90,7 +108,13 @@ import { BiddingEventItemComponent } from '../../bidding-event-item/bidding-even
     BiddingEventsListComponent,
     ProfileComponent,
     NewResumeComponent,
-    VideoInterviewRoomComponent
+    VideoInterviewRoomComponent,
+
+    //
+    BarChartComponent,
+    LineChartComponent,
+    PieChartComponent,
+    ScatterChartComponent
   ]
 })
 export class SharedComponentsModule { }

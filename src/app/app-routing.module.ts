@@ -5,21 +5,14 @@ import { CommonModule } from '@angular/common';
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { AuthGuard } from "./_guards/auth.guard";
-import { EmployerHomeComponent } from "./employer/employer-home/employer-home.component";
 import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
 import { ContactUsComponent } from "./contact-us/contact-us.component";
-import { JobProfileListComponent } from "./employer/job-profile-list/job-profile-list.component";
-import { CreateJobProfileComponent } from "./employer/create-job-profile/create-job-profile.component";
-import { CreateBiddingEventComponent } from "./employer/create-bidding-event/create-bidding-event.component";
-import { RecruiterHomeComponent } from "./recruiter/recruiter-home/recruiter-home.component";
-import { EditJobProfileComponent } from "./employer/edit-job-profile/edit-job-profile.component";
 import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
 import { RecruiterFeedbackComponent } from "./recruiter/recruiter-feedback/recruiter-feedback.component";
 import { EmailVerificationComponent } from "./email-verification/email-verification.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ForgotPasswordResetComponent } from "./forgot-password-reset/forgot-password-reset.component";
-import { FeedbackListComponent } from "./employer/feedback-list/feedback-list.component";
 import { FeedbackResumesComponent } from "./employer/feedback-resumes/feedback-resumes.component";
 
 import { UploadResumeComponent } from "./resume-bank/upload-resume/upload-resume.component";
@@ -39,11 +32,19 @@ import { CreateImagePostComponent } from "./blog/create-image-post/create-image-
 import { EditBlogComponent } from "./blog/edit-blog/edit-blog.component";
 import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
 import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
-import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
-import { DashboardComponent } from './employer/dashboard/dashboard.component';
-import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
 import { VideoCallComponent } from './video-call/video-call.component';
+import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
+import { DashboardComponent } from './employer/dashboard/dashboard.component';
+import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
+import { JobProfileListComponent } from "./employer/job-profile-list/job-profile-list.component";
+import { CreateJobProfileComponent } from "./employer/create-job-profile/create-job-profile.component";
+import { CreateBiddingEventComponent } from "./employer/create-bidding-event/create-bidding-event.component";
+import { RecruiterHomeComponent } from "./recruiter/recruiter-home/recruiter-home.component";
+import { EditJobProfileComponent } from "./employer/edit-job-profile/edit-job-profile.component";
+import { FeedbackListComponent } from "./employer/feedback-list/feedback-list.component";
+import { EmployerHomeComponent } from "./employer/employer-home/employer-home.component";
+
 
 import { BiddingEventsListComponent } from "./bidding-events-list/bidding-events-list.component";
 import { ProfileComponent } from "./profile/profile.component";
@@ -68,14 +69,14 @@ const appRoutes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
   {
-    path: "employer",
-    component: EmployerHomeComponent,
-    canActivate: [AuthGuard]
-  },
-  {
     path: "recruiter",
     loadChildren: './recruiter/recruiter.module#RecruiterModule',
     // component: RecruiterHomeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "employer",
+    loadChildren: './employer/employer.module#EmployerModule',
     canActivate: [AuthGuard]
   },
   {
@@ -116,61 +117,61 @@ const appRoutes: Routes = [
 ];
 
 const appChildRoutes: Routes = [
-  {
-    path: "employer",
-    component: EmployerHomeComponent,
-    children: [
-      {
-        path: "profile",
-        component: ProfileComponent
-      },
-      {
-        path: "job-profile-list",
-        component: JobProfileListComponent
-      },
-      {
-        path: "create-job-profile",
-        component: CreateJobProfileComponent
-      },
-      {
-        path: "bidding-event-list",
-        component: BiddingEventsListComponent
-      },
-      {
-        path: "create-bidding-event",
-        component: CreateBiddingEventComponent
-      },
-      {
-        path: "edit-job-profile",
-        component: EditJobProfileComponent
-      },
-      {
-        path: "feedback-list",
-        component: FeedbackListComponent
-      },
-      {
-        path: "employer-Answere/:id",
-        component: EmployeerAnsComponent
-      },
-      {
-        path: "dashboard",
-        component: DashboardComponent
-      },
-      {
-        path: "video-interview-room",
-        component: VideoInterviewRoomComponent
-      },
-      {
-        path: "mycandidates",
-        component: MycandidatesComponent
-      },
-      {
-        path: "new-resume",
-        component: NewResumeComponent
-      }
-    ],
-    canActivate: [EmployerGuard]
-  },
+  // {
+  //   path: "employer",
+  //   component: EmployerHomeComponent,
+  //   children: [
+  //     {
+  //       path: "profile",
+  //       component: ProfileComponent
+  //     },
+  //     {
+  //       path: "job-profile-list",
+  //       component: JobProfileListComponent
+  //     },
+  //     {
+  //       path: "create-job-profile",
+  //       component: CreateJobProfileComponent
+  //     },
+  //     {
+  //       path: "bidding-event-list",
+  //       component: BiddingEventsListComponent
+  //     },
+  //     {
+  //       path: "create-bidding-event",
+  //       component: CreateBiddingEventComponent
+  //     },
+  //     {
+  //       path: "edit-job-profile",
+  //       component: EditJobProfileComponent
+  //     },
+  //     {
+  //       path: "feedback-list",
+  //       component: FeedbackListComponent
+  //     },
+  //     {
+  //       path: "employer-Answere/:id",
+  //       component: EmployeerAnsComponent
+  //     },
+  //     {
+  //       path: "dashboard",
+  //       component: DashboardComponent
+  //     },
+  //     {
+  //       path: "video-interview-room",
+  //       component: VideoInterviewRoomComponent
+  //     },
+  //     {
+  //       path: "mycandidates",
+  //       component: MycandidatesComponent
+  //     },
+  //     {
+  //       path: "new-resume",
+  //       component: NewResumeComponent
+  //     }
+  //   ],
+  //   canActivate: [EmployerGuard]
+  // },
   // {
   //   path: "recruiter",
   //   component: RecruiterHomeComponent,
