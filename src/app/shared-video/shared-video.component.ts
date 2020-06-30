@@ -59,8 +59,13 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
           // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
           this.comments = this.resume.comments;
-          if (this.questionsByRecruiter.lenghth <= 0) {
-            this.isQuestion = false;
+          if (this.questionsByRecruiter === null) {
+
+            if (this.questionsByRecruiter.lenghth <= 0) {
+              this.isQuestion = false;
+              this.spinner.hide();
+
+            }
           }
           this.spinner.hide();
 
@@ -90,8 +95,13 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
             // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
             this.comments = this.resume.comments;
-            if (this.questionsByRecruiter.lenghth <= 0) {
-              this.isQuestion = false;
+            if (this.questionsByRecruiter === null) {
+
+              if (this.questionsByRecruiter.lenghth <= 0) {
+                this.isQuestion = false;
+                this.spinner.hide();
+
+              }
             }
             this.spinner.hide();
 
@@ -99,8 +109,13 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
             this.isShareFromRecruiter = false;
             this.currentResume = res.bidData[0];
             this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
-            if (this.questionsByRecruiter.lenghth <= 0) {
-              this.isQuestion = false;
+            if (this.questionsByRecruiter === null) {
+
+              if (this.questionsByRecruiter.lenghth <= 0) {
+                this.isQuestion = false;
+                this.spinner.hide();
+
+              }
             }
             this.resume = this.currentResume.resumeKey;
             // console.log(this.resume);
