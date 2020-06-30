@@ -6,25 +6,25 @@
     </span>
   </a>
   <div class="card white" style="margin-top: 30px;">
-    <div style="padding: 20px; border-bottom: solid #e0e0e0 1px;">
+    <div class="disF"  style="padding: 20px; border-bottom: solid #e0e0e0 1px;">
       <div class="section-header">Edit Resume</div>
+      <div class="buttonsDiv">
+        <!-- <div class="button" (click)="questionsPopUp()">
+          Add Questions
+        </div> -->
+        <div class="btn-primary" (click)="questionConfirmPopup()">
+          <span>Add questions</span>
+        </div>
+        <div class="btn-secondary" *ngIf="!resume?.bookmark" (click)="bookmarkCandidate(true)">
+          <span>Bookmark</span>
+        </div>
+        <div class="btn-secondary" *ngIf="resume?.bookmark" (click)="bookmarkCandidate(false)">
+          <span>Bookmarked</span>
+        </div>
+      </div>
     </div>
     <form [formGroup]="editResumeFrm" (ngSubmit)="submit()" novalidate>
       <div style="width: 100%; margin-bottom: 0px;">
-        <div class="buttonsDiv">
-          <!-- <div class="button" (click)="questionsPopUp()">
-            Add Questions
-          </div> -->
-          <div class="btn-primary" (click)="questionConfirmPopup()">
-            <span>Add questions</span>
-          </div>
-          <div class="btn-secondary" *ngIf="!resume?.bookmark" (click)="bookmarkCandidate(true)">
-            <span>Bookmark</span>
-          </div>
-          <div class="btn-secondary" *ngIf="resume?.bookmark" (click)="bookmarkCandidate(false)">
-            <span>Bookmarked</span>
-          </div>
-        </div>
         <div class="editResumeupperDiv" *ngIf="videoURL">
           <div class="interviewVideoDiv stickyDiv">
             <div class="leftSideQuetion" *ngIf="questionsByRecruiter">
