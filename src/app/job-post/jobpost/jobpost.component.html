@@ -6,27 +6,16 @@
     Job Board
   </div>
   <div class="container">
-    <!-- <div class="row" style="margin: 0.5rem 0 1rem 0;">
-          <div class="col s12 ">
-              <div class="page-title headerDiv"> Contact Us </div>
-          </div>
-      </div> -->
+    <div class="row col s12">
+      <div class="skillInput">
+          <span>Note: Search by Name : </span>
+      </div>
+      <div class="inputDivMainN">
+      <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here..." #searchByName>
+      </div>
+    </div>
     <div class="row displayFlex">
-      <!-- <div class="col m4 s4 shadowCommon" *ngFor="let jobPosts of biddingEvents">
-            <h6><span>Job Title :</span>{{jobPosts.jobProfileKey.jobTitle}}</h6>
-            <p><span>Job description :</span>{{jobPosts.jobProfileKey.jobBrief}}</p>
-            <p><span>Education :</span>{{jobPosts.jobProfileKey.minEducation}}</p>
-            <p><span>Expected Experience :</span> {{jobPosts.jobProfileKey.experienceFrom}} to {{jobPosts.jobProfileKey.experienceTo}} Years</p>
-            <p><span>Skills :</span>{{jobPosts.jobProfileKey.skills}}</p>
-            <div class="BtnDiv">
-                <button class="waves-effect waves-light btn marRigh10" (click)="select(jobPosts._id)" > view Detail </button>
-                <a [routerLink]="['/upload-resume']" class="waves-effect waves-light btn marRigh10">Add Resume</a>
-            </div>
-        </div> -->
-      <div
-        class="col l4 m6 s12 marUnset"
-        *ngFor="let jobPosts of biddingEvents"
-      >
+      <div class="col l4 m6 s12 marUnset" *ngFor="let jobPosts of biddingEvents | paginate: { itemsPerPage : itemsPerPage, currentPage: p }" >
         <div class="shadowCommon">
           <h6>{{ jobPosts.jobProfileKey.jobTitle }}</h6>
           <div class="skills">
@@ -35,13 +24,9 @@
               >{{ skill }}</span
             >
           </div>
-          <!-- <p>{{jobPosts.jobProfileKey.skills}}</p> -->
           <p
             [innerHtml]="truncateHTML(jobPosts.jobProfileKey.jobDescription)"
           ></p>
-          <!-- <p><span>Education :</span>{{jobPosts.jobProfileKey.minEducation}}</p>
-            <p><span>Expected Experience :</span> {{jobPosts.jobProfileKey.experienceFrom}} to {{jobPosts.jobProfileKey.experienceTo}} Years</p> -->
-
           <div class="BtnDiv">
             <div class="recruiter">
               <p>I am a Recruiter</p>
@@ -68,11 +53,10 @@
     </div>
   </div>
   <div class="text-center">
-    <button *ngIf="viewmore" class="btn publishBtn" (click)="getMoreData()">
-      Read More
-    </button>
+    <pagination-controls (pageChange)="handlePagination($event)"></pagination-controls>
   </div>
 </div>
+
 <div class="modal center-align formDivParent" id="ResuemFrm">
   <form [formGroup]="newResumeFrm" (ngSubmit)="submit()" novalidate>
     <div>
@@ -82,17 +66,6 @@
             <h3 class="jobpostModalHead">Upload Your Resume</h3>
           </div>
           <div class="paddDiv">
-            <!-- <div class="input-field disFlex col s12 m12 l12 " >
-                       <app-pdf-viewer style="top:0; left:0; right:0; bottom:0; height:100%; width:100%;" *ngIf="fileUploaded===2"
-                        [url]="downloadURL"></app-pdf-viewer>
-                      <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
-                        *ngIf="fileUploaded===0">
-                        <div>
-                          <span>Upload Resume</span>
-                          <input type="file" (change)="fileChange($event)">
-                        </div>
-                          </div>   
-                   </div>    -->
             <div class="input-field col s12 m12 l12 text-left">
               <div class="Bcolor">First Name*</div>
               <input

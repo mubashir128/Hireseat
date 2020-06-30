@@ -69,8 +69,8 @@ export class BiddingEventService {
       return res;
     }))
   }
-  getAllJobProfile(limit){
-    return this.http.get<IBiddingEvent[]>(this.baseurl+'api/getAllJobProfile/'+limit).pipe(map((res:IBiddingEvent[])=>{    
+  getAllJobProfile(obj){
+    return this.http.post<IBiddingEvent[]>(this.baseurl+'api/getAllJobProfile/',obj).pipe(map((res:IBiddingEvent[])=>{    
       return res;
     }))
   }
