@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
+// import { bufferCount, bufferTime, buffer } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shared-video',
@@ -22,11 +23,13 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   questionsByRecruiter: any;
   resume: any;
 
-  isTokenValid: boolean;
+  isTokenValid = false;
   isShareFromRecruiter: boolean;
   isQuestion: boolean;
   comments: any;
   showError = false;
+  buff: any;
+  isbufferLoader = false;
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
@@ -143,8 +146,12 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
       this.player = videojs(this.target.nativeElement, {
         autoplay: true,
-        controlls: true
+        controlls: true,
       }, () => {
+        // console.log(bufferCount);
+        this.buff = this.target.nativeElement.buffered.start(0) - this.target.nativeElement.buffered.end(0);
+        console.log(this.buff);
+
         this.spinner.hide();
 
         // console.log('onPlayerReady', this);
@@ -153,6 +160,9 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
         this.spinner.hide();
 
       });
+
+      console.log(this.player.onwaiting());
+
     } else {
       // console.log('token is not valid');
       this.spinner.hide();
@@ -163,15 +173,25 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   setCurrentTime(seconds, questionNumber) {
     this.questionNumber = questionNumber;
     // console.log(this.questionNumber);
-    this.spinner.show();
+    this.isbufferLoader = true;
+    // this.spinner.show();
 
     try {
+      this.buff = this.target.nativeElement.buffered.end(0) - this.target.nativeElement.buffered.start(0);
+      // console.log(this.buff);
       this.target.nativeElement.currentTime = seconds;
-      this.spinner.hide();
+      this.target.nativeElement.autoplay = true;
+      setTimeout(() => {
+
+        // this.spinner.hide();
+        // console.log('buffer time');
+        this.isbufferLoader = false;
+
+      }, this.buff);
 
     } catch (e) {
       // console.log(e);
-      this.spinner.hide();
+      // this.spinner.hide();
 
     }
   }

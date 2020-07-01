@@ -1,6 +1,6 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-@import '~video.js/dist/video-js.css';
+@import "~video.js/dist/video-js.css";
 
 .mainPageBg {
   width: 100%;
@@ -347,4 +347,17 @@ nav.customeNav {
   100% {
     transform: rotate(360deg);
   }
+}
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+  display: block;
+}
+.vjs-waiting {
+  visibility: hidden;
+  background: transparent;
+}
+.vjs-loading-spinner {
+  display: none !important;
+}
+.bg {
+  background-color: black;
 }
