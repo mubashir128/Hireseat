@@ -1004,6 +1004,16 @@ ng2-dropdown-menu.dropdown {
   float: left;
   position: relative;
 }
+.searchDiv ng2-completer{
+  width: 100%;
+}
+.searchDiv ng2-completer .completer-holder input{
+  border: 1px solid #ddd;
+  height: 40px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
 .searchDiv .fa{
   position: absolute;
   top: 10px;

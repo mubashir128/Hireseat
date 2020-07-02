@@ -36,7 +36,7 @@
   .tableDiv {
     width: 100%;
     overflow-x: auto;
-    padding: 3px 10px;
+    /* padding: 3px 10px; */
 }
   /* On mouse-over, add a grey background color */
   .checkboxL:hover input ~ .checkmarkC {
@@ -72,21 +72,33 @@
     transform: rotate(45deg);
   }
     /*=================== checkbox btn css end =============*/
+  .formDiv{
+    width: 100%;
+  }
 	.searchDiv {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    margin: 15px 0;
+    /* justify-content: flex-end; */
+    margin: 15px 0 30px;
 }
 .serchInput {
-    border: 1px solid #ddd !important;
+    /* border: 1px solid #ddd !important;
     height: 30px !important;
     width: 200px !important;
     margin: 0 5px !important;
     padding: 0px 5px !important;
-	display: block;
+  display: block; */
 }
-.commonBtn {
+.searchDiv input[type="text"] {
+  border: 1px solid #cccccc!important;
+  border-radius: 0 !important;
+  padding: 0 10px !important;
+  box-sizing: border-box !important;
+  color: #333333;
+  height: 40px !important;
+  margin: 0 !important;
+}
+/* .commonBtn {
     border: 1px solid #ddd;
     color: #000 !important;
     height: 32px;
@@ -94,6 +106,16 @@
     background-color: #f7f7f7;
     line-height: 1;
     padding: 0 20px;
+} */
+.commonBtn {
+  border: 1px solid #03a9f4;
+  color: #fff !important;
+  height: 40px;
+  min-width: 150px;
+  font-size: 14px;
+  background-color: #03a9f4;
+  padding: 5px 10px;
+  /* border-radius: 30px; */
 }
 .catogoryMain {
     display: flex;
@@ -111,8 +133,11 @@
 .table-striped{
 	border: 1px solid #ddd;
 }
-.table-striped tr:nth-child(odd) { 
+/* .table-striped tr:nth-child(odd) { 
 	background-color:#f7f7f7 
+} */
+.table-striped>tbody>tr:nth-of-type(odd){
+  background-color: #f7f7f7;
 }
 .deleteLink {
     color: red;
@@ -135,11 +160,11 @@
 }
 
 .msgBox{
-  max-height: 20%;
+  /* max-height: 20%; */
   width: 20%;
   top: 30% !important;
   overflow: hidden;
-  padding: 20px;
+  /* padding: 20px; */
 
 }
 .paddB20{
@@ -151,13 +176,16 @@
   text-align: center;
   overflow: hidden;
   color: #6a6a6a;
+  margin-bottom: 0;
 }
-.msgHead{
-  /* margin-top: 20px; */
+.msgHead {
   text-align: center;
   color: #33aaff;
   font-weight: 700;
   font-size: 25px;
+  margin: 0;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e1e1e1;
 }
 .msgContain{
   padding: 1px !important;
@@ -177,23 +205,25 @@
   width: 34%;
   top: 20% !important;
   overflow: hidden;
-  padding: 20px !important;
+  /* padding: 20px !important; */
 }
 .searchDivN{
     justify-content: center;
+    margin: 0;
 }
 .searchDivN input.serchInput {
-    min-width: 450px;
+    /* min-width: 450px; */
+    width: 70%;
 }
 .searchDivN label {
-    font-size: 20px;
-    color: #000;
-    font-weight: 500;
-    margin-right: 20px;
+  font-size: 17px;
+  color: #747474;
+  margin-bottom: 10px;
+  /* font-weight: 600; */
 }
 .searchDivN .commonbt {
     min-width: 150px;
-    margin: 20px 10px;
+    /* margin: 20px 10px; */
 }
 .saveBtn{
     background-color: #33AAFF;
@@ -205,15 +235,17 @@
 }
 .modal.modal-fixed-footer.updatePopup {
     padding: 0;
-    height: 250px;
+    /* height: 250px; */
+    height: auto;
 }
-.updatePopup hr {
+/* .updatePopup hr {
     box-sizing: content-box;
     height: 0.5px;
-    background-color: #33aaff !important;
+    background-color: #e1e1e1 !important;
     color: #33aaff !important;
     border: none;
-}
+    margin: 0;
+} */
 .disUnset{
   display: unset;
 }
@@ -225,9 +257,9 @@
   max-height: unset;
   overflow-y: unset !important;
 }
-.categoryDiv{
+/* .categoryDiv{
   padding-top: 20px;
-}
+} */
 .modal.modal-fixed-footer .modal-footer {
   left: 0;
   bottom: 8px !important;
@@ -238,6 +270,43 @@ h4.pageheading{
 .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-flat {
   width: 100%;
 }
+
+/* New css */
+.ctagoryPagemain {
+  background-color: #fff;
+  padding: 1px 30px;
+  margin-top: 7px;
+  box-shadow: 0 0 10px #99999924 !important;
+}
+
+/* Modal css New */
+.modal-content.terms.msgContain {
+  width: 100%;
+  float: left;
+  padding: 20px !important;
+}
+.btnDiv{
+  margin: 30px 0 10px;
+}
+.marR10{
+  margin-right: 10px;
+}
+.cancelBtn.btn{
+  background-color: #969696 !important;
+}
+.adminPop .popLabel{
+width: 30%;
+}
+.deltPopup{
+  height: auto;
+}
+.footerPadd{
+  padding: 10px 15px 15px 15px;
+  position: unset !important;
+  float: left;
+  height: auto;
+}
+
 /*==================================== responsive css start  =================================*/
 /*================================ i-pad responsive css start  ===============================*/
 

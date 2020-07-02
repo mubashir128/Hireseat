@@ -38,6 +38,18 @@
 .video-interview {
   width: 60%;
   height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.playPause {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+}
+.playPause img{
+  width: 100%;
 }
 .video-js {
   width: 100% !important;

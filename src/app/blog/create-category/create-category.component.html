@@ -15,6 +15,7 @@
               class="serchInput"
               formControlName="categoryName"
               (input)="resetCategories()"
+              placeholder="Search here"
             />
             <button
               type="submit"
@@ -72,13 +73,13 @@
 
 <!-- confirm delete popup -->
 
-<div id="deleteConfirm" class="modal modal-fixed-footer custFooterModal msgBox">
+<div id="deleteConfirm" class="modal modal-fixed-footer custFooterModal msgBox deltPopup">
   <h4 class="msgHead paddB20">Delete</h4>
   <div class="modal-content terms msgContain">
     <!-- <h4 class="regMSG" >Thank you for registering!</h4>  -->
     <h4 class="regMSG">Want to delete category ?</h4>
   </div>
-  <div class="modal-footer disFlex">
+  <div class="modal-footer footerPadd">
     <div class="col s4 m6 l6 text-center marL0">
       <button
         class="modal-close  waves-effect waves-light btn "
@@ -107,7 +108,8 @@
   class="modal modal-fixed-footer custFooterModal updatePopup"
 >
   <h4 class="msgHead">Edit Category</h4>
-  <hr />
+  <!-- <i class="fa fa-times" aria-hidden="true"></i> -->
+  <!-- <hr /> -->
   <div class="modal-content terms msgContain">
     <!-- <h4 class="regMSG" >Thank you for registering!</h4>  -->
     <form
@@ -115,8 +117,8 @@
       (ngSubmit)="editCategory()"
       class="categoryDiv"
     >
-      <div class="searchDiv searchDivN disUnset">
-        <label>Category Name</label>
+      <div class="searchDiv searchDivN adminPop">
+        <label class="popLabel">Category Name :</label>
         <input
           id="catname"
           type="text"
@@ -130,14 +132,14 @@
       <div class="btnDiv searchDiv searchDivN">
         <button
           type="submit"
-          class="saveBtn commonbt waves-effect waves-light btn"
+          class="saveBtn commonbt waves-effect waves-light btn marR10"
         >
           Save
         </button>
         <input
           type="button"
           (click)="closePopup()"
-          class="cancelBtn commonbt  waves-effect waves-light btn"
+          class="cancelBtn commonbt  waves-effect waves-light btn "
           value="Cancel"
         />
       </div>
