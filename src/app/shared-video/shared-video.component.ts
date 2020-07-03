@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
+// import { bufferCount, bufferTime, buffer } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shared-video',
@@ -22,11 +23,15 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   questionsByRecruiter: any;
   resume: any;
 
-  isTokenValid: boolean;
+  isTokenValid = false;
   isShareFromRecruiter: boolean;
   isQuestion: boolean;
   comments: any;
   showError = false;
+  buff: any;
+  isbufferLoader = false;
+  timeNow: number;
+  myVideo = document.getElementById("myVideo");
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
@@ -59,8 +64,13 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
           // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
           this.comments = this.resume.comments;
-          if (this.questionsByRecruiter.lenghth <= 0) {
-            this.isQuestion = false;
+          if (this.questionsByRecruiter === null) {
+
+            if (this.questionsByRecruiter.lenghth <= 0) {
+              this.isQuestion = false;
+              this.spinner.hide();
+
+            }
           }
           this.spinner.hide();
 
@@ -90,8 +100,13 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
             // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
             this.comments = this.resume.comments;
-            if (this.questionsByRecruiter.lenghth <= 0) {
-              this.isQuestion = false;
+            if (this.questionsByRecruiter === null) {
+
+              if (this.questionsByRecruiter.lenghth <= 0) {
+                this.isQuestion = false;
+                this.spinner.hide();
+
+              }
             }
             this.spinner.hide();
 
@@ -99,8 +114,13 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
             this.isShareFromRecruiter = false;
             this.currentResume = res.bidData[0];
             this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
-            if (this.questionsByRecruiter.lenghth <= 0) {
-              this.isQuestion = false;
+            if (this.questionsByRecruiter === null) {
+
+              if (this.questionsByRecruiter.lenghth <= 0) {
+                this.isQuestion = false;
+                this.spinner.hide();
+
+              }
             }
             this.resume = this.currentResume.resumeKey;
             // console.log(this.resume);
@@ -118,7 +138,10 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       });
     }
+    if (this.player) {
+      this.target.nativeElement.play();
 
+    }
   }
 
   ngAfterViewInit() {
@@ -127,17 +150,19 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
       this.spinner.show();
 
       this.player = videojs(this.target.nativeElement, {
-        autoplay: true,
-        controlls: true
-      }, () => {
+        "autoplay": true,
+        controlls: true,
+        preload: true,
+      }, function onPlayerReady() {
+        this.target.nativeElement.play();
         this.spinner.hide();
-
-        // console.log('onPlayerReady', this);
+        console.log('onPlayerReady', this);
       }, err => {
-        // console.log('*************', err);
         this.spinner.hide();
 
       });
+      // console.log(this.player.onwaiting());
+
     } else {
       // console.log('token is not valid');
       this.spinner.hide();
@@ -147,16 +172,27 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   }
   setCurrentTime(seconds, questionNumber) {
     this.questionNumber = questionNumber;
-    // console.log(this.questionNumber);
+    this.target.nativeElement.loadingSpinner = true;
+    this.isbufferLoader = true;
     this.spinner.show();
-
+    this.timeNow = 0;
     try {
+      this.buff = this.target.nativeElement.buffered.end(0) - this.target.nativeElement.buffered.start(0);
       this.target.nativeElement.currentTime = seconds;
-      this.spinner.hide();
+      this.target.nativeElement.controlls = true;
+      this.target.nativeElement.autoplay = true;
+
+
+      // this.target.nativeElement.play();
+      setTimeout(() => {
+        this.spinner.hide();
+        this.target.nativeElement.loadingSpinner = false;
+      }, this.buff);
 
     } catch (e) {
-      // console.log(e);
+      console.log(e);
       this.spinner.hide();
+      this.isbufferLoader = false;
 
     }
   }

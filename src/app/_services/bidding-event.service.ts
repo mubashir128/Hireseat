@@ -58,8 +58,8 @@ export class BiddingEventService {
     })) 
   }
 
-  getBiddingEvents(){
-    return this.http.get<IBiddingEvent[]>(this.baseurl+'api/getBiddingEvents').pipe(map((res:IBiddingEvent[])=>{    
+  getBiddingEvents(obj){
+    return this.http.post<IBiddingEvent[]>(this.baseurl+'api/getBiddingEvents',obj).pipe(map((res:IBiddingEvent[])=>{    
       return res;
     }))
   }

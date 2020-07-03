@@ -15,7 +15,10 @@ declare var Materialize: any;
 @Component({
   selector: 'app-create-bidding-event',
   templateUrl: './create-bidding-event.component.html',
-  styleUrls: ['./create-bidding-event.component.css']
+  styleUrls: ['./create-bidding-event.component.css'],
+  host: {
+    '(document:click)': 'onClick($event)'
+  }
 })
 export class CreateBiddingEventComponent implements OnInit {
   biddingEvent: BiddingEvent;
@@ -32,7 +35,7 @@ export class CreateBiddingEventComponent implements OnInit {
   searchedRecruiters = [];
   finalRecruitersAre = [];
   selectedRecruiters = [];
-
+  
   @ViewChild('searchInputTerm') searchInputTerm : ElementRef;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
@@ -102,10 +105,12 @@ export class CreateBiddingEventComponent implements OnInit {
       set: function () {
         let temp: Date = new Date(activationDate_picker.get('select').pick);
         let current: Date = new Date();
+        console.log("---  create act: ",temp.getTime());
         if (temp.getFullYear() >= current.getFullYear() && temp.getMonth() >= current.getMonth() && temp.getDate() >= current.getDate()) {
           let expirydate: Date = new Date(a.biddingEvent.expiryDate * 1000);
           if (expirydate.getTime() > temp.getTime()) {
             a.biddingEvent.activationDate = temp.getTime() / 1000;
+            console.log("---  create act: ",a.biddingEvent.activationDate);
           } else {
             Materialize.toast('Activation date should not be greater than Expiry date.', 1000);
             activationDate_picker.set('select', new Date(a.biddingEvent.activationDate * 1000));
@@ -124,11 +129,13 @@ export class CreateBiddingEventComponent implements OnInit {
       set: function () {
         let temp: Date = new Date(expiryDate_picker.get('select').pick);
         let activateDate: Date = new Date(a.biddingEvent.activationDate * 1000);
+        console.log("---  create exp: ",temp.getTime());
         if (temp.getTime() > activateDate.getTime()) {
           let activationDate: Date = new Date(a.biddingEvent.activationDate * 1000);
           if (temp.getTime() > activationDate.getTime()) {
             a.biddingEvent.expiryDate = temp.getTime() / 1000;
             a.biddingEvent.expiryDate = a.biddingEvent.expiryDate + (12 * 60 * 60);
+            console.log("--- create exp: ",a.biddingEvent.expiryDate);
 
           } else {
             Materialize.toast('Activation date should not be greater than Expiry date.', 4000);
@@ -140,8 +147,6 @@ export class CreateBiddingEventComponent implements OnInit {
         }
       }
     });
-
-
   }
 
   ngAfterViewInit() {
@@ -153,7 +158,6 @@ export class CreateBiddingEventComponent implements OnInit {
       debounceTime(1000),
       distinctUntilChanged(),
       tap((text) => {
-
         this.getRecruiterList({
           searchTerm : this.searchTerm
         });
@@ -165,6 +169,7 @@ export class CreateBiddingEventComponent implements OnInit {
   getRecruiterList(obj){
     this.bidEventService.getRecruiterList(obj).subscribe(res=>{
       this.searchedRecruiters=res;
+      jQuery(".searchData").scrollTop(0);
     },err=>{
       console.log(err);
     });
@@ -182,6 +187,7 @@ export class CreateBiddingEventComponent implements OnInit {
   }
 
   handleTopSelected($event,type){
+    jQuery(".searchData").css("display","block");
     let obj = type === 'top' ? this.topRecruiters : this.searchedRecruiters;
     obj.map(item=>{
       if(item._id === $event.target.name){
@@ -204,6 +210,7 @@ export class CreateBiddingEventComponent implements OnInit {
   }
 
   handleSelected($event){
+    jQuery(".searchData").css("display","block");
     this.selectedRecruiters.map(item=>{
       if(item._id === $event.target.name){
           item.isChecked=false;
@@ -214,10 +221,6 @@ export class CreateBiddingEventComponent implements OnInit {
           }
       }
     });
-  }
-
-  handleGenderChange($event){
-    this.globalType=$event.target.value;
   }
 
   get f() { return this.auctionFrm.controls; }
@@ -279,10 +282,17 @@ export class CreateBiddingEventComponent implements OnInit {
 
  // Validation of reward Money 
   checkRewardMoney(group: FormGroup) {
-  let fromReward = group.controls.rewardMoneyFrom.value;
-  let toReward = group.controls.rewardMoneyTo.value;
-  return Number(fromReward) <= Number(toReward) ? null : { invalidReward: true }     
-}
+    let fromReward = group.controls.rewardMoneyFrom.value;
+    let toReward = group.controls.rewardMoneyTo.value;
+    return Number(fromReward) <= Number(toReward) ? null : { invalidReward: true }     
+  }
 
+  onClick(event) {
+    if (this.searchInputTerm !== undefined && this.searchInputTerm.nativeElement.contains(event.target)) {
+      jQuery(".searchData").css("display","block");
+    }else{
+      jQuery(".searchData").css("display","none");
+    } 
+  }
   
 }

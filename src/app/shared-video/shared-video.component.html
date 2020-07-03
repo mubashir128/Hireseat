@@ -49,8 +49,15 @@
           <!-- video js -->
           <div class="video-interview"
             [ngClass]="!resume?.questionsByRecruiter[0]? 'video-js-without-questions': false">
-            <video #target class="video-js" controls>
-              <source [src]="videoURL">
+            <!-- <div class="loader-container bg" *ngIf="isbufferLoader">
+              <div class="loader"></div>
+            </div> -->
+            <!-- <ng-container *ngIf="!isbufferLoader"> -->
+
+            <video id="myVideo" #target class="video-js" controls autoplay preload>
+              <source [src]="videoURL" type="video/mp4">
+              Your browser does not support the video tag.
+
             </video>
             <div class="playPause">
               <img src="./assets/img/play.png">

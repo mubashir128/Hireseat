@@ -532,3 +532,6 @@ and (max-width : 767px)  {
         right: 40px !important;
     }
 }
+.material-icons{
+    cursor:  pointer !important;
+}

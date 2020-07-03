@@ -12,24 +12,11 @@ import { UserService } from "./_services/user.service";
 import { AuthGuard } from "./_guards/auth.guard";
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { ErrorInterceptor } from "./_helpers/error.interceptor";
-import { EmployerHomeComponent } from "./employer/employer-home/employer-home.component";
-// import { EmployerNavbarComponent } from "./employer/employer-navbar/employer-navbar.component";
 import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
 import { ContactUsComponent } from "./contact-us/contact-us.component";
-// import { ProfileComponent } from "./profile/profile.component";
-import { JobProfileListComponent } from "./employer/job-profile-list/job-profile-list.component";
-import { CreateJobProfileComponent } from "./employer/create-job-profile/create-job-profile.component";
-import { BiddingEventsListComponent } from "./bidding-events-list/bidding-events-list.component";
-import { CreateBiddingEventComponent } from "./employer/create-bidding-event/create-bidding-event.component";
-import { RecruiterHomeComponent } from "./recruiter/recruiter-home/recruiter-home.component";
-import { EditJobProfileComponent } from "./employer/edit-job-profile/edit-job-profile.component";
+
 import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
 import { BiddingInfoComponent } from "./bidding-info/bidding-info.component";
-import { NewResumeComponent } from './recruiter/new-resume/new-resume.component';
-import { ResumeItemComponent } from "./recruiter/resume-item/resume-item.component";
-import { PdfViewerComponent } from "./recruiter/pdf-viewer/pdf-viewer.component";
-import { EditResumeComponent } from "./recruiter/edit-resume/edit-resume.component";
-import { BiddingEventItemComponent } from "./bidding-event-item/bidding-event-item.component";
 import { BidHighlightsComponent } from "./bid-highlights/bid-highlights.component";
 import { BiddingResumesComponent } from "./bidding-resumes/bidding-resumes.component";
 import { MyBidsComponent } from "./recruiter/my-bids/my-bids.component";
@@ -39,7 +26,6 @@ import { EmailVerificationComponent } from "./email-verification/email-verificat
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ForgotPasswordResetComponent } from "./forgot-password-reset/forgot-password-reset.component";
-import { FeedbackListComponent } from "./employer/feedback-list/feedback-list.component";
 import { FeedbackResumesComponent } from "./employer/feedback-resumes/feedback-resumes.component";
 import { RecruterBiddingInfoComponent } from "./recruter-bidding-info/recruter-bidding-info.component";
 import { BiddingInterviewInfoComponent } from "./bidding-interview-info/bidding-interview-info.component";
@@ -50,43 +36,22 @@ import { JobProfileInfoComponent } from "./job-profile-info/job-profile-info.com
 import { UploadResumeComponent } from "./resume-bank/upload-resume/upload-resume.component";
 import { UserlistComponent } from "./admin/userlist/userlist.component";
 import { CKEditorModule } from "ng2-ckeditor";
-import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
 import { BlogMaiComponent } from "./blog/blog-mai/blog-mai.component";
-import { CreatePostComponent } from "./blog/create-post/create-post.component";
 import { BlogNavComponent } from "./blog/blog-nav/blog-nav.component";
 import { EditorModule } from "@tinymce/tinymce-angular";
-import { CreateCategoryComponent } from "./blog/create-category/create-category.component";
-import { EditCategoryComponent } from "./blog/edit-blog/edit-category/edit-category.component";
+
 import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
 import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
 import { SinglePageComponent } from "./blog/frontend/single-page/single-page.component";
-import { AllPostComponent } from "./blog/all-post/all-post.component";
-import { SidebarComponent } from "./admin/sidebar/sidebar.component";
-import { CreateImagePostComponent } from "./blog/create-image-post/create-image-post.component";
-import { EditBlogComponent } from "./blog/edit-blog/edit-blog.component";
-import { EditTagComponent } from "./blog/edit-blog/edit-tag/edit-tag.component";
+// import { SidebarComponent } from "./admin/sidebar/sidebar.component";
+// import { EditTagComponent } from "./blog/edit-blog/edit-tag/edit-tag.component";
 import { SocialShareComponent } from "src/app/blog/frontend/single-page/social-share/social-share.component";
 import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
 import { Ng2CompleterModule } from "ng2-completer";
 import { Angular2CsvModule } from "angular2-csv";
 import { RecruiterComponent } from "./recruiter-cost/recruiter/recruiter.component";
 import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
-import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
-// import { inArrayPipe } from "./recruter-bidding-info/inArrayPipe";
-// import { LimitPipe } from "./../charlimit";
-// import { SortPipe } from "./shared/pipes/sort.pipe";
-// import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
-// import { SearchPipe } from '../search.pipe';
-import { DashboardComponent } from './employer/dashboard/dashboard.component';
-import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
-import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.component';
-import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
-import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
-import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
 import { OpentokService } from './_services/opentok.service';
-import { SearchByNamePipe } from '../search-by-name.pipe';
-import { SearchByExperiencePipe } from '../search-by-experience.pipe';
-import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -104,11 +69,57 @@ import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
 import { NgHighlightModule } from "ngx-text-highlight";
 import { SelectDropDownModule } from "ngx-select-dropdown";
 
+// import { SearchByNamePipe } from '../search-by-name.pipe';
+// import { SearchByExperiencePipe } from '../search-by-experience.pipe';
+// import { EmployerHomeComponent } from "./employer/employer-home/employer-home.component";
+// import { FeedbackListComponent } from "./employer/feedback-list/feedback-list.component";
+// import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
+// import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
+
+
 // import { RecruiterNavbarComponent } from "./recruiter/recruiter-navbar/recruiter-navbar.component";
 // import { ResumeListComponent } from "./recruiter/resume-list/resume-list.component";
 // import { WonBidsComponent } from "./recruiter/won-bids/won-bids.component";
 // import { SearchResumeComponent } from "./resume-bank/search-resume/search-resume.component";
 // import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-question/recruiter-question.component";
+
+
+// import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
+// import { inArrayPipe } from "./recruter-bidding-info/inArrayPipe";
+// import { LimitPipe } from "./../charlimit";
+// import { SortPipe } from "./shared/pipes/sort.pipe";
+// import { SafePdfPipe } from "./shared/pipes/safe-pdf.pipe";
+// import { SearchPipe } from '../search.pipe';
+// import { DashboardComponent } from './employer/dashboard/dashboard.component';
+// import { BarChartComponent } from './shared/pipes/chart/bar-chart/bar-chart.component';
+// import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.component';
+// import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
+// import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
+
+
+// import { JobProfileListComponent } from "./employer/job-profile-list/job-profile-list.component";
+// import { CreateJobProfileComponent } from "./employer/create-job-profile/create-job-profile.component";
+// import { CreateBiddingEventComponent } from "./employer/create-bidding-event/create-bidding-event.component";
+// import { EditJobProfileComponent } from "./employer/edit-job-profile/edit-job-profile.component";
+// import { NewResumeComponent } from './recruiter/new-resume/new-resume.component';
+// import { ResumeItemComponent } from "./recruiter/resume-item/resume-item.component";
+// import { PdfViewerComponent } from "./recruiter/pdf-viewer/pdf-viewer.component";
+// import { EditResumeComponent } from "./recruiter/edit-resume/edit-resume.component";
+// import { BiddingEventItemComponent } from "./bidding-event-item/bidding-event-item.component";
+// import { EmployerNavbarComponent } from "./employer/employer-navbar/employer-navbar.component";
+// import { ProfileComponent } from "./profile/profile.component";
+// import { BiddingEventsListComponent } from "./bidding-events-list/bidding-events-list.component";
+// import { RecruiterHomeComponent } from "./recruiter/recruiter-home/recruiter-home.component";
+
+
+// import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
+// import { CreatePostComponent } from "./blog/create-post/create-post.component";
+// import { CreateCategoryComponent } from "./blog/create-category/create-category.component";
+// import { EditCategoryComponent } from "./blog/edit-blog/edit-category/edit-category.component";
+// import { AllPostComponent } from "./blog/all-post/all-post.component";
+// import { CreateImagePostComponent } from "./blog/create-image-post/create-image-post.component";
+// import { EditBlogComponent } from "./blog/edit-blog/edit-blog.component";
+
 @NgModule({
   imports: [
     AppRoutingModule,
@@ -137,15 +148,10 @@ import { SelectDropDownModule } from "ngx-select-dropdown";
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    EmployerHomeComponent,
     // EmployerNavbarComponent,
     AuctionrulesComponent,
     ContactUsComponent,
-    JobProfileListComponent,
-    CreateJobProfileComponent,
-    CreateBiddingEventComponent,
     // RecruiterNavbarComponent,
-    EditJobProfileComponent,
     BiddingEventDetailsComponent,
     BiddingInfoComponent,
     BidHighlightsComponent,
@@ -170,7 +176,6 @@ import { SelectDropDownModule } from "ngx-select-dropdown";
     NotFoundComponent,
     ForgotPasswordComponent,
     ForgotPasswordResetComponent,
-    FeedbackListComponent,
     FeedbackResumesComponent,
     RecruterBiddingInfoComponent,
     BiddingInterviewInfoComponent,
@@ -180,42 +185,51 @@ import { SelectDropDownModule } from "ngx-select-dropdown";
     JobProfileInfoComponent,
     UploadResumeComponent,
     UserlistComponent,
-    BlogMainComponent,
     BlogMaiComponent,
-    CreatePostComponent,
     BlogNavComponent,
-    CreateCategoryComponent,
-    AllPostComponent,
-    EditCategoryComponent,
+    // BlogMainComponent,
+    // CreatePostComponent,
+    // CreateCategoryComponent,
+    // AllPostComponent,
+    // EditCategoryComponent,
+    // CreateImagePostComponent,
+    // EditBlogComponent,
+
+    // SidebarComponent,
+
+    // EditTagComponent,
+
     AllBlogsComponent,
     AllBlogCategoriesComponent,
     SinglePageComponent,
-    SidebarComponent,
-    CreateImagePostComponent,
-    EditBlogComponent,
-    EditTagComponent,
     SocialShareComponent,
     AllBlogTagComponent,
     RecruiterComponent,
 
     JobpostComponent,
-    EmployeerAnsComponent,
     // inArrayPipe,
     // SortPipe,
     // SafePdfPipe,
     // SearchPipe,
     // LimitPipe,
-    DashboardComponent,
-    BarChartComponent,
-    LineChartComponent,
-    PieChartComponent,
-    ScatterChartComponent,
-    SearchByNamePipe,
-    SearchByExperiencePipe,
-    MycandidatesComponent,
+    // BarChartComponent,
+    // LineChartComponent,
+    // PieChartComponent,
+    // ScatterChartComponent,
+    // SearchByNamePipe,
+    // SearchByExperiencePipe,
     VideoCallComponent,
     PublisherComponent,
     SubscriberComponent,
+    // EmployerHomeComponent,
+    // JobProfileListComponent,
+    // CreateJobProfileComponent,
+    // CreateBiddingEventComponent,
+    // EditJobProfileComponent,
+    // FeedbackListComponent,
+    // EmployeerAnsComponent,
+    // DashboardComponent,
+    // MycandidatesComponent,
 
   ],
   providers: [
