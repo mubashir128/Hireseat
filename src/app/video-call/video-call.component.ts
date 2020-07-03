@@ -19,7 +19,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-video-call',
   templateUrl: './video-call.component.html',
-  styleUrls: ['./video-call.component.css']
+  styleUrls: ['./video-call.component.css'],
+  providers: [OpentokService]
+
 })
 export class VideoCallComponent implements OnInit, OnDestroy {
   bookmarkSubscription: Subscription;
@@ -185,66 +187,70 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
   createOpenTokSession() {
     console.log('createOpenTokSession');
+    console.trace();
+    if (this.candidateId) {
 
-    this.opentokService.initSessionAPI(this.candidateId).then((session: OT.Session) => {
-      this.spinner.show();
-      this.session = session;
-      this.startArchiveButton = true;
-
-      this.session.on('streamCreated', (event) => {
-        this.spinner.hide();
-        this.opentokService.setStream(this.candidateId);
-        this.streams.push(event.stream);
-        this.changeDetectorRef.detectChanges();
-      });
-      this.session.on('streamDestroyed', (event) => {
-        const idx = this.streams.indexOf(event.stream);
-        if (idx > -1) {
-          this.streams.splice(idx, 1);
-          this.changeDetectorRef.detectChanges();
-        }
-      });
-      this.session.on('sessionDisconnected', ((event) => {
-
-        alert('The session disconnected. ' + event.reason);
-      }));
-
-      this.session.on('archiveStarted', (event) => {
-
-        this.archiveID = event.id;
-        // $('#stop').show();
-        // $('#start').hide();
-        this.opentokService.setArchivingID(event.id);
-        this.startArchiveButton = false;
-        this.stopArchiveButton = true;
-        this.viewArchiveButton = false;
-      });
-
-      this.session.on('archiveStopped', (event) => {
-
-        this.archiveID = event.id;
-        // $('#start').hide();
-        // $('#stop').hide();
-        // $('#view').show();
-
-        this.startArchiveButton = false;
-        this.stopArchiveButton = false;
-        this.viewArchiveButton = true;
-      });
-
-
-
-    })
-      .then(() => {
+      this.opentokService.initSessionAPI(this.candidateId).then((session: OT.Session) => {
         this.spinner.show();
-        this.opentokService.connect();
-      })
-      .catch((err) => {
-        console.error(err);
-        this.spinner.hide();
+        this.session = session;
+        this.startArchiveButton = true;
 
-        alert('Unable to connect.');
-      });
+        this.session.on('streamCreated', (event) => {
+          this.spinner.hide();
+          this.opentokService.setStream(this.candidateId);
+          this.streams.push(event.stream);
+          this.changeDetectorRef.detectChanges();
+        });
+        this.session.on('streamDestroyed', (event) => {
+          const idx = this.streams.indexOf(event.stream);
+          if (idx > -1) {
+            this.streams.splice(idx, 1);
+            this.changeDetectorRef.detectChanges();
+          }
+        });
+        this.session.on('sessionDisconnected', ((event) => {
+
+          alert('The session disconnected. ' + event.reason);
+        }));
+
+        this.session.on('archiveStarted', (event) => {
+
+          this.archiveID = event.id;
+          // $('#stop').show();
+          // $('#start').hide();
+          this.opentokService.setArchivingID(event.id);
+          this.startArchiveButton = false;
+          this.stopArchiveButton = true;
+          this.viewArchiveButton = false;
+        });
+
+        this.session.on('archiveStopped', (event) => {
+
+          this.archiveID = event.id;
+          // $('#start').hide();
+          // $('#stop').hide();
+          // $('#view').show();
+
+          this.startArchiveButton = false;
+          this.stopArchiveButton = false;
+          this.viewArchiveButton = true;
+        });
+
+
+
+      })
+        .then(() => {
+          this.spinner.show();
+          this.opentokService.connect();
+        })
+        .catch((err) => {
+          console.error('******', err);
+          this.spinner.hide();
+
+          alert('Unable to connect.');
+        });
+    }
+
   }
   // modal
   emailConfirmPopup(message, time) {
