@@ -21,7 +21,7 @@ export class WonBidsComponent implements OnInit {
   itemsList=[1];
   searchTerm;
   search=false;
-  itemsPerPage=1;
+  itemsPerPage=10;
   @ViewChild('searchByName') searchByName: ElementRef;
   public noWonBids:boolean=true;
 
