@@ -65,6 +65,14 @@
                 <div class="divider"></div>
 </li>
 </ul> -->
+<div class="row">
+  <div class="skillInput">
+      <span>Note: Search Candidate Name : </span>
+  </div>
+  <div class="inputDivMainN">
+  <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here..." #searchByName>
+  </div>
+</div>
 <div class="SelectedCandidateTable">
 <ul class="table-border">
     <li  style="cursor:pointer;">
@@ -77,7 +85,7 @@
             <!-- <div class="commonDiv bold">Add To Resume Repository</div> -->
         </div>
   </li>
-  <li class="resume-bank-item" *ngFor="let selectedresume of dataArr | paginate: { itemsPerPage: 10, currentPage: p }"  >  <!--*ngFor="let searchedresume of searchedResume | paginate: { itemsPerPage: 10, currentPage: p }"-->
+  <li class="resume-bank-item" *ngFor="let selectedresume of dataArr | paginate: { itemsPerPage: itemsPerPage, currentPage: p }" >
     <div class="parentCommonDF">
         
           <div class="commonDiv">
@@ -117,4 +125,4 @@
 </ul>
 </div>
   
-<pagination-controls (pageChange)="p = $event" ></pagination-controls>
+<pagination-controls (pageChange)="handlePagination($event)"></pagination-controls>
