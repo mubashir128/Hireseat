@@ -11,9 +11,11 @@
     align-items: center;
 }
 .createpostMainDiv {
-    min-height: calc(100vh - 123px);
+    /* min-height: calc(100vh - 123px); */
     background-color: #fff;
-    padding: 30px;
+    padding: 1px 30px;
+    margin-top: 7px;
+    box-shadow: 0 0 10px #99999924 !important;
 }
 .heading {
     font-size: 25px;
@@ -132,21 +134,28 @@ button.okBtn {
     margin-bottom: 20px;
     height: 45px;
     box-shadow: none;
-    background-color: #3af;
+    /* background-color: #3af; */
+    background-color: #3ab10a;
     color: #fff;
-    text-align: left;
+    text-align: center;
     padding: 0 20px;
     font-weight: 600;
+}
+.publishBtn:hover, .publishBtn:focus{
+  background-color: #329909 !important;
 }
 /* .customeText [type="radio"]:not(:checked), [type="radio"]:checked {
   
     opacity: 1;
+
+    
     pointer-events: none;
 } */
 input[type="checkbox"], input[type="radio"] {
   opacity: 1;
   position: unset;
   pointer-events: painted;
+  margin-right: 10px;
 }
 /*=================== radio btn css start =============*/
 .radioBtnL {
@@ -322,8 +331,9 @@ input[type="checkbox"], input[type="radio"] {
   background-color: #969696;
 }
 .uploadBtnDiv {
-  width: 120px;
+  /* width: 120px; */
   position: relative;
+  margin-top: 10px;
 }
 .uploadBtnDiv input {
   position: absolute;
@@ -347,6 +357,17 @@ img.UploadedImg{
   width: 100%;
   overflow-x: auto;
 }
+
+/* New Css */
+.addCateButton{
+  font-size: 13px;
+  line-height: 1;
+  padding: 0 10px;
+}
+.addCateButton.marR5{
+  margin-right: 5px;
+}
+
 /*================================ mobile responsive css start  ===============================*/
 
 @media only screen 

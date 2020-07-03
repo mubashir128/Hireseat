@@ -41,8 +41,12 @@
   .dropdown:hover .dropdown-content {display: block;}
   
   .BlogPostMain {
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     width: 100%;
     float: left;
     min-height: calc(100vh - 467px);
+}
+/* New admin css */
+.container.adminBlog{
+width: 85%;
 }

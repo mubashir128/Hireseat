@@ -1,18 +1,16 @@
 <app-navbar></app-navbar>
 <div class="row">
-  <div class="col m3 s12 l2 marT80">
+  <div class="container UserMainContainer">
+  <div class="col m4 s12 l3 marT80">
     <app-sidebar></app-sidebar>
   </div>
-  <div class="col m9">
-    <div
-      class="center-align  userListMobile"
-      style=" padding:50px 0px 50px 0px;"
-    >
+  <div class="col m8 s12 l9">
+    <div class="center-align  userListMobile">
       <div class="LogOutOption" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
         <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
         <a (click)="logoutSA()"> Logout </a>
       </div>
-      <span>Total Users ({{ UserList.length }})</span>
+      <h5 class="TotalCount">Total Users ({{ UserList.length }})</h5>
       <!-- <div class="tblScroll">
     <ul class="table-border">
         <li  style="cursor:pointer;">
@@ -72,6 +70,7 @@
       <pagination-controls (pageChange)="handlePaginator($event)" style="text-align: right;"></pagination-controls>
     </div>
   </div>
+</div>
 </div>
 
 <app-footer></app-footer>

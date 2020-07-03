@@ -178,11 +178,38 @@ ul.listTerm {
 }
 /*  this is for checkbox which is on registration's unread condiotions */
 [type="checkbox"] + label {
-  margin-right: 30px !important;
+  margin-right: 40px !important;
   padding-left: 0px !important;
 }
 .profile-image {
   object-fit: scale-down;
   width: 70px;
   height: 70px;
+}
+[type="checkbox"].filled-in:not(:checked)+label:after {
+  height: 17px;
+  width: 17px;
+  background-color: transparent;
+  border: 1.5px solid #7a7a7a;
+  top: 2px;
+  left: 13px;
+  z-index: 0;
+}
+[type="checkbox"].filled-in:checked+label:before{
+  top: 2px;
+  left: 14px;
+  width: 6px;
+  height: 10px;
+}
+[type="checkbox"][_ngcontent-c2]:checked + label[_ngcontent-c2]:before {
+  border-right: 2px solid #ffffff !important;
+  border-bottom: 2px solid #ffffff !important;
+}
+[type="checkbox"].filled-in:checked+label:after {
+  top: 2px;
+  left: 12px;
+  width: 17px;
+  height: 17px;
+  border: 2px solid #0aafff;
+  background-color: #0aafff;
 }

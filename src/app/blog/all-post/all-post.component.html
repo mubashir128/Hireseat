@@ -4,10 +4,10 @@
   <div class="row">
     <div class="col m12">
       <div class="catogoryMain">
-        <form [formGroup]="blogSearchForm" (ngSubmit)="seachBlog('')">
+        <form [formGroup]="blogSearchForm" (ngSubmit)="seachBlog('')" class="SerchForm">
           <div class="searchDiv">
             <ng2-completer class="serchInput" formControlName="category" [datasource]="dataService"
-              [minSearchLength]="0"></ng2-completer>
+              [minSearchLength]="0" placeholder="Search here"></ng2-completer>
             <!-- <input type="text" class="serchInput"> -->
             <button class="commonBtn">Search Catagory</button>
           </div>
@@ -54,19 +54,19 @@
 
 <!-- confirm delete popup -->
 
-<div id="deleteConfirm" class="modal modal-fixed-footer custFooterModal msgBox">
+<div id="deleteConfirm" class="modal modal-fixed-footer custFooterModal msgBox heightAut">
   <h4 class="msgHead">Delete</h4>
   <div class="modal-content terms msgContain">
     <!-- <h4 class="regMSG" >Thank you for registering!</h4>  -->
     <h4 class="regMSG">Want to delete category ?</h4>
   </div>
-  <div class="modal-footer">
-    <div class="col s6 m6 l6 text-center">
+  <div class="modal-footer footerPadd">
+    <div class=" text-center yesNoBtn">
       <button class="modal-close  waves-effect waves-light btn " (click)="removeBlog()">
         Yes
       </button>
     </div>
-    <div class="col s6 m6 l6 text-center">
+    <div class=" text-center">
       <button class="modal-close  waves-effect waves-light btn " (click)="closePopup()">
         No
       </button>

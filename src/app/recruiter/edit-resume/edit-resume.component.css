@@ -87,7 +87,7 @@
   height: 200px !important;
 }
 .resumePreview {
-  padding: 15px;
+  padding: 0 15px;
 }
 .resumePriviewDiv .uploadBtn {
   display: table-cell;
@@ -102,7 +102,7 @@
 .editResumeupperDiv {
   width: 100%;
   height: 220px;
-  padding: 0 15px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
 }
@@ -149,7 +149,7 @@
 
 /* UPPER BTNS */
 .buttonsDiv {
-  padding: 15px;
+  /* padding: 15px; */
   text-align: right;
   display: flex;
   justify-content: flex-end;
@@ -633,6 +633,11 @@ iframe.interviewVideo {
 .interviewQue {
   height: 100%;
   overflow-y: auto;
+}
+.disF{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 /* Quetion hover */
 /* .QuestionInner{

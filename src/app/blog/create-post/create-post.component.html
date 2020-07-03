@@ -5,7 +5,7 @@
         <h4 class="heading">Add New video Post</h4>
       </div>
       <div class="clearfix"></div>
-      <div class="col m12 s12 l9">
+      <div class="col m12 s12 l8">
         <div class="inputDiv">
           <!-- <input type="text" class="titleEnter" placeholder="Enter title here" name ="" [(ngModel)] ='blogUrl'  (ngModelChange)="blogUrl = unmask($event)" [ngModelOptions]="{standalone: true}" > -->
           <input
@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <div class="col s12 m12 l3">
+      <div class="col s12 m12 l4">
         <button
           class="btn publishBtn"
           [disabled]="videouploading"
@@ -163,13 +163,13 @@
                     </select> -->
               <div class="btnDiv DiF">
                 <button
-                  class="waves-effect waves-light btn"
+                  class="waves-effect waves-light btn addCateButton marR5"
                   (click)="addNewCategory()"
                 >
                   Add New Catagory
                 </button>
                 <button
-                  class="waves-effect waves-light btn cancelBtn"
+                  class="waves-effect waves-light btn cancelBtn addCateButton"
                   (click)="Cancel()"
                 >
                   Cancel

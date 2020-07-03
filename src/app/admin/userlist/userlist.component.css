@@ -105,9 +105,12 @@
 .table-striped{
 	border: 1px solid #ddd;
 }
-.table-striped tr:nth-child(odd) { 
+/* .table-striped tr:nth-child(odd) { 
 	background-color:#f7f7f7 
-}
+} */
+.table-striped>tbody>tr:nth-of-type(odd){
+    background-color: #f7f7f7;
+  }
 .tableDiv td, .tableDiv th {
     padding: 15px 15px;
 }
@@ -140,4 +143,22 @@ and (max-width : 667px) {
         padding: 0;
     }
    
+}
+
+/* New css */
+.container.UserMainContainer{
+    width: 85%;
+    margin-top: 20px;
+}
+.userListMobile {
+    background-color: #ffffff;
+    margin-top: 7px;
+    padding: 20px 0px 30px 0px;
+    box-shadow: 0 0 10px #99999924 !important;
+}
+.TotalCount{
+    margin-bottom: 20px;
+    margin-top: 0;
+    color: #03a9f4;
+    font-size: 22px;
 }

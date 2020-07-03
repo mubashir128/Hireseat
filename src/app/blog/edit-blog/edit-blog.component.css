@@ -11,9 +11,10 @@
   align-items: center;
 }
 .createpostMainDiv {
-  min-height: calc(100vh - 123px);
+  /* min-height: calc(100vh - 123px); */
   background-color: #fff;
-  padding: 30px;
+  padding: 1px 30px;
+  margin-top: 7px;
 }
 .heading {
   font-size: 25px;
@@ -120,16 +121,20 @@ input[type="checkbox"], input[type="radio"] {
   margin: 10px 0 0 ;
 }
 .publishBtn {
-border: 1px solid #ddd;
-  width: 100%;
-  margin-bottom: 20px;
-  height: 45px;
-  box-shadow: none;
-  background-color: #3af;
-  color: #fff;
-  text-align: left;
-  padding: 0 20px;
-  font-weight: 600;
+	border: 1px solid #ddd;
+    width: 100%;
+    margin-bottom: 20px;
+    height: 45px;
+    box-shadow: none;
+    /* background-color: #3af; */
+    background-color: #3ab10a;
+    color: #fff;
+    text-align: center;
+    padding: 0 20px;
+    font-weight: 600;
+}
+.publishBtn:hover, .publishBtn:focus{
+  background-color: #329909 !important;
 }
 .imageUploadBtnDiv {
   display: flex;
