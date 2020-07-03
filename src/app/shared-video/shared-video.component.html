@@ -53,11 +53,15 @@
             </div> -->
             <!-- <ng-container *ngIf="!isbufferLoader"> -->
 
-            <video id="myVideo" #target class="video-js" controls autoplay preload>
-              <source [src]="videoURL" type="video/mp4">
-              Your browser does not support the video tag.
+            <!-- <video id="myVideo" name="media" #target class="video-js" controls autoplay preload>
+              <source src={{videoURL}} type="video/mp4">Your browser does not support the video.
+            </video> -->
 
-            </video>
+            <mat-video #vid [ngClass]="ngclass" [src]="videoURL" [autoplay]="autoPlay" [preload]="preload" [loop]="loop"
+              [fullscreen]="fullscreen" [download]="download" [quality]="quality" [keyboard]="keyboard" [color]="color"
+              [spinner]="spinnerType" [overlay]="overlay" [(muted)]="muted" [showFrameByFrame]="showFrameByFrame"
+              [(time)]="time">
+            </mat-video>
             <!-- </ng-container> -->
           </div>
         </div>

@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
-// import { bufferCount, bufferTime, buffer } from 'rxjs/operators';
+// import { MatVideoComponent } from 'mat-video/lib/video.component';
 
 @Component({
   selector: 'app-shared-video',
@@ -14,6 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class SharedVideoComponent implements OnInit, OnDestroy {
   @ViewChild('target') target: ElementRef;
+  @ViewChild('matVideo') matVideo: ElementRef;
   checkSharedTokenSubscription: Subscription;
   questionNumber: any;
   videoURL: any;
@@ -22,7 +23,22 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   currentResume: any;
   questionsByRecruiter: any;
   resume: any;
-
+  // mat 
+  ngclass = "mat-video-responsive";
+  time: any;
+  autoPlay = true;
+  preload = true;
+  loop = false;
+  quality = true;
+  download = true;
+  fullscreen = true;
+  playsinline = false;
+  showFrameByFrame = false;
+  keyboard = true;
+  color = "primary";
+  spinnerType = "spin";
+  overlay = null;
+  muted = true;
   isTokenValid = false;
   isShareFromRecruiter: boolean;
   isQuestion: boolean;
@@ -31,7 +47,6 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   buff: any;
   isbufferLoader = false;
   timeNow: number;
-  myVideo = document.getElementById("myVideo");
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
@@ -149,18 +164,19 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     if (this.videoURL && this.isTokenValid) {
       this.spinner.show();
 
-      this.player = videojs(this.target.nativeElement, {
-        "autoplay": true,
-        controlls: true,
-        preload: true,
-      }, function onPlayerReady() {
-        this.target.nativeElement.play();
-        this.spinner.hide();
-        console.log('onPlayerReady', this);
-      }, err => {
-        this.spinner.hide();
+      // this.player = videojs(this.target.nativeElement, {
+      //   "autoplay": true,
+      //   controlls: true,
+      //   preload: true,
+      //   currentTime: 10
+      // }, function onPlayerReady() {
+      //   this.target.nativeElement.play();
+      //   this.spinner.hide();
+      //   console.log('onPlayerReady', this);
+      // }, err => {
+      //   this.spinner.hide();
 
-      });
+      // });
       // console.log(this.player.onwaiting());
 
     } else {
@@ -172,22 +188,20 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   }
   setCurrentTime(seconds, questionNumber) {
     this.questionNumber = questionNumber;
-    this.target.nativeElement.loadingSpinner = true;
+    // this.target.nativeElement.loadingSpinner = true;
     this.isbufferLoader = true;
     this.spinner.show();
-    this.timeNow = 0;
     try {
-      this.buff = this.target.nativeElement.buffered.end(0) - this.target.nativeElement.buffered.start(0);
-      this.target.nativeElement.currentTime = seconds;
-      this.target.nativeElement.controlls = true;
-      this.target.nativeElement.autoplay = true;
-
-
+      this.time = seconds;
+      // this.buff = this.target.nativeElement.buffered.end(0) - this.target.nativeElement.buffered.start(0);
+      // this.target.nativeElement.currentTime = seconds;
+      // this.target.nativeElement.controlls = true;
+      // this.target.nativeElement.autoplay = true;
       // this.target.nativeElement.play();
-      setTimeout(() => {
-        this.spinner.hide();
-        this.target.nativeElement.loadingSpinner = false;
-      }, this.buff);
+      // setTimeout(() => {
+      this.spinner.hide();
+      //   // this.target.nativeElement.loadingSpinner = false;
+      // }, this.buff);
 
     } catch (e) {
       console.log(e);
