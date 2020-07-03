@@ -393,3 +393,11 @@ nav.customeNav {
 .vjs-paused.vjs-has-started .vjs-big-play-button {
   display: block;
 }
+/* mat video  */
+.controls .progress {
+  height: 3px !important;
+}
+.video-interview .progress {
+  background-color: #fff !important;
+  height: 3px !important;
+}

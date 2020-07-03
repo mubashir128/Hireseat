@@ -143,6 +143,7 @@ import { SelectDropDownModule } from "ngx-select-dropdown";
     NgHighlightModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     SharedComponentsModule,
+    // BrowserAnimationsModule
   ],
   declarations: [
     AppComponent,
