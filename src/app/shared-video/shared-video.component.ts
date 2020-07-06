@@ -44,6 +44,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   isQuestion: boolean;
   comments: any;
   showError = false;
+  showCustomLoader = false;
   buff: any;
   isbufferLoader = false;
   timeNow: number;
@@ -58,6 +59,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isTokenValid = false;
+    this.showCustomLoader = false;
     this.spinner.show();
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
     const isCandidate = this.token.split('@')[1];
@@ -73,6 +75,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
           this.isShareFromRecruiter = true;
           this.isTokenValid = true;
+          this.showCustomLoader = true;
           this.resume = res.resumeData[0];
           this.videoURL = res.videoUrl;
           this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
@@ -94,8 +97,11 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
       }, err => {
         // console.log(err, '***************************look up*********************');
         this.isTokenValid = false;
+        this.showCustomLoader = false;
         if (!this.isTokenValid) {
           this.showError = true;
+          this.showCustomLoader = true;
+
         }
         this.spinner.hide();
       });
@@ -104,11 +110,14 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
         this.spinner.show();
         // debugger
         if (res) {
+
           // console.log(res);
           if (res.from === 'recruiter') {
 
             this.isShareFromRecruiter = true;
             this.isTokenValid = true;
+            this.showCustomLoader = true;
+
             this.resume = res.resumeData[0];
             this.videoURL = res.videoUrl;
             this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
@@ -141,21 +150,24 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
             // console.log(this.resume);
             this.videoURL = res.videoUrl;
             this.isTokenValid = true;
+            this.showCustomLoader = true;
+
             this.spinner.hide();
           }
         }
       }, err => {
         // console.log(err, '***************************look up*********************');
         this.isTokenValid = false;
+        this.showCustomLoader = false;
         if (!this.isTokenValid) {
           this.showError = true;
+          this.showCustomLoader = true;
         }
         this.spinner.hide();
       });
     }
     if (this.player) {
       this.target.nativeElement.play();
-
     }
   }
 
