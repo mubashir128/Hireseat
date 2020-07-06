@@ -1125,7 +1125,10 @@ ng2-dropdown-menu.dropdown {
 .video-interview .mat-icon-button {
   margin-right: 10px;
 }
-.mat-slider-track-fill, .mat-slider-thumb{
+.video-interview .mat-slider-track-fill, .video-interview .mat-slider-thumb{
   background-color: #064c76;
+}
+.video-interview .mat-slider-progress-background{
+  left: 0;
 }
 /*end mat video */
