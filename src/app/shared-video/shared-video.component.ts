@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
-// import { MatVideoComponent } from 'mat-video/lib/video.component';
+// import { MatVideoComponent } from 'mat-video/app/video/video.component';
 
 @Component({
   selector: 'app-shared-video',
@@ -14,7 +14,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class SharedVideoComponent implements OnInit, OnDestroy {
   @ViewChild('target') target: ElementRef;
-  @ViewChild('matVideo') matVideo: ElementRef;
+  // @ViewChild('vid') matVideo: MatVideoComponent;
+  vid: HTMLVideoElement;
   checkSharedTokenSubscription: Subscription;
   questionNumber: any;
   videoURL: any;
@@ -35,8 +36,9 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   playsinline = false;
   showFrameByFrame = false;
   keyboard = true;
-  color = "primary";
+  color = "primary"; // accent, primary, warn
   spinnerType = "spin";
+  // hourglass , split-ring, dot , spin
   overlay = null;
   muted = true;
   isTokenValid = false;
@@ -169,6 +171,14 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     if (this.player) {
       this.target.nativeElement.play();
     }
+
+    // video mat 
+    // this.vid = this.matVideo.getVideoTag();
+
+    // Use Angular renderer or addEventListener to listen for standard HTML5 video events
+
+    // this.renderer.listen(this.video, 'ended', () => console.log('video ended'));
+    // this.vid.addEventListener('ended', (event) => console.log('video ended', event));
   }
 
   ngAfterViewInit() {
@@ -205,6 +215,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     this.spinner.show();
     try {
       this.time = seconds;
+      this.autoPlay = true;
       // this.buff = this.target.nativeElement.buffered.end(0) - this.target.nativeElement.buffered.start(0);
       // this.target.nativeElement.currentTime = seconds;
       // this.target.nativeElement.controlls = true;
