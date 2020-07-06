@@ -67,18 +67,20 @@ export class ProfileComponent implements OnInit {
 
   getUsersProfile(){
   
-    this.userService.getUserProfile(this.userService.getUserData().userRole).subscribe((data:any)=>{   
-              if(data != null && data != undefined &&  data != ""){
-                this.userProfile=data.res;
-              }else{
-                Materialize.toast('Something went wrong',1000)
-              }             
-              this.spinner.hide();
+    this.userService.getUserProfile(this.userService.getUserData().userRole).subscribe((data:any)=>{
+      if(data != null && data != undefined &&  data != ""){
+        this.userProfile=data.res;
+        this.imgURL = "data:image/jpeg;base64,"+data.res.imageData;
+      }else{
+        Materialize.toast('Something went wrong',1000)
+      }             
+      this.spinner.hide();
     },(error)=>{
       console.log(error);
       this.spinner.hide();
     });
 }
+
 preview(files) {
   if (files.length === 0)
     return;
@@ -93,22 +95,15 @@ preview(files) {
   var reader = new FileReader();
   this.imagePath = files;
   reader.readAsDataURL(files[0]); 
-  reader.onload = (_event) => { 
-    this.imgURL = reader.result; 
+  reader.onload = (_event) => {
+    this.imgURL = reader.result;
   }
-  console.log(this.imagePath[0]['File'])
-
-  console.log(this.filepath)
-  
-
 }
-onSubmit() {  
-  console.log(this.profilefrm.invalid);
-  console.log(this.profilefrm.errors);
-  console.log(this.userProfile);
+
+onSubmit() {
+
   if(this.userProfile){    
     this.spinner.show();
-    console.log(this.userProfile);
     this.userService.updateUserProfile(this.userProfile).subscribe((data:any)=>{          
      if(data.result === "OK"){
       this.loggedinUser=this.userService.getUser();    
@@ -126,21 +121,21 @@ onSubmit() {
         Materialize.toast('Something went wrong',1000)
       }
       this.spinner.hide();
-  },(error)=>{
-    console.log(error);
-    if(error === "Conflict"){
-      Materialize.toast('Email Id / Phone Number Already Registered !',1000)
-    }
-    this.spinner.hide();
-  });
+    },(error)=>{
+      console.log(error);
+      if(error === "Conflict"){
+        Materialize.toast('Email Id / Phone Number Already Registered !',1000)
+      }
+      this.spinner.hide();
+    });
   }else{
     this.spinner.hide();
     Materialize.toast('Add valid information !',1000)
-
-     return;
+    return;
   }
  
 }
+
 updateProfileImg(){
   const fd=new FormData();
   fd.append('file',this.imagePath[0],this.imagePath[0].name);
@@ -148,7 +143,7 @@ updateProfileImg(){
 
  
   this.userService.updateProfileImg(fd).subscribe(
-    (res)=>{console.log(res)
+    (res)=>{
       Materialize.toast(res.message, 1000);
     },
     (error)=>{console.log(error)}
@@ -163,25 +158,24 @@ showSummary(){
    this.PointsSummary.personalityLosePt=data.personalityLosePt;    
     this.getEarnreward();    
   },(error)=>{
-    console.log(error);
-    this.spinner.hide();
-  })
-  
-}
+      console.log(error);
+      this.spinner.hide();
+    });
+  }
 
-getEarnreward(){
-  this.userService.getEarnreward().subscribe((data)=>{
-    this.PointsSummary.skillsErn=data.skillsErn;
-    this.PointsSummary.personalityErn=data.personalityErn;
-    this.PointsSummary.experienceEarn=data.experienceEarn;
-    this.spinner.hide();
-     jQuery('#RewardModel').modal('open');
-  },(error)=>{
-    console.log(error);
-    this.spinner.hide();
-  })
-}
-gotoHome(){
-  this.router.navigate(['/recruiter/bidding-event-list']);
-}
+  getEarnreward(){
+    this.userService.getEarnreward().subscribe((data)=>{
+      this.PointsSummary.skillsErn=data.skillsErn;
+      this.PointsSummary.personalityErn=data.personalityErn;
+      this.PointsSummary.experienceEarn=data.experienceEarn;
+      this.spinner.hide();
+      jQuery('#RewardModel').modal('open');
+    },(error)=>{
+      console.log(error);
+      this.spinner.hide();
+    })
+  }
+  gotoHome(){
+    this.router.navigate(['/recruiter/bidding-event-list']);
+  }
 }
