@@ -17,7 +17,11 @@ export class RecruiterNavbarComponent implements OnInit {
   tabs1: Tab[];
   public userProfile: IProfile;
   public PointsSummary = new RewardSummary();
-  constructor(private router: Router, private spinner: NgxSpinnerService, private userService: UserService) {
+  constructor(
+    private router: Router,
+    private spinner: NgxSpinnerService,
+    private userService: UserService
+  ) {
     this.tabs1 = [];
     this.userProfile = new Profile();
     this.tabs1.push(new Tab('/recruiter/bidding-event-list', 'Job Postings', true));
