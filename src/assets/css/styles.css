@@ -1108,9 +1108,9 @@ ng2-dropdown-menu.dropdown {
   background-color: #0aafff1a;
 }
 /* mat video */
-.video-interview .videoplayer {
+/* .video-interview .videoplayer {
   background-color: #212121 !important;
-}
+} */
 .video-interview .progress {
   background-color: transparent !important;
   height: 34px !important;
