@@ -134,6 +134,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.archiveID = archiveID;
     });
     // end subscribing
+    this.createOpenTokSession();
 
   }
 
@@ -183,12 +184,13 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       }
     }
     //
-    this.createOpenTokSession();
+    // this.createOpenTokSession();
   }
   createOpenTokSession() {
-    console.log('createOpenTokSession');
     console.trace();
     if (this.candidateId) {
+      console.log(this.candidateId, 'createOpenTokSession');
+      console.log('type of', typeof (this.candidateId));
 
       this.opentokService.initSessionAPI(this.candidateId).then((session: OT.Session) => {
         this.spinner.show();
@@ -249,6 +251,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
           alert('Unable to connect.');
         });
+      console.log('After opentok service');
+
     }
 
   }
