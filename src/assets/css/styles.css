@@ -1108,8 +1108,24 @@ ng2-dropdown-menu.dropdown {
   background-color: #0aafff1a;
 }
 /* mat video */
+.video-interview .videoplayer {
+  background-color: #212121 !important;
+}
 .video-interview .progress {
-  background-color: #fff !important;
-  height: 3px !important;
+  background-color: transparent !important;
+  height: 34px !important;
+  margin-bottom: 0px !important;
+}
+.video-interview .mat-icon-button {
+  background-color: transparent;
+}
+.video-interview .mat-icon {
+  color: #b8b8b8;
+}
+.video-interview .mat-icon-button {
+  margin-right: 10px;
+}
+.mat-slider-track-fill, .mat-slider-thumb{
+  background-color: #064c76;
 }
 /*end mat video */
