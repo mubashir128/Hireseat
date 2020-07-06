@@ -125,6 +125,22 @@ img {
   box-shadow: 0 1px 0 0 #4CAF50;
 }
 
-.topMargin {
+/* .topMargin {
   margin-top: 0px;
+} */
+.postingForm {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-top: 8px;
+  box-shadow: 0 0 10px #9999993b;
+}
+.paddL0{
+  padding-left: 0;
+}
+.note {
+  color: #ccd1d3;
+  font-size: 14px;
+}
+.dropdown-content.width100Per{
+  width: 100%;
 }
