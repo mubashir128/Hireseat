@@ -70,7 +70,9 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserProfile(this.userService.getUserData().userRole).subscribe((data:any)=>{
       if(data != null && data != undefined &&  data != ""){
         this.userProfile=data.res;
-        this.imgURL = "data:image/jpeg;base64,"+data.res.imageData;
+        if(data.res.imageData !== ""){
+          this.imgURL = "data:image/jpeg;base64,"+data.res.imageData;
+        }
       }else{
         Materialize.toast('Something went wrong',1000)
       }             
