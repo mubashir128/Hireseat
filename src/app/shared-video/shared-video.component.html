@@ -63,11 +63,15 @@
             </div>
           -->
 
-              <mat-video #vid [ngClass]="ngclass" [src]="videoURL" [autoplay]="autoPlay" [preload]="preload"
+              <!-- <mat-video #vid [ngClass]="ngclass" [src]="videoURL" [autoplay]="autoPlay" [preload]="preload"
                 [loop]="loop" [fullscreen]="fullscreen" [quality]="quality" [keyboard]="keyboard" [color]="color"
                 [spinner]="spinnerType" [overlay]="overlay" [(muted)]="muted" [showFrameByFrame]="showFrameByFrame"
                 [(time)]="time">
-              </mat-video>
+              </mat-video> -->
+              <iframe id="myVideo" height="100%" width="100%" frameborder="0" marginwidth="0" marginheight="0"
+                allowfullscreen [src]="videoURL | safePdf">
+              </iframe>
+
               <!-- </ng-container> -->
             </div>
           </div>

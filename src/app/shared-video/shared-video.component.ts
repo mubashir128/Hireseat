@@ -15,6 +15,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class SharedVideoComponent implements OnInit, OnDestroy {
   @ViewChild('target') target: ElementRef;
   // @ViewChild('vid') matVideo: MatVideoComponent;
+  @ViewChild('myVideo') myVideo: ElementRef;
   vid: HTMLVideoElement;
   checkSharedTokenSubscription: Subscription;
   questionNumber: any;
@@ -40,7 +41,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   spinnerType = "spin";
   // hourglass , split-ring, dot , spin
   overlay = null;
-  muted = true;
+  muted = false;
   isTokenValid = false;
   isShareFromRecruiter: boolean;
   isQuestion: boolean;
