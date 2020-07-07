@@ -29,6 +29,7 @@ export class SearchResumeComponent implements OnInit {
   createdAt = null;
   onLoad = false;
   paginateMove=false;
+  skillsSetsAre=[];
   @ViewChild('searchByName') searchByName: ElementRef;
   @ViewChild('searchByMinExperence') searchByMinExperence: ElementRef;
   @ViewChild('searchByMaxExperence') searchByMaxExperence: ElementRef;
@@ -90,7 +91,8 @@ export class SearchResumeComponent implements OnInit {
         this.getResumesBySkills({
           searchTerm : this.SearchFrm.value.searchTerm,
           itemsPerPageAre : this.itemsPerPageAre,
-          searchType : "name"
+          searchType : "name",
+          skillsets : this.skillsSetsAre,
         });
         this.p=1;
         this.itemsArray=[1];
@@ -162,6 +164,7 @@ export class SearchResumeComponent implements OnInit {
       skillSets = null;
     }
 
+    this.skillsSetsAre=skillSets;
     this.getResumesBySkills({
       skillsets : skillSets,
       searchTerm : this.SearchFrm.value.searchTerm,
@@ -173,6 +176,7 @@ export class SearchResumeComponent implements OnInit {
     this.createdAt=null;
     this.searchedResume=[];
   }
+
   getResumesBySkills(obj) {
     this.resumeService.getResumeBySkillSets(obj).subscribe(
       (data: any) => {
@@ -237,7 +241,8 @@ export class SearchResumeComponent implements OnInit {
       min : this.SearchFrm.value.minSearchTerm,
       max : this.SearchFrm.value.maxSearchTerm,
       itemsPerPageAre : this.itemsPerPageAre,
-      searchType : "experience"
+      searchType : "experience",
+      skillsets : this.skillsSetsAre,
     };
     this.createdAt=null;
     this.getResumesBySkills(obj);
