@@ -1,7 +1,7 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Tab } from '../models/tab';
+import { EmployerTab } from '../models/employerTab';
 import { UserService } from 'src/app/_services/user.service';
 import { IProfile } from 'src/app/profile/model/user-profile';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,52 +16,24 @@ declare var Materialize: any;
 export class EmployerNavbarComponent implements OnInit {
   public userProfile: IProfile;
   public type: number = 0;
-  public tabs1: Tab[];
-  tabMenu: any;
+  tabMenu: EmployerTab[];
   constructor(
     private router: Router,
     private spinner: NgxSpinnerService,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private _subList : SubscriberslistService
-  ) {
+  ){
     const employerId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
     this.tabMenu = [
-      {
-        id: 1,
-        name: 'Dashboard',
-        path: '/employer/dashboard',
-        selected: true
-      },
-      {
-        id: 2,
-        name: 'Job Profiles',
-        path: '/employer/job-profile-list',
-        selected: false
-      },
-      {
-        id: 3,
-        name: 'Job Postings',
-        path: '/employer/bidding-event-list',
-        selected: false
-      },
-      {
-        id: 4,
-        name: 'Video Interview Room',
-        path: '/employer/video-interview-room',
-        selected: false
-      },
-      {
-        id: 5,
-        name: 'My Candidates',
-        path: '/employer/mycandidates',
-        selected: false
-      }
+      new EmployerTab(1,'Dashboard','/employer/dashboard',true),
+      new EmployerTab(2,'Job Profiles','/employer/job-profile-list',false),
+      new EmployerTab(3,'Job Postings','/employer/bidding-event-list',false),
+      new EmployerTab(4,'Video Interview Room','/employer/video-interview-room',false),
+      new EmployerTab(5,'My Candidates','/employer/mycandidates',false
+      )
     ];
-    // this.tabs1 = [];
-    // this.tabs1.push(new Tab('/employer/job-profile-list', 'Job Profiles', true));
-    // this.tabs1.push(new Tab('/employer/bidding-event-list', 'Job Postings', false));
-    /*  this.tabs1.push(new Tab('/employer/feedback-list', 'Active Job Postings Feedback',false)); */
+
   }
 
   ngOnInit() {
@@ -82,10 +54,10 @@ export class EmployerNavbarComponent implements OnInit {
   handleActiveList(obj){
     this.tabMenu.forEach(tab => {
       if (tab.name === "Dashboard"){
-        tab.selected = true;
+        tab.select();
       }
       else{
-        tab.selected = false;
+        tab.deselect();
       }
     });
   }
@@ -93,9 +65,9 @@ export class EmployerNavbarComponent implements OnInit {
   SelectItem(item) {
     this.tabMenu.forEach(tab => {
       if (tab.path === item)
-        tab.selected = true;
+        tab.select();
       else
-        tab.selected = false;
+        tab.deselect();
     });
 
   }
