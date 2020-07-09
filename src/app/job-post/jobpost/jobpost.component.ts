@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { BiddingEvent } from 'src/app/models/bidding-event';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,6 +8,8 @@ import { ResumeService } from 'src/app/_services/resume.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ResumeBank } from 'src/app/models/resumebank';
 import * as lib from '../../lib-functions';
+import { fromEvent } from 'rxjs';
+import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 declare var jQuery: any;
 declare var Materialize: any;
 @Component({
@@ -16,7 +18,7 @@ declare var Materialize: any;
   styleUrls: ['./jobpost.component.css']
 })
 export class JobpostComponent implements OnInit {
-  biddingEvents;
+  biddingEvents = [];
   returnUrl: any;
   chkLoggedInUser: any;
   public newResumeFrm: FormGroup;
@@ -28,17 +30,22 @@ export class JobpostComponent implements OnInit {
   id: any;
   array: any;
   resume_type: string;
- limit = 6;
   viewmore: boolean;
-  constructor(private bidEventService:BiddingEventService,private router: Router, private route: ActivatedRoute,private userService:UserService,private formBuilder: FormBuilder, private resumeService: ResumeService, private spinner: NgxSpinnerService) 
-  {
-    this.resume = new ResumeBank();
+  p=1;
+  itemsPerPage = 10;
+  createdAt;
+  itemsList=[1];
+  search = false;
+  searchTerm;
+  @ViewChild('searchByName') searchByName: ElementRef;
 
-   }
+  constructor(private bidEventService:BiddingEventService,private router: Router, private route: ActivatedRoute,private userService:UserService,private formBuilder: FormBuilder, private resumeService: ResumeService, private spinner: NgxSpinnerService){
+    this.resume = new ResumeBank();
+  }
 
   ngOnInit() {
     var element = document.getElementsByTagName("ng2-dropdown-menu")
-     element[0].className = 'dropdown'
+    element[0].className = 'dropdown'
    
     this.getSkillset();
     this.newResumeFrm = this.formBuilder.group({
@@ -48,24 +55,47 @@ export class JobpostComponent implements OnInit {
       experience: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]+'), Validators.maxLength(2)])]
     });
   
-    // jQuery('#ResuemFrm').modal('close');
-    this.bidEventService.getAllJobProfile(this.limit).subscribe((data)=>{        
-      this.biddingEvents=data;
-      console.log(this.biddingEvents);
-      if(this.biddingEvents.length%6 == 0 && this.biddingEvents.length>0){
-        this.viewmore = true;
-     }else{
-       this.viewmore = false;
-     }
-        
-     
-       },(error)=>{
-     
-     console.log(error);
-    });
+    let obj={
+      onLoad : true,
+      itemsPerPage : this.itemsPerPage
+    }
+    this.getJobPostData(obj);
+
     this.chkLoggedInUser=this.userService.getUserData();
   
   }
+
+  ngAfterViewInit() {
+    this.searchTermByName();
+  }
+
+  searchTermByName(){
+    fromEvent(this.searchByName.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.search = this.searchTerm === "" ? false : true;
+        this.getJobPostData({
+          searchTerm : this.searchTerm,
+          onLoad : this.searchTerm === "" ? true : undefined,
+          itemsPerPage : this.searchTerm === "" ? this.itemsPerPage : undefined
+        });
+        this.resetValues();
+      })
+    )
+    .subscribe();
+  }
+
+  resetValues(){
+    this.p=1;
+    this.itemsList=[1];
+    this.createdAt=null;
+    this.biddingEvents=[];
+  }
+
   truncateHTML(text: string): string {
 
     let charlimit = 250;
@@ -85,9 +115,11 @@ export class JobpostComponent implements OnInit {
     jQuery('.modal').modal();
     jQuery('#ResuemFrm').modal('open');
   }
+
   select(eventid){
     this.router.navigate(['bidding-events/details/'+eventid]);
   }
+
   getSkillset(){
     this.resumeService.getSkillSets().subscribe((data: any) => {      
       if (data.length > 0) {
@@ -98,27 +130,18 @@ export class JobpostComponent implements OnInit {
     })
   
   }
-  pageCount(){
-    return this.biddingEvents.length;
-    
-   }
- 
-   getMoreData(){
-     var limit = this.pageCount()+6;
-     this.bidEventService.getAllJobProfile(limit).subscribe((data)=>{        
-      this.biddingEvents=data;
-      if(this.biddingEvents.length%6 == 0 && this.biddingEvents.length>0){
-        this.viewmore = true;
-     }else{
-       this.viewmore = false;
-     }
-        
-     
-       },(error)=>{
-     
-     console.log(error);
+
+  getJobPostData(obj){
+    this.bidEventService.getAllJobProfile(obj).subscribe((data)=>{
+      if(data.length > 0){
+        this.biddingEvents=[...this.biddingEvents, ...data];
+        this.createdAt=this.biddingEvents[this.biddingEvents.length-1].createdAt;
+      }
+    },(error)=>{  
+      console.log(error);
     });
-   }
+  }
+  
   get f() { return this.newResumeFrm.controls; }
 
   fileChange(event) {
@@ -150,9 +173,11 @@ export class JobpostComponent implements OnInit {
         });
     }
   }
+
   closed(){
     jQuery('#ResuemFrm').modal('close');
   }
+
   submit() {
     this.spinner.show();
     if (this.newResumeFrm.valid && this.resume.fileURL != "") {
@@ -205,6 +230,7 @@ export class JobpostComponent implements OnInit {
       console.log(error);
     })
   }
+
   removeTag(tag){
     if(lib.searchObjectArray(tag.value,this.skillSets)){
       return;
@@ -216,6 +242,21 @@ export class JobpostComponent implements OnInit {
     },(error)=>{
       console.log(error);
     })
+  }
+
+  handlePagination($event){
+    this.p = $event;
+    if (this.itemsList.indexOf($event) !== -1 && !this.search) {
+      return ;
+    }
+
+    this.itemsList.push($event);
+
+    let obj={
+      createdAt : this.createdAt,
+      itemsPerPage : this.itemsPerPage
+    }
+    this.getJobPostData(obj);
   }
 
 }

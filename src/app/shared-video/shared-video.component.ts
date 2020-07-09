@@ -187,7 +187,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     if (this.videoURL && this.isTokenValid) {
       this.spinner.show();
 
-      // this.player = videojs(this.target.nativeElement, {
+      // this.player = videojs(`this.target.nativeElement, {
       //   "autoplay": true,
       //   controlls: true,
       //   preload: true,
@@ -199,7 +199,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
       // }, err => {
       //   this.spinner.hide();
 
-      // });
+      // });`
       // console.log(this.player.onwaiting());
 
     } else {

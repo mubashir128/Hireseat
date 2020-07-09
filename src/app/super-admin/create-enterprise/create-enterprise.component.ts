@@ -74,7 +74,7 @@ export class CreateEnterpriseComponent implements OnInit {
         Validators.required,
         Validators.minLength(5)
       ]),
-      file: new FormControl(res.file, [Validators.required])
+      file: new FormControl(res.file, [])
     });
 
     const fd = new FormData();
@@ -82,14 +82,15 @@ export class CreateEnterpriseComponent implements OnInit {
     this.userroledata = 3;
     fd.append("userRole", this.localRole);
     fd.append("role", this.userroledata);
-    fd.append("file", this.imagePath[0], this.imagePath[0].name);
+    if(this.imagePath !== undefined){
+      fd.append("file", this.imagePath[0], this.imagePath[0].name);
+    }
     fd.append("fullname", this.signin.controls.fullname.value);
     fd.append("phoneNo", this.signin.controls.phoneNo.value);
     fd.append("companyName", this.signin.controls.companyName.value);
     fd.append("webSiteLink", this.signin.controls.webSiteLink.value);
     fd.append("email", this.signin.controls.email.value);
     fd.append("password", this.signin.controls.password.value);
-
     if (!this.signin.valid) {
       console.log("invalid form");
       Materialize.toast("Please complete the form.", 1000);

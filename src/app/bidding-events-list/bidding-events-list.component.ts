@@ -10,6 +10,7 @@ import {ChangeDetectorRef} from '@angular/core';
 import { BidService } from '../_services/bid.service';
 import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 import { fromEvent } from 'rxjs';
+import { SubscriberslistService } from '../_services/subscriberslist.service';
 declare var Materialize;
 declare var jQuery:any;
 @Component({
@@ -39,7 +40,7 @@ export class BiddingEventsListComponent implements OnInit {
 
   startDate : any;
   endDate : any;
-  constructor(private router: Router,private cdr:ChangeDetectorRef,private spinner:NgxSpinnerService,private userService:UserService,private biddingService:BidService, private route: ActivatedRoute,private bidEventService:BiddingEventService) { 
+  constructor(private router: Router,private cdr:ChangeDetectorRef,private spinner:NgxSpinnerService,private userService:UserService,private biddingService:BidService, private route: ActivatedRoute,private bidEventService:BiddingEventService,private _subList : SubscriberslistService) { 
     this.chkLoggedInUser=this.userService.getUserData();
     if(this.chkLoggedInUser != "no"){
        if(this.chkLoggedInUser.userRole=="employer"){
@@ -52,7 +53,8 @@ export class BiddingEventsListComponent implements OnInit {
           this.hideAddBtn=false;
        }else if(this.chkLoggedInUser.userRole=="recruiter"){
         this.route.params.subscribe(params => { this.handleRequest(params['type']); });
-        this.hideAddBtn=true;     
+        this.hideAddBtn=true;
+        this._subList.activebidEvent.next({});
        }
     }else{
       //Do something

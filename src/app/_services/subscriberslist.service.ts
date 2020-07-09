@@ -9,5 +9,8 @@ export class SubscriberslistService {
   activeDashboard = new Subject();
   activeDashboard$ = this.activeDashboard.asObservable();
 
+  activebidEvent = new Subject();
+  activebidEvent$ = this.activebidEvent.asObservable();
+
   constructor() { }
 }

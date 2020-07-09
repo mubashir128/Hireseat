@@ -69,8 +69,8 @@ export class BiddingEventService {
       return res;
     }))
   }
-  getAllJobProfile(limit){
-    return this.http.get<IBiddingEvent[]>(this.baseurl+'api/getAllJobProfile/'+limit).pipe(map((res:IBiddingEvent[])=>{    
+  getAllJobProfile(obj){
+    return this.http.post<IBiddingEvent[]>(this.baseurl+'api/getAllJobProfile/',obj).pipe(map((res:IBiddingEvent[])=>{    
       return res;
     }))
   }
@@ -93,6 +93,12 @@ export class BiddingEventService {
     }))
   }
   
+  getJobProfilesByLimit(obj){
+    return this.http.post<IJobProfile[]>(this.baseurl+'api/getJobProfilesByLimit',obj).pipe(map((res:IJobProfile[])=>{    
+      return res;
+    }))
+  }
+
   getJobProfileById(id:any){
     return this.http.get<IJobProfile>(this.baseurl+'api/getJobProfileById/'+id).pipe(map((res:IJobProfile)=>{    
       return res;
