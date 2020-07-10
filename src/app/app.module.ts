@@ -68,6 +68,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
 import { NgHighlightModule } from "ngx-text-highlight";
 import { SelectDropDownModule } from "ngx-select-dropdown";
+import { VideoCallingService } from './_services/video-calling.service';
 
 // import { SearchByNamePipe } from '../search-by-name.pipe';
 // import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -238,6 +239,7 @@ import { SelectDropDownModule } from "ngx-select-dropdown";
     AuthenticationService,
     UserService,
     OpentokService,
+    VideoCallingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

@@ -49,7 +49,7 @@
   height: 80px;
   position: absolute;
 }
-.playPause img{
+.playPause img {
   width: 100%;
 }
 .video-js {
@@ -257,7 +257,7 @@ nav.customeNav {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
-  .MainTempMiddle{
+  .MainTempMiddle {
     min-height: calc(100vh - 112px);
   }
   .mainTemplate {
@@ -266,7 +266,6 @@ nav.customeNav {
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-end;
-    
   }
   .mainTempExpire {
     padding: 20px 15px;

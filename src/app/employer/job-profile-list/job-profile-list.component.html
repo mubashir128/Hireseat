@@ -3,8 +3,16 @@
     <a class="waves-effect waves-light btn" [routerLink]="['/employer/create-job-profile']"> <i
         class="material-icons left">add</i> New Job Profile</a>
   </div>
+  <div class="row">
+    <div class="skillInput">
+        <span>Note: Search by Job profile : </span>
+    </div>
+    <div class="inputDivMainN">
+    <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here..." #searchByName>
+    </div>
+  </div>
   <div id="job-profile-list" style="margin-top:15px;" *ngIf="!noJp">
-    <div class="job-profile-item" style="padding:10px;" *ngFor="let jobProfile of jp">
+    <div class="job-profile-item" style="padding:10px;" *ngFor="let jobProfile of jp | paginate: { itemsPerPage : itemsPerPage, currentPage: p }">
       <div style="cursor: pointer;" class="disF"  style="width: 100%;">
         
           <img src="assets/img/jobprofile.png" height="50px">
@@ -20,5 +28,8 @@
       No Results to Show
     </div>
     <div class="divider"></div>
+  </div>
+  <div class="text-center">
+    <pagination-controls (pageChange)="handlePagination($event)"></pagination-controls>
   </div>
 </div>

@@ -54,8 +54,8 @@ export class BidService {
 
 
 
-  getSelectedBids(recruiterKey) {
-    return this.http.get<IBiddingEvent[]>(this.baseurl + 'api/getSelectedBids/' + recruiterKey).pipe(map((res: IBiddingEvent[]) => {
+  getSelectedBids(obj) {
+    return this.http.post<IBiddingEvent[]>(this.baseurl + 'api/getSelectedBids/',obj).pipe(map((res: IBiddingEvent[]) => {
       return res;
     }));
   }

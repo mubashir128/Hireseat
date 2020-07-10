@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { SharedVideoRoutingModule } from './shared-video-routing.module';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SharedVideoComponent } from './shared-video.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatVideoModule } from 'mat-video';
+import { SharedComponentsModule } from '../shared/shared-components/shared-components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedVideoRoutingModule,
     NgxSpinnerModule,
-    // BrowserAnimationsModule,
-    MatVideoModule
+    MatVideoModule,
+    SharedComponentsModule
   ],
   declarations: [
     SharedVideoComponent

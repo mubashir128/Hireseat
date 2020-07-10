@@ -3,7 +3,7 @@ import { SwPush } from '@angular/service-worker';
 import { HttpClient } from '@angular/common/http';
 import * as myGlobals from "../globalPath";
 
-const VAPID_PUBLIC ='BKbeJtJWvlwlD_LHdhPEircqJx55MpR5TAES2swafZV1VojRwsclQ0liF8cpPmoAgW-WiAdxJqHn0zgVmZ5chbo';
+const VAPID_PUBLIC ='BLkgf3mxi9c852pFmh7BRJJ2J6YB4jwJ9u-cfZW8eL_y5LJnFwi3AGR9m4-Y9E0a_2UotO66RYeB7HVhHuR1XDQ';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,6 @@ export class PushNotificationService {
   static push=false;
   constructor(private _swPush: SwPush,private _http : HttpClient) { }
   pushNotifyUrl = "api/pushNotification";
-
   pushNotification(){
     if(this._swPush.isEnabled && !PushNotificationService.push){
       this._swPush.requestSubscription({

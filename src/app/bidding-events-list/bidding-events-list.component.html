@@ -21,7 +21,7 @@
             <div class="input-field">
                 <label for="jobProfiler" class="active">Select Job Profile :</label>
                 <input type="hidden" name="selectedJobProfile" [(ngModel)]="selectedJobType" [ngModelOptions]="{standalone: true}">
-                <a class="dropdown-button" id="globalDropdown" data-activates="dropdown-content">
+                <a class="dropdown-button" id="globalDropdown" data-activates="dropdown-content"(click)="clickDropdown()">
                     {{jobProfileType}}
                     <i class="material-icons right" style="cursor: pointer">arrow_drop_down</i>
                 </a>

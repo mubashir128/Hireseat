@@ -1,70 +1,12 @@
-<!-- <div  class="bid-event-item" style="padding:15px;" *ngFor="let Ibid of Ibids; let k = index">
-    <div *ngIf="!noWonBids">
-        <div style="display:inline-block; width:12%;height:auto; vertical-align:top;">
-            <img class="responsive-img" src="assets/img/company.png" style="width:100%;opacity:0.2;padding:15px;"/>
-        </div>
-        <div  style="display:inline-block;width:35%;height:auto;padding-left:15px;vertical-align:top;">
-            <div class="job-title"> {{IBiddingEvents[k].jobTitle}} </div>
-            <div class="company-name"> {{IBiddingEvents[k].companyName}} </div>
-        </div>
-        <div style="display:inline-block;width:50%; float:right; vertical-align:top;text-align:right;">
-                <div class="chip reward" style="display:inline-block;padding-right:15px;">
-                        <img src="assets/img/reward.png" style="padding:5px;"/>
-                        
-                        $ {{numberWithCommas(reward[k].rewardMoney)}}
-                </div>
-        </div>
-    </div>
-    <div *ngIf="!noWonBids">
-        <div style="display:inline-block; width:12%;height:auto; vertical-align:top;">
-        </div>
-        <div style="display:inline-block; width:8%;height:auto; vertical-align:top;">
-            <img class="responsive-img" src="assets/img/resume.png" style="width:100%;opacity:0.2;"/>
-        </div>
-        <div  style="display:inline-block;width:35%;height:auto;padding-left:15px;vertical-align:top;">
-            <div class="candidate-name"> {{Ibid.candidateName}} </div>
-            <div class="company-name"> {{Ibid.candidateName}} </div>
-        </div>
-        <div style="display:inline-block;width:44%; float:right; vertical-align:top;text-align:right;">
-        </div>
-    </div>
-    <div class="divider"></div>
-</div> -->
-<div *ngIf="noWonBids"> No Results to show </div>
-<!-- <ul class="eventListWon">
-<li *ngFor="let Ibid of dataArr | paginate: { itemsPerPage: 3, currentPage: p } ; let k = index"> 
-        <div *ngIf="!noWonBids" class="bid-event-item postName">
-                <div style="display:inline-block; width:12%;height:auto; vertical-align:top;">
-                    <img class="responsive-img" src="assets/img/company.png" style="width:100%;opacity:1 ;padding:15px;"/>
-                </div>                       
-                <div  style="display:inline-block;width:35%;height:auto;padding-left:15px;vertical-align:top;">
-                    <div class="job-title"> {{Ibid.biddingEventKey.jobProfileKey.jobTitle}} </div>
-                    <div class="company-name">  {{Ibid.biddingEventKey.jobProfileKey.companyName}} </div>
-                </div>   
-                <div class="selectedCandidate" style="display:inline-block;width:50%; vertical-align:top;text-align:right;">
-                        <div class="chip reward" style="display:inline-block;padding-right:15px;">
-                                <img src="assets/img/reward.png" style="padding:5px;"/>
-                                
-                                    ${{numberWithCommas(Ibid.biddingEventKey.rewardMoneyFrom)}} -  ${{numberWithCommas(Ibid.biddingEventKey.rewardMoneyTo)}}
-                        </div>
-                </div>
-            </div>
-            <div *ngIf="!noWonBids" class="bid-event-item candidateList">
-                    <div style="display:inline-block; width:12%;height:auto; vertical-align:top;">
-                    </div>
-                    <div style="display:inline-block; width:8%;height:auto; vertical-align:top;">
-                        <img class="responsive-img" src="assets/img/resume.png" style="width:100%;opacity:0.7;"/>
-                    </div>
-                    <div  style="display:inline-block;width:35%;height:auto;padding-left:15px;vertical-align:top;">
-                        <div class="candidate-name"> {{Ibid.candidateName}} </div>
-                        <div class="company-name"> {{Ibid.candidateName}} </div>
-                    </div>
-                    <div style="display:inline-block;width:44%;vertical-align:top;text-align:right;">
-                    </div>
-                </div>
-                <div class="divider"></div>
-</li>
-</ul> -->
+<div class="row">
+  <div class="skillInput">
+    <span>Note: Search Candidate Name : </span>
+  </div>
+  <div class="inputDivMainN">
+    <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here..."
+      #searchByName>
+  </div>
+</div>
 <div class="SelectedCandidateTable">
   <ul class="table-border">
     <li style="cursor:pointer;">
@@ -78,8 +20,7 @@
       </div>
     </li>
     <li class="resume-bank-item"
-      *ngFor="let selectedresume of dataArr | paginate: { itemsPerPage: 10, currentPage: p }">
-      <!--*ngFor="let searchedresume of searchedResume | paginate: { itemsPerPage: 10, currentPage: p }"-->
+      *ngFor="let selectedresume of dataArr | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
       <div class="parentCommonDF">
 
         <div class="commonDiv">
@@ -122,4 +63,4 @@
   </ul>
 </div>
 
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<pagination-controls (pageChange)="handlePagination($event)"></pagination-controls>

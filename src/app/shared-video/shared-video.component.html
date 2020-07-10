@@ -1,6 +1,6 @@
 <!-- <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#33AAFF" type="cube-transition"></ngx-spinner> -->
 
-<ng-container *ngIf="!isTokenValid">
+<ng-container *ngIf="!isTokenValid && !showCustomLoader">
   <div class="loader-container">
     <div class="loader"></div>
   </div>
@@ -54,20 +54,28 @@
             </div> -->
               <!-- <ng-container *ngIf="!isbufferLoader"> -->
 
-              <!-- <video id="myVideo" name="media" #target class="video-js" controls autoplay preload>
-              <source src={{videoURL}} type="video/mp4">Your browser does not support the video.
-            </video> 
+              <!--
             <div class="playPause">
               <img src="./assets/img/play.png">
                <img src="./assets/img/pause.png"> 
             </div>
-          -->
+          --> <video id="myVideo" name="media" #target class="video-js vjs-big-play-centered vjs-icon-spinner"
+                data-setup="{}" controls autoplay preload>
+                <source src={{videoURL}} type="video/mp4">Your browser does not support the video.
+              </video>
+              <!-- <button (click)="play()">play</button>
+                
+              <button (click)="pause()">pause</button> -->
 
-              <mat-video #vid [ngClass]="ngclass" [src]="videoURL" [autoplay]="autoPlay" [preload]="preload"
-                [loop]="loop" [fullscreen]="fullscreen" [download]="download" [quality]="quality" [keyboard]="keyboard"
-                [color]="color" [spinner]="spinnerType" [overlay]="overlay" [(muted)]="muted"
-                [showFrameByFrame]="showFrameByFrame" [(time)]="time">
-              </mat-video>
+              <!-- <mat-video #vid [ngClass]="ngclass" [src]="videoURL" [autoplay]="autoPlay" [preload]="preload"
+                [loop]="loop" [fullscreen]="fullscreen" [quality]="quality" [keyboard]="keyboard" [color]="color"
+                [spinner]="spinnerType" [overlay]="overlay" [(muted)]="muted" [showFrameByFrame]="showFrameByFrame"
+                [(time)]="time">
+              </mat-video> -->
+              <!-- <iframe id="myVideo" height="100%" width="100%" frameborder="0" marginwidth="0" marginheight="0"
+                allowfullscreen [src]="videoURL | safePdf">
+              </iframe> -->
+
               <!-- </ng-container> -->
             </div>
           </div>

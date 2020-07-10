@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from 'src/app/_services/user.service';
 import { RewardSummary } from 'src/app/profile/model/reward-summary';
 import { IProfile, Profile } from 'src/app/profile/model/user-profile';
+import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -17,7 +18,7 @@ export class RecruiterNavbarComponent implements OnInit {
   tabs1: Tab[];
   public userProfile: IProfile;
   public PointsSummary = new RewardSummary();
-  constructor(private router: Router, private spinner: NgxSpinnerService, private userService: UserService) {
+  constructor(private router: Router, private spinner: NgxSpinnerService, private userService: UserService, private _subList: SubscriberslistService) {
     this.tabs1 = [];
     this.userProfile = new Profile();
     this.tabs1.push(new Tab('/recruiter/bidding-event-list', 'Job Postings', true));
@@ -38,6 +39,21 @@ export class RecruiterNavbarComponent implements OnInit {
     this.showSummary();
     this.SelectItem(this.router.url);
     this.getUsersProfile();
+
+    this._subList.activebidEvent$.subscribe(res => {
+      this.handleActiveList(res);
+    });
+  }
+
+  handleActiveList(obj) {
+    this.tabs1.forEach(tab => {
+      if (tab.displayText === "Job Postings") {
+        tab.selected = true;
+      }
+      else {
+        tab.selected = false;
+      }
+    });
   }
 
   SelectItem(item) {
