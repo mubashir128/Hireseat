@@ -631,7 +631,7 @@ iframe.interviewVideo {
   color: #33aaff !important;
 }
 .interviewQue {
-  height: 100%;
+  height: 130px;
   overflow-y: auto;
 }
 .disF{
