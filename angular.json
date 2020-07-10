@@ -27,14 +27,16 @@
             "styles": [
               "src/assets/css/styles.css",
               "node_modules/materialize-css/dist/css/materialize.min.css",
-              "node_modules/@mdi/font/css/materialdesignicons.min.css"
+              "node_modules/@mdi/font/css/materialdesignicons.min.css",
+              "./node_modules/video.js/dist/video-js.min.css"
             ],
             "scripts": [
               "src/assets/js/jquery-2.1.4.js",
               "node_modules/materialize-css/dist/js/materialize.min.js",
               "src/assets/js/crypto-js.js",
               "src/assets/js/jquery.paginate.js",
-              "src/assets/js/ckeditor/ckeditor.js"
+              "src/assets/js/ckeditor/ckeditor.js",
+              "./node_modules/video.js/dist/video.min.js"
             ]
           },
           "configurations": {
@@ -87,23 +89,14 @@
               "../node_modules/ngx-select-dropdown/dist/assets/style.css"
             ],
             "scripts": [],
-            "assets": [
-              "src/favicon.png",
-              "src/assets",
-              "src/manifest.json"
-            ]
+            "assets": ["src/favicon.png", "src/assets", "src/manifest.json"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -123,9 +116,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
