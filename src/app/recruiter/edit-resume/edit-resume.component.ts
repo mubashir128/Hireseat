@@ -174,6 +174,7 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
     this.videoCallingService.getArchivedVideo(payload).subscribe((url) => {
       if (url) {
         this.videoURL = url.url;
+        // this.videoURL = 'https://d2kq6rab8hny5u.cloudfront.net/46655882/6b7e8485-c353-40ab-b094-164289b1b122/archive.mp4?Expires=1594206033&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMmtxNnJhYjhobnk1dS5jbG91ZGZyb250Lm5ldC80NjY1NTg4Mi82YjdlODQ4NS1jMzUzLTQwYWItYjA5NC0xNjQyODliMWIxMjIvYXJjaGl2ZS5tcDQiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE1OTQyMDYwMzN9fX1dfQ__&Signature=i-rZkEGQ-01n1riFaFCzwnMNl1S9rd~4iu1KOI7EbTauMtRPLKqhcBuxiQpqNzmZkXaNpxWZWMuMj5F1BRz3f4UyX3bkkoJIJgycS63iNi61bucu4vzLKa2EHycA6-lHQIMLM1IFefYT7E4e0jYZr7LGAQiYOLzToUn9s4EDj8uubgUNng6k9vjKAR9yYz6E9yhx2m0OU8gSApcIlS9ESXdN4rdpgMK8BjfJWNpzNRKbA~FHOiH5CBtjHa6kXtjr76Emwf6fetpx7zeA5IcKlKeDShb1oEUCrh-cr9H8awyuv83YFgtd478rh3STGBPzStJFe14WflH5jvh9~WRrmQ__&Key-Pair-Id=APKAJ3DMTCOHHDMY6HYQ';
         // console.log(this.videoURL);
       } else {
         console.log("unable to load url");

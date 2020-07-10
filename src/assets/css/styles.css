@@ -980,7 +980,7 @@ html {
   tag-input-form
   form
   input {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.17) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.17) !important;
 }
 ng2-dropdown-menu.dropdown {
   position: relative !important;
@@ -988,12 +988,13 @@ ng2-dropdown-menu.dropdown {
 }
 
 /* new css */
-.radioGroup [type="radio"]:not(:checked), .radioGroup [type="radio"]:checked {
+.radioGroup [type="radio"]:not(:checked),
+.radioGroup [type="radio"]:checked {
   position: absolute;
   opacity: 0;
   top: 18px;
   pointer-events: fill;
-  margin-left: 17px;
+  /* margin-left: 17px; */
 }
 .radioGroup {
   float: left;
@@ -1004,7 +1005,17 @@ ng2-dropdown-menu.dropdown {
   float: left;
   position: relative;
 }
-.searchDiv .fa{
+.searchDiv ng2-completer {
+  width: 100%;
+}
+.searchDiv ng2-completer .completer-holder input {
+  border: 1px solid #ddd;
+  height: 40px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
+.searchDiv .fa {
   position: absolute;
   top: 10px;
   font-size: 25px;
@@ -1019,10 +1030,13 @@ ng2-dropdown-menu.dropdown {
   color: #0aafff;
   margin: 0 !important;
 }
-.searchDiv [type="radio"]:checked+label:after, .searchDiv [type="radio"].with-gap:checked+label:after {
+.searchDiv [type="radio"]:checked + label:after,
+.searchDiv [type="radio"].with-gap:checked + label:after {
   background-color: #0aafff;
 }
-.searchDiv [type="radio"]:checked+label:after, .searchDiv [type="radio"].with-gap:checked+label:before, .searchDiv [type="radio"].with-gap:checked+label:after {
+.searchDiv [type="radio"]:checked + label:after,
+.searchDiv [type="radio"].with-gap:checked + label:before,
+.searchDiv [type="radio"].with-gap:checked + label:after {
   border: 2px solid #0aafff;
 }
 .recruiterListMain h3 {
@@ -1033,7 +1047,7 @@ ng2-dropdown-menu.dropdown {
   color: #0aafff;
 }
 .starDiv .fa {
-  color: #FFC107;
+  color: #ffc107;
   margin: 0 5px;
   font-size: 16px;
 }
@@ -1056,10 +1070,10 @@ ng2-dropdown-menu.dropdown {
   font-size: 23px;
 }
 .actionDiv .fa-plus-circle {
-  color: #4CAF50;
+  color: #4caf50;
 }
 .actionDiv .fa-minus-circle {
-  color: #F44336;
+  color: #f44336;
 }
 .recruiterListDiv {
   box-shadow: 0 0 10px #ddd;
@@ -1093,3 +1107,29 @@ ng2-dropdown-menu.dropdown {
 .recriterSearchDiv .recruitrList:hover {
   background-color: #0aafff1a;
 }
+/* mat video */
+/* .video-interview .videoplayer {
+  background-color: #212121 !important;
+} */
+.video-interview .progress {
+  background-color: transparent !important;
+  height: 34px !important;
+  margin-bottom: 0px !important;
+}
+.video-interview .mat-icon-button {
+  background-color: transparent;
+}
+.video-interview .mat-icon {
+  color: #b8b8b8;
+}
+.video-interview .mat-icon-button {
+  margin-right: 10px;
+}
+.video-interview .mat-slider-track-fill,
+.video-interview .mat-slider-thumb {
+  background-color: #33aaff;
+}
+.video-interview .mat-slider-progress-background {
+  left: 0;
+}
+/*end mat video */

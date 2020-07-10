@@ -86,8 +86,8 @@ export class CreateImagePostComponent implements OnInit {
     location: Location
   ) {
     this.permaLink = window.location.href;
-    console.log(window.location.href);
-    console.log(location.path());
+    // console.log(window.location.href);
+    // console.log(location.path());
   }
   private addCheckboxes() {
     this.categoriesData.map((o, i) => {

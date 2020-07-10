@@ -18,7 +18,7 @@ export class RecruiterNavbarComponent implements OnInit {
   tabs1: Tab[];
   public userProfile: IProfile;
   public PointsSummary = new RewardSummary();
-  constructor(private router: Router, private spinner: NgxSpinnerService, private userService: UserService,private _subList : SubscriberslistService) {
+  constructor(private router: Router, private spinner: NgxSpinnerService, private userService: UserService, private _subList: SubscriberslistService) {
     this.tabs1 = [];
     this.userProfile = new Profile();
     this.tabs1.push(new Tab('/recruiter/bidding-event-list', 'Job Postings', true));
@@ -40,17 +40,17 @@ export class RecruiterNavbarComponent implements OnInit {
     this.SelectItem(this.router.url);
     this.getUsersProfile();
 
-    this._subList.activebidEvent$.subscribe(res=>{
+    this._subList.activebidEvent$.subscribe(res => {
       this.handleActiveList(res);
     });
   }
 
-  handleActiveList(obj){
+  handleActiveList(obj) {
     this.tabs1.forEach(tab => {
-      if (tab.displayText === "Job Postings"){
+      if (tab.displayText === "Job Postings") {
         tab.selected = true;
       }
-      else{
+      else {
         tab.selected = false;
       }
     });

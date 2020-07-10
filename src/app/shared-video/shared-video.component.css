@@ -1,6 +1,6 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-@import '~video.js/dist/video-js.css';
+@import "~video.js/dist/video-js.css";
 
 .mainPageBg {
   width: 100%;
@@ -30,14 +30,27 @@
   justify-content: flex-end;
 }
 .leftSideQuetion {
-  width: 40%;
+  width: 50%;
   padding: 20px;
   background-color: #000;
   box-shadow: 0px 0px 10px #ccc;
 }
 .video-interview {
-  width: 60%;
+  width: 50%;
   height: 100%;
+  position: relative;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.playPause {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+}
+.playPause img{
+  width: 100%;
 }
 .video-js {
   width: 100% !important;
@@ -244,12 +257,16 @@ nav.customeNav {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
+  .MainTempMiddle{
+    min-height: calc(100vh - 112px);
+  }
   .mainTemplate {
-    padding: 20px 15px 110px;
+    /* padding: 20px 15px 110px; */
+    padding: 20px 15px 20px;
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-end;
-    min-height: calc(100vh - 112px);
+    
   }
   .mainTempExpire {
     padding: 20px 15px;
@@ -258,12 +275,14 @@ nav.customeNav {
   .interviewVideoDiv {
     display: flex;
     flex-direction: column-reverse;
+    height: auto;
   }
   .leftSideQuetion {
     width: 100%;
   }
   .video-interview {
     width: 100%;
+    height: auto;
     /* height: 260px !important; */
   }
   .video-interview .video-js {
@@ -347,4 +366,39 @@ nav.customeNav {
   100% {
     transform: rotate(360deg);
   }
+}
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+  display: block;
+}
+.vjs-waiting {
+  visibility: hidden;
+  background: transparent;
+}
+.vjs-loading-spinner {
+  display: none !important;
+}
+.bg {
+  background: transparent;
+  /* background-color: black; */
+}
+.video-js.vjs-custom-waiting .vjs-loading-spinner:before,
+.video-js.vjs-custom-waiting .vjs-loading-spinner:after {
+  /* I just copied the same animation as in the default css file */
+  -webkit-animation: vjs-spinner-spin 1.1s cubic-bezier(0.6, 0.2, 0, 0.8)
+      infinite,
+    vjs-spinner-fade 1.1s linear infinite;
+  animation: vjs-spinner-spin 1.1s cubic-bezier(0.6, 0.2, 0, 0.8) infinite,
+    vjs-spinner-fade 1.1s linear infinite;
+}
+.vjs-paused .vjs-big-play-button,
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+  display: block;
+}
+/* mat video  */
+.controls .progress {
+  height: 3px !important;
+}
+.video-interview .progress {
+  background-color: #fff !important;
+  height: 3px !important;
 }

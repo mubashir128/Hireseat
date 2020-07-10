@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
 
         this.article = res.data;
         this.spinner.hide();
-        console.log(this.article);
+        // console.log(this.article);
         // video uplodad
         //  res.data.forEach((data,i) => {
         //    if(data.video || data.embbedded ){

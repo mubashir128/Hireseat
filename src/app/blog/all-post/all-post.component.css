@@ -71,12 +71,16 @@
   transform: rotate(45deg);
 }
 /*=================== checkbox btn css end =============*/
+.SerchForm{
+  width: 100%;
+}
 .searchDiv {
-  width: 400px;
+  /* width: 400px; */
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 15px 0;
+  margin: 15px 0 30px;
 }
 .ng2-search {
   width: 50%;
@@ -94,7 +98,7 @@
     padding: 0px 5px !important;
 	display: block;
 } */
-.commonBtn {
+/* .commonBtn {
   border: 1px solid #ddd;
   color: #000 !important;
   height: 32px;
@@ -102,6 +106,16 @@
   background-color: #f7f7f7;
   line-height: 1;
   padding: 0 20px;
+} */
+.commonBtn {
+  border: 1px solid #03a9f4;
+  color: #fff !important;
+  height: 40px;
+  min-width: 150px;
+  font-size: 14px;
+  background-color: #03a9f4;
+  padding: 5px 10px;
+  /* border-radius: 30px; */
 }
 
 .catogoryMain {
@@ -120,7 +134,10 @@
 .table-striped {
   border: 1px solid #ddd;
 }
-.table-striped tr:nth-child(odd) {
+/* .table-striped tr:nth-child(even) {
+  background-color: #fcfcfc;
+} */
+.table-striped>tbody>tr:nth-of-type(odd){
   background-color: #f7f7f7;
 }
 .tableDiv td,
@@ -149,15 +166,22 @@
   font-weight: bolder;
   text-align: center;
   overflow: hidden;
+  margin-bottom: 0;
 }
 .msgHead {
-  margin-top: 20px;
   text-align: center;
   color: #33aaff;
   font-weight: 700;
+  font-size: 30px;
+  padding: 15px 20px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e1e1e1; 
 }
 .msgContain {
-  padding: 1px !important;
+  /* padding: 1px !important; */
+  padding: 20px !important;
+  height: auto !important;
+  position: unset !important;
 }
 .text-center {
   text-align: center;
@@ -169,6 +193,32 @@
   transform: unset;
 }
 
+/* New css */
+.ctagoryPagemain{
+  background-color: #fff;
+  padding: 1px 30px;
+  box-sizing: border-box;
+  margin: 7px 0;
+  box-shadow: 0 0 10px #99999924 !important;
+}
+.pageheading{
+  color: #03a9f4;
+}
+.footerPadd{
+  padding: 10px 15px 15px 15px;
+  position: unset !important;
+  float: left;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+.msgBox.heightAut{
+  height:auto !important;
+  max-height: unset;
+}
+.yesNoBtn{
+  margin-right: 10px;
+}
 /*================================ mobile responsive css start  ===============================*/
 
 @media only screen and (min-width: 320px) and (max-width: 450px) {

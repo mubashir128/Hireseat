@@ -1,61 +1,66 @@
 <div class="row">
   <div class="skillInput">
-      <span>Note: Search Candidate Name : </span>
+    <span>Note: Search Candidate Name : </span>
   </div>
   <div class="inputDivMainN">
-  <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here..." #searchByName>
+    <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here..."
+      #searchByName>
   </div>
 </div>
 <div class="SelectedCandidateTable">
-<ul class="table-border">
-    <li  style="cursor:pointer;">
-        <div class="disF">
-            <div class="commonDiv bold">JobPost</div>
-            <div class="commonDiv bold">Candidate Name</div>
-            <div class="commonDiv bold">Resume</div>
-            <div class="commonDiv bold">Skills</div>
-            <div class="commonDiv bold">Experience</div>
-            <!-- <div class="commonDiv bold">Add To Resume Repository</div> -->
+  <ul class="table-border">
+    <li style="cursor:pointer;">
+      <div class="disF">
+        <div class="commonDiv bold">JobPost</div>
+        <div class="commonDiv bold">Candidate Name</div>
+        <div class="commonDiv bold">Resume</div>
+        <div class="commonDiv bold">Skills</div>
+        <div class="commonDiv bold">Experience</div>
+        <!-- <div class="commonDiv bold">Add To Resume Repository</div> -->
+      </div>
+    </li>
+    <li class="resume-bank-item"
+      *ngFor="let selectedresume of dataArr | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+      <div class="parentCommonDF">
+
+        <div class="commonDiv">
+          <span class="jobPostText">{{selectedresume?.biddingEventKey?.jobProfileKey?.jobTitle}}</span>
         </div>
-  </li>
-  <li class="resume-bank-item" *ngFor="let selectedresume of dataArr | paginate: { itemsPerPage: itemsPerPage, currentPage: p }" >
-    <div class="parentCommonDF">
-        
-          <div class="commonDiv">
-            <span class="jobPostText">{{selectedresume?.biddingEventKey?.jobProfileKey?.jobTitle}}</span>
-          </div>
-          <div class="commonDiv">
-           {{selectedresume?.candidateName}}
-          </div>
-          <div class="commonDiv">
-            <!-- <a href="#"> Resume</a> -->
-            <a [attr.href]="selectedresume?.resumeKey?.fileURL || selectedresume?.resumeKey?.resumeBank_id?.resumeUrl " target="_blank" download><img class="responsive-img" src="assets/img/resume.png" style="width:40%;opacity:0.7;"/></a>
-          
-          </div>
-          <div class="commonDiv" >
-            <!-- <span *ngFor="let tags of searchedresume.tags">  
+        <div class="commonDiv">
+          {{selectedresume?.candidateName}}
+        </div>
+        <div class="commonDiv">
+          <!-- <a href="#"> Resume</a> -->
+          <a [attr.href]="selectedresume?.resumeKey?.fileURL || selectedresume?.resumeKey?.resumeBank_id?.resumeUrl "
+            target="_blank" download><img class="responsive-img" src="assets/img/resume.png"
+              style="width:40%;opacity:0.7;" /></a>
+
+        </div>
+        <div class="commonDiv">
+          <!-- <span *ngFor="let tags of searchedresume.tags">  
               {{tags.display}}
             </span> -->
-            <span *ngFor="let Skills of selectedresume?.resumeKey?.resumeBank_id?.tags">{{Skills.display}}</span>
-            <!-- <span>html</span> -->
-          </div>
-          <div class="commonDiv" >
-            <!-- <span >  
+          <span *ngFor="let Skills of selectedresume?.resumeKey?.resumeBank_id?.tags">{{Skills.display}}</span>
+          <!-- <span>html</span> -->
+        </div>
+        <div class="commonDiv">
+          <!-- <span >  
               {{searchedresume.experience}}
             </span> -->
-            <span *ngIf="selectedresume?.resumeKey?.resumeBank_id?.experience">{{selectedresume?.resumeKey?.resumeBank_id?.experience}}</span>
-          </div>
-         
-          <!-- <div class="commonDiv">
+          <span
+            *ngIf="selectedresume?.resumeKey?.resumeBank_id?.experience">{{selectedresume?.resumeKey?.resumeBank_id?.experience}}</span>
+        </div>
+
+        <!-- <div class="commonDiv">
             <button *ngIf="!searchedresume.jobPostProfieId" data-toggle="modal" data-target="#Conformation" (click)="showUploadModel(searchedresume._id)" class="waves-effect waves-light btn">Add</button>
             <button *ngIf="searchedresume.jobPostProfieId" [disabled]="searchedresume.jobPostProfieId" data-toggle="modal" data-target="#Conformation" class="waves-effect waves-light btn">added</button>
           </div>    -->
-         
-    </div> 
-    
-    <div class="divider"></div>  
-  </li>  
-</ul>
+
+      </div>
+
+      <div class="divider"></div>
+    </li>
+  </ul>
 </div>
-  
+
 <pagination-controls (pageChange)="handlePagination($event)"></pagination-controls>

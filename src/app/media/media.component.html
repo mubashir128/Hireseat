@@ -134,130 +134,118 @@
     <div class="row flexWrap">
       <div class="col s12 m6 l3 paddLR10">
         <div class="imgDivVideoDiv">
-            <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
-            <div class="videoDiv"
-            (click)="showVideo('assets/videos/The biggest difference between Agency and Corp Recruiters - Rockstar HR Manager Sonia Chaves.mp4')">
+          <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
+          <div class="videoDiv" *ngIf="homeVideos" (click)="showVideo(homeVideos[7]?.urlData)">
             <video id="video3" height="100%" style="width:100%"
-              poster="assets/thumbmails/Skype_Picture_2019_04_08T12_54_18_414Z.png"
-              src="/assets/videos/The biggest difference between Agency and Corp Recruiters - Rockstar HR Manager Sonia Chaves4">
+              poster="assets/thumbmails/Skype_Picture_2019_04_08T12_54_18_414Z.png" src={{homeVideos[7]?.element}}>
               Your browser does not support the video tag.
             </video>
             <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
           </div>
-            <h4>The biggest difference between Agency and Corp Recruiters - Rockstar HR Manager Sonia Chaves</h4>
+          <h4>The biggest difference between Agency and Corp Recruiters - Rockstar HR Manager Sonia Chaves</h4>
         </div>
       </div>
       <div class="col s12 m6 l3 paddLR10">
         <div class="imgDivVideoDiv">
-            <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
-            <div class="videoDiv"
-            (click)="showVideo('assets/videos/How to control nervousness in an interview- Amy Beaulieu.mp4')">
+          <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
+          <div class="videoDiv" *ngIf="homeVideos" (click)="showVideo(homeVideos[4]?.urlData)">
             <video id="video3" height="100%" style="width:100%"
-              poster="assets/thumbmails/Skype_Picture_2019_04_08T12_54_40_189Z.png"
-              src="assets/videos/How to control nervousness in an interview- Amy Beaulieu.mp4">
+              poster="assets/thumbmails/Skype_Picture_2019_04_08T12_54_40_189Z.png" src={{homeVideos[4]?.element}}>
               Your browser does not support the video tag.
             </video>
             <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
           </div>
-            <h4>How to control nervousness in an interview- Amy Beaulieu "Leadership, Training, Design"</h4>
+          <h4>How to control nervousness in an interview- Amy Beaulieu "Leadership, Training, Design"</h4>
         </div>
       </div>
       <div class="col s12 m6 l3 paddLR10">
         <div class="imgDivVideoDiv">
-            <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
-            <div class="videoDiv"
-            (click)="showVideo('assets/videos/NYC Best Recruiter explains what is important in  a resume.mp4')">
+          <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
+          <div class="videoDiv" *ngIf="homeVideos" (click)="showVideo(homeVideos[6]?.urlData)">
             <video id="video1" height="100%" style="width:100%" poster="assets/thumbmails/thumbnail1.PNG"
-              src="assets/videos/NYC Best Recruiter explains what is important in  a resume.mp4">
+              src={{homeVideos[6]?.element}}>
               Your browser does not support the video tag.
             </video>
             <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
           </div>
-            <h4>NYC's Best Recruiter explains what is important in a resume</h4>
+          <h4>NYC's Best Recruiter explains what is important in a resume</h4>
         </div>
       </div>
       <div class="col s12 m6 l3 paddLR10">
         <div class="imgDivVideoDiv">
-            <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
-            <div class="videoDiv"
-            (click)="showVideo('assets/videos/Fixing the Job Interview Process - Hireseat  - Raya Rahbari.mp4')">
-            <video id="video3" height="100%" style="width:100%"
-              poster="assets/thumbmails/Screenshot_4.png"
-              src="assets/videos/Fixing the Job Interview Process - Hireseat  - Raya Rahbari.mp4">
+          <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
+          <div class="videoDiv" *ngIf="homeVideos" (click)="showVideo(homeVideos[2]?.urlData)">
+            <video id="video3" height="100%" style="width:100%" poster="assets/thumbmails/Screenshot_4.png"
+              src={{homeVideos[2]?.element}}>
               Your browser does not support the video tag.
             </video>
             <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
           </div>
-            <h4>Fixing the Job Interview Process - Hireseat  - Raya Rahbari</h4>
+          <h4>Fixing the Job Interview Process - Hireseat - Raya Rahbari</h4>
         </div>
       </div>
       <div class="col s12 m6 l3 paddLR10">
         <div class="imgDivVideoDiv">
-            <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
-            <div class="videoDiv"
-            (click)="showVideo('assets/videos/Best way to prepare for an interview - HIRESEAT - LIZ OTTO [CAREER SERVICES].mp4')">
+          <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
+          <div class="videoDiv" *ngIf="homeVideos" (click)="showVideo(homeVideos[0]?.urlData)">
             <video id="video3" height="100%" style="width:100%" poster="assets/thumbmails/Screenshot_6.png"
-              src="assets/videos/Best way to prepare for an interview - HIRESEAT - LIZ OTTO [CAREER SERVICES].mp4">
+              src={{homeVideos[0]?.element}}>
               Your browser does not support the video tag.
             </video>
             <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
           </div>
-            <h4>Best way to prepare for an interview | HIRESEAT | LIZ OTTO [CAREER SERVICES]</h4>
+          <h4>Best way to prepare for an interview | HIRESEAT | LIZ OTTO [CAREER SERVICES]</h4>
         </div>
       </div>
-    
-        <div class="col s12 m6 l3 paddLR10">
-          <div class="imgDivVideoDiv">
-              <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
-              <div class="videoDiv"
-              (click)="showVideo('assets/videos/How to answer the biggest weakness question.mp4')">
-              <video id="video3" height="100%" style="width:100%"
-                poster="assets/thumbmails/Screenshot_7.png"
-                src="assets/videos/How to answer the biggest weakness question.mp4">
-                Your browser does not support the video tag.
-              </video>
-              <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
-            </div>
-              <h4>How to answer the biggest weakness question - Ian Klein "L&D Executive, Facilitator, Designer"</h4>
-          </div>
-        </div>
-        <div class="col s12 m6 l3 paddLR10">
-          <div class="imgDivVideoDiv">
-              <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
-              <div class="videoDiv"
-            (click)="showVideo('assets/videos/How to improve a toxic work culture - Hireseat  - Raya Rahbari.mp4')">
-            <video id="video3" height="100%" style="width:100%"
-              poster="assets/thumbmails/Screenshot_8.png"
-              src="assets/videos/How to improve a toxic work culture - Hireseat  - Raya Rahbari.mp4">
+
+      <div class="col s12 m6 l3 paddLR10">
+        <div class="imgDivVideoDiv">
+          <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
+          <div class="videoDiv" *ngIf="homeVideos" (click)="showVideo(homeVideos[3]?.urlData)">
+            <video id="video3" height="100%" style="width:100%" poster="assets/thumbmails/Screenshot_7.png"
+              src={{homeVideos[3]?.element}}>
               Your browser does not support the video tag.
             </video>
             <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
           </div>
-              <h4>How to improve a toxic work culture | Hireseat - Raya Rahbari</h4>
-          </div>
+          <h4>How to answer the biggest weakness question - Ian Klein "L&D Executive, Facilitator, Designer"</h4>
         </div>
-        <div class="col s12 m6 l3 paddLR10">
-          <div class="imgDivVideoDiv">
-              <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
-              <div class="videoDiv"
-              (click)="showVideo('assets/videos/Can you fake confidence- Amy Beaulieu.mp4')">
-              <video id="video2" height="100%" style="width:100%" poster="assets/thumbmails/Skype_Picture_2019_04_08T12_54_40_189Z.png"
-                src="assets/videos/Can you fake confidence- Amy Beaulieu.mp4">
-                Your browser does not support the video tag.
-              </video>
-              <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
-            </div>
-              <h4>Can you fake confidence?- Amy Beaulieu "Leadership, Training, Design"</h4>
+      </div>
+      <div class="col s12 m6 l3 paddLR10">
+        <div class="imgDivVideoDiv">
+          <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
+          <div class="videoDiv" *ngIf="homeVideos" (click)="showVideo(homeVideos[5]?.urlData)">
+            <video id="video3" height="100%" style="width:100%" poster="assets/thumbmails/Screenshot_8.png"
+              src={{homeVideos[5]?.element}}>
+              Your browser does not support the video tag.
+            </video>
+            <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
           </div>
+          <h4>How to improve a toxic work culture | Hireseat - Raya Rahbari</h4>
         </div>
+      </div>
+      <div class="col s12 m6 l3 paddLR10">
+        <div class="imgDivVideoDiv">
+          <!-- <img src="assets/img/videoImg.png" class="VideoImg"> -->
+          <div class="videoDiv" *ngIf="homeVideos" (click)="showVideo(homeVideos[1]?.urlData)">
+            <video id="video2" height="100%" style="width:100%"
+              poster="assets/thumbmails/Skype_Picture_2019_04_08T12_54_40_189Z.png" src={{homeVideos[1]?.element}}>
+              Your browser does not support the video tag.
+            </video>
+            <a><img src="assets/img/playIcon.png" class="playIconImg"></a>
+          </div>
+          <h4>Can you fake confidence?- Amy Beaulieu "Leadership, Training, Design"</h4>
+        </div>
+      </div>
     </div>
     <!-- <div class="text-center">
         <img src="assets/img/leftArrowIcon.png" class="arows">
         <img src="assets/img/rightArrowIcon.png" class="arows">
     </div> -->
+  </div>
 </div>
-</div>
-<button (click)="topFunction()" id="myBtn" title="Go to top" class="stickyBtn"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+<button (click)="topFunction()" id="myBtn" title="Go to top" class="stickyBtn"><i class="fa fa-angle-up"
+    aria-hidden="true"></i></button>
 <div id="VideoModal" class="modal videoModalMain">
   <a (click)="closeVideoModal()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
   <div class="modal-content videoModalContent">
