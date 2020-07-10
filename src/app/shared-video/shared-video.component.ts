@@ -245,6 +245,8 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
       // console.log(this.player.onwaiting());
       if (this.target.nativeElement.paused) {
+        console.log('play/pause');
+
         this.target.nativeElement.play();
       }
 
