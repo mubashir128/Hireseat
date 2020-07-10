@@ -21,11 +21,11 @@
             <div class="input-field">
                 <label for="jobProfiler" class="active">Select Job Profile :</label>
                 <input type="hidden" name="selectedJobProfile" [(ngModel)]="selectedJobType" [ngModelOptions]="{standalone: true}">
-                <a class="dropdown-button" id="globalDropdown" data-activates="dropdown-content"(click)="clickDropdown()">
+                <a class="dropdown-button" id="globalDropdown" (click)="clickDropdown('block','1')">
                     {{jobProfileType}}
                     <i class="material-icons right" style="cursor: pointer">arrow_drop_down</i>
                 </a>
-                <ul id="dropdown-content" class="dropdown-content width100Per">
+                <ul id="globalDropdown2" class="dropdown-content width100Per">
                     <!--  hide-on-small-only -->
                     <li *ngFor="let jobType of jp">
                         <a (click)="jobProfileVal(jobType.type,jobType._id)">{{jobType.type}}</a>
