@@ -59,14 +59,32 @@
               <img src="./assets/img/play.png">
                <img src="./assets/img/pause.png"> 
             </div>
-          --> <video id="myVideo" name="media" #target class="video-js vjs-big-play-centered vjs-icon-spinner"
-                data-setup="{}" controls autoplay preload>
-                <source src={{videoURL}} type="video/mp4">Your browser does not support the video.
+          --> <video id="myVideo" #target class="video-js vjs-big-play-centered" data-setup="{}" controls autoplay
+                preload>
+                <source src={{videoURL}} type="video/mp4" />
+                <p class="vjs-no-js">
+                  To view this video please enable JavaScript, and consider upgrading to a
+                  web browser that
+                </p>
               </video>
               <!-- <button (click)="play()">play</button>
                 
               <button (click)="pause()">pause</button> -->
+              <script>
+                // Show loading animation.
+                var playPromise = myVideo.play();
 
+                if (playPromise !== undefined) {
+                  playPromise.then(_ => {
+                    // Automatic playback started!
+                    // Show playing UI.
+                  })
+                    .catch(error => {
+                      // Auto-play was prevented
+                      // Show paused UI.
+                    });
+                }
+              </script>
               <!-- <mat-video #vid [ngClass]="ngclass" [src]="videoURL" [autoplay]="autoPlay" [preload]="preload"
                 [loop]="loop" [fullscreen]="fullscreen" [quality]="quality" [keyboard]="keyboard" [color]="color"
                 [spinner]="spinnerType" [overlay]="overlay" [(muted)]="muted" [showFrameByFrame]="showFrameByFrame"

@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import videojs from 'video.js';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, OnChanges } from '@angular/core';
+// import videojs from 'video.js';
 import { ShareVideoService } from '../_services/share-video.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './shared-video.component.html',
   styleUrls: ['./shared-video.component.css']
 })
-export class SharedVideoComponent implements OnInit, OnDestroy {
+export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('target') target: ElementRef;
   // @ViewChild('vid') matVideo: MatVideoComponent;
   @ViewChild('myVideo') myVideo: ElementRef;
@@ -27,7 +27,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
       type: string,
     }[],
   };
-  player: videojs.Player;
+  // player: videojs.Player;
   token: any;
   currentResume: any;
   questionsByRecruiter: any;
@@ -209,6 +209,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    var media: any = document.getElementById("myVideo");
 
     // instantiate Video.js
     if (this.videoURL && this.isTokenValid) {
@@ -225,23 +226,23 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
       //   controlls: true,
       //   preload: true
       // }
-      this.player = videojs(this.target.nativeElement, {
-        autoplay: true,
-        controls: true,
-        preload: true,
-        fluid: true,
-        aspectRatio: '4:3',
-        plugins: {
-          hotkeys: {}
-        }
-      }, function onPlayerReady() {
-        this.target.nativeElement.play();
-        this.spinner.hide();
-        console.log('onPlayerReady', this);
-      }, err => {
-        this.spinner.hide();
+      // this.player = videojs(this.target.nativeElement, {
+      //   autoplay: true,
+      //   controls: true,
+      //   preload: true,
+      //   fluid: true,
+      //   aspectRatio: '4:3',
+      //   plugins: {
+      //     hotkeys: {}
+      //   }
+      // }, function onPlayerReady() {
+      //   this.target.nativeElement.play();
+      //   this.spinner.hide();
+      //   console.log('onPlayerReady', this);
+      // }, err => {
+      //   this.spinner.hide();
 
-      });
+      // });
 
       // console.log(this.player.onwaiting());
       if (this.target.nativeElement.paused) {
@@ -249,6 +250,12 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
         this.target.nativeElement.play();
       }
+      setTimeout(() => {
+        const playPromise = this.target.nativeElement.play();
+        if (playPromise !== null) {
+          playPromise.catch(() => { this.target.nativeElement.play(); })
+        }
+      }, 1000)
 
     } else {
       // console.log('token is not valid');
@@ -275,13 +282,23 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     this.play();
   }
   setCurrentTime(seconds, questionNumber) {
+    var media: any = document.getElementById("myVideo");
+
+    // setTimeout(() => {
+    //   const playPromise = this.target.nativeElement.play();
+    //   if (playPromise !== null) {
+    //     playPromise.catch(() => { this.target.nativeElement.play(); })
+    //   }
+    // }, 1000);
+    // console.log(media);
+
     this.questionNumber = questionNumber;
     this.target.nativeElement.loadingSpinner = true;
     this.isbufferLoader = true;
     // this.spinner.show();
     try {
-      this.time = seconds;
-      this.autoPlay = true;
+      // this.time = seconds;
+      // this.autoPlay = true;
       this.seek(seconds);
       // this.buff = this.target.nativeElement.buffered.end(0) - this.target.nativeElement.buffered.start(0);
       // this.target.nativeElement.currentTime = seconds;
@@ -307,7 +324,12 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     }
 
   }
-
+  ngOnChanges() {
+    // const playPromise = this.target.nativeElement.play();
+    // if (playPromise !== null) {
+    //   playPromise.catch(() => { this.target.nativeElement.play(); })
+    // }
+  }
   ngOnDestroy(): void {
     if (this.checkSharedTokenSubscription) {
       this.checkSharedTokenSubscription.unsubscribe();
