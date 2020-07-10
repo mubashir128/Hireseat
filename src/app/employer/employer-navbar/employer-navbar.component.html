@@ -1,15 +1,3 @@
-<!-- <header>
-  <div class="collection padd0">
-    <a
-      class="collection-item"
-      [ngClass]="{ active: tab.selected === true }"
-      *ngFor="let tab of tabs1"
-      (click)="SelectItem(tab.id)"
-      [routerLink]="[tab.id]"
-      >{{ tab.displayText }}</a
-    >
-  </div>
-</header> -->
 <header>
   <div class="collection padd0">
     <a class="collection-item" *ngFor="let tab of tabMenu" [ngClass]="{ active: tab.selected === true }"

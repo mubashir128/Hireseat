@@ -310,4 +310,8 @@ export class BiddingEventsListComponent implements OnInit {
 
   }
 
+  clickDropdown(){
+    console.log("clicked : ");
+  }
+
 }
