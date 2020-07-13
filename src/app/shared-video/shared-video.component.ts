@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import videojs from 'video.js';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, OnChanges } from '@angular/core';
+// import videojs from 'video.js';
 import { ShareVideoService } from '../_services/share-video.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './shared-video.component.html',
   styleUrls: ['./shared-video.component.css']
 })
-export class SharedVideoComponent implements OnInit, OnDestroy {
+export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('target') target: ElementRef;
   // @ViewChild('vid') matVideo: MatVideoComponent;
   @ViewChild('myVideo') myVideo: ElementRef;
@@ -20,7 +20,14 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
   checkSharedTokenSubscription: Subscription;
   questionNumber: any;
   videoURL: any;
-  player: videojs.Player;
+  options: {
+    autoplay: boolean,
+    sources: {
+      src: string,
+      type: string,
+    }[],
+  };
+  // player: videojs.Player;
   token: any;
   currentResume: any;
   questionsByRecruiter: any;
@@ -81,6 +88,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
           this.showCustomLoader = true;
           this.resume = res.resumeData[0];
           this.videoURL = res.videoUrl;
+
           this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
           // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
@@ -123,6 +131,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
 
             this.resume = res.resumeData[0];
             this.videoURL = res.videoUrl;
+
             this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
             // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
@@ -152,6 +161,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
             this.resume = this.currentResume.resumeKey;
             // console.log(this.resume);
             this.videoURL = res.videoUrl;
+
             this.isTokenValid = true;
             this.showCustomLoader = true;
 
@@ -169,9 +179,7 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
         this.spinner.hide();
       });
     }
-    if (this.player) {
-      this.target.nativeElement.play();
-    }
+
 
     // video mat 
     // this.vid = this.matVideo.getVideoTag();
@@ -179,19 +187,36 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     // Use Angular renderer or addEventListener to listen for standard HTML5 video events
 
     // this.renderer.listen(this.video, 'ended', () => console.log('video ended'));
-    // this.vid.addEventListener('ended', (event) => console.log('video ended', event));
+    // this.vid.addEventListener('ended', (event) => console.log('video ended', event))
   }
 
   ngAfterViewInit() {
+    var media: any = document.getElementById("myVideo");
+
     // instantiate Video.js
     if (this.videoURL && this.isTokenValid) {
       this.spinner.show();
-
-      // this.player = videojs(`this.target.nativeElement, {
+      // this.options = {
+      //   autoplay: true,
+      //   sources: [{
+      //     src: this.videoURL,
+      //     type: 'video/mp4'
+      //   }]
+      // };
+      // {
       //   "autoplay": true,
       //   controlls: true,
+      //   preload: true
+      // }
+      // this.player = videojs(this.target.nativeElement, {
+      //   autoplay: true,
+      //   controls: true,
       //   preload: true,
-      //   currentTime: 10
+      //   fluid: true,
+      //   aspectRatio: '4:3',
+      //   plugins: {
+      //     hotkeys: {}
+      //   }
       // }, function onPlayerReady() {
       //   this.target.nativeElement.play();
       //   this.spinner.hide();
@@ -199,8 +224,20 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
       // }, err => {
       //   this.spinner.hide();
 
-      // });`
+      // });
+
       // console.log(this.player.onwaiting());
+      if (this.target.nativeElement.paused) {
+        console.log('play/pause');
+
+        this.target.nativeElement.play();
+      }
+      setTimeout(() => {
+        const playPromise = this.target.nativeElement.play();
+        if (playPromise !== null) {
+          playPromise.catch(() => { this.target.nativeElement.play(); })
+        }
+      }, 1000)
 
     } else {
       // console.log('token is not valid');
@@ -209,23 +246,52 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     }
 
   }
+  onClick(event) {
+    console.log('***********', event);
+
+  }
+  play() {
+    if (this.target.nativeElement.paused) {
+      this.target.nativeElement.play();
+    }
+  }
+  pause() {
+    this.target.nativeElement.pause();
+  }
+  seek(seconds) {
+    this.pause();
+    this.target.nativeElement.currentTime = seconds;
+    this.play();
+  }
   setCurrentTime(seconds, questionNumber) {
+    var media: any = document.getElementById("myVideo");
+
+    // setTimeout(() => {
+    //   const playPromise = this.target.nativeElement.play();
+    //   if (playPromise !== null) {
+    //     playPromise.catch(() => { this.target.nativeElement.play(); })
+    //   }
+    // }, 1000);
+    // console.log(media);
+
     this.questionNumber = questionNumber;
-    // this.target.nativeElement.loadingSpinner = true;
+    this.target.nativeElement.loadingSpinner = true;
     this.isbufferLoader = true;
-    this.spinner.show();
+    // this.spinner.show();
     try {
-      this.time = seconds;
-      this.autoPlay = true;
+      // this.time = seconds;
+      // this.autoPlay = true;
+      this.seek(seconds);
       // this.buff = this.target.nativeElement.buffered.end(0) - this.target.nativeElement.buffered.start(0);
       // this.target.nativeElement.currentTime = seconds;
       // this.target.nativeElement.controlls = true;
       // this.target.nativeElement.autoplay = true;
       // this.target.nativeElement.play();
       // setTimeout(() => {
-      this.spinner.hide();
-      //   // this.target.nativeElement.loadingSpinner = false;
+      //   this.spinner.hide();
+      //   this.target.nativeElement.loadingSpinner = false;
       // }, this.buff);
+      // this.target.nativeElement.addEventListener('click', this.onClick.bind(this));
 
     } catch (e) {
       console.log(e);
@@ -240,7 +306,12 @@ export class SharedVideoComponent implements OnInit, OnDestroy {
     }
 
   }
-
+  ngOnChanges() {
+    // const playPromise = this.target.nativeElement.play();
+    // if (playPromise !== null) {
+    //   playPromise.catch(() => { this.target.nativeElement.play(); })
+    // }
+  }
   ngOnDestroy(): void {
     if (this.checkSharedTokenSubscription) {
       this.checkSharedTokenSubscription.unsubscribe();

@@ -156,10 +156,10 @@
   background-color: #fafafa;
   padding: 0;
   max-height: 70%;
-  width: 60%;
+  width: 35%;
   margin: auto;
   overflow-y: auto;
-  border-radius: 2px;
+  border-radius: 5px;
   will-change: top, opacity;
 }
 .emailTemp {
