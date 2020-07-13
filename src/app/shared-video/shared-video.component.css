@@ -24,7 +24,8 @@
 .interviewVideoDiv {
   width: 100%;
   float: left;
-  height: 500px;
+  /* height: 500px; */
+  height: auto;
   text-align: center;
   display: flex;
   justify-content: flex-end;
@@ -144,6 +145,16 @@ ul:not(.browser-default) > li {
 .downloadResume:hover a i {
   color: #ffffff;
 }
+.LikedInBtn{
+    background-color: #0e76a8;
+    border: 1px solid #0e76a8;
+    margin-left: 10px;
+    min-width: 125px !important;
+}
+.LikedInBtn a, .LikedInBtn a i {
+  color: #ffffff;
+}
+
 .docSectionBtns {
   text-align: right;
   margin-bottom: 20px;
@@ -264,9 +275,9 @@ nav.customeNav {
   .mainTemplate {
     /* padding: 20px 15px 110px; */
     padding: 20px 15px 20px;
-    display: flex;
+    /* display: flex;
     flex-direction: column-reverse;
-    justify-content: flex-end;
+    justify-content: flex-end; */
   }
   .mainTempExpire {
     padding: 20px 15px;
@@ -310,7 +321,7 @@ nav.customeNav {
   }
   .singleList.employerResume {
     margin-bottom: 20px;
-    margin-top: 0 !important;
+    margin-top: 15px !important;
   }
   .footer {
     height: 56px;
@@ -324,6 +335,11 @@ nav.customeNav {
   }
   .contact-email h2 {
     font-size: 18px !important;
+  }
+  .docSectionBtns .LikedInBtn{
+    min-width: 160px !important;
+    margin: 0 0 0 10px !important;
+    margin-top: 5px !important;
   }
 }
 .video-js-without-questions {
