@@ -1,0 +1,44 @@
+<div class="container">
+
+  <div class="leftSideQuetion" *ngIf="questionsByRecruiter">
+    <h2>Jump to below interview questions</h2>
+
+    <div class="interviewQue">
+      <h4><a [ngClass]="questionNumber === 1 ? 'interview-bold':false"
+          (click)="setCurrentTime(questionsByRecruiter.timeStamp1,1)">
+          {{questionsByRecruiter.question1}}</a>
+      </h4>
+      <h4><a [ngClass]="questionNumber === 2 ? 'interview-bold':false"
+          (click)="setCurrentTime(questionsByRecruiter.timeStamp2,2)">
+          {{questionsByRecruiter.question2}}</a>
+      </h4>
+      <h4><a [ngClass]="questionNumber === 3 ? 'interview-bold':false"
+          (click)="setCurrentTime(questionsByRecruiter.timeStamp3,3)">
+          {{questionsByRecruiter.question3}}</a>
+      </h4>
+      <h4><a [ngClass]="questionNumber === 4 ? 'interview-bold':false"
+          (click)="setCurrentTime(questionsByRecruiter.timeStamp4,4)">
+          {{questionsByRecruiter.question4}}</a>
+      </h4>
+      <h4><a [ngClass]="questionNumber === 5 ? 'interview-bold':false"
+          (click)="setCurrentTime(questionsByRecruiter.timeStamp5,5)">
+          {{questionsByRecruiter.question5}}</a>
+      </h4>
+    </div>
+
+  </div>
+  <div class="video-interview" [ngClass]="!resume?.questionsByRecruiter[0]? 'video-js-without-questions': false">
+    >
+    <!-- <video id="myVideo" #target class="video-js vjs-big-play-centered" data-setup="{}" controls autoplay preload>
+    <source src={{videoURL}} type="video/mp4" />
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+    </p>
+  </video> -->
+    <video #target class="video-js vjs-big-play-centered" controls muted playsinline preload="none"></video>
+
+
+  </div>
+
+</div>

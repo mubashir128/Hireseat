@@ -36,6 +36,7 @@ import { SearchByNamePipe } from 'src/search-by-name.pipe';
 import { SearchByExperiencePipe } from 'src/search-by-experience.pipe';
 import { SidebarComponent } from 'src/app/admin/sidebar/sidebar.component';
 import { EditTagComponent } from 'src/app/blog/edit-blog/edit-tag/edit-tag.component';
+import { VideoQuestionsComponent } from './components/video-questions/video-questions.component';
 
 @NgModule({
   imports: [
@@ -83,7 +84,10 @@ import { EditTagComponent } from 'src/app/blog/edit-blog/edit-tag/edit-tag.compo
     PieChartComponent,
     ScatterChartComponent,
     SidebarComponent,
+    VideoQuestionsComponent,
     // EditTagComponent
+
+    VideoQuestionsComponent
   ],
   exports: [
     FooterComponent,
@@ -121,6 +125,8 @@ import { EditTagComponent } from 'src/app/blog/edit-blog/edit-tag/edit-tag.compo
     ScatterChartComponent,
     SidebarComponent,
     // EditTagComponent
+
+    VideoQuestionsComponent
   ]
 })
 export class SharedComponentsModule { }

@@ -88,13 +88,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
           this.showCustomLoader = true;
           this.resume = res.resumeData[0];
           this.videoURL = res.videoUrl;
-          this.options = {
-            autoplay: true,
-            sources: [{
-              src: this.videoURL,
-              type: 'video/mp4'
-            }]
-          };
+
           this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
           // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
@@ -137,13 +131,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
 
             this.resume = res.resumeData[0];
             this.videoURL = res.videoUrl;
-            this.options = {
-              autoplay: true,
-              sources: [{
-                src: this.videoURL,
-                type: 'video/mp4'
-              }]
-            };
+
             this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
             // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
@@ -173,13 +161,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
             this.resume = this.currentResume.resumeKey;
             // console.log(this.resume);
             this.videoURL = res.videoUrl;
-            this.options = {
-              autoplay: true,
-              sources: [{
-                src: this.videoURL,
-                type: 'video/mp4'
-              }]
-            };
+
             this.isTokenValid = true;
             this.showCustomLoader = true;
 
