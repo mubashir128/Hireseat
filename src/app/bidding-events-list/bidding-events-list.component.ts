@@ -164,6 +164,9 @@ export class BiddingEventsListComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    if(this.chkLoggedInUser.userRole=="recruiter"){
+      jQuery(".postingForm").css("display","none");
+    }
     // server-side search
     if(!this.hideAddBtn){
       this.searchTermByName();
@@ -293,6 +296,7 @@ export class BiddingEventsListComponent implements OnInit {
   }
 
   jobProfileVal(val, id){
+    this.clickDropdown("none",'0');
     if(this.jobProfileType === val){
       return ;
     }
@@ -310,8 +314,9 @@ export class BiddingEventsListComponent implements OnInit {
 
   }
 
-  clickDropdown(){
-    console.log("clicked : ");
+  clickDropdown(val,opacity){
+    jQuery("#globalDropdown2").css("display",val);
+    jQuery("#globalDropdown2").css("opacity",opacity);
   }
 
 }
