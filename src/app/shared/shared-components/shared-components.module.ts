@@ -36,6 +36,7 @@ import { SearchByNamePipe } from 'src/search-by-name.pipe';
 import { SearchByExperiencePipe } from 'src/search-by-experience.pipe';
 import { SidebarComponent } from 'src/app/admin/sidebar/sidebar.component';
 import { EditTagComponent } from 'src/app/blog/edit-blog/edit-tag/edit-tag.component';
+import { TagInputModule } from "ngx-chips";
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { EditTagComponent } from 'src/app/blog/edit-blog/edit-tag/edit-tag.compo
     FormsModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    TagInputModule
   ],
   declarations: [
     FooterComponent,

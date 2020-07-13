@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { VideoCallingService } from '../_services/video-calling.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-video-interview-room',
@@ -14,23 +15,36 @@ export class VideoInterviewRoomComponent implements OnInit {
   userRole: any;
   userId: any;
   interviewList: any;
+  tags: any;
+  searchTerm : string;
+  skillsSetsAre=[];
+  public skillSets = [];
+  public SearchFrm: FormGroup;
+  @ViewChild('searchByName') searchByName: ElementRef;
+
   constructor(
     private router: Router,
     private videoCallingService: VideoCallingService,
     private spinner: NgxSpinnerService,
+    private formBuilder: FormBuilder
   ) {
     this.userRole = JSON.parse(localStorage.getItem("currentUser")).userInfo
       .userRole;
     this.userId = JSON.parse(localStorage.getItem("currentUser")).userInfo
       ._id;
 
+      this.SearchFrm = this.formBuilder.group({
+        tags: ["", Validators.required],
+        searchTerm : [""]
+      });
+
   }
 
   ngOnInit() {
     this.spinner.show();
-    // console.log(window.location.hostname);
     if (this.userRole === 'recruiter') {
-      // console.log(this.userId, this.userRole);
+      this.getSkillsets();
+
       const payload = {
         recruiterId: this.userId
       };
@@ -65,6 +79,22 @@ export class VideoInterviewRoomComponent implements OnInit {
     }
 
   }
+
+  getSkillsets() {
+    this.videoCallingService.getSkillSets().subscribe(
+      (data: any) => {
+        if (data.length > 0) {
+          this.skillSets = data;
+        } else {
+          this.skillSets = [];
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   onInterview(candidateId) {
     // window.open('http://' + window.location.hostname + '/video-call');
     // console.log('calling', candidateId);
@@ -125,6 +155,20 @@ export class VideoInterviewRoomComponent implements OnInit {
       console.log('error user role not specified');
 
     }
-
   }
+
+  onadd(event) {
+    var skillSets = [];
+    if (this.SearchFrm.valid) {
+      this.SearchFrm.value.tags.forEach(element => {
+        skillSets.push(element.value);
+      });
+    } else {
+      skillSets = null;
+    }
+
+    this.skillsSetsAre=skillSets;
+    console.log(this.skillsSetsAre);
+  }
+
 }
