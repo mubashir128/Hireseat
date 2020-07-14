@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { VideoCallingService } from '../_services/video-calling.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-video-interview-room',
@@ -49,35 +51,62 @@ export class VideoInterviewRoomComponent implements OnInit {
         recruiterId: this.userId
       };
       // get all candidates for interview
-      this.videoCallingService.getAllRecruitersCandidates(payload).subscribe(res => {
-        if (res) {
-          this.spinner.hide();
-          this.interviewList = res;
-          // console.log('*******************************', this.interviewList);
-        }
-      }, err => {
-        this.spinner.hide();
-        console.log(err);
-      });
+      this.getAllRecruitersCandidates(payload);
+      
     } else if (this.userRole === 'employer') {
       this.spinner.hide();
       const payload = {
         employersId: this.userId
       };
       // get all candidates for interview
-      this.videoCallingService.getAllEmployersCandidates(payload).subscribe(res => {
-        if (res) {
-          this.spinner.hide();
-          this.interviewList = res;
-          // console.log('*******************************', this.interviewList);
-        }
-      }, err => {
-        this.spinner.hide();
-        console.log(err);
-      });
-      //  get all candidates for interview
+      this.getAllEmployersCandidates(payload);
+
     }
 
+  }
+
+  ngAfterViewInit() {
+    // server-side search
+    this.searchTermByName();
+  }
+
+  searchTermByName(){
+    fromEvent(this.searchByName.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+
+      })
+    )
+    .subscribe();
+  }
+
+  getAllRecruitersCandidates(payload){
+    this.videoCallingService.getAllRecruitersCandidates(payload).subscribe(res => {
+      console.log(res);
+      if (res) {
+        this.spinner.hide();
+        this.interviewList = res;
+      }
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+    });
+  }
+
+  getAllEmployersCandidates(payload){
+    this.videoCallingService.getAllEmployersCandidates(payload).subscribe(res => {
+      if (res) {
+        this.spinner.hide();
+        this.interviewList = res;
+      }
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+    });
   }
 
   getSkillsets() {
@@ -169,6 +198,14 @@ export class VideoInterviewRoomComponent implements OnInit {
 
     this.skillsSetsAre=skillSets;
     console.log(this.skillsSetsAre);
+    this.skillsSetsAre=skillSets;
+    this.getAllRecruitersCandidates({
+      skillsets : skillSets,
+      searchType : "skills",
+      recruiterId: this.userId,
+      searchTerm : this.SearchFrm.value.searchTerm
+    });
+    this.interviewList = [];
   }
 
 }
