@@ -89,7 +89,10 @@ const appRoutes: Routes = [
     path: "register",
     loadChildren: './register/register.module#RegisterModule'
   },
-  { path: "login", component: LoginComponent },
+  {
+    path: "login",
+    loadChildren: './login/login.module#LoginModule'
+  },
   {
     path: "bidding-events/details/:key",
     component: BiddingEventDetailsComponent,
