@@ -69,9 +69,11 @@ const appRoutes: Routes = [
   //   path: "video-call/:id",
   //   loadChildren: './video-call/video-call.module#VideoCallModule'
   // },
+  {
+    path: "shared-video/:token",
+    loadChildren: './shared-video/shared-video.module#SharedVideoModule'
+  },
 
-  { path: "register", component: RegisterComponent },
-  { path: "login", component: LoginComponent },
   {
     path: "recruiter",
     loadChildren: './recruiter/recruiter.module#RecruiterModule',
@@ -83,6 +85,11 @@ const appRoutes: Routes = [
     loadChildren: './employer/employer.module#EmployerModule',
     canActivate: [AuthGuard]
   },
+  {
+    path: "register",
+    loadChildren: './register/register.module#RegisterModule'
+  },
+  { path: "login", component: LoginComponent },
   {
     path: "bidding-events/details/:key",
     component: BiddingEventDetailsComponent,
@@ -114,145 +121,20 @@ const appRoutes: Routes = [
     path: "video-call/:id",
     component: VideoCallComponent
   },
-  {
-    path: "shared-video/:token",
-    loadChildren: './shared-video/shared-video.module#SharedVideoModule'
-  }
+
 ];
 
 const appChildRoutes: Routes = [
-  // {
-  //   path: "employer",
-  //   component: EmployerHomeComponent,
-  //   children: [
-  //     {
-  //       path: "profile",
-  //       component: ProfileComponent
-  //     },
-  //     {
-  //       path: "job-profile-list",
-  //       component: JobProfileListComponent
-  //     },
-  //     {
-  //       path: "create-job-profile",
-  //       component: CreateJobProfileComponent
-  //     },
-  //     {
-  //       path: "bidding-event-list",
-  //       component: BiddingEventsListComponent
-  //     },
-  //     {
-  //       path: "create-bidding-event",
-  //       component: CreateBiddingEventComponent
-  //     },
-  //     {
-  //       path: "edit-job-profile",
-  //       component: EditJobProfileComponent
-  //     },
-  //     {
-  //       path: "feedback-list",
-  //       component: FeedbackListComponent
-  //     },
-  //     {
-  //       path: "employer-Answere/:id",
-  //       component: EmployeerAnsComponent
-  //     },
-  //     {
-  //       path: "dashboard",
-  //       component: DashboardComponent
-  //     },
-  //     {
-  //       path: "video-interview-room",
-  //       component: VideoInterviewRoomComponent
-  //     },
-  //     {
-  //       path: "mycandidates",
-  //       component: MycandidatesComponent
-  //     },
-  //     {
-  //       path: "new-resume",
-  //       component: NewResumeComponent
-  //     }
-  //   ],
-  //   canActivate: [EmployerGuard]
-  // },
-  // {
-  //   path: "recruiter",
-  //   component: RecruiterHomeComponent,
-  //   children: [
-  //     {
-  //       path: "profile",
-  //       component: ProfileComponent
-  //     },
-  //     {
-  //       path: "bidding-event-list",
-  //       component: BiddingEventsListComponent
-  //     },
-  //     {
-  //       path: "bidding-event-list/:type",
-  //       component: BiddingEventsListComponent
-  //     },
-  //     {
-  //       path: "recruiter-question/:id",
-  //       component: RecruiterQuestionComponent
-  //     },
-  //     {
-  //       path: "resume-list",
-  //       component: ResumeListComponent
-  //     },
-  //     {
-  //       path: "new-resume",
-  //       component: NewResumeComponent
-  //     },
-  //     {
-  //       path: "won-bids",
-  //       component: WonBidsComponent
-  //     },
-  //     {
-  //       path: "search-resume",
-  //       component: SearchResumeComponent
-  //     },
-  //     {
-  //       path: "video-interview-room",
-  //       component: VideoInterviewRoomComponent
-  //     },
-
-
-  //   ],
-  //   canActivate: [RecruiterGuard]
-  // },
-  // {
-  //   path: "blog-posts",
-  //   component: BlogMainComponent,
-  //   children: [
-  //     {
-  //       path: "create-post",
-  //       component: CreatePostComponent
-  //     },
-  //     {
-  //       path: "edit-post/:blogID",
-  //       component: EditBlogComponent
-  //     },
-  //     {
-  //       path: "create-image-post",
-  //       component: CreateImagePostComponent
-  //     },
-  //     {
-  //       path: "all-post",
-  //       component: AllPostComponent
-  //     },
-  //     {
-  //       path: "create-categories",
-  //       component: CreateCategoryComponent
-  //     },
-  //     {
-  //       path: "edit-categories",
-  //       component: EditCategoryComponent
-  //     }
-  //   ],
-  //   canActivate: [AdminGuard]
-  // }
-
+  {
+    path: "super-admin",
+    loadChildren: './super-admin/super-admin.module#SuperAdminModule',
+    canActivate: [SupperAdminGuard]
+  },
+  {
+    path: "enterprise",
+    loadChildren: './enterprise/enterprise.module#EnterpriseModule',
+    canActivate: [EnterpriseGuard]
+  },
   {
     path: "blog-posts",
     loadChildren: './blog/blog.module#BlogModule'
@@ -273,22 +155,8 @@ const appChildRoutes: Routes = [
     path: "blog/:url",
     component: SinglePageComponent
   },
-  {
-    path: "blog/:url",
-    component: SinglePageComponent
-  },
 
 
-  {
-    path: "super-admin",
-    loadChildren: './super-admin/super-admin.module#SuperAdminModule',
-    canActivate: [SupperAdminGuard]
-  },
-  {
-    path: "enterprise",
-    loadChildren: './enterprise/enterprise.module#EnterpriseModule',
-    canActivate: [EnterpriseGuard]
-  },
   {
     path: "**",
     component: NotFoundComponent

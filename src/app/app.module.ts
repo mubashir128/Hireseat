@@ -148,7 +148,7 @@ import { VideoCallingService } from './_services/video-calling.service';
   ],
   declarations: [
     AppComponent,
-    RegisterComponent,
+    // RegisterComponent,
     LoginComponent,
     // EmployerNavbarComponent,
     AuctionrulesComponent,
