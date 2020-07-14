@@ -104,6 +104,9 @@ export class SAUserListComponent implements OnInit {
   }
 
   loginUser(userEmail) {
+    if(this.itemsIs === "enterprise"){
+      return ;
+    }
     localStorage.setItem(
       "super-admin-email",
       this.userService.getUserData().email

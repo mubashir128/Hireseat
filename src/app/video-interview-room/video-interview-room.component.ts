@@ -22,6 +22,8 @@ export class VideoInterviewRoomComponent implements OnInit {
   skillsSetsAre=[];
   public skillSets = [];
   public SearchFrm: FormGroup;
+  p=1;
+  itemsPerPageAre = 10;
   @ViewChild('searchByName') searchByName: ElementRef;
 
   constructor(
@@ -43,25 +45,10 @@ export class VideoInterviewRoomComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.spinner.show();
-    if (this.userRole === 'recruiter') {
-      this.getSkillsets();
-
-      const payload = {
-        recruiterId: this.userId
-      };
-      // get all candidates for interview
-      this.getAllRecruitersCandidates(payload);
-      
-    } else if (this.userRole === 'employer') {
-      this.spinner.hide();
-      const payload = {
-        employersId: this.userId
-      };
-      // get all candidates for interview
-      this.getAllEmployersCandidates(payload);
-
-    }
+    this.getSkillsets();
+    this.redirectToUser({});
 
   }
 
@@ -78,7 +65,12 @@ export class VideoInterviewRoomComponent implements OnInit {
       debounceTime(1000),
       distinctUntilChanged(),
       tap((text) => {
-
+        let obj={
+          searchType : "name",
+          searchTerm : this.searchTerm,
+          skillsets : this.skillsSetsAre
+        }
+        this.redirectToUser(obj);
       })
     )
     .subscribe();
@@ -86,7 +78,6 @@ export class VideoInterviewRoomComponent implements OnInit {
 
   getAllRecruitersCandidates(payload){
     this.videoCallingService.getAllRecruitersCandidates(payload).subscribe(res => {
-      console.log(res);
       if (res) {
         this.spinner.hide();
         this.interviewList = res;
@@ -197,15 +188,22 @@ export class VideoInterviewRoomComponent implements OnInit {
     }
 
     this.skillsSetsAre=skillSets;
-    console.log(this.skillsSetsAre);
     this.skillsSetsAre=skillSets;
-    this.getAllRecruitersCandidates({
+    this.redirectToUser({
       skillsets : skillSets,
       searchType : "skills",
       recruiterId: this.userId,
       searchTerm : this.SearchFrm.value.searchTerm
     });
     this.interviewList = [];
+  }
+
+  redirectToUser(obj){
+    if(this.userRole === "recruiter"){
+      this.getAllRecruitersCandidates(obj);
+    }else if(this.userRole === "employer"){
+      this.getAllEmployersCandidates(obj);
+    }
   }
 
 }
