@@ -1,5 +1,5 @@
-<div class="main-container colmInverse">
-
+<!-- <div class="container colmInverse"> -->
+<div class="interviewVideoDiv stickyDiv">
   <div class="leftSideQuetion" *ngIf="questionsByRecruiter">
     <h2>Jump to below interview questions</h2>
 
@@ -28,16 +28,17 @@
 
   </div>
   <div class="video-interview" [ngClass]="!resume?.questionsByRecruiter[0]? 'video-js-without-questions': false">
-    <!-- <video id="myVideo" #target class="video-js vjs-big-play-centered" data-setup="{}" controls autoplay preload>
-    <source src={{videoURL}} type="video/mp4" />
-    <p class="vjs-no-js">
-      To view this video please enable JavaScript, and consider upgrading to a
-      web browser that
-    </p>
-  </video> -->
-    <video #target class="video-js vjs-big-play-centered" controls muted playsinline preload="true"></video>
+    <!-- {"techOrder": ["html5", "flash", "other supported tech"]} -->
+    <video id="myVideo" #target class="video-js vjs-big-play-centered" data-setup='' muted controls autoplay preload>
+      <source src={{videoURL}} type="video/mp4" />
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+        web browser that
+      </p>
+    </video>
+    <!-- <video #target class="video-js vjs-big-play-centered" controls muted preload="true"></video> -->
 
 
   </div>
-
 </div>
+<!-- </div> -->
