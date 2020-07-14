@@ -11,15 +11,20 @@
   background-color: #000;
   box-shadow: 0px 0px 10px #ccc;
 }
+.interviewQue {
+  max-height: 200px;
+  overflow-y: auto;
+}
 .leftSideQuetion h2 {
-  font-size: 32px;
+  font-size: 25px;
   text-align: left;
   color: #33aaff;
-  margin: 0 0 30px;
+  /* margin: 0 0 30px; */
+  margin: 0;
 }
 .interviewQue h4 {
-  margin: 30px 0;
-  font-size: 17px;
+  margin: 20px 0;
+  font-size: 16px;
   text-align: left;
 }
 .interviewQue h4 a {
@@ -44,11 +49,11 @@
   position: relative;
 } */
 .video-interview {
-  width: 60%;
+  width: 50%;
   height: 100%;
 }
 /* videojs */
-/* .video-js {
+.video-js {
   width: 100% !important;
   height: 100% !important;
   outline: none !important;
@@ -56,27 +61,29 @@
 .video-js:focus {
   outline: none;
 }
-.video-js {
-  width: 100% !important;
-  height: 100% !important;
-  outline: none !important;
-}
 .video-js-without-questions {
   width: 100% !important;
   height: 100% !important;
-} */
+}
 
 /* end video js */
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
+  .singleList.employerResume {
+    margin-top: 15px !important;
+}
+  .container.colmInverse{
+    flex-direction: column-reverse;
+  }
   .leftSideQuetion {
     width: 100%;
   }
   .leftSideQuetion h2 {
-    font-size: 25px;
+    font-size: 20px;
+    margin-bottom: 10px;
   }
   .interviewQue h4 {
-    font-size: 15px;
-    margin: 25px 0;
+    font-size: 14px;
+    margin: 15px 0;
   }
   .video-interview {
     width: 100%;
@@ -86,5 +93,14 @@
   .video-interview .video-js {
     width: auto;
     height: 260px !important;
+  }
+  .candidate-name{
+    font-size: 17px !important;
+  }
+  .docSectionBtns {
+    margin-bottom: 10px !important;
+  }
+  .PointsDivSingle h4 {
+    margin: 0 !important;
   }
 }
