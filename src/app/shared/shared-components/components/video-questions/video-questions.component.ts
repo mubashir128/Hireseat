@@ -33,8 +33,8 @@ export class VideoQuestionsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.table(this.resume);
-    console.log(this.questionsByRecruiter);
+    // console.table(this.resume);
+    // console.log(this.questionsByRecruiter);
 
     // instantiate Video.js
     this.player = videojs(this.target.nativeElement, this.options, function onPlayerReady() {
