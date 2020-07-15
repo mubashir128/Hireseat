@@ -105,15 +105,21 @@ const appRoutes: Routes = [
   },
   {
     path: "user/email/verification/check/:key",
-    component: EmailVerificationComponent
+    loadChildren: './email-verification/email-verification.module#EmailVerificationModule'
   },
   {
     path: "user/forgot/password/check/hireseat/:key",
-    component: ForgotPasswordResetComponent
+    loadChildren: './forgot-password-reset/forgot-password-reset.module#ForgotPasswordResetModule'
   },
   { path: "employer/feedback/:key", component: FeedbackResumesComponent },
-  { path: "rules", component: AuctionrulesComponent },
-  { path: "contact-us", component: ContactUsComponent },
+  {
+    path: "rules",
+    loadChildren: './auctionrules/auctionrules.module#AuctionrulesModule'
+  },
+  {
+    path: "contact-us",
+    component: ContactUsComponent
+  },
   { path: "Forgot-Password", component: ForgotPasswordComponent },
   { path: "", redirectTo: "home", pathMatch: "full" },
 
