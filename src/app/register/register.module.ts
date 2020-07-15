@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RecruiterBrodcastModule } from '../recruiter-brodcast/recruiter-brodcast.module';
 
 @NgModule({
   imports: [

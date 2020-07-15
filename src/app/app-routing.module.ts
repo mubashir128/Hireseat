@@ -85,6 +85,7 @@ const appRoutes: Routes = [
     loadChildren: './employer/employer.module#EmployerModule',
     canActivate: [AuthGuard]
   },
+  // 14july
   {
     path: "register",
     loadChildren: './register/register.module#RegisterModule'
@@ -95,7 +96,7 @@ const appRoutes: Routes = [
   },
   {
     path: "bidding-events/details/:key",
-    component: BiddingEventDetailsComponent,
+    loadChildren: './bidding-event-details/bidding-event-details.module#BiddingEventDetailsModule',
     canActivate: [AuthGuard]
   },
   {

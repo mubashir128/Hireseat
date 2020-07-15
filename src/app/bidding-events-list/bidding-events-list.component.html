@@ -11,8 +11,10 @@
                     <label for="expiryDate" class="active">End Date :</label>
                 </div>
             </div>
-            <div class="right-align" >
-                <a *ngIf="!hideAddBtn" class="waves-effect waves-light btn" [routerLink]="['/employer/create-bidding-event']"> <i class="material-icons left">add</i> New Job Posting</a>
+            <div class="right-align">
+                <a *ngIf="!hideAddBtn" class="waves-effect waves-light btn"
+                    [routerLink]="['/employer/create-bidding-event']"> <i class="material-icons left">add</i> New Job
+                    Posting</a>
             </div>
             <!-- *ngIf="!hideAddBtn" -->
         </div>
@@ -20,7 +22,8 @@
             <div class="col s6 paddL0">
                 <div class="input-field">
                     <label for="jobProfiler" class="active">Select Job Profile :</label>
-                    <input type="hidden" name="selectedJobProfile" [(ngModel)]="selectedJobType" [ngModelOptions]="{standalone: true}">
+                    <input type="hidden" name="selectedJobProfile" [(ngModel)]="selectedJobType"
+                        [ngModelOptions]="{standalone: true}">
                     <a class="dropdown-button" id="globalDropdown" (click)="clickDropdown('block','1')">
                         {{jobProfileType}}
                         <i class="material-icons right" style="cursor: pointer">arrow_drop_down</i>
@@ -38,23 +41,25 @@
                     <span class="note"> <span style="color: #f58e8e;">Note :</span> Search by Name </span>
                 </div>
                 <div class="inputDivMainN">
-                <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" placeholder="Search here..." #searchByName>
+                    <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}"
+                        placeholder="Search here..." #searchByName>
                 </div>
             </div>
         </div>
     </div>
     <div *ngIf="!noBiddingEvents">
-        <ul id="bidding-event-list"  style="margin-top:15px;">
-            <li *ngFor="let biddingEvent of biddingEvents | paginate: { itemsPerPage : itemsPerPage, currentPage : p }" style="cursor:pointer;">
-                <app-bidding-event-item [biddingEvent]="biddingEvent" (selected)="onSelect($event)" (delete)="onDelete($event)"></app-bidding-event-item>
+        <ul id="bidding-event-list" style="margin-top:15px;">
+            <li *ngFor="let biddingEvent of biddingEvents | paginate: { itemsPerPage : itemsPerPage, currentPage : p }"
+                style="cursor:pointer;">
+                <app-bidding-event-item [biddingEvent]="biddingEvent" (selected)="onSelect($event)"
+                    (delete)="onDelete($event)"></app-bidding-event-item>
                 <!-- <app-bidding-event-item [biddingEvent]="biddingEvent" (selected)="onSelect($event)" ></app-bidding-event-item> -->
             </li>
         </ul>
-        <pagination-controls (pageChange)="handlePagination($event)" ></pagination-controls>
+        <pagination-controls (pageChange)="handlePagination($event)"></pagination-controls>
     </div>
 
     <div *ngIf="noBiddingEvents" style="padding-top: 10px;">
-            No Results to show
-    </div>  
+        No Results to show
+    </div>
 </div>
- 
