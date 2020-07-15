@@ -5,6 +5,8 @@ import { AllPostRoutingModule } from './all-post-routing.module';
 import { AllBlogsComponent } from '../frontend/all-blogs/all-blogs.component';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-components.module';
+import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 
 @NgModule({
   imports: [
@@ -12,7 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AllPostRoutingModule,
     Ng2CompleterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedComponentsModule,
+    NgxTwitterTimelineModule
   ],
   declarations: [
     AllBlogsComponent
