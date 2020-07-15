@@ -184,7 +184,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       }
     }
     //
-    // this.createOpenTokSession();
+    this.createOpenTokSession();
   }
   createOpenTokSession() {
     console.trace();

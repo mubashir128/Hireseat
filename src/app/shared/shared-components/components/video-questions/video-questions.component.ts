@@ -50,23 +50,23 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     this.player = videojs(this.target.nativeElement, this.options, function onPlayerReady() {
       console.log('onPlayerReady', this);
       this.on('ended', () => {
-        videojs.log('Awww...over so soon?!');
-        console.log('ended');
+        // videojs.log('Awww...over so soon?!');
+        // console.log('ended');
 
       });
       this.on('play', () => {
-        console.log('play');
+        // console.log('play');
 
       });
       this.on('pause', () => {
-        console.log('pause');
+        // console.log('pause');
 
       });
       // this.on('loadedmetadata', () => {
       //   this.currentTime(this.time)
       // })
       this.one('seeked', (event) => {
-        console.log(event);
+        // console.log(event);
 
       });
 
@@ -77,13 +77,13 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
         })
 
         playPromise.catch((e) => {
-          console.log(e);
+          // console.log(e);
           this.pause()
         })
       }
     });
     var media: any = document.getElementById("myVideo");
-    console.log(media.duration);
+    // console.log(media.duration);
 
   }
 
