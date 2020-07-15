@@ -4,53 +4,25 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { AppComponent } from "./app.component";
-import { RegisterComponent } from "./register/register.component";
-import { LoginComponent } from "./login/login.component";
 import { AuthenticationService } from "./_services/authentication.service";
 import { UserService } from "./_services/user.service";
 import { AuthGuard } from "./_guards/auth.guard";
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { ErrorInterceptor } from "./_helpers/error.interceptor";
-import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
-import { ContactUsComponent } from "./contact-us/contact-us.component";
-
-import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
-import { BiddingInfoComponent } from "./bidding-info/bidding-info.component";
-import { BidHighlightsComponent } from "./bid-highlights/bid-highlights.component";
+import { AppComponent } from "./app.component";
 import { BiddingResumesComponent } from "./bidding-resumes/bidding-resumes.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
 import { MyBidsComponent } from "./recruiter/my-bids/my-bids.component";
 import { JobProfileDetailsComponent } from "./job-profile-details/job-profile-details.component";
-import { RecruiterFeedbackComponent } from "./recruiter/recruiter-feedback/recruiter-feedback.component";
-import { EmailVerificationComponent } from "./email-verification/email-verification.component";
-import { NotFoundComponent } from "./not-found/not-found.component";
-import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
-import { ForgotPasswordResetComponent } from "./forgot-password-reset/forgot-password-reset.component";
-import { FeedbackResumesComponent } from "./employer/feedback-resumes/feedback-resumes.component";
-import { RecruterBiddingInfoComponent } from "./recruter-bidding-info/recruter-bidding-info.component";
-import { BiddingInterviewInfoComponent } from "./bidding-interview-info/bidding-interview-info.component";
-import { RecruiterBiddingInterviewInfoComponent } from "./recruiter-bidding-interview-info/recruiter-bidding-interview-info.component";
-import { BiddingHiredInfoComponent } from "./bidding-hired-info/bidding-hired-info.component";
-import { RecruiterBiddingHiredInfoComponent } from "./recruiter-bidding-hired-info/recruiter-bidding-hired-info.component";
-import { JobProfileInfoComponent } from "./job-profile-info/job-profile-info.component";
-import { UploadResumeComponent } from "./resume-bank/upload-resume/upload-resume.component";
-import { UserlistComponent } from "./admin/userlist/userlist.component";
+import { BidHighlightsComponent } from "./bid-highlights/bid-highlights.component";
 import { CKEditorModule } from "ng2-ckeditor";
 import { BlogMaiComponent } from "./blog/blog-mai/blog-mai.component";
 import { BlogNavComponent } from "./blog/blog-nav/blog-nav.component";
 import { EditorModule } from "@tinymce/tinymce-angular";
 
-import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
-import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
-import { SinglePageComponent } from "./blog/frontend/single-page/single-page.component";
-// import { SidebarComponent } from "./admin/sidebar/sidebar.component";
-// import { EditTagComponent } from "./blog/edit-blog/edit-tag/edit-tag.component";
-import { SocialShareComponent } from "src/app/blog/frontend/single-page/social-share/social-share.component";
-import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
 import { Ng2CompleterModule } from "ng2-completer";
 import { Angular2CsvModule } from "angular2-csv";
 import { RecruiterComponent } from "./recruiter-cost/recruiter/recruiter.component";
-import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
 import { OpentokService } from './_services/opentok.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -120,7 +92,36 @@ import { VideoCallingService } from './_services/video-calling.service';
 // import { AllPostComponent } from "./blog/all-post/all-post.component";
 // import { CreateImagePostComponent } from "./blog/create-image-post/create-image-post.component";
 // import { EditBlogComponent } from "./blog/edit-blog/edit-blog.component";
+// 14 july
+// import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
+// import { BiddingInfoComponent } from "./bidding-info/bidding-info.component";
+// import { ContactUsComponent } from "./contact-us/contact-us.component";
+// import { RegisterComponent } from "./register/register.component";
+// import { LoginComponent } from "./login/login.component";
 
+// import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
+// import { RecruiterFeedbackComponent } from "./recruiter/recruiter-feedback/recruiter-feedback.component";
+// import { EmailVerificationComponent } from "./email-verification/email-verification.component";
+// import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
+// import { ForgotPasswordResetComponent } from "./forgot-password-reset/forgot-password-reset.component";
+// import { FeedbackResumesComponent } from "./employer/feedback-resumes/feedback-resumes.component";
+// import { RecruterBiddingInfoComponent } from "./recruter-bidding-info/recruter-bidding-info.component";
+// import { BiddingInterviewInfoComponent } from "./bidding-interview-info/bidding-interview-info.component";
+// import { RecruiterBiddingInterviewInfoComponent } from "./recruiter-bidding-interview-info/recruiter-bidding-interview-info.component";
+// import { BiddingHiredInfoComponent } from "./bidding-hired-info/bidding-hired-info.component";
+// import { RecruiterBiddingHiredInfoComponent } from "./recruiter-bidding-hired-info/recruiter-bidding-hired-info.component";
+// import { JobProfileInfoComponent } from "./job-profile-info/job-profile-info.component";
+// import { UploadResumeComponent } from "./resume-bank/upload-resume/upload-resume.component";
+// import { UserlistComponent } from "./admin/userlist/userlist.component";
+
+// import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
+// import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
+// import { SinglePageComponent } from "./blog/frontend/single-page/single-page.component";
+// import { SidebarComponent } from "./admin/sidebar/sidebar.component";
+// import { EditTagComponent } from "./blog/edit-blog/edit-tag/edit-tag.component";
+// import { SocialShareComponent } from "src/app/blog/frontend/single-page/social-share/social-share.component";
+// import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
+// import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
 @NgModule({
   imports: [
     AppRoutingModule,
@@ -161,8 +162,19 @@ import { VideoCallingService } from './_services/video-calling.service';
     // EmailVerificationComponent,
     // ForgotPasswordResetComponent,
     // AuctionrulesComponent,
+    // FeedbackResumesComponent,
+    // ContactUsComponent,
+    // ForgotPasswordComponent,
+    // UploadResumeComponent,
+    // JobpostComponent,
+    // UserlistComponent,
+    // AllBlogsComponent,
+    // AllBlogCategoriesComponent,
+    // AllBlogTagComponent,
+    // SinglePageComponent,
+    // SocialShareComponent,
+    // RecruiterFeedbackComponent,
     // EmployerNavbarComponent,
-    ContactUsComponent,
     // RecruiterNavbarComponent,
     BidHighlightsComponent,
     BiddingResumesComponent,
@@ -181,12 +193,7 @@ import { VideoCallingService } from './_services/video-calling.service';
     // WonBidsComponent,
     // RecruiterQuestionComponent,
     // SearchResumeComponent,
-    RecruiterFeedbackComponent,
     NotFoundComponent,
-    ForgotPasswordComponent,
-    FeedbackResumesComponent,
-    UploadResumeComponent,
-    UserlistComponent,
     BlogMaiComponent,
     BlogNavComponent,
     // BlogMainComponent,
@@ -200,15 +207,8 @@ import { VideoCallingService } from './_services/video-calling.service';
     // SidebarComponent,
 
     // EditTagComponent,
-
-    AllBlogsComponent,
-    AllBlogCategoriesComponent,
-    SinglePageComponent,
-    SocialShareComponent,
-    AllBlogTagComponent,
     RecruiterComponent,
 
-    JobpostComponent,
     // inArrayPipe,
     // SortPipe,
     // SafePdfPipe,

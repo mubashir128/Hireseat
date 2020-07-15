@@ -2,33 +2,34 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RegisterComponent } from "./register/register.component";
-import { LoginComponent } from "./login/login.component";
 import { AuthGuard } from "./_guards/auth.guard";
-import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
-import { ContactUsComponent } from "./contact-us/contact-us.component";
-import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
 import { RecruiterFeedbackComponent } from "./recruiter/recruiter-feedback/recruiter-feedback.component";
-import { EmailVerificationComponent } from "./email-verification/email-verification.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
+import { SupperAdminGuard } from "./_guards/supper-admin.guard";
+import { AdminGuard } from "./_guards/admin.guard";
+import { EnterpriseGuard } from "./_guards/enterprise.guard";
+import { VideoCallComponent } from './video-call/video-call.component';
+
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ForgotPasswordResetComponent } from "./forgot-password-reset/forgot-password-reset.component";
 import { FeedbackResumesComponent } from "./employer/feedback-resumes/feedback-resumes.component";
 
+import { RegisterComponent } from "./register/register.component";
+import { LoginComponent } from "./login/login.component";
+import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
+import { ContactUsComponent } from "./contact-us/contact-us.component";
+import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
+import { EmailVerificationComponent } from "./email-verification/email-verification.component";
 import { UploadResumeComponent } from "./resume-bank/upload-resume/upload-resume.component";
 import { UserlistComponent } from "./admin/userlist/userlist.component";
-import { SupperAdminGuard } from "./_guards/supper-admin.guard";
-import { EmployerGuard } from "./_guards/employer.guard";
-import { AdminGuard } from "./_guards/admin.guard";
 import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
-import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
+import { EmployerGuard } from "./_guards/employer.guard";
 import { SinglePageComponent } from "./blog/frontend/single-page/single-page.component";
 
-
+import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
 import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
+
 import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
-import { EnterpriseGuard } from "./_guards/enterprise.guard";
-import { VideoCallComponent } from './video-call/video-call.component';
 
 import { AllPostComponent } from "./blog/all-post/all-post.component";
 import { CreateImagePostComponent } from "./blog/create-image-post/create-image-post.component";
@@ -101,7 +102,7 @@ const appRoutes: Routes = [
   },
   {
     path: "event/feedback/candidate/resumes/:key",
-    component: RecruiterFeedbackComponent
+    loadChildren: './recruiter/recruiter-feedback/recruiter-feedback.module#RecruiterFeedbackModule'
   },
   {
     path: "user/email/verification/check/:key",
@@ -111,22 +112,38 @@ const appRoutes: Routes = [
     path: "user/forgot/password/check/hireseat/:key",
     loadChildren: './forgot-password-reset/forgot-password-reset.module#ForgotPasswordResetModule'
   },
-  { path: "employer/feedback/:key", component: FeedbackResumesComponent },
+  {
+    path: "employer/feedback/:key",
+    loadChildren: './employer/feedback-resumes/feedback-resumes.module#FeedbackResumesModule'
+  },
   {
     path: "rules",
     loadChildren: './auctionrules/auctionrules.module#AuctionrulesModule'
   },
   {
     path: "contact-us",
-    component: ContactUsComponent
+    loadChildren: './contact-us/contact-us.module#ContactUsModule'
   },
-  { path: "Forgot-Password", component: ForgotPasswordComponent },
+  {
+    path: "Forgot-Password",
+    loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule'
+  },
   { path: "", redirectTo: "home", pathMatch: "full" },
 
-  { path: "upload-resume", component: UploadResumeComponent },
-  { path: "job-post", component: JobpostComponent },
+  {
+    path: "upload-resume",
+    loadChildren: './resume-bank/upload-resume/upload-resume.module#UploadResumeModule'
+  },
+  {
+    path: "job-post",
+    loadChildren: './job-post/job-post.module#JobPostModule'
+  },
 
-  { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
+  {
+    path: "user-list",
+    loadChildren: './admin/userlist/userlist.module#UserlistModule',
+    canActivate: [AdminGuard]
+  },
   {
     path: "video-call/:id",
     component: VideoCallComponent
@@ -151,19 +168,19 @@ const appChildRoutes: Routes = [
   },
   {
     path: "blog",
-    component: AllBlogsComponent
+    loadChildren: './blog/all-post/all-post.module#AllPostModule'
   },
   {
     path: "blog/categories/:url",
-    component: AllBlogCategoriesComponent
+    loadChildren: './blog/frontend/all-blog-categories/all-blog-categories.module#AllBlogCategoriesModule'
   },
   {
     path: "blog/tags/:url",
-    component: AllBlogTagComponent
+    loadChildren: './blog/frontend/all-blog-tag/all-blog-tag.module#AllBlogTagModule'
   },
   {
     path: "blog/:url",
-    component: SinglePageComponent
+    loadChildren: './blog/frontend/single-page/single-page.module#SinglePageModule'
   },
 
 
