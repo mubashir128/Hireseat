@@ -48,7 +48,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
 
     // instantiate Video.js
     this.player = videojs(this.target.nativeElement, this.options, function onPlayerReady() {
-      console.log('onPlayerReady', this);
+      // console.log('onPlayerReady', this);
       this.on('ended', () => {
         // videojs.log('Awww...over so soon?!');
         // console.log('ended');

@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthGuard } from "./_guards/auth.guard";
-import { RecruiterFeedbackComponent } from "./recruiter/recruiter-feedback/recruiter-feedback.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { SupperAdminGuard } from "./_guards/supper-admin.guard";
 import { AdminGuard } from "./_guards/admin.guard";
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { VideoCallComponent } from './video-call/video-call.component';
 
+import { RecruiterFeedbackComponent } from "./recruiter/recruiter-feedback/recruiter-feedback.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ForgotPasswordResetComponent } from "./forgot-password-reset/forgot-password-reset.component";
 import { FeedbackResumesComponent } from "./employer/feedback-resumes/feedback-resumes.component";
@@ -65,6 +65,8 @@ import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-quest
 const appRoutes: Routes = [
   { path: "forum", loadChildren: './view-forum/view-forum.module#ViewForumModule' },
   { path: "question-details/:id", loadChildren: './view-forum/answerlists/answerlists.module#AnswerlistsModule' },
+  { path: "", redirectTo: "home", pathMatch: "full" },
+
   { path: "home", loadChildren: './home/home.module#HomeModule' },
   // {
   //   path: "video-call/:id",
@@ -128,7 +130,6 @@ const appRoutes: Routes = [
     path: "Forgot-Password",
     loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule'
   },
-  { path: "", redirectTo: "home", pathMatch: "full" },
 
   {
     path: "upload-resume",
