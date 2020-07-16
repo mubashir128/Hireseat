@@ -40,6 +40,8 @@ export class BiddingEventsListComponent implements OnInit {
 
   startDate : any;
   endDate : any;
+  searchTab=false;
+
   constructor(private router: Router,private cdr:ChangeDetectorRef,private spinner:NgxSpinnerService,private userService:UserService,private biddingService:BidService, private route: ActivatedRoute,private bidEventService:BiddingEventService,private _subList : SubscriberslistService) { 
     this.chkLoggedInUser=this.userService.getUserData();
     if(this.chkLoggedInUser != "no"){
@@ -318,6 +320,15 @@ export class BiddingEventsListComponent implements OnInit {
   clickDropdown(val,opacity){
     jQuery("#globalDropdown2").css("display",val);
     jQuery("#globalDropdown2").css("opacity",opacity);
+  }
+
+  toggleSearch(){
+    this.searchTab=!this.searchTab;
+    if(this.searchTab){
+      jQuery(".postingForm").css("display","block");
+    }else{
+      jQuery(".postingForm").css("display","none");
+    }
   }
 
 }
