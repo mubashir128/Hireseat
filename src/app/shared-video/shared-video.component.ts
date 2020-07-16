@@ -304,13 +304,16 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     if (url != null) {
       return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
-
   }
   ngOnChanges() {
     // const playPromise = this.target.nativeElement.play();
     // if (playPromise !== null) {
     //   playPromise.catch(() => { this.target.nativeElement.play(); })
     // }
+  }
+  linkedIn(url) {
+    window.open(url, "_blank");
+
   }
   ngOnDestroy(): void {
     if (this.checkSharedTokenSubscription) {

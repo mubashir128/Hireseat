@@ -134,7 +134,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.archiveID = archiveID;
     });
     // end subscribing
-    this.createOpenTokSession();
+    // this.createOpenTokSession();
 
   }
 
