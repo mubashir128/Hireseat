@@ -2,33 +2,34 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RegisterComponent } from "./register/register.component";
-import { LoginComponent } from "./login/login.component";
 import { AuthGuard } from "./_guards/auth.guard";
-import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
-import { ContactUsComponent } from "./contact-us/contact-us.component";
-import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
-import { RecruiterFeedbackComponent } from "./recruiter/recruiter-feedback/recruiter-feedback.component";
-import { EmailVerificationComponent } from "./email-verification/email-verification.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
+import { SupperAdminGuard } from "./_guards/supper-admin.guard";
+import { AdminGuard } from "./_guards/admin.guard";
+import { EnterpriseGuard } from "./_guards/enterprise.guard";
+import { VideoCallComponent } from './video-call/video-call.component';
+
+import { RecruiterFeedbackComponent } from "./recruiter/recruiter-feedback/recruiter-feedback.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ForgotPasswordResetComponent } from "./forgot-password-reset/forgot-password-reset.component";
 import { FeedbackResumesComponent } from "./employer/feedback-resumes/feedback-resumes.component";
 
+import { RegisterComponent } from "./register/register.component";
+import { LoginComponent } from "./login/login.component";
+import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
+import { ContactUsComponent } from "./contact-us/contact-us.component";
+import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
+import { EmailVerificationComponent } from "./email-verification/email-verification.component";
 import { UploadResumeComponent } from "./resume-bank/upload-resume/upload-resume.component";
 import { UserlistComponent } from "./admin/userlist/userlist.component";
-import { SupperAdminGuard } from "./_guards/supper-admin.guard";
-import { EmployerGuard } from "./_guards/employer.guard";
-import { AdminGuard } from "./_guards/admin.guard";
 import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
-import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
+import { EmployerGuard } from "./_guards/employer.guard";
 import { SinglePageComponent } from "./blog/frontend/single-page/single-page.component";
 
-
+import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
 import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
+
 import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
-import { EnterpriseGuard } from "./_guards/enterprise.guard";
-import { VideoCallComponent } from './video-call/video-call.component';
 
 import { AllPostComponent } from "./blog/all-post/all-post.component";
 import { CreateImagePostComponent } from "./blog/create-image-post/create-image-post.component";
@@ -64,14 +65,18 @@ import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-quest
 const appRoutes: Routes = [
   { path: "forum", loadChildren: './view-forum/view-forum.module#ViewForumModule' },
   { path: "question-details/:id", loadChildren: './view-forum/answerlists/answerlists.module#AnswerlistsModule' },
+  { path: "", redirectTo: "home", pathMatch: "full" },
+
   { path: "home", loadChildren: './home/home.module#HomeModule' },
   // {
   //   path: "video-call/:id",
   //   loadChildren: './video-call/video-call.module#VideoCallModule'
   // },
+  {
+    path: "shared-video/:token",
+    loadChildren: './shared-video/shared-video.module#SharedVideoModule'
+  },
 
-  { path: "register", component: RegisterComponent },
-  { path: "login", component: LoginComponent },
   {
     path: "recruiter",
     loadChildren: './recruiter/recruiter.module#RecruiterModule',
@@ -83,202 +88,71 @@ const appRoutes: Routes = [
     loadChildren: './employer/employer.module#EmployerModule',
     canActivate: [AuthGuard]
   },
+  // 14july
+  {
+    path: "register",
+    loadChildren: './register/register.module#RegisterModule'
+  },
+  {
+    path: "login",
+    loadChildren: './login/login.module#LoginModule'
+  },
   {
     path: "bidding-events/details/:key",
-    component: BiddingEventDetailsComponent,
+    loadChildren: './bidding-event-details/bidding-event-details.module#BiddingEventDetailsModule',
     canActivate: [AuthGuard]
   },
   {
     path: "event/feedback/candidate/resumes/:key",
-    component: RecruiterFeedbackComponent
+    loadChildren: './recruiter/recruiter-feedback/recruiter-feedback.module#RecruiterFeedbackModule'
   },
   {
     path: "user/email/verification/check/:key",
-    component: EmailVerificationComponent
+    loadChildren: './email-verification/email-verification.module#EmailVerificationModule'
   },
   {
     path: "user/forgot/password/check/hireseat/:key",
-    component: ForgotPasswordResetComponent
+    loadChildren: './forgot-password-reset/forgot-password-reset.module#ForgotPasswordResetModule'
   },
-  { path: "employer/feedback/:key", component: FeedbackResumesComponent },
-  { path: "rules", component: AuctionrulesComponent },
-  { path: "contact-us", component: ContactUsComponent },
-  { path: "Forgot-Password", component: ForgotPasswordComponent },
-  { path: "", redirectTo: "home", pathMatch: "full" },
+  {
+    path: "employer/feedback/:key",
+    loadChildren: './employer/feedback-resumes/feedback-resumes.module#FeedbackResumesModule'
+  },
+  {
+    path: "rules",
+    loadChildren: './auctionrules/auctionrules.module#AuctionrulesModule'
+  },
+  {
+    path: "contact-us",
+    loadChildren: './contact-us/contact-us.module#ContactUsModule'
+  },
+  {
+    path: "Forgot-Password",
+    loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule'
+  },
 
-  { path: "upload-resume", component: UploadResumeComponent },
-  { path: "job-post", component: JobpostComponent },
+  {
+    path: "upload-resume",
+    loadChildren: './resume-bank/upload-resume/upload-resume.module#UploadResumeModule'
+  },
+  {
+    path: "job-post",
+    loadChildren: './job-post/job-post.module#JobPostModule'
+  },
 
-  { path: "user-list", component: UserlistComponent, canActivate: [AdminGuard] },
+  {
+    path: "user-list",
+    loadChildren: './admin/userlist/userlist.module#UserlistModule',
+    canActivate: [AdminGuard]
+  },
   {
     path: "video-call/:id",
     component: VideoCallComponent
   },
-  {
-    path: "shared-video/:token",
-    loadChildren: './shared-video/shared-video.module#SharedVideoModule'
-  }
+
 ];
 
 const appChildRoutes: Routes = [
-  // {
-  //   path: "employer",
-  //   component: EmployerHomeComponent,
-  //   children: [
-  //     {
-  //       path: "profile",
-  //       component: ProfileComponent
-  //     },
-  //     {
-  //       path: "job-profile-list",
-  //       component: JobProfileListComponent
-  //     },
-  //     {
-  //       path: "create-job-profile",
-  //       component: CreateJobProfileComponent
-  //     },
-  //     {
-  //       path: "bidding-event-list",
-  //       component: BiddingEventsListComponent
-  //     },
-  //     {
-  //       path: "create-bidding-event",
-  //       component: CreateBiddingEventComponent
-  //     },
-  //     {
-  //       path: "edit-job-profile",
-  //       component: EditJobProfileComponent
-  //     },
-  //     {
-  //       path: "feedback-list",
-  //       component: FeedbackListComponent
-  //     },
-  //     {
-  //       path: "employer-Answere/:id",
-  //       component: EmployeerAnsComponent
-  //     },
-  //     {
-  //       path: "dashboard",
-  //       component: DashboardComponent
-  //     },
-  //     {
-  //       path: "video-interview-room",
-  //       component: VideoInterviewRoomComponent
-  //     },
-  //     {
-  //       path: "mycandidates",
-  //       component: MycandidatesComponent
-  //     },
-  //     {
-  //       path: "new-resume",
-  //       component: NewResumeComponent
-  //     }
-  //   ],
-  //   canActivate: [EmployerGuard]
-  // },
-  // {
-  //   path: "recruiter",
-  //   component: RecruiterHomeComponent,
-  //   children: [
-  //     {
-  //       path: "profile",
-  //       component: ProfileComponent
-  //     },
-  //     {
-  //       path: "bidding-event-list",
-  //       component: BiddingEventsListComponent
-  //     },
-  //     {
-  //       path: "bidding-event-list/:type",
-  //       component: BiddingEventsListComponent
-  //     },
-  //     {
-  //       path: "recruiter-question/:id",
-  //       component: RecruiterQuestionComponent
-  //     },
-  //     {
-  //       path: "resume-list",
-  //       component: ResumeListComponent
-  //     },
-  //     {
-  //       path: "new-resume",
-  //       component: NewResumeComponent
-  //     },
-  //     {
-  //       path: "won-bids",
-  //       component: WonBidsComponent
-  //     },
-  //     {
-  //       path: "search-resume",
-  //       component: SearchResumeComponent
-  //     },
-  //     {
-  //       path: "video-interview-room",
-  //       component: VideoInterviewRoomComponent
-  //     },
-
-
-  //   ],
-  //   canActivate: [RecruiterGuard]
-  // },
-  // {
-  //   path: "blog-posts",
-  //   component: BlogMainComponent,
-  //   children: [
-  //     {
-  //       path: "create-post",
-  //       component: CreatePostComponent
-  //     },
-  //     {
-  //       path: "edit-post/:blogID",
-  //       component: EditBlogComponent
-  //     },
-  //     {
-  //       path: "create-image-post",
-  //       component: CreateImagePostComponent
-  //     },
-  //     {
-  //       path: "all-post",
-  //       component: AllPostComponent
-  //     },
-  //     {
-  //       path: "create-categories",
-  //       component: CreateCategoryComponent
-  //     },
-  //     {
-  //       path: "edit-categories",
-  //       component: EditCategoryComponent
-  //     }
-  //   ],
-  //   canActivate: [AdminGuard]
-  // }
-
-  {
-    path: "blog-posts",
-    loadChildren: './blog/blog.module#BlogModule'
-  },
-  {
-    path: "blog",
-    component: AllBlogsComponent
-  },
-  {
-    path: "blog/categories/:url",
-    component: AllBlogCategoriesComponent
-  },
-  {
-    path: "blog/tags/:url",
-    component: AllBlogTagComponent
-  },
-  {
-    path: "blog/:url",
-    component: SinglePageComponent
-  },
-  {
-    path: "blog/:url",
-    component: SinglePageComponent
-  },
-
-
   {
     path: "super-admin",
     loadChildren: './super-admin/super-admin.module#SuperAdminModule',
@@ -289,6 +163,28 @@ const appChildRoutes: Routes = [
     loadChildren: './enterprise/enterprise.module#EnterpriseModule',
     canActivate: [EnterpriseGuard]
   },
+  {
+    path: "blog-posts",
+    loadChildren: './blog/blog.module#BlogModule'
+  },
+  {
+    path: "blog",
+    loadChildren: './blog/all-post/all-post.module#AllPostModule'
+  },
+  {
+    path: "blog/categories/:url",
+    loadChildren: './blog/frontend/all-blog-categories/all-blog-categories.module#AllBlogCategoriesModule'
+  },
+  {
+    path: "blog/tags/:url",
+    loadChildren: './blog/frontend/all-blog-tag/all-blog-tag.module#AllBlogTagModule'
+  },
+  {
+    path: "blog/:url",
+    loadChildren: './blog/frontend/single-page/single-page.module#SinglePageModule'
+  },
+
+
   {
     path: "**",
     component: NotFoundComponent

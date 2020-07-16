@@ -12,6 +12,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RecruiterHomeComponent } from './recruiter-home/recruiter-home.component';
 import { TagInputModule } from "ngx-chips";
 import { NgHighlightModule } from 'ngx-text-highlight';
+import { RecruiterBrodcastModule } from '../recruiter-brodcast/recruiter-brodcast.module';
 
 @NgModule({
   imports: [
@@ -22,15 +23,14 @@ import { NgHighlightModule } from 'ngx-text-highlight';
     SharedComponentsModule,
     NgxPaginationModule,
     TagInputModule,
-    NgHighlightModule
+    NgHighlightModule,
+    RecruiterBrodcastModule
   ],
   declarations: [
-    // RecruiterNavbarComponent,
     ResumeListComponent,
     RecruiterHomeComponent,
     WonBidsComponent,
-    SearchResumeComponent,
-    RecruiterQuestionComponent
+    SearchResumeComponent
   ]
 })
 export class RecruiterModule { }
