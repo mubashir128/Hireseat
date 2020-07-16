@@ -22,7 +22,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() resume: any;
   @Input() questionsByRecruiter: any;
   @Input() questionNumber: any;
-  @Input() videoURL: any;
+  // @Input() videoURL: any;
 
   player: videojs.Player;
   time: any;
@@ -118,7 +118,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
       })
     }
     video.currentTime = seconds;
-
+    // this.player.currentTime(seconds);
     if (playPromise !== undefined) {
       playPromise.then(() => {
         video.play()
