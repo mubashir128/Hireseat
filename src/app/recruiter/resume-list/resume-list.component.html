@@ -15,7 +15,17 @@
         No Results to show
 </div> -->
 <div *ngIf="mode === 0">
-  <div class="right-align mainTopBar marT10">
+
+  <div class="row right">
+    <a class="waves-effect waves-light btn newResumeBtn" [routerLink]="['/recruiter/new-resume']">
+      <i class="material-icons left">add</i> New Resume</a>
+  </div>
+
+  <div class="row" style="margin-top: 10px;">
+    <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
+  </div>
+
+  <div class="right-align mainTopBar marT10 searchForm">
     <div class="posrelDiv dropdownMain">
       <!-- <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="selectedResume" [multiple]="false" [config]="{displayKey:candidateName,search:true}" [options]="resumes"></ngx-select-dropdown> -->
       <!-- <div class="searchDropdownMain"> -->
@@ -54,13 +64,10 @@
       </div>
       <!-- </div> -->
     </div>
-    <a class="waves-effect waves-light btn newResumeBtn" [routerLink]="['/recruiter/new-resume']">
-      <i class="material-icons left">add</i> New Resume</a>
+    
   </div>
 
   <div style="margin-top : 10px;">
-
-
     <div style="margin-top: 15px;" *ngIf="!noResume">
       <ul class="resumeList">
         <li *ngFor="
@@ -70,7 +77,9 @@
             (selectedForDelete)="deleteResume($event)"></app-resume-item>
         </li>
       </ul>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <div class="row">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
     </div>
   </div>
 </div>

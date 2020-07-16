@@ -38,6 +38,7 @@ import { SidebarComponent } from 'src/app/admin/sidebar/sidebar.component';
 import { EditTagComponent } from 'src/app/blog/edit-blog/edit-tag/edit-tag.component';
 import { TagInputModule } from "ngx-chips";
 import { VideoQuestionsComponent } from './components/video-questions/video-questions.component';
+import { FilterDataComponent } from './components/filter-data/filter-data.component';
 
 @NgModule({
   imports: [
@@ -89,7 +90,8 @@ import { VideoQuestionsComponent } from './components/video-questions/video-ques
     VideoQuestionsComponent,
     // EditTagComponent
 
-    VideoQuestionsComponent
+    VideoQuestionsComponent,
+    FilterDataComponent
   ],
   exports: [
     FooterComponent,
@@ -128,7 +130,8 @@ import { VideoQuestionsComponent } from './components/video-questions/video-ques
     SidebarComponent,
     // EditTagComponent
 
-    VideoQuestionsComponent
+    VideoQuestionsComponent,
+    FilterDataComponent
   ]
 })
 export class SharedComponentsModule { }

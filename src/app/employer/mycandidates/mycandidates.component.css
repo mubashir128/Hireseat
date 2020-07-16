@@ -115,3 +115,7 @@ a.waves-effect.waves-light.btn.newResumeBtn {
   position: relative;
   padding: 10px;
 }
+
+.searchForm {
+  display: none;
+}

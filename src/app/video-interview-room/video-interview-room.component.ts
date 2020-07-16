@@ -206,4 +206,12 @@ export class VideoInterviewRoomComponent implements OnInit {
     }
   }
 
+  handleToggleSign(obj){
+    if(obj.searchTab){
+      jQuery(".searchForm").css("display","block");
+    }else{
+      jQuery(".searchForm").css("display","none");
+    }
+  }
+
 }

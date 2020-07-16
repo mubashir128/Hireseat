@@ -11,7 +11,11 @@
     </div>
   </div>
 
-  <div class="card white hoverable bgLight" style="padding: 13px 30px;">
+  <div class="row" style="margin-top: 10px;">
+    <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
+  </div>
+
+  <div class="white hoverable bgLight searchForm">
     <form [formGroup]="SearchFrm" novalidate style="width: 100%;">
       <div class="row">
         <div

@@ -240,3 +240,7 @@ and (max-width : 767px)  {
     text-align: left;
     padding-right: 0px;
 }
+
+.searchForm {
+    display: none;
+}
