@@ -69,7 +69,6 @@
       <div class="disF">
         <div class="commonDiv bold">Name</div>
         <div class="commonDiv bold">Resume</div>
-        <div class="commonDiv bold">Skills</div>
         <div class="commonDiv bold">Experience</div>
         <div class="commonDiv bold">Job Post</div>
         <div class="commonDiv bold">Add To Resume Repository</div>
@@ -93,11 +92,6 @@
             download
             >Download Resume</a
           >
-        </div>
-        <div class="commonDiv">
-          <span *ngFor="let tags of searchedresume.tags">
-            {{ tags.display }}
-          </span>
         </div>
         <div class="commonDiv">
           <span> {{ searchedresume.experience }} years </span>
@@ -136,9 +130,28 @@
         </div>
       </div>
 
+      <div class="commonDiv" style="float: left; width: 100%; padding-left: 40px;">
+        <div class="row" style="width: 100%; border-top: 1px solid #E5ECEC;">
+          <div class="col s2">
+            <span style="float: left; background-color: #03a9f4; color: white;">
+              Skills
+            </span>
+          </div>
+          <div class="col s9">
+            <span style="float: left;" *ngFor="let tags of searchedresume.tags">
+              {{ tags.display }}
+            </span>
+          </div>
+        </div>
+      </div>
+
       <div class="divider"></div>
+
     </li>
   </ul>
+
+  
+
   <div class="modal confirmationDiv" id="Conformation">
     <h3>Confirmation</h3>
     <p>Are you sure you want to add your resume to resume repository?</p>

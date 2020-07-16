@@ -165,6 +165,7 @@ export class BiddingEventsListComponent implements OnInit {
 
   ngAfterViewInit() {
     if(this.chkLoggedInUser.userRole=="recruiter"){
+      this.search=true;
       jQuery(".postingForm").css("display","none");
     }
     // server-side search

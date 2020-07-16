@@ -133,3 +133,25 @@ span.candDetail {
   font-size: 20px;
 }
 /* end of candidate details */
+
+.input-field.disFlex{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.inputInnerDiv {
+  width: 100%;
+}
+
+.inputDivMainN input {
+  margin: 0;
+  color: #000;
+  padding: 0px 10px;
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  text-align: left;
+  padding-right: 0px;
+}

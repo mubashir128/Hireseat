@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Resume, IResume } from '../../models/resume';
 import { ResumeService } from '../../_services/resume.service';
@@ -11,7 +11,10 @@ declare var jQuery: any;
 @Component({
   selector: 'app-resume-list',
   templateUrl: './resume-list.component.html',
-  styleUrls: ['./resume-list.component.css']
+  styleUrls: ['./resume-list.component.css'],
+  host: {
+    '(document:click)': 'onClick($event)'
+  }
 })
 export class ResumeListComponent implements OnInit {
   p = 1;
@@ -29,6 +32,9 @@ export class ResumeListComponent implements OnInit {
   selectedResumeIs;
   toggleSearch = false;
   public searchResumeBid: FormGroup;
+  @ViewChild('searchByName') searchByName: ElementRef;
+  @ViewChild('searchAll') searchAll: ElementRef;
+
   constructor(
     private router: Router,
     private resumeService: ResumeService,
@@ -127,12 +133,15 @@ export class ResumeListComponent implements OnInit {
 
   openDropdown() {
     jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
-    this.showdropdown = true;
+    this.showdropdown = !this.showdropdown;
+    setTimeout(()=>{
+      if(this.showdropdown){
+        this.searchByName.nativeElement.focus();
+      }
+    },1000);
   }
 
   searchtext(event) {
-    // console.log(event.target.value);
-
     this.searchResume(event.target.value);
   }
 
@@ -175,6 +184,9 @@ export class ResumeListComponent implements OnInit {
     this.selectedResumeIs.candidateName = name;
     this.searchResume(this.selectedResumeIs.candidateName);
     this.toggleSearch = false;
+  }
+
+  onClick(event) {
   }
 
 }

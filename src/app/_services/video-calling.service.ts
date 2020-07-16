@@ -95,4 +95,11 @@ export class VideoCallingService {
     })
     );
   }
+
+  getSkillSets() {
+    return this.http.get<any>(this.baseurl + 'api/getSkillSets').pipe(map((res: any) => {
+      return res;
+    }))
+  }
+
 }

@@ -25,7 +25,7 @@
             [ngClass]="{ hide: selectedResumeIs }"></label>
           <input type="hidden" name="selectedResumeIs" id="selectedResumeIs" class="selectedResume"
             placeholder="Select Resume" />
-          <a class="dropdown-button_resume" data-activates="dropdown_jobProfile_resume">
+          <a class="dropdown-button_resume" data-activates="dropdown_jobProfile_resume" #searchAll>
             {{ CandidateName }}
           </a>
           <i id="toggleDropdownId" class="material-icons right" style="cursor: pointer;" (click)="openDropdown($event)">
@@ -37,7 +37,7 @@
         <div class="searchDivList">
           <input type="text" (input)="searchtext($event)" (focus)="onfocus($event)" placeholder="search"
             autocomplete="off" class="searchBox" [(ngModel)]="CandidateName"
-            style="padding: 0 20px; box-sizing: border-box; position: relative; margin: 0;" />
+            style="padding: 0 20px; box-sizing: border-box; position: relative; margin: 0;" #searchByName/>
           <i class="fa fa-search" aria-hidden="true"></i>
         </div>
         <ul class="resumeDrodown">
