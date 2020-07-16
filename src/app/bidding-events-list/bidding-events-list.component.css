@@ -131,8 +131,8 @@ img {
 .postingForm {
   background-color: #ffffff;
   padding: 20px;
-  margin-top: 8px;
   box-shadow: 0 0 10px #9999993b;
+  transition: max-height 0.2s ease-out;
 }
 .paddL0{
   padding-left: 0;
@@ -143,4 +143,27 @@ img {
 }
 .dropdown-content.width100Per{
   width: 100%;
+}
+
+.interview-heading {
+  font-size: 20px;
+  color: #fff;
+}
+
+span.interview-heading {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.head-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  background-color: #0aafff;
+}
+
+.head-column {
+  float: left;
+  width: 100%;
+  padding: 0 10px;
+  cursor: pointer;
 }
