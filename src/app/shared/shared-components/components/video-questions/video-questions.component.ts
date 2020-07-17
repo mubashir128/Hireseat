@@ -9,6 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('target') target: ElementRef;
+  @ViewChild('juiceBar') juiceBar: ElementRef;
   // see options: https://github.com/videojs/video.js/blob/mastertutorial-options.html
   @Input() options: {
     fluid: boolean,
@@ -18,20 +19,45 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
       src: string,
       type: string,
     }[],
+    controls: boolean
   };
   @Input() resume: any;
   @Input() questionsByRecruiter: any;
   @Input() questionNumber: any;
   // @Input() videoURL: any;
-
+  showPlay = false;
   player: videojs.Player;
   time: any;
+  vid = document.getElementById('myVideo');
+  juice = document.getElementById('juice');
+  btn = document.getElementById('play-pause');
   constructor(
     private elementRef: ElementRef,
     private spinner: NgxSpinnerService,
 
   ) {
+    // this.vid.addEventListener('play', this.updateButton);
+    // this.vid.addEventListener('pause', this.updateButton);
+  }
 
+  updateButton() {
+    console.log('update icon');
+    if (this.target.nativeElement.paused) {
+      this.showPlay = true;
+    } else {
+      this.showPlay = false;
+
+    }
+    // const playPromise = this.target.nativeElement.play();
+    // if (playPromise !== undefined) {
+    //   playPromise.then(() => {
+    //     this.target.nativeElement.pause()
+    //   })
+
+    //   playPromise.catch((e) => {
+    //     console.log(e);
+    //   })
+    // }
   }
   ngOnChanges() {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
@@ -43,6 +69,18 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
 
   }
   ngOnInit() {
+    // this.target.nativeElement.addEventListener('play', this.updateButton.bind(this));
+    // this.target.nativeElement.addEventListener('pause', this.updateButton.bind(this));
+    // this.target.nativeElement.addEventListener('click', this.togglePlay.bind(this));
+    // this.target.nativeElement.addEventListener('timeupdate', () => {
+    //   var juicePos = this.target.nativeElement.currentTime / this.target.nativeElement.duration;
+    //   // this.juice.style.width = juicePos * 100 + "%";
+    //   this.juiceBar.nativeElement.style.width = juicePos * 100 + "%";
+    //   if (this.target.nativeElement.ended) {
+    //     this.showPlay = true;
+    //   }
+    // });
+
     // console.table(this.resume);
     // console.log(this.questionsByRecruiter);
 
@@ -153,7 +191,19 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
 
     }
   }
+  togglePlay() {
+    const vid: HTMLMediaElement = document.getElementsByTagName('video')[0];
+    // const method = vid.paused ? 'play' : 'pause';
+    // vid[method]();
+    if (vid.paused) {
+      vid.play();
+      this.showPlay = false;
+    } else {
+      vid.pause();
+      this.showPlay = true;
 
+    }
+  }
   ngOnDestroy() {
     // destroy player
     if (this.player) {
