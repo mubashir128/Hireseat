@@ -23,7 +23,7 @@
             <!-- call video questions -->
             <ng-container *ngIf="videoURL">
               <app-video-questions
-                [options]="{ autoplay: false, controls: true, sources: [{ src: videoURL, type: 'video/mp4' }]}"
+                [options]="{ autoplay: false, controls: false, sources: [{ src: videoURL, type: 'video/mp4' }]}"
                 [resume]="resume" [questionNumber]="questionNumber" [questionsByRecruiter]="questionsByRecruiter">
               </app-video-questions>
             </ng-container>
