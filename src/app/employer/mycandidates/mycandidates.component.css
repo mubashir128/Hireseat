@@ -119,3 +119,9 @@ a.waves-effect.waves-light.btn.newResumeBtn {
 .searchForm {
   display: none;
 }
+
+.inputInnerDiv span{
+  color: #FF9800;
+  font-weight: bold;
+  font-size: 14px;
+}

@@ -131,7 +131,8 @@ import { FilterDataComponent } from './components/filter-data/filter-data.compon
     // EditTagComponent
 
     VideoQuestionsComponent,
-    FilterDataComponent
+    FilterDataComponent,
+    TagInputModule
   ]
 })
 export class SharedComponentsModule { }
