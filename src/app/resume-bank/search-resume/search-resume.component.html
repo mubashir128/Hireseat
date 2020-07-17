@@ -94,7 +94,7 @@
           >
         </div>
         <div class="commonDiv">
-          <span> {{ searchedresume.experience }} years </span>
+          <span class="ExperiBadge">{{ searchedresume.experience }} years</span>
         </div>
         <div class="commonDiv">
           <span *ngIf="searchedresume.jobPostProfieId">
@@ -130,14 +130,14 @@
         </div>
       </div>
 
-      <div class="commonDiv" style="float: left; width: 100%; padding-left: 40px;">
-        <div class="row" style="width: 100%; border-top: 1px solid #E5ECEC;">
-          <div class="col s2">
-            <span style="float: left; background-color: #03a9f4; color: white;">
-              Skills
+      <div class="commonDiv padd0" style="float: left; width: 100%;">
+        <div class="row SkillDivBank">
+          <div class="col s1 padd0">
+            <span class="skillsLabel">
+              Skills :
             </span>
           </div>
-          <div class="col s9">
+          <div class="col s11">
             <span style="float: left;" *ngFor="let tags of searchedresume.tags">
               {{ tags.display }}
             </span>
