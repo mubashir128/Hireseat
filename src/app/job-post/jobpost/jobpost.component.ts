@@ -259,4 +259,12 @@ export class JobpostComponent implements OnInit {
     this.getJobPostData(obj);
   }
 
+  handleToggleSign(obj){
+    if(obj.searchTab){
+      jQuery(".searchForm").css("display","block");
+    }else{
+      jQuery(".searchForm").css("display","none");
+    }
+  }
+
 }
