@@ -36,10 +36,18 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     private spinner: NgxSpinnerService,
 
   ) {
-    // this.vid.addEventListener('play', this.updateButton);
-    // this.vid.addEventListener('pause', this.updateButton);
   }
 
+
+  ngOnChanges() {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    // this.target.nativeElement.addEventListener('change', () => {
+    //   console.log('changes');
+
+    // })
+
+  }
   updateButton() {
     console.log('update icon');
     if (this.target.nativeElement.paused) {
@@ -59,28 +67,26 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     //   })
     // }
   }
-  ngOnChanges() {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    // this.target.nativeElement.addEventListener('change', () => {
-    //   console.log('changes');
-
-    // })
-
+  scrub(event) {
+    console.log('scrubb');
   }
   ngOnInit() {
-    // this.target.nativeElement.addEventListener('play', this.updateButton.bind(this));
-    // this.target.nativeElement.addEventListener('pause', this.updateButton.bind(this));
-    // this.target.nativeElement.addEventListener('click', this.togglePlay.bind(this));
-    // this.target.nativeElement.addEventListener('timeupdate', () => {
-    //   var juicePos = this.target.nativeElement.currentTime / this.target.nativeElement.duration;
-    //   // this.juice.style.width = juicePos * 100 + "%";
-    //   this.juiceBar.nativeElement.style.width = juicePos * 100 + "%";
-    //   if (this.target.nativeElement.ended) {
-    //     this.showPlay = true;
-    //   }
-    // });
-
+    this.target.nativeElement.addEventListener('play', this.updateButton.bind(this));
+    this.target.nativeElement.addEventListener('pause', this.updateButton.bind(this));
+    this.target.nativeElement.addEventListener('click', this.togglePlay.bind(this));
+    this.target.nativeElement.addEventListener('timeupdate', () => {
+      var juicePos = this.target.nativeElement.currentTime / this.target.nativeElement.duration;
+      // this.juice.style.width = juicePos * 100 + "%";
+      this.juiceBar.nativeElement.style.width = juicePos * 100 + "%";
+      if (this.target.nativeElement.ended) {
+        this.showPlay = true;
+      }
+    });
+    let mousedown = false;
+    this.juiceBar.nativeElement.addEventListener('click', this.scrub.bind(this));
+    this.juiceBar.nativeElement.addEventListener('mousemove', (e) => mousedown && this.scrub(e));
+    this.juiceBar.nativeElement.addEventListener('mousedown', () => mousedown = true);
+    this.juiceBar.nativeElement.addEventListener('mouseup', () => mousedown = false);
     // console.table(this.resume);
     // console.log(this.questionsByRecruiter);
 
@@ -146,27 +152,27 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
   setCurrentTime(seconds, questionNumber) {
     var video = document.getElementsByTagName('video')[0];
     const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        video.pause()
-      })
+    // if (playPromise !== undefined) {
+    //   playPromise.then(() => {
+    //     video.pause()
+    //   })
 
-      playPromise.catch((e) => {
-        console.log(e);
-      })
-    }
+    //   playPromise.catch((e) => {
+    //     console.log(e);
+    //   })
+    // }
     video.currentTime = seconds;
     // this.player.currentTime(seconds);
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        video.play()
-      })
+    // if (playPromise !== undefined) {
+    //   playPromise.then(() => {
+    //     video.play()
+    //   })
 
-      playPromise.catch((e) => {
-        console.log(e);
-        video.pause()
-      })
-    }
+    //   playPromise.catch((e) => {
+    //     console.log(e);
+    //     video.pause()
+    //   })
+    // }
 
     // video.play();
     // this.time = seconds;
@@ -180,7 +186,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     // console.log(media);
 
     this.questionNumber = questionNumber;
-    this.target.nativeElement.loadingSpinner = true;
+    // this.target.nativeElement.loadingSpinner = true;
     try {
       // this.seek(seconds);
 
