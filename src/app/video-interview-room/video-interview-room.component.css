@@ -155,3 +155,9 @@ span.candDetail {
   text-align: left;
   padding-right: 0px;
 }
+
+.searchForm {
+  display: none;
+  padding: 13px 30px;
+  margin-top: 5px;
+}

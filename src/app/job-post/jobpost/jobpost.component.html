@@ -6,7 +6,10 @@
     Job Board
   </div>
   <div class="container">
-    <div class="row col s12">
+    <div class="row" style="margin-top: 10px;">
+      <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
+    </div>
+    <div class="row col s12 searchForm">
       <div class="skillInput">
           <span>Note: Search by Name : </span>
       </div>

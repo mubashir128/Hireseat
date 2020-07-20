@@ -5,7 +5,7 @@ import { Resume, IResume } from '../../models/resume';
 import { ResumeService } from '../../_services/resume.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { isEmpty } from 'rxjs/operators';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -29,7 +29,12 @@ export class MycandidatesComponent implements OnInit {
   CandidateName;
   selectedResumeIs;
   toggleSearch = false;
+  tags: any;
   public searchResumeBid: FormGroup;
+  public skillSets = [];
+  public SearchFrm: FormGroup;
+  skillsSetsAre=[];
+
   constructor(
     private router: Router,
     private resumeService: ResumeService,
@@ -43,6 +48,11 @@ export class MycandidatesComponent implements OnInit {
     this.searchResumeBid = this.formBuilder.group({
       selectedResumeIs: ['']
     });
+
+    this.SearchFrm = this.formBuilder.group({
+      tags: ["", Validators.required],
+    });
+
   }
 
   getAllHiredResume() {
@@ -96,10 +106,13 @@ export class MycandidatesComponent implements OnInit {
 
     });
   }
+
   ngOnInit() {
     this.resumes = [];
 
     this.getAllHiredResume();
+    this.getSkillsets();
+
     // this.getEmployerAddedResumes();
     jQuery('.modal').modal();
   }
@@ -195,17 +208,74 @@ export class MycandidatesComponent implements OnInit {
       return regexp.test(name);
     });
 
-    // this.resumes = this.temp2Resume.filter(resume => {
-    //   let name=resume.resumeBank_id.firstName+" "+resume.resumeBank_id.lastName;
-    //   return (name === this.searchvalue);
-    // });
-
     var regexp = new RegExp(this.searchvalue, 'i')
     this.tempResume = this.temp2Resume.filter(resume => {
       let name = resume.candidateName;
       return regexp.test(name);
     });
 
+  }
+
+  handleToggleSign(obj){
+    if(obj.searchTab){
+      jQuery(".searchForm").css("display","block");
+    }else{
+      jQuery(".searchForm").css("display","none");
+    }
+  }
+
+  async onadd(event) {
+    var skillSets = [];
+    if (this.SearchFrm.valid) {
+      await this.SearchFrm.value.tags.forEach(element => {
+        skillSets.push(element.value);
+      });
+    }
+    this.filterBySkills(skillSets);
+  }
+
+  filterBySkills(skillSets){
+    if (skillSets.length === 0) {
+      this.resumes = [...this.temp2Resume];
+      this.tempResume = [...this.temp2Resume];
+      return;
+    }
+
+    this.resumes=[];
+    this.temp2Resume.filter(resume => {
+      let name = resume.skills;
+      skillSets.map(data=>{
+        if(data === name){
+          this.resumes.push(resume);
+        }
+      });
+    });
+
+    this.tempResume=[];
+    this.temp2Resume.filter(resume => {
+      let name = resume.skills;
+      skillSets.map(data=>{
+        if(data === name){
+          this.tempResume.push(resume);
+        }
+      });
+    });
+
+  }
+
+  getSkillsets() {
+    this.resumeService.getSkillSets().subscribe(
+      (data: any) => {
+        if (data.length > 0) {
+          this.skillSets = data;
+        } else {
+          this.skillSets = [];
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

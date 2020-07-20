@@ -3,17 +3,7 @@
         <a *ngIf="!hideAddBtn" class="waves-effect waves-light btn" [routerLink]="['/employer/create-bidding-event']"> <i class="material-icons left">add</i> New Job Posting</a>
     </div>
     <div *ngIf="!hideAddBtn" class="row" style="margin-top: 10px; margin-bottom: 5px">
-        <div class="head-column" (click)="toggleSearch()">
-          <div class="head-card">
-            <h6>
-              <span class="interview-heading">
-                Filter Data
-              </span>
-            </h6>
-            <i class="material-icons right" *ngIf="!searchTab" style="margin-top: -25px; color: white;">add</i>
-            <i class="material-icons right" *ngIf="searchTab" style="margin-top: -25px; color: white;">remove</i>
-          </div>
-        </div>
+        <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
     </div>
     <div class="postingForm" style="display: none;">
         <div class="row" style="width: 100%; margin-left: 1px;">
