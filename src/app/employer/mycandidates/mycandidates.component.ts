@@ -266,7 +266,6 @@ export class MycandidatesComponent implements OnInit {
   getSkillsets() {
     this.resumeService.getSkillSets().subscribe(
       (data: any) => {
-        console.log(data);
         if (data.length > 0) {
           this.skillSets = data;
         } else {
