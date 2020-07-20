@@ -67,7 +67,7 @@
           <div id="dropdown_jobProfile_resume" *ngIf="toggleSearch" class="dropdown-content bidDropDown dropdown-toggle">
             <div class="searchDivList">
               <input type="text" (input)="searchtext($event)" (focus)="onfocus($event)" placeholder="search"
-                autocomplete="off" class="searchBox" [(ngModel)]="CandidateName"
+                autocomplete="off" class="searchBox" [(ngModel)]="CandidateName" [ngModelOptions]="{standalone: true}"
                 style="padding: 0 20px; box-sizing: border-box; position: relative; margin: 0;" />
               <i class="fa fa-search" aria-hidden="true"></i>
             </div>

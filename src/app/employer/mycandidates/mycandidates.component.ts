@@ -170,12 +170,20 @@ export class MycandidatesComponent implements OnInit {
   toggle(event) {
     this.tempResume = [...this.temp2Resume];
     this.toggleSearch = !this.toggleSearch;
+    this.setFocus();
   }
 
   openDropdown() {
     jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
     this.showdropdown = true;
   }
+
+  setFocus(){
+    setTimeout(()=>{
+      jQuery(".searchBox").focus();
+    },1000);
+  }
+
   selectedResumeVal(id, name, lName) {
     this.selectedResumeIs = name;
     this.selectedResumeIs = new Resume();
