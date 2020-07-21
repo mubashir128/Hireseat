@@ -34,6 +34,9 @@ export class ResumeListComponent implements OnInit {
   public searchResumeBid: FormGroup;
   @ViewChild('searchByName') searchByName: ElementRef;
   @ViewChild('searchAll') searchAll: ElementRef;
+  tags: any;
+  public SearchFrm: FormGroup;
+  public skillSets = [];
 
   constructor(
     private router: Router,
@@ -46,6 +49,11 @@ export class ResumeListComponent implements OnInit {
     this.searchResumeBid = this.formBuilder.group({
       selectedResumeIs: ['']
     });
+
+    this.SearchFrm = this.formBuilder.group({
+      tags: ["", Validators.required],
+    });
+
   }
 
   getAllResume() {
@@ -72,6 +80,8 @@ export class ResumeListComponent implements OnInit {
 
   ngOnInit() {
     this.getAllResume();
+    this.getSkillsets();
+
     jQuery('.modal').modal();
   }
 
@@ -129,15 +139,17 @@ export class ResumeListComponent implements OnInit {
   toggle(event) {
     this.tempResume = [...this.temp2Resume];
     this.toggleSearch = !this.toggleSearch;
+    this.setFocus();
   }
 
   openDropdown() {
     jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
     this.showdropdown = !this.showdropdown;
+  }
+
+  setFocus(){
     setTimeout(()=>{
-      if(this.showdropdown){
-        this.searchByName.nativeElement.focus();
-      }
+      jQuery(".searchBox").focus();
     },1000);
   }
 
@@ -195,6 +207,49 @@ export class ResumeListComponent implements OnInit {
     }else{
       jQuery(".searchForm").css("display","none");
     }
+  }
+
+  async onadd(event) {
+    var skillSets = [];
+    if (this.SearchFrm.valid) {
+      await this.SearchFrm.value.tags.forEach(element => {
+        skillSets.push(element.value);
+      });
+    }
+    this.filterBySkills(skillSets);
+  }
+
+  filterBySkills(skillSets){
+    if (skillSets.length === 0) {
+      this.resumes = [...this.temp2Resume];
+      this.tempResume = [...this.temp2Resume];
+      return;
+    }
+
+    this.resumes=[];
+    this.temp2Resume.filter(resume => {
+      let name = resume.skills;
+      skillSets.map(data=>{
+        if(data === name){
+          this.resumes.push(resume);
+        }
+      });
+    });
+  }
+
+  getSkillsets() {
+    this.resumeService.getSkillSets().subscribe(
+      (data: any) => {
+        if (data.length > 0) {
+          this.skillSets = data;
+        } else {
+          this.skillSets = [];
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }
