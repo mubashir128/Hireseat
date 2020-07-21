@@ -33,12 +33,14 @@
               [onlyFromAutocomplete]="true"
               [placeholder]="'search by skillSets'"
               [secondaryPlaceholder]="'search by skillSets'"
+              (click)="onClickTag()"
             >
               <tag-input-dropdown
                 [autocompleteItems]="skillSets"
                 [keepOpen]="false"
                 [showDropdownIfEmpty]="true"
                 [dynamicUpdate]="false"
+                (click)="onClickTag()"
               >
               </tag-input-dropdown>
             </tag-input>
