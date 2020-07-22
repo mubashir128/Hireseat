@@ -10,6 +10,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('target') target: ElementRef;
   @ViewChild('juiceBar') juiceBar: ElementRef;
+  @ViewChild('bar') bar: ElementRef;
+
   // see options: https://github.com/videojs/video.js/blob/mastertutorial-options.html
   @Input() options: {
     fluid: boolean,
@@ -28,6 +30,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
   showPlay = false;
   player: videojs.Player;
   time: any;
+  isPlaying: boolean;
   vid = document.getElementById('myVideo');
   juice = document.getElementById('juice');
   btn = document.getElementById('play-pause');
@@ -49,7 +52,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
 
   }
   updateButton() {
-    console.log('update icon');
+    // console.log('update icon');
     if (this.target.nativeElement.paused) {
       this.showPlay = true;
     } else {
@@ -65,28 +68,35 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     //   playPromise.catch((e) => {
     //     console.log(e);
     //   })
-    // }
+    // }https://codepen.io/azad6026/pen/yqpBgM
   }
   scrub(event) {
     console.log('scrubb');
+    const scrubTime = (event.offsetX / this.bar.nativeElement.offsetWidth) * this.target.nativeElement.duration;
+    this.target.nativeElement.currentTime = scrubTime;
+    // this.play();
   }
   ngOnInit() {
-    this.target.nativeElement.addEventListener('play', this.updateButton.bind(this));
-    this.target.nativeElement.addEventListener('pause', this.updateButton.bind(this));
-    this.target.nativeElement.addEventListener('click', this.togglePlay.bind(this));
-    this.target.nativeElement.addEventListener('timeupdate', () => {
-      var juicePos = this.target.nativeElement.currentTime / this.target.nativeElement.duration;
-      // this.juice.style.width = juicePos * 100 + "%";
-      this.juiceBar.nativeElement.style.width = juicePos * 100 + "%";
-      if (this.target.nativeElement.ended) {
-        this.showPlay = true;
-      }
-    });
-    let mousedown = false;
-    this.juiceBar.nativeElement.addEventListener('click', this.scrub.bind(this));
-    this.juiceBar.nativeElement.addEventListener('mousemove', (e) => mousedown && this.scrub(e));
-    this.juiceBar.nativeElement.addEventListener('mousedown', () => mousedown = true);
-    this.juiceBar.nativeElement.addEventListener('mouseup', () => mousedown = false);
+    // this.target.nativeElement.addEventListener('play', this.play.bind(this));
+    // this.target.nativeElement.addEventListener('pause', this.pause.bind(this));
+
+    // video js events
+    // this.target.nativeElement.addEventListener('click', this.togglePlay.bind(this));
+    // this.target.nativeElement.addEventListener('timeupdate', () => {
+    //   var juicePos = this.target.nativeElement.currentTime / this.target.nativeElement.duration;
+    //   // this.juice.style.width = juicePos * 100 + "%";
+    //   this.juiceBar.nativeElement.style.width = juicePos * 100 + "%";
+    //   if (this.target.nativeElement.ended) {
+    //     this.showPlay = true;
+    //   }
+    // });
+    // let mousedown = false;
+    // this.bar.nativeElement.addEventListener('click', this.scrub.bind(this));
+    // this.bar.nativeElement.addEventListener('mousemove', (e) => mousedown && this.scrub(e));
+    // this.bar.nativeElement.addEventListener('mousedown', () => mousedown = true);
+    // this.bar.nativeElement.addEventListener('mouseup', () => mousedown = false);
+    // end of videojs events
+
     // console.table(this.resume);
     // console.log(this.questionsByRecruiter);
 
@@ -126,32 +136,48 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
         })
       }
     });
-    var media: any = document.getElementById("myVideo");
-    // console.log(media.duration);
 
   }
 
-  play() {
-    const playPromise = this.target.nativeElement.play();
-    if (playPromise !== null) {
-      playPromise.catch(() => { this.target.nativeElement.play(); })
-    }
-    if (this.target.nativeElement.paused) {
-      this.target.nativeElement.play();
-    }
-  }
-  pause() {
-    this.target.nativeElement.pause();
-  }
+  // play() {
+  //   this.isPlaying =
+  //     this.target.nativeElement.currentTime > 0
+  //     && !this.target.nativeElement.paused
+  //     && !this.target.nativeElement.ended
+  //     && this.target.nativeElement.readyState > 2;
+  //   console.log(this.isPlaying);
+
+  //   if (!this.isPlaying) {
+  //     this.target.nativeElement.play();
+  //     if (!this.target.nativeElement.paused) {
+  //       this.isPlaying = true;
+  //       this.updateButton();
+  //     }
+  //   }
+  // }
+  // pause() {
+  //   // console.log('while pause', this.isPlaying);
+
+  //   if (this.isPlaying) {
+  //     console.log('paused');
+
+  //     this.target.nativeElement.pause();
+  //     if (this.target.nativeElement.paused) {
+  //       this.isPlaying = false;
+  //       this.updateButton();
+  //     }
+
+  //   }
+  // }
   seek(seconds) {
 
-    this.pause();
-    this.target.nativeElement.currentTime = seconds;
-    this.play();
+    // this.pause();
+    // this.target.nativeElement.currentTime = seconds;
+    // this.play();
   }
   setCurrentTime(seconds, questionNumber) {
     var video = document.getElementsByTagName('video')[0];
-    const playPromise = video.play();
+    // const playPromise = video.play();
     // if (playPromise !== undefined) {
     //   playPromise.then(() => {
     //     video.pause()
@@ -184,7 +210,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     //   }
     // }, 1000);
     // console.log(media);
-
+    // this.seek(seconds);
     this.questionNumber = questionNumber;
     // this.target.nativeElement.loadingSpinner = true;
     try {
@@ -197,19 +223,19 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
 
     }
   }
-  togglePlay() {
-    const vid: HTMLMediaElement = document.getElementsByTagName('video')[0];
-    // const method = vid.paused ? 'play' : 'pause';
-    // vid[method]();
-    if (vid.paused) {
-      vid.play();
-      this.showPlay = false;
-    } else {
-      vid.pause();
-      this.showPlay = true;
+  // togglePlay() {
+  //   const vid: HTMLMediaElement = document.getElementsByTagName('video')[0];
+  //   // const method = vid.paused ? 'play' : 'pause';
+  //   // vid[method]();
+  //   if (this.target.nativeElement.paused) {
+  //     this.play();
+  //     // this.showPlay = false;
+  //   } else {
+  //     this.pause();
+  //     // this.showPlay = true;
 
-    }
-  }
+  //   }
+  // }
   ngOnDestroy() {
     // destroy player
     if (this.player) {
