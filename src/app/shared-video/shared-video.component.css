@@ -153,7 +153,7 @@ ul:not(.browser-default) > li {
 }
 .LikedInBtn {
   background-color: #0e76a8;
-  border: 1px solid #0e76a8;
+  border: 2px solid #0e76a8;
   margin-left: 10px;
   min-width: 125px !important;
 }
@@ -180,10 +180,17 @@ ul:not(.browser-default) > li {
   margin-right: 10px;
 }
 .candidate-name {
+  text-align: left;
+}
+.candidate-name span {
   color: #33aaff;
   font-size: 20px;
   font-weight: 600;
-  text-align: left;
+}
+.candidate-name p {
+  margin: 3px 0;
+  color: #8c8c8c;
+  font-size: 14px;
 }
 .video-js {
   width: 100% !important;
@@ -274,7 +281,9 @@ nav.customeNav {
   border-radius: 0px !important;
   margin-top: 10px !important;
 }
-
+.candidate-name.mobViewOnly {
+  display: none;
+}
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .MainTempMiddle {
     min-height: calc(100vh - 112px);
@@ -319,8 +328,8 @@ nav.customeNav {
   }
   .docSectionBtns button {
     font-size: 13px !important;
-    min-width: 100px !important;
-    margin: 0 0 0 10px !important;
+    /* min-width: 100px !important; */
+    /* margin: 0 0 0 10px !important; */
     padding: 5px 10px !important;
   }
   .PointsDivSingle h4 {
@@ -344,9 +353,30 @@ nav.customeNav {
     font-size: 18px !important;
   }
   .docSectionBtns .LikedInBtn {
-    min-width: 160px !important;
-    margin: 0 0 0 10px !important;
-    margin-top: 5px !important;
+    min-width: 135px !important;
+    /* margin: 0 0 0 10px !important;
+    margin-top: 5px !important; */
+  }
+  .candidate-name.mobViewOnly {
+    background-color: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #9999994a;
+  }
+  .docSectionBtns {
+    margin-bottom: 10px !important;
+    display: unset !important;
+    width: 100%;
+    float: left;
+  }
+  .cadidateResumeDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
   }
 }
 .video-js-without-questions {
@@ -423,4 +453,11 @@ nav.customeNav {
 .video-interview .progress {
   background-color: #fff !important;
   height: 3px !important;
+}
+
+.header-title {
+  color: #33aaff;
+  margin-left: 110px;
+  font-size: 20px;
+  font-weight: 600;
 }
