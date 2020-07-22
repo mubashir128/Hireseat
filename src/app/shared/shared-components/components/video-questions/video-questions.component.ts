@@ -177,7 +177,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
   }
   setCurrentTime(seconds, questionNumber) {
     var video = document.getElementsByTagName('video')[0];
-    // const playPromise = video.play();
+    const playPromise = video.play();
     // if (playPromise !== undefined) {
     //   playPromise.then(() => {
     //     video.pause()
@@ -189,16 +189,16 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     // }
     video.currentTime = seconds;
     // this.player.currentTime(seconds);
-    // if (playPromise !== undefined) {
-    //   playPromise.then(() => {
-    //     video.play()
-    //   })
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        video.play()
+      })
 
-    //   playPromise.catch((e) => {
-    //     console.log(e);
-    //     video.pause()
-    //   })
-    // }
+      playPromise.catch((e) => {
+        console.log(e);
+        video.pause()
+      })
+    }
 
     // video.play();
     // this.time = seconds;
