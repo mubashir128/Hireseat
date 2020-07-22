@@ -9,8 +9,11 @@
   <ng-container>
     <nav style="background:#E9F4FF;" class="customeNav">
       <div class="nav-wrapper container">
-        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
-            style="vertical-align:middle;" /></a>
+        <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
+            style="vertical-align:middle;" /></a> -->
+            <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
+              style="vertical-align:middle;" /></a>
+          
       </div>
     </nav>
   </ng-container>
@@ -21,6 +24,13 @@
           <!-- <div class="interviewVideoDiv stickyDiv"> -->
           <div class="container">
             <!-- call video questions -->
+            <div class="candidate-name mobViewOnly">
+              <span>
+                {{resume?.candidateName}}
+              </span>
+              <p><label>Job Title :</label> Frontend Developer</p>
+              <p><label>Location :</label> Newyork</p>
+            </div>
             <ng-container *ngIf="videoURL">
               <app-video-questions
                 [options]="{ autoplay: false, controls: true, sources: [{ src: videoURL, type: 'video/mp4' }]}"
@@ -39,8 +49,10 @@
                 <span>
                   {{resume?.candidateName}}
                 </span>
+                <p><label>Job Title :</label> Frontend Developer</p>
+                <p><label>Location :</label> Newyork</p>
               </div>
-              <div>
+              <div class="cadidateResumeDiv">
                 <button class="downloadResume">
                   <a [attr.href]="transform(resume?.fileURL)" target="_blank" download>
                     <i class="fa fa-cloud-download" aria-hidden="true"></i>Download Resume
