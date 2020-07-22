@@ -28,7 +28,8 @@
               "src/assets/css/styles.css",
               "node_modules/materialize-css/dist/css/materialize.min.css",
               "node_modules/@mdi/font/css/materialdesignicons.min.css",
-              "./node_modules/video.js/dist/video-js.min.css"
+              "./node_modules/video.js/dist/video-js.min.css",
+              "./node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": [
               "src/assets/js/jquery-2.1.4.js",

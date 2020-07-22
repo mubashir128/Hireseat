@@ -1,4 +1,4 @@
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+@import url(https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css);
 
 @import "~video.js/dist/video-js.css";
 
@@ -151,13 +151,14 @@ ul:not(.browser-default) > li {
 .downloadResume:hover a i {
   color: #ffffff;
 }
-.LikedInBtn{
-    background-color: #0e76a8;
-    border: 1px solid #0e76a8;
-    margin-left: 10px;
-    min-width: 125px !important;
+.LikedInBtn {
+  background-color: #0e76a8;
+  border: 1px solid #0e76a8;
+  margin-left: 10px;
+  min-width: 125px !important;
 }
-.LikedInBtn a, .LikedInBtn a i {
+.LikedInBtn a,
+.LikedInBtn a i {
   color: #ffffff;
 }
 
@@ -342,7 +343,7 @@ nav.customeNav {
   .contact-email h2 {
     font-size: 18px !important;
   }
-  .docSectionBtns .LikedInBtn{
+  .docSectionBtns .LikedInBtn {
     min-width: 160px !important;
     margin: 0 0 0 10px !important;
     margin-top: 5px !important;

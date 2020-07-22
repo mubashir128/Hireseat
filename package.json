@@ -35,6 +35,7 @@
     "aws-sdk": "^2.705.0",
     "chart.js": "^2.9.3",
     "core-js": "^2.5.4",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "mat-video": "^2.7.2",
     "ng-multiselect-dropdown": "^0.2.10",
