@@ -9,7 +9,8 @@
     background-color: white;
 }
 .waves-effect {
-    min-width: 82px;
+    /* min-width: 82px; */
+    min-width: 90%;
     padding: 0 1rem;
 }
 .inputInnerDiv span{
@@ -28,12 +29,15 @@
 }
 .commonDiv{
     /* width: 25%; */
-    width: 17%;
+    width: 20%;
     text-align: left;
     margin: 0px 0px;
-    padding: 5px 5px;
+    padding: 10px;
     /* border-bottom: 1px solid #ddd; */
-    font-size: 16px;
+    font-size: 15px;
+}
+.commonDiv a{
+    font-size: 14px;
 }
 .commonDiv.bold {
     /* font-weight: bold;
@@ -51,7 +55,8 @@
     border-bottom: 0px solid #ddd;
 }
 .commonDiv span {
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
+    background-color: #e3e3e3;
     padding: 5px 20px;
     margin: 3px 3px;
     display: inline-block;
@@ -160,6 +165,9 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+
+
+
 @media only screen and (max-width: 767px) and (min-width: 320px){
 
     .inputInnerDiv{
@@ -174,3 +182,34 @@ input[type=number] {
 .searchForm {
     display: none;
 }
+/* Komal added new css of table : START */
+
+.commonDiv .SkillDivBank{
+    width: 100%; 
+    border-top: 1px solid #E5ECEC;
+    padding: 15px 10px;
+    margin: 0;
+}
+.skillsLabel{
+    font-size: 16px !important;
+    float: left;
+    background-color: transparent !important;
+    color: #202020;
+    font-weight: 600;
+    padding: 0 !important;
+}
+.padd0{
+    padding: 0;
+}
+.table-border>li:nth-of-type(odd) {
+    background-color: #f7f7f7;
+}
+.ExperiBadge {
+    background-color: transparent !important;
+    border: 1px solid #d1d1d1;
+}
+.divider {
+    height: 0.6px;
+    background-color: #b8b8b8;
+}
+/* Komal added new css of table : ENDS */
