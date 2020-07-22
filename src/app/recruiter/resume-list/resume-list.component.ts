@@ -252,4 +252,9 @@ export class ResumeListComponent implements OnInit {
     );
   }
 
+  onClickTag(){
+    console.log("---- ");
+    this.toggleSearch = false;
+  }
+
 }

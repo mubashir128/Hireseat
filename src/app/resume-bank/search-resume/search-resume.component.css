@@ -170,3 +170,7 @@ input[type=number] {
         width: 48%;
     }
 }
+
+.searchForm {
+    display: none;
+}

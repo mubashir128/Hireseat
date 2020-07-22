@@ -99,7 +99,7 @@ a.waves-effect.waves-light.btn.newResumeBtn {
   width: 200px;
 }
 .posrelDiv.dropdownMain {
-  width: calc(100% - 200px);
+  width: calc(100% - 0px);
   float: left;
   margin-right: 20px;
   border: 1px solid #ddd;
@@ -137,4 +137,8 @@ li.floatUns.marginUns {
 
 .searchForm {
   display: none;
+}
+
+.skillInput {
+  margin-top: 15px;
 }
