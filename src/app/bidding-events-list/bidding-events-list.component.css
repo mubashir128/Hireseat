@@ -133,6 +133,7 @@ img {
   padding: 20px;
   box-shadow: 0 0 10px #9999993b;
   transition: max-height 0.2s ease-out;
+  display: none;
 }
 .paddL0{
   padding-left: 0;

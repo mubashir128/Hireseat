@@ -179,6 +179,9 @@ input[type=number] {
     }
 }
 
+.searchForm {
+    display: none;
+}
 /* Komal added new css of table : START */
 
 .commonDiv .SkillDivBank{
