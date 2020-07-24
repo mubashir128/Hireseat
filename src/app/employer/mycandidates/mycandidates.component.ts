@@ -60,7 +60,6 @@ export class MycandidatesComponent implements OnInit {
 
     this.spinner.show();
     this.resumeService.getSpecificHiredCandidates().subscribe((data: any) => {
-      // console.log(data);
 
       if (data.msg) {
         this.msg = data.msg;
@@ -86,11 +85,8 @@ export class MycandidatesComponent implements OnInit {
       });
   }
   getEmployerAddedResumes() {
-    console.log('getEmployerAddedResumes');
-
     this.spinner.show();
     this.resumeService.getEmployerAddedResumes().subscribe((data: IResume[]) => {
-      // console.log(data.resumes);
       const resumes = data['resumes'];
       if (resumes.length > 0) {
         resumes.forEach(ele => {
