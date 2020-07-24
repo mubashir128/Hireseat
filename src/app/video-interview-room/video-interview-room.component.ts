@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { VideoCallingService } from '../_services/video-calling.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 import { fromEvent } from 'rxjs';
+import { OpentokService } from '../_services/opentok.service';
 
 @Component({
   selector: 'app-video-interview-room',
@@ -12,17 +13,21 @@ import { fromEvent } from 'rxjs';
   styleUrls: ['./video-interview-room.component.css']
 })
 export class VideoInterviewRoomComponent implements OnInit {
+
+  session: OT.Session;
+  streams: Array<OT.Stream> = [];
+  changeDetectorRef: ChangeDetectorRef;
   employerInterviewList: any;
   recruiterInterviewList: any;
   userRole: any;
   userId: any;
   interviewList: any;
   tags: any;
-  searchTerm : string;
-  skillsSetsAre=[];
+  searchTerm: string;
+  skillsSetsAre = [];
   public skillSets = [];
   public SearchFrm: FormGroup;
-  p=1;
+  p = 1;
   itemsPerPageAre = 10;
   @ViewChild('searchByName') searchByName: ElementRef;
 
@@ -30,17 +35,18 @@ export class VideoInterviewRoomComponent implements OnInit {
     private router: Router,
     private videoCallingService: VideoCallingService,
     private spinner: NgxSpinnerService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private opentokService: OpentokService
   ) {
     this.userRole = JSON.parse(localStorage.getItem("currentUser")).userInfo
       .userRole;
     this.userId = JSON.parse(localStorage.getItem("currentUser")).userInfo
       ._id;
 
-      this.SearchFrm = this.formBuilder.group({
-        tags: ["", Validators.required],
-        searchTerm : [""]
-      });
+    this.SearchFrm = this.formBuilder.group({
+      tags: ["", Validators.required],
+      searchTerm: [""]
+    });
 
   }
 
@@ -49,34 +55,83 @@ export class VideoInterviewRoomComponent implements OnInit {
     this.spinner.show();
     this.getSkillsets();
     this.redirectToUser({});
-
+    // this.createOpenTokSession();
   }
 
+  //
+
+  createOpenTokSession() {
+    console.trace();
+
+    this.opentokService.initSessionAPI('abc').then((session: OT.Session) => {
+      this.spinner.show();
+      this.session = session;
+
+      this.session.on('streamCreated', (event) => {
+        this.spinner.hide();
+        this.streams.push(event.stream);
+        this.changeDetectorRef.detectChanges();
+      });
+      this.session.on('streamDestroyed', (event) => {
+        const idx = this.streams.indexOf(event.stream);
+        if (idx > -1) {
+          this.streams.splice(idx, 1);
+          this.changeDetectorRef.detectChanges();
+        }
+      });
+      this.session.on('sessionDisconnected', ((event) => {
+
+        alert('The session disconnected. ' + event.reason);
+      }));
+
+      this.session.on('archiveStarted', (event) => {
+
+        this.opentokService.setArchivingID(event.id);
+      });
+
+      this.session.on('archiveStopped', (event) => {
+
+
+      });
+
+
+
+    })
+      .then(() => {
+        this.opentokService.connect();
+      })
+      .catch((err) => {
+        console.error('******', err);
+
+        alert('Unable to connect.');
+      });
+    //
+  }
   ngAfterViewInit() {
     // server-side search
     this.searchTermByName();
   }
 
-  searchTermByName(){
-    fromEvent(this.searchByName.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        let obj={
-          searchType : "name",
-          searchTerm : this.searchTerm,
-          skillsets : this.skillsSetsAre
-        }
-        this.redirectToUser(obj);
-      })
-    )
-    .subscribe();
+  searchTermByName() {
+    fromEvent(this.searchByName.nativeElement, 'keyup')
+      .pipe(
+        map(event => event),
+        filter(Boolean),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap((text) => {
+          let obj = {
+            searchType: "name",
+            searchTerm: this.searchTerm,
+            skillsets: this.skillsSetsAre
+          }
+          this.redirectToUser(obj);
+        })
+      )
+      .subscribe();
   }
 
-  getAllRecruitersCandidates(payload){
+  getAllRecruitersCandidates(payload) {
     this.videoCallingService.getAllRecruitersCandidates(payload).subscribe(res => {
       if (res) {
         this.spinner.hide();
@@ -88,7 +143,7 @@ export class VideoInterviewRoomComponent implements OnInit {
     });
   }
 
-  getAllEmployersCandidates(payload){
+  getAllEmployersCandidates(payload) {
     this.videoCallingService.getAllEmployersCandidates(payload).subscribe(res => {
       if (res) {
         this.spinner.hide();
@@ -187,30 +242,30 @@ export class VideoInterviewRoomComponent implements OnInit {
       skillSets = null;
     }
 
-    this.skillsSetsAre=skillSets;
-    this.skillsSetsAre=skillSets;
+    this.skillsSetsAre = skillSets;
+    this.skillsSetsAre = skillSets;
     this.redirectToUser({
-      skillsets : skillSets,
-      searchType : "skills",
+      skillsets: skillSets,
+      searchType: "skills",
       recruiterId: this.userId,
-      searchTerm : this.SearchFrm.value.searchTerm
+      searchTerm: this.SearchFrm.value.searchTerm
     });
     this.interviewList = [];
   }
 
-  redirectToUser(obj){
-    if(this.userRole === "recruiter"){
+  redirectToUser(obj) {
+    if (this.userRole === "recruiter") {
       this.getAllRecruitersCandidates(obj);
-    }else if(this.userRole === "employer"){
+    } else if (this.userRole === "employer") {
       this.getAllEmployersCandidates(obj);
     }
   }
 
-  handleToggleSign(obj){
-    if(obj.searchTab){
-      jQuery(".searchForm").css("display","block");
-    }else{
-      jQuery(".searchForm").css("display","none");
+  handleToggleSign(obj) {
+    if (obj.searchTab) {
+      jQuery(".searchForm").css("display", "block");
+    } else {
+      jQuery(".searchForm").css("display", "none");
     }
   }
 

@@ -68,10 +68,10 @@ const appRoutes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
 
   { path: "home", loadChildren: './home/home.module#HomeModule' },
-  // {
-  //   path: "video-call/:id",
-  //   loadChildren: './video-call/video-call.module#VideoCallModule'
-  // },
+  {
+    path: "video-call/:id",
+    loadChildren: './video-call/video-call.module#VideoCallModule'
+  },
   {
     path: "shared-video/:token",
     loadChildren: './shared-video/shared-video.module#SharedVideoModule'
@@ -145,10 +145,10 @@ const appRoutes: Routes = [
     loadChildren: './admin/userlist/userlist.module#UserlistModule',
     canActivate: [AdminGuard]
   },
-  {
-    path: "video-call/:id",
-    component: VideoCallComponent
-  },
+  // {
+  //   path: "video-call/:id",
+  //   component: VideoCallComponent
+  // },
 
 ];
 
