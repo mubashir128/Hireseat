@@ -13,12 +13,18 @@ declare var Materialize: any;
 export class EnterpriseUserListComponent implements OnInit {
   userList: any[];
   noBiddingEvents: boolean = true;
+  public chkLoggedInUser: any;
+
   constructor(
     private enterprise: EnterpriseService,
     private userAuth: AuthenticationService,
     private userService: UserService,
-    private router: Router
-  ) {}
+    private router: Router,
+    public supperAdmin: SuperAdminService,
+    private _AuthService: AuthenticationService,
+  ) {
+    this.chkLoggedInUser = this.userService.getUserData();
+  }
 
   ngOnInit() {
     this.getAllUsers();
@@ -69,4 +75,22 @@ export class EnterpriseUserListComponent implements OnInit {
         }
       );
   }
+
+  logoutSA() {
+    this.supperAdmin
+      .unSecureLogin({ email: localStorage.getItem("super-admin-email") })
+      .subscribe(
+        response => {
+          if (response) {
+            localStorage.removeItem("super-admin-email");
+            this.router.navigate(["super-admin/user-list"]);
+          }
+        },
+        error => {
+          this._AuthService.logout();
+          console.log(error);
+        }
+      );
+  }
+
 }
