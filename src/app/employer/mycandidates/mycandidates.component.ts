@@ -286,4 +286,8 @@ export class MycandidatesComponent implements OnInit {
     );
   }
 
+  onClickTag(){
+    this.toggleSearch = false;
+  }
+
 }

@@ -9,11 +9,12 @@
   <ng-container>
     <nav style="background:#E9F4FF;" class="customeNav">
       <div class="nav-wrapper container">
-        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
-            style="vertical-align:middle;" /></a>
-            <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
-              style="vertical-align:middle; width: 60%;" /></a> -->
-          
+        <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
+            style="vertical-align:middle;" /></a> -->
+        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
+            style="vertical-align:middle; width: 50%;" /></a>
+        <span class="header-title">Hire Seat</span>
+
       </div>
     </nav>
   </ng-container>
@@ -28,8 +29,8 @@
               <span>
                 {{resume?.candidateName}}
               </span>
-              <p><label>Job Title :</label> Frontend Developer</p>
-              <p><label>Location :</label> Newyork</p>
+              <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
+              <p><label>Location :</label> {{resume?.location}}</p>
             </div>
             <ng-container *ngIf="videoURL">
               <app-video-questions
@@ -49,8 +50,8 @@
                 <span>
                   {{resume?.candidateName}}
                 </span>
-                <p><label>Job Title :</label> Frontend Developer</p>
-                <p><label>Location :</label> Newyork</p>
+                <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
+                <p><label>Location :</label> {{resume?.location}}</p>
               </div>
               <div class="cadidateResumeDiv">
                 <button class="downloadResume">

@@ -1,5 +1,7 @@
 @import "~video.js/dist/video-js.css";
-@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
+/* @import url(https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css); */
+
+/* @import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css"); */
 .fa-play {
   color: #fff !important;
 }
@@ -18,6 +20,8 @@
   display: flex;
   justify-content: flex-end;
   background-color: black;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
 }
 .leftSideQuetion {
   width: 40%;

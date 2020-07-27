@@ -1,13 +1,13 @@
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+@import url(https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css);
 
 @import "~video.js/dist/video-js.css";
 
-/* .container {
-  display: flex;
-  justify-content: center;
+.container {
+  /* display: flex;
+  justify-content: center; */
   width: 100%;
   height: 100%;
-} */
+}
 .mainPageBg {
   width: 100%;
   float: left;
@@ -110,6 +110,8 @@
   transition: 1s;
   height: auto;
   background-color: #ffffff;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
 }
 .docSectionBtns {
   text-align: left;
@@ -151,13 +153,14 @@ ul:not(.browser-default) > li {
 .downloadResume:hover a i {
   color: #ffffff;
 }
-.LikedInBtn{
-    background-color: #0e76a8;
-    border: 2px solid #0e76a8;
-    margin-left: 10px;
-    min-width: 125px !important;
+.LikedInBtn {
+  background-color: #0e76a8;
+  border: 2px solid #0e76a8;
+  margin-left: 10px;
+  min-width: 125px !important;
 }
-.LikedInBtn a, .LikedInBtn a i {
+.LikedInBtn a,
+.LikedInBtn a i {
   color: #ffffff;
 }
 
@@ -186,7 +189,7 @@ ul:not(.browser-default) > li {
   font-size: 20px;
   font-weight: 600;
 }
-.candidate-name p{
+.candidate-name p {
   margin: 3px 0;
   color: #8c8c8c;
   font-size: 14px;
@@ -215,7 +218,9 @@ ul:not(.browser-default) > li {
   background-color: #fff;
   color: white;
   text-align: center;
-  box-shadow: 0px 1px 10px #3e3e3e14;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  /* box-shadow: 0px 1px 10px #3e3e3e14; */
   /* position: absolute;
   bottom: 0;
   left: 0; */
@@ -248,6 +253,8 @@ ul:not(.browser-default) > li {
   display: flex;
   justify-content: center;
   /* box-shadow: 0px 1px 10px #3e3e3e14; */
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
 }
 nav.customeNav {
   background: #fff !important;
@@ -280,7 +287,7 @@ nav.customeNav {
   border-radius: 0px !important;
   margin-top: 10px !important;
 }
-.candidate-name.mobViewOnly{
+.candidate-name.mobViewOnly {
   display: none;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
@@ -351,7 +358,7 @@ nav.customeNav {
   .contact-email h2 {
     font-size: 18px !important;
   }
-  .docSectionBtns .LikedInBtn{
+  .docSectionBtns .LikedInBtn {
     min-width: 135px !important;
     /* margin: 0 0 0 10px !important;
     margin-top: 5px !important; */
@@ -363,20 +370,22 @@ nav.customeNav {
     margin-bottom: 15px;
     display: block;
     border-radius: 5px;
-    box-shadow: 0 0 10px #9999994a;
-}
-.docSectionBtns {
-  margin-bottom: 10px !important;
-  display: unset !important;
-  width: 100%;
-  float: left;
-}
-.cadidateResumeDiv {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 15px;
-}
+    /* box-shadow: 0 0 10px #9999994a; */
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  }
+  .docSectionBtns {
+    margin-bottom: 10px !important;
+    display: unset !important;
+    width: 100%;
+    float: left;
+  }
+  .cadidateResumeDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
+  }
 }
 .video-js-without-questions {
   width: 100% !important;
@@ -475,3 +484,10 @@ nav.customeNav {
   }
 }
 /* Tablet Responsive :ENDS */
+
+.header-title {
+  color: #33aaff;
+  margin-left: 110px;
+  font-size: 20px;
+  font-weight: 600;
+}
