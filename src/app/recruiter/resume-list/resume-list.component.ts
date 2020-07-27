@@ -228,9 +228,9 @@ export class ResumeListComponent implements OnInit {
 
     this.resumes=[];
     this.temp2Resume.filter(resume => {
-      let name = resume.skills;
+      let name = resume.skills.toLowerCase();;
       skillSets.map(data=>{
-        if(data === name){
+        if(name.includes(data)){
           this.resumes.push(resume);
         }
       });
