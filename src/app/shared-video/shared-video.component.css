@@ -327,7 +327,7 @@ nav.customeNav {
   }
   .docSectionBtns button {
     font-size: 13px !important;
-    /* min-width: 100px !important; */
+    min-width: unset !important;
     /* margin: 0 0 0 10px !important; */
     padding: 5px 10px !important;
   }
@@ -453,3 +453,25 @@ nav.customeNav {
   background-color: #fff !important;
   height: 3px !important;
 }
+/* Tablet Responsive :STARTS */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .mainTemplate {
+    padding: 20px 100px !important;
+  }
+  .docSectionBtns button {
+    margin-bottom: 7px !important;
+  }
+  .cadidateResumeDiv {
+    width: 40% !important;
+  }
+  .LikedInBtn {
+    min-width: 193px !important;
+  }
+  .singleList.employerResume {
+    padding: 20px !important;
+  }
+  .PointsDivSingle h4 {
+    margin: 0 !important;
+  }
+}
+/* Tablet Responsive :ENDS */

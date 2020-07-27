@@ -182,3 +182,23 @@
   height: 100%;
   background-color: #33aaff;
 }
+
+/* Tablet Responsive :STARTS */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+.leftSideQuetion {
+  width: 50% !important;
+  padding: 20px 0 20px 15px !important;
+}
+.video-interview {
+  width: 50% !important;
+}
+.interviewVideoDiv {
+  height: 350px !important;
+}
+.interviewQue {
+  max-height: 235px !important;
+}
+.interviewQue h4 {
+  font-size: 14px !important;
+}
+}
