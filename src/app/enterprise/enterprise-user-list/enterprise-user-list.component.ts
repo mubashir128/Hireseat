@@ -35,7 +35,6 @@ export class EnterpriseUserListComponent implements OnInit {
       response => {
         if (response) {
           this.noBiddingEvents = false;
-          console.log(response);
           this.userList = response;
         } else {
           this.noBiddingEvents = true;
@@ -60,7 +59,7 @@ export class EnterpriseUserListComponent implements OnInit {
         response => {
           if (response) {
             if (response.userInfo.userRole == "employer") {
-              this.router.navigate(["employer/bidding-event-list"]);
+              this.router.navigate(["employer/dashboard"]);
             } else if (response.userInfo.userRole == "recruiter") {
               this.router.navigate(["recruiter/bidding-event-list"]);
             } else if (response.userInfo.userRole == "enterprise") {
