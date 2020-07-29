@@ -99,16 +99,21 @@ export class JobpostComponent implements OnInit {
   truncateHTML(text: string): string {
 
     let charlimit = 250;
-    if(!text || text.length <= charlimit )
-    {
-        return text;
+    if(!text || text.length <= charlimit ){
+      text=this.addWhiteSpace(text);
+      return text;
     }
 
-  let without_html = text.replace(/<(?:.|\n)*?>/gm, '');
-  let trim_space =  without_html.trim().replace(/&nbsp;/g, '');
-  let shortened = trim_space.substring(0, charlimit) + "...";
-  return shortened;
-}
+    let without_html = text.replace(/<(?:.|\n)*?>/gm, '');
+    let trim_space =  without_html.trim().replace(/&nbsp;/g, '');
+    let shortened = trim_space.substring(0, charlimit) + "...";
+    shortened=this.addWhiteSpace(shortened);
+    return shortened;
+  }
+
+  addWhiteSpace(string){
+    return string.split(',').join(', ');
+  }
 
   showUploadModel(eventid){
     this.id = eventid;
