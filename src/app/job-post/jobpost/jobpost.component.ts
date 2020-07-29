@@ -112,6 +112,7 @@ export class JobpostComponent implements OnInit {
   }
 
   addWhiteSpace(string){
+    string=string.split('.').join('. ');
     return string.split(',').join(', ');
   }
 
