@@ -132,7 +132,10 @@ import { FilterDataComponent } from './components/filter-data/filter-data.compon
 
     VideoQuestionsComponent,
     FilterDataComponent,
-    TagInputModule
+    TagInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class SharedComponentsModule { }
