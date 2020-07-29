@@ -197,14 +197,25 @@ export class UploadResumeComponent implements OnInit {
   }
 
   addTag(tag) {
+
     tag.display = lib.trimSpaces(tag.display);
     tag.display = lib.titleCase(tag.display);
+
+    tag.value=lib.trimSpaces(tag.value);
+    tag.value=lib.titleLowerCase(tag.value);
+
     if (lib.searchObjectArray(tag.value, this.skillSets)) {
       return;
     }
+
     this.resumeService.addNewTag(tag).subscribe(
       response => {
         if (response.result == "success") {
+          let skillObj={
+            display : response.data.display,
+            value : response.data.value
+          }
+          this.skillSets.push(skillObj);
           Materialize.toast("New tag added successfully !", 1000);
         }
       },

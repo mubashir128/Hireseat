@@ -4,12 +4,12 @@
   <div class="col m4 s12 l3 marT80">
     <app-sidebar></app-sidebar>
   </div>
+  <div class="LogOutOption" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
+    <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
+    <a (click)="logoutSA()"> Logout </a>
+  </div>
   <div class="col m8 s12 l9">
     <div class="center-align  userListMobile">
-      <div class="LogOutOption" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
-        <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
-        <a (click)="logoutSA()"> Logout </a>
-      </div>
       <h5 class="TotalCount">Total Users ({{ UserList.length }})</h5>
       <!-- <div class="tblScroll">
     <ul class="table-border">
