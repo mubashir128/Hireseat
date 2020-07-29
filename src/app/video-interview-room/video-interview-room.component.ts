@@ -55,58 +55,11 @@ export class VideoInterviewRoomComponent implements OnInit {
     this.spinner.show();
     this.getSkillsets();
     this.redirectToUser({});
-    // this.createOpenTokSession();
   }
 
   //
 
-  createOpenTokSession() {
-    console.trace();
 
-    this.opentokService.initSessionAPI('abc').then((session: OT.Session) => {
-      this.spinner.show();
-      this.session = session;
-
-      this.session.on('streamCreated', (event) => {
-        this.spinner.hide();
-        this.streams.push(event.stream);
-        this.changeDetectorRef.detectChanges();
-      });
-      this.session.on('streamDestroyed', (event) => {
-        const idx = this.streams.indexOf(event.stream);
-        if (idx > -1) {
-          this.streams.splice(idx, 1);
-          this.changeDetectorRef.detectChanges();
-        }
-      });
-      this.session.on('sessionDisconnected', ((event) => {
-
-        alert('The session disconnected. ' + event.reason);
-      }));
-
-      this.session.on('archiveStarted', (event) => {
-
-        this.opentokService.setArchivingID(event.id);
-      });
-
-      this.session.on('archiveStopped', (event) => {
-
-
-      });
-
-
-
-    })
-      .then(() => {
-        this.opentokService.connect();
-      })
-      .catch((err) => {
-        console.error('******', err);
-
-        alert('Unable to connect.');
-      });
-    //
-  }
   ngAfterViewInit() {
     // server-side search
     this.searchTermByName();

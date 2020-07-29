@@ -49,7 +49,7 @@ export class SubscriberComponent implements AfterViewInit {
       if (err) {
         this.spinner.hide();
 
-        alert(err.message);
+        // alert(err.message);
       }
       this.spinner.hide();
 

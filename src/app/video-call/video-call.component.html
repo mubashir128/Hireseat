@@ -105,12 +105,14 @@
 
 
                   <ng-container *ngIf="!candidate && !isRecruiter">
-                    <button type="button" routerLink='/employer/video-interview-room' class="end-meeting">
+                    <button type="button" (click)="endCall('employer')" class="end-meeting">
                       End
                       Meeting</button>
                   </ng-container>
                   <ng-container *ngIf="!candidate && isRecruiter">
-                    <button type="button" routerLink='/recruiter/video-interview-room' class="end-meeting">End
+                    <!-- <button type="button" routerLink='/recruiter/video-interview-room' class="end-meeting">End
+                      Meeting</button> -->
+                    <button type="button" (click)="endCall('recruiter')" class="end-meeting">End
                       Meeting</button>
                   </ng-container>
                 </div>
@@ -131,7 +133,7 @@
           </div>
 
           <ng-container *ngIf="candidate">
-            <button type="button" routerLink='/' class="end-meeting">End Meeting</button>
+            <button type="button" (click)="endCall('candidate')" class="end-meeting">End Meeting</button>
           </ng-container>
 
         </div>
