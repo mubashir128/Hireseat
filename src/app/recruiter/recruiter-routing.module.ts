@@ -5,7 +5,6 @@ import { ProfileComponent } from '../profile/profile.component';
 import { BiddingEventsListComponent } from '../bidding-events-list/bidding-events-list.component';
 import { RecruiterQuestionComponent } from '../recruiter-brodcast/recruiter-question/recruiter-question.component';
 import { NewResumeComponent } from './new-resume/new-resume.component';
-import { SearchResumeComponent } from '../resume-bank/search-resume/search-resume.component';
 import { VideoInterviewRoomComponent } from '../video-interview-room/video-interview-room.component';
 
 const routes: Routes = [
@@ -43,7 +42,7 @@ const routes: Routes = [
       },
       {
         path: "search-resume",
-        component: SearchResumeComponent
+        loadChildren : "../resume-bank/search-resume/search-resume.module#SearchResumeModule"
       },
       {
         path: "video-interview-room",
