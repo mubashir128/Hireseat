@@ -77,6 +77,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     // this.play();
   }
   ngOnInit() {
+
     // this.target.nativeElement.addEventListener('play', this.play.bind(this));
     // this.target.nativeElement.addEventListener('pause', this.pause.bind(this));
 

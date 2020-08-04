@@ -26,37 +26,25 @@
   </div>
 
   <div class="">
-    <div class="card white hoverable bgLight searchForm"  style="padding: 13px 30px;">
+    <div class="card white hoverable bgLight searchForm" style="padding: 13px 30px;">
       <form [formGroup]="SearchFrm" novalidate>
         <div class="input-field disFlex s12 m12 l12" style="text-align: left;">
           <div class="inputInnerDiv">
             <div class="skillInput">Select the skill sets*</div>
             <span>Note: select skills from dropdown</span>
-            <tag-input
-              class="borderBott borderBottN skillBorBott"
-              [(ngModel)]="tags"
-              formControlName="tags"
-              [addOnBlur]="true"
-              (onAdd)="onadd($event)"
-              (onRemove)="onadd($event)"
-              [onlyFromAutocomplete]="true"
-              [placeholder]="'search by skillSets'"
-              [secondaryPlaceholder]="'search by skillSets'"
-              (click)="onClickTag()"
-            >
-              <tag-input-dropdown
-                [autocompleteItems]="skillSets"
-                [keepOpen]="false"
-                [showDropdownIfEmpty]="true"
-                [dynamicUpdate]="false"
-              >
+            <tag-input class="borderBott borderBottN skillBorBott" [(ngModel)]="tags" formControlName="tags"
+              [addOnBlur]="true" (onAdd)="onadd($event)" (onRemove)="onadd($event)" [onlyFromAutocomplete]="true"
+              [placeholder]="'search by skillSets'" [secondaryPlaceholder]="'search by skillSets'"
+              (click)="onClickTag()">
+              <tag-input-dropdown [autocompleteItems]="skillSets" [keepOpen]="false" [showDropdownIfEmpty]="true"
+                [dynamicUpdate]="false">
               </tag-input-dropdown>
             </tag-input>
           </div>
         </div>
       </form>
-      
-      <div class="skillInput">Select the skill sets*</div>
+
+      <div class="skillInput">Search by name :</div>
       <div class="right-align mainTopBar marT10">
         <div class="posrelDiv dropdownMain">
           <!-- <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="selectedResume" [multiple]="false" [config]="{displayKey:candidateName,search:true}" [options]="resumes"></ngx-select-dropdown> -->
@@ -70,16 +58,18 @@
               <a class="dropdown-button_resume" data-activates="dropdown_jobProfile_resume" #searchAll>
                 {{ CandidateName }}
               </a>
-              <i id="toggleDropdownId" class="material-icons right" style="cursor: pointer;" (click)="openDropdown($event)">
+              <i id="toggleDropdownId" class="material-icons right" style="cursor: pointer;"
+                (click)="openDropdown($event)">
                 arrow_drop_down
               </i>
             </form>
           </div>
-          <div id="dropdown_jobProfile_resume" *ngIf="toggleSearch" class="dropdown-content bidDropDown dropdown-toggle">
+          <div id="dropdown_jobProfile_resume" *ngIf="toggleSearch"
+            class="dropdown-content bidDropDown dropdown-toggle">
             <div class="searchDivList">
               <input type="text" (input)="searchtext($event)" (focus)="onfocus($event)" placeholder="search"
                 autocomplete="off" class="searchBox" [(ngModel)]="CandidateName"
-                style="padding: 0 20px; box-sizing: border-box; position: relative; margin: 0;" #searchByName/>
+                style="padding: 0 20px; box-sizing: border-box; position: relative; margin: 0;" #searchByName />
               <i class="fa fa-search" aria-hidden="true"></i>
             </div>
             <ul class="resumeDrodown">
@@ -96,7 +86,7 @@
           </div>
           <!-- </div> -->
         </div>
-        
+
       </div>
     </div>
   </div>

@@ -89,7 +89,7 @@
 
               </div>
             </ng-container>
-            <ng-container *ngIf="isShareFromRecruiter">
+            <ng-container *ngIf="isShareFromRecruiter && comments">
               <div class="singleListData">
                 <div class="PointsDiv commonSingleInner">
                   <div class="PointsDivSingle PointsDivSingleN">
@@ -106,6 +106,29 @@
           </div>
           <!-- </li> -->
           <!-- </ul> -->
+          <div class="singleList employerResume resumeSingleList" *ngIf="recruiterDetails">
+            <div class="recruiter-section">
+              <span>
+                <span class="recruiter-name-title">
+                  Recruiter name :
+                </span>
+                <span class="recruiter-name">
+                  {{  resume?.recruiterKey.fullName}}
+                </span>
+              </span>
+
+              <span>
+                <span class="recruiter-company-title">
+                  Company name :
+                </span>
+                <span class="recruiter-company">
+                  {{recruiterDetails?.companyName}}
+                </span>
+
+              </span>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>

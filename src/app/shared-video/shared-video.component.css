@@ -491,3 +491,33 @@ nav.customeNav {
   font-size: 20px;
   font-weight: 600;
 }
+.recruiter-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.recruiter-name-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #8c8c8c;
+}
+.recruiter-name {
+  color: #33aaff;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.recruiter-company-title {
+  font-size: 20px;
+  font-weight: 600;
+
+  color: #8c8c8c;
+}
+.recruiter-company {
+  color: #33aaff;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
