@@ -76,7 +76,10 @@ const appRoutes: Routes = [
     path: "shared-video/:token",
     loadChildren: './shared-video/shared-video.module#SharedVideoModule'
   },
-
+  {
+    path: 'recruiter-coaching',
+    loadChildren: './recruiter-coaching/recruiter-coaching.module#RecruiterCoachingModule'
+  },
   {
     path: "recruiter",
     loadChildren: './recruiter/recruiter.module#RecruiterModule',
