@@ -42,8 +42,8 @@
     /* background-color: #ffffff; */
     padding: 20px;
     margin: 20px 0;
-    background-color: #141414;
-    background-color: #022233;
+    background-color: #33aaff;;
+    /* background-color: #022233; */
     border-bottom: 1px solid #b9b9b9;
     /* box-shadow: 0 0 10px #99999954; */
 }
@@ -66,19 +66,20 @@
 }
 .ClientImage p{
     margin: 0;
-    /* color: #e6e6e6; */
-    color: #f9c324;
+    color: #e6e6e6;
+    /* color: #f9c324; */
 }
 .BioDetails h2{
     font-size: 30px;
     /* color: #33aaff; */
-    color: #c9de45;
+    /* color: #c9de45; */
     /* color: #ffffff; */
+    color: #fff861;
     margin-bottom: 0px;
 }
 .BioDetails p {
     font-size: 15px;
-    color: #d2d2d2;
+    color: #f2f2f2;
     margin: 7px 0 10px;
 }
 .UpperDetails {
@@ -90,5 +91,4 @@
     margin-bottom: 0;
     font-weight: 600;
     /* color: #383838; */
-   
 }
