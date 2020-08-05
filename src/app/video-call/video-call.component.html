@@ -88,7 +88,8 @@
 
                 <div class="archive-copylink">
                   <!-- <div id="buttons"> -->
-                  <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink" (click)="endCallConfirmPopup('')"
+                  <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink"
+                    (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
                     value="click to copy">
                     Candidate Invitation Link
                   </button>
