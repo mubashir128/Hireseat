@@ -60,9 +60,19 @@ app-subscriber {
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 100%;
 }
-
+/* confirm action on modal */
+.confirm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.spacing {
+  width: 20%;
+  display: flex;
+  justify-content: space-evenly;
+}
 /* The Close Button */
 .close {
   color: #aaaaaa;
@@ -732,4 +742,9 @@ input[type="number"]::-webkit-outer-spin-button {
   -moz-appearance: none;
   appearance: none;
   margin: 0;
+}
+.end-meeting-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

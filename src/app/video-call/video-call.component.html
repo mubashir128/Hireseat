@@ -88,8 +88,7 @@
 
                 <div class="archive-copylink">
                   <!-- <div id="buttons"> -->
-                  <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink"
-                    (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
+                  <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink" (click)="endCallConfirmPopup('')"
                     value="click to copy">
                     Candidate Invitation Link
                   </button>
@@ -104,17 +103,15 @@
                   <!-- button for local -->
 
 
-                  <ng-container *ngIf="!candidate && !isRecruiter">
+                  <!-- <ng-container *ngIf="!candidate && !isRecruiter">
                     <button type="button" (click)="endCall('employer')" class="end-meeting">
                       End
                       Meeting</button>
                   </ng-container>
                   <ng-container *ngIf="!candidate && isRecruiter">
-                    <!-- <button type="button" routerLink='/recruiter/video-interview-room' class="end-meeting">End
-                      Meeting</button> -->
                     <button type="button" (click)="endCall('recruiter')" class="end-meeting">End
                       Meeting</button>
-                  </ng-container>
+                  </ng-container> -->
                 </div>
 
                 <!-- local end -->
@@ -131,7 +128,17 @@
               <!-- archive and stop-copylink button end -->
             </div>
           </div>
-
+          <div class="end-meeting-section">
+            <ng-container *ngIf="!candidate && !isRecruiter">
+              <button type="button" (click)="endCall('employer')" class="end-meeting">
+                End
+                Meeting</button>
+            </ng-container>
+            <ng-container *ngIf="!candidate && isRecruiter">
+              <button type="button" (click)="endCall('recruiter')" class="end-meeting">End
+                Meeting</button>
+            </ng-container>
+          </div>
           <ng-container *ngIf="candidate">
             <button type="button" (click)="endCall('candidate')" class="end-meeting">End Meeting</button>
           </ng-container>
@@ -315,3 +322,25 @@
   </div>
 </div>
 <!--Submit pop up:END-->
+
+
+<div id="endCallConfirmPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+  <a (click)="closeendCallConfirmpopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+  <div class="modal-content videoModalContent">
+    <h4 class="slide-heading text-center"> Message</h4>
+    <div class="modalBodyPop">
+      <p>End Call without storing the recording?</p>
+    </div>
+    <div class="confirm">
+      <div class="spacing">
+        <div class="yes">
+          <button (click)="closeendCallConfirmpopup('yes')">yes</button>
+        </div>
+        <div class="no">
+          <button (click)="closeendCallConfirmpopup('no')"> No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
