@@ -508,14 +508,17 @@ nav ul a {
   border-radius: 5px;
   padding: 30px;
   display: flex;
+  flex-direction: column;
   /* align-items: center; */
   justify-content: flex-start !important;
   margin-bottom: 30px;
   transition: 1s;
-  height: 210px;
+  /* height: 210px; */
   background-color: #ffffff;
 }
 .resumeSingleList .PointsDiv.commonSingleInner {
+  display: flex;
+  flex-direction: column;
   border-right: 0px solid #999;
 }
 
@@ -747,4 +750,39 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+.candidate-details-resume {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: flex-start !important;
+  margin-bottom: 30px;
+  transition: 1s;
+  /* height: 210px; */
+  background-color: #ffffff;
+}
+.resume-review {
+  display: flex;
+  border-top: 1px solid #dfdbdb;
+  border-bottom: 1px solid #dfdbdb;
+
+  margin-top: 5px;
+  padding: 10px 0 10px 0;
+}
+.titles {
+  font-size: 16px;
+}
+.detail {
+  font-size: 14px;
+  color: #666;
+}
+.candidate {
+  font-size: 20px;
+}
+.candidate-name {
+  font-size: 18px;
+  color: #03a9f4;
 }

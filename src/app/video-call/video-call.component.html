@@ -153,55 +153,57 @@
 
       </div>
       <!-- feedback area -->
-      <div *ngIf="!candidate" class="singleList resumeSingleList margin-T50">
-        <!-- <div class="PointsDiv commonSingleInner">
-          <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="img-responsive" />
-            <h4>Point 1</h4>
-
+      <div *ngIf="!candidate" class="candidate-details-resume resumeSingleList margin-T50">
+        <div class="candidate-info">
+          <div class="name">
+            <span class="candidate">Candidate Name : </span>
+            <span class="candidate-name"> {{candidateInfo.candidateName}}</span>
           </div>
-          <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="img-responsive" />
-            <h4>Point 2</h4>
-
-          </div>
-          <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="img-responsive" />
-            <h4>Point 3</h4>
-
-          </div>
-        </div> -->
-
-        <div class="docSection">
-          <div class="docDiv">
-            <img src="assets/img/doc.png" class="img-responsive" />
-            <a [attr.href]="transform(candidateInfo?.fileURL)" target="_blank" download>
-              <h4>Download Resume</h4>
-            </a>
+          <div class="description">
+            <div class="jobtitle">
+              <span class="titles">Job Title : </span>
+              <span class="detail">{{candidateInfo.jobTitle}}</span>
+            </div>
+            <div class="skillset">
+              <span class="titles">Skills : </span>
+              <span class="detail">{{candidateInfo.skills}}</span>
+            </div>
           </div>
         </div>
+        <div class="resume-review">
 
 
-
-        <div class="ActionDiv commonSingleInner ">
-          <div class="actionDivSingle">
-            <div class="">
-              <!-- [attr.id]="'Comments' + resume._id" -->
-              <textarea [(ngModel)]="commentFromRecruiter" class="commentTxt" rows="5" cols="4"></textarea>
+          <div class="docSection">
+            <div class="docDiv">
+              <img src="assets/img/doc.png" class="img-responsive" />
+              <a [attr.href]="transform(candidateInfo?.fileURL)" target="_blank" download>
+                <h4>Download Resume</h4>
+              </a>
             </div>
-            <!-- <div class="docDiv">
+          </div>
+
+
+
+          <div class="ActionDiv commonSingleInner ">
+            <div class="actionDivSingle">
+              <div class="">
+                <!-- [attr.id]="'Comments' + resume._id" -->
+                <textarea [(ngModel)]="commentFromRecruiter" class="commentTxt" rows="5" cols="4"></textarea>
+              </div>
+              <!-- <div class="docDiv">
               <h4><span>Recruiter Cost:</span>20</h4>
             </div> -->
 
+            </div>
+            <button id="myBtn" *ngIf="isRecruiter" class="copy-link marL10" (click)="questionsPopUp()">
+              Add Questions
+            </button>
+            <button id="myBtn" (click)="submitReview()" class="copy-link commButton marL10">
+              Submit review
+            </button>
+
+
           </div>
-          <button id="myBtn" *ngIf="isRecruiter" class="copy-link marL10" (click)="questionsPopUp()">
-            Add Questions
-          </button>
-          <button id="myBtn" (click)="submitReview()" class="copy-link commButton marL10">
-            Submit review
-          </button>
-
-
         </div>
 
       </div>
