@@ -60,6 +60,7 @@ export class MycandidatesComponent implements OnInit {
 
     this.spinner.show();
     this.resumeService.getSpecificHiredCandidates().subscribe((data: any) => {
+      // console.log(data);
 
       if (data.msg) {
         this.msg = data.msg;
@@ -85,8 +86,11 @@ export class MycandidatesComponent implements OnInit {
       });
   }
   getEmployerAddedResumes() {
+    console.log('getEmployerAddedResumes');
+
     this.spinner.show();
     this.resumeService.getEmployerAddedResumes().subscribe((data: IResume[]) => {
+      // console.log(data.resumes);
       const resumes = data['resumes'];
       if (resumes.length > 0) {
         resumes.forEach(ele => {
@@ -247,9 +251,9 @@ export class MycandidatesComponent implements OnInit {
 
     this.resumes=[];
     this.temp2Resume.filter(resume => {
-      let name = resume.skills.toLowerCase();
+      let name = resume.skills;
       skillSets.map(data=>{
-        if(name.includes(data)){
+        if(data === name){
           this.resumes.push(resume);
         }
       });
@@ -257,9 +261,9 @@ export class MycandidatesComponent implements OnInit {
 
     this.tempResume=[];
     this.temp2Resume.filter(resume => {
-      let name = resume.skills.toLowerCase();
+      let name = resume.skills;
       skillSets.map(data=>{
-        if(name.includes(data)){
+        if(data === name){
           this.tempResume.push(resume);
         }
       });
@@ -280,10 +284,6 @@ export class MycandidatesComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  onClickTag(){
-    this.toggleSearch = false;
   }
 
 }

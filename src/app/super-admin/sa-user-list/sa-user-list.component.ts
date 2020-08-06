@@ -28,7 +28,7 @@ export class SAUserListComponent implements OnInit {
   dropdownSettings = {};
   itemsIs: any;
 
-  @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
+  @ViewChild('searchInputTerm', { static: false }) searchInputTerm: ElementRef;
 
   constructor(
     private superAdmin: SuperAdminService,
@@ -104,6 +104,9 @@ export class SAUserListComponent implements OnInit {
   }
 
   loginUser(userEmail) {
+    if(this.itemsIs === "enterprise"){
+      return ;
+    }
     localStorage.setItem(
       "super-admin-email",
       this.userService.getUserData().email

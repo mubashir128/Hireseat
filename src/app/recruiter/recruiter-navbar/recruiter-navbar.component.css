@@ -1,119 +1,116 @@
-.collection .collection-item {
-  border-bottom: none;
+.collection .collection-item{
+    border-bottom: none; 
 }
 .collection a.collection-item {
-  display: block;
-  transition: 0.25s;
-  color: #48aef3 !important;
+    display: block;
+    transition: .25s;
+    color: #48aef3 !important;
 }
 .collection .collection-item.active {
-  background-color: #48aef3;
-  color: #fff !important;
+    background-color: #48aef3 ;
+    color: #fff !important;
 }
 .text-center {
-  text-align: center;
+    text-align: center;
 }
 .rewarDiv h4 {
-  font-size: 13px;
-  text-align: center;
-  margin: 5px 0;
+    font-size: 13px;
+    text-align: center;
+    margin: 5px 0;
 }
-.borR {
-  border-right: 1px solid #ddd;
+.borR{
+    border-right:1px solid #ddd;
 }
 .commonDivDF {
-  display: flex;
-  padding-top: 20px;
-  justify-content: center;
-  min-height: 100px !important;
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
+    min-height: 100px !important;
 }
-.marTB15 {
-  margin: 15px 0;
+.marTB15{
+    margin: 15px 0;
 }
 .modal.modal-fixed-footer.custFooterModal {
-  padding: 0;
-  height: 100%;
-  max-height: 350px;
+    padding: 0;
+    height: 100%;
+    max-height: 350px;
 }
 img.greenArrowIcon {
-  transform: rotate(180deg);
-  width: 40px;
+    transform: rotate(180deg);
+    width:40px;
 }
-.mar0 {
-  margin: 0px;
+.mar0{
+    margin:0px;
 }
 .redArrowIcon {
-  width: 40px;
+    width: 40px;
 }
-.popHead {
-  text-align: center;
-  font-size: 25px;
-  color: #03a9f4;
-  font-weight: bold;
+.popHead{
+    text-align: center;
+    font-size: 25px;
+    color: #03A9F4;
+    font-weight: bold;
 }
-.padd15 {
-  padding: 15px;
+.padd15{
+padding:15px;
 }
 .rewarDiv a {
-  display: block;
+	display: block;
 }
 
 .listDiv {
-  position: absolute;
-  width: 150px;
-  left: 100%;
-  top: 0;
-  z-index: 9;
-  border: 1px solid #ddd;
-  display: none;
-  background-color: #f8f8f8;
+    position: absolute;
+    width: 150px;
+    left: 100%;
+    top: 0;
+    z-index: 9;
+    border: 1px solid #ddd;
+	display:none;
+	    background-color: #f8f8f8;
 }
 .listDiv ul {
-  margin: 0 0;
+    margin: 0 0;
 }
 .collection-item:hover .listDiv {
-  display: block;
+	display:block;
 }
 .collection-item {
-  position: relative;
+    position: relative;
 }
-.overflowUnset {
-  overflow: unset;
+.overflowUnset{
+    overflow: unset;
 }
 .listDiv li {
-  padding: 2px 10px;
-  cursor: pointer;
+    padding: 2px 10px;
+    cursor: pointer;
 }
 .listDiv li:hover {
-  background-color: #ddd;
+    background-color:#ddd;
 }
 .collection {
-  position: relative;
-  background-color: #f4f4f499;
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+    position: relative;
+    background-color: #f4f4f499;
 }
 
-.collection-item.active {
-  position: relative;
+.collection-item.active{
+	position: relative;
 }
-.collection-item.active:after,
-.collection-item.active:before {
-  left: 100%;
-  top: 50%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
+.collection-item.active:after, .collection-item.active:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
 }
 
 .collection-item.active:after {
-  border-color: rgba(136, 183, 213, 0);
-  border-left-color: #48aef3;
-  border-width: 21px;
-  margin-top: -21px;
+    border-color: rgba(136, 183, 213, 0);
+    border-left-color: #48aef3;
+    border-width: 21px;
+    margin-top: -21px;
 }
 /* .collection-item.active:before {
 	border-color: rgba(194, 225, 245, 0);

@@ -9,15 +9,15 @@ const routes: Routes = [
     children: [
       {
         path: "user-list",
-        loadChildren: './sa-user-list/sa-user-list.module#SAUserListModule'
+        loadChildren: () => import('./sa-user-list/sa-user-list.module').then(m => m.SAUserListModule)
       },
       {
         path: "create-admin",
-        loadChildren: './create-admin/create-admin.module#CreateAdminModule'
+        loadChildren: () => import('./create-admin/create-admin.module').then(m => m.CreateAdminModule)
       },
       {
         path: "create-enterprise",
-        loadChildren: './create-enterprise/create-enterprise.module#CreateEnterpriseModule'
+        loadChildren: () => import('./create-enterprise/create-enterprise.module').then(m => m.CreateEnterpriseModule)
       }
     ],
     // canActivate: [SupperAdminGuard]

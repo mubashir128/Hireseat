@@ -1,8 +1,8 @@
 
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FeedbackService } from '../../_services/feedback.service';
-import { error } from 'util';
+// import { error } from 'util';
 import { DomSanitizer } from '@angular/platform-browser';
 declare var $: any;
 declare var Materialize: any;
@@ -39,7 +39,7 @@ export class RecruiterFeedbackComponent implements OnInit {
     this.skillsPt = ($("input[name='" + 'rating1' + resumeBidId + "']:checked").val())
     this.experiencePt = ($("input[name='" + 'rating2' + resumeBidId + "']:checked").val())
     this.personalityPt = ($("input[name='" + 'rating3' + resumeBidId + "']:checked").val())
-   
+
 
     if (this.skillsPt != undefined && this.experiencePt != undefined && this.personalityPt != undefined) {
       this.FeedObj.skillsPt = this.skillsPt;

@@ -29,8 +29,8 @@ const CSS_CLASS_NAMES = {
   ]
 })
 export class RecruiterComponent implements ControlValueAccessor{
-  @ViewChild('filterInput') filterInput: ElementRef;
-  @ViewChild('displayLabel') displayLabel: ElementRef;
+  @ViewChild('filterInput', { static: false }) filterInput: ElementRef;
+  @ViewChild('displayLabel', { static: false }) displayLabel: ElementRef;
   @ViewChildren('listItems') listItems: QueryList<ElementRef>;
 
   @HostListener('document:click', ['$event'])

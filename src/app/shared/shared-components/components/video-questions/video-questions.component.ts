@@ -8,9 +8,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
   encapsulation: ViewEncapsulation.None,
 })
 export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
-  @ViewChild('target') target: ElementRef;
-  @ViewChild('juiceBar') juiceBar: ElementRef;
-  @ViewChild('bar') bar: ElementRef;
+  // @ViewChild('target', { static: true }) target: ElementRef;
+  @ViewChild('target', { static: true }) target: ElementRef;
+
+  @ViewChild('juiceBar', { static: false }) juiceBar: ElementRef;
+  @ViewChild('bar', { static: false }) bar: ElementRef;
 
   // see options: https://github.com/videojs/video.js/blob/mastertutorial-options.html
   @Input() options: {
@@ -77,7 +79,6 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     // this.play();
   }
   ngOnInit() {
-
     // this.target.nativeElement.addEventListener('play', this.play.bind(this));
     // this.target.nativeElement.addEventListener('pause', this.pause.bind(this));
 
@@ -178,7 +179,7 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
   }
   setCurrentTime(seconds, questionNumber) {
     var video = document.getElementsByTagName('video')[0];
-    const playPromise = video.play();
+    // const playPromise = video.play();
     // if (playPromise !== undefined) {
     //   playPromise.then(() => {
     //     video.pause()
@@ -190,16 +191,16 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     // }
     video.currentTime = seconds;
     // this.player.currentTime(seconds);
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        video.play()
-      })
+    // if (playPromise !== undefined) {
+    //   playPromise.then(() => {
+    //     video.play()
+    //   })
 
-      playPromise.catch((e) => {
-        console.log(e);
-        video.pause()
-      })
-    }
+    //   playPromise.catch((e) => {
+    //     console.log(e);
+    //     video.pause()
+    //   })
+    // }
 
     // video.play();
     // this.time = seconds;

@@ -220,6 +220,9 @@ import { VideoCallingService } from './_services/video-calling.service';
     // ScatterChartComponent,
     // SearchByNamePipe,
     // SearchByExperiencePipe,
+    VideoCallComponent,
+    PublisherComponent,
+    SubscriberComponent,
     // EmployerHomeComponent,
     // JobProfileListComponent,
     // CreateJobProfileComponent,
@@ -229,11 +232,6 @@ import { VideoCallingService } from './_services/video-calling.service';
     // EmployeerAnsComponent,
     // DashboardComponent,
     // MycandidatesComponent,
-
-
-    // VideoCallComponent,
-    // PublisherComponent,
-    // SubscriberComponent,
 
   ],
   providers: [

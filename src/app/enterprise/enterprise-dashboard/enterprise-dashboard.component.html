@@ -14,7 +14,7 @@
         <!--  <li><a [routerLink]="['/rules']">Scoring Rules</a> -->
         <!--  <li><a [routerLink]="['/employer/profile']">My Profile</a></li> -->
         <li><span class="super-admin">Enterprise</span></li>
-        <li *ngIf="!this.supperAdmin.checkSuperAdminEmail()"><a (click)="logout()">Logout</a></li>
+        <li><a (click)="logout()">Logout</a></li>
       </ul>
     </div>
   </nav>

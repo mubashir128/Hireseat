@@ -16,7 +16,7 @@
 
 /* Clear floats after the columns */
 .row:after {
-  content: "";
+  content: '';
   display: table;
   clear: both;
 }
@@ -37,9 +37,7 @@
 
 /* Style the counter cards */
 .card {
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 6px;
   text-align: center;
   background-color: #fff;
@@ -87,7 +85,7 @@ span.interview-heading {
   display: flex;
   justify-content: flex-start;
 }
-.name h3 {
+.name h3{
   font-size: 20px;
   margin: 0 0 10px 0;
   color: #48aef3;
@@ -136,7 +134,7 @@ span.candDetail {
 }
 /* end of candidate details */
 
-.input-field.disFlex {
+.input-field.disFlex{
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

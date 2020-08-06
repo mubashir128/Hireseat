@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, Input } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
 import * as OT from '@opentok/client';
 import { OpentokService } from '../_services/opentok.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -7,11 +7,15 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-subscriber',
   templateUrl: './subscriber.component.html',
-  styleUrls: ['./subscriber.component.css']
+  styleUrls: ['./subscriber.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 
 export class SubscriberComponent implements AfterViewInit {
-  @ViewChild('subscriberDiv') subscriberDiv: ElementRef;
+  // @ViewChild('subscriberDiv', { static: true }) subscriberDiv: ElementRef;
+  @ViewChild('subscriberDiv', { static: true }) subscriberDiv: ElementRef;
+
   @Input() session: OT.Session;
   @Input() stream: OT.Stream;
   subscriberOptions: any;
@@ -49,7 +53,7 @@ export class SubscriberComponent implements AfterViewInit {
       if (err) {
         this.spinner.hide();
 
-        // alert(err.message);
+        alert(err.message);
       }
       this.spinner.hide();
 
@@ -68,6 +72,10 @@ export class SubscriberComponent implements AfterViewInit {
         }
       }
     );
+    this.session.on('streamDestroyed', (event) => {
+      console.log('subscrier disconnected');
+
+    })
   }
   unsubscribe(subscriber) {
     this.session.unsubscribe(subscriber);

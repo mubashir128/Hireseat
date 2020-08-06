@@ -22,17 +22,17 @@ export class SearchResumeComponent implements OnInit {
   public itemsPerPageAre = 10;
   tags: any;
   id: any;
-  searchTerm : string;
-  minSearchTerm : number;
-  maxSearchTerm : number;
-  itemsArray : any[]=[1];
+  searchTerm: string;
+  minSearchTerm: number;
+  maxSearchTerm: number;
+  itemsArray: any[] = [1];
   createdAt = null;
   onLoad = false;
-  paginateMove=false;
-  skillsSetsAre=[];
-  @ViewChild('searchByName') searchByName: ElementRef;
-  @ViewChild('searchByMinExperence') searchByMinExperence: ElementRef;
-  @ViewChild('searchByMaxExperence') searchByMaxExperence: ElementRef;
+  paginateMove = false;
+  skillsSetsAre = [];
+  @ViewChild('searchByName', { static: true }) searchByName: ElementRef;
+  @ViewChild('searchByMinExperence', { static: true }) searchByMinExperence: ElementRef;
+  @ViewChild('searchByMaxExperence', { static: true }) searchByMaxExperence: ElementRef;
 
   constructor(
     private userService: UserService,
@@ -43,9 +43,9 @@ export class SearchResumeComponent implements OnInit {
   ) {
     this.SearchFrm = this.formBuilder.group({
       tags: ["", Validators.required],
-      searchTerm : [""],
-      minSearchTerm : [],
-      maxSearchTerm : []
+      searchTerm: [""],
+      minSearchTerm: [],
+      maxSearchTerm: []
     });
   }
 
@@ -63,12 +63,12 @@ export class SearchResumeComponent implements OnInit {
         this.getSkillsets();
       }
     }
-    let obj={
-      skillsets : null,
-      itemsPerPageAre : this.itemsPerPageAre,
-      createdAt : this.createdAt,
-      searchType : "all",
-      onLoad : true
+    let obj = {
+      skillsets: null,
+      itemsPerPageAre: this.itemsPerPageAre,
+      createdAt: this.createdAt,
+      searchType: "all",
+      onLoad: true
     };
     this.getResumesBySkills(obj);
   }
@@ -80,63 +80,63 @@ export class SearchResumeComponent implements OnInit {
     this.searchTermByMaxExperence();
   }
 
-  searchTermByName(){
-    fromEvent(this.searchByName.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        this.getResumesBySkills({
-          searchTerm : this.SearchFrm.value.searchTerm,
-          itemsPerPageAre : this.itemsPerPageAre,
-          searchType : "name",
-          skillsets : this.skillsSetsAre,
-        });
-        this.p=1;
-        this.itemsArray=[1];
-        this.createdAt=null;
-        this.searchedResume=[];
-      })
-    )
-    .subscribe();
+  searchTermByName() {
+    fromEvent(this.searchByName.nativeElement, 'keyup')
+      .pipe(
+        map(event => event),
+        filter(Boolean),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.getResumesBySkills({
+            searchTerm: this.SearchFrm.value.searchTerm,
+            itemsPerPageAre: this.itemsPerPageAre,
+            searchType: "name",
+            skillsets: this.skillsSetsAre,
+          });
+          this.p = 1;
+          this.itemsArray = [1];
+          this.createdAt = null;
+          this.searchedResume = [];
+        })
+      )
+      .subscribe();
   }
 
-  searchTermByMinExperence(){
-    fromEvent(this.searchByMinExperence.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        this.searchByExperiance();
-        this.p=1;
-        this.itemsArray=[1];
-        this.createdAt=null;
-        this.searchedResume=[];
-      })
-    )
-    .subscribe();
+  searchTermByMinExperence() {
+    fromEvent(this.searchByMinExperence.nativeElement, 'keyup')
+      .pipe(
+        map(event => event),
+        filter(Boolean),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.searchByExperiance();
+          this.p = 1;
+          this.itemsArray = [1];
+          this.createdAt = null;
+          this.searchedResume = [];
+        })
+      )
+      .subscribe();
   }
 
-  searchTermByMaxExperence(){
-    fromEvent(this.searchByMaxExperence.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        this.searchByExperiance();
-        this.p=1;
-        this.itemsArray=[1];
-        this.createdAt=null;
-        this.searchedResume=[];
-      })
-    )
-    .subscribe();
+  searchTermByMaxExperence() {
+    fromEvent(this.searchByMaxExperence.nativeElement, 'keyup')
+      .pipe(
+        map(event => event),
+        filter(Boolean),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.searchByExperiance();
+          this.p = 1;
+          this.itemsArray = [1];
+          this.createdAt = null;
+          this.searchedResume = [];
+        })
+      )
+      .subscribe();
   }
 
   getSkillsets() {
@@ -164,32 +164,32 @@ export class SearchResumeComponent implements OnInit {
       skillSets = null;
     }
 
-    this.skillsSetsAre=skillSets;
+    this.skillsSetsAre = skillSets;
     this.getResumesBySkills({
-      skillsets : skillSets,
-      searchTerm : this.SearchFrm.value.searchTerm,
-      itemsPerPageAre : this.itemsPerPageAre,
-      searchType : "skills"
+      skillsets: skillSets,
+      searchTerm: this.SearchFrm.value.searchTerm,
+      itemsPerPageAre: this.itemsPerPageAre,
+      searchType: "skills"
     });
-    this.p=1;
-    this.itemsArray=[1];
-    this.createdAt=null;
-    this.searchedResume=[];
+    this.p = 1;
+    this.itemsArray = [1];
+    this.createdAt = null;
+    this.searchedResume = [];
   }
 
   getResumesBySkills(obj) {
     this.resumeService.getResumeBySkillSets(obj).subscribe(
       (data: any) => {
         if (data.result.length > 0) {
-          this.searchedResume = [...this.searchedResume,...data.result];
-          if(data.paginate){
-            this.paginateMove=true;
-          }else{
-            this.paginateMove=false;
+          this.searchedResume = [...this.searchedResume, ...data.result];
+          if (data.paginate) {
+            this.paginateMove = true;
+          } else {
+            this.paginateMove = false;
           }
 
-          if(data.createAtIndex){
-            this.createdAt=data.result[data.result.length-1].createdAt;
+          if (data.createAtIndex) {
+            this.createdAt = data.result[data.result.length - 1].createdAt;
           }
         }
       },
@@ -236,41 +236,41 @@ export class SearchResumeComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
-  searchByExperiance(){
-    let obj={
-      min : this.SearchFrm.value.minSearchTerm,
-      max : this.SearchFrm.value.maxSearchTerm,
-      itemsPerPageAre : this.itemsPerPageAre,
-      searchType : "experience",
-      skillsets : this.skillsSetsAre,
+  searchByExperiance() {
+    let obj = {
+      min: this.SearchFrm.value.minSearchTerm,
+      max: this.SearchFrm.value.maxSearchTerm,
+      itemsPerPageAre: this.itemsPerPageAre,
+      searchType: "experience",
+      skillsets: this.skillsSetsAre,
     };
-    this.createdAt=null;
+    this.createdAt = null;
     this.getResumesBySkills(obj);
   }
 
-  handlePagination($event){
-    this.p=$event;
-    if(!this.paginateMove){
-      return ;
+  handlePagination($event) {
+    this.p = $event;
+    if (!this.paginateMove) {
+      return;
     }
-    if(this.itemsArray.indexOf($event) !== -1){
-      return ;
+    if (this.itemsArray.indexOf($event) !== -1) {
+      return;
     }
     this.itemsArray.push($event);
-    let obj={
-      itemsPerPageAre : this.itemsPerPageAre,
-      createdAt : this.createdAt,
-      searchType : "all"
+    let obj = {
+      itemsPerPageAre: this.itemsPerPageAre,
+      createdAt: this.createdAt,
+      searchType: "all"
     };
-    this.createdAt=null;
+    this.createdAt = null;
     this.getResumesBySkills(obj);
   }
 
-  handleToggleSign(obj){
-    if(obj.searchTab){
-      jQuery(".searchForm").css("display","block");
-    }else{
-      jQuery(".searchForm").css("display","none");
+  handleToggleSign(obj) {
+    if (obj.searchTab) {
+      jQuery(".searchForm").css("display", "block");
+    } else {
+      jQuery(".searchForm").css("display", "none");
     }
   }
 

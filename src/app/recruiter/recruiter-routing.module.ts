@@ -4,7 +4,10 @@ import { RecruiterHomeComponent } from './recruiter-home/recruiter-home.componen
 import { ProfileComponent } from '../profile/profile.component';
 import { BiddingEventsListComponent } from '../bidding-events-list/bidding-events-list.component';
 import { RecruiterQuestionComponent } from '../recruiter-brodcast/recruiter-question/recruiter-question.component';
+import { ResumeListComponent } from './resume-list/resume-list.component';
 import { NewResumeComponent } from './new-resume/new-resume.component';
+import { WonBidsComponent } from './won-bids/won-bids.component';
+import { SearchResumeComponent } from '../resume-bank/search-resume/search-resume.component';
 import { VideoInterviewRoomComponent } from '../video-interview-room/video-interview-room.component';
 
 const routes: Routes = [
@@ -30,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: "resume-list",
-        loadChildren : "./resume-list/resume-list.module#ResumeListModule"
+        component: ResumeListComponent
       },
       {
         path: "new-resume",
@@ -38,11 +41,11 @@ const routes: Routes = [
       },
       {
         path: "won-bids",
-        loadChildren : "./won-bids/won-bids.module#WonBidsModule"
+        component: WonBidsComponent
       },
       {
         path: "search-resume",
-        loadChildren : "../resume-bank/search-resume/search-resume.module#SearchResumeModule"
+        component: SearchResumeComponent
       },
       {
         path: "video-interview-room",

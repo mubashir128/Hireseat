@@ -19,13 +19,14 @@ export class JobProfileListComponent implements OnInit {
   public loggedUser: any;
   public jp: JobProfile[] = [];
   public noJp: boolean = true;
-  p=1;
+  p = 1;
   createdAt;
-  itemsList=[1];
+  itemsList = [1];
   searchTerm;
-  search=false;
-  itemsPerPage=10;
-  @ViewChild('searchByName') searchByName: ElementRef;
+  search = false;
+  itemsPerPage = 10;
+  // @ViewChild('searchByName', { static: true }) searchByName: ElementRef;
+  @ViewChild('searchByName', { static: true }) searchByName: ElementRef;
 
   constructor(
     private userService: UserService,
@@ -36,9 +37,9 @@ export class JobProfileListComponent implements OnInit {
   ) {
     this.loggedUser = this.userService.getUserData();
     if (this.loggedUser != "no") {
-      let obj={
-        onLoad : true,
-        itemsPerPage : this.itemsPerPage
+      let obj = {
+        onLoad: true,
+        itemsPerPage: this.itemsPerPage
       }
       this.getJobProfilesByLimit(obj);
     } else {
@@ -55,31 +56,31 @@ export class JobProfileListComponent implements OnInit {
     this.searchTermByName();
   }
 
-  searchTermByName(){
-    fromEvent(this.searchByName.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        this.search = this.searchTerm === "" ? false : true;
-        this.getJobProfilesByLimit({
-          searchTerm : this.searchTerm,
-          onLoad : this.searchTerm === "" ? true : undefined,
-          itemsPerPage : this.searchTerm === "" ? this.itemsPerPage : undefined
-        });
-        this.resetValues();
-      })
-    )
-    .subscribe();
+  searchTermByName() {
+    fromEvent(this.searchByName.nativeElement, 'keyup')
+      .pipe(
+        map(event => event),
+        filter(Boolean),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.search = this.searchTerm === "" ? false : true;
+          this.getJobProfilesByLimit({
+            searchTerm: this.searchTerm,
+            onLoad: this.searchTerm === "" ? true : undefined,
+            itemsPerPage: this.searchTerm === "" ? this.itemsPerPage : undefined
+          });
+          this.resetValues();
+        })
+      )
+      .subscribe();
   }
 
-  resetValues(){
-    this.p=1;
-    this.jp=[];
-    this.itemsList=[1];
-    this.createdAt=null;
+  resetValues() {
+    this.p = 1;
+    this.jp = [];
+    this.itemsList = [1];
+    this.createdAt = null;
   }
 
   getJobProfilesByLimit(obj) {
@@ -87,8 +88,8 @@ export class JobProfileListComponent implements OnInit {
     this.bidEventService.getJobProfilesByLimit(obj).subscribe(
       (data: JobProfile[]) => {
         if (data.length > 0) {
-          this.jp=[...this.jp, ...data];
-          this.createdAt=this.jp[this.jp.length-1].createdAt;
+          this.jp = [...this.jp, ...data];
+          this.createdAt = this.jp[this.jp.length - 1].createdAt;
           this.noJp = false;
         }
         this.spinner.hide();
@@ -110,26 +111,26 @@ export class JobProfileListComponent implements OnInit {
     //console.log(jobProfile);
   }
 
-  handlePagination($event){
+  handlePagination($event) {
     this.p = $event;
     if (this.itemsList.indexOf($event) !== -1 && !this.search) {
-      return ;
+      return;
     }
 
     this.itemsList.push($event);
 
-    let obj={
-      createdAt : this.createdAt,
-      itemsPerPage : this.itemsPerPage
+    let obj = {
+      createdAt: this.createdAt,
+      itemsPerPage: this.itemsPerPage
     }
     this.getJobProfilesByLimit(obj);
   }
 
-  handleToggleSign(obj){
-    if(obj.searchTab){
-      jQuery(".searchForm").css("display","block");
-    }else{
-      jQuery(".searchForm").css("display","none");
+  handleToggleSign(obj) {
+    if (obj.searchTab) {
+      jQuery(".searchForm").css("display", "block");
+    } else {
+      jQuery(".searchForm").css("display", "none");
     }
   }
 

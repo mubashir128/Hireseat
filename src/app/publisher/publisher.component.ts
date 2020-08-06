@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, Input } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
 import { OpentokService } from '../_services/opentok.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 const publish = () => {
@@ -8,13 +8,14 @@ const publish = () => {
 @Component({
   selector: 'app-publisher',
   templateUrl: './publisher.component.html',
-  styleUrls: ['./publisher.component.css']
+  styleUrls: ['./publisher.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 
 export class PublisherComponent implements AfterViewInit {
-  @ViewChild('publisherDiv') publisherDiv: ElementRef;
-  @ViewChild('visioStopBtn') visioStopBtn: ElementRef;
+  @ViewChild('publisherDiv', { static: true }) publisherDiv: ElementRef;
+  @ViewChild('visioStopBtn', { static: false }) visioStopBtn: ElementRef;
 
   @Input() session: OT.Session;
   publisher: OT.Publisher;
@@ -76,9 +77,14 @@ export class PublisherComponent implements AfterViewInit {
       this.session.on('sessionConnected', () => this.publish());
       this.session.on('sessionDisconnected', ((event) => {
         // console.log('sessionDisconnected', event);
-        // this.session.disconnect();
-        // alert('The session disconnected. ' + event.reason);
+
+        alert('The session disconnected. ' + event.reason);
       }));
+      this.session.on('streamDestroyed', (event) => {
+        event.preventDefault();
+        console.log("Publisher stopped streaming.");
+        // this.publisherDiv.nativeElement.afterClosed()
+      })
     }
   }
 
@@ -88,7 +94,7 @@ export class PublisherComponent implements AfterViewInit {
       if (err) {
         this.spinner.hide();
 
-        // alert(err.message);
+        alert(err.message);
       } else {
         this.spinner.hide();
 

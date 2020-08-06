@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { VideoCallingService } from '../_services/video-calling.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 import { fromEvent } from 'rxjs';
-import { OpentokService } from '../_services/opentok.service';
 
 @Component({
   selector: 'app-video-interview-room',
@@ -13,40 +12,36 @@ import { OpentokService } from '../_services/opentok.service';
   styleUrls: ['./video-interview-room.component.css']
 })
 export class VideoInterviewRoomComponent implements OnInit {
-
-  session: OT.Session;
-  streams: Array<OT.Stream> = [];
-  changeDetectorRef: ChangeDetectorRef;
   employerInterviewList: any;
   recruiterInterviewList: any;
   userRole: any;
   userId: any;
   interviewList: any;
   tags: any;
-  searchTerm: string;
-  skillsSetsAre = [];
+  searchTerm : string;
+  skillsSetsAre=[];
   public skillSets = [];
   public SearchFrm: FormGroup;
-  p = 1;
+  p=1;
   itemsPerPageAre = 10;
-  @ViewChild('searchByName') searchByName: ElementRef;
+  // @ViewChild('searchByName', { static: true }) searchByName: ElementRef;
+  @ViewChild('searchByName', { static: true }) searchByName: ElementRef;
 
   constructor(
     private router: Router,
     private videoCallingService: VideoCallingService,
     private spinner: NgxSpinnerService,
-    private formBuilder: FormBuilder,
-    private opentokService: OpentokService
+    private formBuilder: FormBuilder
   ) {
     this.userRole = JSON.parse(localStorage.getItem("currentUser")).userInfo
       .userRole;
     this.userId = JSON.parse(localStorage.getItem("currentUser")).userInfo
       ._id;
 
-    this.SearchFrm = this.formBuilder.group({
-      tags: ["", Validators.required],
-      searchTerm: [""]
-    });
+      this.SearchFrm = this.formBuilder.group({
+        tags: ["", Validators.required],
+        searchTerm : [""]
+      });
 
   }
 
@@ -55,36 +50,34 @@ export class VideoInterviewRoomComponent implements OnInit {
     this.spinner.show();
     this.getSkillsets();
     this.redirectToUser({});
+
   }
-
-  //
-
 
   ngAfterViewInit() {
     // server-side search
     this.searchTermByName();
   }
 
-  searchTermByName() {
-    fromEvent(this.searchByName.nativeElement, 'keyup')
-      .pipe(
-        map(event => event),
-        filter(Boolean),
-        debounceTime(1000),
-        distinctUntilChanged(),
-        tap((text) => {
-          let obj = {
-            searchType: "name",
-            searchTerm: this.searchTerm,
-            skillsets: this.skillsSetsAre
-          }
-          this.redirectToUser(obj);
-        })
-      )
-      .subscribe();
+  searchTermByName(){
+    fromEvent(this.searchByName.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        let obj={
+          searchType : "name",
+          searchTerm : this.searchTerm,
+          skillsets : this.skillsSetsAre
+        }
+        this.redirectToUser(obj);
+      })
+    )
+    .subscribe();
   }
 
-  getAllRecruitersCandidates(payload) {
+  getAllRecruitersCandidates(payload){
     this.videoCallingService.getAllRecruitersCandidates(payload).subscribe(res => {
       if (res) {
         this.spinner.hide();
@@ -96,7 +89,7 @@ export class VideoInterviewRoomComponent implements OnInit {
     });
   }
 
-  getAllEmployersCandidates(payload) {
+  getAllEmployersCandidates(payload){
     this.videoCallingService.getAllEmployersCandidates(payload).subscribe(res => {
       if (res) {
         this.spinner.hide();
@@ -195,30 +188,30 @@ export class VideoInterviewRoomComponent implements OnInit {
       skillSets = null;
     }
 
-    this.skillsSetsAre = skillSets;
-    this.skillsSetsAre = skillSets;
+    this.skillsSetsAre=skillSets;
+    this.skillsSetsAre=skillSets;
     this.redirectToUser({
-      skillsets: skillSets,
-      searchType: "skills",
+      skillsets : skillSets,
+      searchType : "skills",
       recruiterId: this.userId,
-      searchTerm: this.SearchFrm.value.searchTerm
+      searchTerm : this.SearchFrm.value.searchTerm
     });
     this.interviewList = [];
   }
 
-  redirectToUser(obj) {
-    if (this.userRole === "recruiter") {
+  redirectToUser(obj){
+    if(this.userRole === "recruiter"){
       this.getAllRecruitersCandidates(obj);
-    } else if (this.userRole === "employer") {
+    }else if(this.userRole === "employer"){
       this.getAllEmployersCandidates(obj);
     }
   }
 
-  handleToggleSign(obj) {
-    if (obj.searchTab) {
-      jQuery(".searchForm").css("display", "block");
-    } else {
-      jQuery(".searchForm").css("display", "none");
+  handleToggleSign(obj){
+    if(obj.searchTab){
+      jQuery(".searchForm").css("display","block");
+    }else{
+      jQuery(".searchForm").css("display","none");
     }
   }
 

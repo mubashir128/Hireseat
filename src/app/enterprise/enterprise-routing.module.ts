@@ -12,11 +12,11 @@ const routes: Routes = [
     children: [
       {
         path: "user-list",
-        loadChildren: './enterprise-user-list/enterprise-user-list.module#EnterpriseUserListModule'
+        loadChildren: () => import('./enterprise-user-list/enterprise-user-list.module').then(m => m.EnterpriseUserListModule)
       },
       {
         path: "create-employer",
-        loadChildren: './create-employer/create-employer.module#CreateEmployerModule'
+        loadChildren: () => import('./create-employer/create-employer.module').then(m => m.CreateEmployerModule)
       }
     ],
     // canActivate: [EnterpriseGuard]

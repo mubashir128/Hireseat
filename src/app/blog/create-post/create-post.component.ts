@@ -22,7 +22,7 @@ import {
 
 declare var tinymce: any;
 
-import { error } from "util";
+// import { error } from "util";
 declare var Materialize: any;
 declare var $: any;
 
@@ -159,7 +159,7 @@ export class CreatePostComponent implements OnInit {
       }
     });
   }
-  onSubmit() {}
+  onSubmit() { }
   /*show add new category diva on add new category clik :START*/
   showAddCatgory() {
     this.showAddCatg = true;

@@ -127,6 +127,8 @@ export class EmployerHomeComponent implements OnInit {
       })
       .subscribe(
         response => {
+          console.log("got response", response);
+
           if (response) {
             localStorage.removeItem("enterprise-email");
             this.router.navigate(["enterprise/user-list"]);

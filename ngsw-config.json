@@ -20,19 +20,5 @@
         "/assets/**"
       ]
     }
-  }],
-  "dataGroups": [
-    {
-      "name": "api",
-      "urls": [
-        "https://hireseat.com:5000/**"
-      ],
-      "cacheConfig": {
-        "maxSize": 100,
-        "maxAge": "3d",
-        "timeout": "1m",
-        "strategy": "freshness"
-      }
-    }
-  ]
+  }]
 }

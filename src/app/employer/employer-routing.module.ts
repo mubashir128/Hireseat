@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EmployerHomeComponent } from './employer-home/employer-home.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { JobProfileListComponent } from './job-profile-list/job-profile-list.component';
 import { CreateJobProfileComponent } from './create-job-profile/create-job-profile.component';
 import { BiddingEventsListComponent } from '../bidding-events-list/bidding-events-list.component';
 import { CreateBiddingEventComponent } from './create-bidding-event/create-bidding-event.component';
 import { EditJobProfileComponent } from './edit-job-profile/edit-job-profile.component';
 import { FeedbackListComponent } from './feedback-list/feedback-list.component';
 import { EmployeerAnsComponent } from '../recruiter-brodcast/employeer-ans/employeer-ans.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { VideoInterviewRoomComponent } from '../video-interview-room/video-interview-room.component';
+import { MycandidatesComponent } from './mycandidates/mycandidates.component';
 import { NewResumeComponent } from '../recruiter/new-resume/new-resume.component';
 
 const routes: Routes = [
@@ -22,7 +25,7 @@ const routes: Routes = [
       },
       {
         path: "job-profile-list",
-        loadChildren : "./job-profile-list/job-profile-list.module#JobProfileListModule"
+        component: JobProfileListComponent
       },
       {
         path: "create-job-profile",
@@ -50,7 +53,7 @@ const routes: Routes = [
       },
       {
         path: "dashboard",
-        loadChildren : "./dashboard/dashboard.module#DashboardModule"
+        component: DashboardComponent
       },
       {
         path: "video-interview-room",
@@ -58,7 +61,7 @@ const routes: Routes = [
       },
       {
         path: "mycandidates",
-        loadChildren : "./mycandidates/mycandidates.module#MycandidatesModule"
+        component: MycandidatesComponent
       },
       {
         path: "new-resume",

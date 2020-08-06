@@ -11,17 +11,6 @@ export function titleCase(str) {
   return splitStr.join(' ');
 }
 
-// converting first char of each word in capital letter
-export function titleLowerCase(str) {
-  var splitStr = str.toLowerCase().split(' ');
-  for (var i = 0; i < splitStr.length; i++) {
-    // You do not need to check if i is larger than splitStr length, as your for does that for you
-    // Assign it back to the array
-    splitStr[i] = splitStr[i].charAt(0).toLowerCase() + splitStr[i].substring(1);
-  }
-  // Directly return the joined string
-  return splitStr.join(' ');
-}
 
 // treaming extra whitespaces
 export function trimSpaces(s) {

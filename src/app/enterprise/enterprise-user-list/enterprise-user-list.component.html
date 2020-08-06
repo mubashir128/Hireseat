@@ -1,15 +1,4 @@
 <div>
-
-  <div class="LogOutOption desktopRe"
-      *ngIf="this.supperAdmin.checkSuperAdminEmail()"
-    >
-      <!-- put this condition at false 'this.supperAdmin.checkSuperAdminEmail()' -->
-      <h4>
-        {{ chkLoggedInUser.fullName }} : {{ chkLoggedInUser.userRole }}
-      </h4>
-      <a (click)="logoutSA()"> Logout </a>
-    </div>
-
   <div *ngIf="!noBiddingEvents">
     <ul id="bidding-event-list" style="margin-top:8px;">
       <li *ngFor="

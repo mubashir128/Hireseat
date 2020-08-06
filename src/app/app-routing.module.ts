@@ -63,128 +63,125 @@ import { RecruiterGuard } from "./_guards/recruiter.guard";
 import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-question/recruiter-question.component";
 
 const appRoutes: Routes = [
-  { path: "forum", loadChildren: './view-forum/view-forum.module#ViewForumModule' },
-  { path: "question-details/:id", loadChildren: './view-forum/answerlists/answerlists.module#AnswerlistsModule' },
+  { path: "forum", loadChildren: () => import('./view-forum/view-forum.module').then(m => m.ViewForumModule) },
+  { path: "question-details/:id", loadChildren: () => import('./view-forum/answerlists/answerlists.module').then(m => m.AnswerlistsModule) },
   { path: "", redirectTo: "home", pathMatch: "full" },
 
-  { path: "home", loadChildren: './home/home.module#HomeModule' },
-  {
-    path: "video-call/:id",
-    loadChildren: './video-call/video-call.module#VideoCallModule'
-  },
+  { path: "home", loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
+  // {
+  //   path: "video-call/:id",
+  //   loadChildren: './video-call/video-call.module#VideoCallModule'
+  // },
   {
     path: "shared-video/:token",
-    loadChildren: './shared-video/shared-video.module#SharedVideoModule'
+    loadChildren: () => import('./shared-video/shared-video.module').then(m => m.SharedVideoModule)
   },
-  {
-    path: 'recruiter-coaching',
-    loadChildren: './recruiter-coaching/recruiter-coaching.module#RecruiterCoachingModule'
-  },
+
   {
     path: "recruiter",
-    loadChildren: './recruiter/recruiter.module#RecruiterModule',
+    loadChildren: () => import('./recruiter/recruiter.module').then(m => m.RecruiterModule),
     // component: RecruiterHomeComponent,
     canActivate: [AuthGuard]
   },
   {
     path: "employer",
-    loadChildren: './employer/employer.module#EmployerModule',
+    loadChildren: () => import('./employer/employer.module').then(m => m.EmployerModule),
     canActivate: [AuthGuard]
   },
   // 14july
   {
     path: "register",
-    loadChildren: './register/register.module#RegisterModule'
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterModule)
   },
   {
     path: "login",
-    loadChildren: './login/login.module#LoginModule'
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
     path: "bidding-events/details/:key",
-    loadChildren: './bidding-event-details/bidding-event-details.module#BiddingEventDetailsModule',
+    loadChildren: () => import('./bidding-event-details/bidding-event-details.module').then(m => m.BiddingEventDetailsModule),
     canActivate: [AuthGuard]
   },
   {
     path: "event/feedback/candidate/resumes/:key",
-    loadChildren: './recruiter/recruiter-feedback/recruiter-feedback.module#RecruiterFeedbackModule'
+    loadChildren: () => import('./recruiter/recruiter-feedback/recruiter-feedback.module').then(m => m.RecruiterFeedbackModule)
   },
   {
     path: "user/email/verification/check/:key",
-    loadChildren: './email-verification/email-verification.module#EmailVerificationModule'
+    loadChildren: () => import('./email-verification/email-verification.module').then(m => m.EmailVerificationModule)
   },
   {
     path: "user/forgot/password/check/hireseat/:key",
-    loadChildren: './forgot-password-reset/forgot-password-reset.module#ForgotPasswordResetModule'
+    loadChildren: () => import('./forgot-password-reset/forgot-password-reset.module').then(m => m.ForgotPasswordResetModule)
   },
   {
     path: "employer/feedback/:key",
-    loadChildren: './employer/feedback-resumes/feedback-resumes.module#FeedbackResumesModule'
+    loadChildren: () => import('./employer/feedback-resumes/feedback-resumes.module').then(m => m.FeedbackResumesModule)
   },
   {
     path: "rules",
-    loadChildren: './auctionrules/auctionrules.module#AuctionrulesModule'
+    loadChildren: () => import('./auctionrules/auctionrules.module').then(m => m.AuctionrulesModule)
   },
   {
     path: "contact-us",
-    loadChildren: './contact-us/contact-us.module#ContactUsModule'
+    loadChildren: () => import('./contact-us/contact-us.module').then(m => m.ContactUsModule)
   },
   {
     path: "Forgot-Password",
-    loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule'
+    loadChildren: () => import('./forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
   },
 
   {
     path: "upload-resume",
-    loadChildren: './resume-bank/upload-resume/upload-resume.module#UploadResumeModule'
+    loadChildren: () => import('./resume-bank/upload-resume/upload-resume.module').then(m => m.UploadResumeModule)
   },
   {
     path: "job-post",
-    loadChildren: './job-post/job-post.module#JobPostModule'
+    loadChildren: () => import('./job-post/job-post.module').then(m => m.JobPostModule)
   },
 
   {
     path: "user-list",
-    loadChildren: './admin/userlist/userlist.module#UserlistModule',
+    loadChildren: () => import('./admin/userlist/userlist.module').then(m => m.UserlistModule),
     canActivate: [AdminGuard]
   },
-  // {
-  //   path: "video-call/:id",
-  //   component: VideoCallComponent
-  // },
+  {
+    path: "video-call/:id",
+    component: VideoCallComponent
+  },
 
 ];
 
 const appChildRoutes: Routes = [
   {
     path: "super-admin",
-    loadChildren: './super-admin/super-admin.module#SuperAdminModule',
+    loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule),
     canActivate: [SupperAdminGuard]
   },
   {
     path: "enterprise",
-    loadChildren: './enterprise/enterprise.module#EnterpriseModule',
+    loadChildren: () => import('./enterprise/enterprise.module').then(m => m.EnterpriseModule),
     canActivate: [EnterpriseGuard]
   },
   {
     path: "blog-posts",
-    loadChildren: './blog/blog.module#BlogModule'
+    loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule)
   },
   {
     path: "blog",
-    loadChildren: './blog/all-post/all-post.module#AllPostModule'
+    loadChildren: () => import('./blog/all-post/all-post.module').then(m => m.AllPostModule)
   },
   {
     path: "blog/categories/:url",
-    loadChildren: './blog/frontend/all-blog-categories/all-blog-categories.module#AllBlogCategoriesModule'
+    loadChildren: () => import('./blog/frontend/all-blog-categories/all-blog-categories.module').then(m => m.AllBlogCategoriesModule)
   },
   {
     path: "blog/tags/:url",
-    loadChildren: './blog/frontend/all-blog-tag/all-blog-tag.module#AllBlogTagModule'
+    loadChildren: () => import('./blog/frontend/all-blog-tag/all-blog-tag.module').then(m => m.AllBlogTagModule)
   },
   {
     path: "blog/:url",
-    loadChildren: './blog/frontend/single-page/single-page.module#SinglePageModule'
+    loadChildren: () => import('./blog/frontend/single-page/single-page.module').then(m => m.SinglePageModule)
   },
 
 
