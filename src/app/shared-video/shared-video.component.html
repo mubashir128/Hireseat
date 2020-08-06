@@ -9,8 +9,12 @@
   <ng-container>
     <nav style="background:#E9F4FF;" class="customeNav">
       <div class="nav-wrapper container">
-        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
-            style="vertical-align:middle;" /></a>
+        <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
+            style="vertical-align:middle;" /></a> -->
+        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
+            style="vertical-align:middle; width: 50%;" /></a>
+        <span class="header-title">Hire Seat</span>
+
       </div>
     </nav>
   </ng-container>
@@ -21,6 +25,13 @@
           <!-- <div class="interviewVideoDiv stickyDiv"> -->
           <div class="container">
             <!-- call video questions -->
+            <div class="candidate-name mobViewOnly">
+              <span>
+                {{resume?.candidateName}}
+              </span>
+              <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
+              <p><label>Location :</label> {{resume?.location}}</p>
+            </div>
             <ng-container *ngIf="videoURL">
               <app-video-questions
                 [options]="{ autoplay: false, controls: true, sources: [{ src: videoURL, type: 'video/mp4' }]}"
@@ -39,8 +50,10 @@
                 <span>
                   {{resume?.candidateName}}
                 </span>
+                <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
+                <p><label>Location :</label> {{resume?.location}}</p>
               </div>
-              <div>
+              <div class="cadidateResumeDiv">
                 <button class="downloadResume">
                   <a [attr.href]="transform(resume?.fileURL)" target="_blank" download>
                     <i class="fa fa-cloud-download" aria-hidden="true"></i>Download Resume
@@ -76,7 +89,7 @@
 
               </div>
             </ng-container>
-            <ng-container *ngIf="isShareFromRecruiter">
+            <ng-container *ngIf="isShareFromRecruiter && comments">
               <div class="singleListData">
                 <div class="PointsDiv commonSingleInner">
                   <div class="PointsDivSingle PointsDivSingleN">
@@ -93,6 +106,29 @@
           </div>
           <!-- </li> -->
           <!-- </ul> -->
+          <div class="singleList employerResume resumeSingleList" *ngIf="recruiterDetails">
+            <div class="recruiter-section">
+              <span>
+                <span class="recruiter-name-title">
+                  Recruiter name :
+                </span>
+                <span class="recruiter-name">
+                  {{  resume?.recruiterKey.fullName}}
+                </span>
+              </span>
+
+              <span>
+                <span class="recruiter-company-title">
+                  Company name :
+                </span>
+                <span class="recruiter-company">
+                  {{recruiterDetails?.companyName}}
+                </span>
+
+              </span>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>

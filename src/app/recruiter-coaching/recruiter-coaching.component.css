@@ -1,0 +1,94 @@
+.container {
+  width: 85%;
+}
+.MainDetailsPage {
+  background-color: #ffffff;
+  padding: 30px;
+  box-sizing: border-box;
+  margin: 20px 0;
+  box-shadow: 0 0 10px #99999954;
+}
+.UpperDetails h4 {
+  font-size: 23px;
+  margin: 0;
+  color: #33aaff;
+}
+.UpperDetails p {
+  color: #5f5f5f;
+  font-size: 15px;
+}
+.UpperDetailsList {
+  padding-left: 40px;
+}
+.UpperDetailsList li {
+  margin: 5px 0;
+  font-size: 16px;
+  position: relative;
+  font-weight: 600;
+  color: #4a4a4a;
+}
+.UpperDetailsList li:after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #333333;
+  left: -20px;
+  top: 7px;
+}
+.ClientDetailCard {
+  box-shadow: 0 0 10px #9999996b;
+  /* background-color: #ffffff; */
+  padding: 20px;
+  margin: 20px 0;
+  background-color: #33aaff;
+  /* background-color: #022233; */
+  border-bottom: 1px solid #b9b9b9;
+  /* box-shadow: 0 0 10px #99999954; */
+}
+.ClientDetailCard:last-child {
+  border-bottom: none;
+}
+.ClientImage {
+  display: flex;
+  align-items: flex-end;
+}
+.ClientImage img {
+  width: 200px;
+  margin-right: 20px;
+}
+.ClientImage h4 {
+  font-size: 20px;
+  /* color: #000000; */
+  color: #ffffff;
+  margin: 0 0 10px;
+}
+.ClientImage p {
+  margin: 0;
+  color: #e6e6e6;
+  /* color: #f9c324; */
+}
+.BioDetails h2 {
+  font-size: 30px;
+  /* color: #33aaff; */
+  /* color: #c9de45; */
+  /* color: #ffffff; */
+  color: #fff;
+  margin-bottom: 0px;
+}
+.BioDetails p {
+  font-size: 15px;
+  color: #f2f2f2;
+  margin: 7px 0 10px;
+}
+.UpperDetails {
+  padding-bottom: 20px;
+}
+.BioSubHead {
+  font-size: 17px;
+  color: #ffffff;
+  margin-bottom: 0;
+  font-weight: 600;
+  /* color: #383838; */
+}

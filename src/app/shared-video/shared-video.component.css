@@ -1,13 +1,13 @@
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+@import url(https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css);
 
 @import "~video.js/dist/video-js.css";
 
-/* .container {
-  display: flex;
-  justify-content: center;
+.container {
+  /* display: flex;
+  justify-content: center; */
   width: 100%;
   height: 100%;
-} */
+}
 .mainPageBg {
   width: 100%;
   float: left;
@@ -110,6 +110,8 @@
   transition: 1s;
   height: auto;
   background-color: #ffffff;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
 }
 .docSectionBtns {
   text-align: left;
@@ -151,13 +153,14 @@ ul:not(.browser-default) > li {
 .downloadResume:hover a i {
   color: #ffffff;
 }
-.LikedInBtn{
-    background-color: #0e76a8;
-    border: 1px solid #0e76a8;
-    margin-left: 10px;
-    min-width: 125px !important;
+.LikedInBtn {
+  background-color: #0e76a8;
+  border: 2px solid #0e76a8;
+  margin-left: 10px;
+  min-width: 125px !important;
 }
-.LikedInBtn a, .LikedInBtn a i {
+.LikedInBtn a,
+.LikedInBtn a i {
   color: #ffffff;
 }
 
@@ -179,10 +182,17 @@ ul:not(.browser-default) > li {
   margin-right: 10px;
 }
 .candidate-name {
+  text-align: left;
+}
+.candidate-name span {
   color: #33aaff;
   font-size: 20px;
   font-weight: 600;
-  text-align: left;
+}
+.candidate-name p {
+  margin: 3px 0;
+  color: #8c8c8c;
+  font-size: 14px;
 }
 .video-js {
   width: 100% !important;
@@ -208,7 +218,9 @@ ul:not(.browser-default) > li {
   background-color: #fff;
   color: white;
   text-align: center;
-  box-shadow: 0px 1px 10px #3e3e3e14;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  /* box-shadow: 0px 1px 10px #3e3e3e14; */
   /* position: absolute;
   bottom: 0;
   left: 0; */
@@ -241,6 +253,8 @@ ul:not(.browser-default) > li {
   display: flex;
   justify-content: center;
   /* box-shadow: 0px 1px 10px #3e3e3e14; */
+  /* box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important; */
 }
 nav.customeNav {
   background: #fff !important;
@@ -273,7 +287,9 @@ nav.customeNav {
   border-radius: 0px !important;
   margin-top: 10px !important;
 }
-
+.candidate-name.mobViewOnly {
+  display: none;
+}
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .MainTempMiddle {
     min-height: calc(100vh - 112px);
@@ -318,8 +334,8 @@ nav.customeNav {
   }
   .docSectionBtns button {
     font-size: 13px !important;
-    min-width: 100px !important;
-    margin: 0 0 0 10px !important;
+    min-width: unset !important;
+    /* margin: 0 0 0 10px !important; */
     padding: 5px 10px !important;
   }
   .PointsDivSingle h4 {
@@ -342,10 +358,33 @@ nav.customeNav {
   .contact-email h2 {
     font-size: 18px !important;
   }
-  .docSectionBtns .LikedInBtn{
-    min-width: 160px !important;
-    margin: 0 0 0 10px !important;
-    margin-top: 5px !important;
+  .docSectionBtns .LikedInBtn {
+    min-width: 135px !important;
+    /* margin: 0 0 0 10px !important;
+    margin-top: 5px !important; */
+  }
+  .candidate-name.mobViewOnly {
+    background-color: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    display: block;
+    border-radius: 5px;
+    /* box-shadow: 0 0 10px #9999994a; */
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  }
+  .docSectionBtns {
+    margin-bottom: 10px !important;
+    display: unset !important;
+    width: 100%;
+    float: left;
+  }
+  .cadidateResumeDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
   }
 }
 .video-js-without-questions {
@@ -422,4 +461,63 @@ nav.customeNav {
 .video-interview .progress {
   background-color: #fff !important;
   height: 3px !important;
+}
+/* Tablet Responsive :STARTS */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .mainTemplate {
+    padding: 20px 100px !important;
+  }
+  .docSectionBtns button {
+    margin-bottom: 7px !important;
+  }
+  .cadidateResumeDiv {
+    width: 40% !important;
+  }
+  .LikedInBtn {
+    min-width: 193px !important;
+  }
+  .singleList.employerResume {
+    padding: 20px !important;
+  }
+  .PointsDivSingle h4 {
+    margin: 0 !important;
+  }
+}
+/* Tablet Responsive :ENDS */
+
+.header-title {
+  color: #33aaff;
+  margin-left: 110px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.recruiter-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.recruiter-name-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #8c8c8c;
+}
+.recruiter-name {
+  color: #33aaff;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.recruiter-company-title {
+  font-size: 20px;
+  font-weight: 600;
+
+  color: #8c8c8c;
+}
+.recruiter-company {
+  color: #33aaff;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
 }

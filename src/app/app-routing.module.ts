@@ -9,69 +9,16 @@ import { AdminGuard } from "./_guards/admin.guard";
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
 import { VideoCallComponent } from './video-call/video-call.component';
 
-import { RecruiterFeedbackComponent } from "./recruiter/recruiter-feedback/recruiter-feedback.component";
-import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
-import { ForgotPasswordResetComponent } from "./forgot-password-reset/forgot-password-reset.component";
-import { FeedbackResumesComponent } from "./employer/feedback-resumes/feedback-resumes.component";
-
-import { RegisterComponent } from "./register/register.component";
-import { LoginComponent } from "./login/login.component";
-import { AuctionrulesComponent } from "./auctionrules/auctionrules.component";
-import { ContactUsComponent } from "./contact-us/contact-us.component";
-import { BiddingEventDetailsComponent } from "./bidding-event-details/bidding-event-details.component";
-import { EmailVerificationComponent } from "./email-verification/email-verification.component";
-import { UploadResumeComponent } from "./resume-bank/upload-resume/upload-resume.component";
-import { UserlistComponent } from "./admin/userlist/userlist.component";
-import { AllBlogsComponent } from "./blog/frontend/all-blogs/all-blogs.component";
-import { EmployerGuard } from "./_guards/employer.guard";
-import { SinglePageComponent } from "./blog/frontend/single-page/single-page.component";
-
-import { AllBlogCategoriesComponent } from "./blog/frontend/all-blog-categories/all-blog-categories.component";
-import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
-
-import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
-
-import { AllPostComponent } from "./blog/all-post/all-post.component";
-import { CreateImagePostComponent } from "./blog/create-image-post/create-image-post.component";
-import { EditBlogComponent } from "./blog/edit-blog/edit-blog.component";
-import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
-import { CreatePostComponent } from "./blog/create-post/create-post.component";
-import { CreateCategoryComponent } from "./blog/create-category/create-category.component";
-import { EditCategoryComponent } from "./blog/edit-blog/edit-category/edit-category.component";
-
-import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
-import { DashboardComponent } from './employer/dashboard/dashboard.component';
-import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
-import { JobProfileListComponent } from "./employer/job-profile-list/job-profile-list.component";
-import { CreateJobProfileComponent } from "./employer/create-job-profile/create-job-profile.component";
-import { CreateBiddingEventComponent } from "./employer/create-bidding-event/create-bidding-event.component";
-import { RecruiterHomeComponent } from "./recruiter/recruiter-home/recruiter-home.component";
-import { EditJobProfileComponent } from "./employer/edit-job-profile/edit-job-profile.component";
-import { FeedbackListComponent } from "./employer/feedback-list/feedback-list.component";
-import { EmployerHomeComponent } from "./employer/employer-home/employer-home.component";
-
-
-import { BiddingEventsListComponent } from "./bidding-events-list/bidding-events-list.component";
-import { ProfileComponent } from "./profile/profile.component";
-import { NewResumeComponent } from './recruiter/new-resume/new-resume.component';
-import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
-import { RecruiterNavbarComponent } from "./recruiter/recruiter-navbar/recruiter-navbar.component";
-import { ResumeListComponent } from "./recruiter/resume-list/resume-list.component";
-import { WonBidsComponent } from "./recruiter/won-bids/won-bids.component";
-import { SearchResumeComponent } from "./resume-bank/search-resume/search-resume.component";
-import { RecruiterGuard } from "./_guards/recruiter.guard";
-import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-question/recruiter-question.component";
-
 const appRoutes: Routes = [
   { path: "forum", loadChildren: () => import('./view-forum/view-forum.module').then(m => m.ViewForumModule) },
   { path: "question-details/:id", loadChildren: () => import('./view-forum/answerlists/answerlists.module').then(m => m.AnswerlistsModule) },
   { path: "", redirectTo: "home", pathMatch: "full" },
 
   { path: "home", loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
-  // {
-  //   path: "video-call/:id",
-  //   loadChildren: './video-call/video-call.module#VideoCallModule'
-  // },
+  {
+    path: "video-call/:id",
+    loadChildren: () => import('./video-call/video-call.module').then(m => m.VideoCallModule)
+  },
   {
     path: "shared-video/:token",
     loadChildren: () => import('./shared-video/shared-video.module').then(m => m.SharedVideoModule)
@@ -144,11 +91,7 @@ const appRoutes: Routes = [
     path: "user-list",
     loadChildren: () => import('./admin/userlist/userlist.module').then(m => m.UserlistModule),
     canActivate: [AdminGuard]
-  },
-  {
-    path: "video-call/:id",
-    component: VideoCallComponent
-  },
+  }
 
 ];
 

@@ -13,9 +13,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./shared-video.component.css']
 })
 export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
-  @ViewChild('target', { static: false }) target: ElementRef;
+  @ViewChild('target') target: ElementRef;
   // @ViewChild('vid') matVideo: MatVideoComponent;
-  @ViewChild('myVideo', { static: false }) myVideo: ElementRef;
+  @ViewChild('myVideo') myVideo: ElementRef;
   vid: HTMLVideoElement;
   checkSharedTokenSubscription: Subscription;
   questionNumber: any;
@@ -58,6 +58,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   buff: any;
   isbufferLoader = false;
   timeNow: number;
+  recruiterDetails: any;
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
@@ -130,6 +131,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
             this.showCustomLoader = true;
 
             this.resume = res.resumeData[0];
+            this.recruiterDetails = res.resumeData[1];
             this.videoURL = res.videoUrl;
 
             this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
