@@ -195,13 +195,14 @@
             </div> -->
 
             </div>
-            <button id="myBtn" *ngIf="isRecruiter" class="copy-link marL10" (click)="questionsPopUp()">
-              Add Questions
-            </button>
-            <button id="myBtn" (click)="submitReview()" class="copy-link commButton marL10">
-              Submit review
-            </button>
-
+            <div class="AddQueButtonDiv">
+              <button id="myBtn" *ngIf="isRecruiter" class="copy-link marL10" (click)="questionsPopUp()">
+                Add Questions
+              </button>
+              <button id="myBtn" (click)="submitReview()" class="copy-link commButton marL10">
+                Submit review
+              </button>
+            </div>
 
           </div>
         </div>

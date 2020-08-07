@@ -746,43 +746,69 @@ input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
-.end-meeting-section {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.candidate-details-resume {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  justify-content: flex-start !important;
-  margin-bottom: 30px;
-  transition: 1s;
-  /* height: 210px; */
-  background-color: #ffffff;
-}
-.resume-review {
-  display: flex;
-  border-top: 1px solid #dfdbdb;
-  border-bottom: 1px solid #dfdbdb;
 
-  margin-top: 5px;
-  padding: 10px 0 10px 0;
+/* ===================== iPad Responsive : STARTS ========================= */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .ActionDiv.commonSingleInner {
+    width: 70% !important;
+    padding-right: 0 !important;
+  }
+  .AddQueButtonDiv .copy-link {
+    width: 130px !important;
+    height: 45px !important;
+  }
+  .copy-link.marL10 {
+    margin-left: 0 !important;
+  }
+  .AddQueButtonDiv {
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  .copy-link {
+    height: 45px !important;
+  }
+  .end-meeting,
+  .start-button {
+    height: 45px;
+  }
 }
-.titles {
-  font-size: 16px;
+/* ======================= iPad Responsive : ENDS ========================== */
+
+/* ======================== Mobile Responsive : STARTS ======================= */
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .screens {
+    justify-content: center;
+  }
+  .ActionDiv.commonSingleInner {
+    padding: 0 !important;
+  }
+  .marL10 {
+    margin-left: 0 !important;
+  }
+  .AddQueButtonDiv {
+    display: flex;
+    justify-content: space-between;
+  }
+  .copy-link {
+    height: 45px !important;
+  }
+  .AddQueButtonDiv .copy-link {
+    width: 150px !important;
+    height: 45px !important;
+  }
+  .docSection {
+    width: 100% !important;
+  }
+  .end-meeting,
+  .start-button {
+    height: 45px;
+  }
+  .back {
+    font-size: 17px !important;
+  }
+  .upperBackDiv {
+    height: 60px !important;
+    padding: 10px 20px 20px !important;
+  }
 }
-.detail {
-  font-size: 14px;
-  color: #666;
-}
-.candidate {
-  font-size: 20px;
-}
-.candidate-name {
-  font-size: 18px;
-  color: #03a9f4;
-}
+/* ========================== Mobile Responsive : ENDS ========================= */
