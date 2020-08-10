@@ -13,9 +13,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./shared-video.component.css']
 })
 export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
-  @ViewChild('target') target: ElementRef;
+  @ViewChild('target', { static: true }) target: ElementRef;
   // @ViewChild('vid') matVideo: MatVideoComponent;
-  @ViewChild('myVideo') myVideo: ElementRef;
+  @ViewChild('myVideo', { static: true }) myVideo: ElementRef;
   vid: HTMLVideoElement;
   checkSharedTokenSubscription: Subscription;
   questionNumber: any;
