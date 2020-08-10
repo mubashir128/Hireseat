@@ -7,8 +7,6 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { SupperAdminGuard } from "./_guards/supper-admin.guard";
 import { AdminGuard } from "./_guards/admin.guard";
 import { EnterpriseGuard } from "./_guards/enterprise.guard";
-// import { VideoCallComponent } from './video-call/video-call.component';
-
 const appRoutes: Routes = [
   { path: "forum", loadChildren: () => import('./view-forum/view-forum.module').then(m => m.ViewForumModule) },
   { path: "question-details/:id", loadChildren: () => import('./view-forum/answerlists/answerlists.module').then(m => m.AnswerlistsModule) },
