@@ -1,5 +1,5 @@
-@import url(https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css);
-
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
+@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
 @import "~video.js/dist/video-js.css";
 
 .container {

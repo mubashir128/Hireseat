@@ -78,7 +78,7 @@ export class PublisherComponent implements AfterViewInit {
       this.session.on('sessionDisconnected', ((event) => {
         // console.log('sessionDisconnected', event);
 
-        alert('The session disconnected. ' + event.reason);
+        // alert('The session disconnected. ' + event.reason);
       }));
       this.session.on('streamDestroyed', (event) => {
         event.preventDefault();
@@ -94,7 +94,7 @@ export class PublisherComponent implements AfterViewInit {
       if (err) {
         this.spinner.hide();
 
-        alert(err.message);
+        // alert(err.message);
       } else {
         this.spinner.hide();
 

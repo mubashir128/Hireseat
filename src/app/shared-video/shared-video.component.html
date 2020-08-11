@@ -56,12 +56,14 @@
               <div class="cadidateResumeDiv">
                 <button class="downloadResume">
                   <a [attr.href]="transform(resume?.fileURL)" target="_blank" download>
-                    <i class="fa fa-cloud-download" aria-hidden="true"></i>Download Resume
+                    <i class="fa fa-download"></i>
+                    Download Resume
                   </a>
                 </button>
                 <button class=" LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)">
                   <a>
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>linked In
+                    <i class="fa fa-linkedin"></i>
+                    linked In
                   </a>
                 </button>
               </div>
@@ -149,6 +151,7 @@
           <a [routerLink]="['/']" class="brand-logo "><img src="assets/img/HSfooterLogo.png"
               style="vertical-align:middle;" /></a>
         </div>
+
       </div>
     </div>
   </ng-container>
