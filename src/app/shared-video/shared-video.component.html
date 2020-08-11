@@ -60,10 +60,16 @@
                     Download Resume
                   </a>
                 </button>
-                <button class=" LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)">
+                <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)">
                   <a>
-                    <i class="fa fa-linkedin"></i>
-                    linked In
+                    <!-- <i class="fa fa-linkedin"></i> -->
+                    <div class="icon-name">
+
+                      <img class="linkedin-icon" src="../../assets/icons/linkedin.png">
+                      <span>
+                        linked In
+                      </span>
+                    </div>
                   </a>
                 </button>
               </div>
