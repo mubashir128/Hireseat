@@ -57,6 +57,13 @@ export class UserService {
       })
     );
   }
+  registerCandidate(info: any) {
+    return this.http.post<any>(this.baseurl + "api/registerCandidate", info).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
   registerEnterprise(info: any) {
     return this.http
       .post<any>(this.baseurl + "api/registerEnterprise", info)

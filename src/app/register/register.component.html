@@ -15,6 +15,9 @@
               <div class="page-title" *ngIf="localRole == 'recruiter'">
                 Create Recruiter Account
               </div>
+              <div class="page-title" *ngIf="localRole == 'candidate'">
+                Create Candidate Account
+              </div>
               <div class="divider"></div>
             </div>
             <div class="row">
@@ -55,7 +58,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="localRole !== 'candidate'">
               <div class="input-field col s12 m12 l12">
                 <input type="text" class="form-control" name="companyName" formControlName="companyName"
                   autocomplete="off" />
@@ -65,7 +68,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="localRole !== 'candidate'">
               <div class="input-field col s12 m12 l12">
                 <input type="text" class="form-control" name="webSiteLink" formControlName="webSiteLink"
                   autocomplete="off" />
@@ -129,6 +132,9 @@
                 <!-- <i *ngIf="!suBtnActive" class="fa fa-spinner fa-spin" style="font-size:24px"></i> -->
                 <!-- <span *ngIf="!suBtnActive">please fill all field</span> -->
               </button>
+            </div>
+            <div class="row  center-align">
+              <a style="cursor:pointer" routerLink="/login">Already a user? Click here to login</a>
             </div>
             <div class="row  center-align">
               <a style="cursor:pointer" routerLink="/home">Home</a>

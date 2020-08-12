@@ -1,36 +1,50 @@
-.vertical-divider{
-    position:relative;
-    left:50%;
-    top:10%;
-    bottom:10%;
-    border-left:1px solid black;
+.vertical-divider {
+  position: relative;
+  left: 50%;
+  top: 10%;
+  bottom: 10%;
+  border-left: 1px solid black;
 }
 
-.title{
-    font-size:24px;
-    color:#114488;
-    font-weight:400;
+.title {
+  font-size: 24px;
+  color: #114488;
+  font-weight: 400;
 }
 /* =================================== Media query Starts====================================== */
-@media only screen 
-and (min-width:320px)
-and (max-width:667px){
-    .loginCardDiv .center-align {
-        float: none;
-        padding-top: 5px;
-        padding-right:0px;
-        margin-right: 0!important;
-    }
+@media only screen and (min-width: 320px) and (max-width: 667px) {
+  .loginCardDiv .center-align {
+    float: none;
+    padding-top: 5px;
+    padding-right: 0px;
+    margin-right: 0 !important;
+  }
 }
 /* =================================== Media query Close====================================== */
 .mainWrapperLogin {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 .card {
-    position: relative;
-    margin: .5rem 0 1rem 0;
-    transition: box-shadow .25s;
-    border-radius: 2px;
-    background-color: #fff;
-    box-shadow: 0 0 10px #99999924;
+  position: relative;
+  margin: 0.5rem 0 1rem 0;
+  transition: box-shadow 0.25s;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 0 10px #99999924;
+}
+
+.rec-emp {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid rgb(189 191 194 / 70%);
+  padding-bottom: 10px;
+}
+.candidate {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
