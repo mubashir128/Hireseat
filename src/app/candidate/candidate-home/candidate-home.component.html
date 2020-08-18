@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<!-- for super admin -->
+<ng-container>
+    <div class="container" style="margin-top:15px;">
+        <div class="row">
+            <div class="LogOutOption mobileHeadRe" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
+                <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
+                <a (click)="logoutSA()"> Logout </a>
+            </div>
+            <div class="col s12 m3 l3" *ngIf="!isOnProfile">
+                <!-- <app-recruiter-navbar (selected)="navigate($event)"></app-recruiter-navbar> -->
+                <app-candidate-navbar (selected)="navigate($event)"></app-candidate-navbar>
+
+            </div>
+            <!-- <div class="col s12 m9 l9"> -->
+            <div [ngClass]="{
+          'col s12 m12 l12': isOnProfile,
+          'col s12 m9 l9': !isOnProfile
+        }">
+                <div class="LogOutOption desktopRe" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
+                    <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
+                    <a (click)="logoutSA()"> Logout </a>
+                </div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+
+</ng-container>

@@ -1,25 +1,4 @@
 <div class="">
-  <!-- <ng-container *ngIf="isCandidate">
-    <nav style="background:#E9F4FF;" class="customeNav">
-      <div class="nav-wrapper container">
-        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
-            style="vertical-align:middle;" /></a>
-        <ul class="interview-title">
-          <div class="tab">
-            Interview
-          </div>
-        </ul>
-
-      </div>
-    </nav>
-  </ng-container> -->
-  <!-- <ul class="side-nav" id="mobile-demo" *ngIf="isCandidate">
-    <li>
-      <a class="waves-effect waves-light btn">Interview</a>
-    </li>
-  </ul> -->
-  <!-- <ng-container *ngIf="!isCandidate"> -->
-
   <nav style="background:#E9F4FF;" class="customeNav">
     <div class="nav-wrapper container">
       <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
@@ -75,6 +54,9 @@
           <a [routerLink]="['/employer/dashboard']" routerLinkActive="borderBA">Employer</a>
         </li>
         <!-- end of employeer profile -->
+        <li *ngIf="isCandidate && isLoggedIn">
+          <a [routerLink]="['/candidate']" routerLinkActive="borderBA">Candidate</a>
+        </li>
         <!-- Enterprise profile -->
         <li *ngIf="isEnterprise && isLoggedIn">
           <a [routerLink]="['/enterprise/user-list']" routerLinkActive="borderBA">Enterprise</a>
@@ -194,10 +176,13 @@
       <a class="waves-effect waves-light btn" [routerLink]="['/employer/dashboard']"
         routerLinkActive="borderBA">Employer</a>
     </li>
-
+    <li *ngIf="isCandidate && isLoggedIn">
+      <a class="waves-effect waves-light btn" [routerLink]="['/candidate']" routerLinkActive="borderBA">Candidate</a>
+    </li>
     <li *ngIf="isEmployer && isLoggedIn">
       <a class="waves-effect waves-light btn" (click)="navigate('/employer/profile')">My Profile</a>
     </li>
+
 
     <li>
       <a class="waves-effect waves-light btn" (click)="navigate('/blog')">Blog</a>

@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
   isAdmin: boolean = false;
   isSuperAdmin: boolean = false;
   isEnterprise: boolean = false;
+  isCandidate: boolean = false;
   status: boolean = false;
   public show: boolean = false;
   public buttonName: any = 'Show';
@@ -38,14 +39,14 @@ export class NavbarComponent implements OnInit {
   suggestedQueData: any;
   suggestedQueCount: number = 0;
   suggestedQueAnsCount: number = 0;
-  notificationLength: any=0;
+  notificationLength: any = 0;
   showAdminDashboardButton: boolean = false;
   showEnterpriseDashboardButton: boolean = false;
   permaLink: any;
   candidate = false;
 
-notificationObserver = new Subject();
-notificationObserver$ = this.notificationObserver.asObservable();
+  notificationObserver = new Subject();
+  notificationObserver$ = this.notificationObserver.asObservable();
 
   getAllNotifications = 'getAllNotifications';
   newNotification = 'newNotification';
@@ -64,7 +65,7 @@ notificationObserver$ = this.notificationObserver.asObservable();
     private _socket: WebsocketService,
     private _eref: ElementRef,
     public enterpriseService: EnterpriseService,
-    private _pushNotify : PushNotificationService
+    private _pushNotify: PushNotificationService
   ) {
     this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
@@ -82,6 +83,8 @@ notificationObserver$ = this.notificationObserver.asObservable();
         this.isSuperAdmin = true;
       } else if (this.loggedInUser.userRole == 'enterprise') {
         this.isEnterprise = true;
+      } else if (this.loggedInUser.userRole == 'candidate') {
+        this.isCandidate = true;
       }
     }
     router.events.subscribe((val) => {
@@ -111,7 +114,7 @@ notificationObserver$ = this.notificationObserver.asObservable();
 
     let obj = JSON.parse(localStorage.getItem('currentUser'));
     if (obj !== null) {
-      await this.initSocket(obj.token,obj.userInfo.userRole);
+      await this.initSocket(obj.token, obj.userInfo.userRole);
     }
 
     await this._socket.removeListener({ type: 1 });
@@ -128,8 +131,8 @@ notificationObserver$ = this.notificationObserver.asObservable();
       type: 1,
       data: {
         subType: this.getAllNotifications,
-        onLoad : true,
-        limit : this.limit
+        onLoad: true,
+        limit: this.limit
       }
     });
 
@@ -177,8 +180,8 @@ notificationObserver$ = this.notificationObserver.asObservable();
     this.buttonName = 'Hide';
   }
 
-  async initSocket(token,userRole) {
-    await this._socket.getInstance(token,userRole);
+  async initSocket(token, userRole) {
+    await this._socket.getInstance(token, userRole);
   }
 
   truncateHTML(text: string): string {
@@ -197,9 +200,9 @@ notificationObserver$ = this.notificationObserver.asObservable();
     switch (res.subType) {
       case this.getAllNotifications:
         // add all notifications to list.
-        if(res.data.length !==0 ){
+        if (res.data.length !== 0) {
           this.questDataLenght = [...this.questDataLenght, ...res.data];
-          this.createdAt=this.questDataLenght[this.questDataLenght.length-1].createdAt;
+          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
           this.notificationLength = res.count ? res.count : this.notificationLength;
         }
         break;
@@ -213,7 +216,7 @@ notificationObserver$ = this.notificationObserver.asObservable();
     }
   }
 
-  incrementNotificationCount(){
+  incrementNotificationCount() {
     this.notificationLength += 1;
   }
 
@@ -258,13 +261,13 @@ notificationObserver$ = this.notificationObserver.asObservable();
       type: 1,
       data: {
         subType: this.getAllNotifications,
-        createdAt : this.createdAt,
-        limit : this.limit
+        createdAt: this.createdAt,
+        limit: this.limit
       }
     });
   }
 
-  getToQuestion(id){
+  getToQuestion(id) {
     this.router.navigate(['/question-details/', id]);
   }
 

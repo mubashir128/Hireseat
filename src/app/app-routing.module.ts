@@ -21,7 +21,10 @@ const appRoutes: Routes = [
     path: "shared-video/:token",
     loadChildren: () => import('./shared-video/shared-video.module').then(m => m.SharedVideoModule)
   },
-
+  {
+    path: "candidate",
+    loadChildren: () => import('./candidate/candidate.module').then(m => m.CandidateModule)
+  },
   {
     path: "recruiter",
     loadChildren: () => import('./recruiter/recruiter.module').then(m => m.RecruiterModule),

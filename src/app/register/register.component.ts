@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
     // console.log("accepted terms and conditions", this.value);
   }
   formSubmit() {
-    console.log(this.signin.value);
+    // console.log(this.signin.value);
 
     // this.spinner.show();
     if (!this.signin.valid) {
