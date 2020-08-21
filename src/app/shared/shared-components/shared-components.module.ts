@@ -39,6 +39,7 @@ import { EditTagComponent } from 'src/app/blog/edit-blog/edit-tag/edit-tag.compo
 import { TagInputModule } from "ngx-chips";
 import { VideoQuestionsComponent } from './components/video-questions/video-questions.component';
 import { FilterDataComponent } from './components/filter-data/filter-data.component';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { FilterDataComponent } from './components/filter-data/filter-data.compon
     ReactiveFormsModule,
     InfiniteScrollModule,
     NgxPaginationModule,
-    TagInputModule
+    TagInputModule,
+    CKEditorModule
   ],
   declarations: [
     FooterComponent,
