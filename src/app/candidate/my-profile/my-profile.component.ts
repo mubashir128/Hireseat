@@ -21,6 +21,7 @@ export class MyProfileComponent implements OnInit {
   public editProfile: FormGroup;
   fileUploaded = 0;
   downloadURL = '';
+  referral: any;
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
@@ -105,15 +106,15 @@ export class MyProfileComponent implements OnInit {
         Employers2: res.previousEmployers[1],
         skills: res.skills,
         linkedIn: res.linkedIn,
-        referralJobTitle1: res.referral[0].referralJobTitle,
-        referralEmail1: res.referral[0].referralEmail,
-        referralPhoneNumber1: res.referral[0].referralPhoneNumber,
-        referralJobTitle2: res.referral[1].referralJobTitle,
-        referralEmail2: res.referral[1].referralEmail,
-        referralPhoneNumber2: res.referral[1].referralPhoneNumber,
-        referralJobTitle3: res.referral[2].referralJobTitle,
-        referralEmail3: res.referral[2].referralEmail,
-        referralPhoneNumber3: res.referral[2].referralPhoneNumber,
+        referralJobTitle1: res.referral[0]?.referralJobTitle,
+        referralEmail1: res.referral[0]?.referralEmail,
+        referralPhoneNumber1: res.referral[0]?.referralPhoneNumber,
+        referralJobTitle2: res.referral[1]?.referralJobTitle,
+        referralEmail2: res.referral[1]?.referralEmail,
+        referralPhoneNumber2: res.referral[1]?.referralPhoneNumber,
+        referralJobTitle3: res.referral[2]?.referralJobTitle,
+        referralEmail3: res.referral[2]?.referralEmail,
+        referralPhoneNumber3: res.referral[2]?.referralPhoneNumber,
         comments: res.comments,
         totalWorkExpYrs: res.totalWorkExpYrs,
         totalWorkExpMonths: res.totalWorkExpMonths,
