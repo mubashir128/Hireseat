@@ -31,7 +31,7 @@ export class CandidateService {
     }));
   }
   reqCoaching(payload) {
-    return this.http.post<any>(this.baseurl + 'api/editCandidateProfile', payload).pipe(map((res: any) => {
+    return this.http.post<any>(this.baseurl + 'api/requestCoaching', payload).pipe(map((res: any) => {
       return res;
     }));
   }

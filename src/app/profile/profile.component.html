@@ -217,9 +217,13 @@
             <label [ngClass]="{ active: userProfile.rate }" for="contact-rate">
               Rates</label>
             <div>
-              <span>Rate per</span>
-              <input id="contact-mins" type="time" class="validate" name="userProfile.mins"
-                [(ngModel)]="userProfile.mins" formControlName="mins" />
+              <span style="color:#9e9e9e">Rate per {{userProfile.mins}} minutes</span>
+              <!-- <input id="contact-mins" type="time" class="validate" name="userProfile.mins"
+                [(ngModel)]="userProfile.mins" formControlName="mins" /> -->
+              <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="mins"
+                [(ngModel)]="userProfile.mins" [options]="dropdownOptions"
+                [config]="{ placeholder: 'Pick your period!'}">
+              </ngx-select-dropdown>
 
             </div>
           </div>

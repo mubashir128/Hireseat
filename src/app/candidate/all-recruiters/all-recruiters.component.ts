@@ -48,7 +48,7 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
       if (res) {
         console.log(res);
         Materialize.toast("Recruiter has been notifiled!", 1000);
-        Materialize.toast("Recruiter will reachout to you.", 1000);
+        Materialize.toast("Recruiter will reachout to you!", 3000);
       }
     }, err => {
       Materialize.toast("Something Went Wrong !", 1000);

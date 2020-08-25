@@ -40,6 +40,7 @@ import { TagInputModule } from "ngx-chips";
 import { VideoQuestionsComponent } from './components/video-questions/video-questions.component';
 import { FilterDataComponent } from './components/filter-data/filter-data.component';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
     InfiniteScrollModule,
     NgxPaginationModule,
     TagInputModule,
-    CKEditorModule
+    CKEditorModule,
+    SelectDropDownModule
   ],
   declarations: [
     FooterComponent,

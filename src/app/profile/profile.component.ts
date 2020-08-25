@@ -25,12 +25,13 @@ export class ProfileComponent implements OnInit {
   public imagePath;
   currentUserId: any;
   ckeConfig: any;
-  //userroledata:any;
+  ratePerMin: any;
   filepath: any;
   imgURL: any;
   public message: string;
   public PointsSummary = new RewardSummary();
   isRecruiter: boolean;
+  dropdownOptions: any;
   constructor(
     private userService: UserService,
     private spinner: NgxSpinnerService,
@@ -40,11 +41,14 @@ export class ProfileComponent implements OnInit {
 
     this.userProfile = new Profile();
     this.getUsersProfile();
+    this.dropdownOptions = [
+      30, 60, 90, 120, 150, 180, 210, 240, 270, 300
+    ]
   }
 
   ngOnInit() {
     this.loggedinUser = this.userService.getUser();
-    console.log(this.loggedinUser.userInfo.userRole);
+    // console.log(this.loggedinUser.userInfo.userRole);
     if (this.loggedinUser.userInfo.userRole === 'recruiter') {
       this.isRecruiter = true;
     } else {
@@ -123,7 +127,11 @@ export class ProfileComponent implements OnInit {
       this.imgURL = reader.result;
     }
   }
-
+  selectionChanged(event) {
+    console.log(event);
+    this.ratePerMin = event.value;
+    this.userProfile.mins = event.value;
+  }
   onSubmit() {
 
     if (this.userProfile) {

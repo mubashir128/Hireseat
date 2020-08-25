@@ -7,9 +7,8 @@
                     <div class="ClientImage">
                         <!-- <img [src]="recruiter.profileimage" alt="Profile Pic"> -->
                         <div class="uploadImageDiv">
-                            <img [src]="recruiter.profileimage" height="200" *ngIf="recruiter.profileimage"
-                                class="uploadedImg" />
-                            <!-- <img src="../../../assets/img/user.png" height="200" *ngIf="recruiter.profileimage"
+                            <img [src]="recruiter.profileimage" *ngIf="recruiter.profileimage" class="uploadedImg" />
+                            <!-- <img src="../../../assets/img/user.png" *ngIf="recruiter.profileimage"
                                 class="uploadedImg" /> -->
                         </div>
                         <div class="NameDetails">
@@ -31,8 +30,12 @@
                         <p>Information technology, human resources, digital marketing, accounting & finance, research &
                             laboratory, and business development.</p> -->
                         <ng-container *ngIf="recruiter?.companies">
-                            <h5 class="BioSubHead">Companies Recruited:</h5>
+                            <h5 class="BioSubHead">Companies Recruited :</h5>
                             <p>{{recruiter?.companies}}</p>
+                        </ng-container>
+                        <ng-container *ngIf="recruiter?.roles">
+                            <h5 class="BioSubHead">Roles :</h5>
+                            <p>{{recruiter?.roles}}</p>
                         </ng-container>
                     </div>
                 </div>
