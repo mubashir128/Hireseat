@@ -104,8 +104,8 @@ export class SAUserListComponent implements OnInit {
   }
 
   loginUser(userEmail) {
-    if(this.itemsIs === "enterprise"){
-      return ;
+    if (this.itemsIs === "enterprise") {
+      return;
     }
     localStorage.setItem(
       "super-admin-email",
@@ -126,6 +126,8 @@ export class SAUserListComponent implements OnInit {
             this.router.navigate(["super-admin/user-list"]);
           } else if (response.userInfo.userRole == "enterprise") {
             this.router.navigate(["enterprise/user-list"]);
+          } else if (response.userInfo.userRole == "candidate") {
+            this.router.navigate(["candidate/my-profile"]);
           }
         } else {
           Materialize.toast("Enter valid details", 1000, "rounded");

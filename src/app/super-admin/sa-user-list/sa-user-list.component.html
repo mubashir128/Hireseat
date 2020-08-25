@@ -1,7 +1,7 @@
 <div>
 
   <div>
-    <ul class="">
+    <ul class="tabs">
       <li class="tablink" id="super-admin" [ngClass]="itemsIs === 'super-admin'?'tablinkActive':false"
         (click)="checkUser('super-admin')">Super-admin</li>
       <li class="tablink" id="admin" [ngClass]="itemsIs === 'admin'?'tablinkActive':false" (click)="checkUser('admin')">
@@ -9,7 +9,9 @@
       <li class="tablink" id="recruiter" [ngClass]="itemsIs === 'recruiter'?'tablinkActive':false"
         (click)="checkUser('recruiter')">Recruiter</li>
       <li class="tablink" id="employer" [ngClass]="itemsIs === 'employer'?'tablinkActive':false"
-        (click)="checkUser('employer')">Employeer</li>
+        (click)="checkUser('employer')">Employer</li>
+      <li class="tablink" id="candidate" [ngClass]="itemsIs === 'candidate'?'tablinkActive':false"
+        (click)="checkUser('candidate')">Candidates</li>
       <li class="tablink" id="enterprise" [ngClass]="itemsIs === 'enterprise'?'tablinkActive':false"
         (click)="checkUser('enterprise')">Enterprise</li>
     </ul>

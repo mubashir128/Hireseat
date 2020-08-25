@@ -1,0 +1,132 @@
+/* ========================= Card View Css : STARTS =========================== */
+.container {
+  width: 85%;
+}
+.MainDetailsPage {
+  /* background-color: #ffffff; */
+  /* padding: 30px; */
+  box-sizing: border-box;
+  margin: 20px 0;
+  /* box-shadow: 0 0 10px #99999954; */
+}
+.UpperDetails h4 {
+  font-size: 23px;
+  margin: 0;
+  color: #333333;
+}
+.UpperDetails p {
+  color: #5f5f5f;
+  font-size: 15px;
+}
+.UpperDetailsList {
+  padding-left: 40px;
+}
+.UpperDetailsList li {
+  margin: 5px 0;
+  font-size: 16px;
+  position: relative;
+  font-weight: 600;
+  color: #4a4a4a;
+}
+.UpperDetailsList li:after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #333333;
+  left: -20px;
+  top: 7px;
+}
+.ClientDetailCard {
+  box-shadow: 0 0 10px #9999996b;
+  padding: 20px;
+  margin: 20px 0;
+  background-color: #ffffff;
+  display: flex;
+  /* border-bottom: 1px solid #b9b9b9; */
+}
+.ClientDetailCard:last-child {
+  border-bottom: none;
+}
+.ClientImage {
+  /* display: flex;
+    align-items: flex-end; */
+  margin-right: 30px;
+  width: 30%;
+}
+.ClientImage img {
+  width: 200px;
+  /* margin-right: 20px; */
+}
+.ClientImage h4 {
+  font-size: 20px;
+  color: #33aaff;
+  margin: 0 0 5px;
+}
+.ClientImage p {
+  margin: 0;
+  color: #5a5a5a;
+}
+.BioDetails h2 {
+  font-size: 30px;
+  color: #19a0ff;
+  margin: 0px;
+}
+.BioDetails p {
+  font-size: 15px;
+  color: #929292;
+  margin: 7px 0 10px;
+}
+.BioDetails {
+  width: 70%;
+}
+.UpperDetails {
+  padding-bottom: 20px;
+}
+.BioSubHead {
+  font-size: 17px;
+  color: #4a4a4a;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+.NameDetails {
+  margin-top: 15px;
+}
+/* ============================= Card View Css : ENDS ============================= */
+.uploadImageDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  z-index: 0;
+}
+.uploadImageDiv input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 9;
+  opacity: 0;
+  left: 0;
+  top: 0;
+}
+.uploadImageDiv .uploadedImg {
+  /* width: 100%;
+  height: 100%; */
+  object-fit: contain;
+  border-radius: 50%;
+}
+.req-recruiter-coaching {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0aafff !important;
+  width: auto !important;
+  padding: 2px 20px !important;
+  height: 40px;
+  box-shadow: none;
+  text-transform: capitalize;
+  border-radius: 3px;
+  color: #fff !important;
+  border: none;
+}

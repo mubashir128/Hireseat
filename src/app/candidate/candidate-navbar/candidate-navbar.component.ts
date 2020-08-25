@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Tab } from 'src/app/recruiter/models/tab';
 import { IProfile, Profile } from 'src/app/profile/model/user-profile';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { UserService } from 'src/app/_services/user.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 declare var Materialize: any;
@@ -29,7 +29,13 @@ export class CandidateNavbarComponent implements OnInit {
     this.userProfile = new Profile();
     this.tabs1.push(new Tab('/candidate/my-profile', 'My Profile', true));
     this.tabs1.push(new Tab('/candidate/all-recruiters', 'All Recruiters', false));
-
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === "/candidate/my-profile") {
+          this.SelectItem(event.url)
+        }
+      }
+    });
   }
 
   ngOnInit() {
@@ -38,6 +44,8 @@ export class CandidateNavbarComponent implements OnInit {
       menuWidth: 300, // Default is 240
       closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
     });
+    console.log(this.router.url);
+
     // this.showSummary();
     this.SelectItem(this.router.url);
     // this.getUsersProfile();
@@ -59,6 +67,7 @@ export class CandidateNavbarComponent implements OnInit {
   }
 
   SelectItem(item) {
+
     this.tabs1.forEach(tab => {
       if (tab.id === item)
         tab.selected = true;

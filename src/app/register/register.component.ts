@@ -67,6 +67,9 @@ export class RegisterComponent implements OnInit {
       if (this.chkLoggedInUser.userRole == "recruiter") {
         this.router.navigate(["recruiter"]);
       }
+      if (this.chkLoggedInUser.userRole == "candidate") {
+        this.router.navigate(["candidate"]);
+      }
     }
   }
 
