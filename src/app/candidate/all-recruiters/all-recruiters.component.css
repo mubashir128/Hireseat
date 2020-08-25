@@ -83,6 +83,10 @@
 }
 .UpperDetails {
   padding-bottom: 20px;
+  box-shadow: 0 0 10px #9999996b;
+  padding: 20px;
+  margin: 20px 0;
+  background-color: #ffffff;
 }
 .BioSubHead {
   font-size: 17px;
