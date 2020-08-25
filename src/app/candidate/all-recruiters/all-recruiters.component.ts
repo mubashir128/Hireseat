@@ -47,7 +47,8 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
     this.candidateService.reqCoaching(payload).subscribe(res => {
       if (res) {
         console.log(res);
-
+        Materialize.toast("Recruiter has been notifiled!", 1000);
+        Materialize.toast("Recruiter will reachout to you.", 1000);
       }
     }, err => {
       Materialize.toast("Something Went Wrong !", 1000);
