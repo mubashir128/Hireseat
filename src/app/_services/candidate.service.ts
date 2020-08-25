@@ -30,4 +30,9 @@ export class CandidateService {
       return res;
     }));
   }
+  reqCoaching(payload) {
+    return this.http.post<any>(this.baseurl + 'api/editCandidateProfile', payload).pipe(map((res: any) => {
+      return res;
+    }));
+  }
 }

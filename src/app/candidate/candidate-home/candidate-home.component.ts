@@ -36,9 +36,10 @@ export class CandidateHomeComponent implements OnInit {
     // for live route
     // this.router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {
-    //     event.url === "/candidate/my-profile"
-    //       ? (this.isOnProfile = true)
-    //       : (this.isOnProfile = false);
+    // event.url === "/candidate"
+    //   ? this.router.navigate(["candidate/my-profile"])
+    //   : this.router.navigate(["/"])
+
     //   }
     // });
   }
@@ -63,13 +64,7 @@ export class CandidateHomeComponent implements OnInit {
     // });
     this.UserData = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
-      if (this.chkLoggedInUser.userRole == "employer") {
-        this.router.navigate(["employer/bidding-event-list"]);
-      } else if (this.chkLoggedInUser.userRole == "recruiter") {
-        if (this.router.url == "/recruiter") {
-          this.router.navigate(["recruiter/bidding-event-list"]);
-        }
-      } else if (this.chkLoggedInUser.userRole == "candidate") {
+      if (this.chkLoggedInUser.userRole == "candidate") {
         if (this.router.url == "/candidate") {
           this.router.navigate(["candidate/my-profile"]);
         }

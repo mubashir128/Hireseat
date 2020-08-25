@@ -7,12 +7,19 @@
                     <div class="ClientImage">
                         <!-- <img [src]="recruiter.profileimage" alt="Profile Pic"> -->
                         <div class="uploadImageDiv">
-                            <img [src]="recruiter.profileimage" height="200" *ngIf="recruiter.profileimage"
-                                height="50px" width="50px" class="uploadedImg" />
+                            <!-- <img [src]="recruiter.profileimage" height="200" *ngIf="recruiter.profileimage"
+                                class="uploadedImg" /> -->
+                            <img src="../../../assets/img/user.png" height="200" *ngIf="recruiter.profileimage"
+                                class="uploadedImg" />
                         </div>
                         <div class="NameDetails">
                             <h4>{{recruiter.fullName}}</h4>
                             <p>Rate: ${{recruiter?.rate}} for {{recruiter?.mins}} </p>
+                        </div>
+                        <div class="req-recruiter">
+                            <button class="req-recruiter-coaching" (click)="onReqCoaching(recruiter)">
+                                Request Coaching
+                            </button>
                         </div>
                     </div>
                     <div class="BioDetails">

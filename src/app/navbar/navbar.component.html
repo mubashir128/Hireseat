@@ -55,7 +55,7 @@
         </li>
         <!-- end of employeer profile -->
         <li *ngIf="isCandidate && isLoggedIn">
-          <a [routerLink]="['/candidate']" routerLinkActive="borderBA">Candidate</a>
+          <a [routerLink]="['/candidate']" [routerLinkActive]="'borderBA'">Candidate</a>
         </li>
         <!-- Enterprise profile -->
         <li *ngIf="isEnterprise && isLoggedIn">

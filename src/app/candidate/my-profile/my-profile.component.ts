@@ -4,11 +4,11 @@ import { ResumeService } from 'src/app/_services/resume.service';
 
 declare var jQuery: any;
 import * as $ from "jquery";
+declare var Materialize: any;
 import videojs from "video.js";
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { Subscription } from 'rxjs';
 
-declare var Materialize: any;
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
