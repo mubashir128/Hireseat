@@ -41,6 +41,7 @@ import { VideoQuestionsComponent } from './components/video-questions/video-ques
 import { FilterDataComponent } from './components/filter-data/filter-data.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { AllRecruitersComponent } from './components/all-recruiters/all-recruiters.component';
 
 @NgModule({
   imports: [
@@ -95,7 +96,8 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
     // EditTagComponent
 
     VideoQuestionsComponent,
-    FilterDataComponent
+    FilterDataComponent,
+    AllRecruitersComponent
   ],
   exports: [
     FooterComponent,
@@ -136,7 +138,8 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 
     VideoQuestionsComponent,
     FilterDataComponent,
-    TagInputModule
+    TagInputModule,
+    AllRecruitersComponent
   ]
 })
 export class SharedComponentsModule { }

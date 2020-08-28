@@ -25,35 +25,44 @@
                     <div class="ClientImage">
                         <!-- <img [src]="recruiter.profileimage" alt="Profile Pic"> -->
                         <div class="uploadImageDiv">
-                            <img [src]="recruiter.profileimage" *ngIf="recruiter.profileimage" class="uploadedImg" />
-                            <!-- <img src="../../../assets/img/user.png" *ngIf="recruiter.profileimage"
-                                class="uploadedImg" /> -->
+                            <ng-container *ngIf="recruiter.refUserId?.profileimage">
+                                <img [src]="recruiter.refUserId?.profileimage" class="uploadedImg" />
+                            </ng-container>
+                            <ng-container *ngIf="!recruiter.refUserId?.profileimage">
+                                <img src="../../../assets/img/user.png" class="uploadedImg" />
+                            </ng-container>
                         </div>
                         <div class="NameDetails">
-                            <h4>{{recruiter.fullName}}</h4>
-                            <p>Rate: ${{recruiter?.rate}} for {{recruiter?.mins}} </p>
+                            <h4>{{recruiter?.refUserId?.fullName}}</h4>
+                            <p>Rate: ${{recruiter?.refUserId?.rate}} for {{recruiter?.refUserId?.mins}} Minutes</p>
                         </div>
-                        <div class="req-recruiter">
-                            <button class="req-recruiter-coaching" (click)="onReqCoaching(recruiter)">
-                                Request Coaching
-                            </button>
-                        </div>
+                        <ng-container *ngIf="user.userInfo.userRole === 'candidate'">
+
+                            <div class="req-recruiter">
+                                <button class="req-recruiter-coaching" (click)="onReqCoaching(recruiter)">
+                                    Request Coaching
+                                </button>
+                            </div>
+                        </ng-container>
                     </div>
                     <div class="BioDetails">
                         <h2>Bio :</h2>
                         <!-- <p>{{recruiter.bio}} </p> -->
-                        <div [innerHTML]="recruiter?.bio"></div>
+                        <div [innerHTML]="recruiter?.refUserId?.bio"></div>
 
-                        <!-- <h5 class="BioSubHead">Industries Expertise:</h5>
-                        <p>Information technology, human resources, digital marketing, accounting & finance, research &
-                            laboratory, and business development.</p> -->
-                        <ng-container *ngIf="recruiter?.companies">
-                            <h5 class="BioSubHead">Companies Recruited :</h5>
-                            <p>{{recruiter?.companies}}</p>
+
+                        <ng-container *ngIf="recruiter?.refUserId?.companies">
+                            <h5 class="BioSubHead">Companies Recruited for:</h5>
+                            <p>{{recruiter?.refUserId?.companies}}</p>
                         </ng-container>
-                        <ng-container *ngIf="recruiter?.roles">
-                            <h5 class="BioSubHead">Roles :</h5>
-                            <p>{{recruiter?.roles}}</p>
+                        <ng-container *ngIf="recruiter?.refUserId?.roles">
+                            <h5 class="BioSubHead">Expertise in Recruiting for these Roles :</h5>
+                            <p>{{recruiter?.refUserId?.roles}}</p>
+                        </ng-container>
+                        <ng-container *ngIf="recruiter?.linkedInLink">
+                            <h5 class="BioSubHead">LinkedIn:</h5>
+                            <a class="pointer"
+                                (click)="onLinkedIn(recruiter?.linkedInLink)">{{recruiter?.linkedInLink}}</a>
                         </ng-container>
                     </div>
                 </div>

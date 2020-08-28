@@ -4,7 +4,7 @@
 .uploadImageDiv {
   width: 100%;
   height: 80px;
-  background-color: grey;
+  background-color: #d1d1d1;
   position: relative;
   z-index: 0;
   display: flex;
@@ -64,4 +64,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.submit-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  margin: 2% 0 0 0;
+}
+.save {
+  margin: 0 2% 0 0;
+}
+.cancel {
+  border: 1px solid #d1d1d1;
+  margin: 0 0 0 2%;
 }

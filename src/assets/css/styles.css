@@ -1022,6 +1022,9 @@ ng2-dropdown-menu.dropdown {
   right: 20px;
   cursor: pointer;
 }
+.pointer {
+  cursor: pointer;
+}
 .searchDiv input[type="text"] {
   border: 1px solid #0aafff !important;
   border-radius: 25px !important;
@@ -1166,5 +1169,11 @@ ng2-dropdown-menu.dropdown {
 
 /* end video js skinn */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}

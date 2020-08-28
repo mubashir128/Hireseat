@@ -4,13 +4,13 @@
       <div class="title-post">
 
         <h4 class="ProfileTitle">Edit Organization Profile</h4>
-        <div class="post">
+        <!-- <div class="post">
           <div *ngIf="isRecruiter">
             <input type="checkbox" id="post" name="post" [value]="userProfile.post" [(ngModel)]="userProfile.post"
               formControlName="post">
             <label for="post">Post my Profile</label>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="divider"></div>
 
@@ -30,6 +30,135 @@
       </div>
     </div>
 
+
+    <!-- <div class="divider"></div> -->
+    <div class="row" style="padding-top:15px;">
+      <div class="col s6 m8 l3 ">
+        <form [formGroup]="updateProfileimg">
+          <div class="uploadImageDiv">
+            <img [src]="imgURL" height="200" *ngIf="imgURL" height="50px" width="50px" class="uploadedImg" />
+            <input #file type="file" accept="image/*" formControlName="file" (change)="preview(file.files)" />
+            <img src="assets/img/Asset 7.png" class="plusIcon" />
+          </div>
+
+          <button class="marT10 bluebtn" (click)="updateProfileImg()">
+            Update Image
+          </button>
+        </form>
+      </div>
+      <div class="input-field col s12 m8 l9 ">
+        <input id="contact-name" type="text" class="validate" name="userProfile.fullName"
+          [(ngModel)]="userProfile.fullName" formControlName="fullName" />
+        <label [ngClass]="{ active: userProfile.fullName }" for="contact-name">Contact Person Name *</label>
+        <div *ngIf="f.fullName.touched && f.fullName.errors" class="invalid-feedback" class="error">
+          <div *ngIf="f.fullName.errors.required">Full Name is required</div>
+        </div>
+      </div>
+
+      <!-- <div class="input-field col s12 m10 l10 ">
+                
+            </div> -->
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 m6 l6  ">
+        <input id="contact-phone-number" type="text" class="validate" name="userProfile.phoneNo"
+          [(ngModel)]="userProfile.phoneNo" formControlName="phoneNo" />
+        <label [ngClass]="{ active: userProfile.phoneNo }" for="contact-phone-number">Phone Number *</label>
+        <div *ngIf="f.phoneNo.touched && f.phoneNo.errors" class="invalid-feedback" class="error">
+          <div *ngIf="f.phoneNo.errors.required">Phone Number is required</div>
+          <div *ngIf="f.phoneNo.errors.pattern">Numbers Only</div>
+        </div>
+      </div>
+      <div class="input-field col s12 m6 l6">
+        <input id="contact-email" type="text" class="validate" name="userProfile.email" [(ngModel)]="userProfile.email"
+          formControlName="email" readonly />
+        <label [ngClass]="{ active: userProfile.email }" for="contact-email">Email *</label>
+
+        <div *ngIf="f.email.touched && f.email.errors" class="invalid-feedback" class="error">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Enter valid email address</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--  -->
+    <ng-container *ngIf="isRecruiter">
+
+
+
+      <div class="row">
+        <div class="input-field col s12 m6 l6 ">
+          <input id="contact-yearOfExperience" type="text" class="validate" name="userProfile.yearOfExperience"
+            [(ngModel)]="userProfile.yearOfExperience" formControlName="yearOfExperience" />
+          <label [ngClass]="{ active: userProfile.yearOfExperience }" for="contact-phone-number">Year Of
+            Experience</label>
+
+        </div>
+        <div class="input-field col s12 m6 l6">
+          <input id="linkedin-link" type="text" class="validate" [(ngModel)]="userProfile.linkedInLink"
+            formControlName="linkedInLink" />
+          <label [ngClass]="{ active: userProfile.linkedInLink }" for="linkedin-link">Linkedin Link</label>
+          <div *ngIf="f.linkedInLink.touched && f.linkedInLink.errors" class="invalid-feedback" class="error">
+            <div *ngIf="f.linkedInLink.errors.required">
+              Linkedin Link is required
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--  -->
+      <div class="row">
+
+        <div class="input-field col s12 m6 l6 ">
+          <input id="contact-roles" type="text" class="validate" name="userProfile.roles"
+            [(ngModel)]="userProfile.roles" formControlName="roles" />
+          <label [ngClass]="{ active: userProfile.roles }" for="contact-phone-number">
+            Expertise in Recruiting for these Roles:</label>
+
+        </div>
+        <div class="input-field col s12 m6 l6">
+          <input id="contact-companies" type="text" class="validate" name="userProfile.companies"
+            [(ngModel)]="userProfile.companies" formControlName="companies" />
+          <label [ngClass]="{ active: userProfile.companies }" for="contact-companies">Companies Recruited for:</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6 l6 ">
+          <div class="charges">
+            <input id="contact-rate" type="number" class="validate" name="userProfile.rate"
+              [(ngModel)]="userProfile.rate" formControlName="rate" />
+            <label [ngClass]="{ active: userProfile.rate }" for="contact-rate">
+              Rates</label>
+
+          </div>
+
+        </div>
+        <div class="input-field col s12 m6 l6">
+          <span style="color:#9e9e9e">Rate per {{userProfile.mins}} minutes</span>
+
+          <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="mins" [(ngModel)]="userProfile.mins"
+            [options]="dropdownOptions" [config]="{ placeholder: 'Time Period'}">
+          </ngx-select-dropdown>
+
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="input-field col s12">
+          <span class='bio-title'>
+            Bio
+          </span>
+          <ckeditor formControlName="bio" [(ngModel)]="userProfile.bio" name="myckeditor" required [config]="ckeConfig"
+            debounce="500">
+          </ckeditor>
+        </div>
+      </div>
+
+
+    </ng-container>
     <div class="row">
       <div class="input-field col s12">
         <textarea id="company-description" class="materialize-textarea" [(ngModel)]="userProfile.aboutComp"
@@ -118,7 +247,7 @@
           </div>
         </div>
       </div>
-      <div class="input-field col s12">
+      <!-- <div class="input-field col s12">
         <input id="linkedin-link" type="text" class="validate" [(ngModel)]="userProfile.linkedInLink"
           formControlName="linkedInLink" />
         <label [ngClass]="{ active: userProfile.linkedInLink }" for="linkedin-link">Linkedin Link</label>
@@ -127,136 +256,28 @@
             Linkedin Link is required
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
+    <!--  -->
     <div class="divider"></div>
-    <div class="row" style="padding-top:15px;">
-      <div class="col s6 m8 l3 ">
-        <form [formGroup]="updateProfileimg">
-          <div class="uploadImageDiv">
-            <img [src]="imgURL" height="200" *ngIf="imgURL" height="50px" width="50px" class="uploadedImg" />
-            <input #file type="file" accept="image/*" formControlName="file" (change)="preview(file.files)" />
-            <img src="assets/img/Asset 7.png" class="plusIcon" />
-          </div>
+    <div class="row">
+      <div class="submit-section">
 
-          <!-- <label [ngClass]="{'active': updateProfileimg.file}" for="contact-name">Contact Person Image *</label>
-                        <div *ngIf="(img.file.touched && f.fullName.errors) || img.file.invalid" class="invalid-feedback"
-                            class="error">
-                            <div *ngIf="updateProfileimg.controls['file'].hasError('required')" class="error">Please Select image</div>
-                            !-- <div *ngIf="f.fullName.errors.required">Full Name is required</div> --
-                        </div> -->
-          <button class="marT10 bluebtn" (click)="updateProfileImg()">
-            Update Image
+        <div class="save">
+          <button type="submit" class="left waves-effect waves-light btn">
+            Save
           </button>
-        </form>
-      </div>
-      <div class="input-field col s12 m8 l9 ">
-        <input id="contact-name" type="text" class="validate" name="userProfile.fullName"
-          [(ngModel)]="userProfile.fullName" formControlName="fullName" />
-        <label [ngClass]="{ active: userProfile.fullName }" for="contact-name">Contact Person Name *</label>
-        <div *ngIf="f.fullName.touched && f.fullName.errors" class="invalid-feedback" class="error">
-          <div *ngIf="f.fullName.errors.required">Full Name is required</div>
         </div>
-      </div>
-
-      <!-- <div class="input-field col s12 m10 l10 ">
-                
-            </div> -->
-    </div>
-
-    <div class="row">
-      <div class="input-field col s12 m6 l6  ">
-        <input id="contact-phone-number" type="text" class="validate" name="userProfile.phoneNo"
-          [(ngModel)]="userProfile.phoneNo" formControlName="phoneNo" />
-        <label [ngClass]="{ active: userProfile.phoneNo }" for="contact-phone-number">Phone Number *</label>
-        <div *ngIf="f.phoneNo.touched && f.phoneNo.errors" class="invalid-feedback" class="error">
-          <div *ngIf="f.phoneNo.errors.required">Phone Number is required</div>
-          <div *ngIf="f.phoneNo.errors.pattern">Numbers Only</div>
-        </div>
-      </div>
-      <div class="input-field col s12 m6 l6">
-        <input id="contact-email" type="text" class="validate" name="userProfile.email" [(ngModel)]="userProfile.email"
-          formControlName="email" readonly />
-        <label [ngClass]="{ active: userProfile.email }" for="contact-email">Email *</label>
-
-        <div *ngIf="f.email.touched && f.email.errors" class="invalid-feedback" class="error">
-          <div *ngIf="f.email.errors.required">Email is required</div>
-          <div *ngIf="f.email.errors.email">Enter valid email address</div>
-        </div>
-      </div>
-    </div>
-
-
-    <!--  -->
-    <ng-container *ngIf="isRecruiter">
-
-
-
-      <div class="row">
-        <div class="input-field col s12 m6 l6 ">
-          <input id="contact-yearOfExperience" type="text" class="validate" name="userProfile.yearOfExperience"
-            [(ngModel)]="userProfile.yearOfExperience" formControlName="yearOfExperience" />
-          <label [ngClass]="{ active: userProfile.yearOfExperience }" for="contact-phone-number">Year Of
-            Experience</label>
-
-        </div>
-        <div class="input-field col s12 m6 l6 ">
-          <input id="contact-roles" type="text" class="validate" name="userProfile.roles"
-            [(ngModel)]="userProfile.roles" formControlName="roles" />
-          <label [ngClass]="{ active: userProfile.roles }" for="contact-phone-number">
-            Roles</label>
-
-        </div>
-      </div>
-      <!--  -->
-      <div class="row">
-        <div class="input-field col s12 m6 l6 ">
-          <div class="charges">
-            <input id="contact-rate" type="number" class="validate" name="userProfile.rate"
-              [(ngModel)]="userProfile.rate" formControlName="rate" />
-            <label [ngClass]="{ active: userProfile.rate }" for="contact-rate">
-              Rates</label>
-            <div>
-              <span style="color:#9e9e9e">Rate per {{userProfile.mins}} minutes</span>
-              <!-- <input id="contact-mins" type="time" class="validate" name="userProfile.mins"
-                [(ngModel)]="userProfile.mins" formControlName="mins" /> -->
-              <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="mins"
-                [(ngModel)]="userProfile.mins" [options]="dropdownOptions"
-                [config]="{ placeholder: 'Pick your period!'}">
-              </ngx-select-dropdown>
-
-            </div>
+        <div class="post">
+          <div *ngIf="isRecruiter">
+            <input type="checkbox" id="post" name="post" [value]="userProfile.post" [(ngModel)]="userProfile.post"
+              formControlName="post">
+            <label for="post">Post my Profile</label>
           </div>
-
         </div>
-        <div class="input-field col s12 m6 l6">
-          <input id="contact-companies" type="text" class="validate" name="userProfile.companies"
-            [(ngModel)]="userProfile.companies" formControlName="companies" />
-          <label [ngClass]="{ active: userProfile.companies }" for="contact-companies">Companies</label>
+        <div class="cancel">
+          <a (click)="gotoHome()" class="right waves-effect waves-light btn white grey-text">Cancel</a>
         </div>
-      </div>
-      <div class="row">
-
-        <div class="input-field col s12">
-          <span class='bio-title'>
-            Bio
-          </span>
-          <ckeditor formControlName="bio" [(ngModel)]="userProfile.bio" name="myckeditor" required [config]="ckeConfig"
-            debounce="500">
-          </ckeditor>
-        </div>
-      </div>
-
-
-    </ng-container>
-    <!--  -->
-    <div class="divider"></div>
-    <div class="row">
-      <div class="input-field col s10 m10 l6 offset-s1 offset-m1 offset-l3">
-        <a (click)="gotoHome()" class="right waves-effect waves-light btn white grey-text">Cancel</a>
-        <button type="submit" class="left waves-effect waves-light btn">
-          Save
-        </button>
       </div>
     </div>
   </form>

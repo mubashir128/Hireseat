@@ -151,8 +151,10 @@ export class RegisterComponent implements OnInit {
     }
     fd.append("fullname", this.signin.controls.fullname.value);
     fd.append("phoneNo", this.signin.controls.phoneNo.value);
+    const emailTrim = this.signin.controls.email.value.replace(/^\s+|\s+$/gm, '');
+    const emailLower = emailTrim.toLowerCase();
 
-    fd.append("email", this.signin.controls.email.value);
+    fd.append("email", emailLower);
 
     fd.append("companyName", this.signin.controls.companyName?.value);
     fd.append("webSiteLink", this.signin.controls.webSiteLink?.value);

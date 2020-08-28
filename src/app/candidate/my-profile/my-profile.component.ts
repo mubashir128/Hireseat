@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ResumeService } from 'src/app/_services/resume.service';
 
@@ -14,9 +14,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.css']
 })
-export class MyProfileComponent implements OnInit {
+export class MyProfileComponent implements OnInit, OnDestroy {
   // subscription
   getProfileSubscription: Subscription;
+  editCandidateProfileSubscription: Subscription;
+  uploadResumeSubscription: Subscription;
+
   candidateProfile: any;
   public editProfile: FormGroup;
   fileUploaded = 0;
@@ -40,6 +43,8 @@ export class MyProfileComponent implements OnInit {
       Employers2: [""],
       skills: [""],
       linkedIn: [""],
+      desiredRoles: [''],
+      desiredCompanies: [''],
       // 1st
       referralJobTitle1: [""],
       referralEmail1: [""],
@@ -72,7 +77,7 @@ export class MyProfileComponent implements OnInit {
       let file: File = fileList[0];
       var fdata = new FormData();
       fdata.append("image", file);
-      this.resumeService.uploadResume(fdata).subscribe(
+      this.uploadResumeSubscription = this.resumeService.uploadResume(fdata).subscribe(
         (data: any) => {
           if (data.result) {
             this.downloadURL = data.result;
@@ -93,7 +98,7 @@ export class MyProfileComponent implements OnInit {
     }
   }
   getProfile() {
-    this.candidateService.getCandidateProfile().subscribe((res) => {
+    this.getProfileSubscription = this.candidateService.getCandidateProfile().subscribe((res) => {
       // console.log('************************', res);
       this.candidateProfile = res;
       this.editProfile.patchValue({
@@ -147,12 +152,25 @@ export class MyProfileComponent implements OnInit {
 
     }
     this.editProfile.addControl('candidateId', new FormControl(this.candidateProfile._id));
-    this.candidateService.editProfile(this.editProfile.value).subscribe(res => {
-      if (res) {
-        Materialize.toast(res.msg, 1000);
-      }
-    }, err => {
-      Materialize.toast("Something Went Wrong !", 1000);
-    })
+    console.log(this.editProfile.valid);
+
+    if (this.editProfile.valid) {
+      this.editCandidateProfileSubscription = this.candidateService.editProfile(this.editProfile.value).subscribe(res => {
+        if (res) {
+          Materialize.toast(res.msg, 1000);
+        }
+      }, err => {
+        Materialize.toast("Something Went Wrong !", 1000);
+      });
+    } else {
+      Materialize.toast("Please complete the form!", 3000);
+
+    }
+  }
+  ngOnDestroy() {
+    if (this.editCandidateProfileSubscription) this.editCandidateProfileSubscription.unsubscribe();
+    if (this.getProfileSubscription) this.getProfileSubscription.unsubscribe();
+    if (this.uploadResumeSubscription) this.uploadResumeSubscription.unsubscribe();
+
   }
 }

@@ -1,6 +1,6 @@
 /* ========================= Card View Css : STARTS =========================== */
 .container {
-  width: 85%;
+  width: 100%;
 }
 .MainDetailsPage {
   /* background-color: #ffffff; */
@@ -74,9 +74,10 @@
   margin: 0px;
 }
 .BioDetails p {
-  font-size: 15px;
-  color: #929292;
+  font-size: 17px;
+  color: #3af;
   margin: 7px 0 10px;
+  font-weight: 600;
 }
 .BioDetails {
   width: 70%;
@@ -133,4 +134,7 @@
   border-radius: 3px;
   color: #fff !important;
   border: none;
+}
+.pointer:hover {
+  text-decoration: underline;
 }

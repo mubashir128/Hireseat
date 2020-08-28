@@ -38,7 +38,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-bottom: 1px solid rgb(189 191 194 / 70%);
+  border-bottom: 1px solid rgb(189 191 194 / 70%) !important;
   padding-bottom: 10px;
 }
 .candidate {

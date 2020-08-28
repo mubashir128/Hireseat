@@ -9,6 +9,7 @@ import { NewResumeComponent } from './new-resume/new-resume.component';
 import { WonBidsComponent } from './won-bids/won-bids.component';
 import { SearchResumeComponent } from '../resume-bank/search-resume/search-resume.component';
 import { VideoInterviewRoomComponent } from '../video-interview-room/video-interview-room.component';
+import { AllRecruitersComponent } from '../shared/shared-components/components/all-recruiters/all-recruiters.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,10 @@ const routes: Routes = [
         path: "video-interview-room",
         component: VideoInterviewRoomComponent
       },
-
+      {
+        path: "all-recruiters",
+        component: AllRecruitersComponent
+      },
 
     ],
     // canActivate: [RecruiterGuard]

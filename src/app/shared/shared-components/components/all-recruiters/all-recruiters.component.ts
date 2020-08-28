@@ -26,8 +26,15 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
       }
     });
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(this.user);
+    // console.log(this.user);
 
+  }
+  onLinkedIn(link: string) {
+    if (link.includes('https')) {
+      window.open(link, "_blank");
+    } else {
+      window.open('https://' + link, "_blank");
+    }
   }
   ngOnDestroy() {
     if (this.getAllPostRecruiterSubscription) {
@@ -35,10 +42,10 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
     }
   }
   onReqCoaching(recruiter) {
-    console.log('requesting for coaching', recruiter, this.user.userInfo.fullName);
+    // console.log('requesting for coaching', recruiter, this.user.userInfo.fullName);
 
     const payload = {
-      recipientEmail: recruiter.email,
+      recipientEmail: 'contact@hireseat.com',
       candidateFullName: this.user.userInfo.fullName,
       candidatePhoneNo: this.user.userInfo.phoneNo,
       recruiterFullName: recruiter.fullName,
@@ -46,7 +53,7 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
     }
     this.candidateService.reqCoaching(payload).subscribe(res => {
       if (res) {
-        console.log(res);
+        // console.log(res);
         Materialize.toast("Recruiter has been notified!", 2000);
         Materialize.toast("Recruiter will reach out to you!", 4000);
       }
