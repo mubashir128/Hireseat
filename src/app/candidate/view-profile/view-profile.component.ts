@@ -317,16 +317,16 @@ export class ViewProfileComponent implements OnInit {
   //       }
   //     );
   // }
-  // setCurrentTime(seconds, questionNumber) {
-  //   this.questionNumber = questionNumber;
-  //   // console.log(this.questionNumber);
+  setCurrentTime(seconds, questionNumber) {
+    this.questionNumber = questionNumber;
+    // console.log(this.questionNumber);
 
-  //   try {
-  //     this.videojsPlay.nativeElement.currentTime = seconds;
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
+    try {
+      this.videojsPlay.nativeElement.currentTime = seconds;
+    } catch (e) {
+      console.log(e);
+    }
+  }
   questionsPopUp() {
     this.questionConfirmPopup();
   }
