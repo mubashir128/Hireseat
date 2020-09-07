@@ -29,6 +29,8 @@ export class CandidateNavbarComponent implements OnInit {
     this.userProfile = new Profile();
     this.tabs1.push(new Tab('/candidate/my-profile', 'My Profile', true));
     this.tabs1.push(new Tab('/candidate/all-recruiters', 'Recruiters Market Place', false));
+    this.tabs1.push(new Tab('/candidate/my-reviewed-profiles', 'My Reviewed Profiles', false));
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         if (event.url === "/candidate/my-profile") {

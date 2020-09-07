@@ -1,0 +1,199 @@
+<div class="resume-item" *ngIf="resume.resumeType == 'system'">
+    <!--  (click)="showResume()" -->
+    <div class="sub-info" (click)="edit()">
+        <img src="assets/img/resume.png" style="
+          display: inline-block;
+          float: left;
+          width: 30%;
+          height: auto;
+          opacity: 0.75;
+        " />
+        <div class="candidate-name" style="
+          display: inline-block;
+          float: right;
+          width: 70%;
+          height: auto;
+          padding-left: 15px;
+        ">
+            <h3>{{ resume.candidateName }}</h3>
+
+            <h4 class="title">Job Title</h4>
+            <div class="listDiv">
+                <span class="chipu">{{ resume.jobTitle }} </span>
+            </div>
+
+            <h4 class="title">Skill set</h4>
+            <div class="skillSrcoll">
+                <span class="chipu" *ngFor="let skills of skillSet">{{ skills }} </span>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="divider"></div> -->
+    <div class="footerAbsolute">
+        <!-- <a class="btn-flat" (click)="edit()" style="margin-right:0px; padding:0 1rem;"><i
+          class="material-icons grey-text">edit</i></a> -->
+        <!-- <a class="btn-flat" (click)="delete()" style="margin-right: 0px; padding: 0 1rem;"><i
+                class="material-icons grey-text">delete</i></a> -->
+        <div class="btn-flat" style="margin-right: 0px; padding: 0 1rem;">
+            <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download grey-text"
+                    aria-hidden="true"></i></a>
+        </div>
+        <!-- <div class="btn-flat" style="margin-right: 0px; padding: 0 1rem;">
+            <i (click)="showShareModal(resume)" class="fa fa-share" aria-hidden="true"></i>
+        </div> -->
+        <div class="addToResumeList">
+            <!-- <span class="addToResumeList-title"
+                *ngIf="!(resume.addedToVideoInterviewRoomByRecruiter || resume.addedToVideoInterviewRoomByEmployer)"
+                (click)="onAddToInterviewList(resume)">
+                Add to video interview
+            </span>
+            <span class="interviewSchedule-title" (click)="viewCandidate(resume)" *ngIf="
+            (resume.addedToVideoInterviewRoomByRecruiter || resume.addedToVideoInterviewRoomByEmployer) &&
+            !(resume.interviewLinkedByRecruiter || resume.interviewLinkedByEmployer)
+          ">
+                Interview scheduled
+            </span> -->
+            <span class="addedToResumeList-title">
+                {{resume?.recruiterKey?.fullName}}
+            </span>
+        </div>
+    </div>
+</div>
+<div *ngIf="resumeVisible === 1" style="
+      z-index: 1000;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.7);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+    ">
+    <div class="left white-text" style="padding: 20px;">
+        {{ resume.candidateName }}
+    </div>
+    <div class="right" style="padding: 20px;">
+        <a (click)="closeResume()" class="waves-effect waves-teal btn-floating"><i class="material-icons">close</i></a>
+    </div>
+    <div class="resumeListPop" style="
+        height: 100%;
+        width: 100%;
+        padding-left: 20%;
+        padding-right: 20%;
+        padding-top: 5%;
+      ">
+        <app-pdf-viewer [url]="resume.fileURL"></app-pdf-viewer>
+    </div>
+</div>
+
+<div class="resume-item" *ngIf="resume.resumeType == 'resume_bank'">
+    <!--  (click)="showResumeForResumeBank()" -->
+    <div class="sub-info" (click)="showResumeForResumeBank()">
+        <img src="assets/img/resume.png" style="
+          display: inline-block;
+          float: left;
+          width: 30%;
+          height: auto;
+          opacity: 0.75;
+        " />
+        <div class="candidate-name" style="
+          display: inline-block;
+          float: right;
+          width: 70%;
+          height: auto;
+          padding-left: 15px;
+        ">
+            <span class="block">
+                {{ resume?.resumeBank_id?.firstName }}
+                {{ resume?.resumeBank_id?.lastName }}</span>
+            <!-- <span class="chipu">Resume Bank</span> -->
+            <span class="chipu">{{ resume?.resumeBank_id?.jobTitle }} </span>
+            <span class="chipu">{{ resume?.resumeBank_id?.skills }} </span>
+        </div>
+    </div>
+    <!-- <div class="divider"></div> -->
+    <div class="footerAbsolute">
+        <a class="btn-flat" (click)="showResumeForResumeBank()" style="margin-right: 0px; padding: 0 1rem;"><i
+                class="material-icons grey-text">remove_red_eye</i></a>
+        <a class="btn-flat" (click)="delete()" style="margin-right: 0px; padding: 0 1rem;"><i
+                class="material-icons grey-text">delete</i></a>
+        <!--  -->
+        <div class="btn-flat" style="margin-right: 0px; padding: 0 1rem;">
+            <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download grey-text"
+                    aria-hidden="true"></i></a>
+        </div>
+        <div class="addToResumeList">
+            <span class="addToResumeList-title" (click)="onAddToInterviewList(resume)">
+                Add to video interview
+            </span>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="resumeVisible === 2" style="
+      z-index: 1000;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.7);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+    ">
+    <div class="left white-text" style="padding: 20px;">
+        {{ resume?.resumeBank_id?.firstName }} {{ resume?.resumeBank_id?.lastName }}
+    </div>
+
+    <span class="chipu">{{ resume.jobTitle }} </span>
+    <span class="chipu">{{ resume.skills }} </span>
+    <div class="right" style="padding: 20px;">
+        <a (click)="closeResume()" class="waves-effect waves-teal btn-floating"><i class="material-icons">close</i></a>
+    </div>
+    <div class="resumeListPop" style="
+        height: 100%;
+        width: 100%;
+        padding-left: 20%;
+        padding-right: 20%;
+        padding-top: 5%;
+      ">
+        <app-pdf-viewer [url]="resume.resumeBank_id.resumeUrl"></app-pdf-viewer>
+    </div>
+</div>
+
+<!--message pop up:START-->
+<div id="emailConfirmPop" class="modal videoModalMain forumPopMain forumMsgPopup">
+    <a (click)="closeEmailConfirmpopup()" class="videoCloseBtn"><i class="material-icons">close</i></a>
+    <div class="modal-content videoModalContent">
+        <h4 class="slide-heading text-center">Interview Scheduled</h4>
+        <div class="modalBodyPop">
+            <p>Candidate added for an interview</p>
+        </div>
+    </div>
+</div>
+<!--message pop up:END-->
+
+<div id="shareEmailPopUp" class="modal">
+    <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
+    <div class="emailTemp">
+        <div class="form-group posRel">
+            <!-- <p class="hideBtn"><a href="#">Hide CC / BCC</a></p> -->
+            <label>To </label>
+            <input type="text" class="form-control inputComm" [(ngModel)]="recipientEmail" />
+        </div>
+        <div class="form-group posRel">
+            <label>CC </label>
+            <input type="text" class="form-control inputComm" [(ngModel)]="cc" />
+        </div>
+        <div class="form-group posRel">
+            <label>BCC </label>
+            <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
+        </div>
+        <div class="form-group textRight">
+            <button class="sendBtn" (click)="share(resume)">SEND</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,159 @@
+.resume-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  background-color: white;
+  padding: 15px 15px 70px 15px;
+  position: relative;
+  height: 100%;
+}
+.resume-item:hover {
+  background-color: #f1f9ff;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.sub-info-title {
+  font-size: 10px;
+  color: #90a4ae;
+  display: inline-block;
+  float: left;
+  width: 30%;
+  height: auto;
+}
+.sub-info-value {
+  font-size: 12px;
+  color: #546e7a;
+  display: inline-block;
+  float: right;
+  width: 70%;
+  height: auto;
+  padding-left: 10px;
+}
+.sub-info {
+  cursor: pointer;
+  /* display: table; */
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.candidate-name {
+  font-size: 20px;
+  color: #37474f;
+  font-weight: 500;
+}
+.candidate-name .title {
+  font-size: 14px;
+  margin: 10px 0 0px;
+}
+.candidate-name h3 {
+  font-size: 18px;
+  margin: 0 0;
+}
+.listDiv {
+  max-width: 280px;
+  /* max-height: 30px; */
+  overflow: auto;
+}
+.chipu {
+  display: inline-block;
+  background-color: #ddd;
+  text-align: center;
+  border-radius: 25px;
+  padding: 0px 10px;
+  width: auto;
+  font-size: 14px;
+  margin: 0 3px;
+}
+
+.accept-reject {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.accept {
+}
+.reject {
+}
+.btn-accept {
+  width: auto;
+  font-weight: 500;
+  height: 40px;
+  border-radius: none;
+  background-color: #34cc3b;
+  color: black;
+  font-size: 14px;
+  font-weight: 800;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  transition: all ease 0.3s;
+  padding: 20px 20px;
+}
+p {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-accept:active {
+  box-shadow: 0 1px 2px #666;
+  transform: translateY(2px);
+}
+
+.btn-reject {
+  width: auto;
+  font-weight: 500;
+  height: 40px;
+  border-radius: none;
+  background-color: #e63d3d;
+  color: black;
+  font-size: 14px;
+  font-weight: 800;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  transition: all ease 0.3s;
+  padding: 20px 20px;
+}
+p {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-reject:active {
+  box-shadow: 0 1px 2px #666;
+  transform: translateY(2px);
+}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .candidate-name .title {
+    font-size: 14px;
+    margin: 10px 0 0px;
+  }
+  .candidate-name h3 {
+    font-size: 18px;
+    margin: 0 0;
+  }
+}

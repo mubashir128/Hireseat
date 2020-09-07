@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 declare var jQuery: any;
 import * as $ from "jquery";
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var Materialize: any;
 @Component({
   selector: 'app-all-recruiters',
@@ -12,18 +13,30 @@ declare var Materialize: any;
 })
 export class AllRecruitersComponent implements OnInit, OnDestroy {
   getAllPostRecruiterSubscription: Subscription;
+  shareWithRecruiterSubscription: Subscription;
   recruiters: any;
   user: any;
   constructor(
-    private candidateService: CandidateService
+    private candidateService: CandidateService,
+    private spinner: NgxSpinnerService,
+
   ) { }
 
   ngOnInit() {
+    this.spinner.show();
+
     this.candidateService.getAllPostRecruiters().subscribe(res => {
       if (res) {
         // console.log(res);
         this.recruiters = res;
+        this.spinner.hide();
+
       }
+    }, error => {
+      Materialize.toast("Something Went Wrong !", 1000);
+
+      this.spinner.hide();
+
     });
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     // console.log(this.user);
@@ -36,11 +49,7 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
       window.open('https://' + link, "_blank");
     }
   }
-  ngOnDestroy() {
-    if (this.getAllPostRecruiterSubscription) {
-      this.getAllPostRecruiterSubscription.unsubscribe();
-    }
-  }
+
   onReqCoaching(recruiter) {
     // console.log('requesting for coaching', recruiter, this.user.userInfo.fullName);
 
@@ -51,15 +60,45 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
       recruiterFullName: recruiter.fullName,
       subject: this.user.userInfo.fullName + ' ' + 'Candidate request for coaching'
     }
+    this.spinner.show();
+
     this.candidateService.reqCoaching(payload).subscribe(res => {
       if (res) {
         // console.log(res);
         Materialize.toast("Recruiter has been notified!", 2000);
         Materialize.toast("Recruiter will reach out to you!", 4000);
+        this.spinner.hide();
+
       }
     }, err => {
       Materialize.toast("Something Went Wrong !", 1000);
+      this.spinner.hide();
 
     });
+  }
+  onShareWithRecruiter(recruiter) {
+    this.spinner.show();
+
+    const payload = {
+      recruiter_id: recruiter.refUserId._id
+    }
+    this.shareWithRecruiterSubscription = this.candidateService.sharewithRecruiter(payload).subscribe(res => {
+      if (res) {
+        Materialize.toast(res.msg, 1000);
+        this.spinner.hide();
+
+      }
+    }, err => {
+      console.log(err);
+      Materialize.toast('Something went wrong!', 1000);
+      this.spinner.hide();
+
+    })
+  }
+  // keep it at the end of the file
+  ngOnDestroy() {
+    if (this.getAllPostRecruiterSubscription) {
+      this.getAllPostRecruiterSubscription.unsubscribe();
+    }
   }
 }

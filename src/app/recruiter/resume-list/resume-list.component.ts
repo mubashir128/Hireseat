@@ -59,6 +59,7 @@ export class ResumeListComponent implements OnInit {
   getAllResume() {
     this.spinner.show();
     this.resumeService.getAllResume().subscribe((data: IResume[]) => {
+      // console.log(data)
       if (data.length > 0) {
         this.resumes = data;
         this.tempResume = this.resumes;
@@ -147,10 +148,10 @@ export class ResumeListComponent implements OnInit {
     this.showdropdown = !this.showdropdown;
   }
 
-  setFocus(){
-    setTimeout(()=>{
+  setFocus() {
+    setTimeout(() => {
       jQuery(".searchBox").focus();
-    },1000);
+    }, 1000);
   }
 
   searchtext(event) {
@@ -201,11 +202,11 @@ export class ResumeListComponent implements OnInit {
   onClick(event) {
   }
 
-  handleToggleSign(obj){
-    if(obj.searchTab){
-      jQuery(".searchForm").css("display","block");
-    }else{
-      jQuery(".searchForm").css("display","none");
+  handleToggleSign(obj) {
+    if (obj.searchTab) {
+      jQuery(".searchForm").css("display", "block");
+    } else {
+      jQuery(".searchForm").css("display", "none");
     }
   }
 
@@ -219,18 +220,18 @@ export class ResumeListComponent implements OnInit {
     this.filterBySkills(skillSets);
   }
 
-  filterBySkills(skillSets){
+  filterBySkills(skillSets) {
     if (skillSets.length === 0) {
       this.resumes = [...this.temp2Resume];
       this.tempResume = [...this.temp2Resume];
       return;
     }
 
-    this.resumes=[];
+    this.resumes = [];
     this.temp2Resume.filter(resume => {
       let name = resume.skills;
-      skillSets.map(data=>{
-        if(data === name){
+      skillSets.map(data => {
+        if (data === name) {
           this.resumes.push(resume);
         }
       });

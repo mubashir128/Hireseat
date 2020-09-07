@@ -121,5 +121,12 @@ export class ResumeService {
       return result;
     }));
   }
-
+  getMyWaitingList() {
+    return this.http.get<any>(this.baseurl + 'api/get-my-waiting-candidates').pipe(map((result: any) => result));
+  }
+  changeCandidateStatus(payload) {
+    return this.http.post<any>(this.baseurl + "api/change-candidate-status", payload).pipe(map((result: any) => {
+      return result;
+    }));
+  }
 }

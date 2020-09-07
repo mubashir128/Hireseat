@@ -1,0 +1,175 @@
+<div *ngIf="mode === 0">
+
+  <!-- <div class="row right">
+      <a class="waves-effect waves-light btn newResumeBtn" [routerLink]="['/recruiter/new-resume']">
+        <i class="material-icons left">add</i> New Resume</a>
+    </div> -->
+
+  <!-- <div class="row" style="margin-top: 10px;">
+      <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
+    </div> -->
+
+  <!-- <div class="searchForm">
+      <form [formGroup]="SearchFrm" novalidate>
+        <div class="input-field disFlex s12 m12 l12" style="text-align: left;">
+          <div class="inputInnerDiv">
+            <div class="skillInput">Select the skill sets*</div>
+            <span>Note: select skills from dropdown</span>
+            <tag-input
+              class="borderBott borderBottN skillBorBott"
+              [(ngModel)]="tags"
+              formControlName="tags"
+              [addOnBlur]="true"
+              (onAdd)="onadd($event)"
+              (onRemove)="onadd($event)"
+              [onlyFromAutocomplete]="true"
+              [placeholder]="'search by skillSets'"
+              [secondaryPlaceholder]="'search by skillSets'"
+            >
+              <tag-input-dropdown
+                [autocompleteItems]="skillSets"
+                [keepOpen]="false"
+                [showDropdownIfEmpty]="true"
+                [dynamicUpdate]="false"
+              >
+              </tag-input-dropdown>
+            </tag-input>
+          </div>
+        </div>
+      </form>
+  
+      <div class="right-align mainTopBar marT10">
+        <div class="posrelDiv dropdownMain">
+          <div class="input-field" (click)="toggle($event)">
+            <form [formGroup]="searchResumeBid">
+              <label style="margin-top: -15px;" for="jobProfiler" for="selectedResumeIs"
+                [ngClass]="{ hide: selectedResumeIs }"></label>
+              <input type="hidden" name="selectedResumeIs" id="selectedResumeIs" class="selectedResume"
+                placeholder="Select Resume" />
+              <a class="dropdown-button_resume" data-activates="dropdown_jobProfile_resume" #searchAll>
+                {{ CandidateName }}
+              </a>
+              <i id="toggleDropdownId" class="material-icons right" style="cursor: pointer;" (click)="openDropdown($event)">
+                arrow_drop_down
+              </i>
+            </form>
+          </div>
+          <div id="dropdown_jobProfile_resume" *ngIf="toggleSearch" class="dropdown-content bidDropDown dropdown-toggle">
+            <div class="searchDivList">
+              <input type="text" (input)="searchtext($event)" (focus)="onfocus($event)" placeholder="search"
+                autocomplete="off" class="searchBox" [(ngModel)]="CandidateName"
+                style="padding: 0 20px; box-sizing: border-box; position: relative; margin: 0;" #searchByName/>
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <ul class="resumeDrodown">
+              <li *ngFor="let resume of tempResume">
+                <a [ngClass]="{ myclass: resume._id | inArray: resume?._id }"
+                  (click)="selectedResumeVal(resume?._id, resume?.candidateName)"
+                  class="noCSSjustClosingDiv">{{ resume.candidateName}} , years of experience :
+                  {{ resume?.experience || "fresher" }} ,
+                  <span *ngFor="let skill of resume?.tags">{{
+                    skill?.display
+                  }}</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div> -->
+
+  <div style="margin-top : 10px;">
+    <div style="margin-top: 15px;" *ngIf="!noResume">
+      <ul class="resumeList">
+        <li *ngFor="
+              let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }
+            " class="col s12 m12 l6 floatUns marginUns">
+          <div class="resume-item">
+            <!--  (click)="showResume()" (click)="edit()" -->
+            <div class="sub-info">
+              <img src="assets/img/resume.png" style="
+                      display: inline-block;
+                      float: left;
+                      width: 30%;
+                      height: auto;
+                      opacity: 0.75;
+                    " />
+              <div class="candidate-name" style="
+                      display: inline-block;
+                      float: right;
+                      width: 70%;
+                      height: auto;
+                      padding-left: 15px;
+                    ">
+                <h3>{{ resume.candidate_id.fullName }}</h3>
+
+                <h4 class="title">Job Title</h4>
+                <div class="listDiv">
+                  <span class="chipu">{{ resume.jobTitle }} </span>
+                </div>
+
+                <h4 class="title">Skill set</h4>
+                <div class="skillSrcoll">
+                  <span class="chipu" *ngFor="let skill of this.splitSkills(resume.skills)">{{ skill }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="divider"></div> -->
+            <div class="footerAbsolute">
+              <!-- <a class="btn-flat" (click)="edit()" style="margin-right:0px; padding:0 1rem;"><i
+                      class="material-icons grey-text">edit</i></a> -->
+              <!-- <a class="btn-flat" (click)="delete()" style="margin-right: 0px; padding: 0 1rem;"><i
+                      class="material-icons grey-text">delete</i></a> -->
+              <div class="btn-flat" style="margin-right: 0px; padding: 0 1rem;">
+                <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download grey-text"
+                    aria-hidden="true"></i></a>
+              </div>
+              <!-- <div class="btn-flat" style="margin-right: 0px; padding: 0 1rem;">
+                <i (click)="showShareModal(resume)" class="fa fa-share" aria-hidden="true"></i>
+              </div> -->
+              <div class="accept-reject">
+                <div class="accept">
+                  <div class="btn-accept" (click)="changeStatus('accepted',resume)">
+                    <span>Accept</span>
+                  </div>
+                </div>
+                <div class="reject">
+                  <div class="btn-reject" (click)="changeStatus('rejected',resume)">
+                    <span>Reject</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="row">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="mode === 1">
+  <!-- <app-edit-resume [resume]="selectedResume" (back)="comeBack()" (getAllResume)="getAllResume($event)">
+    </app-edit-resume> -->
+</div>
+<div *ngIf="noResume">
+  No Results to show
+</div>
+
+<div id="DeleteConfirm" class="modal">
+  <div class="modal-content">
+    <h4 class="bluePopHead">Confirm Delete Action</h4>
+    <p class="bodyPara">Are want to sure delete this resume ?</p>
+    <div class="modal-footer marT10">
+      <div class="textCenter">
+        <button (click)="confirmedDeleteResume()" class="waves-effect waves-light btn">
+          Yes</button>&nbsp;&nbsp;
+        <button class="modal-close waves-effect waves-light btn noBtn">
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,7 @@ import { RecruiterHomeComponent } from './recruiter-home/recruiter-home.componen
 import { TagInputModule } from "ngx-chips";
 import { NgHighlightModule } from 'ngx-text-highlight';
 import { RecruiterBrodcastModule } from '../recruiter-brodcast/recruiter-brodcast.module';
+import { WaitingListComponent } from './waiting-list/waiting-list.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { RecruiterBrodcastModule } from '../recruiter-brodcast/recruiter-brodcas
     ResumeListComponent,
     RecruiterHomeComponent,
     WonBidsComponent,
-    SearchResumeComponent
+    SearchResumeComponent,
+    WaitingListComponent
   ]
 })
 export class RecruiterModule { }

@@ -10,6 +10,7 @@ import { WonBidsComponent } from './won-bids/won-bids.component';
 import { SearchResumeComponent } from '../resume-bank/search-resume/search-resume.component';
 import { VideoInterviewRoomComponent } from '../video-interview-room/video-interview-room.component';
 import { AllRecruitersComponent } from '../shared/shared-components/components/all-recruiters/all-recruiters.component';
+import { WaitingListComponent } from './waiting-list/waiting-list.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
         path: "all-recruiters",
         component: AllRecruitersComponent
       },
+      {
+        path: 'waiting-list',
+        component: WaitingListComponent
+      }
 
     ],
     // canActivate: [RecruiterGuard]

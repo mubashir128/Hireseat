@@ -8,6 +8,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedComponentsModule } from '../shared/shared-components/shared-components.module';
 import { CandidateHomeComponent } from './candidate-home/candidate-home.component';
 import { CandidateNavbarComponent } from './candidate-navbar/candidate-navbar.component';
+import { MyReviewedProfilesComponent } from './my-reviewed-profiles/my-reviewed-profiles.component';
+import { ViewProfileComponent } from './view-profile/view-profile.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ProfileItemsComponent } from './profile-items/profile-items.component';
 
 
 @NgModule({
@@ -15,14 +19,18 @@ import { CandidateNavbarComponent } from './candidate-navbar/candidate-navbar.co
     MyProfileComponent,
     // AllRecruitersComponent,
     CandidateHomeComponent,
-    CandidateNavbarComponent
+    CandidateNavbarComponent,
+    MyReviewedProfilesComponent,
+    ViewProfileComponent,
+    ProfileItemsComponent
   ],
   imports: [
     CommonModule,
     CandidateRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    NgxPaginationModule
   ]
 })
 export class CandidateModule { }

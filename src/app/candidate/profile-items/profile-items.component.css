@@ -1,0 +1,227 @@
+.candidate-name {
+  font-size: 20px;
+  color: #37474f;
+  font-weight: 500;
+}
+.sub-info-title {
+  font-size: 10px;
+  color: #90a4ae;
+  display: inline-block;
+  float: left;
+  width: 30%;
+  height: auto;
+}
+.sub-info-value {
+  font-size: 12px;
+  color: #546e7a;
+  display: inline-block;
+  float: right;
+  width: 70%;
+  height: auto;
+  padding-left: 10px;
+}
+.sub-info {
+  cursor: pointer;
+  /* display: table; */
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.resume-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  background-color: white;
+  padding: 15px 15px 70px 15px;
+  position: relative;
+  height: 100%;
+}
+.resume-item:hover {
+  background-color: #f1f9ff;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.chipu {
+  display: inline-block;
+  background-color: #ddd;
+  text-align: center;
+  border-radius: 25px;
+  padding: 0px 10px;
+  width: auto;
+  font-size: 14px;
+  margin: 0 3px;
+}
+.block {
+  display: block;
+  /* font-size: 18px; */
+}
+.footerAbsolute {
+  padding: 10px 0px 10px 0px;
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  border-top: 1px solid #e4e4e4;
+  left: 5%;
+  display: flex;
+}
+/*================================ mobile responsive css start  ===============================*/
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .footerAbsolute {
+    padding: 10px 0px 10px 0px;
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    border-top: 1px solid #e4e4e4;
+    left: 5%;
+  }
+}
+.addToResumeList {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.addToResumeList-title {
+  height: auto;
+  font-weight: 600;
+  color: #37474f;
+  cursor: pointer;
+}
+.addedToResumeList-title {
+  height: auto;
+  font-weight: 600;
+  color: #1f805b;
+  cursor: pointer;
+}
+.interviewSchedule-title {
+  height: auto;
+  font-weight: 600;
+  color: #2ea9fa;
+  cursor: pointer;
+}
+.candidate-name .title {
+  font-size: 14px;
+  margin: 10px 0 0px;
+}
+.candidate-name h3 {
+  font-size: 18px;
+  margin: 0 0;
+}
+.skillSrcoll {
+  height: 150px;
+  overflow-y: auto;
+}
+/* Custom scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #999999;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  /* background: #03a9f4;  */
+  background: #afafaf;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2ea9fa;
+}
+/* Custom scrollbar ends */
+.listDiv {
+  max-width: 280px;
+  /* max-height: 30px; */
+  overflow: auto;
+}
+.fa-share {
+  color: #9e9e9e !important;
+}
+/* share via email modal */
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fafafa;
+  padding: 0;
+  max-height: 70%;
+  width: 35%;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 5px;
+  will-change: top, opacity;
+}
+.emailTemp {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: auto;
+  padding: 20px 40px;
+}
+.posRel {
+  position: relative;
+}
+.posRel label {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  font-size: 15px;
+  color: #b2b2b2;
+}
+.inputComm {
+  height: 40px;
+  width: 94% !important;
+  border: none;
+  margin-bottom: 10px !important;
+  padding-left: 40px !important;
+  border-bottom: 1px solid #c2c2c2;
+}
+button.sendBtn {
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin-top: 20px;
+}
+.textRight {
+  text-align: right;
+}
+a.videoCloseBtn {
+  position: absolute;
+  top: -30px;
+  color: #fff !important;
+  z-index: 99999999;
+  right: 0;
+  font-size: 20px !important;
+  cursor: pointer;
+}
+.fa-times {
+  color: black !important;
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.hideBtn {
+  position: absolute;
+  right: 0;
+}
+.hideBtn a {
+  color: #b2b2b2;
+}
+/* END share via email modal */
