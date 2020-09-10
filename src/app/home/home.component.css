@@ -8,7 +8,8 @@
 .bestRecruitmentText {
     position: absolute;
     top: 40%;
-    left: 33%;
+    /* left: 33%; */
+    left: 40%;
     transform: translate(-50%, -50%);
 }
 .BoldText {
@@ -20,7 +21,7 @@
     font-family: 'gilroyregular';
 }
 .bestRecruitmentText h3{
-    font-size: 45px;
+    font-size: 40px;
     color: #1c2d41;
 }
 .KnowMoreBtn {
