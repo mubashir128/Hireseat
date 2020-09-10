@@ -14,6 +14,7 @@ declare var jQuery: any;
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  //
   public userProfile: IProfile;
   public userInfoDetails: any;
   public profilefrm: FormGroup;
