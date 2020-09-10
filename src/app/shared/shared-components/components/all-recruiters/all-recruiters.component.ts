@@ -14,6 +14,7 @@ declare var Materialize: any;
 export class AllRecruitersComponent implements OnInit, OnDestroy {
   getAllPostRecruiterSubscription: Subscription;
   shareWithRecruiterSubscription: Subscription;
+  requestCoachingSubscription: Subscription;
   recruiters: any;
   user: any;
   constructor(
@@ -27,7 +28,6 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
 
     this.candidateService.getAllPostRecruiters().subscribe(res => {
       if (res) {
-        // console.log(res);
         this.recruiters = res;
         this.spinner.hide();
 
@@ -62,11 +62,13 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
     }
     this.spinner.show();
 
-    this.candidateService.reqCoaching(payload).subscribe(res => {
+    this.requestCoachingSubscription = this.candidateService.reqCoaching(payload).subscribe(res => {
       if (res) {
         // console.log(res);
-        Materialize.toast("Recruiter has been notified!", 2000);
+        // Materialize.toast("Recruiter has been notified!", 2000);
         Materialize.toast("Recruiter will reach out to you!", 4000);
+
+        this.onShareWithRecruiter(recruiter);
         this.spinner.hide();
 
       }
@@ -78,6 +80,7 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
   }
   onShareWithRecruiter(recruiter) {
     this.spinner.show();
+    Materialize.toast("Sharing your profile with the recruiter...", 4000);
 
     const payload = {
       recruiter_id: recruiter.refUserId._id
@@ -99,6 +102,12 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.getAllPostRecruiterSubscription) {
       this.getAllPostRecruiterSubscription.unsubscribe();
+    }
+    if (this.requestCoachingSubscription) {
+      this.requestCoachingSubscription.unsubscribe();
+    }
+    if (this.shareWithRecruiterSubscription) {
+      this.shareWithRecruiterSubscription.unsubscribe();
     }
   }
 }
