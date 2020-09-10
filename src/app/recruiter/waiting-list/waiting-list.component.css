@@ -159,6 +159,19 @@ p {
     font-size: 18px;
     margin: 0 0;
   }
+  .resumeList {
+      padding: 0 !important;
+  }
+  .col{
+    padding: 0 !important;
+  }
+}
+@media only screen and (min-width: 767px) and (max-width: 1024px){
+.btn-flat.DownldResum a {
+  padding: 10px 0 !important;
+  box-sizing: border-box !important;
+  line-height: 1.5 !important;
+}
 }
 
 
