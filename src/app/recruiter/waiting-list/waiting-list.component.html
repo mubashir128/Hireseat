@@ -84,7 +84,7 @@
         <li *ngFor="
               let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }
             " class="col s12 m12 l6 floatUns marginUns">
-          <div class="resume-item">
+          <div class="resume-item WaitingResume">
             <!--  (click)="showResume()" (click)="edit()" -->
             <div class="sub-info">
               <img src="assets/img/resume.png" style="
@@ -121,9 +121,9 @@
                       class="material-icons grey-text">edit</i></a> -->
               <!-- <a class="btn-flat" (click)="delete()" style="margin-right: 0px; padding: 0 1rem;"><i
                       class="material-icons grey-text">delete</i></a> -->
-              <div class="btn-flat" style="margin-right: 0px; padding: 0 1rem;">
-                <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download grey-text"
-                    aria-hidden="true"></i></a>
+              <div class="btn-flat DownldResum" style="margin-right: 0px; padding: 0 1rem;">
+                <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download"
+                    aria-hidden="true"></i>Click here to view resume </a>
               </div>
               <!-- <div class="btn-flat" style="margin-right: 0px; padding: 0 1rem;">
                 <i (click)="showShareModal(resume)" class="fa fa-share" aria-hidden="true"></i>
