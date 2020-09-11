@@ -12,9 +12,9 @@
                 <app-candidate-navbar (selected)="navigate($event)"></app-candidate-navbar>
 
             </div>
-            <!-- <div class="col s12 m9 l9"> -->
-            <div [ngClass]="{
-        }">
+            <div class="col s12 m9 l9">
+                <!-- <div [ngClass]="{
+        }"> -->
                 <div class="LogOutOption desktopRe" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
                     <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
                     <a (click)="logoutSA()"> Logout </a>

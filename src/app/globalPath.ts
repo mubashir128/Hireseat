@@ -1,10 +1,15 @@
 // local path with IP address
 // export const baseUrl = 'http://192.168.100.21:5000/';
 
+import { environment } from 'src/environments/environment';
+
+export const baseUrl = environment.baseUrl;
+export const socketUrl = environment.socketUrl;
+// import { environment} from '../environments/environment.prod';
 // local path with ip server path
-export const baseUrl = 'http://localhost:5002/'; // ip link
+// export const baseUrl = 'http://localhost:5000/'; // ip link
 // socketUrl
-export const socketUrl = "ws://localhost:5002/webSocket";
+// export const socketUrl = "ws://localhost:5000/webSocket";
 // export const SAMPLE_SERVER_BASE_URL = 'https://tokboxhireseat.herokuapp.com/';  Sujith
 
 // Test Server
@@ -32,3 +37,4 @@ export const socketUrl = "ws://localhost:5002/webSocket";
 // export const baseUrl = 'https://hireseat.com:5002/';
 // socketUrl
 // export const socketUrl = "wss://hireseat.com:5002/webSocket";
+
