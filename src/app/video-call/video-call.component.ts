@@ -15,7 +15,8 @@ declare var jQuery: any;
 import * as $ from 'jquery';
 import { VideoCallingService } from '../_services/video-calling.service';
 import { DomSanitizer } from '@angular/platform-browser';
-
+declare var Materialize: any;
+declare var jQuery: any;
 @Component({
   selector: 'app-video-call',
   templateUrl: './video-call.component.html',
@@ -26,6 +27,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class VideoCallComponent implements OnInit, OnDestroy {
   bookmarkSubscription: Subscription;
   askQuestionSubscription: Subscription;
+  startArchiveSubscription: Subscription;
   QuestionsGroup: FormGroup;
   userRole: any;
   userId: any;
@@ -186,12 +188,15 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.opentokService.setCandidateId(this.candidateId);
           // console.log(this.candidateInfo);
 
+        }, error => {
+          console.log('---------------', error);
+
         });
         // end resume candidate
       }
     }
     //
-    this.opentokService.initSessionAPI(this.candidateId).then((session: OT.Session) => {
+    this.opentokService.initSessionAPI(this.candidateId).subscribe((session: OT.Session) => {
       this.spinner.show();
       this.session = session;
       // console.log('session', this.session.sessionId);
@@ -245,21 +250,56 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         this.viewArchiveButton = true;
       });
 
+      if (session) {
+        this.opentokService.connect()
+          .then(result => {
+            console.log('***********', result);
 
+          })
+          .catch(err => {
+            this.spinner.hide();
 
-    })
-      .then(() => {
-        this.spinner.show();
+            console.log('---------------', err);
 
-        this.opentokService.connect();
+          });
         this.showButtons = true;
-      })
-      .catch((err) => {
-        console.error(err);
-        this.spinner.hide();
+      }
+    }, err => {
+      console.log('-------------------------', err);
+      this.spinner.hide();
 
-        // alert('Unable to connect.');
-      });
+      this.emailConfirmPopup(err + ' please try after some time!', 2000);
+      setTimeout(() => {
+        if (this.userRole === 'recruiter') {
+          this.router.navigate(['/recruiter/video-interview-room'])
+        } else if (this.userRole === 'employer') {
+          this.router.navigate(['/employer/video-interview-room'])
+        }
+      }, 3000);
+
+    });
+    // .then(() => {
+    //   this.spinner.show();
+
+    //   this.opentokService.connect()
+    //     .then(result => {
+    //       console.log('***********', result);
+
+    //     })
+    //     .catch(err => {
+    //       this.spinner.hide();
+
+    //       console.log('---------------', err);
+
+    //     });
+    //   this.showButtons = true;
+    // })
+    // .catch((error) => {
+    //   console.log('---------------', error);
+    //   this.spinner.hide();
+
+    //   // alert('Unable to connect.');
+    // });
 
   }
 
@@ -309,38 +349,54 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
   //  archiving
 
+  // startArchive() {
+  //   $.ajax({
+  //     url: baseUrl + 'api/archive/start',
+  //     type: 'POST',
+  //     contentType: 'application/json', // send as JSON
+  //     data: JSON.stringify({ sessionId: this.session.sessionId }),
+
+  //     complete: function complete() {
+  //       // called when complete
+  //       // console.log('startArchive() complete');
+  //     },
+
+  //     success: function success(event) {
+  //       // called when successful
+  //       // console.log('successfully called startArchive()', event);
+  //       this.opentokService.setArchivingID(event.id);
+  //       this.arcId = event.id;
+  //     },
+
+  //     error: function error() {
+  //       // called when there is an error
+  //       console.log('error calling startArchive()');
+  //     }
+  //   });
+
+  //   $('#start').hide();
+  //   $('#stop').show();
+
+  //   this.startArchiveButton = false;
+  //   this.stopArchiveButton = true;
+  // }
   startArchive() {
-    $.ajax({
-      url: baseUrl + 'api/archive/start',
-      type: 'POST',
-      contentType: 'application/json', // send as JSON
-      data: JSON.stringify({ sessionId: this.session.sessionId }),
+    this.startArchiveSubscription = this.videoCallingService.startArchive({ sessionId: this.session.sessionId }).subscribe(res => {
+      if (res) {
+        this.opentokService.setArchivingID(res.id);
+        this.arcId = res.id;
+        $('#start').hide();
+        $('#stop').show();
 
-      complete: function complete() {
-        // called when complete
-        // console.log('startArchive() complete');
-      },
-
-      success: function success(event) {
-        // called when successful
-        // console.log('successfully called startArchive()', event);
-        this.opentokService.setArchivingID(event.id);
-        this.arcId = event.id;
-      },
-
-      error: function error() {
-        // called when there is an error
-        // console.log('error calling startArchive()');
+        this.startArchiveButton = false;
+        this.stopArchiveButton = true;
       }
-    });
+    }, error => {
+      console.log('error on start archive', error);
+      Materialize.toast('Error on start archive', 4000)
 
-    $('#start').hide();
-    $('#stop').show();
-
-    this.startArchiveButton = false;
-    this.stopArchiveButton = true;
+    })
   }
-
   stopArchive() {
     // console.log('archive ID while stoping', this.archiveID);
 
@@ -381,6 +437,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       }
     }, err => {
       // console.log('error', err);
+      Materialize.toast(err + 'Unable to store the archive', 4000);
 
     });
   }
@@ -525,7 +582,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         break;
       case 'recruiter':
 
-        if (!this.archiveStored && !this.startArchiveButton) {
+        if (this.viewArchiveButton) {
           console.log('Hung up without storing?');
           this.endCallConfirmPopup();
         } else {
@@ -536,7 +593,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         }
         break;
       case 'employer':
-        if (!this.archiveStored && !this.startArchiveButton) {
+        if (this.viewArchiveButton) {
           console.log('Hung up without storing?');
           this.endCallConfirmPopup();
         } else {
@@ -556,7 +613,10 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy() {
-    if (this.publisher) {
+    console.log('!!!!!!!!!!!!!!', this.publisher);
+    console.log('!!!!!!!!!!!!!!', this.session);
+
+    if (this.publisher.length > 0) {
       this.opentokService.setMeetingStatus(true);
       this.session.unpublish(this.publisher);
 
@@ -565,7 +625,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     if (this.stopArchiveButton) {
       this.stopArchive();
     }
-    this.session.disconnect();
+    if (this.session) {
+      this.session.disconnect();
+    }
 
     this.publisher = null;
     if (this.publishedStreamSubscription) {

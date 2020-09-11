@@ -39,6 +39,14 @@ export class VideoCallingService {
       })
     );
   }
+
+  startArchive(payload) {
+    return this.http.post<any>(this.baseurl + 'api/archive/start', payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
   storeArchive(payload) {
     return this.http.post<any>(this.baseurl + 'api/storeArchive', payload).pipe(
       map((res: any) => {

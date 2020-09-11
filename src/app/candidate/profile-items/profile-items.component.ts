@@ -355,7 +355,7 @@ export class ProfileItemsComponent implements OnInit {
                   },
                   (err) => {
                     // console.log(err);
-                    Materialize.toast("unable to send an email!", 3000);
+                    Materialize.toast("unable to send an email!", 4000);
                     jQuery("#shareEmailPopUp").modal("close");
                     this.spinner.hide();
 
@@ -363,7 +363,7 @@ export class ProfileItemsComponent implements OnInit {
                 );
             } else {
               // console.log('no sharable video available');
-              Materialize.toast("no sharable video available", 3000);
+              Materialize.toast("no sharable video available", 4000);
               this.spinner.hide();
 
             }
