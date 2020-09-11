@@ -8,8 +8,8 @@
 .bestRecruitmentText {
     position: absolute;
     top: 40%;
-    /* left: 33%; */
-    left: 40%;
+    left: 28%;
+    /* left: 40%; */
     transform: translate(-50%, -50%);
 }
 .BoldText {
@@ -17,11 +17,11 @@
     font-family: 'gilroybold';
 }
 .ThinTextHeading {
-    margin: 0px 0;
+    margin: 0px 0 20px;
     font-family: 'gilroyregular';
 }
 .bestRecruitmentText h3{
-    font-size: 40px;
+    font-size: 35px;
     color: #1c2d41;
 }
 .KnowMoreBtn {
@@ -42,7 +42,7 @@
     padding: 170px 120px ;
 } */
 .secHeadingDiv {
-    height: 150px;
+    /* height: 150px; */
 }
 .width50 {
     width: 50%;
@@ -77,12 +77,12 @@
     width: 100%;
 }
 .SecHeading {
-    font-size: 50px;
+    font-size: 45px;
     color: #fff;
     font-family: 'gilroyextrabold';
 }
 .proveText h5 {
-    font-size: 30px;
+    font-size: 24px;
     color: #fff;
     font-family: 'gilroybold';
     margin: 20px 0;
@@ -91,8 +91,8 @@
     font-family: 'gilroyregular';
     color: #fff;
     /* font-size: 16px; */
-    font-size: 20px;
-    line-height: 2;
+    font-size: 17px;
+    line-height: 1.5;
 }
 .headeLeftImg{
     margin: 0 0 -.0155vw;
@@ -571,7 +571,7 @@ and (max-width : 1024px)  {
     margin-bottom: 0;
 }
 .secHeadingDiv{
-    height: 90px;
+    /* height: 90px; */
 }
 .newBtnTextB{
     display: block;
