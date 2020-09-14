@@ -18,8 +18,12 @@
     <div class="row">
       <div class="input-field col s12 m8 l8">
         <label [ngClass]="{ active: userProfile.companyName }" for="company-name">Company Name *</label>
-        <h5 id="company-name">{{ userProfile.companyName }}</h5>
-        <!-- <input id="company-name" type="text" class="validate" name="userProfile.companyName" [(ngModel)]="userProfile.companyName">  -->
+        <!-- <h5 id="company-name">{{ userProfile.companyName }}</h5> -->
+        <input id="company-name" type="text" class="validate" name="userProfile.companyName"
+          [(ngModel)]="userProfile.companyName" formControlName="companyName">
+        <div *ngIf="f.companyName.touched && f.companyName.errors" class="invalid-feedback" class="error">
+          <div *ngIf="f.companyName.errors.required">Company name is required</div>
+        </div>
       </div>
       <div class="col s12 m2 l2 rewarDiv" *ngIf="loggedinUser.userInfo.userRole != 'employer'">
         <!--  <div style="width:100%; height:80px; background-color:grey;">
