@@ -547,7 +547,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   endCallConfirmPopup() {
     jQuery("#endCallConfirmPop").modal("open");
   }
-  async closeendCallConfirmpopup(rsn: null) {
+  async closeendCallConfirmpopup(rsn) {
     this.closeStatus = rsn;
     if (rsn === 'yes') {
       if (this.userRole === 'recruiter') {
