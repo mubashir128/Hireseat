@@ -15,6 +15,7 @@ declare var jQuery: any;
 import * as $ from 'jquery';
 import { VideoCallingService } from '../_services/video-calling.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { integer } from 'aws-sdk/clients/cloudfront';
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -253,16 +254,18 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       if (session) {
         this.opentokService.connect()
           .then(result => {
-            console.log('***********', result);
+            if (result) {
+              Materialize.toast('Welcome to video calling', 4000)
+              this.spinner.hide();
+              this.showButtons = true;
 
+            }
           })
           .catch(err => {
             this.spinner.hide();
 
-            console.log('---------------', err);
 
           });
-        this.showButtons = true;
       }
     }, err => {
       console.log('-------------------------', err);
@@ -414,7 +417,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     $('#stop').show();
     this.stopArchiveButton = true;
   }
-  storeArchive() {
+  storeArchive = (): integer => {
     // store archived view
     $('#view').prop('disabled', true);
     this.viewArchiveButton = true;
@@ -434,12 +437,14 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         // this.candidateInvitationLink = false;
         this.startArchiveButton = true;
         this.archiveStored = true;
+        return true;
       }
     }, err => {
       // console.log('error', err);
       Materialize.toast(err + 'Unable to store the archive', 4000);
-
+      return false;
     });
+    return 1;
   }
   // submit recruiters review
   submitReview() {
@@ -542,27 +547,50 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   endCallConfirmPopup() {
     jQuery("#endCallConfirmPop").modal("open");
   }
-  closeendCallConfirmpopup(rsn) {
+  async closeendCallConfirmpopup(rsn: null) {
     this.closeStatus = rsn;
     if (rsn === 'yes') {
       if (this.userRole === 'recruiter') {
-        jQuery("#endCallConfirmPop").modal("close");
+        Materialize.toast('Closing without Storing!', 3000);
+        setTimeout(() => {
+          this.viewArchiveButton = false;
 
-        this.router.navigate(['/recruiter/video-interview-room'])
-          .then(() => {
-            window.location.reload();
-          });
+          jQuery("#endCallConfirmPop").modal("close");
+          this.endCall('recruiter');
+        }, 3000);
+
       }
       if (this.userRole === 'employer') {
-        jQuery("#endCallConfirmPop").modal("close");
+        this.viewArchiveButton = false;
 
-        this.router.navigate(['/employer/video-interview-room'])
-          .then(() => {
-            window.location.reload();
-          });
+        Materialize.toast('Closing without Storing!', 3000);
+        setTimeout(() => {
+          jQuery("#endCallConfirmPop").modal("close");
+          this.endCall('employer');
+        }, 3000);
+
+
       }
     } else if (rsn === 'no') {
+      Materialize.toast('Storing the recording!', 3000);
+      const isArchiveStored = await this.storeArchive();
+      if (isArchiveStored) {
+        jQuery("#endCallConfirmPop").modal("close");
+        if (this.userRole === 'recruiter') {
+          this.viewArchiveButton = false;
+
+          this.endCall('recruiter');
+        }
+        if (this.userRole === 'employer') {
+          this.viewArchiveButton = false;
+
+          this.endCall('employer');
+        }
+      }
+
+    } else {
       jQuery("#endCallConfirmPop").modal("close");
+
     }
 
   }

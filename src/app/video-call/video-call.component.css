@@ -69,9 +69,10 @@ app-subscriber {
   justify-content: flex-end;
 }
 .spacing {
-  width: 20%;
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
+  padding: 20px 0 0 0;
 }
 /* The Close Button */
 .close {
@@ -135,9 +136,13 @@ nav ul a {
 }
 
 .modalBodyPop {
+  display: flex;
+  justify-content: center;
   border-top: 1px solid #ddd;
-  padding: 0 30px;
-  margin-bottom: 30px;
+  padding: 40px 30px 40px 30px;
+  border-bottom: 1px solid #ddd;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .questionDiv {

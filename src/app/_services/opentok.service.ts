@@ -73,8 +73,6 @@ export class OpentokService {
     //     return this.session;
     //   });
     return this.http.get<any>(this.baseurl + 'api/room/' + name).pipe(map((res: any) => {
-      // return res;
-      console.log('###############', res);
 
       this.session = this.getOT().initSession(res.apiKey, res.sessionId);
       this.token = res.token;
