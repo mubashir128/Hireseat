@@ -38,8 +38,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-bottom: 1px solid rgb(189 191 194 / 70%) !important;
-  padding-bottom: 10px;
 }
 .candidate {
   width: 100%;
@@ -47,4 +45,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid #33aaff !important;
+  padding-bottom: 30px;
+}
+.role-section {
+  display: flex;
+  flex-direction: column-reverse;
 }
