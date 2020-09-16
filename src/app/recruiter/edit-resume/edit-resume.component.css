@@ -1,5 +1,5 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-@import '~video.js/dist/video-js.css';
+@import "~video.js/dist/video-js.css";
 .section-header {
   font-size: 20px;
   color: #114488;
@@ -504,11 +504,11 @@ nav ul a {
   transition: all ease 0.3s;
   padding: 20px 20px;
 }
-p {
+/* p {
   max-width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
-}
+} */
 
 .btn-secondary:active {
   box-shadow: 0 1px 2px #666;
@@ -634,7 +634,7 @@ iframe.interviewVideo {
   height: 130px;
   overflow-y: auto;
 }
-.disF{
+.disF {
   display: flex;
   justify-content: space-between;
   align-items: center;

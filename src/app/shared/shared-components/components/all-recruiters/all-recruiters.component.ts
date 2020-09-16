@@ -52,7 +52,7 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
 
   onReqCoaching(recruiter) {
     // console.log('requesting for coaching', recruiter, this.user.userInfo.fullName);
-
+    // contact@hireseat.com
     const payload = {
       recipientEmail: 'contact@hireseat.com',
       candidateFullName: this.user.userInfo.fullName,
@@ -64,7 +64,7 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
 
     this.requestCoachingSubscription = this.candidateService.reqCoaching(payload).subscribe(res => {
       if (res) {
-        // console.log(res);
+        console.log(res);
         // Materialize.toast("Recruiter has been notified!", 2000);
         Materialize.toast("Recruiter will reach out to you!", 4000);
 

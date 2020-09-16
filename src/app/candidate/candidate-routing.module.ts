@@ -12,13 +12,14 @@ const routes: Routes = [
     component: CandidateHomeComponent,
     children: [
       {
-        path: 'my-profile',
-        component: MyProfileComponent
-      },
-      {
         path: 'all-recruiters',
         component: AllRecruitersComponent
       },
+      {
+        path: 'my-profile',
+        component: MyProfileComponent
+      },
+
       {
         path: 'my-reviewed-profiles',
         component: MyReviewedProfilesComponent

@@ -26,21 +26,22 @@ export class CandidateNavbarComponent implements OnInit {
     private _subList: SubscriberslistService
   ) {
     this.tabs1 = [];
+
+  }
+
+  ngOnInit() {
     this.userProfile = new Profile();
-    this.tabs1.push(new Tab('/candidate/my-profile', 'My Profile', true));
-    this.tabs1.push(new Tab('/candidate/all-recruiters', 'Recruiters Market Place', false));
+    this.tabs1.push(new Tab('/candidate/all-recruiters', 'Recruiters Market Place', true));
+    this.tabs1.push(new Tab('/candidate/my-profile', 'My Profile', false));
     this.tabs1.push(new Tab('/candidate/my-reviewed-profiles', 'My Reviewed Profiles', false));
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        if (event.url === "/candidate/my-profile") {
+        if (event.url === "/candidate/all-recruiters") {
           this.SelectItem(event.url)
         }
       }
     });
-  }
-
-  ngOnInit() {
     jQuery('.modal').modal();
     jQuery('.button-collapse').sideNav({
       menuWidth: 300, // Default is 240
