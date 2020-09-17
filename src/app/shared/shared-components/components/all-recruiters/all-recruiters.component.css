@@ -78,7 +78,7 @@
   color: #3af;
   margin: 7px 0 10px;
   font-weight: 600;
-  /* max-width: unset; */
+  max-width: unset !important;
 }
 .BioDetails {
   width: 70%;

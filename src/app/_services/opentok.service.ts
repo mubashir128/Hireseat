@@ -24,8 +24,11 @@ export class OpentokService {
   session: OT.Session;
   token: string;
 
-  constructor() {
+  constructor(
+    private http: HttpClient
+  ) {
     this.baseurl = myGlobals.baseUrl;
+
   }
 
   getOT() {
@@ -62,14 +65,19 @@ export class OpentokService {
   // }
   initSessionAPI(name) {
 
-    return fetch(this.baseurl + 'api/room/' + name)
-      .then((data) => data.json())
-      .then((json) => {
-        // console.log('nodejs', json);
-        this.session = this.getOT().initSession(json.apiKey, json.sessionId);
-        this.token = json.token;
-        return this.session;
-      });
+    // return fetch(this.baseurl + 'api/room/' + name)
+    //   .then((data) => data.json())
+    //   .then(async (json) => {
+    //     this.session = await this.getOT().initSession(json.apiKey, json.sessionId);
+    //     this.token = json.token;
+    //     return this.session;
+    //   });
+    return this.http.get<any>(this.baseurl + 'api/room/' + name).pipe(map((res: any) => {
+
+      this.session = this.getOT().initSession(res.apiKey, res.sessionId);
+      this.token = res.token;
+      return this.session;
+    }));
 
   }
   // room(name) {
@@ -84,6 +92,7 @@ export class OpentokService {
     return new Promise((resolve, reject) => {
       this.session.connect(this.token, (err) => {
         if (err) {
+
           reject(err);
         } else {
           resolve(this.session);

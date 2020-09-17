@@ -330,15 +330,15 @@
   <div class="modal-content videoModalContent">
     <h4 class="slide-heading text-center"> Message</h4>
     <div class="modalBodyPop">
-      <p>End Call without storing the recording?</p>
+      <span>End Call without storing the recording?</span>
     </div>
     <div class="confirm">
       <div class="spacing">
-        <div class="yes">
-          <button (click)="closeendCallConfirmpopup('yes')">yes</button>
-        </div>
         <div class="no">
-          <button (click)="closeendCallConfirmpopup('no')"> No</button>
+          <div class="btn-accept" (click)="closeendCallConfirmpopup('no')"> Submit Recording</div>
+        </div>
+        <div class="yes">
+          <div class="btn-reject" (click)="closeendCallConfirmpopup('yes')">End Call</div>
         </div>
       </div>
 

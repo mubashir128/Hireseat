@@ -20,7 +20,8 @@ export class WaitingListComponent implements OnInit, OnDestroy {
   mode: number = 0; // 0: resume list, 1: edit resume
   noResume: boolean = true;
   resumes: IResume[];
-
+  rejectReason: any;
+  rejectResume: any;
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -28,6 +29,7 @@ export class WaitingListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    jQuery('.modal').modal();
     this.getMyWaitingList();
   }
   getMyWaitingList() {
@@ -45,7 +47,20 @@ export class WaitingListComponent implements OnInit, OnDestroy {
 
     });
   }
-  confirmedDeleteResume() {
+  openRejectModal(resume) {
+    jQuery('#rejectReason').modal('open');
+    this.rejectResume = resume;
+
+
+  }
+  closeRejectModal() {
+    jQuery('#rejectReason').modal('close');
+    this.rejectResume = '';
+
+  }
+  async confirmedRejectResume() {
+    await this.changeStatus('rejected', this.rejectResume);
+    jQuery('#rejectReason').modal('close');
 
   }
   splitSkills(skills) {
@@ -54,12 +69,15 @@ export class WaitingListComponent implements OnInit, OnDestroy {
   changeStatus(status, resume) {
     const payload = {
       status: status,
-      candidate_id: resume.candidate_id._id
+      candidate_id: resume.candidate_id._id,
+      reasonForDecline: this.rejectReason
     }
     this.changeStatusSubscription = this.resumeService.changeCandidateStatus(payload).subscribe(res => {
       // console.log('res from change status', res);
       if (res) {
         Materialize.toast(res.msg, 3000);
+        jQuery('#rejectReason').modal('close');
+
         this.getMyWaitingList();
       } else {
         Materialize.toast(res.msg, 3000);

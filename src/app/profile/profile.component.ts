@@ -67,8 +67,9 @@ export class ProfileComponent implements OnInit {
 
 
     this.profilefrm = this.formBuilder.group({
-      aboutComp: ['', Validators.compose([Validators.required])],
-      locOfHeadOff: ['', Validators.compose([Validators.required])],
+      companyName: ['', Validators.compose([Validators.required])],
+      aboutComp: [''],
+      locOfHeadOff: [''],
       noOfEmp: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]+')])],
       webSiteLink: ['', Validators.compose([Validators.required])],
       fbLink: [''], /*  Validators.compose([Validators.required]) */
@@ -134,8 +135,7 @@ export class ProfileComponent implements OnInit {
     this.userProfile.mins = event.value;
   }
   onSubmit() {
-
-    if (this.userProfile) {
+    if (this.userProfile && this.profilefrm.value.companyName) {
       this.spinner.show();
       this.userService.updateUserProfile(this.userProfile).subscribe((data: any) => {
         if (data.result === "OK") {
@@ -143,10 +143,10 @@ export class ProfileComponent implements OnInit {
           this.obj.email = this.userProfile.email;
           this.obj.phoneNo = this.userProfile.phoneNo;
           this.obj.fullName = this.userProfile.fullName;
+          this.obj.companyName = this.userProfile.companyName;
           this.obj._id = this.loggedinUser.userInfo._id;
           this.obj.role = this.loggedinUser.userInfo.role;
           this.obj.userRole = this.loggedinUser.userInfo.userRole;
-          this.obj.companyName = this.loggedinUser.userInfo.companyName;
 
           this.obj.yearOfExperience = this.userProfile.yearOfExperience;
           // this.obj.industries = this.userProfile.industries;

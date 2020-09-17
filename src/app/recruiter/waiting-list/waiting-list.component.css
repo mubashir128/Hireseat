@@ -82,74 +82,7 @@
 .reject {
   width: 48%;
 }
-.btn-accept {
-  width: auto;
-  font-weight: 500;
-  height: 40px;
-  border-radius: none;
-  background-color: #48aef3;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 800;
-  outline: none;
-  cursor: pointer;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  white-space: nowrap;
-  transition: all ease 0.3s;
-  padding: 20px 20px;
-}
-p {
-  max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
-.btn-accept:active {
-  box-shadow: 0 1px 2px #666;
-  transform: translateY(2px);
-}
-
-.btn-reject {
-  width: auto;
-  font-weight: 500;
-  height: 40px;
-  border-radius: none;
-  /* background-color: #e63d3d; */
-  background-color: #adadad;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 800;
-  outline: none;
-  cursor: pointer;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  white-space: nowrap;
-  transition: all ease 0.3s;
-  padding: 20px 20px;
-}
-p {
-  max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.btn-reject:active {
-  box-shadow: 0 1px 2px #666;
-  transform: translateY(2px);
-}
 @media only screen and (min-width: 320px) and (max-width: 767px) {
   .candidate-name .title {
     font-size: 14px;
@@ -160,23 +93,22 @@ p {
     margin: 0 0;
   }
   .resumeList {
-      padding: 0 !important;
+    padding: 0 !important;
   }
-  .col{
+  .col {
     padding: 0 !important;
   }
 }
-@media only screen and (min-width: 767px) and (max-width: 1024px){
-.btn-flat.DownldResum a {
-  padding: 10px 0 !important;
-  box-sizing: border-box !important;
-  line-height: 1.5 !important;
+@media only screen and (min-width: 767px) and (max-width: 1024px) {
+  .btn-flat.DownldResum a {
+    padding: 10px 0 !important;
+    box-sizing: border-box !important;
+    line-height: 1.5 !important;
+  }
 }
-}
-
 
 /* New Css */
-.resume-item.WaitingResume{
+.resume-item.WaitingResume {
   padding: 15px 15px 124px;
 }
 .footerAbsolute {
@@ -186,7 +118,7 @@ p {
   left: 0;
   padding: 20px;
 }
-.btn-flat.DownldResum{
+.btn-flat.DownldResum {
   background-color: #ffffff;
   color: #48aef3;
   width: 100%;
@@ -194,13 +126,13 @@ p {
   margin-bottom: 8px;
   height: unset;
 }
-.btn-flat.DownldResum a{
+.btn-flat.DownldResum a {
   width: 100%;
-    display: inline-block;
-    text-align: center;
-    font-size: 13px;
+  display: inline-block;
+  text-align: center;
+  font-size: 13px;
 }
-.btn-flat.DownldResum a i{
+.btn-flat.DownldResum a i {
   font-size: 14px;
   margin-right: 10px;
 }

@@ -66,7 +66,7 @@ export class CandidateHomeComponent implements OnInit {
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "candidate") {
         if (this.router.url == "/candidate") {
-          this.router.navigate(["candidate/my-profile"]);
+          this.router.navigate(["candidate/all-recruiters"]);
         }
       }
     }
