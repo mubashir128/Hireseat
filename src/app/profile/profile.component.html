@@ -143,12 +143,44 @@
         <div class="input-field col s12 m6 l6">
           <span style="color:#9e9e9e">Rate per {{userProfile.mins}} minutes</span>
 
-          <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="mins" [(ngModel)]="userProfile.mins"
-            [options]="dropdownOptions" [config]="{ placeholder: 'Time Period'}">
+          <ngx-select-dropdown (change)="selectionChanged('min',$event)" formControlName="mins"
+            [(ngModel)]="userProfile.mins" [options]="dropdownOptions" [config]="{ placeholder: 'Time Period'}">
           </ngx-select-dropdown>
 
         </div>
       </div>
+
+      <div class="row">
+        <div class="fields" *ngFor="let item of available">
+          <div class="input-field col s12 m6 l6 ">
+            <div class="charges">
+              <ngx-select-dropdown (change)="selectionChanged('day',$event,item)" [options]="days" [_value]="item.day"
+                [config]="{ placeholder: 'Enter day'}">
+              </ngx-select-dropdown>
+            </div>
+          </div>
+          <div class="avl-time">
+
+            <div class="input-field col s12 m6 l6">
+
+              <input id='from' type="time" placeholder="from" [value]="item.from"
+                (change)="timeUpdate('from',$event,item)">
+              <label [ngClass]="{ active: userProfile.rate }" for="from">
+                From</label>
+            </div>
+            <div class="input-field col s12 m6 l6">
+              <input id='to' type="time" placeholder="to" [value]="item.to" (change)="timeUpdate('to',$event,item)">
+              <label [ngClass]="{ active: userProfile.rate }" for="to">
+                To</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="btn-accept" (click)="addDay()">
+          <span>Add available day </span>
+        </div>
+      </div>
+
       <div class="row">
 
         <div class="input-field col s12">

@@ -33,6 +33,8 @@ export class ProfileComponent implements OnInit {
   public PointsSummary = new RewardSummary();
   isRecruiter: boolean;
   dropdownOptions: any;
+  available: any;
+  days: string[];
   constructor(
     private userService: UserService,
     private spinner: NgxSpinnerService,
@@ -44,6 +46,23 @@ export class ProfileComponent implements OnInit {
     this.getUsersProfile();
     this.dropdownOptions = [
       30, 60, 90, 120, 150, 180, 210, 240, 270, 300
+    ];
+    this.days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
+    ];
+    this.available = [
+      {
+        id: 1,
+        day: '',
+        from: '',
+        to: ''
+      }
     ]
   }
 
@@ -92,12 +111,45 @@ export class ProfileComponent implements OnInit {
   }
   get f() { return this.profilefrm.controls; }
   get img() { return this.updateProfileimg.controls; }
+  addDay() {
+    const availableDayLength = this.available.length;
+    this.available.push({ id: availableDayLength + 1, day: '', from: '', to: '' });
+  }
+  timeUpdate(ch, event, item) {
+    console.log(ch, item, event.target.value);
 
+    switch (ch) {
+      case 'from':
+        this.available.map(ele => {
+          if (ele.id === item.id) {
+            ele.from = event.target.value;
+          }
+        });
+        console.log(this.available);
+        this.userProfile.available = this.available;
+        break;
+      case 'to':
+        this.available.map(ele => {
+          if (ele.id === item.id) {
+            ele.to = event.target.value;
+          }
+        });
+        console.log(this.available);
+        this.userProfile.available = this.available;
+
+        break;
+      default: break;
+    }
+  }
   getUsersProfile() {
 
     this.userService.getUserProfile(this.userService.getUserData().userRole).subscribe((data: any) => {
+
       if (data != null && data != undefined && data != "") {
         this.userProfile = data.res;
+        if (data.res.available) {
+          this.available = this.userProfile.available;
+        }
         if (data.res.imageData !== "") {
           this.imgURL = "data:image/jpeg;base64," + data.res.imageData;
         }
@@ -129,10 +181,26 @@ export class ProfileComponent implements OnInit {
       this.imgURL = reader.result;
     }
   }
-  selectionChanged(event) {
+  selectionChanged(type, event, item) {
     console.log(event);
-    this.ratePerMin = event.value;
-    this.userProfile.mins = event.value;
+    switch (type) {
+      case 'min':
+        this.ratePerMin = event.value;
+        this.userProfile.mins = event.value;
+        break;
+      case 'day':
+        this.available.map(ele => {
+          if (ele.id === item.id) {
+            ele.day = event.value;
+          }
+        });
+        console.log(this.available);
+        this.userProfile.available = this.available;
+
+        break;
+
+    }
+
   }
   onSubmit() {
     if (this.userProfile && this.profilefrm.value.companyName) {
@@ -147,7 +215,7 @@ export class ProfileComponent implements OnInit {
           this.obj._id = this.loggedinUser.userInfo._id;
           this.obj.role = this.loggedinUser.userInfo.role;
           this.obj.userRole = this.loggedinUser.userInfo.userRole;
-
+          this.obj.available = this.available;
           this.obj.yearOfExperience = this.userProfile.yearOfExperience;
           // this.obj.industries = this.userProfile.industries;
           this.obj.roles = this.userProfile.roles;

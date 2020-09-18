@@ -25,6 +25,7 @@ export interface IProfile {
     rate: any;
     mins: any;
     post: boolean;
+    available: [];
 
 }
 
@@ -54,6 +55,8 @@ export class Profile {
     rate: any;
     mins: any;
     post: boolean;
+    available: [];
+
     constructor() {
         this.companyName = '';
         this.aboutComp = '';
@@ -76,5 +79,7 @@ export class Profile {
         // this.rate = 0;
         this.mins = 0;
         this.post = false;
+        this.available = [];
+
     }
 }
