@@ -144,8 +144,7 @@ import { VideoCallingService } from './_services/video-calling.service';
     SelectDropDownModule,
     NgHighlightModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    SharedComponentsModule,
-    // BrowserAnimationsModule
+    SharedComponentsModule
   ],
   declarations: [
     AppComponent,

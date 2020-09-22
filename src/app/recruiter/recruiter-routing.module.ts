@@ -11,6 +11,7 @@ import { SearchResumeComponent } from '../resume-bank/search-resume/search-resum
 import { VideoInterviewRoomComponent } from '../video-interview-room/video-interview-room.component';
 import { AllRecruitersComponent } from '../shared/shared-components/components/all-recruiters/all-recruiters.component';
 import { WaitingListComponent } from './waiting-list/waiting-list.component';
+import { UserCalendarComponent } from '../shared/shared-components/components/user-calendar/user-calendar.component';
 
 const routes: Routes = [
   {
@@ -60,8 +61,11 @@ const routes: Routes = [
       {
         path: 'waiting-list',
         component: WaitingListComponent
+      },
+      {
+        path: 'calendar',
+        component: UserCalendarComponent
       }
-
     ],
     // canActivate: [RecruiterGuard]
   },

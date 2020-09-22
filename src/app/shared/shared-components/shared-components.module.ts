@@ -42,7 +42,11 @@ import { FilterDataComponent } from './components/filter-data/filter-data.compon
 import { CKEditorModule } from 'ng2-ckeditor';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { AllRecruitersComponent } from './components/all-recruiters/all-recruiters.component';
-
+import { UserCalendarComponent } from './components/user-calendar/user-calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   imports: [
     CommonModule,
@@ -54,7 +58,13 @@ import { AllRecruitersComponent } from './components/all-recruiters/all-recruite
     NgxPaginationModule,
     TagInputModule,
     CKEditorModule,
-    SelectDropDownModule
+    SelectDropDownModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    NgbModalModule
   ],
   declarations: [
     FooterComponent,
@@ -97,7 +107,8 @@ import { AllRecruitersComponent } from './components/all-recruiters/all-recruite
 
     VideoQuestionsComponent,
     FilterDataComponent,
-    AllRecruitersComponent
+    AllRecruitersComponent,
+    UserCalendarComponent
   ],
   exports: [
     FooterComponent,
@@ -139,7 +150,8 @@ import { AllRecruitersComponent } from './components/all-recruiters/all-recruite
     VideoQuestionsComponent,
     FilterDataComponent,
     TagInputModule,
-    AllRecruitersComponent
+    AllRecruitersComponent,
+    UserCalendarComponent
   ]
 })
 export class SharedComponentsModule { }

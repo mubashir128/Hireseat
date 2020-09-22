@@ -1,0 +1,18 @@
+/* @import url("https://unpkg.com/bootstrap-css-only@4.4.1/css/bootstrap.min.css"); */
+
+h3 {
+  margin: 0 0 10px;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+.add-event {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-outline-secondary {
+  color: #6c757d;
+  border-color: #6c757d;
+}

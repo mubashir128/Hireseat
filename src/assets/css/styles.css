@@ -1,4 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+/* @import "../../../node_modules/angular-calendar/css/angular-calendar.css"; */
+/* @import "../../../node_modules/flatpickr/dist/flatpickr.css"; */
+
 html {
   font-family: "gilroymedium";
 }
@@ -1247,4 +1249,12 @@ body {
 .btn-reject:active {
   box-shadow: 0 1px 2px #666;
   transform: translateY(2px);
+}
+
+/* flatpicker */
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  display: inline-block !important;
+}
+.numInputWrapper:hover {
+  background: #fff !important;
 }

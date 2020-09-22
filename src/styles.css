@@ -1,48 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
-/* html {
-    font-family: 'Rajdhani', sans-serif;
-  } */
-
 .btn,
 .btn-large {
-  background-color: #33AAFF;
+  background-color: #33aaff;
 }
 
 .btn:hover,
 .btn-large:hover {
-  background-color: #33AAFF;
+  background-color: #33aaff;
 }
 
 .collection .collection-item.active {
-  background-color: #33AAFF;
+  background-color: #33aaff;
 }
 
 .picker__date-display {
-  background-color: #66BAFF;
+  background-color: #66baff;
 }
 
 .picker__weekday-display {
-  background-color: #33AAFF;
+  background-color: #33aaff;
 }
 
 .picker__day--selected {
-  background-color: #33AAFF;
+  background-color: #33aaff;
 }
 
 .picker__day--selected,
 .picker__day--selected:hover,
 .picker--focused .picker__day--selected {
-  background-color: #33AAFF;
+  background-color: #33aaff;
 }
 
 .picker__nav--prev:hover,
 .picker__nav--next:hover {
-  background: #BCDEFF;
+  background: #bcdeff;
 }
 
 .resume_pagination ul.ngx-pagination {
   margin: 15px 15px !important;
-
 }
 
 .resume_pagination li.current {
