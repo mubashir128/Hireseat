@@ -58,6 +58,7 @@ export class UserCalendarComponent implements OnInit {
     event: CalendarEvent;
   };
 
+
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -138,6 +139,8 @@ export class UserCalendarComponent implements OnInit {
       }
       this.viewDate = date;
     }
+    console.log('day clicked', date, events, this.viewDate);
+
   }
 
   eventTimesChanged({
@@ -163,7 +166,7 @@ export class UserCalendarComponent implements OnInit {
     console.log(event);
     console.log(action);
 
-    console.log(this.modalContent);
+    // console.log(this.modalContent);
 
     this.modal.open(this.modalContent, { size: 'lg' });
   }
@@ -181,15 +184,23 @@ export class UserCalendarComponent implements OnInit {
           beforeStart: true,
           afterEnd: true,
         },
+        actions: this.actions
       },
     ];
+    console.log('add events', (this.events));
+
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
+    console.log('delete', eventToDelete);
     this.events = this.events.filter((event) => event !== eventToDelete);
+    console.log('delete', this.events);
+
   }
 
   setView(view: CalendarView) {
+    console.log('setView', view);
+
     this.view = view;
   }
 
