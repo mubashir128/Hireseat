@@ -63,11 +63,13 @@
           'col s12 m12 l12': isOnProfile,
           'col s12 m9 l9': !isOnProfile
         }">
-        <div class="LogOutOption desktopRe" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
-          <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
-          <a (click)="logoutSA()"> Logout </a>
-        </div>
-        <router-outlet></router-outlet>
+        <div class="mainDivCalender">
+          <div class="LogOutOption desktopRe" *ngIf="this.supperAdmin.checkSuperAdminEmail()">
+            <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
+            <a (click)="logoutSA()"> Logout </a>
+          </div>
+          <router-outlet></router-outlet>
+      </div>
       </div>
     </div>
   </div>
