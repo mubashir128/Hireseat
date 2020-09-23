@@ -66,6 +66,10 @@ color: #ffffff !important;
   margin: 0;
     font-size: 25px;
 }
+.add-event h4 i{
+  font-size: 21px;
+    margin-left: 8px;
+}
 .EditEventMain .table-responsive {
   display: block;
   width: 100%;
@@ -76,7 +80,6 @@ color: #ffffff !important;
 }
 .EditEventMain .table-bordered, .EditEventMain .table-bordered td, .EditEventMain .table-bordered th {
   border: 1px solid #dee2e6;
-
 }
 .EditEventMain .table-bordered td, .EditEventMain .table-bordered th{
   padding: 15px;
@@ -84,4 +87,6 @@ color: #ffffff !important;
 .EditEventMain .table-bordered td input.form-control{
   border-bottom: none;
   margin: 0;
+  height: unset;
+  width: unset;
 }
