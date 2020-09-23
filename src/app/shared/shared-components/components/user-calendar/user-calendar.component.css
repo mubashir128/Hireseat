@@ -11,8 +11,77 @@ pre {
 .add-event {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
-.btn-outline-secondary {
+/* .btn-outline-secondary {
   color: #6c757d;
   border-color: #6c757d;
+} */
+.ButtGroup{
+  display: inline-flex;
+}
+.calenderHead{
+  font-size: 23px;
+  margin: 10px 0;
+}
+.CalendCommonBtn{
+  background-color: #03a9f4;
+  min-width: 66px;
+  padding: 0 5px;
+  font-size: 11px;
+  /* border-radius: 0 !important; */
+}
+.CalendCommonBtn.OutLineBtn{
+  border: 1px solid #999 !important;
+  background-color: transparent !important;
+   color: #6c757d !important;
+   border-radius: 0 !important;
+}
+.CalendCommonBtn.OutLineBtn:hover{
+background-color: #6c757d !important;
+color: #ffffff !important;
+}
+.CalendCommonBtn:last-child{
+  border-top-left-radius: 0 !important;;
+  border-bottom-left-radius: 0 !important;;
+}
+.CalendCommonBtn:first-child{
+  border-top-right-radius: 0 !important;;
+  border-bottom-right-radius: 0 !important;;
+}
+.CalendCommonBtn.monthBtn{
+  border-radius: 0 !important;
+}
+.CalendCommonBtn:hover, .CalendCommonBtn.active{
+  background-color: #048dcb !important;
+}
+
+/* Edit Event css : STARTS*/
+.EditEventMain {
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 0 10px #99999982;
+}
+.add-event h4{
+  margin: 0;
+    font-size: 25px;
+}
+.EditEventMain .table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+.EditEventMain .table{
+  border-collapse: collapse;
+}
+.EditEventMain .table-bordered, .EditEventMain .table-bordered td, .EditEventMain .table-bordered th {
+  border: 1px solid #dee2e6;
+
+}
+.EditEventMain .table-bordered td, .EditEventMain .table-bordered th{
+  padding: 15px;
+}
+.EditEventMain .table-bordered td input.form-control{
+  border-bottom: none;
+  margin: 0;
 }

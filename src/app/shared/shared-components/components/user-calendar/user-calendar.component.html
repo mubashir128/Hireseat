@@ -1,33 +1,33 @@
 <div class="row text-center">
-    <div class="col-md-4">
-        <div class="btn-group">
-            <div class="btn btn-accept" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+    <div class="col s12 m12 l4">
+        <div class="ButtGroup">
+            <div class="btn CalendCommonBtn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
                 (viewDateChange)="closeOpenMonthViewDay()">
                 Previous
             </div>
-            <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+            <div class="btn CalendCommonBtn OutLineBtn" mwlCalendarToday [(viewDate)]="viewDate">
                 Today
             </div>
-            <div class="btn btn-accept" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+            <div class="btn CalendCommonBtn btn-accept" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
                 (viewDateChange)="closeOpenMonthViewDay()">
                 Next
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    <div class="col s12 m12 l4">
+        <h3 class="calenderHead">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
     </div>
-    <div class="col-md-4">
-        <div class="btn-group">
-            <div class="btn btn-accept" (click)="setView(CalendarView.Month)"
+    <div class="col s12 m12 l4">
+        <div class="ButtGroup">
+            <div class="btn CalendCommonBtn btn-accept" (click)="setView(CalendarView.Month)"
                 [class.active]="view === CalendarView.Month">
                 Month
             </div>
-            <div class="btn btn-accept" (click)="setView(CalendarView.Week)"
+            <div class="btn CalendCommonBtn btn-accept monthBtn" (click)="setView(CalendarView.Week)"
                 [class.active]="view === CalendarView.Week">
                 Week
             </div>
-            <div class="btn btn-accept" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+            <div class="btn CalendCommonBtn btn-accept" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
                 Day
             </div>
         </div>
@@ -51,10 +51,11 @@
 
 <br /><br /><br />
 
+<div class="EditEventMain">
 <div class="add-event">
-    <div>
-        Edit events
-    </div>
+    <h4>
+        Edit events<i class="fa fa-pencil" aria-hidden="true"></i>
+    </h4>
     <div class="btn-accept" (click)="addEvent()">
         Add new
     </div>
@@ -128,3 +129,4 @@
         </button>
     </div>
 </ng-template>
+</div>
