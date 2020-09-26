@@ -11,13 +11,12 @@ import * as OT from '@opentok/client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { baseUrl } from '../globalPath';
-declare var jQuery: any;
-import * as $ from 'jquery';
 import { VideoCallingService } from '../_services/video-calling.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { integer } from 'aws-sdk/clients/cloudfront';
 declare var Materialize: any;
 declare var jQuery: any;
+import * as $ from 'jquery';
 @Component({
   selector: 'app-video-call',
   templateUrl: './video-call.component.html',
