@@ -12,9 +12,9 @@ app-subscriber {
   display: flex;
   flex-direction: column;
 }
-.screens {
+/* .screens {
   display: flex;
-}
+} */
 .back {
   cursor: pointer;
   color: #48aef3;
@@ -603,6 +603,7 @@ nav ul a {
 }
 .docSection {
   width: 30%;
+  float: left;
   text-align: center;
 }
 .docDiv {
@@ -612,6 +613,7 @@ nav ul a {
 
 .ActionDiv.commonSingleInner {
   width: 70%;
+  float: right;
   padding: 0 20px;
 }
 .commentTxt {
@@ -627,7 +629,7 @@ nav ul a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
 }
 .publisher-container {
   display: flex;
@@ -751,7 +753,53 @@ input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
-
+/* New CSS added */
+.candidate-info.videoCallCandidateInfo {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #9999992e;
+  margin-bottom: 20px;
+}
+.name {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+.jobtitle{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  margin: 5px 0;
+}
+.skillset {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  margin: 5px 0;
+}
+.can-details-title {
+  font-weight: 600;
+  min-width: 21%;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 15px;
+  color: #333333;
+}
+.resume-review {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #9999993d;
+  padding: 20px;
+  width: 100%;
+  float: left;
+}
+.AddQueButtonDiv {
+  display: flex;
+}
 /* ===================== iPad Responsive : STARTS ========================= */
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .ActionDiv.commonSingleInner {
@@ -815,5 +863,14 @@ input[type="number"]::-webkit-outer-spin-button {
     height: 60px !important;
     padding: 10px 20px 20px !important;
   }
+  .interview-title {
+    justify-content: flex-end !important;
+  }
+  nav .brand-logo {
+    left: 26% !important;
+  }
+  .brand-logo img {
+    width: 70%;
+}
 }
 /* ========================== Mobile Responsive : ENDS ========================= */
