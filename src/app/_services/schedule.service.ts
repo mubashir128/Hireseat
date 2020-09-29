@@ -27,4 +27,9 @@ export class ScheduleService {
       return res;
     }));
   };
+  deleteEvent(payload) {
+    return this.http.post<any>(this.baseurl + 'api/delete-event', payload).pipe(map((res: any) => {
+      return res;
+    }));
+  }
 }
