@@ -41,11 +41,19 @@ pre {
   background-color: #6c757d !important;
   color: #ffffff !important;
 }
+<<<<<<< HEAD
 .CalendCommonBtn:last-child {
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
 }
 .CalendCommonBtn:first-child {
+=======
+.CalendCommonBtn:last-child{
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+.CalendCommonBtn:first-child{
+>>>>>>> 05bcacd139d53e982352daacaab8a8900cae8a24
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }

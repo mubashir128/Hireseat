@@ -1,5 +1,5 @@
 .terms h4 {
-  color: #000;
+  color: #292929;
 }
 .terms p {
   font-size: 14px;
@@ -129,24 +129,36 @@ ul.listTerm {
     height: 110px !important;
   }
 }
-
+.modal.modal-fixed-footer .modal-content.terms.msgContain {
+  position: unset;
+  height: unset;
+}
+.modal-close.waves-light.btn {
+  margin: 7px 0;
+}
+.modal-footer.height65{
+height: 65px;
+}
 .msgBox {
   max-height: 40%;
-  width: 30%;
+  width: 50%;
   top: 30%;
   overflow: hidden;
 }
 .regMSG {
-  font-size: 20px !important;
-  font-weight: bolder;
+  font-size: 19px !important;
+  font-weight: 600;
   text-align: center;
   overflow: hidden;
 }
 .msgHead {
   margin-top: 20px;
   text-align: center;
-  color: #33aaff;
+  color: #03a9f4;
   font-weight: 700;
+}
+h4.regMSG.redMsg {
+  color: #ff2c2c !important;
 }
 .msgContain {
   padding: 1px !important;
@@ -201,7 +213,7 @@ ul.listTerm {
   width: 6px;
   height: 10px;
 }
-[type="checkbox"][_ngcontent-c2]:checked + label[_ngcontent-c2]:before {
+[type="checkbox"]:checked + label:before {
   border-right: 2px solid #ffffff !important;
   border-bottom: 2px solid #ffffff !important;
 }
