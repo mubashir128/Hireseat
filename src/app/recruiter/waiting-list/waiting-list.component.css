@@ -82,7 +82,10 @@
 .reject {
   width: 48%;
 }
-
+.skillSrcoll-waiting {
+  max-height: 150px;
+  overflow-y: auto;
+}
 @media only screen and (min-width: 320px) and (max-width: 767px) {
   .candidate-name .title {
     font-size: 14px;
@@ -111,7 +114,7 @@
 .resume-item.WaitingResume {
   padding: 15px 15px 124px;
 }
-.footerAbsolute {
+.footerAbsolute-waiting {
   position: absolute;
   bottom: 0;
   width: 100%;
