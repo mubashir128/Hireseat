@@ -58,6 +58,23 @@ export class WaitingListComponent implements OnInit, OnDestroy {
     this.rejectResume = '';
 
   }
+  reqslots(resume) {
+    // console.log('**********', resume.sharedWithRecruiter);
+    let reqtime = [];
+    resume.sharedWithRecruiter.forEach(element => {
+      // console.log(':::::::::::::::::::::', element);
+      if (element.applicationStatus === 'waiting') {
+        // console.log(' found', element.reqAvailableTime);
+        reqtime.push(element.reqAvailableTime);
+      } else {
+        // console.log('not found');
+
+      }
+    });
+    // console.log('**********', reqtime);
+
+    return reqtime;
+  }
   async confirmedRejectResume() {
     await this.changeStatus('rejected', this.rejectResume);
     jQuery('#rejectReason').modal('close');
@@ -65,6 +82,9 @@ export class WaitingListComponent implements OnInit, OnDestroy {
   }
   splitSkills(skills) {
     return skills.split(",");
+  }
+  getDate(date) {
+    return new Date(date);
   }
   changeStatus(status, resume) {
     const payload = {

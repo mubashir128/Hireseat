@@ -92,7 +92,7 @@
                                 <input class="form-control" type="text" mwlFlatpickr (ngModelChange)="refresh.next()"
                                     [altInput]="true" [convertModelValue]="true" formControlName="date1"
                                     [enableTime]="false" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-                                    placeholder="Not set" [disable]="[disabledDay]" />
+                                    placeholder="Not set" [disable]="[disabledDay]" [minDate]="'today'" />
 
                             </div>
                             <div class="accept-values">
