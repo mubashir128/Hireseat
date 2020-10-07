@@ -1258,3 +1258,7 @@ body {
 .numInputWrapper:hover {
   background: #fff !important;
 }
+/* dropdown */
+.nsdicon-close {
+  display: none !important;
+}

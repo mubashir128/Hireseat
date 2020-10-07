@@ -125,13 +125,15 @@
 
                         <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="editEvent.start"
                             (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true"
-                            [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+                            [disable]="[disabledDay]" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+                            placeholder="Not set" />
                     </div>
                     <div class="end">
 
                         <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="editEvent.end"
                             (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true"
-                            [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+                            [disable]="[disabledDay]" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+                            placeholder="Not set" />
                     </div>
                 </div>
             </div>
@@ -150,6 +152,7 @@
     </div>
     <!-- delete modal -->
     <div id="deleteModal" class="modal videoModalMain forumPopMain forumMsgPopup">
+
         <a (click)="closeDeleteModal()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
         <div class="modal-content videoModalContent">
             <h4 class="slide-heading text-center"> Are you sure you want to delete this event?</h4>

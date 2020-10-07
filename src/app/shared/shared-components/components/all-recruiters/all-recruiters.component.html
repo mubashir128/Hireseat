@@ -76,3 +76,80 @@
     </div>
 </div>
 <!-- Card View Design : ENDS -->
+
+<div id="selectDates" class="modal videoModalMain forumPopMain forumMsgPopup">
+    <form [formGroup]="requestDatesForm" (ngSubmit)="onSubmit()">
+        <a (click)="closeSelectDatesModal()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+        <div class="modal-content videoModalContent">
+            <h4 class="slide-heading text-center">Select your available days</h4>
+            <div class="modalBodyPop">
+
+                <div class="dates">
+                    <div class="start">
+                        <div class="accept-dates">
+                            <div class="accept-values">
+
+                                <input class="form-control" type="text" mwlFlatpickr (ngModelChange)="refresh.next()"
+                                    [altInput]="true" [convertModelValue]="true" formControlName="date1"
+                                    [enableTime]="false" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+                                    placeholder="Not set" [disable]="[disabledDay]" />
+
+                            </div>
+                            <div class="accept-values">
+
+                                <ngx-select-dropdown (change)="selectionChanged($event)" [options]="availableTime"
+                                    formControlName="time1" [config]="{ placeholder: 'Select a slot'}">
+                                </ngx-select-dropdown>
+                            </div>
+                        </div>
+                        <div class="accept-dates">
+                            <div class="accept-values">
+
+                                <input class="form-control" type="text" mwlFlatpickr (ngModelChange)="refresh.next()"
+                                    [altInput]="true" [convertModelValue]="true" formControlName="date2"
+                                    [enableTime]="false" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+                                    placeholder="Not set" />
+
+                            </div>
+                            <div class="accept-values">
+
+                                <ngx-select-dropdown (change)="selectionChanged($event)" [options]="availableTime"
+                                    formControlName="time2" [config]="{ placeholder: 'Select a slot'}">
+                                </ngx-select-dropdown>
+                            </div>
+                        </div>
+                        <div class="accept-dates">
+                            <div class="accept-values">
+
+                                <input class="form-control" type="text" mwlFlatpickr (ngModelChange)="refresh.next()"
+                                    [altInput]="true" [convertModelValue]="true" formControlName="date3"
+                                    [enableTime]="false" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+                                    placeholder="Not set" />
+
+                            </div>
+                            <div class="accept-values">
+
+                                <ngx-select-dropdown (change)="selectionChanged($event)" [options]="availableTime"
+                                    formControlName="time3" [config]="{ placeholder: 'Select a slot'}">
+                                </ngx-select-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="confirm">
+                <div class="spacing">
+                    <div class="no">
+                        <div class="btn-accept" (click)="confirmSelectDatesEvent()">Request</div>
+                    </div>
+                    <div class="yes">
+                        <div class="btn-reject" (click)="closeSelectDatesModal()">Cancel</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>

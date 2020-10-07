@@ -133,23 +133,14 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
     private scheduleService: ScheduleService
   ) {
   }
-
+  disabledDay(date) {
+    // console.log(date); // <---**on this point date is undefined**
+    // return (date.getDay() === 0 || date.getDay() === 3|| date.getDay() === 4|| date.getDay() === 5|| date.getDay() === 6);
+  }
   ngOnInit() {
     jQuery('.modal').modal();
     this.getAllEvents();
-    jQuery('.modal')
-      .on('hide', function () {
-        // console.log('hide');
-      })
-      .on('hidden', function () {
-        // console.log('hidden');
-      })
-      .on('show', function () {
-        // console.log('show');
-      })
-      .on('shown', function () {
-        // console.log('shown')
-      });
+
   }
   getAllEvents() {
     this.getAllEventSubscription = this.scheduleService.getAllEvents().subscribe(async res => {
