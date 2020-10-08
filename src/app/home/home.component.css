@@ -533,14 +533,19 @@ a{
 @media only screen 
 and (min-width : 768px) 
 and (max-width : 1024px)  {
-
-    .bestRecruitmentText h3 {
-        font-size: 37px;
-    }
+.bestRecruitment {
+    height: 560px;
+}
+.bestRecruitmentText h3 {
+    font-size: 29px;
+}
 .bestRecruitmentText{
-    top: 50%;
+    /* top: 50%;
     left: 40%;
-    width: 60%;
+    width: 60%; */
+    top: 50%;
+    left: 35%;
+    width: 50%;
 }
 .paddT30 {
     padding-top: 110px;
@@ -730,4 +735,9 @@ and (max-width : 767px)  {
         margin: 5px 0 20px;
     }
 
+}
+@media only screen and (max-width: 1024px) and (min-width: 768px){
+    .bestRecruitmentText h3 {
+        font-size: 29px;
+    }
 }
