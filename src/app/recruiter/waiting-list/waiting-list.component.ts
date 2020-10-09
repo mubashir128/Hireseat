@@ -22,6 +22,10 @@ export class WaitingListComponent implements OnInit, OnDestroy {
   resumes: IResume[];
   rejectReason: any;
   rejectResume: any;
+  selectedDateTime: any;
+  resume: any;
+  selectedDate: any;
+  selectedTime: any;
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -84,7 +88,34 @@ export class WaitingListComponent implements OnInit, OnDestroy {
     return skills.split(",");
   }
   getDate(date) {
-    return new Date(date);
+    let dateString = date;
+    dateString = new Date(dateString).toUTCString();
+    dateString = dateString.split(' ').slice(0, 4).join(' ');
+    return dateString;
+  }
+  selectedReq(date, time) {
+    console.log(date, '--------', time);
+    this.selectedDate = new Date(date);
+    this.selectedTime = time;
+  }
+  acceptCandidate(resume) {
+    this.resume = resume;
+
+    if (this.selectedDate && this.selectedTime) {
+      jQuery('#acceptConfirmation').modal('open');
+    } else {
+      Materialize.toast('Please select one of the dates', 3000);
+
+    }
+  }
+  closeAcceptCandidate() {
+    this.selectedDate = '';
+    this.selectedTime = '';
+    jQuery('#acceptConfirmation').modal('close');
+  }
+  confirmAcceptCandidate() {
+    // this.changeStatus('accept',this.resume);
+    this.closeAcceptCandidate();
   }
   changeStatus(status, resume) {
     const payload = {
