@@ -82,7 +82,10 @@
 .reject {
   width: 48%;
 }
-
+.skillSrcoll-waiting {
+  max-height: 150px;
+  overflow-y: auto;
+}
 @media only screen and (min-width: 320px) and (max-width: 767px) {
   .candidate-name .title {
     font-size: 14px;
@@ -109,14 +112,14 @@
 
 /* New Css */
 .resume-item.WaitingResume {
-  padding: 15px 15px 124px;
+  padding: 15px 15px 165px;
 }
-.footerAbsolute {
+.footerAbsolute-waitinglist {
   position: absolute;
   bottom: 0;
   width: 100%;
   left: 0;
-  padding: 20px;
+  padding: 15px;
 }
 .btn-flat.DownldResum {
   background-color: #ffffff;
@@ -135,4 +138,33 @@
 .btn-flat.DownldResum a i {
   font-size: 14px;
   margin-right: 10px;
+}
+.TimeSelectButtonDiv {
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+button.btn.TimeButton {
+  font-size: 11px;
+  line-height: 1.2;
+  width: 32%;
+  padding: 5px;
+  background-color: #48aef30f;
+  color: #48aef3;
+  /* background-color: #51c81812;
+  color: #51c818; */
+  /* border: 1px solid; */
+}
+.btn.TimeButton:hover,
+.TimeButton.selectTimeBtn {
+  color: #ffffff !important;
+  /* background-color: #51c818 !important; */
+  background-color: #48aef3 !important;
+}
+.req-slots {
+  display: flex;
+}
+.textCenter {
+  display: flex;
+  justify-content: flex-end;
 }

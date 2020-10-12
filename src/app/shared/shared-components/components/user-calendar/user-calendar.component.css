@@ -41,11 +41,11 @@ pre {
   background-color: #6c757d !important;
   color: #ffffff !important;
 }
-.CalendCommonBtn:last-child {
+.CalendCommonBtn:last-child{
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
 }
-.CalendCommonBtn:first-child {
+.CalendCommonBtn:first-child{
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }

@@ -53,11 +53,17 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
   createEventSubscription: Subscription;
   getAllEventSubscription: Subscription;
   editEventSubscription: Subscription;
+  deleteEventSubscription: Subscription;
+
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
+  activeDayIsOpen: boolean = true;
+  editEvent: any = [];
+  before: any;
+  eventToBeDeleted: any = [];;
 
 
   actions: CalendarEventAction[] = [
@@ -72,6 +78,7 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
       label: '<i class="fas fa-fw fa-trash-alt"></i>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.eventToBeDeleted = event;
         // this.events = this.events.filter((iEvent) => iEvent !== event);
         this.handleEvent('Deleted', event);
       },
@@ -121,43 +128,35 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
     // },
   ];
 
-  activeDayIsOpen: boolean = true;
-  editEvent: any = [];
-  before: any;
 
   constructor(
     private scheduleService: ScheduleService
   ) {
   }
-
+  disabledDay(date) {
+    // console.log(date); // <---**on this point date is undefined**
+    // return (date.getDay() === 0 || date.getDay() === 3|| date.getDay() === 4|| date.getDay() === 5|| date.getDay() === 6);
+  }
   ngOnInit() {
     jQuery('.modal').modal();
     this.getAllEvents();
-    jQuery('.modal')
-      .on('hide', function () {
-        console.log('hide');
-      })
-      .on('hidden', function () {
-        console.log('hidden');
-      })
-      .on('show', function () {
-        console.log('show');
-      })
-      .on('shown', function () {
-        console.log('shown')
-      });
+    console.log(startOfDay(new Date()));
+    console.log(endOfDay(new Date()));
+
   }
   getAllEvents() {
     this.getAllEventSubscription = this.scheduleService.getAllEvents().subscribe(async res => {
-      console.log('------------------------', res[0].schedules);
-      let schedules = res[0].schedules;
-      schedules.forEach(element => {
-        if (element.start) element.start = new Date(element.start);
-        if (element.end) element.end = new Date(element.end);
-        element.actions = this.actions;
+      if (res.length > 0) {
+        // console.log('------------------------', res[0].schedules);
+        let schedules = res[0].schedules;
+        schedules.forEach(element => {
+          if (element.start) element.start = new Date(element.start);
+          if (element.end) element.end = new Date(element.end);
+          element.actions = this.actions;
 
-      });
-      this.events = await schedules;
+        });
+        this.events = await schedules;
+      }
     }, error => {
       console.log('-______-', error);
 
@@ -175,7 +174,7 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
       }
       this.viewDate = date;
     }
-    console.log('day clicked', date, events, this.viewDate);
+    // console.log('day clicked', date, events, this.viewDate);
 
   }
 
@@ -200,8 +199,9 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
 
 
   addEvent(): void {
+    const newNum = this.events.length + 1;
     const newEvent = {
-      title: 'New event',
+      title: 'New event' + newNum,
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: colors.red,
@@ -216,7 +216,7 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
       events: newEvent
     }
     this.createEventSubscription = this.scheduleService.createEvent(payload).subscribe(res => {
-      console.log('------------------', res);
+      // console.log('------------------', res);
       this.getAllEvents();
     }, error => {
       console.log(error);
@@ -225,7 +225,7 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    console.log('------handle event--------');
+    // console.log('------handle event--------', event);
     switch (action) {
       case 'Edited':
         this.editEvent = event;
@@ -233,7 +233,8 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
         this.openEditModal();
         break;
       case 'Deleted':
-        console.log('hit delete');
+        // console.log('hit delete');
+        this.openDeleteModal();
         break;
       default:
         break;
@@ -242,7 +243,7 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
   }
 
   setView(view: CalendarView) {
-    console.log('setView', view);
+    // console.log('setView', view);
     this.view = view;
   }
 
@@ -256,9 +257,9 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
       afterEdit: this.editEvent
     }
     localStorage.removeItem('beforeEdit');
-    console.log('------------------------------------', payload);
+    // console.log('------------------------------------', payload);
     this.editEventSubscription = this.scheduleService.editEvent(payload).subscribe(res => {
-      console.log(res);
+      // console.log(res);
 
     }, error => {
 
@@ -269,15 +270,41 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
     jQuery('#editModal').modal('open');
   }
   closeEditModal() {
-    console.log('closing edit modal');
+    // console.log('closing edit modal');
 
     jQuery('#editModal').modal('close');
   }
   deleteEvent(eventToDelete: CalendarEvent) {
-    console.log('delete', eventToDelete);
-    this.events = this.events.filter((event) => event !== eventToDelete);
-    console.log('delete', this.events);
+    // console.log('delete', eventToDelete);
+    // this.events = this.events.filter((event) => event !== eventToDelete);
+    this.eventToBeDeleted = eventToDelete;
+    this.openDeleteModal();
+    // console.log('delete', this.events);
 
+  }
+  confirmDeleteEvent() {
+    try {
+      this.deleteEventSubscription = this.scheduleService.deleteEvent(this.eventToBeDeleted).subscribe(res => {
+        if (res) {
+          // console.log(res);
+          this.closeDeleteModal()
+          this.getAllEvents();
+        }
+      }, err => {
+        this.closeDeleteModal()
+        this.getAllEvents();
+
+      });
+    } catch (error) {
+
+    }
+
+  }
+  openDeleteModal() {
+    jQuery('#deleteModal').modal('open');
+  }
+  closeDeleteModal() {
+    jQuery('#deleteModal').modal('close');
   }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.

@@ -34,7 +34,11 @@ export class ProfileComponent implements OnInit {
   isRecruiter: boolean;
   dropdownOptions: any;
   available: any;
-  days: string[];
+  days: any[];
+  config = {
+    displayKey: "day", // if objects array passed which key to be displayed defaults to description
+    limitTo: 6,
+  };
   constructor(
     private userService: UserService,
     private spinner: NgxSpinnerService,
@@ -48,19 +52,20 @@ export class ProfileComponent implements OnInit {
       30, 60, 90, 120, 150, 180, 210, 240, 270, 300
     ];
     this.days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday'
+      { day: 'Sunday', dayId: 0 },
+      { day: 'Monday', dayId: 1 },
+      { day: 'Tuesday', dayId: 2 },
+      { day: 'Wednesday', dayId: 3 },
+      { day: 'Thursday', dayId: 4 },
+      { day: 'Friday', dayId: 5 },
+      { day: 'Saturday', dayId: 6 },
     ];
     this.available = [
       {
         id: 1,
         day: '',
         from: '',
+        dayId: '',
         to: ''
       }
     ]
@@ -116,7 +121,7 @@ export class ProfileComponent implements OnInit {
     this.available.push({ id: availableDayLength + 1, day: '', from: '', to: '' });
   }
   timeUpdate(ch, event, item) {
-    console.log(ch, item, event.target.value);
+    // console.log(ch, item, event.target.value);
 
     switch (ch) {
       case 'from':
@@ -125,7 +130,7 @@ export class ProfileComponent implements OnInit {
             ele.from = event.target.value;
           }
         });
-        console.log(this.available);
+        // console.log(this.available);
         this.userProfile.available = this.available;
         break;
       case 'to':
@@ -194,7 +199,7 @@ export class ProfileComponent implements OnInit {
             ele.day = event.value;
           }
         });
-        console.log(this.available);
+        // console.log(this.available);
         this.userProfile.available = this.available;
 
         break;
