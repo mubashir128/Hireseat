@@ -168,3 +168,23 @@ button.btn.TimeButton {
   display: flex;
   justify-content: flex-end;
 }
+a.CalenderTab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  font-weight: 600;
+  width: 100%;
+  font-size: 17px;
+  background-color: #039be5;
+  color: #ffffff;
+}
+.calenderDivCollapse{
+  padding: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px #999999;
+}
+.CalenderTab .fa{
+  color: #ffffff;
+}
+
