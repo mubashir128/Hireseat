@@ -140,6 +140,8 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     jQuery('.modal').modal();
     this.getAllEvents();
+    console.log(startOfDay(new Date()));
+    console.log(endOfDay(new Date()));
 
   }
   getAllEvents() {
