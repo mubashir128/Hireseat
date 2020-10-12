@@ -113,7 +113,7 @@
   margin: 0 0;
 }
 .skillSrcoll {
-  height: 150px;
+  max-height: 150px;
   overflow-y: auto;
 }
 /* Custom scrollbar */

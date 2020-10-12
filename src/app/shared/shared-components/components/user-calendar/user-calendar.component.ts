@@ -133,23 +133,16 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
     private scheduleService: ScheduleService
   ) {
   }
-
+  disabledDay(date) {
+    // console.log(date); // <---**on this point date is undefined**
+    // return (date.getDay() === 0 || date.getDay() === 3|| date.getDay() === 4|| date.getDay() === 5|| date.getDay() === 6);
+  }
   ngOnInit() {
     jQuery('.modal').modal();
     this.getAllEvents();
-    jQuery('.modal')
-      .on('hide', function () {
-        console.log('hide');
-      })
-      .on('hidden', function () {
-        console.log('hidden');
-      })
-      .on('show', function () {
-        console.log('show');
-      })
-      .on('shown', function () {
-        console.log('shown')
-      });
+    console.log(startOfDay(new Date()));
+    console.log(endOfDay(new Date()));
+
   }
   getAllEvents() {
     this.getAllEventSubscription = this.scheduleService.getAllEvents().subscribe(async res => {
@@ -181,7 +174,7 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
       }
       this.viewDate = date;
     }
-    console.log('day clicked', date, events, this.viewDate);
+    // console.log('day clicked', date, events, this.viewDate);
 
   }
 
@@ -232,7 +225,7 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    console.log('------handle event--------', event);
+    // console.log('------handle event--------', event);
     switch (action) {
       case 'Edited':
         this.editEvent = event;
@@ -240,7 +233,7 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
         this.openEditModal();
         break;
       case 'Deleted':
-        console.log('hit delete');
+        // console.log('hit delete');
         this.openDeleteModal();
         break;
       default:
@@ -250,7 +243,7 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
   }
 
   setView(view: CalendarView) {
-    console.log('setView', view);
+    // console.log('setView', view);
     this.view = view;
   }
 
@@ -264,9 +257,9 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
       afterEdit: this.editEvent
     }
     localStorage.removeItem('beforeEdit');
-    console.log('------------------------------------', payload);
+    // console.log('------------------------------------', payload);
     this.editEventSubscription = this.scheduleService.editEvent(payload).subscribe(res => {
-      console.log(res);
+      // console.log(res);
 
     }, error => {
 
@@ -277,16 +270,16 @@ export class UserCalendarComponent implements OnInit, OnDestroy {
     jQuery('#editModal').modal('open');
   }
   closeEditModal() {
-    console.log('closing edit modal');
+    // console.log('closing edit modal');
 
     jQuery('#editModal').modal('close');
   }
   deleteEvent(eventToDelete: CalendarEvent) {
-    console.log('delete', eventToDelete);
+    // console.log('delete', eventToDelete);
     // this.events = this.events.filter((event) => event !== eventToDelete);
     this.eventToBeDeleted = eventToDelete;
     this.openDeleteModal();
-    console.log('delete', this.events);
+    // console.log('delete', this.events);
 
   }
   confirmDeleteEvent() {

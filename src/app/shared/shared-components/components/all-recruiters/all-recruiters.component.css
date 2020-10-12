@@ -105,7 +105,7 @@
   /* display: flex;
   justify-content: center;
   align-items: center; */
-   /* z-index: 0; */
+  /* z-index: 0; */
   border-radius: 50%;
   z-index: 0;
   width: 200px;
@@ -113,7 +113,6 @@
   margin: 0 auto;
   background-color: #f7f7f7;
   border-radius: 50%;
- 
 }
 .uploadImageDiv input {
   position: absolute;
@@ -144,8 +143,55 @@
   color: #fff !important;
   border: none;
   margin: 10px auto 0;
-  
 }
 .pointer:hover {
   text-decoration: underline;
+}
+.form-control {
+  border-bottom: none;
+  margin: 0;
+  height: unset;
+  width: unset;
+}
+/* modal */
+.forumMsgPopup p {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #101010;
+}
+.forumMsgPopup.forumPopMain {
+  max-width: 600px;
+  position: fixed;
+}
+.videoModalMain a.videoCloseBtn {
+  position: absolute;
+  top: -30px;
+  color: #fff !important;
+  z-index: 99999999;
+  right: 0;
+  font-size: 20px !important;
+  cursor: pointer;
+}
+.videoModalMain.forumPopMain.addQuetionPopup {
+  max-width: 650px;
+  background-color: transparent;
+  padding-top: 0;
+}
+.confirm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.spacing {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 0 0 0;
+}
+.accept-dates {
+  display: flex;
+}
+.accept-values {
+  width: 50%;
 }

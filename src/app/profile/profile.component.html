@@ -143,7 +143,7 @@
         <div class="input-field col s12 m6 l6">
           <span style="color:#9e9e9e">Rate per {{userProfile.mins}} minutes</span>
 
-          <ngx-select-dropdown (change)="selectionChanged('min',$event)" formControlName="mins"
+          <ngx-select-dropdown (change)="selectionChanged('min',$event)" formControlName="mins" tabindex="0"
             [(ngModel)]="userProfile.mins" [options]="dropdownOptions" [config]="{ placeholder: 'Time Period'}">
           </ngx-select-dropdown>
 
@@ -155,7 +155,7 @@
           <div class="input-field col s12 m6 l6 ">
             <div class="charges">
               <ngx-select-dropdown (change)="selectionChanged('day',$event,item)" [options]="days" [_value]="item.day"
-                [config]="{ placeholder: 'Enter day'}">
+                [config]="config">
               </ngx-select-dropdown>
             </div>
           </div>
@@ -163,13 +163,17 @@
 
             <div class="input-field col s12 m6 l6">
 
-              <input id='from' type="time" placeholder="from" [value]="item.from"
-                (change)="timeUpdate('from',$event,item)">
+              <!-- <input id='from' type="time" placeholder="from" [value]="item.from"
+                (change)="timeUpdate('from',$event,item)"> -->
+              <input class="form-control" type="text" placeholder="from" mwlFlatpickr [noCalendar]="true"
+                [value]="item.from" [enableTime]="true" (change)="timeUpdate('from',$event,item)" [dateFormat]="'H:i'">
               <label [ngClass]="{ active: userProfile.rate }" for="from">
                 From</label>
             </div>
             <div class="input-field col s12 m6 l6">
-              <input id='to' type="time" placeholder="to" [value]="item.to" (change)="timeUpdate('to',$event,item)">
+              <!-- <input id='to' type="time" placeholder="to" [value]="item.to" (change)="timeUpdate('to',$event,item)"> -->
+              <input class="form-control" type="text" placeholder="to" mwlFlatpickr [noCalendar]="true"
+                [value]="item.to" [enableTime]="true" (change)="timeUpdate('to',$event,item)" [dateFormat]="'H:i'">
               <label [ngClass]="{ active: userProfile.rate }" for="to">
                 To</label>
             </div>

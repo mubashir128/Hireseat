@@ -109,7 +109,7 @@
                 </div>
 
                 <h4 class="title">Skill set</h4>
-                <div class="skillSrcoll">
+                <div class="skillSrcoll-waiting">
                   <span class="chipu" *ngFor="let skill of this.splitSkills(resume.skills)">{{ skill }}
                   </span>
                 </div>
@@ -117,21 +117,19 @@
             </div>
             <!-- <div class="divider"></div> -->
             <div class="footerAbsolute-waitinglist ">
-              <!-- <a class="btn-flat" (click)="edit()" style="margin-right:0px; padding:0 1rem;"><i
-                      class="material-icons grey-text">edit</i></a> -->
-              <!-- <a class="btn-flat" (click)="delete()" style="margin-right: 0px; padding: 0 1rem;"><i
-                      class="material-icons grey-text">delete</i></a> -->
-            <div class="TimeSelectButtonDiv">
-              <button class="btn TimeButton selectTimeBtn">
-                TUE OCT 13 2020 <br/>10:00 - 11:00
-              </button>
-              <button class="btn TimeButton">
-                TUE OCT 13 2020 <br/>10:00 - 11:00
-              </button>
-              <button class="btn TimeButton">
-                TUE OCT 13 2020 <br/>10:00 - 11:00
-              </button>
-            </div>
+              <ng-container *ngIf="resume?.sharedWithRecruiter">
+                <div class="TimeSelectButtonDiv" *ngFor="let item of this.reqslots(resume)">
+                  <button class="btn TimeButton" (click)="selectedReq(item.date1,item.time1)">
+                    {{getDate(item.date1)}} <br />{{item.time1}}
+                  </button>
+                  <button class="btn TimeButton" (click)="selectedReq(item.date2,item.time2)">
+                    {{getDate(item.date2)}} <br />{{item.time2}}
+                  </button>
+                  <button class="btn TimeButton" (click)="selectedReq(item.date3,item.time3)">
+                    {{getDate(item.date3)}} <br />{{item.time3}}
+                  </button>
+                </div>
+              </ng-container>
               <div class="btn-flat DownldResum" style="margin-right: 0px; padding: 0 1rem;">
                 <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download"
                     aria-hidden="true"></i>Click here to view resume </a>
@@ -141,7 +139,7 @@
               </div> -->
               <div class="accept-reject">
                 <div class="accept">
-                  <div class="btn-accept" (click)="changeStatus('accepted',resume)">
+                  <div class="btn-accept" (click)="acceptCandidate(resume)">
                     <span>Accept</span>
                   </div>
                 </div>
@@ -195,11 +193,31 @@
     </div>
     <div class="modal-footer marT10">
       <div class="textCenter">
-        <button (click)="confirmedRejectResume()" class="waves-effect waves-light btn">
-          Yes</button>&nbsp;&nbsp;
-        <button class="modal-close waves-effect waves-light btn noBtn" (click)="closeRejectModal()">
-          No
-        </button>
+        <div (click)="confirmedRejectResume()" class=" btn-accept">
+          Submit</div>&nbsp;&nbsp;
+        <div class="modal-close   btn-reject" (click)="closeRejectModal()">
+          Cancel
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="acceptConfirmation" class="modal">
+  <div class="modal-content">
+    <h4 class="bluePopHead">Accept application</h4>
+    <p class="bodyPara">Accept this candidate and schedule with the date given below ?</p>
+    <div class="reject-reason">
+      <input type="text" [value]="this.getDate(selectedDate)" style="    color: #a56767;" disabled />
+      <input type="text" [(ngModel)]="selectedTime" style="color: #a56767;" disabled />
+    </div>
+    <div class="modal-footer marT10">
+      <div class="textCenter">
+        <div (click)="confirmAcceptCandidate()" class=" btn-accept">
+          Submit</div>&nbsp;&nbsp;
+        <div class="modal-close  btn-reject" (click)="closeAcceptCandidate()">
+          Cancel
+        </div>
       </div>
     </div>
   </div>

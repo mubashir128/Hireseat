@@ -1,11 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CandidateService } from 'src/app/_services/candidate.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
-declare var jQuery: any;
 import * as $ from "jquery";
 import { NgxSpinnerService } from 'ngx-spinner';
+import {
+  FormBuilder, FormGroup, FormControl,
+  Validators
+} from '@angular/forms';
+
 declare var Materialize: any;
+declare var jQuery: any;
 @Component({
   selector: 'app-all-recruiters',
   templateUrl: './all-recruiters.component.html',
@@ -15,17 +20,45 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
   getAllPostRecruiterSubscription: Subscription;
   shareWithRecruiterSubscription: Subscription;
   requestCoachingSubscription: Subscription;
+  refresh: Subject<any> = new Subject();
+  requestDatesForm: FormGroup;
   recruiters: any;
+  selectedRecruiter: any;
   user: any;
+  // multiDate: any = [];
+  availableTime: any = [];
+  availableDetails: any;
+  daysArray: any = [0, 1, 2, 3, 4, 5, 6];
+  disableDay: any = [];
+  dayToBeAvailable: any = [];
+  payload: { recipientEmail: string; candidateFullName: any; candidatePhoneNo: any; recruiterFullName: any; subject: string; };
   constructor(
     private candidateService: CandidateService,
     private spinner: NgxSpinnerService,
+    private fb: FormBuilder
+  ) {
+    // this.disableDay = [];
+    this.requestDatesForm = this.fb.group({
+      date1: new FormControl(null, Validators.compose([Validators.required])),
+      time1: new FormControl(null, Validators.compose([Validators.required])),
+      date2: new FormControl(null, Validators.compose([Validators.required])),
+      time2: new FormControl(null, Validators.compose([Validators.required])),
+      date3: new FormControl(null, Validators.compose([Validators.required])),
+      time3: new FormControl(null, Validators.compose([Validators.required]))
 
-  ) { }
+    });
+    this.requestDatesForm.valueChanges.subscribe(value => {
+      console.log('---------', value);
+      // this.multiDate.push(value);
+      // console.log(this.multiDate.length);
+      // console.log('multidate values', this.multiDate)
+    })
+  }
 
   ngOnInit() {
-    this.spinner.show();
 
+    this.spinner.show();
+    jQuery('.modal').modal();
     this.candidateService.getAllPostRecruiters().subscribe(res => {
       if (res) {
         this.recruiters = res;
@@ -42,6 +75,16 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
     // console.log(this.user);
 
   }
+
+  onSubmit() { }
+  closeSelectDatesModal() {
+    jQuery('#selectDates').modal('close');
+
+  }
+
+  openSelectDatesModal() {
+    jQuery('#selectDates').modal('open');
+  }
   onLinkedIn(link: string) {
     if (link.includes('https')) {
       window.open(link, "_blank");
@@ -49,26 +92,60 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
       window.open('https://' + link, "_blank");
     }
   }
+  selectionChanged(event) {
+    console.log(event);
 
+  }
   onReqCoaching(recruiter) {
-    // console.log('requesting for coaching', recruiter, this.user.userInfo.fullName);
+    this.availableTime = [];
+    this.selectedRecruiter = recruiter;
+    console.log('requesting for coaching', recruiter, this.user.userInfo.fullName);
     // contact@hireseat.com
-    const payload = {
+    this.payload = {
       recipientEmail: 'contact@hireseat.com',
       candidateFullName: this.user.userInfo.fullName,
       candidatePhoneNo: this.user.userInfo.phoneNo,
       recruiterFullName: recruiter.fullName,
       subject: this.user.userInfo.fullName + ' ' + 'Candidate request for coaching'
     }
-    this.spinner.show();
+    recruiter.refUserId.available.forEach(item => {
+      this.availableTime.push(item.from + "-" + item.to);
+    });
+    // console.log(recruiter.refUserId.available);
+    this.availableDetails = recruiter.refUserId.available;
+    // console.log(this.availableDetails);
+    this.availableDetails.forEach((item, index) => {
+      this.dayToBeAvailable.push(item.day.dayId);
 
-    this.requestCoachingSubscription = this.candidateService.reqCoaching(payload).subscribe(res => {
+    });
+    this.disableDay = this.daysArray.filter(val => !this.dayToBeAvailable.includes(val));
+
+    // console.log(this.disableDay);
+    // this.spinner.show();
+    this.openSelectDatesModal();
+
+  }
+  confirmSelectDatesEvent() {
+
+    // console.log(this.requestDatesForm.valid);
+    // console.log(this.requestDatesForm.value);
+
+    if (this.requestDatesForm.valid) {
+      this.reqCoachingFunction();
+      this.closeSelectDatesModal();
+    } else {
+      Materialize.toast("Please provide your available time!", 4000);
+
+    }
+  }
+  reqCoachingFunction() {
+    this.requestCoachingSubscription = this.candidateService.reqCoaching(this.payload).subscribe(res => {
       if (res) {
-        console.log(res);
+        // console.log(res);
         // Materialize.toast("Recruiter has been notified!", 2000);
         Materialize.toast("Recruiter will reach out to you!", 4000);
 
-        this.onShareWithRecruiter(recruiter);
+        this.onShareWithRecruiter(this.selectedRecruiter);
         this.spinner.hide();
 
       }
@@ -83,7 +160,8 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
     Materialize.toast("Sharing your profile with the recruiter...", 4000);
 
     const payload = {
-      recruiter_id: recruiter.refUserId._id
+      recruiter_id: recruiter.refUserId._id,
+      reqAvailableTime: this.requestDatesForm.value
     }
     this.shareWithRecruiterSubscription = this.candidateService.sharewithRecruiter(payload).subscribe(res => {
       if (res) {
@@ -97,6 +175,24 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
       this.spinner.hide();
 
     })
+  }
+  disabledDay(date) {
+    // console.log(this.disableDays); // <---**on this point date is undefined**
+    const disable = [0, 2, 4, 6];
+    let returnDisableDates;
+    // if (disable.length <= 0) {
+    // return (date.getDay() === 0 || date.getDay() === 3);
+    // }
+    // else {
+    // returnDisableDates = disable.forEach(val => date.getDay() === val);
+    // }
+    // for (let i = 0; i < disable.length; i++) {
+    //   // returnDisableDates.push(date.getDay() === disable[i]);
+    //   return date.getDay() === disable[i] || date.getDay() === disable[i++];
+    // }
+    // console.log(returnDisableDates);
+
+    // return returnDisableDates;
   }
   // keep it at the end of the file
   ngOnDestroy() {
