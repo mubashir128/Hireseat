@@ -56,6 +56,18 @@ export class WaitingListComponent implements OnInit, OnDestroy {
     this.getMyWaitingList();
     this.getAllEvents();
   }
+  toggleAccordian(event) {
+    var element = event.target;
+    element.classList.toggle("active");
+
+    var panel = element.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  }
+
   getMyWaitingList() {
     this.myWaitingListResumes = this.resumeService.getMyWaitingList().subscribe(res => {
       // console.log(res);
