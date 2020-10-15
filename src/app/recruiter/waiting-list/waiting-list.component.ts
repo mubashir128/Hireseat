@@ -81,6 +81,10 @@ export class WaitingListComponent implements OnInit, OnDestroy {
         this.noResume = false;
       }
 
+    }, err => {
+      Materialize.toast('No waiting candidates!', 3000);
+      this.noResume = true;
+
     });
   }
   openRejectModal(resume) {
@@ -130,7 +134,7 @@ export class WaitingListComponent implements OnInit, OnDestroy {
     return dateString;
   }
   selectedReq(date, time) {
-    console.log(date, '--------', time);
+    // console.log(date, '--------', time);
     this.selectedDate = new Date(date);
     this.startDate = new Date(date);
     this.endDate = new Date(date);
@@ -262,5 +266,12 @@ export class WaitingListComponent implements OnInit, OnDestroy {
     if (this.changeStatusSubscription) {
       this.changeStatusSubscription.unsubscribe();
     }
+    if (this.createEventSubscription) {
+      this.createEventSubscription.unsubscribe();
+    }
+    if (this.getAllEventSubscription) {
+      this.getAllEventSubscription.unsubscribe();
+    }
+
   }
 }
