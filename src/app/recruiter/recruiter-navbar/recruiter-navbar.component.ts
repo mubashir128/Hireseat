@@ -27,6 +27,8 @@ export class RecruiterNavbarComponent implements OnInit {
     this.tabs1.push(new Tab('/recruiter/resume-list', 'My Candidates', false));
     this.tabs1.push(new Tab('/recruiter/waiting-list', 'Waiting List', false));
     this.tabs1.push(new Tab('/recruiter/search-resume', 'Resume Bank', false));
+    this.tabs1.push(new Tab('/recruiter/share-candidate-profile', 'Shared Profiles', false));
+
     this.tabs1.push(new Tab('/recruiter/video-interview-room', 'Video Interview Room', false));
     this.tabs1.push(new Tab('/recruiter/all-recruiters', 'Recruiters Market Place', false));
     this.tabs1.push(new Tab('/recruiter/calendar', 'Calendar', false));
