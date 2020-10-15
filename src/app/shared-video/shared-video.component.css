@@ -153,14 +153,14 @@ ul:not(.browser-default) > li {
 .downloadResume:hover a i {
   color: #ffffff;
 }
-.LikedInBtn {
+.LinkedInBtn {
   background-color: #0288d1;
   border: 1px solid #0e76a8;
   margin-left: 10px;
   /* min-width: 125px !important; */
 }
-.LikedInBtn a,
-.LikedInBtn a i {
+.LinkedInBtn a,
+.LinkedInBtn a i {
   color: #ffffff;
 }
 
@@ -358,7 +358,7 @@ nav.customeNav {
   .contact-email h2 {
     font-size: 18px !important;
   }
-  .docSectionBtns .LikedInBtn {
+  .docSectionBtns .LinkedInBtn {
     min-width: 135px !important;
     /* margin: 0 0 0 10px !important;
     margin-top: 5px !important; */
@@ -473,7 +473,7 @@ nav.customeNav {
   .cadidateResumeDiv {
     width: 40% !important;
   }
-  .LikedInBtn {
+  .LinkedInBtn {
     min-width: 193px !important;
   }
   .singleList.employerResume {
@@ -528,8 +528,8 @@ nav.customeNav {
   align-items: center;
 }
 .linkedin-icon {
-  width: 38px;
-  height: 26px;
+  width: 30px;
+  height: auto;
 }
 .cadidateResumeDiv {
   display: flex;
