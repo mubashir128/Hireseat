@@ -12,6 +12,7 @@ import { VideoInterviewRoomComponent } from '../video-interview-room/video-inter
 import { AllRecruitersComponent } from '../shared/shared-components/components/all-recruiters/all-recruiters.component';
 import { WaitingListComponent } from './waiting-list/waiting-list.component';
 import { UserCalendarComponent } from '../shared/shared-components/components/user-calendar/user-calendar.component';
+import { SharedCandidateProfilesComponent } from '../shared/shared-components/components/shared-candidate-profiles/shared-candidate-profiles.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,10 @@ const routes: Routes = [
       {
         path: 'calendar',
         component: UserCalendarComponent
+      },
+      {
+        path: 'share-candidate-profile',
+        component: SharedCandidateProfilesComponent
       }
     ],
     // canActivate: [RecruiterGuard]

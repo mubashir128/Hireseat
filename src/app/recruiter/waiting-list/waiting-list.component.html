@@ -119,14 +119,14 @@
             <div class="footerAbsolute-waitinglist ">
               <ng-container *ngIf="resume?.sharedWithRecruiter">
                 <div class="TimeSelectButtonDiv" *ngFor="let item of this.reqslots(resume)">
-                  <button class="btn TimeButton" (click)="selectedReq(item.date1,item.time1)">
-                    {{getDate(item.date1)}} <br />{{item.time1}}
+                  <button class="btn TimeButton" (click)="selectedReq(item?.date1,item?.time1)">
+                    {{getDate(item?.date1)}} <br />{{item?.time1}}
                   </button>
-                  <button class="btn TimeButton" (click)="selectedReq(item.date2,item.time2)">
-                    {{getDate(item.date2)}} <br />{{item.time2}}
+                  <button class="btn TimeButton" (click)="selectedReq(item?.date2,item?.time2)">
+                    {{getDate(item?.date2)}} <br />{{item?.time2}}
                   </button>
-                  <button class="btn TimeButton" (click)="selectedReq(item.date3,item.time3)">
-                    {{getDate(item.date3)}} <br />{{item.time3}}
+                  <button class="btn TimeButton" (click)="selectedReq(item?.date3,item?.time3)">
+                    {{getDate(item?.date3)}} <br />{{item?.time3}}
                   </button>
                 </div>
               </ng-container>
@@ -156,6 +156,15 @@
       <div class="row">
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
+
+      <!--  -->
+      <div>
+        <button class="accordion" (click)="toggleAccordian($event)">My Calendar </button>
+        <div class="panel" hide="!item.isActive">
+          <app-user-calendar></app-user-calendar>
+        </div>
+      </div>
+      <!--  -->
     </div>
   </div>
 </div>

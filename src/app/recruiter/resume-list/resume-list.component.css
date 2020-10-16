@@ -134,7 +134,14 @@ a.waves-effect.waves-light.btn.newResumeBtn {
 li.floatUns.marginUns {
   margin-left: unset;
 }
-
+.searchForm {
+  background-color: #ffffff;
+  padding: 15px;
+  box-shadow: 0 0 10px #8f8f8f29;
+}
 .searchForm {
   display: none;
+}
+.mainTopBar.searchFormDropdown{
+  padding: 0;
 }

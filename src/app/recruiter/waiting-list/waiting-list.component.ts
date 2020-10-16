@@ -56,6 +56,18 @@ export class WaitingListComponent implements OnInit, OnDestroy {
     this.getMyWaitingList();
     this.getAllEvents();
   }
+  toggleAccordian(event) {
+    var element = event.target;
+    element.classList.toggle("active");
+
+    var panel = element.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  }
+
   getMyWaitingList() {
     this.myWaitingListResumes = this.resumeService.getMyWaitingList().subscribe(res => {
       // console.log(res);
@@ -68,6 +80,10 @@ export class WaitingListComponent implements OnInit, OnDestroy {
         // this.skillSet = this.resume.skills.split(",");
         this.noResume = false;
       }
+
+    }, err => {
+      Materialize.toast('No waiting candidates!', 3000);
+      this.noResume = true;
 
     });
   }
@@ -118,7 +134,7 @@ export class WaitingListComponent implements OnInit, OnDestroy {
     return dateString;
   }
   selectedReq(date, time) {
-    console.log(date, '--------', time);
+    // console.log(date, '--------', time);
     this.selectedDate = new Date(date);
     this.startDate = new Date(date);
     this.endDate = new Date(date);
@@ -250,5 +266,12 @@ export class WaitingListComponent implements OnInit, OnDestroy {
     if (this.changeStatusSubscription) {
       this.changeStatusSubscription.unsubscribe();
     }
+    if (this.createEventSubscription) {
+      this.createEventSubscription.unsubscribe();
+    }
+    if (this.getAllEventSubscription) {
+      this.getAllEventSubscription.unsubscribe();
+    }
+
   }
 }

@@ -22,7 +22,7 @@ import {
 } from "@angular/forms";
 import { VideoCallingService } from "../../_services/video-calling.service";
 import { Subscription } from "rxjs";
-
+import { CandidateService } from '../../_services/candidate.service';
 declare var jQuery: any;
 import * as $ from "jquery";
 import videojs from "video.js";
@@ -39,7 +39,7 @@ export class ViewProfileComponent implements OnInit {
 
   @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
   player: videojs.Player;
-
+  changeMyProfileStatusSubscription: Subscription;
   bookmarkSubscription: Subscription;
   askQuestionSubscription: Subscription;
   @Input() resume: Resume;
@@ -60,6 +60,7 @@ export class ViewProfileComponent implements OnInit {
     private router: Router,
     private videoCallingService: VideoCallingService,
     private spinner: NgxSpinnerService,
+    private candidateService: CandidateService
 
   ) {
     // accept questions form
@@ -330,7 +331,26 @@ export class ViewProfileComponent implements OnInit {
   questionsPopUp() {
     this.questionConfirmPopup();
   }
-
+  changeMyprofileStatus(resume_id, status) {
+    const payload = {
+      resume_id: resume_id,
+      status: status
+    }
+    console.log(payload);
+    this.changeMyProfileStatusSubscription = this.candidateService.myProfileStatus(payload).subscribe(res => {
+      if (res) {
+        Materialize.toast("Updated Successfully", 1000);
+        if (this.resume['shareProfile']) {
+          this.resume['shareProfile'] = true;
+        } else if (!this.resume['shareProfile']) {
+          this.resume['shareProfile'] = false;
+        }
+      }
+    }, error => {
+      Materialize.toast('One of your profile is already shared!', 4000);
+      this.resume['shareProfile'] = false;
+    })
+  }
   ngOnDestroy(): void {
     if (this.askQuestionSubscription) {
       this.askQuestionSubscription.unsubscribe();

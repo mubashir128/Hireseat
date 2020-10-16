@@ -47,6 +47,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedCandidateProfilesComponent } from './components/shared-candidate-profiles/shared-candidate-profiles.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -108,7 +109,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     VideoQuestionsComponent,
     FilterDataComponent,
     AllRecruitersComponent,
-    UserCalendarComponent
+    UserCalendarComponent,
+    SharedCandidateProfilesComponent
   ],
   exports: [
     FooterComponent,
@@ -151,7 +153,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     FilterDataComponent,
     TagInputModule,
     AllRecruitersComponent,
-    UserCalendarComponent
+    UserCalendarComponent,
+    SharedCandidateProfilesComponent
   ]
 })
 export class SharedComponentsModule { }

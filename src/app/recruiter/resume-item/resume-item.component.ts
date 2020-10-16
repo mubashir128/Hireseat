@@ -18,7 +18,6 @@ import { Subscription } from "rxjs";
 import { UserService } from "src/app/_services/user.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ShareVideoService } from "src/app/_services/share-video.service";
-import { materialize } from "rxjs/operators";
 
 declare var jQuery;
 declare var $: any;

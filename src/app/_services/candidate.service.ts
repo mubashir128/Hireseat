@@ -53,4 +53,10 @@ export class CandidateService {
       return res;
     }));
   }
+  // 
+  myProfileStatus(payload) {
+    return this.http.post<any>(this.baseurl + "api/my-profile-status", payload).pipe(map((result: any) => {
+      return result;
+    }));
+  }
 }
