@@ -129,4 +129,10 @@ export class ResumeService {
       return result;
     }));
   }
+  // get-all-shared-candidate-profile
+  getAllSharedCandidateProfile() {
+    return this.http.get<any>(this.baseurl + "api/get-all-shared-candidate-profile ").pipe(map((result: any) => {
+      return result;
+    }));
+  }
 }

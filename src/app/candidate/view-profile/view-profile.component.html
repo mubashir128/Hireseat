@@ -8,6 +8,11 @@
     <div class="card white" style="margin-top: 30px;">
         <div class="disF" style="padding: 20px; border-bottom: solid #e0e0e0 1px;">
             <div class="section-header">My Resume from</div>
+            <div>
+                <input type="checkbox" id="post" name="post" [value]="resume.shareProfile"
+                    [(ngModel)]="resume.shareProfile" (click)="changeMyprofileStatus(resume._id,!resume.shareProfile)">
+                <label for="post">Post my Profile</label>
+            </div>
             <div class="buttonsDiv">
                 <div class="recruiter-info">
                     <div class="recruiter-title">

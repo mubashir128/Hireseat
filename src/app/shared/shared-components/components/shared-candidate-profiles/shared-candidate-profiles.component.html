@@ -1,5 +1,5 @@
 <div class="ListResume">
-<div class="singleList employerResume resumeSingleList">
+  <div class="singleList employerResume resumeSingleList" *ngFor="let resume of resumes;let i = index">
     <div class="docSectionBtns">
       <div class="candidate-name">
         <span>
@@ -16,25 +16,23 @@
           </a>
         </button>
         <div class="smallBtns">
-        <button class="LinkedInBtn" >
-        <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
-
-          <a>
-            <!-- <i class="fa fa-linkedin"></i> -->
-            <div class="icon-name">
-
-              <img class="linkedin-icon" src="../../assets/icons/linkedin.png">
-              <span>
-                linked In
-              </span>
-            </div>
-          </a>
-        </button>
-        <button class="shareBtn">
+          <button class="LinkedInBtn">
+            <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
+            <a>
+              <!-- <i class="fa fa-linkedin"></i> -->
+              <div class="icon-name" (click)="linkedIn(resume?.linkedIn)">
+                <img class="linkedin-icon" src="../../assets/icons/linkedin.png">
+                <span>
+                  linked In
+                </span>
+              </div>
+            </a>
+          </button>
+          <button class="shareBtn">
             <a>
               <!-- <i class="fa fa-linkedin"></i> -->
               <div class="icon-name">
-  
+
                 <!-- <img class="shared-icon" src="../../assets/icons/share-option.png"> -->
                 <i class="fa fa-share shared-icon" aria-hidden="true"></i>
                 <span>
@@ -43,10 +41,10 @@
               </div>
             </a>
           </button>
-          </div>
+        </div>
       </div>
     </div>
-    <ng-container *ngIf="!isShareFromRecruiter">
+    <!-- <ng-container *ngIf="!isShareFromRecruiter">
 
       <div class="singleListData">
         <div class="PointsDiv commonSingleInner">
@@ -68,13 +66,13 @@
         </div>
 
       </div>
-    </ng-container>
-    <ng-container *ngIf="isShareFromRecruiter && comments">
+    </ng-container> -->
+    <ng-container *ngIf="resume.comments">
       <div class="singleListData">
         <div class="PointsDiv commonSingleInner">
           <div class="PointsDivSingle PointsDivSingleN">
 
-            <h4>{{ comments }}</h4>
+            <h4>{{ resume?.comments}}</h4>
 
           </div>
 
