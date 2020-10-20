@@ -1,5 +1,6 @@
 <div class="ListResume">
-  <div class="singleList employerResume resumeSingleList" *ngFor="let resume of resumes;let i = index">
+  <div class="singleList employerResume resumeSingleList" *ngFor="let resume of resumes;let i = index"
+    (click)="toggleAccordian($event)">
     <div class="docSectionBtns">
       <div class="candidate-name">
         <span>
@@ -44,29 +45,12 @@
         </div>
       </div>
     </div>
-    <!-- <ng-container *ngIf="!isShareFromRecruiter">
+    <!-- a video  -->
+    <div class="panel" hide="!item.isActive">
+      <app-user-calendar></app-user-calendar>
+    </div>
+    <!-- end a video -->
 
-      <div class="singleListData">
-        <div class="PointsDiv commonSingleInner">
-          <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="green-tick" />
-            <h4>{{ currentResume.StrongPoint1 }}</h4>
-          </div>
-          <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="green-tick" />
-            <h4>{{ currentResume.StrongPoint2}}</h4>
-
-          </div>
-          <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="green-tick" />
-
-            <h4>{{ currentResume.StrongPoint3 }}</h4>
-
-          </div>
-        </div>
-
-      </div>
-    </ng-container> -->
     <ng-container *ngIf="resume.comments">
       <div class="singleListData">
         <div class="PointsDiv commonSingleInner">
