@@ -48,7 +48,7 @@
     <div class="btn-accept" (click)="toggleAccordian(i,$event,resume)">
       see the interview
     </div>
-    <div id="{{i}}" class="panel" hide="!item.isActive">
+    <div *ngIf="show == i">
       <!--  -->
 
       <div class="editResumeupperDiv" *ngIf="videoURL">
@@ -98,6 +98,7 @@
 
     <ng-container *ngIf="resume.comments">
       <div class="singleListData">
+        <span>Comments:</span>
         <div class="PointsDiv commonSingleInner">
           <div class="PointsDivSingle PointsDivSingleN">
 

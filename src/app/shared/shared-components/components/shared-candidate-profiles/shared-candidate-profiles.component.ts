@@ -24,7 +24,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
 
   resumes: any;
   resume: any;
-
+  show: any;
   getVideoURLSubscription: Subscription;
   getAllSharedCandidateProfileSubscription: Subscription;
   getArchivedVideoSubscription: Subscription;
@@ -132,35 +132,35 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     jQuery("#shareEmailPopUp").modal("open");
     this.shareVideoService.setResume(resume);
   }
-  ArcivedVideoUrl(archiveId) {
-    this.getArchivedVideoSubscription = this.videoCallingService
-      .getArchivedVideo(archiveId)
-      .subscribe(
-        (res) => {
-          if (res) {
-            this.shareableVideoURL = res.url;
-            this.videoURL = res.url;
-            console.log('----------', this.shareableVideoURL);
-            this.spinner.hide();
+  // ArcivedVideoUrl(archiveId) {
+  //   this.getArchivedVideoSubscription = this.videoCallingService
+  //     .getArchivedVideo(archiveId)
+  //     .subscribe(
+  //       (res) => {
+  //         if (res) {
+  //           this.shareableVideoURL = res.url;
+  //           this.videoURL = res.url;
+  //           console.log('----------', this.shareableVideoURL);
+  //           this.spinner.hide();
 
-            //
+  //           //
 
-            //
-            return true;
-          } else {
-            this.spinner.hide();
-            return false;
+  //           //
+  //           return true;
+  //         } else {
+  //           this.spinner.hide();
+  //           return false;
 
-          }
-        },
-        (err) => {
+  //         }
+  //       },
+  //       (err) => {
 
-          this.spinner.hide();
-          return false;
+  //         this.spinner.hide();
+  //         return false;
 
-        }
-      );
-  }
+  //       }
+  //     );
+  // }
   closeShareModal() {
     jQuery("#shareEmailPopUp").modal("close");
   }
@@ -248,17 +248,15 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   }
   // END share process
   toggleAccordian(index, event, resume) {
-    console.log(event.target);
-    var element = event.target;
-    var panel = element.nextElementSibling;
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
+
+    if (this.show === index) {
+      this.show = -1;
+    } else {
+      this.show = index;
     }
     this.videoURL = '';
-    console.log('==========', resume);
-    element.classList.toggle("active");
     if (resume["interviewLinkedByRecruiter"]) {
-      this.viewVideo(resume["interviewLinkedByRecruiter"], element);
+      this.viewVideo(resume["interviewLinkedByRecruiter"]);
     }
     this.recruiterReview = resume['recruiterReview'];
     this.questionsByRecruiter = resume['questionsByRecruiter'][0];
@@ -277,22 +275,16 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
         timeStamp5: this.questionsByRecruiter.timeStamp5
       });
     }
-    var panel = element.nextElementSibling;
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    }
+
   }
 
-  viewVideo(archivedId, element) {
+  viewVideo(archivedId) {
     this.videoURL = "";
     const payload = {
       archivedId: archivedId,
     };
     this.videoCallingService.getArchivedVideo(payload).subscribe((url) => {
       if (url) {
-        console.log('got the link', element.classList);
         this.videoURL = url.url;
 
       } else {
