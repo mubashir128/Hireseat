@@ -1,4 +1,5 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
@@ -6,6 +7,8 @@ import { ResumeService } from 'src/app/_services/resume.service';
 import { ShareVideoService } from 'src/app/_services/share-video.service';
 import { UserService } from 'src/app/_services/user.service';
 import { VideoCallingService } from 'src/app/_services/video-calling.service';
+import videojs from "video.js";
+
 
 declare var jQuery;
 declare var $: any;
@@ -16,8 +19,12 @@ declare var Materialize;
   styleUrls: ['./shared-candidate-profiles.component.css']
 })
 export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
+  @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
+  player: videojs.Player;
+
   resumes: any;
   resume: any;
+
   getVideoURLSubscription: Subscription;
   getAllSharedCandidateProfileSubscription: Subscription;
   getArchivedVideoSubscription: Subscription;
@@ -28,18 +35,43 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   bcc: any;
   shareableVideoURL: any;
   shareResume: any;
+  videoURL: any;
+  questionNumber: any;
+  options: any;
+  questionsByRecruiter: any;
+  recruiterReview: any;
+  QuestionsGroup: FormGroup;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
     private videoCallingService: VideoCallingService,
     private userService: UserService,
     private spinner: NgxSpinnerService,
-    private shareVideoService: ShareVideoService
+    private shareVideoService: ShareVideoService,
+    private formBuilder: FormBuilder
   ) {
     this.loggedUser = this.userService.getUserData();
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
       // console.log('subscribeed', res);
       this.shareResume = res;
+    });
+
+    this.QuestionsGroup = this.formBuilder.group({
+      question1: new FormControl(null, [Validators.max(100)]),
+      timeStamp1: new FormControl(null),
+
+      question2: new FormControl(null, [Validators.max(100)]),
+      timeStamp2: new FormControl(null),
+
+      question3: new FormControl(null, [Validators.max(100)]),
+      timeStamp3: new FormControl(null),
+
+      question4: new FormControl(null, [Validators.max(100)]),
+      timeStamp4: new FormControl(null),
+
+      question5: new FormControl(null, [Validators.max(100)]),
+      timeStamp5: new FormControl(null),
     });
   }
   ngOnChanges() {
@@ -48,6 +80,21 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   }
   ngOnInit() {
     this.getAllSharedResumes();
+  }
+  ngAfterViewInit() {
+    // instantiate Video.js
+    if (this.videoURL) {
+      this.player = videojs(
+        this.videojsPlay.nativeElement,
+        {
+          autoplay: true,
+          controlls: true,
+        },
+        () => {
+          // console.log('onPlayerReady', this);
+        }
+      );
+    }
   }
   getAllSharedResumes() {
     this.getAllSharedCandidateProfileSubscription = this.resumeService.getAllSharedCandidateProfile().subscribe(res => {
@@ -92,8 +139,13 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
         (res) => {
           if (res) {
             this.shareableVideoURL = res.url;
-            console.log(this.shareableVideoURL);
+            this.videoURL = res.url;
+            console.log('----------', this.shareableVideoURL);
             this.spinner.hide();
+
+            //
+
+            //
             return true;
           } else {
             this.spinner.hide();
@@ -195,15 +247,68 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
 
   }
   // END share process
-  toggleAccordian(event) {
+  toggleAccordian(index, event, resume) {
+    console.log(event.target);
     var element = event.target;
+    var panel = element.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    }
+    this.videoURL = '';
+    console.log('==========', resume);
     element.classList.toggle("active");
-
+    if (resume["interviewLinkedByRecruiter"]) {
+      this.viewVideo(resume["interviewLinkedByRecruiter"], element);
+    }
+    this.recruiterReview = resume['recruiterReview'];
+    this.questionsByRecruiter = resume['questionsByRecruiter'][0];
+    // setting up values for QuestionsGroup
+    if (this.questionsByRecruiter) {
+      this.QuestionsGroup.setValue({
+        question1: this.questionsByRecruiter.question1,
+        question2: this.questionsByRecruiter.question2,
+        question3: this.questionsByRecruiter.question3,
+        question4: this.questionsByRecruiter.question4,
+        question5: this.questionsByRecruiter.question5,
+        timeStamp1: this.questionsByRecruiter.timeStamp1,
+        timeStamp2: this.questionsByRecruiter.timeStamp2,
+        timeStamp3: this.questionsByRecruiter.timeStamp3,
+        timeStamp4: this.questionsByRecruiter.timeStamp4,
+        timeStamp5: this.questionsByRecruiter.timeStamp5
+      });
+    }
     var panel = element.nextElementSibling;
     if (panel.style.maxHeight) {
       panel.style.maxHeight = null;
     } else {
       panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  }
+
+  viewVideo(archivedId, element) {
+    this.videoURL = "";
+    const payload = {
+      archivedId: archivedId,
+    };
+    this.videoCallingService.getArchivedVideo(payload).subscribe((url) => {
+      if (url) {
+        console.log('got the link', element.classList);
+        this.videoURL = url.url;
+
+      } else {
+        console.log("unable to load url");
+      }
+    });
+  }
+  //
+  setCurrentTime(seconds, questionNumber) {
+    this.questionNumber = questionNumber;
+    // console.log(this.questionNumber);
+
+    try {
+      this.videojsPlay.nativeElement.currentTime = seconds;
+    } catch (e) {
+      console.log(e);
     }
   }
   transform(url) {
