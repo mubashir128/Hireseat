@@ -230,7 +230,7 @@ export class WaitingListComponent implements OnInit, OnDestroy {
   }
 
   addEvent(candidateName): void {
-    const newNum = this.events.length + 1;
+    // const newNum = this.events.length + 1;
     const newEvent = {
       title: candidateName,
       start: this.startDate,
