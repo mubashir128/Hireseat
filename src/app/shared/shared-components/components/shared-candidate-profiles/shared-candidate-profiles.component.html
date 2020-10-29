@@ -1,5 +1,5 @@
 <div class="ListResume">
-<div class="singleList employerResume resumeSingleList">
+  <div class="singleList employerResume resumeSingleList" *ngFor="let resume of resumes;let i = index">
     <div class="docSectionBtns">
       <div class="candidate-name">
         <span>
@@ -16,25 +16,23 @@
           </a>
         </button>
         <div class="smallBtns">
-        <button class="LinkedInBtn" >
-        <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
-
-          <a>
-            <!-- <i class="fa fa-linkedin"></i> -->
-            <div class="icon-name">
-
-              <img class="linkedin-icon" src="../../assets/icons/linkedin.png">
-              <span>
-                linked In
-              </span>
-            </div>
-          </a>
-        </button>
-        <button class="shareBtn">
+          <button class="LinkedInBtn">
+            <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
             <a>
               <!-- <i class="fa fa-linkedin"></i> -->
-              <div class="icon-name">
-  
+              <div class="icon-name" (click)="linkedIn(resume?.linkedIn)">
+                <img class="linkedin-icon" src="../../assets/icons/linkedin.png">
+                <span>
+                  linked In
+                </span>
+              </div>
+            </a>
+          </button>
+          <button class="shareBtn">
+            <a>
+              <!-- <i class="fa fa-linkedin"></i> -->
+              <div class="icon-name" (click)="showShareModal(resume)">
+
                 <!-- <img class="shared-icon" src="../../assets/icons/share-option.png"> -->
                 <i class="fa fa-share shared-icon" aria-hidden="true"></i>
                 <span>
@@ -43,45 +41,97 @@
               </div>
             </a>
           </button>
-          </div>
+        </div>
       </div>
     </div>
-    <ng-container *ngIf="!isShareFromRecruiter">
+    <!-- a video  -->
+    <div class="btn-accept" (click)="toggleAccordian(i,$event,resume)">
+      see the interview
+    </div>
+    <div *ngIf="show == i">
+      <!--  -->
 
+      <div class="editResumeupperDiv" *ngIf="videoURL">
+        <div class="interviewVideoDiv stickyDiv">
+          <div class="leftSideQuetion" *ngIf="questionsByRecruiter">
+            <h2>Jump to below interview questions</h2>
+
+            <div class="interviewQue">
+              <!-- <div class="QuestionInner"> -->
+              <h4><a [ngClass]="questionNumber === 1 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp1,1)">
+                  {{questionsByRecruiter?.question1}}</a>
+              </h4>
+
+              <h4><a [ngClass]="questionNumber === 2 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp2,2)">
+                  {{questionsByRecruiter.question2}}</a>
+              </h4>
+              <h4><a [ngClass]="questionNumber === 3 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp3,3)">
+                  {{questionsByRecruiter.question3}}</a>
+              </h4>
+              <h4><a [ngClass]="questionNumber === 4 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp4,4)">
+                  {{questionsByRecruiter.question4}}</a>
+              </h4>
+              <h4><a [ngClass]="questionNumber === 5 ? 'interview-bold':false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp5,5)">
+                  {{questionsByRecruiter.question5}}</a>
+              </h4>
+            </div>
+          </div>
+          <!-- video js -->
+          <div class="video-interview" [ngClass]="!questionsByRecruiter? 'video-js-without-questions': false">
+            <video #playVideo class="video-js" controls>
+              <source [src]="this.videoURL">
+            </video>
+          </div>
+        </div>
+
+
+
+      </div>
+      <!--  -->
+    </div>
+    <!-- end a video -->
+
+    <ng-container *ngIf="resume.comments">
       <div class="singleListData">
+        <span>Comments:</span>
         <div class="PointsDiv commonSingleInner">
           <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="green-tick" />
-            <h4>{{ currentResume.StrongPoint1 }}</h4>
-          </div>
-          <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="green-tick" />
-            <h4>{{ currentResume.StrongPoint2}}</h4>
+
+            <h4>{{ resume?.comments}}</h4>
 
           </div>
-          <div class="PointsDivSingle PointsDivSingleN">
-            <img src="assets/img/checkIcon.png" class="green-tick" />
 
-            <h4>{{ currentResume.StrongPoint3 }}</h4>
-
-          </div>
         </div>
 
       </div>
     </ng-container>
-    <ng-container *ngIf="isShareFromRecruiter && comments">
-      <div class="singleListData">
-        <div class="PointsDiv commonSingleInner">
-          <div class="PointsDivSingle PointsDivSingleN">
 
-            <h4>{{ comments }}</h4>
+  </div>
+</div>
 
-          </div>
-
-        </div>
-
-      </div>
-    </ng-container>
-
+<div id="shareEmailPopUp" class="modal">
+  <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
+  <div class="emailTemp">
+    <div class="form-group posRel">
+      <!-- <p class="hideBtn"><a href="#">Hide CC / BCC</a></p> -->
+      <label>To </label>
+      <input type="text" class="form-control inputComm" [(ngModel)]="recipientEmail" />
+    </div>
+    <div class="form-group posRel">
+      <label>CC </label>
+      <input type="text" class="form-control inputComm" [(ngModel)]="cc" />
+    </div>
+    <div class="form-group posRel">
+      <label>BCC </label>
+      <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
+    </div>
+    <div class="form-group textRight">
+      <button class="sendBtn" (click)="share(resume)">SEND</button>
+    </div>
   </div>
 </div>

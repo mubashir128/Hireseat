@@ -1,127 +1,201 @@
-
 .ListResume {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-    float: left;
-    /* height: calc(100vh - 540px);
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  float: left;
+  /* height: calc(100vh - 540px);
               overflow: scroll; */
-  }
-  .singleList.employerResume {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px 30px;
-    display: block;
-    justify-content: unset;
-    margin-bottom: 20px;
-    transition: 1s;
-    height: auto;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-      0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
-  }
+}
+.singleList.employerResume {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px 30px;
+  display: block;
+  justify-content: unset;
+  margin-bottom: 20px;
+  transition: 1s;
+  height: auto;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
 .docSectionBtns {
-    text-align: right;
-    margin-bottom: 20px;
-    padding: 0 0 20px;
-    border-bottom: 1px solid #e5e5e5;
-    display: flex;
-    justify-content: space-between;
+  text-align: right;
+  margin-bottom: 20px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
 }
 .candidate-name {
-    width: calc(100% - 200px);
-    text-align: left;
+  width: calc(100% - 200px);
+  text-align: left;
 }
 .cadidateResumeDiv {
-    /* display: flex;
+  /* display: flex;
     justify-content: center;
     align-items: center; */
-    min-width: 185px;
+  min-width: 185px;
 }
 .smallBtns {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 7px;
 }
 .candidate-name span {
-    color: #33aaff;
-    font-size: 20px;
-    font-weight: 600;
+  color: #33aaff;
+  font-size: 20px;
+  font-weight: 600;
 }
 .candidate-name p {
-    margin: 3px 0;
-    color: #8c8c8c;
-    font-size: 14px;
+  margin: 3px 0;
+  color: #8c8c8c;
+  font-size: 14px;
 }
 .docSectionBtns button {
-    font-size: 13px;
-    /* min-width: 100px; */
-    border-radius: 5px;
-    padding: 5px 10px;
+  font-size: 13px;
+  /* min-width: 100px; */
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 .downloadResume {
-    border: 2px solid #39aaff;
-    background-color: transparent;
-    color: #39aaff;
-    width: 100%;
+  border: 2px solid #39aaff;
+  background-color: transparent;
+  color: #39aaff;
+  width: 100%;
 }
 button.shareBtn {
-    border: 2px solid #e2e2e2;
-    background-color: #f5f5f5;
+  border: 2px solid #e2e2e2;
+  background-color: #f5f5f5;
 }
-.shared-icon{
-    width: 20px;
-    margin-right: 3px;
+.shared-icon {
+  width: 20px;
+  margin-right: 3px;
 }
 
 .linkedin-icon {
-    width: 22px;
-    height: auto;
-  }
-  .PointsDivSingle {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-    position: relative;
+  width: 22px;
+  height: auto;
+}
+.PointsDivSingle {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  position: relative;
 }
 .PointsDivSingle h4 {
-    margin: 0 20px;
-    font-size: 16px;
-    color: #919191;
-    /* word-wrap: break-word; */
-    white-space: pre-line;
+  margin: 0 20px;
+  font-size: 16px;
+  color: #919191;
+  /* word-wrap: break-word; */
+  white-space: pre-line;
 }
 .docSectionBtns .LinkedInBtn {
-    /* min-width: 135px !important; */
+  /* min-width: 135px !important; */
 }
 .LinkedInBtn {
-    background-color: #0288d1;
-    border: 1px solid #0e76a8;
-    /* margin-left: 10px; */
-    /* min-width: 125px !important; */
-  }
-  .LinkedInBtn a,
+  background-color: #0288d1;
+  border: 1px solid #0e76a8;
+  /* margin-left: 10px; */
+  /* min-width: 125px !important; */
+}
+.LinkedInBtn a,
 .LinkedInBtn a i {
   color: #ffffff;
 }
 .LinkedInBtn .icon-name {
-    display: flex;
+  display: flex;
 }
 
 /* Tablet css :STARTS */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    .docSectionBtns button {
-      margin-bottom: 7px !important;
-    }
-    .LinkedInBtn {
-      min-width: 193px !important;
-    }
-    .singleList.employerResume {
-        padding: 20px !important;
-      }
-      .PointsDivSingle h4 {
-        margin: 0 !important;
-      }
+  .docSectionBtns button {
+    margin-bottom: 7px !important;
+  }
+  .LinkedInBtn {
+    min-width: 193px !important;
+  }
+  .singleList.employerResume {
+    padding: 20px !important;
+  }
+  .PointsDivSingle h4 {
+    margin: 0 !important;
+  }
 }
 /* Tablet css :ENDS */
+
+/* accordian */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+/* display video */
+.video-js {
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+.interviewVideoDiv {
+  width: 100%;
+  float: left;
+  height: 100%;
+  text-align: center;
+  /* z-index: 99; */
+  display: flex;
+  justify-content: flex-end;
+}
+.editResumeupperDiv {
+  width: 100%;
+  height: 220px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftSideQuetion {
+  width: 40%;
+  padding: 15px;
+  /* background-color: #ffffff; */
+  background-color: #000;
+  /* border-radius: 5px;z */
+  box-shadow: 0px 0px 10px #ccc;
+}
+.leftSideQuetion h2 {
+  font-size: 15px;
+  text-align: left;
+  color: #33aaff;
+  margin: 0 0 5px;
+}
+
+.interviewQue h4 {
+  margin: 15px 0;
+  font-size: 14px;
+  text-align: left;
+}
+.interviewQue h4 a {
+  /* color: #449132; */
+  color: #ffffff;
+  cursor: pointer;
+}
+.interviewQue h4 a:hover {
+  font-weight: bold;
+  color: #33aaff;
+}
+.interview-bold {
+  font-weight: lighter !important;
+  color: #33aaff !important;
+}
+.interviewQue {
+  height: 130px;
+  overflow-y: auto;
+}
+.video-js-without-questions {
+  width: 100% !important;
+  height: 100% !important;
+}
+/* end displaying video */
