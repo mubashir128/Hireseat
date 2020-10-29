@@ -4,6 +4,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AllRecruitersComponent } from '../shared/shared-components/components/all-recruiters/all-recruiters.component';
 import { CandidateHomeComponent } from './candidate-home/candidate-home.component';
 import { MyReviewedProfilesComponent } from './my-reviewed-profiles/my-reviewed-profiles.component';
+import { VideoInterviewRoomComponent } from '../video-interview-room/video-interview-room.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'my-reviewed-profiles',
         component: MyReviewedProfilesComponent
+      },
+      {
+        path:'interview-room',
+        component:VideoInterviewRoomComponent
       }
     ]
   }

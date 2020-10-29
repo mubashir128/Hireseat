@@ -32,6 +32,13 @@ export class VideoCallingService {
       })
     );
   }
+  getAllCandidatesInterview(){
+    return this.http.get<any>(this.baseurl + 'api/get-all-candidates-interview-list').pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
   getAllEmployersCandidates(recruiterId) {
     return this.http.post<any>(this.baseurl + 'api/getAllEmployersCandidatesList', recruiterId).pipe(
       map((res: any) => {

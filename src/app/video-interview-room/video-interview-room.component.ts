@@ -177,6 +177,17 @@ export class VideoInterviewRoomComponent implements OnInit {
 
     }
   }
+  getAllCandidatesInterview(payload){
+    this.videoCallingService.getAllCandidatesInterview().subscribe(res => {
+      if (res) {
+        this.spinner.hide();
+        this.interviewList = res;
+      }
+    }, err => {
+      this.spinner.hide();
+      console.log(err);
+    });
+  }
 
   onadd(event) {
     var skillSets = [];
@@ -204,6 +215,8 @@ export class VideoInterviewRoomComponent implements OnInit {
       this.getAllRecruitersCandidates(obj);
     }else if(this.userRole === "employer"){
       this.getAllEmployersCandidates(obj);
+    }else if(this.userRole === "candidate"){
+      this.getAllCandidatesInterview(obj);
     }
   }
 
