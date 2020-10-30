@@ -528,8 +528,10 @@ nav.customeNav {
   align-items: center;
 }
 .linkedin-icon {
-  width: 30px;
+  width: 15px;
+  margin-right: 10px;
   height: auto;
+  filter: invert(100%);
 }
 .cadidateResumeDiv {
   display: flex;
