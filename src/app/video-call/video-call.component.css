@@ -12,9 +12,10 @@ app-subscriber {
   display: flex;
   flex-direction: column;
 }
-/* .screens {
+.screens {
   display: flex;
-} */
+}
+
 .back {
   cursor: pointer;
   color: #48aef3;

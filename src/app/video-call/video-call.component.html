@@ -46,6 +46,9 @@
     <div class="col s12 m9 l9">
 
       <div class="video-call-execution-tab">
+        <ng-container *ngIf="!candidate">
+
+       
         <div class="upperBackDiv">
           <div class="backBtnDiv">
             <span *ngIf="!candidate && !isRecruiter" class="back" (click)="endCall('employer')">
@@ -68,7 +71,7 @@
             <i class="fa fa-bookmark" aria-hidden="true"></i> Bookmark
           </button>
         </div>
-
+      </ng-container>
         <div class="call" *ngIf="session">
           <div class="screens">
             <ng-container>
