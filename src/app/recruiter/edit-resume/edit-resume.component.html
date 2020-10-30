@@ -173,7 +173,13 @@
 
 
           </div>
-
+          <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+               style="display: table;">
+          <div class="uploadBtn" style="display: table-cell;">
+            <span>Change Resume</span>
+            <input type="file" (change)="fileChange($event)" />
+          </div>
+          </div>
         </div>
         <ng-container *ngIf="recruiterReview.length > 0">
           <div class="RecriterReview">

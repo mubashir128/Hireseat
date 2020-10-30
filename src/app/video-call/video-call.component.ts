@@ -33,6 +33,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   userId: any;
   message: any;
   candidate = false;
+  registerCandidate: any;
   isRecruiter = true;
   roomId: any;
   allowSubscriber = false;
@@ -61,6 +62,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   hideVideo = false;
   showButtons = false;
   closeStatus: any;
+  isEmployer: boolean;
   constructor(
     private ref: ChangeDetectorRef,
     private opentokService: OpentokService,
@@ -157,13 +159,14 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     } else {
       this.allowSubscriber = true;
 
-      // // // console.log('recruiter on video call');
       this.userId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
-
+      
       this.userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
+      console.log('recruiter on video call',this.userRole);
       this.candidate = false;
       if (this.userRole === 'employer') {
         this.isRecruiter = false;
+        this.isEmployer = true;
         this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
         const payload = {
           candidateId: this.candidateId
@@ -178,6 +181,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
         this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
         // console.log('candidateId', this.candidateId);
+        this.isEmployer = false;
         this.isRecruiter = true;
         // getting candidates resume by Id
         const payload = {
@@ -193,6 +197,11 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
         });
         // end resume candidate
+      } else if (this.userRole === 'candidate') {
+        this.registerCandidate = true;
+        this.isEmployer = false;
+        this.isRecruiter = false;
+
       }
     }
     //
@@ -280,28 +289,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       }, 3000);
 
     });
-    // .then(() => {
-    //   this.spinner.show();
-
-    //   this.opentokService.connect()
-    //     .then(result => {
-    //       console.log('***********', result);
-
-    //     })
-    //     .catch(err => {
-    //       this.spinner.hide();
-
-    //       console.log('---------------', err);
-
-    //     });
-    //   this.showButtons = true;
-    // })
-    // .catch((error) => {
-    //   console.log('---------------', error);
-    //   this.spinner.hide();
-
-    //   // alert('Unable to connect.');
-    // });
+ 
 
   }
 
@@ -351,37 +339,6 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
   //  archiving
 
-  // startArchive() {
-  //   $.ajax({
-  //     url: baseUrl + 'api/archive/start',
-  //     type: 'POST',
-  //     contentType: 'application/json', // send as JSON
-  //     data: JSON.stringify({ sessionId: this.session.sessionId }),
-
-  //     complete: function complete() {
-  //       // called when complete
-  //       // console.log('startArchive() complete');
-  //     },
-
-  //     success: function success(event) {
-  //       // called when successful
-  //       // console.log('successfully called startArchive()', event);
-  //       this.opentokService.setArchivingID(event.id);
-  //       this.arcId = event.id;
-  //     },
-
-  //     error: function error() {
-  //       // called when there is an error
-  //       console.log('error calling startArchive()');
-  //     }
-  //   });
-
-  //   $('#start').hide();
-  //   $('#stop').show();
-
-  //   this.startArchiveButton = false;
-  //   this.stopArchiveButton = true;
-  // }
   startArchive() {
     this.startArchiveSubscription = this.videoCallingService.startArchive({ sessionId: this.session.sessionId }).subscribe(res => {
       if (res) {

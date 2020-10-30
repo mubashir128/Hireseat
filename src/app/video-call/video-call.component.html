@@ -31,8 +31,11 @@
         <ng-container *ngIf="isRecruiter">
           <app-recruiter-navbar></app-recruiter-navbar>
         </ng-container>
-        <ng-container *ngIf="!isRecruiter">
+        <ng-container *ngIf="isEmployer">
           <app-employer-navbar></app-employer-navbar>
+        </ng-container>
+        <ng-container *ngIf="registerCandidate">
+          <app-candidate-navbar></app-candidate-navbar>
         </ng-container>
       </div>
     </ng-container>
