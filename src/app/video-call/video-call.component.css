@@ -767,7 +767,7 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   justify-content: flex-start;
 }
-.jobtitle{
+.jobtitle {
   width: 100%;
   height: auto;
   display: flex;
@@ -871,6 +871,11 @@ input[type="number"]::-webkit-outer-spin-button {
   }
   .brand-logo img {
     width: 70%;
-}
+  }
 }
 /* ========================== Mobile Responsive : ENDS ========================= */
+/* register Candidate */
+
+.regCandidate {
+  pointer-events: none;
+}

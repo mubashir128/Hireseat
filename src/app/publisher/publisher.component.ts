@@ -60,7 +60,7 @@ export class PublisherComponent implements AfterViewInit {
 
   }
   isVideo(status) {
-    console.log('************', event);
+    // console.log('************', event);
     this.hideVideo = status;
     // this.publisher.publishVideo(false);
 

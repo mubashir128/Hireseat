@@ -88,12 +88,12 @@
 
                 <div class="archive-copylink">
                   <!-- <div id="buttons"> -->
-                  <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink"
+                  <button id="myBtn" class="copy-link" *ngIf="candidateInvitationLink" [ngClass]="registerCandidate?'regCandidate':false"
                     (click)="copyText('https://www.hireseat.com/video-call/'+toCopylinkPublishedStreamId)"
                     value="click to copy">
                     Candidate Invitation Link
                   </button>
-                  <button type="button" class="start-button" *ngIf="startArchiveButton" (click)="startArchive()">Start
+                  <button type="button" class="start-button" *ngIf="startArchiveButton" [ngClass]="registerCandidate?'regCandidate':false" (click)="startArchive()">Start
                     Recording</button>
                   <button type="button" class="stop-button" *ngIf="stopArchiveButton"
                     (click)="stopArchive(archiveID)">Stop Recording</button>
@@ -130,13 +130,17 @@
             </div>
           </div>
           <div class="end-meeting-section">
-            <ng-container *ngIf="!candidate && !isRecruiter">
+            <ng-container *ngIf="!candidate && isEmployer">
               <button type="button" (click)="endCall('employer')" class="end-meeting">
                 End
                 Meeting</button>
             </ng-container>
             <ng-container *ngIf="!candidate && isRecruiter">
               <button type="button" (click)="endCall('recruiter')" class="end-meeting">End
+                Meeting</button>
+            </ng-container>
+            <ng-container *ngIf="!candidate && registerCandidate">
+              <button type="button" (click)="endCall('regCandidate')" class="end-meeting">End
                 Meeting</button>
             </ng-container>
           </div>
@@ -188,7 +192,7 @@
             <div class="actionDivSingle">
               <div class="">
                 <!-- [attr.id]="'Comments' + resume._id" -->
-                <textarea [(ngModel)]="commentFromRecruiter" class="commentTxt" rows="5" cols="4"></textarea>
+                <textarea [(ngModel)]="commentFromRecruiter" class="commentTxt" [ngClass]="registerCandidate?'regCandidate':false" rows="5" cols="4"></textarea>
               </div>
               <!-- <div class="docDiv">
               <h4><span>Recruiter Cost:</span>20</h4>
@@ -199,7 +203,7 @@
               <button id="myBtn" *ngIf="isRecruiter" class="copy-link marL10" (click)="questionsPopUp()">
                 Add Questions
               </button>
-              <button id="myBtn" (click)="submitReview()" class="copy-link commButton marL10">
+              <button id="myBtn" *ngIf="!registerCandidate" (click)="submitReview()" class="copy-link commButton marL10">
                 Submit review
               </button>
             </div>
@@ -338,8 +342,9 @@
     <div class="confirm">
       <div class="spacing">
         <div class="no">
-          <div class="btn-accept" (click)="closeendCallConfirmpopup('no')"> Submit Recording</div>
+          <div class="btn-accept" (click)="closeendCallConfirmpopup('no')">Submit Recording</div>
         </div>
+        
         <div class="yes">
           <div class="btn-reject" (click)="closeendCallConfirmpopup('yes')">End Call</div>
         </div>

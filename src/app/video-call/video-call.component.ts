@@ -130,7 +130,6 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           opentokService._getCandidateID.subscribe(id => {
             // console.log(id);
             this.toCopylinkPublishedStreamId = id;
-
           });
           // end of subscription to a stream
         }
@@ -140,16 +139,10 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     this.opentokService._archivingID.subscribe((archiveID) => {
       this.archiveID = archiveID;
     });
-
   }
-
-
-
   ngOnInit() {
     jQuery('.modal').modal();
     this.candidateInvitationLink = true;
-
-
     // candidate or interviewer
     if (!localStorage.getItem('currentUser')) {
       this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -162,7 +155,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.userId = JSON.parse(localStorage.getItem('currentUser')).userInfo._id;
       
       this.userRole = JSON.parse(localStorage.getItem('currentUser')).userInfo.userRole;
-      console.log('recruiter on video call',this.userRole);
+      console.log('user',this.userRole);
       this.candidate = false;
       if (this.userRole === 'employer') {
         this.isRecruiter = false;
@@ -171,12 +164,14 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         const payload = {
           candidateId: this.candidateId
         };
-        this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
-          this.candidateInfo = res.isCandidate;
-          this.opentokService.setCandidateId(this.candidateId);
-          // console.log(this.candidateInfo);
+        this.getSelectedCandidateInfo(payload);
 
-        });
+        // this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
+        //   this.candidateInfo = res.isCandidate;
+        //   this.opentokService.setCandidateId(this.candidateId);
+        //   // console.log(this.candidateInfo);
+
+        // });
       } else if (this.userRole === 'recruiter') {
 
         this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -187,21 +182,28 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         const payload = {
           candidateId: this.candidateId
         };
-        this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
-          this.candidateInfo = res.isCandidate;
-          this.opentokService.setCandidateId(this.candidateId);
-          // console.log(this.candidateInfo);
+        this.getSelectedCandidateInfo(payload);
+        // this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
+        //   this.candidateInfo = res.isCandidate;
+        //   this.opentokService.setCandidateId(this.candidateId);
+        //   // console.log(this.candidateInfo);
 
-        }, error => {
-          console.log('---------------', error);
+        // }, error => {
+        //   console.log('---------------', error);
 
-        });
+        // });
         // end resume candidate
       } else if (this.userRole === 'candidate') {
+        console.log('registered candidate');
+        this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+        
         this.registerCandidate = true;
         this.isEmployer = false;
         this.isRecruiter = false;
-
+        const payload = {
+          candidateId: this.candidateId
+        };
+        this.getSelectedCandidateInfo(payload); 
       }
     }
     //
@@ -263,22 +265,18 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         this.opentokService.connect()
           .then(result => {
             if (result) {
-              Materialize.toast('Welcome to video calling', 4000)
+              Materialize.toast('Welcome to video calling', 4000);
               this.spinner.hide();
               this.showButtons = true;
-
             }
           })
           .catch(err => {
             this.spinner.hide();
-
-
           });
       }
     }, err => {
       console.log('-------------------------', err);
       this.spinner.hide();
-
       this.emailConfirmPopup(err + ' please try after some time!', 2000);
       setTimeout(() => {
         if (this.userRole === 'recruiter') {
@@ -287,13 +285,22 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.router.navigate(['/employer/video-interview-room'])
         }
       }, 3000);
-
     });
- 
-
   }
 
+  getSelectedCandidateInfo(payload){
+    console.log(',,,,,,,',payload);
+    
+       this.videoCallingService.getCandidatesInfoById(payload).subscribe(res => {
+          this.candidateInfo = res.isCandidate;
+          this.opentokService.setCandidateId(this.candidateId);
+          // console.log(this.candidateInfo);
 
+        }, error => {
+          console.log('---------------', error);
+
+        });
+  }
   // modal
   emailConfirmPopup(message, time) {
     // // // console.log("emailConfirmPopup");
@@ -586,6 +593,14 @@ export class VideoCallComponent implements OnInit, OnDestroy {
               window.location.reload();
             });
         }
+        break;
+        case 'regCandidate':
+        
+          this.router.navigate(['/candidate/interview-room'])
+            .then(() => {
+              window.location.reload();
+            });
+        
         break;
       default:
         this.router.navigate(['/'])
