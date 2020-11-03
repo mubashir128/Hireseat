@@ -75,8 +75,11 @@ button.shareBtn {
 }
 
 .linkedin-icon {
-  width: 22px;
+  width: 18px;
+  margin-right: 5px;
   height: auto;
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
 }
 .PointsDivSingle {
   display: flex;

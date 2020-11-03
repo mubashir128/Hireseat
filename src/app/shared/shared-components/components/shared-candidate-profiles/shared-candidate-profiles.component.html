@@ -3,7 +3,7 @@
     <div class="docSectionBtns">
       <div class="candidate-name">
         <span>
-          {{resume?.candidateName}}
+          {{resume?.candidateName || resume.candidate_id.fullName}}
         </span>
         <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
         <p><label>Location :</label> {{resume?.location}}</p>
@@ -21,9 +21,9 @@
             <a>
               <!-- <i class="fa fa-linkedin"></i> -->
               <div class="icon-name" (click)="linkedIn(resume?.linkedIn)">
-                <img class="linkedin-icon" src="../../assets/icons/linkedin.png">
+                <img class="linkedin-icon" src="../../assets/icons/linkedin-sign.png">
                 <span>
-                  linked In
+                  LinkedIn
                 </span>
               </div>
             </a>
@@ -45,9 +45,11 @@
       </div>
     </div>
     <!-- a video  -->
-    <div class="btn-accept" (click)="toggleAccordian(i,$event,resume)">
-      see the interview
-    </div>
+    <ng-container *ngIf="resume.addedToVideoInterviewRoomByRecruiter">
+      <div class="btn-accept" (click)="toggleAccordian(i,$event,resume)">
+        see the interview
+      </div>
+    </ng-container>
     <div *ngIf="show == i">
       <!--  -->
 

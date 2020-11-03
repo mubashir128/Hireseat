@@ -61,6 +61,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       totalWorkExpYrs: [''],
       totalWorkExpMonths: [''],
       locationPref: [''],
+      shareProfile: [false],
       fileURL: ['']
     });
     this.getProfile();
@@ -124,6 +125,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         totalWorkExpYrs: res.totalWorkExpYrs,
         totalWorkExpMonths: res.totalWorkExpMonths,
         locationPref: res.locationPref,
+        shareProfile:res.shareProfile,
         fileURL: res.fileURL,
       });
       // console.log('file ', res.fileURL.length);
@@ -143,6 +145,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     });
   }
   submit() {
+    console.log('}}}}}}}}}}}}',this.editProfile.value);
+    
     if (this.downloadURL) {
       this.editProfile.patchValue({
         fileURL: this.downloadURL
