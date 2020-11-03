@@ -87,7 +87,8 @@ pre {
 }
 .EditEventMain .table-bordered td,
 .EditEventMain .table-bordered th {
-  padding: 15px;
+  /* padding: 15px; */
+  padding: 8px;
 }
 .EditEventMain .table-bordered td input.form-control {
   border-bottom: none;
@@ -132,3 +133,4 @@ pre {
   justify-content: space-evenly;
   padding: 20px 0 0 0;
 }
+

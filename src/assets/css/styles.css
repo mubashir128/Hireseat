@@ -1262,3 +1262,6 @@ body {
 .nsdicon-close {
   display: none !important;
 }
+.dateTd .form-control.InnerInput {
+  margin: 0 !important;
+}
