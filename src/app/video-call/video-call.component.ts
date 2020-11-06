@@ -63,6 +63,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   showButtons = false;
   closeStatus: any;
   isEmployer: boolean;
+  selfRecord = false;
+  selfRecordId: any;
   constructor(
     private ref: ChangeDetectorRef,
     private opentokService: OpentokService,
@@ -144,8 +146,16 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     jQuery('.modal').modal();
     this.candidateInvitationLink = true;
     // candidate or interviewer
+    this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+    if(this.candidateId.includes('@')){
+          this.candidateId = this.candidateId.split('@')[1];
+          this.selfRecord = true;
+          this.registerCandidate = false;
+          this.isEmployer = false;
+          this.isRecruiter = false;
+    }
     if (!localStorage.getItem('currentUser')) {
-      this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+      // this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
 
       this.candidate = true;
 
@@ -160,7 +170,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       if (this.userRole === 'employer') {
         this.isRecruiter = false;
         this.isEmployer = true;
-        this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+        // this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
         const payload = {
           candidateId: this.candidateId
         };
@@ -174,7 +184,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         // });
       } else if (this.userRole === 'recruiter') {
 
-        this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+        // this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
         // console.log('candidateId', this.candidateId);
         this.isEmployer = false;
         this.isRecruiter = true;
@@ -195,15 +205,22 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         // end resume candidate
       } else if (this.userRole === 'candidate') {
         console.log('registered candidate');
-        this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
+        // this.candidateId = this.activatedRoute.snapshot.paramMap.get('id');
         
         this.registerCandidate = true;
         this.isEmployer = false;
         this.isRecruiter = false;
-        const payload = {
-          candidateId: this.candidateId
-        };
-        this.getSelectedCandidateInfo(payload); 
+        if(this.selfRecord){
+          const payload = {
+            candidateId: this.candidateId
+          };
+          this.getPersonalInfo(payload);
+        } else {
+          const payload = {
+            candidateId: this.candidateId
+          };
+          this.getSelectedCandidateInfo(payload); 
+        }
       }
     }
     //
@@ -286,6 +303,19 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         }
       }, 3000);
     });
+  }
+  getPersonalInfo(payload){
+    console.log('*******',payload);
+    
+       this.videoCallingService.getPersonalInfoById(payload).subscribe(res => {
+          this.candidateInfo = res.isCandidate;
+          // this.opentokService.setCandidateId(this.candidateId);
+          // console.log(this.candidateInfo);
+
+        }, error => {
+          console.log('---------------', error);
+
+        });
   }
 
   getSelectedCandidateInfo(payload){
@@ -384,10 +414,12 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     // store archived view
     $('#view').prop('disabled', true);
     this.viewArchiveButton = true;
+    
     const payload = {
       archiveId: this.archiveID,
       candidateId: this.candidateId,
-      userRole: this.userRole
+      userRole: this.userRole,
+      selfRecord:this.selfRecord?true:false
     };
     console.log(this.candidateId);
     // add subscription

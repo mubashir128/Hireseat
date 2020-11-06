@@ -86,6 +86,12 @@ export class VideoCallingService {
     })
     );
   }
+  getPersonalInfoById(payload) {
+    return this.http.post<any>(this.baseurl + 'api/personalinfo', payload).pipe(map((res: any) => {
+      return res;
+    })
+    );
+  }
   submitRecruitersReview(payload) {
     return this.http.post<any>(this.baseurl + 'api/recruiterReview', payload).pipe(map((res: any) => {
       return res;

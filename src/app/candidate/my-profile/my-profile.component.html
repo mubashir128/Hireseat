@@ -3,6 +3,11 @@
         <form [formGroup]="editProfile" (ngSubmit)="submit()" novalidate>
         <div class="disF" style="padding: 20px; border-bottom: solid #e0e0e0 1px;">
             <div class="section-header">Edit Profile</div>
+            <div>
+                <div class="btn-accept" (click)="navigateToRoom()">
+                    Record Interview
+                </div >
+            </div>
             <div class="post">
             <div>
                 <input type="checkbox" id="post" name="post" [value]="editProfile.value.shareProfile"   [(ngModel)]="editProfile.value.shareProfile"
@@ -12,12 +17,12 @@
             </div>
         </div>
             <div style="width: 100%; margin-bottom: 0px;">
-                <div class="UlpoadVideoCandi">
+                <!-- <div class="UlpoadVideoCandi">
                     <div class="uploadcandVideoDiv">
-                        <button>Upload Video</button>
-                        <input type="file" />
+                        <button >Upload Video</button>
+                        <input type="file" (change)="onFilePicked($event)" />
                     </div>
-                </div>
+                </div> -->
 
                 <div class="resumePreview">
 
@@ -46,6 +51,13 @@
 
 
                     </div>
+                    <ng-container *ngIf="videoURL">
+                        <div class="video-interview">
+                        <video #playVideo class="video-js" controls>
+                            <source [src]="videoURL">
+                        </video>
+                        </div>
+                    </ng-container>
 
                 </div>
                 <!-- <span>Re-Upload Resume</span>

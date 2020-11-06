@@ -59,4 +59,9 @@ export class CandidateService {
       return result;
     }));
   }
+  uploadVideo(payload){
+    return this.http.post<any>(this.baseurl + "api/upload-my-video", payload).pipe(map((result: any) => {
+      return result;
+    }));
+  }
 }

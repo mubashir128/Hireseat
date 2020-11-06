@@ -8,6 +8,8 @@ declare var Materialize: any;
 import videojs from "video.js";
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { VideoCallingService } from 'src/app/_services/video-calling.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -25,13 +27,21 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   fileUploaded = 0;
   downloadURL = '';
   referral: any;
+  errorMsg: boolean;
+  fileObj: File;
+  fileUrl: any;
+  videoURL: any;
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
-    private candidateService: CandidateService
+    private candidateService: CandidateService,
+    private router: Router,
+    private videoCallingService:VideoCallingService
   ) { }
 
   ngOnInit() {
+    this.videoURL = "";
+
     this.editProfile = this.formBuilder.group({
       fullName: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
@@ -100,7 +110,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
   getProfile() {
     this.getProfileSubscription = this.candidateService.getCandidateProfile().subscribe((res) => {
-      // console.log('************************', res);
+      console.log('************************', res);
       this.candidateProfile = res;
       this.editProfile.patchValue({
         fullName: res.candidate_id.fullName,
@@ -137,11 +147,28 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.fileUploaded = 0;
 
       }
+      if(res.recordedId){
+        this.viewVideo(res.recordedId);
+      }
 
     }, err => {
       // console.log(err);
       Materialize.toast("Something Went Wrong !", 1000);
 
+    });
+  }
+  viewVideo(archivedId) {
+    this.videoURL = "";
+    // console.log(archivedId);
+    const payload = {
+      archivedId: archivedId,
+    };
+    this.videoCallingService.getArchivedVideo(payload).subscribe((url) => {
+      if (url) {
+        this.videoURL = url.url;
+      } else {
+        console.log("unable to load url");
+      }
     });
   }
   submit() {
@@ -170,6 +197,37 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       Materialize.toast("Please complete the form!", 3000);
 
     }
+  }
+
+  navigateToRoom(){
+    this.router.navigate(['video-call/' +'self-record@'+ this.candidateProfile._id]);
+
+  }
+  onFilePicked(event: Event): void {
+
+    this.errorMsg = false
+    console.log(event);
+    const FILE = (event.target as HTMLInputElement).files[0];
+    this.fileObj = FILE;
+    console.log(this.fileObj);
+    if(this.fileObj){
+      this.onFileUpload();
+    }
+  }
+  onFileUpload() {
+    console.log('');
+    
+    if (!this.fileObj) {
+      this.errorMsg = true
+      return
+    }
+    const fileForm = new FormData();
+    fileForm.append('file', this.fileObj);
+    this.candidateService.uploadVideo(fileForm).subscribe(res => {
+      this.fileUrl = res;
+      console.log(res);
+      
+    });
   }
   ngOnDestroy() {
     if (this.editCandidateProfileSubscription) this.editCandidateProfileSubscription.unsubscribe();
