@@ -1,22 +1,33 @@
-import { Component, OnInit, OnChanges, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Subscription } from 'rxjs';
-import { ResumeService } from 'src/app/_services/resume.service';
-import { ShareVideoService } from 'src/app/_services/share-video.service';
-import { UserService } from 'src/app/_services/user.service';
-import { VideoCallingService } from 'src/app/_services/video-calling.service';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  ViewChild,
+  ElementRef,
+} from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { DomSanitizer } from "@angular/platform-browser";
+import { NgxSpinnerService } from "ngx-spinner";
+import { Subscription } from "rxjs";
+import { ResumeService } from "src/app/_services/resume.service";
+import { ShareVideoService } from "src/app/_services/share-video.service";
+import { UserService } from "src/app/_services/user.service";
+import { VideoCallingService } from "src/app/_services/video-calling.service";
+import { WebsocketService } from "src/app/_services/websocket.service";
 import videojs from "video.js";
-
 
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
 @Component({
-  selector: 'app-shared-candidate-profiles',
-  templateUrl: './shared-candidate-profiles.component.html',
-  styleUrls: ['./shared-candidate-profiles.component.css']
+  selector: "app-shared-candidate-profiles",
+  templateUrl: "./shared-candidate-profiles.component.html",
+  styleUrls: ["./shared-candidate-profiles.component.css"],
 })
 export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
@@ -49,7 +60,8 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     private userService: UserService,
     private spinner: NgxSpinnerService,
     private shareVideoService: ShareVideoService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _socket: WebsocketService
   ) {
     this.loggedUser = this.userService.getUserData();
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
@@ -78,8 +90,20 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     jQuery(".modal").modal();
     jQuery("select").material_select();
   }
-  ngOnInit() {
+  async ngOnInit() {
     this.getAllSharedResumes();
+    // let obj = JSON.parse(localStorage.getItem("currentUser"));
+    // if (obj !== null) {
+    //   await this.initSocket(obj.token, obj.userInfo.userRole);
+    // }
+    // this._socket.getProfiles().subscribe((res) => {
+    //   this.resumes = res;
+    //   console.log("______", this.resumes);
+    // });
+  }
+
+  async initSocket(token, userRole) {
+    await this._socket.getInstance(token, userRole);
   }
   ngAfterViewInit() {
     // instantiate Video.js
@@ -97,34 +121,35 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     }
   }
   getAllSharedResumes() {
-    this.getAllSharedCandidateProfileSubscription = this.resumeService.getAllSharedCandidateProfile().subscribe(res => {
-      if (res) {
-        // console.log(res);
+    this.getAllSharedCandidateProfileSubscription = this.resumeService
+      .getAllSharedCandidateProfile()
+      .subscribe(
+        (res) => {
+          if (res) {
+            // console.log(res);
 
-        this.resumes = res;
-      }
-    }, err => {
-
-    })
+            this.resumes = res;
+          }
+        },
+        (err) => {}
+      );
   }
   getVideo(payload) {
-    this.getVideoURLSubscription = this.videoCallingService.getArchivedVideo(payload).subscribe((url) => {
-      if (url) {
-        window.open(url.url);
-        // console.log(url);
-      } else {
-        // console.log('unable to load url');
-        Materialize.toast('unable to load url', 3000);
-      }
-    });
+    this.getVideoURLSubscription = this.videoCallingService
+      .getArchivedVideo(payload)
+      .subscribe((url) => {
+        if (url) {
+          window.open(url.url);
+          // console.log(url);
+        } else {
+          // console.log('unable to load url');
+          Materialize.toast("unable to load url", 3000);
+        }
+      });
   }
   linkedIn(url) {
     window.open(url, "_blank");
-
   }
-
-
-
 
   // share process
   showShareModal(resume) {
@@ -204,7 +229,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
                 videoUrl: this.shareableVideoURL,
                 fullName: this.shareResume.candidateName,
                 subject: subject,
-                comment: this.shareResume.comments
+                comment: this.shareResume.comments,
               };
               this.shareVideoSubscription = this.shareVideoService
                 .shareVideoViaRecruiterEmail(payload)
@@ -215,7 +240,6 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
                       Materialize.toast(res.msg, 3000);
                       jQuery("#shareEmailPopUp").modal("close");
                       this.spinner.hide();
-
                     }
                   },
                   (err) => {
@@ -223,14 +247,12 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
                     Materialize.toast("unable to send an email!", 3000);
                     jQuery("#shareEmailPopUp").modal("close");
                     this.spinner.hide();
-
                   }
                 );
             } else {
               // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 3000);
               this.spinner.hide();
-
             }
           } else {
             this.spinner.hide();
@@ -239,43 +261,42 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
         (err) => {
           this.spinner.hide();
           return false;
-
         }
       );
     // got url
-
-
   }
   // END share process
   toggleAccordian(index, event, resume) {
-
     if (this.show === index) {
       this.show = -1;
     } else {
       this.show = index;
     }
-    this.videoURL = '';
-    if (resume["interviewLinkedByRecruiter"]) {
-      this.viewVideo(resume["interviewLinkedByRecruiter"]);
+    this.videoURL = "";
+    if (resume.recordedId) {
+      this.viewVideo(resume["recordedId"]);
+    } else {
+      if (resume["interviewLinkedByRecruiter"]) {
+        this.viewVideo(resume["interviewLinkedByRecruiter"]);
+      }
+      this.recruiterReview = resume["recruiterReview"];
+      this.questionsByRecruiter = resume["questionsByRecruiter"][0];
+      // setting up values for QuestionsGroup
+      if (this.questionsByRecruiter) {
+        this.QuestionsGroup.setValue({
+          question1: this.questionsByRecruiter.question1,
+          question2: this.questionsByRecruiter.question2,
+          question3: this.questionsByRecruiter.question3,
+          question4: this.questionsByRecruiter.question4,
+          question5: this.questionsByRecruiter.question5,
+          timeStamp1: this.questionsByRecruiter.timeStamp1,
+          timeStamp2: this.questionsByRecruiter.timeStamp2,
+          timeStamp3: this.questionsByRecruiter.timeStamp3,
+          timeStamp4: this.questionsByRecruiter.timeStamp4,
+          timeStamp5: this.questionsByRecruiter.timeStamp5,
+        });
+      }
     }
-    this.recruiterReview = resume['recruiterReview'];
-    this.questionsByRecruiter = resume['questionsByRecruiter'][0];
-    // setting up values for QuestionsGroup
-    if (this.questionsByRecruiter) {
-      this.QuestionsGroup.setValue({
-        question1: this.questionsByRecruiter.question1,
-        question2: this.questionsByRecruiter.question2,
-        question3: this.questionsByRecruiter.question3,
-        question4: this.questionsByRecruiter.question4,
-        question5: this.questionsByRecruiter.question5,
-        timeStamp1: this.questionsByRecruiter.timeStamp1,
-        timeStamp2: this.questionsByRecruiter.timeStamp2,
-        timeStamp3: this.questionsByRecruiter.timeStamp3,
-        timeStamp4: this.questionsByRecruiter.timeStamp4,
-        timeStamp5: this.questionsByRecruiter.timeStamp5
-      });
-    }
-
   }
 
   viewVideo(archivedId) {
@@ -286,7 +307,6 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     this.videoCallingService.getArchivedVideo(payload).subscribe((url) => {
       if (url) {
         this.videoURL = url.url;
-
       } else {
         console.log("unable to load url");
       }

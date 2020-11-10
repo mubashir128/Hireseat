@@ -110,7 +110,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
   getProfile() {
     this.getProfileSubscription = this.candidateService.getCandidateProfile().subscribe((res) => {
-      console.log('************************', res);
+      // console.log('************************', res);
       this.candidateProfile = res;
       this.editProfile.patchValue({
         fullName: res.candidate_id.fullName,

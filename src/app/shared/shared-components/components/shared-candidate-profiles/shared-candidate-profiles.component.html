@@ -1,12 +1,15 @@
 <div class="ListResume">
-  <div class="singleList employerResume resumeSingleList" *ngFor="let resume of resumes;let i = index">
+  <div
+    class="singleList employerResume resumeSingleList"
+    *ngFor="let resume of resumes; let i = index"
+  >
     <div class="docSectionBtns">
       <div class="candidate-name">
         <span>
-          {{resume?.candidateName || resume.candidate_id.fullName}}
+          {{ resume?.candidateName || resume.candidate_id.fullName }}
         </span>
-        <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
-        <p><label>Location :</label> {{resume?.location}}</p>
+        <p><label>Job Title :</label> {{ resume?.jobTitle }}</p>
+        <p><label>Location :</label> {{ resume?.location }}</p>
       </div>
       <div class="cadidateResumeDiv">
         <button class="downloadResume">
@@ -21,10 +24,11 @@
             <a>
               <!-- <i class="fa fa-linkedin"></i> -->
               <div class="icon-name" (click)="linkedIn(resume?.linkedIn)">
-                <img class="linkedin-icon" src="../../assets/icons/linkedin-sign.png">
-                <span>
-                  LinkedIn
-                </span>
+                <img
+                  class="linkedin-icon"
+                  src="../../assets/icons/linkedin-sign.png"
+                />
+                <span> LinkedIn </span>
               </div>
             </a>
           </button>
@@ -32,12 +36,9 @@
             <a>
               <!-- <i class="fa fa-linkedin"></i> -->
               <div class="icon-name" (click)="showShareModal(resume)">
-
                 <!-- <img class="shared-icon" src="../../assets/icons/share-option.png"> -->
                 <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                <span>
-                  Share
-                </span>
+                <span> Share </span>
               </div>
             </a>
           </button>
@@ -45,8 +46,10 @@
       </div>
     </div>
     <!-- a video  -->
-    <ng-container *ngIf="resume.addedToVideoInterviewRoomByRecruiter">
-      <div class="btn-accept" (click)="toggleAccordian(i,$event,resume)">
+    <ng-container
+      *ngIf="resume.addedToVideoInterviewRoomByRecruiter || resume.recordedId"
+    >
+      <div class="btn-accept" (click)="toggleAccordian(i, $event, resume)">
         see the interview
       </div>
     </ng-container>
@@ -60,39 +63,61 @@
 
             <div class="interviewQue">
               <!-- <div class="QuestionInner"> -->
-              <h4><a [ngClass]="questionNumber === 1 ? 'interview-bold':false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp1,1)">
-                  {{questionsByRecruiter?.question1}}</a>
+              <h4>
+                <a
+                  [ngClass]="questionNumber === 1 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp1, 1)"
+                >
+                  {{ questionsByRecruiter?.question1 }}</a
+                >
               </h4>
 
-              <h4><a [ngClass]="questionNumber === 2 ? 'interview-bold':false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp2,2)">
-                  {{questionsByRecruiter.question2}}</a>
+              <h4>
+                <a
+                  [ngClass]="questionNumber === 2 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp2, 2)"
+                >
+                  {{ questionsByRecruiter.question2 }}</a
+                >
               </h4>
-              <h4><a [ngClass]="questionNumber === 3 ? 'interview-bold':false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp3,3)">
-                  {{questionsByRecruiter.question3}}</a>
+              <h4>
+                <a
+                  [ngClass]="questionNumber === 3 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp3, 3)"
+                >
+                  {{ questionsByRecruiter.question3 }}</a
+                >
               </h4>
-              <h4><a [ngClass]="questionNumber === 4 ? 'interview-bold':false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp4,4)">
-                  {{questionsByRecruiter.question4}}</a>
+              <h4>
+                <a
+                  [ngClass]="questionNumber === 4 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp4, 4)"
+                >
+                  {{ questionsByRecruiter.question4 }}</a
+                >
               </h4>
-              <h4><a [ngClass]="questionNumber === 5 ? 'interview-bold':false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp5,5)">
-                  {{questionsByRecruiter.question5}}</a>
+              <h4>
+                <a
+                  [ngClass]="questionNumber === 5 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp5, 5)"
+                >
+                  {{ questionsByRecruiter.question5 }}</a
+                >
               </h4>
             </div>
           </div>
           <!-- video js -->
-          <div class="video-interview" [ngClass]="!questionsByRecruiter? 'video-js-without-questions': false">
+          <div
+            class="video-interview"
+            [ngClass]="
+              !questionsByRecruiter ? 'video-js-without-questions' : false
+            "
+          >
             <video #playVideo class="video-js" controls>
-              <source [src]="this.videoURL">
+              <source [src]="this.videoURL" />
             </video>
           </div>
         </div>
-
-
-
       </div>
       <!--  -->
     </div>
@@ -103,16 +128,11 @@
         <span>Comments:</span>
         <div class="PointsDiv commonSingleInner">
           <div class="PointsDivSingle PointsDivSingleN">
-
-            <h4>{{ resume?.comments}}</h4>
-
+            <h4>{{ resume?.comments }}</h4>
           </div>
-
         </div>
-
       </div>
     </ng-container>
-
   </div>
 </div>
 
@@ -122,7 +142,11 @@
     <div class="form-group posRel">
       <!-- <p class="hideBtn"><a href="#">Hide CC / BCC</a></p> -->
       <label>To </label>
-      <input type="text" class="form-control inputComm" [(ngModel)]="recipientEmail" />
+      <input
+        type="text"
+        class="form-control inputComm"
+        [(ngModel)]="recipientEmail"
+      />
     </div>
     <div class="form-group posRel">
       <label>CC </label>

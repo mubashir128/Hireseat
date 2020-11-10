@@ -1,50 +1,67 @@
-import { Injectable } from '@angular/core';
-import * as io from 'socket.io-client';
-import * as myGlobals from '../globalPath';
+import { Injectable } from "@angular/core";
+import * as io from "socket.io-client";
+import * as myGlobals from "../globalPath";
+import { Observable, Subscriber } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class WebsocketService {
-
   socket: any;
   listeners = [];
-  socketUrl : any;
+  socketUrl: any;
   constructor() {
     this.socketUrl = myGlobals.socketUrl;
   }
 
-  async getInstance(token: any,userRole : string) {
+  async getInstance(token: any, userRole: string) {
     if (this.socket === undefined) {
-      this.socket = await io(this.socketUrl + '?token=' + token + "&userRole=" + userRole,{
-        reconnect:false
-      });
+      // console.log("calling an instance");
+      this.socket = await io(
+        this.socketUrl + "?token=" + token + "&userRole=" + userRole,
+        {
+          reconnect: false,
+        }
+      );
       this.handleWebSocket();
     }
     return this.socket;
   }
 
   private handleWebSocket() {
-    this.socket.on('open', (data: any) => {
+    this.socket.on("open", (data: any) => {
       this.onOpen(data);
     });
 
-    this.socket.on('message', (data: any) => {
+    this.socket.on("message", (data: any) => {
       this.onMessage(data);
     });
 
-    this.socket.on('disconnect', (data: any) => {
+    this.socket.on("disconnect", (data: any) => {
       this.onClose(data);
     });
+    // this.getProfiles();
   }
 
   private onOpen(obj: any) {
-    // console.log("connection opend : ",obj);
+    // console.log("connection opend : ", obj);
   }
+  getProfiles() {
+    // console.log("getting data before check", this.socket);
 
+    if (this.socket !== undefined) {
+      return new Observable((subscriber) => {
+        this.socket.on("sharedCandidateProfile", (data: any) => {
+          // console.log("**************socket*****************", data);
+          subscriber.next(data);
+        });
+      });
+      // console.log("getting data");
+    }
+  }
   sendMessage(obj: any) {
     if (this.socket !== undefined) {
-      this.socket.emit('message', JSON.stringify(obj));
+      this.socket.emit("message", JSON.stringify(obj));
     }
   }
 
@@ -55,14 +72,13 @@ export class WebsocketService {
       if (res.type === key.type) {
         key.callback.next(res.data);
       }
-    })
-
+    });
   }
 
   private onClose(obj: any) {
     //  console.log("connection closed : ",obj);
   }
-  
+
   socketClosed() {
     this.socket.close();
     this.socket = undefined;
@@ -79,5 +95,4 @@ export class WebsocketService {
       }
     }
   }
-
 }

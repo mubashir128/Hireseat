@@ -1,311 +1,408 @@
 <div class="newResume">
-    <div class="card white">
-        <form [formGroup]="editProfile" (ngSubmit)="submit()" novalidate>
-        <div class="disF" style="padding: 20px; border-bottom: solid #e0e0e0 1px;">
-            <div class="section-header">Edit Profile</div>
-            <div>
-                <div class="btn-accept" (click)="navigateToRoom()">
-                    Record Interview
-                </div >
-            </div>
-            <div class="post">
-            <div>
-                <input type="checkbox" id="post" name="post" [value]="editProfile.value.shareProfile"   [(ngModel)]="editProfile.value.shareProfile"
-                    formControlName="shareProfile">
-                <label for="post">Post my Profile</label>
-            </div>
-            </div>
+  <div class="card white">
+    <form [formGroup]="editProfile" (ngSubmit)="submit()" novalidate>
+      <div class="disF" style="padding: 20px; border-bottom: solid #e0e0e0 1px">
+        <div class="section-header">Edit Profile</div>
+        <div>
+          <div class="btn-accept" (click)="navigateToRoom()">
+            Record Interview
+          </div>
         </div>
-            <div style="width: 100%; margin-bottom: 0px;">
-                <!-- <div class="UlpoadVideoCandi">
+        <div class="post">
+          <div>
+            <input
+              type="checkbox"
+              id="post"
+              name="post"
+              [value]="editProfile.value.shareProfile"
+              [(ngModel)]="editProfile.value.shareProfile"
+              formControlName="shareProfile"
+            />
+            <label for="post">Post my Profile</label>
+          </div>
+        </div>
+        <button type="submit" class="waves-effect waves-light btn">Save</button>
+      </div>
+      <div style="width: 100%; margin-bottom: 0px">
+        <!-- <div class="UlpoadVideoCandi">
                     <div class="uploadcandVideoDiv">
                         <button >Upload Video</button>
                         <input type="file" (change)="onFilePicked($event)" />
                     </div>
                 </div> -->
 
-                <div class="resumePreview">
+        <div class="resumePreview">
+          <div id="resume-preview" class="wid100 center-align resumePriviewDiv">
+            <app-pdf-viewer
+              style="
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+              "
+              *ngIf="fileUploaded === 2"
+              [url]="downloadURL"
+            ></app-pdf-viewer>
 
-                    <div id="resume-preview" class="wid100 center-align resumePriviewDiv">
-                        <app-pdf-viewer style="
-                          top: 0;
-                          left: 0;
-                          right: 0;
-                          bottom: 0;
-                          height: 100%;
-                          width: 100%;
-                        " *ngIf="fileUploaded === 2" [url]="downloadURL"></app-pdf-viewer>
+            <div
+              class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+              *ngIf="fileUploaded === 0"
+              style="display: table"
+            >
+              <div class="uploadBtn" style="display: table-cell">
+                <span>Upload Resume</span>
+                <input type="file" (change)="fileChange($event)" />
+              </div>
+            </div>
 
-                        <div class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
-                            *ngIf="fileUploaded === 0" style="display: table;">
-                            <div class="uploadBtn" style="display: table-cell;">
-                                <span>Upload Resume</span>
-                                <input type="file" (change)="fileChange($event)" />
-                            </div>
-                        </div>
-
-
-                        <!-- <div *ngIf="fileUploaded===1" class="progress">
+            <!-- <div *ngIf="fileUploaded===1" class="progress">
                               <div class="determinate" style="width: {{uploadProgress}}%"></div>
                             </div> -->
-
-
-                    </div>
-                    <ng-container *ngIf="videoURL">
-                        <div class="video-interview">
-                        <video #playVideo class="video-js" controls>
-                            <source [src]="videoURL">
-                        </video>
-                        </div>
-                    </ng-container>
-
-                </div>
-                <!-- <span>Re-Upload Resume</span>
+          </div>
+          <ng-container *ngIf="videoURL">
+            <div class="video-interview">
+              <video #playVideo class="video-js" controls>
+                <source [src]="videoURL" />
+              </video>
+            </div>
+          </ng-container>
+        </div>
+        <!-- <span>Re-Upload Resume</span>
                 <input type="file" (change)="fileChange($event)" /> -->
-                <div class="NewResumeForm" id="resume-info" style="
-              border-left: solid #e0e0e0 1px;
-              width: 100%;
-              min-height: 500px;
-              padding: 15px;
-            ">
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Full Name
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="fullName" />
-                            <div *ngIf="f.fullName.touched && f.fullName.errors" class="invalid-feedback" class="error">
-                                <div *ngIf="f.fullName.errors.required">
-                                    Name is required
-                                </div>
-                            </div>
-                        </div>
+        <div
+          class="NewResumeForm"
+          id="resume-info"
+          style="
+            border-left: solid #e0e0e0 1px;
+            width: 100%;
+            min-height: 500px;
+            padding: 15px;
+          "
+        >
+          <div class="row" style="margin-bottom: 0px">
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Full Name </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="fullName"
+              />
+              <div
+                *ngIf="f.fullName.touched && f.fullName.errors"
+                class="invalid-feedback"
+                class="error"
+              >
+                <div *ngIf="f.fullName.errors.required">Name is required</div>
+              </div>
+            </div>
 
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-briefcase" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Job Title
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="jobTitle" />
-                        </div>
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Email
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="email" readonly />
-                        </div>
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-phone" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Phone No
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="phoneNo" />
-                        </div>
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Current Location
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="location" />
-                        </div>
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Location Preference
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="locationPref" />
-                        </div>
-                        <div class="input-field col s12 m12 l12">
-                            <div>
-                                <i class="fa fa-users" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Current and Previous Employer
-                                </span>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s6 m6 l6">
-                                    <input id="candidate-name" type="text" class="validate" formControlName="Employers1"
-                                        placeholder="Employer 1" />
-                                </div>
-                                <div class="input-field col s6 m6 l6">
-                                    <input id="candidate-name" type="text" class="validate" formControlName="Employers2"
-                                        placeholder="Employer 2" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-linkedin-square" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Linked In
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="linkedIn" />
-                        </div>
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <span class="resume-subtitle">
-                                    Desired Roles
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="desiredRoles" />
-                        </div>
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <span class="resume-subtitle">
-                                    Desired Companies
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate"
-                                formControlName="desiredCompanies" />
-                        </div>
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Total Work Experience Months
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate"
-                                formControlName="totalWorkExpMonths" />
-                        </div>
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-archive" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Skills
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="skills" />
-                            <span class="note">
-                                <span style="color: #f58e8e;">Note</span> : Enter
-                                Comma-separated values
-                            </span>
-                        </div>
-                        <div class="input-field col s6 m6 l6">
-                            <div>
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Total Work Experience Year
-                                </span>
-                            </div>
-                            <input id="candidate-name" type="text" class="validate" formControlName="totalWorkExpYrs" />
-                        </div>
-
-                        <div class="input-field col s12 m12 l12 iv">
-                            <div class="subTitle">
-                                <span class="resume-subtitle">
-                                    Referrals
-                                </span>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12 m12 l12">
-                                    <div>
-                                        <i class="fa fa-address-card" aria-hidden="true"></i>
-                                        <span class="resume-subtitle">
-                                            Referrals 1
-                                        </span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s6 m6 l6">
-                                            <input id="candidate-name" type="text" class="validate"
-                                                formControlName="referralJobTitle1" placeholder="Job Title" />
-                                        </div>
-                                        <div class="input-field col s6 m6 l6">
-                                            <input id="candidate-name" type="text" class="validate"
-                                                formControlName="referralEmail1" placeholder="Email" />
-                                        </div>
-                                        <div class="input-field col s6 m6 l6">
-                                            <input id="candidate-name" type="text" class="validate"
-                                                formControlName="referralPhoneNumber1" placeholder="Phone No" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-field col s12 m12 l12">
-                                    <div>
-                                        <i class="fa fa-address-card" aria-hidden="true"></i>
-                                        <span class="resume-subtitle">
-                                            Referrals 2
-                                        </span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s6 m6 l6">
-                                            <input id="candidate-name" type="text" class="validate"
-                                                formControlName="referralJobTitle2" placeholder="Job Title" />
-                                        </div>
-                                        <div class="input-field col s6 m6 l6">
-                                            <input id="candidate-name" type="text" class="validate"
-                                                formControlName="referralEmail2" placeholder="Email" />
-                                        </div>
-                                        <div class="input-field col s6 m6 l6">
-                                            <input id="candidate-name" type="text" class="validate"
-                                                formControlName="referralPhoneNumber2" placeholder="Phone No" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-field col s12 m12 l12">
-                                    <div>
-                                        <i class="fa fa-address-card" aria-hidden="true"></i>
-                                        <span class="resume-subtitle">
-                                            Referrals 3
-                                        </span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s6 m6 l6">
-                                            <input id="candidate-name" type="text" class="validate"
-                                                formControlName="referralJobTitle3" placeholder="Job Title" />
-                                        </div>
-                                        <div class="input-field col s6 m6 l6">
-                                            <input id="candidate-name" type="text" class="validate"
-                                                formControlName="referralEmail3" placeholder="Email" />
-                                        </div>
-                                        <div class="input-field col s6 m6 l6">
-                                            <input id="candidate-name" type="text" class="validate"
-                                                formControlName="referralPhoneNumber3" placeholder="Phone No" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-field col s12 m12 l12">
-                            <div class="marB10">
-                                <i class="fa fa-comment" aria-hidden="true"></i>
-                                <span class="resume-subtitle">
-                                    Comments :
-                                </span>
-                            </div>
-                            <textarea rows="4" formControlName="comments"></textarea>
-                        </div>
-                    </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Job Title </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="jobTitle"
+              />
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Email </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="email"
+                readonly
+              />
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Phone No </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="phoneNo"
+              />
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Current Location </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="location"
+              />
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Location Preference </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="locationPref"
+              />
+            </div>
+            <div class="input-field col s12 m12 l12">
+              <div>
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Current and Previous Employer
+                </span>
+              </div>
+              <div class="row">
+                <div class="input-field col s6 m6 l6">
+                  <input
+                    id="candidate-name"
+                    type="text"
+                    class="validate"
+                    formControlName="Employers1"
+                    placeholder="Employer 1"
+                  />
                 </div>
+                <div class="input-field col s6 m6 l6">
+                  <input
+                    id="candidate-name"
+                    type="text"
+                    class="validate"
+                    formControlName="Employers2"
+                    placeholder="Employer 2"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="divider"></div>
-            <div class="row center-align marB0" style="padding: 15px;">
-                <!-- <a class="waves-effect waves-light btn-flat" (click)="goBack()">Cancel</a> -->
-                <button type="submit" class="waves-effect waves-light btn">
-                    Edit
-                </button>
+
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Linked In </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="linkedIn"
+              />
             </div>
-        </form>
-    </div>
-    <div class="card red-text" style="margin-top: 30px; padding: 30px;">
-        Please Note! To ensure that other recruiters do not reach out to your
-        candidate, please delete contact information from your candidate's resume
-        before uploading.
-    </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <span class="resume-subtitle"> Desired Roles </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="desiredRoles"
+              />
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <span class="resume-subtitle"> Desired Companies </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="desiredCompanies"
+              />
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Total Work Experience Months
+                </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="totalWorkExpMonths"
+              />
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-archive" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Skills </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="skills"
+              />
+              <span class="note">
+                <span style="color: #f58e8e">Note</span> : Enter Comma-separated
+                values
+              </span>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Total Work Experience Year
+                </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="totalWorkExpYrs"
+              />
+            </div>
+
+            <div class="input-field col s12 m12 l12 iv">
+              <div class="subTitle">
+                <span class="resume-subtitle"> Referrals </span>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 m12 l12">
+                  <div>
+                    <i class="fa fa-address-card" aria-hidden="true"></i>
+                    <span class="resume-subtitle"> Referrals 1 </span>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s6 m6 l6">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralJobTitle1"
+                        placeholder="Job Title"
+                      />
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralEmail1"
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralPhoneNumber1"
+                        placeholder="Phone No"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="input-field col s12 m12 l12">
+                  <div>
+                    <i class="fa fa-address-card" aria-hidden="true"></i>
+                    <span class="resume-subtitle"> Referrals 2 </span>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s6 m6 l6">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralJobTitle2"
+                        placeholder="Job Title"
+                      />
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralEmail2"
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralPhoneNumber2"
+                        placeholder="Phone No"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="input-field col s12 m12 l12">
+                  <div>
+                    <i class="fa fa-address-card" aria-hidden="true"></i>
+                    <span class="resume-subtitle"> Referrals 3 </span>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s6 m6 l6">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralJobTitle3"
+                        placeholder="Job Title"
+                      />
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralEmail3"
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input
+                        id="candidate-name"
+                        type="text"
+                        class="validate"
+                        formControlName="referralPhoneNumber3"
+                        placeholder="Phone No"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="input-field col s12 m12 l12">
+              <div class="marB10">
+                <i class="fa fa-comment" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Comments : </span>
+              </div>
+              <textarea rows="4" formControlName="comments"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row center-align marB0" style="padding: 15px">
+        <!-- <a class="waves-effect waves-light btn-flat" (click)="goBack()">Cancel</a> -->
+        <button type="submit" class="waves-effect waves-light btn">Save</button>
+      </div>
+    </form>
+  </div>
+  <div class="card red-text" style="margin-top: 30px; padding: 30px">
+    Please Note! To ensure that other recruiters do not reach out to your
+    candidate, please delete contact information from your candidate's resume
+    before uploading.
+  </div>
 </div>
