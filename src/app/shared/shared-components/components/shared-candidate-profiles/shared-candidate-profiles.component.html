@@ -5,9 +5,14 @@
   >
     <div class="docSectionBtns">
       <div class="candidate-name">
-        <span>
-          {{ resume?.candidateName || resume.candidate_id.fullName }}
-        </span>
+        <div class="CandidateDetails">
+          <div class="candProfile">
+            <img src="assets/img/profile-user.png" alt="profile">
+          </div>
+          <span>
+            {{ resume?.candidateName || resume.candidate_id.fullName }}
+          </span>
+        </div>
         <p><label>Job Title :</label> {{ resume?.jobTitle }}</p>
         <p><label>Location :</label> {{ resume?.location }}</p>
       </div>

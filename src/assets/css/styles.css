@@ -17,6 +17,7 @@ html {
 
 .collection .collection-item.active {
   background-color: #03a9f4;
+  color: #ffffff !important;
 }
 
 .picker__date-display {
@@ -1281,4 +1282,7 @@ body {
 .CalenderMain .cal-month-view .cal-event {
   width: 7px !important;
   height: 7px !important;
+}
+.collection a.collection-item {
+  color: #48aef3 !important;
 }
