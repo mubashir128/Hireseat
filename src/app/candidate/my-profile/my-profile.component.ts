@@ -1,20 +1,26 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ResumeService } from 'src/app/_services/resume.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from "@angular/forms";
+import { ResumeService } from "src/app/_services/resume.service";
 
 declare var jQuery: any;
 import * as $ from "jquery";
 declare var Materialize: any;
 import videojs from "video.js";
-import { CandidateService } from 'src/app/_services/candidate.service';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
-import { VideoCallingService } from 'src/app/_services/video-calling.service';
+import { CandidateService } from "src/app/_services/candidate.service";
+import { Subscription } from "rxjs";
+import { Router } from "@angular/router";
+import { VideoCallingService } from "src/app/_services/video-calling.service";
+import { UserService } from "src/app/_services/user.service";
 
 @Component({
-  selector: 'app-my-profile',
-  templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.css']
+  selector: "app-my-profile",
+  templateUrl: "./my-profile.component.html",
+  styleUrls: ["./my-profile.component.css"],
 })
 export class MyProfileComponent implements OnInit, OnDestroy {
   // subscription
@@ -24,24 +30,37 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   candidateProfile: any;
   public editProfile: FormGroup;
+  public updateProfileimg: FormGroup;
+  imgURL: any;
+
   fileUploaded = 0;
-  downloadURL = '';
+  downloadURL = "";
   referral: any;
   errorMsg: boolean;
   fileObj: File;
   fileUrl: any;
   videoURL: any;
+  imagePath: any;
+  currentUserId: string | Blob;
+  message: string;
+  filepath: File;
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
     private candidateService: CandidateService,
     private router: Router,
-    private videoCallingService:VideoCallingService
-  ) { }
+    private videoCallingService: VideoCallingService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
+    this.currentUserId = JSON.parse(
+      localStorage.getItem("currentUser")
+    ).userInfo._id;
     this.videoURL = "";
-
+    this.updateProfileimg = this.formBuilder.group({
+      file: ["", Validators.compose([Validators.required])],
+    });
     this.editProfile = this.formBuilder.group({
       fullName: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
@@ -53,8 +72,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       Employers2: [""],
       skills: [""],
       linkedIn: [""],
-      desiredRoles: [''],
-      desiredCompanies: [''],
+      desiredRoles: [""],
+      desiredCompanies: [""],
       // 1st
       referralJobTitle1: [""],
       referralEmail1: [""],
@@ -68,19 +87,55 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       referralEmail3: [""],
       referralPhoneNumber3: [""],
       comments: [""],
-      totalWorkExpYrs: [''],
-      totalWorkExpMonths: [''],
-      locationPref: [''],
+      totalWorkExpYrs: [""],
+      totalWorkExpMonths: [""],
+      locationPref: [""],
       shareProfile: [false],
-      fileURL: ['']
+      fileURL: [""],
     });
     this.getProfile();
   }
+  updateProfileImg() {
+    const fd = new FormData();
+    if (!this.imagePath) {
+      Materialize.toast(
+        "Please click on the plus Icon to upload a Picture !",
+        4000
+      );
+    } else {
+      fd.append("file", this.imagePath[0], this.imagePath[0].name);
+      fd.append("id", this.currentUserId);
 
+      this.userService.updateProfileImg(fd).subscribe(
+        (res) => {
+          Materialize.toast(res.message, 1000);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }
   get f() {
     return this.editProfile.controls;
   }
+  preview(files) {
+    if (files.length === 0) return;
 
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+    this.filepath = <File>files[0];
+
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+    };
+  }
   fileChange(event) {
     if (event.target.files) {
       this.fileUploaded = 0;
@@ -88,74 +143,81 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       let file: File = fileList[0];
       var fdata = new FormData();
       fdata.append("image", file);
-      this.uploadResumeSubscription = this.resumeService.uploadResume(fdata).subscribe(
-        (data: any) => {
-          if (data.result) {
-            this.downloadURL = data.result;
-            // this.resume.fileURL = data.result;
-            this.fileUploaded = 2;
-            Materialize.toast("Resume Uploaded Successfully !", 1000);
-          } else {
-            Materialize.toast("Something Went Wrong !", 1000);
+      this.uploadResumeSubscription = this.resumeService
+        .uploadResume(fdata)
+        .subscribe(
+          (data: any) => {
+            if (data.result) {
+              this.downloadURL = data.result;
+              // this.resume.fileURL = data.result;
+              this.fileUploaded = 2;
+              Materialize.toast("Resume Uploaded Successfully !", 1000);
+            } else {
+              Materialize.toast("Something Went Wrong !", 1000);
+            }
+          },
+          (error) => {
+            console.log(error);
+            if (error) {
+              Materialize.toast("Something Went Wrong !", 1000);
+            }
           }
-        },
-        (error) => {
-          console.log(error);
-          if (error) {
-            Materialize.toast("Something Went Wrong !", 1000);
-          }
-        }
-      );
+        );
     }
   }
   getProfile() {
-    this.getProfileSubscription = this.candidateService.getCandidateProfile().subscribe((res) => {
-      // console.log('************************', res);
-      this.candidateProfile = res;
-      this.editProfile.patchValue({
-        fullName: res.candidate_id.fullName,
-        email: res.candidate_id.email,
-        phoneNo: res.candidate_id.phoneNo,
-        jobTitle: res.jobTitle,
-        location: res.location,
-        Employers1: res.previousEmployers[0],
-        Employers2: res.previousEmployers[1],
-        skills: res.skills,
-        linkedIn: res.linkedIn,
-        referralJobTitle1: res.referral[0]?.referralJobTitle,
-        referralEmail1: res.referral[0]?.referralEmail,
-        referralPhoneNumber1: res.referral[0]?.referralPhoneNumber,
-        referralJobTitle2: res.referral[1]?.referralJobTitle,
-        referralEmail2: res.referral[1]?.referralEmail,
-        referralPhoneNumber2: res.referral[1]?.referralPhoneNumber,
-        referralJobTitle3: res.referral[2]?.referralJobTitle,
-        referralEmail3: res.referral[2]?.referralEmail,
-        referralPhoneNumber3: res.referral[2]?.referralPhoneNumber,
-        comments: res.comments,
-        totalWorkExpYrs: res.totalWorkExpYrs,
-        totalWorkExpMonths: res.totalWorkExpMonths,
-        locationPref: res.locationPref,
-        shareProfile:res.shareProfile,
-        fileURL: res.fileURL,
-      });
-      // console.log('file ', res.fileURL.length);
+    this.getProfileSubscription = this.candidateService
+      .getCandidateProfile()
+      .subscribe(
+        (res) => {
+          // console.log('************************', res);
+          this.candidateProfile = res;
+          this.editProfile.patchValue({
+            fullName: res.candidate_id.fullName,
+            email: res.candidate_id.email,
+            phoneNo: res.candidate_id.phoneNo,
+            jobTitle: res.jobTitle,
+            location: res.location,
+            Employers1: res.previousEmployers[0],
+            Employers2: res.previousEmployers[1],
+            skills: res.skills,
+            linkedIn: res.linkedIn,
+            referralJobTitle1: res.referral[0]?.referralJobTitle,
+            referralEmail1: res.referral[0]?.referralEmail,
+            referralPhoneNumber1: res.referral[0]?.referralPhoneNumber,
+            referralJobTitle2: res.referral[1]?.referralJobTitle,
+            referralEmail2: res.referral[1]?.referralEmail,
+            referralPhoneNumber2: res.referral[1]?.referralPhoneNumber,
+            referralJobTitle3: res.referral[2]?.referralJobTitle,
+            referralEmail3: res.referral[2]?.referralEmail,
+            referralPhoneNumber3: res.referral[2]?.referralPhoneNumber,
+            comments: res.comments,
+            totalWorkExpYrs: res.totalWorkExpYrs,
+            totalWorkExpMonths: res.totalWorkExpMonths,
+            locationPref: res.locationPref,
+            shareProfile: res.shareProfile,
+            fileURL: res.fileURL,
+          });
+          // console.log('file ', res.fileURL.length);
 
-      if (res.fileURL.length > 0) {
-        this.fileUploaded = 2;
-        this.downloadURL = res.fileURL;
-      } else {
-        this.fileUploaded = 0;
-
-      }
-      if(res.recordedId){
-        this.viewVideo(res.recordedId);
-      }
-
-    }, err => {
-      // console.log(err);
-      Materialize.toast("Something Went Wrong !", 1000);
-
-    });
+          if (res.fileURL.length > 0) {
+            this.fileUploaded = 2;
+            this.downloadURL = res.fileURL;
+          } else {
+            this.fileUploaded = 0;
+          }
+          if (res.candidate_id.profileimage) {
+            this.imgURL = res.candidate_id.profileimage;
+          }
+          if (res.recordedId) {
+            this.viewVideo(res.recordedId);
+          }
+        },
+        (err) => {
+          // console.log(err);
+          Materialize.toast("Something Went Wrong !", 1000);
+        }
+      );
   }
   viewVideo(archivedId) {
     this.videoURL = "";
@@ -172,67 +234,73 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     });
   }
   submit() {
-    console.log('}}}}}}}}}}}}',this.editProfile.value);
-    
+    console.log("}}}}}}}}}}}}", this.editProfile.value);
+
     if (this.downloadURL) {
       this.editProfile.patchValue({
-        fileURL: this.downloadURL
-      })
+        fileURL: this.downloadURL,
+      });
     } else {
       Materialize.toast("Resume not selected", 1000);
-
     }
-    this.editProfile.addControl('candidateId', new FormControl(this.candidateProfile._id));
+    this.editProfile.addControl(
+      "candidateId",
+      new FormControl(this.candidateProfile._id)
+    );
     console.log(this.editProfile.valid);
 
     if (this.editProfile.valid) {
-      this.editCandidateProfileSubscription = this.candidateService.editProfile(this.editProfile.value).subscribe(res => {
-        if (res) {
-          Materialize.toast(res.msg, 1000);
-        }
-      }, err => {
-        Materialize.toast("Something Went Wrong !", 1000);
-      });
+      this.editCandidateProfileSubscription = this.candidateService
+        .editProfile(this.editProfile.value)
+        .subscribe(
+          (res) => {
+            if (res) {
+              Materialize.toast(res.msg, 1000);
+            }
+          },
+          (err) => {
+            Materialize.toast("Something Went Wrong !", 1000);
+          }
+        );
     } else {
       Materialize.toast("Please complete the form!", 3000);
-
     }
   }
 
-  navigateToRoom(){
-    this.router.navigate(['video-call/' +'self-record@'+ this.candidateProfile._id]);
-
+  navigateToRoom() {
+    this.router.navigate([
+      "video-call/" + "self-record@" + this.candidateProfile._id,
+    ]);
   }
   onFilePicked(event: Event): void {
-
-    this.errorMsg = false
+    this.errorMsg = false;
     console.log(event);
     const FILE = (event.target as HTMLInputElement).files[0];
     this.fileObj = FILE;
     console.log(this.fileObj);
-    if(this.fileObj){
+    if (this.fileObj) {
       this.onFileUpload();
     }
   }
   onFileUpload() {
-    console.log('');
-    
+    console.log("");
+
     if (!this.fileObj) {
-      this.errorMsg = true
-      return
+      this.errorMsg = true;
+      return;
     }
     const fileForm = new FormData();
-    fileForm.append('file', this.fileObj);
-    this.candidateService.uploadVideo(fileForm).subscribe(res => {
+    fileForm.append("file", this.fileObj);
+    this.candidateService.uploadVideo(fileForm).subscribe((res) => {
       this.fileUrl = res;
       console.log(res);
-      
     });
   }
   ngOnDestroy() {
-    if (this.editCandidateProfileSubscription) this.editCandidateProfileSubscription.unsubscribe();
+    if (this.editCandidateProfileSubscription)
+      this.editCandidateProfileSubscription.unsubscribe();
     if (this.getProfileSubscription) this.getProfileSubscription.unsubscribe();
-    if (this.uploadResumeSubscription) this.uploadResumeSubscription.unsubscribe();
-
+    if (this.uploadResumeSubscription)
+      this.uploadResumeSubscription.unsubscribe();
   }
 }

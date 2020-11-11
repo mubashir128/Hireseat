@@ -6,13 +6,29 @@
     <div class="docSectionBtns">
       <div class="candidate-name">
         <div class="CandidateDetails">
-          <ng-container *ngIf="resume.candidate_id.profileimage">
+          <ng-container
+            *ngIf="
+              resume?.candidate_id?.profileimage ||
+              resume?.candidateKey?.profileimage
+            "
+          >
             <div class="candProfile">
-              <img [src]="resume.candidate_id.profileimage" alt="profile" />
+              <img
+                [src]="
+                  resume?.candidate_id?.profileimage ||
+                  resume?.candidateKey?.profileimage
+                "
+                alt="profile"
+              />
             </div>
           </ng-container>
 
-          <ng-container *ngIf="!resume.candidate_id.profileimage">
+          <ng-container
+            *ngIf="
+              !resume?.candidate_id?.profileimage &&
+              !resume?.candidateKey?.profileimage
+            "
+          >
             <div class="candProfile">
               <img src="assets/img/profile-user.png" alt="profile" />
             </div>
