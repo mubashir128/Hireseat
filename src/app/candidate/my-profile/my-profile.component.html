@@ -1,7 +1,33 @@
-<div class="profilepic">
+<div class="Addprofilepic">
   <form [formGroup]="updateProfileimg">
-    <div class="uploadImageDiv">
-      <img
+    <div class="uploadProfileImgDiv">
+
+      <div class="uploadProfileImg">
+        <div class="UploadImgDefault">
+          <img src="assets/img/profile-user.png" alt="add img" />
+        </div>
+        <div class="profileAdd">
+          <div class="profileAddInner">
+            <i class="fa fa-camera" aria-hidden="true"></i>
+            <p>ADD PROFILE PHOTO</p>
+          </div>
+        </div>
+        <input
+        #file
+        type="file"
+        accept="image/*"
+        formControlName="file"
+        (change)="preview(file.files)"
+      />
+      </div>
+      <!-- <input
+        #file
+        type="file"
+        accept="image/*"
+        formControlName="file"
+        (change)="preview(file.files)"
+      /> -->
+      <!-- <img
         [src]="imgURL"
         height="200"
         *ngIf="imgURL"
@@ -16,12 +42,12 @@
         formControlName="file"
         (change)="preview(file.files)"
       />
-      <img src="assets/img/Asset 7.png" class="plusIcon" />
+      <img src="assets/img/Asset 7.png" class="plusIcon" /> -->
     </div>
 
-    <div class="btn-upload">
+    <!-- <div class="btn-upload">
       <div class="btn-accept" (click)="updateProfileImg()">Upload Image</div>
-    </div>
+    </div> -->
   </form>
 </div>
 
