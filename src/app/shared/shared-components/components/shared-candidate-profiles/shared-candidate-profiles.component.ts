@@ -271,32 +271,32 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
       this.show = -1;
     } else {
       this.show = index;
+      if (resume.recordedId) {
+        this.viewVideo(resume["recordedId"]);
+      } else {
+        if (resume["interviewLinkedByRecruiter"]) {
+          this.viewVideo(resume["interviewLinkedByRecruiter"]);
+        }
+        this.recruiterReview = resume["recruiterReview"];
+        this.questionsByRecruiter = resume["questionsByRecruiter"][0];
+        // setting up values for QuestionsGroup
+        if (this.questionsByRecruiter) {
+          this.QuestionsGroup.setValue({
+            question1: this.questionsByRecruiter.question1,
+            question2: this.questionsByRecruiter.question2,
+            question3: this.questionsByRecruiter.question3,
+            question4: this.questionsByRecruiter.question4,
+            question5: this.questionsByRecruiter.question5,
+            timeStamp1: this.questionsByRecruiter.timeStamp1,
+            timeStamp2: this.questionsByRecruiter.timeStamp2,
+            timeStamp3: this.questionsByRecruiter.timeStamp3,
+            timeStamp4: this.questionsByRecruiter.timeStamp4,
+            timeStamp5: this.questionsByRecruiter.timeStamp5,
+          });
+        }
+      }
     }
     this.videoURL = "";
-    if (resume.recordedId) {
-      this.viewVideo(resume["recordedId"]);
-    } else {
-      if (resume["interviewLinkedByRecruiter"]) {
-        this.viewVideo(resume["interviewLinkedByRecruiter"]);
-      }
-      this.recruiterReview = resume["recruiterReview"];
-      this.questionsByRecruiter = resume["questionsByRecruiter"][0];
-      // setting up values for QuestionsGroup
-      if (this.questionsByRecruiter) {
-        this.QuestionsGroup.setValue({
-          question1: this.questionsByRecruiter.question1,
-          question2: this.questionsByRecruiter.question2,
-          question3: this.questionsByRecruiter.question3,
-          question4: this.questionsByRecruiter.question4,
-          question5: this.questionsByRecruiter.question5,
-          timeStamp1: this.questionsByRecruiter.timeStamp1,
-          timeStamp2: this.questionsByRecruiter.timeStamp2,
-          timeStamp3: this.questionsByRecruiter.timeStamp3,
-          timeStamp4: this.questionsByRecruiter.timeStamp4,
-          timeStamp5: this.questionsByRecruiter.timeStamp5,
-        });
-      }
-    }
   }
 
   viewVideo(archivedId) {

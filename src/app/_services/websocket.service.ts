@@ -46,19 +46,19 @@ export class WebsocketService {
   private onOpen(obj: any) {
     // console.log("connection opend : ", obj);
   }
-  getProfiles() {
-    // console.log("getting data before check", this.socket);
+  // getProfiles() {
+  //   // console.log("getting data before check", this.socket);
 
-    if (this.socket !== undefined) {
-      return new Observable((subscriber) => {
-        this.socket.on("sharedCandidateProfile", (data: any) => {
-          // console.log("**************socket*****************", data);
-          subscriber.next(data);
-        });
-      });
-      // console.log("getting data");
-    }
-  }
+  //   if (this.socket !== undefined) {
+  //     return new Observable((subscriber) => {
+  //       this.socket.on("sharedCandidateProfile", (data: any) => {
+  //         // console.log("**************socket*****************", data);
+  //         subscriber.next(data);
+  //       });
+  //     });
+  //     // console.log("getting data");
+  //   }
+  // }
   sendMessage(obj: any) {
     if (this.socket !== undefined) {
       this.socket.emit("message", JSON.stringify(obj));
