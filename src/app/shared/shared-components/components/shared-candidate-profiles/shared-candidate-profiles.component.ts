@@ -52,7 +52,8 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   questionsByRecruiter: any;
   recruiterReview: any;
   QuestionsGroup: FormGroup;
-
+  showCmts: any;
+  canComment = false;
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -298,7 +299,29 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     }
     this.videoURL = "";
   }
-
+  showComments(index, resume) {
+    if (this.showCmts === index) {
+      this.showCmts = -1;
+    } else {
+      this.showCmts = index;
+    }
+  }
+  /**
+   *
+   * @param canReview return wheather logged in recruiter is allowed to comment or not
+   */
+  allowedToComment(canReview) {
+    canReview.forEach((element) => {
+      if (element.recruiterId === this.loggedUser._id) {
+        this.canComment = true;
+      }
+    });
+    if (this.canComment) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   viewVideo(archivedId) {
     this.videoURL = "";
     const payload = {

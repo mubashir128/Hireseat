@@ -82,7 +82,7 @@
         see the interview
       </div>
     </ng-container>
-    <div *ngIf="show == i">
+    <ng-container *ngIf="show == i">
       <!--  -->
 
       <div class="editResumeupperDiv" *ngIf="videoURL">
@@ -149,10 +149,30 @@
         </div>
       </div>
       <!--  -->
-    </div>
+    </ng-container>
     <!-- end a video -->
+    <ng-container *ngIf="resume?.canReview?.length > 0">
+      <div class="btn-accept" (click)="showComments(i, resume)">Comments</div>
+    </ng-container>
 
-    <ng-container *ngIf="resume.comments">
+    <ng-container *ngIf="showCmts == i">
+      <div *ngFor="let cmt of resume.canReview; let i = index">
+        <ng-container *ngIf="allowedToComment(resume.canReview)">
+          <input type="text" placeholder="Type your review" />
+        </ng-container>
+        <ng-container>
+          <div class="singleListData">
+            <span>Comments:</span>
+            <div class="PointsDiv commonSingleInner">
+              <div class="PointsDivSingle PointsDivSingleN">
+                <h4>{{ cmt?.review }}</h4>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="resume?.comments">
       <div class="singleListData">
         <span>Comments:</span>
         <div class="PointsDiv commonSingleInner">
