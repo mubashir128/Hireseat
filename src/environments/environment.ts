@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://localhost:5000/",
-  socketUrl: "ws://localhost:5000/webSocket",
+  baseUrl: "http://localhost:5002/",
+  socketUrl: "ws://localhost:5002/webSocket",
 };
 
 /*
@@ -15,3 +15,4 @@ export const environment = {
  * because it will have performance impact when throw error
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+ 

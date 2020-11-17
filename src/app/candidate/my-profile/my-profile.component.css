@@ -754,3 +754,60 @@ iframe.interviewVideo {
   display: flex;
   justify-content: center;
 }
+.uploadProfileImgDiv {
+  background-color: #ffffff;
+  padding: 20px;
+}
+.uploadProfileImg {
+  background-color: #f7f7f7;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+}
+.uploadProfileImg img{
+width: 100%;
+height: 100%;
+}
+.UploadImgDefault {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.uploadProfileImg:hover .profileAdd{
+  opacity: 1;
+}
+.profileAdd {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #18181842;
+  opacity: 0;
+  transition: 0.8s;
+}
+.profileAdd i{
+  color: #ffffff;
+}
+.profileAdd p{
+  font-size: 13px;
+    color: #ffffff;
+    margin-top: 4px;
+    text-align: center;
+}
+.uploadProfileImg input{
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0;
+}
