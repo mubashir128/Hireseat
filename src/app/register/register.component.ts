@@ -11,7 +11,7 @@ declare var $: any;
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.css"],
-  providers: [UserService]
+  providers: [UserService],
 })
 export class RegisterComponent implements OnInit {
   public signin: any;
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
       email: new FormControl(),
       password: new FormControl(),
       webSiteLink: new FormControl(),
-      companyName: new FormControl()
+      companyName: new FormControl(),
     });
     // file: new FormControl()
 
@@ -99,33 +99,32 @@ export class RegisterComponent implements OnInit {
     var res = this.signin.value;
     //console.log(res);
     if (this.localRole !== "candidate") {
-
       this.signin = new FormGroup({
         fullname: new FormControl(res.fullname, [Validators.required]),
-        phoneNo: new FormControl(res.phoneNo, Validators.required),
+        phoneNo: new FormControl(res.phoneNo),
         email: new FormControl(res.email, [
           Validators.required,
-          Validators.email
+          Validators.email,
         ]),
         companyName: new FormControl(res.companyName, [Validators.required]),
         webSiteLink: new FormControl(res.webSiteLink, [Validators.required]),
         password: new FormControl(res.password, [
           Validators.required,
-          Validators.minLength(5)
-        ])
+          Validators.minLength(5),
+        ]),
       });
     } else {
       this.signin = new FormGroup({
         fullname: new FormControl(res.fullname, [Validators.required]),
-        phoneNo: new FormControl(res.phoneNo, Validators.required),
+        phoneNo: new FormControl(res.phoneNo),
         email: new FormControl(res.email, [
           Validators.required,
-          Validators.email
+          Validators.email,
         ]),
         password: new FormControl(res.password, [
           Validators.required,
-          Validators.minLength(5)
-        ])
+          Validators.minLength(5),
+        ]),
       });
     }
 
@@ -151,7 +150,10 @@ export class RegisterComponent implements OnInit {
     }
     fd.append("fullname", this.signin.controls.fullname.value);
     fd.append("phoneNo", this.signin.controls.phoneNo.value);
-    const emailTrim = this.signin.controls.email.value.replace(/^\s+|\s+$/gm, '');
+    const emailTrim = this.signin.controls.email.value.replace(
+      /^\s+|\s+$/gm,
+      ""
+    );
     const emailLower = emailTrim.toLowerCase();
 
     fd.append("email", emailLower);
@@ -165,7 +167,7 @@ export class RegisterComponent implements OnInit {
         this.spinner.show();
         if (this.localRole !== "candidate") {
           this.userService.register(fd).subscribe(
-            data => {
+            (data) => {
               if (data.statustxt === "success") {
                 this.spinner.hide();
                 localStorage.removeItem("Role");
@@ -177,7 +179,7 @@ export class RegisterComponent implements OnInit {
                 jQuery("#registerMsg").modal("open");
               }
             },
-            error => {
+            (error) => {
               console.log(error);
               if (error == "Conflict") {
                 Materialize.toast(
@@ -193,7 +195,7 @@ export class RegisterComponent implements OnInit {
           );
         } else {
           this.userService.registerCandidate(fd).subscribe(
-            data => {
+            (data) => {
               if (data.statustxt === "success") {
                 this.spinner.hide();
                 localStorage.removeItem("Role");
@@ -205,7 +207,7 @@ export class RegisterComponent implements OnInit {
                 jQuery("#registerMsg").modal("open");
               }
             },
-            error => {
+            (error) => {
               console.log(error);
               if (error == "Conflict") {
                 Materialize.toast(
@@ -252,7 +254,7 @@ export class RegisterComponent implements OnInit {
       var reader = new FileReader();
       this.imagePath = files;
       reader.readAsDataURL(files[0]);
-      reader.onload = _event => {
+      reader.onload = (_event) => {
         this.imgURL = reader.result;
       };
     }
