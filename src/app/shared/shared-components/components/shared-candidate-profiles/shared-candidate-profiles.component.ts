@@ -20,7 +20,7 @@ import { UserService } from "src/app/_services/user.service";
 import { VideoCallingService } from "src/app/_services/video-calling.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
 import videojs from "video.js";
-
+import { CandidateService } from "src/app/_services/candidate.service";
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
@@ -56,6 +56,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   showCmts: any;
   myComment: any;
   QuestionsGroup: FormGroup;
+  getMyPostedProfilesSubscription: Subscription;
 
   constructor(
     private resumeService: ResumeService,
@@ -65,7 +66,8 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     private spinner: NgxSpinnerService,
     private shareVideoService: ShareVideoService,
     private formBuilder: FormBuilder,
-    private _socket: WebsocketService
+    private _socket: WebsocketService,
+    private candidateService: CandidateService
   ) {
     this.myComment = [];
     this.loggedUser = this.userService.getUserData();
@@ -96,7 +98,11 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     jQuery("select").material_select();
   }
   async ngOnInit() {
-    this.getAllSharedResumes();
+    if (this.loggedUser.userRole === "candidate") {
+      this.getMyPostedProfiles();
+    } else {
+      this.getAllSharedResumes();
+    }
     // let obj = JSON.parse(localStorage.getItem("currentUser"));
     // if (obj !== null) {
     //   await this.initSocket(obj.token, obj.userInfo.userRole);
@@ -143,6 +149,16 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
       );
     }
   }
+  getMyPostedProfiles() {
+    this.getMyPostedProfilesSubscription = this.candidateService
+      .myPostedProfiles()
+      .subscribe((res) => {
+        if (res) {
+          this.resumes = res;
+        }
+      });
+  }
+
   getAllSharedResumes() {
     this.getAllSharedCandidateProfileSubscription = this.resumeService
       .getAllSharedCandidateProfile()

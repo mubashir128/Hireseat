@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Tab } from 'src/app/recruiter/models/tab';
-import { IProfile, Profile } from 'src/app/profile/model/user-profile';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Router, NavigationEnd } from '@angular/router';
-import { UserService } from 'src/app/_services/user.service';
-import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
+import { Component, OnInit } from "@angular/core";
+import { Tab } from "src/app/recruiter/models/tab";
+import { IProfile, Profile } from "src/app/profile/model/user-profile";
+import { NgxSpinnerService } from "ngx-spinner";
+import { Router, NavigationEnd } from "@angular/router";
+import { UserService } from "src/app/_services/user.service";
+import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 declare var Materialize: any;
 
 declare var jQuery: any;
 declare var $: any;
 @Component({
-  selector: 'app-candidate-navbar',
-  templateUrl: './candidate-navbar.component.html',
-  styleUrls: ['./candidate-navbar.component.css']
+  selector: "app-candidate-navbar",
+  templateUrl: "./candidate-navbar.component.html",
+  styleUrls: ["./candidate-navbar.component.css"],
 })
 export class CandidateNavbarComponent implements OnInit {
-
   tabs1: Tab[];
   public userProfile: IProfile;
   // public PointsSummary = new RewardSummary();
@@ -26,27 +25,35 @@ export class CandidateNavbarComponent implements OnInit {
     private _subList: SubscriberslistService
   ) {
     this.tabs1 = [];
-
   }
 
   ngOnInit() {
     this.userProfile = new Profile();
-    this.tabs1.push(new Tab('/candidate/all-recruiters', 'Recruiters Market Place', true));
-    this.tabs1.push(new Tab('/candidate/my-profile', 'My Profile', false));
-    this.tabs1.push(new Tab('/candidate/my-reviewed-profiles', 'My Reviewed Profiles', false));
-    this.tabs1.push(new Tab('/candidate/interview-room', 'Interview Room', false));
+    this.tabs1.push(
+      new Tab("/candidate/all-recruiters", "Recruiters Market Place", true)
+    );
+    this.tabs1.push(new Tab("/candidate/my-profile", "My Profile", false));
+    this.tabs1.push(
+      new Tab("/candidate/my-reviewed-profiles", "My Reviewed Profiles", false)
+    );
+    this.tabs1.push(
+      new Tab("/candidate/interview-room", "Interview Room", false)
+    );
+    this.tabs1.push(
+      new Tab("/candidate/my-posted-profiles", "My Posted Profiles", false)
+    );
 
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url === "/candidate/all-recruiters") {
-          this.SelectItem(event.url)
+          this.SelectItem(event.url);
         }
       }
     });
-    jQuery('.modal').modal();
-    jQuery('.button-collapse').sideNav({
+    jQuery(".modal").modal();
+    jQuery(".button-collapse").sideNav({
       menuWidth: 300, // Default is 240
-      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
     });
     // console.log(this.router.url);
 
@@ -54,31 +61,26 @@ export class CandidateNavbarComponent implements OnInit {
     this.SelectItem(this.router.url);
     // this.getUsersProfile();
 
-    this._subList.activebidEvent$.subscribe(res => {
+    this._subList.activebidEvent$.subscribe((res) => {
       this.handleActiveList(res);
     });
   }
 
   handleActiveList(obj) {
-    this.tabs1.forEach(tab => {
+    this.tabs1.forEach((tab) => {
       if (tab.displayText === "My Profile") {
         tab.selected = true;
-      }
-      else {
+      } else {
         tab.selected = false;
       }
     });
   }
 
   SelectItem(item) {
-
-    this.tabs1.forEach(tab => {
-      if (tab.id === item)
-        tab.selected = true;
-      else
-        tab.selected = false;
+    this.tabs1.forEach((tab) => {
+      if (tab.id === item) tab.selected = true;
+      else tab.selected = false;
     });
-
   }
 
   // getUsersProfile() {
@@ -94,6 +96,4 @@ export class CandidateNavbarComponent implements OnInit {
   //     this.spinner.hide();
   //   });
   // }
-
-
 }
