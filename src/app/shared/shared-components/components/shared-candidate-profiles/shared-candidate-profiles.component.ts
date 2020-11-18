@@ -32,6 +32,7 @@ declare var Materialize;
 export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
   player: videojs.Player;
+  canComment = false;
 
   resumes: any;
   resume: any;
@@ -40,6 +41,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   getAllSharedCandidateProfileSubscription: Subscription;
   getArchivedVideoSubscription: Subscription;
   shareVideoSubscription: Subscription;
+  postCommentSubscription: Subscription;
   loggedUser: any;
   recipientEmail: any;
   cc: any;
@@ -51,9 +53,10 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   options: any;
   questionsByRecruiter: any;
   recruiterReview: any;
-  QuestionsGroup: FormGroup;
   showCmts: any;
-  canComment = false;
+  myComment: any;
+  QuestionsGroup: FormGroup;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -64,6 +67,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private _socket: WebsocketService
   ) {
+    this.myComment = [];
     this.loggedUser = this.userService.getUserData();
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
       // console.log('subscribeed', res);
@@ -102,7 +106,25 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     //   console.log("______", this.resumes);
     // });
   }
+  postMycmt(cmt, resume) {
+    console.log(cmt, resume);
 
+    const payload = {
+      resumeId: resume._id,
+      review: cmt,
+      role: "recruiter",
+    };
+    this.postCommentSubscription = this.resumeService
+      .postMyComment(payload)
+      .subscribe(
+        (res) => {
+          if (res) {
+            this.getAllSharedResumes();
+          }
+        },
+        (err) => {}
+      );
+  }
   async initSocket(token, userRole) {
     await this._socket.getInstance(token, userRole);
   }

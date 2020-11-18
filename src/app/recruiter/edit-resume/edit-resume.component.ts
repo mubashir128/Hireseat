@@ -34,7 +34,8 @@ declare var Materialize: any;
   templateUrl: "./edit-resume.component.html",
   styleUrls: ["./edit-resume.component.css"],
 })
-export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class EditResumeComponent
+  implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
   player: videojs.Player;
 
@@ -44,7 +45,7 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
   @Output() back = new EventEmitter();
   @Output() getAllResume = new EventEmitter();
   QuestionsGroup: FormGroup;
-  public editResumeFrm: FormGroup;
+  editResumeFrm: FormGroup;
   downloadURL: string;
   fileUploaded = 0;
   questionNumber: any;
@@ -82,18 +83,15 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
     jQuery("select").material_select();
   }
   ngOnInit() {
-    // console.log(this.resume);
+    console.log(this.resume);
     this.candidateId = this.resume._id;
     // console.log(this.candidateId);
-    if (this.resume && this.resume.fileURL) {
+    if (this.resume) {
       this.fileUploaded = 2;
       this.downloadURL = this.resume.fileURL;
       this.editResumeFrm = this.formBuilder.group({
         candidateName: ["", Validators.compose([Validators.required])],
-        socialSecurityNum: [
-          "",
-          Validators.compose([Validators.required, Validators.maxLength(4)]),
-        ],
+        socialSecurityNum: [""],
         jobTitle: [""],
         location: [""],
         phoneNumber: [""],
@@ -120,8 +118,13 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
     if (this.resume["interviewLinkedByRecruiter"]) {
       this.viewVideo(this.resume["interviewLinkedByRecruiter"]);
     }
-    this.recruiterReview = this.resume['recruiterReview'];
-    this.questionsByRecruiter = this.resume['questionsByRecruiter'][0];
+    this.recruiterReview = this.resume["recruiterReview"];
+    this.questionsByRecruiter = this.resume["questionsByRecruiter"][0];
+    if (this.resume) {
+      this.editResumeFrm.setValue({
+        candidateName: this.resume.candidateName,
+      });
+    }
     // setting up values for QuestionsGroup
     if (this.questionsByRecruiter) {
       this.QuestionsGroup.setValue({
@@ -134,7 +137,7 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
         timeStamp2: this.questionsByRecruiter.timeStamp2,
         timeStamp3: this.questionsByRecruiter.timeStamp3,
         timeStamp4: this.questionsByRecruiter.timeStamp4,
-        timeStamp5: this.questionsByRecruiter.timeStamp5
+        timeStamp5: this.questionsByRecruiter.timeStamp5,
       });
     }
 
@@ -338,5 +341,4 @@ export class EditResumeComponent implements OnInit, OnChanges, AfterViewInit, On
       this.bookmarkSubscription.unsubscribe();
     }
   }
-
 }

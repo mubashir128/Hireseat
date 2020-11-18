@@ -22,21 +22,20 @@ import {
 } from "@angular/forms";
 import { VideoCallingService } from "../../_services/video-calling.service";
 import { Subscription } from "rxjs";
-import { CandidateService } from '../../_services/candidate.service';
+import { CandidateService } from "../../_services/candidate.service";
 declare var jQuery: any;
 import * as $ from "jquery";
 import videojs from "video.js";
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from "ngx-spinner";
 
 declare var Materialize: any;
 
 @Component({
-  selector: 'app-view-profile',
-  templateUrl: './view-profile.component.html',
-  styleUrls: ['./view-profile.component.css']
+  selector: "app-view-profile",
+  templateUrl: "./view-profile.component.html",
+  styleUrls: ["./view-profile.component.css"],
 })
 export class ViewProfileComponent implements OnInit {
-
   @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
   player: videojs.Player;
   changeMyProfileStatusSubscription: Subscription;
@@ -61,7 +60,6 @@ export class ViewProfileComponent implements OnInit {
     private videoCallingService: VideoCallingService,
     private spinner: NgxSpinnerService,
     private candidateService: CandidateService
-
   ) {
     // accept questions form
     this.QuestionsGroup = this.formBuilder.group({
@@ -90,15 +88,12 @@ export class ViewProfileComponent implements OnInit {
     // console.log(this.resume);
     this.candidateId = this.resume._id;
     // console.log(this.candidateId);
-    if (this.resume && this.resume.fileURL) {
+    if (this.resume) {
       this.fileUploaded = 2;
       this.downloadURL = this.resume.fileURL;
       this.editResumeFrm = this.formBuilder.group({
         candidateName: ["", Validators.compose([Validators.required])],
-        socialSecurityNum: [
-          "",
-          Validators.compose([Validators.required, Validators.maxLength(4)]),
-        ],
+        socialSecurityNum: [""],
         jobTitle: [""],
         location: [""],
         phoneNumber: [""],
@@ -125,8 +120,8 @@ export class ViewProfileComponent implements OnInit {
     if (this.resume["interviewLinkedByRecruiter"]) {
       this.viewVideo(this.resume["interviewLinkedByRecruiter"]);
     }
-    this.recruiterReview = this.resume['recruiterReview'];
-    this.questionsByRecruiter = this.resume['questionsByRecruiter'][0];
+    this.recruiterReview = this.resume["recruiterReview"];
+    this.questionsByRecruiter = this.resume["questionsByRecruiter"][0];
     // setting up values for QuestionsGroup
     if (this.questionsByRecruiter) {
       this.QuestionsGroup.setValue({
@@ -139,7 +134,7 @@ export class ViewProfileComponent implements OnInit {
         timeStamp2: this.questionsByRecruiter.timeStamp2,
         timeStamp3: this.questionsByRecruiter.timeStamp3,
         timeStamp4: this.questionsByRecruiter.timeStamp4,
-        timeStamp5: this.questionsByRecruiter.timeStamp5
+        timeStamp5: this.questionsByRecruiter.timeStamp5,
       });
     }
 
@@ -334,22 +329,27 @@ export class ViewProfileComponent implements OnInit {
   changeMyprofileStatus(resume_id, status) {
     const payload = {
       resume_id: resume_id,
-      status: status
-    }
+      status: status,
+    };
     console.log(payload);
-    this.changeMyProfileStatusSubscription = this.candidateService.myProfileStatus(payload).subscribe(res => {
-      if (res) {
-        Materialize.toast("Updated Successfully", 1000);
-        if (this.resume['shareProfile']) {
-          this.resume['shareProfile'] = true;
-        } else if (!this.resume['shareProfile']) {
-          this.resume['shareProfile'] = false;
+    this.changeMyProfileStatusSubscription = this.candidateService
+      .myProfileStatus(payload)
+      .subscribe(
+        (res) => {
+          if (res) {
+            Materialize.toast("Updated Successfully", 1000);
+            if (this.resume["shareProfile"]) {
+              this.resume["shareProfile"] = true;
+            } else if (!this.resume["shareProfile"]) {
+              this.resume["shareProfile"] = false;
+            }
+          }
+        },
+        (error) => {
+          Materialize.toast("One of your profile is already shared!", 4000);
+          this.resume["shareProfile"] = false;
         }
-      }
-    }, error => {
-      Materialize.toast('One of your profile is already shared!', 4000);
-      this.resume['shareProfile'] = false;
-    })
+      );
   }
   ngOnDestroy(): void {
     if (this.askQuestionSubscription) {
@@ -359,5 +359,4 @@ export class ViewProfileComponent implements OnInit {
       this.bookmarkSubscription.unsubscribe();
     }
   }
-
 }
