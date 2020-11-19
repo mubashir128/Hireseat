@@ -112,7 +112,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     //   console.log("______", this.resumes);
     // });
   }
-  postMycmt(cmt, resume) {
+  postMycmt(i, cmt, resume) {
     console.log(cmt, resume);
 
     const payload = {
@@ -130,6 +130,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
         },
         (err) => {}
       );
+    this.myComment[i] = "";
   }
   async initSocket(token, userRole) {
     await this._socket.getInstance(token, userRole);

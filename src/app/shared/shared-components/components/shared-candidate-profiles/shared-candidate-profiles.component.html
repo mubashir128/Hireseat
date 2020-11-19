@@ -129,7 +129,7 @@
       </textarea>
 
       <div class="btn-placement">
-        <div class="btn-accept" (click)="postMycmt(myComment[i], resume)">
+        <div class="btn-accept" (click)="postMycmt(i,myComment[i], resume)">
           Post
         </div>
       </div>
@@ -168,9 +168,9 @@
                       <span>{{ cmt?.recruiterId?.fullName }}</span>
                     </div>
                   </div>
-                  <div class="editcomment">
+                  <!-- <div class="editcomment">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="PointsDiv commonSingleInner CommentInner">
                   <div class="PointsDivSingle PointsDivSingleN recruitercom">
