@@ -118,10 +118,12 @@
       <!--  -->
     </ng-container>
     <!-- end a video -->
-    <!-- <ng-container>
-      <div class="btn-accept">Add your comment</div>
-    </ng-container> -->
 
+    <!-- <div class="interviewvidBg">
+      <div class="playpauseBtn">
+        <i class="fa fa-play" aria-hidden="true"></i>
+      </div>
+    </div> -->
     <div class="post-cmt">
       <textarea [(ngModel)]="myComment[i]" placeholder="Enter your review">
       </textarea>
@@ -134,32 +136,63 @@
     </div>
     <ng-container>
       <span>Comments:</span>
-      <div *ngFor="let cmt of resume.canReview; let i = index">
-        <ng-container>
-          <div class="singleListData">
-            <div class="cmt-box">
-              <div class="recruiter-name">
-                <span>{{ cmt?.recruiterId?.fullName }}</span>
-              </div>
-              <div class="PointsDiv commonSingleInner">
-                <div class="PointsDivSingle PointsDivSingleN">
-                  <textarea class="cannot-edit" [ngClass]="
-                      cmt?.recruiterId?._id === loggedUser._id
-                        ? 'allow-cmt'
-                        : false
-                    " placeholder="Enter your review">
-                    {{ cmt?.review }}
-                    </textarea>
-                  <div class="btn-placement" *ngIf="cmt?.recruiterId?._id === loggedUser._id">
-                    <div class="btn-accept" (click)="postMycmt(cmt?.review,resume)">
-                      Post
+      <div class="commentmainscroll">
+        <div *ngFor="let cmt of resume.canReview; let i = index">
+          <ng-container>
+            <div class="singleListData">
+              <div class="cmt-box">
+                <div class="recruitercommenthead">
+                  <div class="recruiternamedetails">
+                    <!--  -->
+
+                    <ng-container *ngIf="
+                  cmt?.recruiterId?.profileimage 
+                ">
+                      <div class="candProfile">
+                        <img [src]="
+                  cmt?.recruiterId?.profileimage
+                    " alt="profile" />
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="
+                  !cmt?.recruiterId?.profileimage 
+                ">
+                      <div class="candProfile recruiterprof">
+                        <img src="assets/img/profile-user.png" alt="profile" />
+                      </div>
+                    </ng-container>
+                    <!--  -->
+
+                    <div class="recruiter-name">
+                      <span>{{ cmt?.recruiterId?.fullName }}</span>
                     </div>
+                  </div>
+                  <div class="editcomment">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <div class="PointsDiv commonSingleInner CommentInner">
+                  <div class="PointsDivSingle PointsDivSingleN recruitercom">
+                    <p>{{ cmt?.review }}</p>
+                    <!-- <textarea class="cannot-edit" [ngClass]="
+                        cmt?.recruiterId?._id === loggedUser._id
+                          ? 'allow-cmt'
+                          : false
+                      " placeholder="Enter your review">
+                      {{ cmt?.review }}
+                      </textarea> -->
+                    <!-- <div class="btn-placement" *ngIf="cmt?.recruiterId?._id === loggedUser._id">
+                      <div class="btn-accept" (click)="postMycmt(cmt?.review,resume)">
+                        Post
+                      </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </ng-container>
+          </ng-container>
+        </div>
       </div>
     </ng-container>
     <ng-container *ngIf="resume?.comments">
