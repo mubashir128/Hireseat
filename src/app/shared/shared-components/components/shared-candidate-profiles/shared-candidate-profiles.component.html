@@ -34,7 +34,7 @@
             </div>
           </ng-container>
           <span>
-            {{ resume?.candidateName || resume.candidate_id.fullName }}
+            {{ resume?.candidateName || resume?.candidate_id?.fullName }}
           </span>
         </div>
         <p><label>Job Title :</label> {{ resume?.jobTitle }}</p>
@@ -201,7 +201,10 @@
                     <!--  -->
 
                     <div class="recruiter-name">
-                      <span>{{ cmt?.recruiterId?.fullName }}</span>
+                      <span>{{
+                        cmt?.recruiterId?.fullName ||
+                          resume?.candidate_id?.fullName
+                      }}</span>
                     </div>
                   </div>
                   <!-- <div class="editcomment">
