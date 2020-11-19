@@ -1,24 +1,34 @@
 <div class="ListResume">
-  <div class="singleList employerResume resumeSingleList" *ngFor="let resume of resumes; let i = index">
+  <div
+    class="singleList employerResume resumeSingleList"
+    *ngFor="let resume of resumes; let i = index"
+  >
     <div class="docSectionBtns">
       <div class="candidate-name">
         <div class="CandidateDetails">
-          <ng-container *ngIf="
+          <ng-container
+            *ngIf="
               resume?.candidate_id?.profileimage ||
               resume?.candidateKey?.profileimage
-            ">
+            "
+          >
             <div class="candProfile">
-              <img [src]="
+              <img
+                [src]="
                   resume?.candidate_id?.profileimage ||
                   resume?.candidateKey?.profileimage
-                " alt="profile" />
+                "
+                alt="profile"
+              />
             </div>
           </ng-container>
 
-          <ng-container *ngIf="
+          <ng-container
+            *ngIf="
               !resume?.candidate_id?.profileimage &&
               !resume?.candidateKey?.profileimage
-            ">
+            "
+          >
             <div class="candProfile">
               <img src="assets/img/profile-user.png" alt="profile" />
             </div>
@@ -43,7 +53,10 @@
             <a>
               <!-- <i class="fa fa-linkedin"></i> -->
               <div class="icon-name" (click)="linkedIn(resume?.linkedIn)">
-                <img class="linkedin-icon" src="../../assets/icons/linkedin-sign.png" />
+                <img
+                  class="linkedin-icon"
+                  src="../../assets/icons/linkedin-sign.png"
+                />
                 <span> LinkedIn </span>
               </div>
             </a>
@@ -62,7 +75,9 @@
       </div>
     </div>
     <!-- a video  -->
-    <ng-container *ngIf="resume.addedToVideoInterviewRoomByRecruiter || resume.recordedId">
+    <ng-container
+      *ngIf="resume.addedToVideoInterviewRoomByRecruiter || resume.recordedId"
+    >
       <div class="btn-accept" (click)="toggleAccordian(i, $event, resume)">
         see the interview
       </div>
@@ -78,37 +93,55 @@
             <div class="interviewQue">
               <!-- <div class="QuestionInner"> -->
               <h4>
-                <a [ngClass]="questionNumber === 1 ? 'interview-bold' : false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp1, 1)">
-                  {{ questionsByRecruiter?.question1 }}</a>
+                <a
+                  [ngClass]="questionNumber === 1 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp1, 1)"
+                >
+                  {{ questionsByRecruiter?.question1 }}</a
+                >
               </h4>
 
               <h4>
-                <a [ngClass]="questionNumber === 2 ? 'interview-bold' : false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp2, 2)">
-                  {{ questionsByRecruiter.question2 }}</a>
+                <a
+                  [ngClass]="questionNumber === 2 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp2, 2)"
+                >
+                  {{ questionsByRecruiter.question2 }}</a
+                >
               </h4>
               <h4>
-                <a [ngClass]="questionNumber === 3 ? 'interview-bold' : false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp3, 3)">
-                  {{ questionsByRecruiter.question3 }}</a>
+                <a
+                  [ngClass]="questionNumber === 3 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp3, 3)"
+                >
+                  {{ questionsByRecruiter.question3 }}</a
+                >
               </h4>
               <h4>
-                <a [ngClass]="questionNumber === 4 ? 'interview-bold' : false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp4, 4)">
-                  {{ questionsByRecruiter.question4 }}</a>
+                <a
+                  [ngClass]="questionNumber === 4 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp4, 4)"
+                >
+                  {{ questionsByRecruiter.question4 }}</a
+                >
               </h4>
               <h4>
-                <a [ngClass]="questionNumber === 5 ? 'interview-bold' : false"
-                  (click)="setCurrentTime(questionsByRecruiter.timeStamp5, 5)">
-                  {{ questionsByRecruiter.question5 }}</a>
+                <a
+                  [ngClass]="questionNumber === 5 ? 'interview-bold' : false"
+                  (click)="setCurrentTime(questionsByRecruiter.timeStamp5, 5)"
+                >
+                  {{ questionsByRecruiter.question5 }}</a
+                >
               </h4>
             </div>
           </div>
           <!-- video js -->
-          <div class="video-interview" [ngClass]="
+          <div
+            class="video-interview"
+            [ngClass]="
               !questionsByRecruiter ? 'video-js-without-questions' : false
-            ">
+            "
+          >
             <video #playVideo class="video-js" controls>
               <source [src]="this.videoURL" />
             </video>
@@ -124,12 +157,12 @@
         <i class="fa fa-play" aria-hidden="true"></i>
       </div>
     </div> -->
-    <div class="post-cmt">
+    <div class="post-cmt" *ngIf="loggedUser.userRole !== 'candidate'">
       <textarea [(ngModel)]="myComment[i]" placeholder="Enter your review">
       </textarea>
 
       <div class="btn-placement">
-        <div class="btn-accept" (click)="postMycmt(i,myComment[i], resume)">
+        <div class="btn-accept" (click)="postMycmt(i, myComment[i], resume)">
           Post
         </div>
       </div>
@@ -145,19 +178,22 @@
                   <div class="recruiternamedetails">
                     <!--  -->
 
-                    <ng-container *ngIf="
-                  cmt?.recruiterId?.profileimage 
-                ">
-                      <div class="candProfile">
-                        <img [src]="
-                  cmt?.recruiterId?.profileimage
-                    " alt="profile" />
+                    <ng-container *ngIf="cmt?.recruiterId?.profileimage">
+                      <div class="candProfile recruiterprof">
+                        <img
+                          [src]="cmt?.recruiterId?.profileimage"
+                          alt="profile"
+                          style="
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 50px;
+                            margin-right: 10px;
+                          "
+                        />
                       </div>
                     </ng-container>
 
-                    <ng-container *ngIf="
-                  !cmt?.recruiterId?.profileimage 
-                ">
+                    <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
                       <div class="candProfile recruiterprof">
                         <img src="assets/img/profile-user.png" alt="profile" />
                       </div>
@@ -214,7 +250,11 @@
     <div class="form-group posRel">
       <!-- <p class="hideBtn"><a href="#">Hide CC / BCC</a></p> -->
       <label>To </label>
-      <input type="text" class="form-control inputComm" [(ngModel)]="recipientEmail" />
+      <input
+        type="text"
+        class="form-control inputComm"
+        [(ngModel)]="recipientEmail"
+      />
     </div>
     <div class="form-group posRel">
       <label>CC </label>

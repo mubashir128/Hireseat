@@ -125,7 +125,11 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
       .subscribe(
         (res) => {
           if (res) {
-            this.getAllSharedResumes();
+            if (this.loggedUser.userRole === "candidate") {
+              this.getMyPostedProfiles();
+            } else {
+              this.getAllSharedResumes();
+            }
           }
         },
         (err) => {}
