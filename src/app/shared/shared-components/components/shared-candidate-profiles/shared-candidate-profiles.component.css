@@ -299,3 +299,6 @@ button.shareBtn {
   padding: 10px;
   outline: none;
 }
+.play-block {
+  display: none;
+}

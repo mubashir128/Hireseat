@@ -316,6 +316,8 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     } else {
       this.show = index;
       if (resume.recordedId) {
+        console.log("has recorded id");
+
         this.viewVideo(resume["recordedId"]);
       } else {
         if (resume["interviewLinkedByRecruiter"]) {

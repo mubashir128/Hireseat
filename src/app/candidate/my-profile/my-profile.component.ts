@@ -135,6 +135,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     reader.onload = (_event) => {
       this.imgURL = reader.result;
     };
+    if (this.filepath) this.updateProfileImg();
   }
   fileChange(event) {
     if (event.target.files) {
