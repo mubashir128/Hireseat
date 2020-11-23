@@ -39,6 +39,7 @@
         </div>
         <p><label>Job Title :</label> {{ resume?.jobTitle }}</p>
         <p><label>Location :</label> {{ resume?.location }}</p>
+        <p><label>Desired Roles :</label></p>
       </div>
       <div class="cadidateResumeDiv">
         <button class="downloadResume">
@@ -81,9 +82,13 @@
       <!-- <div class="btn-accept" (click)="toggleAccordian(i, $event, resume)">
         see the interview
       </div> -->
-      <div class="interviewvidBg" [ngClass]="show === i ? 'play-block' : false">
+      <div
+        class="interviewvidBg"
+        [ngClass]="show === i ? 'play-block' : 'occupy'"
+      >
         <div class="playpauseBtn" (click)="toggleAccordian(i, $event, resume)">
-          <i class="fa fa-play" aria-hidden="true"></i>
+          <!-- <i class="fa fa-play" aria-hidden="true"></i> -->
+          <i class="fa fa-play-circle" aria-hidden="true"></i>
         </div>
       </div>
     </ng-container>
@@ -167,8 +172,18 @@
         </div>
       </div>
     </div>
+    <ng-container *ngIf="resume?.comments">
+      <div class="singleListData">
+        <span class="summary">Candidate's Summary:</span>
+        <div class="PointsDiv commonSingleInner">
+          <div class="PointsDivSingle PointsDivSingleN">
+            <h4>{{ resume?.comments }}</h4>
+          </div>
+        </div>
+      </div>
+    </ng-container>
     <ng-container>
-      <span>Comments:</span>
+      <span class="comment">Comments:</span>
       <div class="commentmainscroll">
         <div *ngFor="let cmt of resume.canReview; let i = index">
           <ng-container>
@@ -231,16 +246,6 @@
               </div>
             </div>
           </ng-container>
-        </div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="resume?.comments">
-      <div class="singleListData">
-        <span>Initial recruiter Comment:</span>
-        <div class="PointsDiv commonSingleInner">
-          <div class="PointsDivSingle PointsDivSingleN">
-            <h4>{{ resume?.comments }}</h4>
-          </div>
         </div>
       </div>
     </ng-container>
