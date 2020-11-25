@@ -222,25 +222,56 @@
                       }}</span>
                     </div>
                   </div>
-                  <!-- <div class="editcomment">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                  </div> -->
+                  <div class="handle">
+                    <ng-container *ngIf="editTextIndex == cmt._id">
+                      <i class="fa fa-times" (click)="cancelEdit(cmt)"></i>
+                    </ng-container>
+                    <ng-container
+                      *ngIf="
+                        cmt?.recruiterId?._id === loggedUser._id &&
+                        editTextIndex !== cmt._id
+                      "
+                    >
+                      <div class="editcomment">
+                        <i
+                          class="fa fa-pencil"
+                          aria-hidden="true"
+                          (click)="edit(cmt)"
+                        ></i>
+                      </div>
+
+                      <div class="editcomment">
+                        <i
+                          class="fa fa-trash"
+                          aria-hidden="true"
+                          (click)="deleteComment(cmt, resume)"
+                        ></i>
+                      </div>
+                    </ng-container>
+                  </div>
                 </div>
                 <div class="PointsDiv commonSingleInner CommentInner">
                   <div class="PointsDivSingle PointsDivSingleN recruitercom">
-                    <p>{{ cmt?.review }}</p>
-                    <!-- <textarea class="cannot-edit" [ngClass]="
-                        cmt?.recruiterId?._id === loggedUser._id
-                          ? 'allow-cmt'
-                          : false
-                      " placeholder="Enter your review">
+                    <p *ngIf="editTextIndex !== cmt._id">{{ cmt?.review }}</p>
+                    <textarea
+                      *ngIf="editTextIndex == cmt._id"
+                      [value]="cmt?.review"
+                      [(ngModel)]="editTo"
+                    >
                       {{ cmt?.review }}
-                      </textarea> -->
-                    <!-- <div class="btn-placement" *ngIf="cmt?.recruiterId?._id === loggedUser._id">
-                      <div class="btn-accept" (click)="postMycmt(cmt?.review,resume)">
-                        Post
-                      </div>
-                    </div> -->
+                      </textarea
+                    >
+                  </div>
+                  <div
+                    class="btn-placement"
+                    *ngIf="
+                      cmt?.recruiterId?._id === loggedUser._id &&
+                      editTextIndex == cmt._id
+                    "
+                  >
+                    <div class="btn-accept" (click)="editComment(cmt, resume)">
+                      Post
+                    </div>
                   </div>
                 </div>
               </div>

@@ -213,4 +213,10 @@ export class ResumeService {
   postMyComment(payload) {
     return this.http.post<any>(this.baseurl + "api/post-comment", payload);
   }
+  editComment(payload) {
+    return this.http.post<any>(this.baseurl + "api/edit-comment", payload);
+  }
+  deleteComment(payload) {
+    return this.http.post<any>(this.baseurl + "api/delete-comment", payload);
+  }
 }

@@ -11,12 +11,7 @@
   margin: 20px 0;
   padding-right: 5px;
 }
-.cannot-edit {
-  pointer-events: none;
-}
-.allow-cmt {
-  pointer-events: auto;
-}
+
 .post-cmt {
   margin: 20px 0;
 }
@@ -273,6 +268,7 @@ button.shareBtn {
 }
 .editcomment i {
   color: #b2b1b0;
+  margin-right: 6px;
 }
 .interviewvidBg {
   width: 100%;
@@ -324,4 +320,14 @@ button.shareBtn {
   font-size: 14px;
   font-weight: 600;
   color: #413f3f;
+}
+.handle {
+  display: flex;
+}
+.handle i {
+  color: #b2b1b0;
+}
+.handle i:hover {
+  font-size: 20px;
+  cursor: pointer;
 }

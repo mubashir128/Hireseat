@@ -34,14 +34,15 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   player: videojs.Player;
   canComment = false;
 
-  resumes: any;
-  resume: any;
-  show: any;
   getVideoURLSubscription: Subscription;
   getAllSharedCandidateProfileSubscription: Subscription;
   getArchivedVideoSubscription: Subscription;
   shareVideoSubscription: Subscription;
   postCommentSubscription: Subscription;
+  resumes: any;
+  resume: any;
+  show: any;
+  editTextIndex: any;
   loggedUser: any;
   recipientEmail: any;
   cc: any;
@@ -57,7 +58,9 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   myComment: any;
   QuestionsGroup: FormGroup;
   getMyPostedProfilesSubscription: Subscription;
-
+  editTo: any;
+  editCommentSucription: any;
+  deleteCommentSucription: Subscription;
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -113,15 +116,101 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     // });
   }
   postMycmt(i, cmt, resume) {
-    console.log(cmt, resume);
+    if (
+      this.myComment[i] === "" ||
+      this.myComment[i] === null ||
+      this.myComment[i] === undefined
+    ) {
+      Materialize.toast("Comment box is empty!");
+    } else {
+      const payload = {
+        resumeId: resume._id,
+        review: cmt,
+        role: "recruiter",
+      };
+      this.postCommentSubscription = this.resumeService
+        .postMyComment(payload)
+        .subscribe(
+          (res) => {
+            if (res) {
+              if (this.loggedUser.userRole === "candidate") {
+                this.getMyPostedProfiles();
+              } else {
+                this.getAllSharedResumes();
+              }
+              this.myComment[i] = "";
+            }
+          },
+          (err) => {
+            Materialize.toast("Unable to post!");
+          }
+        );
+    }
+  }
+  edit(cmt) {
+    this.editTo = cmt.review;
+    if (this.editTextIndex === cmt._id) {
+      this.editTextIndex = -1;
+    } else {
+      this.editTextIndex = cmt._id;
+    }
+  }
+  cancelEdit(cmt) {
+    this.editTo = "";
+    if (this.editTextIndex === cmt._id) {
+      this.editTextIndex = -1;
+    }
+  }
+  editComment(cmt, resume) {
+    if (this.editTo === cmt.review) {
+      Materialize.toast("No change!");
+    } else {
+      let candidateProfile;
+      resume?.resumeType
+        ? (candidateProfile = false)
+        : (candidateProfile = true);
+
+      const payload = {
+        oldCmt: {
+          review: cmt.review,
+          _id: cmt._id,
+        },
+        newCmt: {
+          review: this.editTo,
+        },
+        resumeId: resume._id,
+        candidateProfile,
+      };
+      this.editCommentSucription = this.resumeService
+        .editComment(payload)
+        .subscribe(
+          (res) => {
+            if (res) {
+              if (this.loggedUser.userRole === "candidate") {
+                this.getMyPostedProfiles();
+              } else {
+                this.getAllSharedResumes();
+              }
+              this.cancelEdit(cmt);
+            }
+          },
+          (err) => {
+            Materialize.toast("Something went wrong!");
+          }
+        );
+    }
+  }
+  deleteComment(cmt, resume) {
+    let candidateProfile;
+    resume?.resumeType ? (candidateProfile = false) : (candidateProfile = true);
 
     const payload = {
       resumeId: resume._id,
-      review: cmt,
-      role: "recruiter",
+      cmtId: cmt._id,
+      candidateProfile,
     };
-    this.postCommentSubscription = this.resumeService
-      .postMyComment(payload)
+    this.deleteCommentSucription = this.resumeService
+      .deleteComment(payload)
       .subscribe(
         (res) => {
           if (res) {
@@ -134,7 +223,6 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
         },
         (err) => {}
       );
-    this.myComment[i] = "";
   }
   async initSocket(token, userRole) {
     await this._socket.getInstance(token, userRole);
