@@ -33,13 +33,23 @@
               <img src="assets/img/profile-user.png" alt="profile" />
             </div>
           </ng-container>
-          <span>
-            {{ resume?.candidateName || resume?.candidate_id?.fullName }}
-          </span>
+          <div class="user-details">
+            <span>
+              {{ resume?.candidateName || resume?.candidate_id?.fullName }}
+            </span>
+            <div class="other-details">
+              <p><label>Job Title :</label> {{ resume?.jobTitle }}</p>
+              <p><label>Location :</label> {{ resume?.location }}</p>
+              <p>
+                <label>Desired Roles :</label
+                >{{
+                  resume?.desiredRoles ||
+                    resume?.candidateProfileKey?.desiredRoles
+                }}
+              </p>
+            </div>
+          </div>
         </div>
-        <p><label>Job Title :</label> {{ resume?.jobTitle }}</p>
-        <p><label>Location :</label> {{ resume?.location }}</p>
-        <p><label>Desired Roles :</label></p>
       </div>
       <div class="cadidateResumeDiv">
         <button class="downloadResume">
@@ -162,16 +172,6 @@
     </ng-container>
     <!-- end a video -->
 
-    <div class="post-cmt" *ngIf="loggedUser.userRole !== 'candidate'">
-      <textarea [(ngModel)]="myComment[i]" placeholder="Enter your review">
-      </textarea>
-
-      <div class="btn-placement">
-        <div class="btn-accept" (click)="postMycmt(i, myComment[i], resume)">
-          Post
-        </div>
-      </div>
-    </div>
     <ng-container *ngIf="resume?.comments">
       <div class="singleListData">
         <span class="summary">Candidate's Summary:</span>
@@ -182,8 +182,25 @@
         </div>
       </div>
     </ng-container>
+
     <ng-container>
       <span class="comment">Comments:</span>
+      <ng-container *ngIf="loggedUser.userRole !== 'candidate'">
+        <div class="post-cmt">
+          <textarea [(ngModel)]="myComment[i]" placeholder="Enter your review">
+          </textarea>
+          <ng-container *ngIf="myComment[i]">
+            <div class="btn-placement">
+              <div
+                class="btn-accept"
+                (click)="postMycmt(i, myComment[i], resume)"
+              >
+                Post
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
       <div class="commentmainscroll">
         <div *ngFor="let cmt of resume.canReview; let i = index">
           <ng-container>

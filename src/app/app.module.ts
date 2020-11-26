@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -23,14 +23,14 @@ import { EditorModule } from "@tinymce/tinymce-angular";
 import { Ng2CompleterModule } from "ng2-completer";
 import { Angular2CsvModule } from "angular2-csv";
 import { RecruiterComponent } from "./recruiter-cost/recruiter/recruiter.component";
-import { OpentokService } from './_services/opentok.service';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { AppRoutingModule } from './app-routing.module';
-import { SharedComponentsModule } from './shared/shared-components/shared-components.module';
-import { VideoCallComponent } from './video-call/video-call.component';
-import { PublisherComponent } from './publisher/publisher.component';
-import { SubscriberComponent } from './subscriber/subscriber.component';
+import { OpentokService } from "./_services/opentok.service";
+import { ServiceWorkerModule } from "@angular/service-worker";
+import { environment } from "../environments/environment";
+import { AppRoutingModule } from "./app-routing.module";
+import { SharedComponentsModule } from "./shared/shared-components/shared-components.module";
+import { VideoCallComponent } from "./video-call/video-call.component";
+import { PublisherComponent } from "./publisher/publisher.component";
+import { SubscriberComponent } from "./subscriber/subscriber.component";
 import { TagInputModule } from "ngx-chips";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxPaginationModule } from "ngx-pagination";
@@ -40,7 +40,8 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
 import { NgHighlightModule } from "ngx-text-highlight";
 import { SelectDropDownModule } from "ngx-select-dropdown";
-import { VideoCallingService } from './_services/video-calling.service';
+import { VideoCallingService } from "./_services/video-calling.service";
+import { GlobalErrorHandler } from "./_errorHandler/global-error-handler";
 
 // import { SearchByNamePipe } from '../search-by-name.pipe';
 // import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -49,13 +50,11 @@ import { VideoCallingService } from './_services/video-calling.service';
 // import { VideoInterviewRoomComponent } from './video-interview-room/video-interview-room.component';
 // import { MycandidatesComponent } from './employer/mycandidates/mycandidates.component';
 
-
 // import { RecruiterNavbarComponent } from "./recruiter/recruiter-navbar/recruiter-navbar.component";
 // import { ResumeListComponent } from "./recruiter/resume-list/resume-list.component";
 // import { WonBidsComponent } from "./recruiter/won-bids/won-bids.component";
 // import { SearchResumeComponent } from "./resume-bank/search-resume/search-resume.component";
 // import { RecruiterQuestionComponent } from "./recruiter-brodcast/recruiter-question/recruiter-question.component";
-
 
 // import { EmployeerAnsComponent } from "./recruiter-brodcast/employeer-ans/employeer-ans.component";
 // import { inArrayPipe } from "./recruter-bidding-info/inArrayPipe";
@@ -68,7 +67,6 @@ import { VideoCallingService } from './_services/video-calling.service';
 // import { LineChartComponent } from './shared/pipes/chart/line-chart/line-chart.component';
 // import { PieChartComponent } from './shared/pipes/chart/pie-chart/pie-chart.component';
 // import { ScatterChartComponent } from './shared/pipes/chart/scatter-chart/scatter-chart.component';
-
 
 // import { JobProfileListComponent } from "./employer/job-profile-list/job-profile-list.component";
 // import { CreateJobProfileComponent } from "./employer/create-job-profile/create-job-profile.component";
@@ -83,7 +81,6 @@ import { VideoCallingService } from './_services/video-calling.service';
 // import { ProfileComponent } from "./profile/profile.component";
 // import { BiddingEventsListComponent } from "./bidding-events-list/bidding-events-list.component";
 // import { RecruiterHomeComponent } from "./recruiter/recruiter-home/recruiter-home.component";
-
 
 // import { BlogMainComponent } from "./blog/blog-main/blog-main.component";
 // import { CreatePostComponent } from "./blog/create-post/create-post.component";
@@ -143,8 +140,10 @@ import { VideoCallingService } from './_services/video-calling.service';
     Ng2CompleterModule,
     SelectDropDownModule,
     NgHighlightModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    SharedComponentsModule
+    ServiceWorkerModule.register("/ngsw-worker.js", {
+      enabled: environment.production,
+    }),
+    SharedComponentsModule,
   ],
   declarations: [
     AppComponent,
@@ -231,7 +230,6 @@ import { VideoCallingService } from './_services/video-calling.service';
     // EmployeerAnsComponent,
     // DashboardComponent,
     // MycandidatesComponent,
-
   ],
   providers: [
     AuthGuard,
@@ -242,15 +240,16 @@ import { VideoCallingService } from './_services/video-calling.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

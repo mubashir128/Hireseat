@@ -1,155 +1,218 @@
 <!-- Card View Design : STARTS -->
 <div class="MainWrapperBg">
-    <div class="container">
-        <div class="MainDetailsPage">
-            <div class="UpperDetails">
-                <h4>Professional Recruiter Advice and Coaching Marketplace </h4>
-                <p>Connect directly with professional recruiters who have placed hundreds of candidates in your industry
-                    in the companies you want to work for. Whether you need last second interview advice or need an
-                    expert in your industry to review your resume, you can find an experienced recruiter that can help
-                    you market yourself below.</p>
-                <ul class="UpperDetailsList">
-                    <li>Job search strategy (How to reach hiring managers, where to send resumes)</li>
-                    <li>Resume review </li>
-                    <li>LinkedIn review </li>
-                    <li>Q&A (what is a fair market rate salary?, how to negotiate?)</li>
-                    <li>Overall interview coaching w/recorded video interview</li>
-                    <li>Candidate high level summary highlighting strongest marketable attributes</li>
-                </ul>
-                <p>Below are growing marketplace of professional recruiters. If the below recruiters do not match any of
-                    the expertise or experience that you are seeking, please let us know at <a
-                        href="#">contact@hireseat.com </a> so we can continue to expand our offerings.</p>
+  <div class="container">
+    <div class="MainDetailsPage">
+      <div class="UpperDetails">
+        <h4>Professional Recruiter Advice and Coaching Marketplace</h4>
+        <p>
+          Connect directly with professional recruiters who have placed hundreds
+          of candidates in your industry in the companies you want to work for.
+          Whether you need last second interview advice or need an expert in
+          your industry to review your resume, you can find an experienced
+          recruiter that can help you market yourself below.
+        </p>
+        <ul class="UpperDetailsList">
+          <li>
+            Job search strategy (How to reach hiring managers, where to send
+            resumes)
+          </li>
+          <li>Resume review</li>
+          <li>LinkedIn review</li>
+          <li>Q&A (what is a fair market rate salary?, how to negotiate?)</li>
+          <li>Overall interview coaching w/recorded video interview</li>
+          <li>
+            Candidate high level summary highlighting strongest marketable
+            attributes
+          </li>
+        </ul>
+        <p>
+          Below are growing marketplace of professional recruiters. If the below
+          recruiters do not match any of the expertise or experience that you
+          are seeking, please let us know at
+          <a href="#">contact@hireseat.com </a> so we can continue to expand our
+          offerings.
+        </p>
+      </div>
+      <div class="ClientDetailCardMain">
+        <div *ngFor="let recruiter of recruiters" class="ClientDetailCard">
+          <div class="ClientImage">
+            <!-- <img [src]="recruiter.profileimage" alt="Profile Pic"> -->
+            <div class="uploadImageDiv">
+              <ng-container *ngIf="recruiter.refUserId?.profileimage">
+                <img
+                  [src]="recruiter.refUserId?.profileimage"
+                  class="uploadedImg"
+                />
+              </ng-container>
+              <ng-container *ngIf="!recruiter.refUserId?.profileimage">
+                <img src="../../../assets/img/user.png" class="uploadedImg" />
+              </ng-container>
             </div>
-            <div class="ClientDetailCardMain">
-                <div *ngFor="let recruiter of recruiters" class="ClientDetailCard">
-                    <div class="ClientImage">
-                        <!-- <img [src]="recruiter.profileimage" alt="Profile Pic"> -->
-                        <div class="uploadImageDiv">
-                            <ng-container *ngIf="recruiter.refUserId?.profileimage">
-                                <img [src]="recruiter.refUserId?.profileimage" class="uploadedImg" />
-                            </ng-container>
-                            <ng-container *ngIf="!recruiter.refUserId?.profileimage">
-                                <img src="../../../assets/img/user.png" class="uploadedImg" />
-                            </ng-container>
-                        </div>
-                        <div class="NameDetails">
-                            <h4>{{recruiter?.refUserId?.fullName}}</h4>
-                            <p>Rate: ${{recruiter?.refUserId?.rate}} for {{recruiter?.refUserId?.mins}} Minutes</p>
-                        </div>
-                        <ng-container *ngIf="user.userInfo.userRole === 'candidate'">
-
-                            <div class="req-recruiter">
-                                <button class="req-recruiter-coaching" (click)="onReqCoaching(recruiter)">
-                                    Request Coaching
-                                </button>
-                            </div>
-                            <!-- <div class="req-recruiter">
+            <div class="NameDetails">
+              <h4>{{ recruiter?.refUserId?.fullName }}</h4>
+              <p>
+                Rate: ${{ recruiter?.refUserId?.rate }} for
+                {{ recruiter?.refUserId?.mins }} Minutes
+              </p>
+            </div>
+            <ng-container *ngIf="user.userInfo.userRole === 'candidate'">
+              <div class="req-recruiter">
+                <button
+                  class="req-recruiter-coaching"
+                  (click)="onReqCoaching(recruiter)"
+                >
+                  Request Coaching
+                </button>
+              </div>
+              <!-- <div class="req-recruiter">
                                 <button class="req-recruiter-coaching" (click)="onShareWithRecruiter(recruiter)">
                                     Drop resume
                                 </button>
                             </div> -->
-                        </ng-container>
-                    </div>
-                    <div class="BioDetails">
-                        <h2>Bio :</h2>
-                        <!-- <p>{{recruiter.bio}} </p> -->
-                        <div [innerHTML]="recruiter?.refUserId?.bio"></div>
+            </ng-container>
+          </div>
+          <div class="BioDetails">
+            <h2>Bio :</h2>
+            <!-- <p>{{recruiter.bio}} </p> -->
+            <div [innerHTML]="recruiter?.refUserId?.bio"></div>
 
-
-                        <ng-container *ngIf="recruiter?.refUserId?.companies">
-                            <h5 class="BioSubHead">Companies Recruited for:</h5>
-                            <p>{{recruiter?.refUserId?.companies}}</p>
-                        </ng-container>
-                        <ng-container *ngIf="recruiter?.refUserId?.roles">
-                            <h5 class="BioSubHead">Expertise in Recruiting for these Roles :</h5>
-                            <p>{{recruiter?.refUserId?.roles}}</p>
-                        </ng-container>
-                        <ng-container *ngIf="recruiter?.linkedInLink">
-                            <h5 class="BioSubHead">LinkedIn:</h5>
-                            <a class="pointer"
-                                (click)="onLinkedIn(recruiter?.linkedInLink)">{{recruiter?.linkedInLink}}</a>
-                        </ng-container>
-                    </div>
-                </div>
-            </div>
+            <ng-container *ngIf="recruiter?.refUserId?.companies">
+              <h5 class="BioSubHead">Companies Recruited for:</h5>
+              <p>{{ recruiter?.refUserId?.companies }}</p>
+            </ng-container>
+            <ng-container *ngIf="recruiter?.refUserId?.roles">
+              <h5 class="BioSubHead">
+                Expertise in Recruiting for these Roles :
+              </h5>
+              <p>{{ recruiter?.refUserId?.roles }}</p>
+            </ng-container>
+            <ng-container *ngIf="recruiter?.linkedInLink">
+              <h5 class="BioSubHead">LinkedIn:</h5>
+              <a
+                class="pointer"
+                (click)="onLinkedIn(recruiter?.linkedInLink)"
+                >{{ recruiter?.linkedInLink }}</a
+              >
+            </ng-container>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Card View Design : ENDS -->
 
 <div id="selectDates" class="modal videoModalMain forumPopMain forumMsgPopup">
-    <form [formGroup]="requestDatesForm" (ngSubmit)="onSubmit()">
-        <a (click)="closeSelectDatesModal()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
-        <div class="modal-content videoModalContent">
-            <h4 class="slide-heading text-center">Select your available days</h4>
-            <div class="modalBodyPop">
-
-                <div class="dates">
-                    <div class="start">
-                        <div class="accept-dates">
-                            <div class="accept-values">
-
-                                <input class="form-control" type="text" mwlFlatpickr (ngModelChange)="refresh.next()"
-                                    [altInput]="true" [convertModelValue]="true" formControlName="date1"
-                                    [enableTime]="false" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-                                    placeholder="Not set" [disable]="[disabledDay]" [minDate]="'today'" />
-
-                            </div>
-                            <div class="accept-values">
-
-                                <ngx-select-dropdown (change)="selectionChanged($event)" [options]="availableTime"
-                                    formControlName="time1" [config]="{ placeholder: 'Select a slot'}">
-                                </ngx-select-dropdown>
-                            </div>
-                        </div>
-                        <div class="accept-dates">
-                            <div class="accept-values">
-
-                                <input class="form-control" type="text" mwlFlatpickr (ngModelChange)="refresh.next()"
-                                    [altInput]="true" [convertModelValue]="true" formControlName="date2"
-                                    [enableTime]="false" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-                                    placeholder="Not set" />
-
-                            </div>
-                            <div class="accept-values">
-
-                                <ngx-select-dropdown (change)="selectionChanged($event)" [options]="availableTime"
-                                    formControlName="time2" [config]="{ placeholder: 'Select a slot'}">
-                                </ngx-select-dropdown>
-                            </div>
-                        </div>
-                        <div class="accept-dates">
-                            <div class="accept-values">
-
-                                <input class="form-control" type="text" mwlFlatpickr (ngModelChange)="refresh.next()"
-                                    [altInput]="true" [convertModelValue]="true" formControlName="date3"
-                                    [enableTime]="false" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-                                    placeholder="Not set" />
-
-                            </div>
-                            <div class="accept-values">
-
-                                <ngx-select-dropdown (change)="selectionChanged($event)" [options]="availableTime"
-                                    formControlName="time3" [config]="{ placeholder: 'Select a slot'}">
-                                </ngx-select-dropdown>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+  <form [formGroup]="requestDatesForm" (ngSubmit)="onSubmit()">
+    <a (click)="closeSelectDatesModal()" class="videoCloseBtn"
+      ><i class="material-icons">close</i></a
+    >
+    <div class="modal-content videoModalContent">
+      <h4 class="slide-heading text-center">Select your available days</h4>
+      <div class="modalBodyPop">
+        <div class="dates">
+          <div class="start">
+            <div class="accept-dates">
+              <div class="accept-values">
+                <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  (ngModelChange)="refresh.next()"
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  formControlName="date1"
+                  [enableTime]="false"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Not set"
+                  [disable]="[disabledDay]"
+                  [minDate]="'today'"
+                />
+              </div>
+              <div class="accept-values">
+                <ngx-select-dropdown
+                  (change)="selectionChanged($event)"
+                  [options]="availableTime"
+                  formControlName="time1"
+                  [config]="{ placeholder: 'Select a slot' }"
+                >
+                </ngx-select-dropdown>
+              </div>
             </div>
-            <div class="confirm">
-                <div class="spacing">
-                    <div class="no">
-                        <div class="btn-accept" (click)="confirmSelectDatesEvent()">Request</div>
-                    </div>
-                    <div class="yes">
-                        <div class="btn-reject" (click)="closeSelectDatesModal()">Cancel</div>
-                    </div>
-                </div>
-
+            <div class="accept-dates">
+              <div class="accept-values">
+                <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  (ngModelChange)="refresh.next()"
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  formControlName="date2"
+                  [enableTime]="false"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Not set"
+                  [disable]="[disabledDay]"
+                  [minDate]="'today'"
+                />
+              </div>
+              <div class="accept-values">
+                <ngx-select-dropdown
+                  (change)="selectionChanged($event)"
+                  [options]="availableTime"
+                  formControlName="time2"
+                  [config]="{ placeholder: 'Select a slot' }"
+                >
+                </ngx-select-dropdown>
+              </div>
             </div>
+            <div class="accept-dates">
+              <div class="accept-values">
+                <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  (ngModelChange)="refresh.next()"
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  formControlName="date3"
+                  [enableTime]="false"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Not set"
+                  [disable]="[disabledDay]"
+                  [minDate]="'today'"
+                />
+              </div>
+              <div class="accept-values">
+                <ngx-select-dropdown
+                  (change)="selectionChanged($event)"
+                  [options]="availableTime"
+                  formControlName="time3"
+                  [config]="{ placeholder: 'Select a slot' }"
+                >
+                </ngx-select-dropdown>
+              </div>
+            </div>
+          </div>
         </div>
-    </form>
-
+      </div>
+      <div class="confirm">
+        <div class="spacing">
+          <div class="no">
+            <div class="btn-accept" (click)="confirmSelectDatesEvent()">
+              Request
+            </div>
+          </div>
+          <div class="yes">
+            <div class="btn-reject" (click)="closeSelectDatesModal()">
+              Cancel
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

@@ -173,6 +173,7 @@ button.shareBtn {
   padding: 15px;
   display: flex;
   justify-content: space-between;
+  background-color: #000;
 }
 
 .leftSideQuetion {
@@ -218,8 +219,8 @@ button.shareBtn {
 }
 /* end displaying video */
 .CandidateDetails .candProfile {
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
   background-color: #e7e7e7;
   border-radius: 50%;
   overflow: hidden;
@@ -309,7 +310,7 @@ button.shareBtn {
   display: none;
 }
 .occupy {
-  height: 200px;
+  height: 220px;
 }
 .summary {
   font-size: 16px;

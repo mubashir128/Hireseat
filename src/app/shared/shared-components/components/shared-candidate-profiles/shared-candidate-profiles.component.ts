@@ -106,14 +106,6 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     } else {
       this.getAllSharedResumes();
     }
-    // let obj = JSON.parse(localStorage.getItem("currentUser"));
-    // if (obj !== null) {
-    //   await this.initSocket(obj.token, obj.userInfo.userRole);
-    // }
-    // this._socket.getProfiles().subscribe((res) => {
-    //   this.resumes = res;
-    //   console.log("______", this.resumes);
-    // });
   }
   postMycmt(i, cmt, resume) {
     if (
@@ -285,46 +277,15 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
 
   // share process
   showShareModal(resume) {
-    // console.log(resume, "**********************");
+    console.log(resume, "**********************");
     jQuery("#shareEmailPopUp").modal("open");
     this.shareVideoService.setResume(resume);
   }
-  // ArcivedVideoUrl(archiveId) {
-  //   this.getArchivedVideoSubscription = this.videoCallingService
-  //     .getArchivedVideo(archiveId)
-  //     .subscribe(
-  //       (res) => {
-  //         if (res) {
-  //           this.shareableVideoURL = res.url;
-  //           this.videoURL = res.url;
-  //           console.log('----------', this.shareableVideoURL);
-  //           this.spinner.hide();
 
-  //           //
-
-  //           //
-  //           return true;
-  //         } else {
-  //           this.spinner.hide();
-  //           return false;
-
-  //         }
-  //       },
-  //       (err) => {
-
-  //         this.spinner.hide();
-  //         return false;
-
-  //       }
-  //     );
-  // }
   closeShareModal() {
     jQuery("#shareEmailPopUp").modal("close");
   }
-  sendVideo() {
-    // this.share(this.shareResume);
-    // jQuery("#shareEmailPopUp").modal("close");
-  }
+
   async share(resume) {
     // console.log('sharing the resume', this.recipientEmail, this.cc, this.bcc);
     jQuery("#shareEmailPopUp").modal("close");
