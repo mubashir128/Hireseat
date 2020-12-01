@@ -135,6 +135,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     reader.onload = (_event) => {
       this.imgURL = reader.result;
     };
+    if (this.filepath) this.updateProfileImg();
   }
   fileChange(event) {
     if (event.target.files) {
@@ -178,6 +179,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             phoneNo: res.candidate_id.phoneNo,
             jobTitle: res.jobTitle,
             location: res.location,
+            desiredRoles: res.desiredRoles,
             Employers1: res.previousEmployers[0],
             Employers2: res.previousEmployers[1],
             skills: res.skills,

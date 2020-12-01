@@ -34,14 +34,15 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   player: videojs.Player;
   canComment = false;
 
-  resumes: any;
-  resume: any;
-  show: any;
   getVideoURLSubscription: Subscription;
   getAllSharedCandidateProfileSubscription: Subscription;
   getArchivedVideoSubscription: Subscription;
   shareVideoSubscription: Subscription;
   postCommentSubscription: Subscription;
+  resumes: any;
+  resume: any;
+  show: any;
+  editTextIndex: any;
   loggedUser: any;
   recipientEmail: any;
   cc: any;
@@ -57,7 +58,9 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   myComment: any;
   QuestionsGroup: FormGroup;
   getMyPostedProfilesSubscription: Subscription;
-
+  editTo: any;
+  editCommentSucription: any;
+  deleteCommentSucription: Subscription;
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -103,29 +106,111 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     } else {
       this.getAllSharedResumes();
     }
-    // let obj = JSON.parse(localStorage.getItem("currentUser"));
-    // if (obj !== null) {
-    //   await this.initSocket(obj.token, obj.userInfo.userRole);
-    // }
-    // this._socket.getProfiles().subscribe((res) => {
-    //   this.resumes = res;
-    //   console.log("______", this.resumes);
-    // });
   }
-  postMycmt(cmt, resume) {
-    console.log(cmt, resume);
+  postMycmt(i, cmt, resume) {
+    if (
+      this.myComment[i] === "" ||
+      this.myComment[i] === null ||
+      this.myComment[i] === undefined
+    ) {
+      Materialize.toast("Comment box is empty!");
+    } else {
+      const payload = {
+        resumeId: resume._id,
+        review: cmt,
+        role: "recruiter",
+      };
+      this.postCommentSubscription = this.resumeService
+        .postMyComment(payload)
+        .subscribe(
+          (res) => {
+            if (res) {
+              if (this.loggedUser.userRole === "candidate") {
+                this.getMyPostedProfiles();
+              } else {
+                this.getAllSharedResumes();
+              }
+              this.myComment[i] = "";
+            }
+          },
+          (err) => {
+            Materialize.toast("Unable to post!");
+          }
+        );
+    }
+  }
+  edit(cmt) {
+    this.editTo = cmt.review;
+    if (this.editTextIndex === cmt._id) {
+      this.editTextIndex = -1;
+    } else {
+      this.editTextIndex = cmt._id;
+    }
+  }
+  cancelEdit(cmt) {
+    this.editTo = "";
+    if (this.editTextIndex === cmt._id) {
+      this.editTextIndex = -1;
+    }
+  }
+  editComment(cmt, resume) {
+    if (this.editTo === cmt.review) {
+      Materialize.toast("No change!");
+    } else {
+      let candidateProfile;
+      resume?.resumeType
+        ? (candidateProfile = false)
+        : (candidateProfile = true);
+
+      const payload = {
+        oldCmt: {
+          review: cmt.review,
+          _id: cmt._id,
+        },
+        newCmt: {
+          review: this.editTo,
+        },
+        resumeId: resume._id,
+        candidateProfile,
+      };
+      this.editCommentSucription = this.resumeService
+        .editComment(payload)
+        .subscribe(
+          (res) => {
+            if (res) {
+              if (this.loggedUser.userRole === "candidate") {
+                this.getMyPostedProfiles();
+              } else {
+                this.getAllSharedResumes();
+              }
+              this.cancelEdit(cmt);
+            }
+          },
+          (err) => {
+            Materialize.toast("Something went wrong!");
+          }
+        );
+    }
+  }
+  deleteComment(cmt, resume) {
+    let candidateProfile;
+    resume?.resumeType ? (candidateProfile = false) : (candidateProfile = true);
 
     const payload = {
       resumeId: resume._id,
-      review: cmt,
-      role: "recruiter",
+      cmtId: cmt._id,
+      candidateProfile,
     };
-    this.postCommentSubscription = this.resumeService
-      .postMyComment(payload)
+    this.deleteCommentSucription = this.resumeService
+      .deleteComment(payload)
       .subscribe(
         (res) => {
           if (res) {
-            this.getAllSharedResumes();
+            if (this.loggedUser.userRole === "candidate") {
+              this.getMyPostedProfiles();
+            } else {
+              this.getAllSharedResumes();
+            }
           }
         },
         (err) => {}
@@ -192,46 +277,15 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
 
   // share process
   showShareModal(resume) {
-    // console.log(resume, "**********************");
+    console.log(resume, "**********************");
     jQuery("#shareEmailPopUp").modal("open");
     this.shareVideoService.setResume(resume);
   }
-  // ArcivedVideoUrl(archiveId) {
-  //   this.getArchivedVideoSubscription = this.videoCallingService
-  //     .getArchivedVideo(archiveId)
-  //     .subscribe(
-  //       (res) => {
-  //         if (res) {
-  //           this.shareableVideoURL = res.url;
-  //           this.videoURL = res.url;
-  //           console.log('----------', this.shareableVideoURL);
-  //           this.spinner.hide();
 
-  //           //
-
-  //           //
-  //           return true;
-  //         } else {
-  //           this.spinner.hide();
-  //           return false;
-
-  //         }
-  //       },
-  //       (err) => {
-
-  //         this.spinner.hide();
-  //         return false;
-
-  //       }
-  //     );
-  // }
   closeShareModal() {
     jQuery("#shareEmailPopUp").modal("close");
   }
-  sendVideo() {
-    // this.share(this.shareResume);
-    // jQuery("#shareEmailPopUp").modal("close");
-  }
+
   async share(resume) {
     // console.log('sharing the resume', this.recipientEmail, this.cc, this.bcc);
     jQuery("#shareEmailPopUp").modal("close");
@@ -311,6 +365,8 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     } else {
       this.show = index;
       if (resume.recordedId) {
+        console.log("has recorded id");
+
         this.viewVideo(resume["recordedId"]);
       } else {
         if (resume["interviewLinkedByRecruiter"]) {
