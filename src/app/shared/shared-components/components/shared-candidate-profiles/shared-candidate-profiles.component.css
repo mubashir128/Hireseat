@@ -332,3 +332,24 @@ button.shareBtn {
   font-size: 20px;
   cursor: pointer;
 }
+textarea.editComment{
+  border: none;
+  border-bottom: 1px solid #b1b1b1;
+  outline: none;
+  transition: 0.8s;
+  /* height: 2rem; */
+}
+textarea.editComment:focus{
+  border-bottom: 1px solid #48aef3;
+}
+.btn-placement.postBtnDiv {
+  margin-bottom: 10px;
+}
+.btn-accept.postBtn {
+    height: 34px;
+    padding: 0 20px;
+    border-radius: 3px;
+}
+.btn-accept.postBtn:hover{
+  opacity: 0.8;
+}

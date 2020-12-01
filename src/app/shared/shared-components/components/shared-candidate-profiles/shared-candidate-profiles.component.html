@@ -270,7 +270,7 @@
                 <div class="PointsDiv commonSingleInner CommentInner">
                   <div class="PointsDivSingle PointsDivSingleN recruitercom">
                     <p *ngIf="editTextIndex !== cmt._id">{{ cmt?.review }}</p>
-                    <textarea
+                    <textarea class="editComment"
                       *ngIf="editTextIndex == cmt._id"
                       [value]="cmt?.review"
                       [(ngModel)]="editTo"
@@ -280,13 +280,13 @@
                     >
                   </div>
                   <div
-                    class="btn-placement"
+                    class="btn-placement postBtnDiv"
                     *ngIf="
                       cmt?.recruiterId?._id === loggedUser._id &&
                       editTextIndex == cmt._id
                     "
                   >
-                    <div class="btn-accept" (click)="editComment(cmt, resume)">
+                    <div class="btn-accept postBtn" (click)="editComment(cmt, resume)">
                       Post
                     </div>
                   </div>
