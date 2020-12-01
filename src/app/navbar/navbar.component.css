@@ -1,10 +1,10 @@
-.NavMain{
+/* .NavMain{
   position: fixed;
   width: 100%;
   box-shadow: 0 2px 8px #acacac1a;
   z-index: 99;
   top: 0;
-}
+} */
 .slide-sub-heading {
   font-size: 24px;
   color: #114488;
