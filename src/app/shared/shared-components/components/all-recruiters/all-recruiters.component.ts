@@ -57,7 +57,7 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
       time3: new FormControl(null, Validators.compose([Validators.required])),
     });
     this.requestDatesForm.valueChanges.subscribe((value) => {
-      console.log("---------", value);
+      // console.log("---------", value);
       // this.multiDate.push(value);
       // console.log(this.multiDate.length);
       // console.log('multidate values', this.multiDate)
@@ -91,7 +91,6 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
         this.myProfileContent = res;
       });
   }
-  onSubmit() {}
   closeSelectDatesModal() {
     jQuery("#selectDates").modal("close");
   }

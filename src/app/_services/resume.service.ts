@@ -198,9 +198,9 @@ export class ResumeService {
       );
   }
   // get-all-shared-candidate-profile
-  getAllSharedCandidateProfile() {
+  getAllSharedCandidateProfile(payload) {
     return this.http
-      .get<any>(this.baseurl + "api/get-all-shared-candidate-profile")
+      .post<any>(this.baseurl + "api/get-all-shared-candidate-profile", payload)
       .pipe(
         map((result: any) => {
           return result;

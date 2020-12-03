@@ -4,6 +4,7 @@ import {
   OnChanges,
   ViewChild,
   ElementRef,
+  OnDestroy,
 } from "@angular/core";
 import {
   FormBuilder,
@@ -13,7 +14,7 @@ import {
 } from "@angular/forms";
 import { DomSanitizer } from "@angular/platform-browser";
 import { NgxSpinnerService } from "ngx-spinner";
-import { Subscription } from "rxjs";
+import { Subject, Subscription } from "rxjs";
 import { ResumeService } from "src/app/_services/resume.service";
 import { ShareVideoService } from "src/app/_services/share-video.service";
 import { UserService } from "src/app/_services/user.service";
@@ -21,6 +22,15 @@ import { VideoCallingService } from "src/app/_services/video-calling.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
 import videojs from "video.js";
 import { CandidateService } from "src/app/_services/candidate.service";
+
+import {
+  map,
+  filter,
+  debounceTime,
+  distinctUntilChanged,
+  tap,
+} from "rxjs/operators";
+import { fromEvent } from "rxjs";
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
@@ -29,16 +39,36 @@ declare var Materialize;
   templateUrl: "./shared-candidate-profiles.component.html",
   styleUrls: ["./shared-candidate-profiles.component.css"],
 })
-export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
+export class SharedCandidateProfilesComponent
+  implements OnInit, OnChanges, OnDestroy {
   @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
+  @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
+
   player: videojs.Player;
   canComment = false;
-
+  // subscription
   getVideoURLSubscription: Subscription;
   getAllSharedCandidateProfileSubscription: Subscription;
   getArchivedVideoSubscription: Subscription;
   shareVideoSubscription: Subscription;
+  getMyPostedProfilesSubscription: Subscription;
   postCommentSubscription: Subscription;
+  deleteCommentSucription: Subscription;
+  getProfileSubscription: Subscription;
+  shareWithRecruiterSubscription: Subscription;
+  requestCoachingSubscription: Subscription;
+  getRecruiterPostedProfileSubscription: Subscription;
+
+  // subject
+  refresh: Subject<any> = new Subject();
+
+  // form group
+  QuestionsGroup: FormGroup;
+  Search: FormGroup;
+  requestDatesForm: FormGroup;
+  // pagination
+  p = 1;
+  searchTerm: any;
   resumes: any;
   resume: any;
   show: any;
@@ -56,11 +86,22 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
   recruiterReview: any;
   showCmts: any;
   myComment: any;
-  QuestionsGroup: FormGroup;
-  getMyPostedProfilesSubscription: Subscription;
   editTo: any;
   editCommentSucription: any;
-  deleteCommentSucription: Subscription;
+  selectedCoachingRecruiter = [{}];
+  availableTime: any[];
+  payload: {
+    recipientEmail: string;
+    candidateFullName: any;
+    candidatePhoneNo: any;
+    recruiterFullName: any;
+    subject: string;
+  };
+  availableDetails: any;
+  dayToBeAvailable: any;
+  disableDay: any;
+  daysArray: any;
+  myProfileContent: any;
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -72,6 +113,10 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     private _socket: WebsocketService,
     private candidateService: CandidateService
   ) {
+    this.Search = this.formBuilder.group({
+      tags: ["", Validators.required],
+      searchTerm: [""],
+    });
     this.myComment = [];
     this.loggedUser = this.userService.getUserData();
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
@@ -95,17 +140,54 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
       question5: new FormControl(null, [Validators.max(100)]),
       timeStamp5: new FormControl(null),
     });
+
+    this.requestDatesForm = this.formBuilder.group({
+      date1: new FormControl(null, Validators.compose([Validators.required])),
+      time1: new FormControl(null, Validators.compose([Validators.required])),
+      date2: new FormControl(null, Validators.compose([Validators.required])),
+      time2: new FormControl(null, Validators.compose([Validators.required])),
+      date3: new FormControl(null, Validators.compose([Validators.required])),
+      time3: new FormControl(null, Validators.compose([Validators.required])),
+    });
   }
   ngOnChanges() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
   }
-  async ngOnInit() {
+  ngOnInit() {
+    this.myProfile();
+    jQuery(".modal").modal();
+    jQuery("select").material_select();
+    this.getProfiles();
+  }
+  getProfiles() {
     if (this.loggedUser.userRole === "candidate") {
       this.getMyPostedProfiles();
     } else {
-      this.getAllSharedResumes();
+      this.getAllSharedResumes({});
     }
+  }
+  disabledDay(date) {}
+
+  searchTermByName() {
+    fromEvent(this.searchByName.nativeElement, "keyup")
+      .pipe(
+        map((event) => event),
+        filter(Boolean),
+        debounceTime(800),
+        distinctUntilChanged(),
+        tap((text) => {
+          // console.log(text.target.value);
+
+          let obj = {
+            searchType: "name",
+            searchTerm: this.searchTerm,
+          };
+          this.getAllSharedResumes(obj);
+          // this.redirectToUser(obj);
+        })
+      )
+      .subscribe();
   }
   postMycmt(i, cmt, resume) {
     if (
@@ -128,7 +210,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
               if (this.loggedUser.userRole === "candidate") {
                 this.getMyPostedProfiles();
               } else {
-                this.getAllSharedResumes();
+                this.getAllSharedResumes({});
               }
               this.myComment[i] = "";
             }
@@ -181,7 +263,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
               if (this.loggedUser.userRole === "candidate") {
                 this.getMyPostedProfiles();
               } else {
-                this.getAllSharedResumes();
+                this.getAllSharedResumes({});
               }
               this.cancelEdit(cmt);
             }
@@ -209,7 +291,7 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
             if (this.loggedUser.userRole === "candidate") {
               this.getMyPostedProfiles();
             } else {
-              this.getAllSharedResumes();
+              this.getAllSharedResumes({});
             }
           }
         },
@@ -220,6 +302,9 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
     await this._socket.getInstance(token, userRole);
   }
   ngAfterViewInit() {
+    // server side search
+    this.searchTermByName();
+
     // instantiate Video.js
     if (this.videoURL) {
       this.player = videojs(
@@ -244,13 +329,13 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
       });
   }
 
-  getAllSharedResumes() {
+  getAllSharedResumes(payload) {
     this.getAllSharedCandidateProfileSubscription = this.resumeService
-      .getAllSharedCandidateProfile()
+      .getAllSharedCandidateProfile(payload)
       .subscribe(
         (res) => {
           if (res) {
-            // console.log(res);
+            console.log(res);
 
             this.resumes = res;
           }
@@ -277,18 +362,18 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
 
   // share process
   showShareModal(resume) {
-    console.log(resume, "**********************");
-    jQuery("#shareEmailPopUp").modal("open");
+    // console.log(resume, "**********************");
+    jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
 
   closeShareModal() {
-    jQuery("#shareEmailPopUp").modal("close");
+    jQuery("#shareEmailModal").modal("close");
   }
 
   async share(resume) {
     // console.log('sharing the resume', this.recipientEmail, this.cc, this.bcc);
-    jQuery("#shareEmailPopUp").modal("close");
+    jQuery("#shareEmailModal").modal("close");
     this.spinner.show();
     const subject =
       "Hireseat" +
@@ -331,14 +416,14 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
                     if (res) {
                       // console.log(res);
                       Materialize.toast(res.msg, 3000);
-                      jQuery("#shareEmailPopUp").modal("close");
+                      jQuery("#shareEmailModal").modal("close");
                       this.spinner.hide();
                     }
                   },
                   (err) => {
                     // console.log(err);
                     Materialize.toast("unable to send an email!", 3000);
-                    jQuery("#shareEmailPopUp").modal("close");
+                    jQuery("#shareEmailModal").modal("close");
                     this.spinner.hide();
                   }
                 );
@@ -440,7 +525,175 @@ export class SharedCandidateProfilesComponent implements OnInit, OnChanges {
       console.log(e);
     }
   }
+
+  // request recruiter process
+  /**
+   *  JQuery modals operations
+   */
+  openSelectDatesModal() {
+    jQuery("#selectDates").modal("open");
+  }
+  closeSelectDatesModal() {
+    jQuery("#selectDates").modal("close");
+  }
+  openRecruiterModal(recruiterId) {
+    // console.log(recruiterId);
+    jQuery("#showRecruiterModal").modal("open");
+    const payload = {
+      recruiterId,
+    };
+    this.getRecruiterPostedProfileSubscription = this.candidateService
+      .getPostedRecruiter(payload)
+      .subscribe(
+        (res) => {
+          this.selectedCoachingRecruiter = res[0];
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+  closeRecruiterModal() {
+    jQuery("#showRecruiterModal").modal("close");
+    this.selectedCoachingRecruiter = [{}];
+  }
+  /**
+   *
+   * @param recruiter open ups a modal for accepting dates from candidate
+   */
+  onReqCoaching(recruiter) {
+    console.log("calling req", this.loggedUser);
+
+    this.availableTime = [];
+    // this.selectedRecruiter = recruiter;
+
+    // contact@hireseat.com
+    this.payload = {
+      // recipientEmail: "contact@hireseat.com",
+      recipientEmail: "pritam.bhalerao@codevian.com",
+
+      candidateFullName: this.loggedUser.fullName,
+      candidatePhoneNo: this.loggedUser.phoneNo,
+      recruiterFullName: recruiter.fullName,
+      subject:
+        this.loggedUser.fullName + " " + "Candidate request for coaching",
+    };
+    recruiter.refUserId.available.forEach((item) => {
+      this.availableTime.push(item.from + "-" + item.to);
+    });
+    // console.log(recruiter.refUserId.available);
+    this.availableDetails = recruiter.refUserId.available;
+    // console.log(this.availableDetails);
+    this.availableDetails.forEach((item, index) => {
+      this.dayToBeAvailable.push(item.day.dayId);
+    });
+    this.disableDay = this.daysArray.filter(
+      (val) => !this.dayToBeAvailable.includes(val)
+    );
+
+    // console.log(this.disableDay);
+    // this.spinner.show();
+    // this.openSelectDatesModal();
+    // this.confirmSelectDatesEvent();
+    this.reqCoachingFunction();
+    this.closeRecruiterModal();
+  }
+  /**
+   *
+   * @param link opens a provided url in new window
+   */
+  onLinkedIn(link: string) {
+    if (link.includes("https")) {
+      window.open(link, "_blank");
+    } else {
+      window.open("https://" + link, "_blank");
+    }
+  }
+
+  selectionChanged(event) {
+    console.log(event);
+  }
+  myProfile() {
+    this.getProfileSubscription = this.candidateService
+      .getCandidateProfile()
+      .subscribe((res) => {
+        this.myProfileContent = res;
+      });
+  }
+  confirmSelectDatesEvent() {
+    // console.log(this.requestDatesForm.valid);
+    // console.log(this.requestDatesForm.value);
+
+    // if (this.requestDatesForm.valid) {
+    this.reqCoachingFunction();
+    this.closeRecruiterModal();
+    // this.closeSelectDatesModal();
+    // } else {
+    //   Materialize.toast("Please provide your available time!", 4000);
+    // }
+  }
+
+  reqCoachingFunction() {
+    console.log("requesting********** coaching", this.myProfileContent);
+    this.payload = {
+      recipientEmail: "contact@hireseat.com",
+      candidateFullName: this.loggedUser.fullName,
+      candidatePhoneNo: this.loggedUser.phoneNo,
+      recruiterFullName: this.selectedCoachingRecruiter.refUserId.fullName,
+      subject:
+        this.loggedUser.fullName + " " + "Candidate request for coaching",
+    };
+    if (this.myProfileContent) {
+      console.log("approaching coach");
+
+      this.requestCoachingSubscription = this.candidateService
+        .reqCoaching(this.payload)
+        .subscribe(
+          (res) => {
+            if (res) {
+              // console.log(res);
+              // Materialize.toast("Recruiter has been notified!", 2000);
+              Materialize.toast("Recruiter will reach out to you!", 4000);
+
+              this.onShareWithRecruiter(this.selectedCoachingRecruiter);
+              this.spinner.hide();
+            }
+          },
+          (err) => {
+            Materialize.toast("Something Went Wrong !", 1000);
+            this.spinner.hide();
+          }
+        );
+    }
+  }
+  onShareWithRecruiter(recruiter) {
+    this.spinner.show();
+    Materialize.toast("Sharing your profile with the recruiter...", 4000);
+
+    const payload = {
+      recruiter_id: recruiter.refUserId._id,
+      reqAvailableTime: this.requestDatesForm.value,
+    };
+    this.shareWithRecruiterSubscription = this.candidateService
+      .sharewithRecruiter(payload)
+      .subscribe(
+        (res) => {
+          if (res) {
+            Materialize.toast(res.msg, 1000);
+            this.spinner.hide();
+          }
+        },
+        (err) => {
+          console.log(err);
+          Materialize.toast("Something went wrong!", 1000);
+          this.spinner.hide();
+        }
+      );
+  }
+  // request recruiter process end
+
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
+  ngOnDestroy() {}
 }

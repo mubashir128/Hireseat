@@ -99,4 +99,13 @@ export class CandidateService {
         })
       );
   }
+  getPostedRecruiter(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/get-posted-recruiter", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
 }

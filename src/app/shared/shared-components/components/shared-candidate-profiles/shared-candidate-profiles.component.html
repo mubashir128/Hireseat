@@ -1,7 +1,30 @@
+<ng-container *ngIf="loggedUser.userRole != 'candidate'">
+  <form [formGroup]="Search" novalidate style="width: 100%">
+    <div class="row">
+      <div class="skillInput" style="margin-top: 10px">
+        <span class="note" style="float: left"
+          ><span style="color: #f58e8e">Note:</span> Search by Name :
+        </span>
+      </div>
+      <div class="inputDivMainN">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          formControlName="searchTerm"
+          placeholder="Search here..."
+          #searchByName
+        />
+      </div>
+    </div>
+  </form>
+</ng-container>
 <div class="ListResume">
   <div
     class="singleList employerResume resumeSingleList"
-    *ngFor="let resume of resumes; let i = index"
+    *ngFor="
+      let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p };
+      let i = index
+    "
   >
     <div class="docSectionBtns">
       <div class="candidate-name">
@@ -72,10 +95,10 @@
               </div>
             </a>
           </button>
-          <button class="shareBtn">
+          <button class="shareBtn" (click)="showShareModal(resume)">
             <a>
               <!-- <i class="fa fa-linkedin"></i> -->
-              <div class="icon-name" (click)="showShareModal(resume)">
+              <div class="icon-name">
                 <!-- <img class="shared-icon" src="../../assets/icons/share-option.png"> -->
                 <i class="fa fa-share shared-icon" aria-hidden="true"></i>
                 <span> Share </span>
@@ -232,7 +255,10 @@
                     </ng-container>
                     <!--  -->
 
-                    <div class="recruiter-name">
+                    <div
+                      class="recruiter-name"
+                      (click)="openRecruiterModal(cmt?.recruiterId._id)"
+                    >
                       <span>{{
                         cmt?.recruiterId?.fullName ||
                           resume?.candidate_id?.fullName
@@ -270,7 +296,8 @@
                 <div class="PointsDiv commonSingleInner CommentInner">
                   <div class="PointsDivSingle PointsDivSingleN recruitercom">
                     <p *ngIf="editTextIndex !== cmt._id">{{ cmt?.review }}</p>
-                    <textarea class="editComment"
+                    <textarea
+                      class="editComment"
                       *ngIf="editTextIndex == cmt._id"
                       [value]="cmt?.review"
                       [(ngModel)]="editTo"
@@ -286,7 +313,10 @@
                       editTextIndex == cmt._id
                     "
                   >
-                    <div class="btn-accept postBtn" (click)="editComment(cmt, resume)">
+                    <div
+                      class="btn-accept postBtn"
+                      (click)="editComment(cmt, resume)"
+                    >
                       Post
                     </div>
                   </div>
@@ -299,8 +329,11 @@
     </ng-container>
   </div>
 </div>
+<div class="row">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
 
-<div id="shareEmailPopUp" class="modal">
+<div id="shareEmailModal" class="modal">
   <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
   <div class="emailTemp">
     <div class="form-group posRel">
@@ -324,4 +357,183 @@
       <button class="sendBtn" (click)="share(resume)">SEND</button>
     </div>
   </div>
+</div>
+
+<!-- modal to select dates -->
+
+<div id="selectDates" class="modal videoModalMain forumPopMain forumMsgPopup">
+  <form [formGroup]="requestDatesForm">
+    <a (click)="closeSelectDatesModal()" class="videoCloseBtn"
+      ><i class="material-icons">close</i></a
+    >
+    <div class="modal-content videoModalContent">
+      <h4 class="slide-heading text-center">Select your available days</h4>
+      <div class="modalBodyPop">
+        <div class="dates">
+          <div class="start">
+            <div class="accept-dates">
+              <div class="accept-values">
+                <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  (ngModelChange)="refresh.next()"
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  formControlName="date1"
+                  [enableTime]="false"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Not set"
+                  [disable]="[disabledDay]"
+                  [minDate]="'today'"
+                />
+              </div>
+              <div class="accept-values">
+                <ngx-select-dropdown
+                  (change)="selectionChanged($event)"
+                  [options]="availableTime"
+                  formControlName="time1"
+                  [config]="{ placeholder: 'Select a slot' }"
+                >
+                </ngx-select-dropdown>
+              </div>
+            </div>
+            <div class="accept-dates">
+              <div class="accept-values">
+                <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  (ngModelChange)="refresh.next()"
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  formControlName="date2"
+                  [enableTime]="false"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Not set"
+                  [disable]="[disabledDay]"
+                  [minDate]="'today'"
+                />
+              </div>
+              <div class="accept-values">
+                <ngx-select-dropdown
+                  (change)="selectionChanged($event)"
+                  [options]="availableTime"
+                  formControlName="time2"
+                  [config]="{ placeholder: 'Select a slot' }"
+                >
+                </ngx-select-dropdown>
+              </div>
+            </div>
+            <div class="accept-dates">
+              <div class="accept-values">
+                <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  (ngModelChange)="refresh.next()"
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  formControlName="date3"
+                  [enableTime]="false"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Not set"
+                  [disable]="[disabledDay]"
+                  [minDate]="'today'"
+                />
+              </div>
+              <div class="accept-values">
+                <ngx-select-dropdown
+                  (change)="selectionChanged($event)"
+                  [options]="availableTime"
+                  formControlName="time3"
+                  [config]="{ placeholder: 'Select a slot' }"
+                >
+                </ngx-select-dropdown>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="confirm">
+        <div class="spacing">
+          <div class="no">
+            <div class="btn-accept" (click)="confirmSelectDatesEvent()">
+              Request
+            </div>
+          </div>
+          <div class="yes">
+            <div class="btn-reject" (click)="closeSelectDatesModal()">
+              Cancel
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- opening a recruiter details modal -->
+<div id="showRecruiterModal" class="modal recruiter">
+  <i (click)="closeRecruiterModal()" class="fa fa-times" aria-hidden="true"></i>
+  <!--  -->
+  <div class="ClientDetailCard">
+    <div class="ClientImage">
+      <div class="uploadImageDiv">
+        <ng-container *ngIf="selectedCoachingRecruiter.refUserId?.profileimage">
+          <img
+            [src]="selectedCoachingRecruiter.refUserId?.profileimage"
+            class="uploadedImg"
+          />
+        </ng-container>
+        <ng-container
+          *ngIf="!selectedCoachingRecruiter.refUserId?.profileimage"
+        >
+          <img src="../../../assets/img/user.png" class="uploadedImg" />
+        </ng-container>
+      </div>
+      <div class="NameDetails">
+        <h4>{{ selectedCoachingRecruiter?.refUserId?.fullName }}</h4>
+        <p>
+          Rate: ${{ selectedCoachingRecruiter?.refUserId?.rate }} for
+          {{ selectedCoachingRecruiter?.refUserId?.mins }} Minutes
+        </p>
+      </div>
+      <ng-container *ngIf="loggedUser.userRole === 'candidate'">
+        <div class="req-selectedCoachingRecruiter">
+          <button
+            class="req-recruiter-coaching"
+            (click)="reqCoachingFunction()"
+          >
+            Request Coaching
+          </button>
+        </div>
+      </ng-container>
+    </div>
+    <div class="BioDetails">
+      <h2>Bio :</h2>
+      <div [innerHTML]="selectedCoachingRecruiter?.refUserId?.bio"></div>
+
+      <ng-container *ngIf="selectedCoachingRecruiter?.refUserId?.companies">
+        <h5 class="BioSubHead">Companies Recruited for:</h5>
+        <p>{{ selectedCoachingRecruiter?.refUserId?.companies }}</p>
+      </ng-container>
+      <ng-container *ngIf="selectedCoachingRecruiter?.refUserId?.roles">
+        <h5 class="BioSubHead">Expertise in Recruiting for these Roles :</h5>
+        <p>{{ selectedCoachingRecruiter?.refUserId?.roles }}</p>
+      </ng-container>
+      <ng-container *ngIf="selectedCoachingRecruiter?.linkedInLink">
+        <h5 class="BioSubHead">LinkedIn:</h5>
+        <a
+          class="pointer"
+          (click)="onLinkedIn(selectedCoachingRecruiter?.linkedInLink)"
+          >{{ selectedCoachingRecruiter?.linkedInLink }}</a
+        >
+      </ng-container>
+    </div>
+  </div>
+  <!--  -->
 </div>

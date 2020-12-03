@@ -1,5 +1,4 @@
 <div *ngIf="mode === 0">
-
   <!-- <div class="row right">
       <a class="waves-effect waves-light btn newResumeBtn" [routerLink]="['/recruiter/new-resume']">
         <i class="material-icons left">add</i> New Resume</a>
@@ -78,29 +77,39 @@
       </div>
     </div> -->
 
-  <div style="margin-top : 10px;">
-    <div style="margin-top: 15px;" *ngIf="!noResume">
+  <div style="margin-top: 10px">
+    <div style="margin-top: 15px" *ngIf="!noResume">
       <ul class="resumeList">
-        <li *ngFor="
-              let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p }
-            " class="col s12 m12 l6 floatUns marginUns">
+        <li
+          *ngFor="
+            let resume of resumes
+              | paginate: { itemsPerPage: 8, currentPage: p }
+          "
+          class="col s12 m12 l6 floatUns marginUns"
+        >
           <div class="resume-item WaitingResume">
             <!--  (click)="showResume()" (click)="edit()" -->
             <div class="sub-info">
-              <img src="assets/img/resume.png" style="
-                      display: inline-block;
-                      float: left;
-                      width: 30%;
-                      height: auto;
-                      opacity: 0.75;
-                    " />
-              <div class="candidate-name" style="
-                      display: inline-block;
-                      float: right;
-                      width: 70%;
-                      height: auto;
-                      padding-left: 15px;
-                    ">
+              <img
+                src="assets/img/resume.png"
+                style="
+                  display: inline-block;
+                  float: left;
+                  width: 30%;
+                  height: auto;
+                  opacity: 0.75;
+                "
+              />
+              <div
+                class="candidate-name"
+                style="
+                  display: inline-block;
+                  float: right;
+                  width: 70%;
+                  height: auto;
+                  padding-left: 15px;
+                "
+              >
                 <h3>{{ resume.candidate_id.fullName }}</h3>
 
                 <h4 class="title">Job Title</h4>
@@ -110,29 +119,59 @@
 
                 <h4 class="title">Skill set</h4>
                 <div class="skillSrcoll-waiting">
-                  <span class="chipu" *ngFor="let skill of this.splitSkills(resume.skills)">{{ skill }}
+                  <span
+                    class="chipu"
+                    *ngFor="let skill of this.splitSkills(resume.skills)"
+                    >{{ skill }}
                   </span>
                 </div>
               </div>
             </div>
             <!-- <div class="divider"></div> -->
-            <div class="footerAbsolute-waitinglist ">
-              <ng-container *ngIf="resume?.sharedWithRecruiter">
-                <div class="TimeSelectButtonDiv" *ngFor="let item of this.reqslots(resume)">
-                  <button class="btn TimeButton" (click)="selectedReq(item?.date1,item?.time1)">
-                    {{getDate(item?.date1)}} <br />{{item?.time1}}
+            <div class="footerAbsolute-waitinglist">
+              <ng-container
+                *ngIf="
+                  resume?.sharedWithRecruiter.applicationStatus === 'waiting'
+                "
+              >
+                <div
+                  class="TimeSelectButtonDiv"
+                  *ngFor="let item of this.reqslots(resume)"
+                >
+                  <button
+                    *ngIf="item?.date1 != null"
+                    class="btn TimeButton"
+                    (click)="selectedReq(item?.date1, item?.time1)"
+                  >
+                    {{ getDate(item?.date1) }} <br />{{ item?.time1 }}
                   </button>
-                  <button class="btn TimeButton" (click)="selectedReq(item?.date2,item?.time2)">
-                    {{getDate(item?.date2)}} <br />{{item?.time2}}
+                  <button
+                    *ngIf="item?.date2 != null"
+                    class="btn TimeButton"
+                    (click)="selectedReq(item?.date2, item?.time2)"
+                  >
+                    {{ getDate(item?.date2) }} <br />{{ item?.time2 }}
                   </button>
-                  <button class="btn TimeButton" (click)="selectedReq(item?.date3,item?.time3)">
-                    {{getDate(item?.date3)}} <br />{{item?.time3}}
+                  <button
+                    *ngIf="item?.date3 != null"
+                    class="btn TimeButton"
+                    (click)="selectedReq(item?.date3, item?.time3)"
+                  >
+                    {{ getDate(item?.date3) }} <br />{{ item?.time3 }}
                   </button>
                 </div>
               </ng-container>
-              <div class="btn-flat DownldResum" style="margin-right: 0px; padding: 0 1rem;">
-                <a [attr.href]="transform(resume.fileURL)" target="_blank" download><i class="fa fa-download"
-                    aria-hidden="true"></i>Click here to view resume </a>
+              <div
+                class="btn-flat DownldResum"
+                style="margin-right: 0px; padding: 0 1rem"
+              >
+                <a
+                  [attr.href]="transform(resume.fileURL)"
+                  target="_blank"
+                  download
+                  ><i class="fa fa-download" aria-hidden="true"></i>Click here
+                  to view resume
+                </a>
               </div>
               <!-- <div class="btn-flat" style="margin-right: 0px; padding: 0 1rem;">
                 <i (click)="showShareModal(resume)" class="fa fa-share" aria-hidden="true"></i>
@@ -159,7 +198,9 @@
 
       <!--  -->
       <div>
-        <button class="accordion" (click)="toggleAccordian($event)">My Calendar </button>
+        <button class="accordion" (click)="toggleAccordian($event)">
+          My Calendar
+        </button>
         <div class="panel" hide="!item.isActive">
           <app-user-calendar></app-user-calendar>
         </div>
@@ -172,9 +213,7 @@
   <!-- <app-edit-resume [resume]="selectedResume" (back)="comeBack()" (getAllResume)="getAllResume($event)">
     </app-edit-resume> -->
 </div>
-<div *ngIf="noResume">
-  No Results to show
-</div>
+<div *ngIf="noResume">No Results to show</div>
 
 <!-- <div id="DeleteConfirm" class="modal">
   <div class="modal-content">
@@ -197,14 +236,18 @@
     <h4 class="bluePopHead">Reject application</h4>
     <p class="bodyPara">Are want to sure Reject this resume ?</p>
     <div class="reject-reason">
-      <input type="text" placeholder="Enter a reason to reject the application" [(ngModel)]="rejectReason"
-        style="    color: #a56767;" />
+      <input
+        type="text"
+        placeholder="Enter a reason to reject the application"
+        [(ngModel)]="rejectReason"
+        style="color: #a56767"
+      />
     </div>
     <div class="modal-footer marT10">
       <div class="textCenter">
-        <div (click)="confirmedRejectResume()" class=" btn-accept">
-          Submit</div>&nbsp;&nbsp;
-        <div class="modal-close   btn-reject" (click)="closeRejectModal()">
+        <div (click)="confirmedRejectResume()" class="btn-accept">Submit</div>
+        &nbsp;&nbsp;
+        <div class="modal-close btn-reject" (click)="closeRejectModal()">
           Cancel
         </div>
       </div>
@@ -215,16 +258,28 @@
 <div id="acceptConfirmation" class="modal">
   <div class="modal-content">
     <h4 class="bluePopHead">Accept application</h4>
-    <p class="bodyPara">Accept this candidate and schedule with the date given below ?</p>
+    <p class="bodyPara">
+      Accept this candidate and schedule with the date given below ?
+    </p>
     <div class="reject-reason">
-      <input type="text" [value]="this.getDate(selectedDate)" style="    color: #a56767;" disabled />
-      <input type="text" [(ngModel)]="selectedTime" style="color: #a56767;" disabled />
+      <input
+        type="text"
+        [value]="this.getDate(selectedDate)"
+        style="color: #a56767"
+        disabled
+      />
+      <input
+        type="text"
+        [(ngModel)]="selectedTime"
+        style="color: #a56767"
+        disabled
+      />
     </div>
     <div class="modal-footer marT10">
       <div class="textCenter">
-        <div (click)="confirmAcceptCandidate()" class=" btn-accept">
-          Submit</div>&nbsp;&nbsp;
-        <div class="modal-close  btn-reject" (click)="closeAcceptCandidate()">
+        <div (click)="confirmAcceptCandidate()" class="btn-accept">Submit</div>
+        &nbsp;&nbsp;
+        <div class="modal-close btn-reject" (click)="closeAcceptCandidate()">
           Cancel
         </div>
       </div>
