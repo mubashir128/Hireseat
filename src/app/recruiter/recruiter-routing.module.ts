@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { RecruiterHomeComponent } from './recruiter-home/recruiter-home.component';
-import { ProfileComponent } from '../profile/profile.component';
-import { BiddingEventsListComponent } from '../bidding-events-list/bidding-events-list.component';
-import { RecruiterQuestionComponent } from '../recruiter-brodcast/recruiter-question/recruiter-question.component';
-import { ResumeListComponent } from './resume-list/resume-list.component';
-import { NewResumeComponent } from './new-resume/new-resume.component';
-import { WonBidsComponent } from './won-bids/won-bids.component';
-import { SearchResumeComponent } from '../resume-bank/search-resume/search-resume.component';
-import { VideoInterviewRoomComponent } from '../video-interview-room/video-interview-room.component';
-import { AllRecruitersComponent } from '../shared/shared-components/components/all-recruiters/all-recruiters.component';
-import { WaitingListComponent } from './waiting-list/waiting-list.component';
-import { UserCalendarComponent } from '../shared/shared-components/components/user-calendar/user-calendar.component';
-import { SharedCandidateProfilesComponent } from '../shared/shared-components/components/shared-candidate-profiles/shared-candidate-profiles.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { RecruiterHomeComponent } from "./recruiter-home/recruiter-home.component";
+import { ProfileComponent } from "../profile/profile.component";
+import { BiddingEventsListComponent } from "../bidding-events-list/bidding-events-list.component";
+import { RecruiterQuestionComponent } from "../recruiter-brodcast/recruiter-question/recruiter-question.component";
+import { ResumeListComponent } from "./resume-list/resume-list.component";
+import { NewResumeComponent } from "./new-resume/new-resume.component";
+import { WonBidsComponent } from "./won-bids/won-bids.component";
+import { SearchResumeComponent } from "../resume-bank/search-resume/search-resume.component";
+import { VideoInterviewRoomComponent } from "../video-interview-room/video-interview-room.component";
+import { AllRecruitersComponent } from "../shared/shared-components/components/all-recruiters/all-recruiters.component";
+import { WaitingListComponent } from "./waiting-list/waiting-list.component";
+import { UserCalendarComponent } from "../shared/shared-components/components/user-calendar/user-calendar.component";
+import { SharedCandidateProfilesComponent } from "../shared/shared-components/components/shared-candidate-profiles/shared-candidate-profiles.component";
 
 const routes: Routes = [
   {
@@ -21,56 +21,56 @@ const routes: Routes = [
     children: [
       {
         path: "profile",
-        component: ProfileComponent
+        component: ProfileComponent,
       },
       {
         path: "bidding-event-list",
-        component: BiddingEventsListComponent
+        component: BiddingEventsListComponent,
       },
       {
         path: "bidding-event-list/:type",
-        component: BiddingEventsListComponent
+        component: BiddingEventsListComponent,
       },
       {
         path: "recruiter-question/:id",
-        component: RecruiterQuestionComponent
+        component: RecruiterQuestionComponent,
       },
       {
         path: "resume-list",
-        component: ResumeListComponent
+        component: ResumeListComponent,
       },
       {
         path: "new-resume",
-        component: NewResumeComponent
+        component: NewResumeComponent,
       },
       {
         path: "won-bids",
-        component: WonBidsComponent
+        component: WonBidsComponent,
       },
       {
         path: "search-resume",
-        component: SearchResumeComponent
+        component: SearchResumeComponent,
       },
       {
         path: "video-interview-room",
-        component: VideoInterviewRoomComponent
+        component: VideoInterviewRoomComponent,
       },
       {
         path: "all-recruiters",
-        component: AllRecruitersComponent
+        component: AllRecruitersComponent,
       },
       {
-        path: 'waiting-list',
-        component: WaitingListComponent
+        path: "waiting-list",
+        component: WaitingListComponent,
       },
       {
-        path: 'calendar',
-        component: UserCalendarComponent
+        path: "calendar",
+        component: UserCalendarComponent,
       },
       {
-        path: 'share-candidate-profile',
-        component: SharedCandidateProfilesComponent
-      }
+        path: "share-candidate-profile",
+        component: SharedCandidateProfilesComponent,
+      },
     ],
     // canActivate: [RecruiterGuard]
   },
@@ -78,6 +78,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class RecruiterRoutingModule { }
+export class RecruiterRoutingModule {}

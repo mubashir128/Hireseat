@@ -435,7 +435,12 @@ a.videoCloseBtn {
 /* END share via email modal */
 
 /* recruiter details */
-
+.see-profile {
+  margin-left: 10px;
+  color: #0aafff;
+  text-decoration: underline;
+  cursor: pointer;
+}
 .req-recruiter-coaching {
   display: flex;
   justify-content: center;

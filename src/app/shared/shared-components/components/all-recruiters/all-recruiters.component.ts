@@ -41,7 +41,10 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
     recruiterFullName: any;
     subject: string;
   };
+  searchTerm: any;
   myProfileContent: any;
+  // pagination
+  p = 1;
   constructor(
     private candidateService: CandidateService,
     private spinner: NgxSpinnerService,

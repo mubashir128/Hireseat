@@ -69,7 +69,7 @@ export class SharedCandidateProfilesComponent
   // pagination
   p = 1;
   searchTerm: any;
-  resumes: any;
+  resumes = [];
   resume: any;
   show: any;
   editTextIndex: any;
@@ -117,6 +117,31 @@ export class SharedCandidateProfilesComponent
       tags: ["", Validators.required],
       searchTerm: [""],
     });
+    this.Search.get("searchTerm")
+      .valueChanges.pipe(debounceTime(800))
+      .subscribe((res) => {
+        if (res) {
+          let obj = {
+            searchType: "name",
+            searchTerm: res,
+          };
+          //  this.resumes = this.resumes.filter((resume) => {
+          //     if (
+          //       resume.candidateName.toLowerCase().includes(res.toLowerCase()) ||
+          //       resume.candidate_id.fullName
+          //         .toLowerCase()
+          //         .includes(res.toLowerCase())
+          //     ){
+          //       console.log(resume);
+          //       return resume;
+
+          //     }
+          //   });
+          //   console.log(this.resumes);
+
+          this.getAllSharedResumes(obj);
+        }
+      });
     this.myComment = [];
     this.loggedUser = this.userService.getUserData();
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
@@ -155,7 +180,6 @@ export class SharedCandidateProfilesComponent
     jQuery("select").material_select();
   }
   ngOnInit() {
-    this.myProfile();
     jQuery(".modal").modal();
     jQuery("select").material_select();
     this.getProfiles();
@@ -163,6 +187,7 @@ export class SharedCandidateProfilesComponent
   getProfiles() {
     if (this.loggedUser.userRole === "candidate") {
       this.getMyPostedProfiles();
+      this.myProfile();
     } else {
       this.getAllSharedResumes({});
     }
@@ -183,6 +208,8 @@ export class SharedCandidateProfilesComponent
             searchType: "name",
             searchTerm: this.searchTerm,
           };
+          console.log(obj);
+
           this.getAllSharedResumes(obj);
           // this.redirectToUser(obj);
         })
@@ -303,7 +330,7 @@ export class SharedCandidateProfilesComponent
   }
   ngAfterViewInit() {
     // server side search
-    this.searchTermByName();
+    // this.searchTermByName();
 
     // instantiate Video.js
     if (this.videoURL) {
@@ -335,7 +362,7 @@ export class SharedCandidateProfilesComponent
       .subscribe(
         (res) => {
           if (res) {
-            console.log(res);
+            // console.log(res);
 
             this.resumes = res;
           }
@@ -569,8 +596,7 @@ export class SharedCandidateProfilesComponent
 
     // contact@hireseat.com
     this.payload = {
-      // recipientEmail: "contact@hireseat.com",
-      recipientEmail: "pritam.bhalerao@codevian.com",
+      recipientEmail: "contact@hireseat.com",
 
       candidateFullName: this.loggedUser.fullName,
       candidatePhoneNo: this.loggedUser.phoneNo,
@@ -634,17 +660,17 @@ export class SharedCandidateProfilesComponent
   }
 
   reqCoachingFunction() {
-    console.log("requesting********** coaching", this.myProfileContent);
+    // console.log("requesting********** coaching", this.myProfileContent);
     this.payload = {
       recipientEmail: "contact@hireseat.com",
       candidateFullName: this.loggedUser.fullName,
       candidatePhoneNo: this.loggedUser.phoneNo,
-      recruiterFullName: this.selectedCoachingRecruiter.refUserId.fullName,
+      recruiterFullName: this.selectedCoachingRecruiter["refUserId"].fullName,
       subject:
         this.loggedUser.fullName + " " + "Candidate request for coaching",
     };
     if (this.myProfileContent) {
-      console.log("approaching coach");
+      // console.log("approaching coach");
 
       this.requestCoachingSubscription = this.candidateService
         .reqCoaching(this.payload)

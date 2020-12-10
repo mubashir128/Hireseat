@@ -1,4 +1,23 @@
 <!-- Card View Design : STARTS -->
+<ng-container>
+  <!-- <form [formGroup]="Search" novalidate style="width: 100%"> -->
+  <div class="row">
+    <div class="skillInput" style="margin-top: 10px">
+      <span class="note" style="float: left"
+        ><span style="color: #f58e8e">Note:</span> Search by Name :
+      </span>
+    </div>
+    <div class="inputDivMainN">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Search here..."
+        #searchByName
+      />
+    </div>
+  </div>
+  <!-- </form> -->
+</ng-container>
 <div class="MainWrapperBg">
   <div class="container">
     <div class="MainDetailsPage">
@@ -34,7 +53,14 @@
         </p>
       </div>
       <div class="ClientDetailCardMain">
-        <div *ngFor="let recruiter of recruiters" class="ClientDetailCard">
+        <div
+          *ngFor="
+            let recruiter of recruiters
+              | allRecruiterSearch: searchTerm
+              | paginate: { itemsPerPage: 8, currentPage: p }
+          "
+          class="ClientDetailCard"
+        >
           <div class="ClientImage">
             <!-- <img [src]="recruiter.profileimage" alt="Profile Pic"> -->
             <div class="uploadImageDiv">
@@ -215,4 +241,7 @@
       </div>
     </div>
   </form>
+</div>
+<div class="row">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>

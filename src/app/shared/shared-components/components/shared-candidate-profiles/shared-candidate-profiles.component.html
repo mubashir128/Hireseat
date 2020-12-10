@@ -26,6 +26,7 @@
       let i = index
     "
   >
+    <!-- | shareProfileSearch: searchTerm -->
     <div class="docSectionBtns">
       <div class="candidate-name">
         <div class="CandidateDetails">
@@ -226,7 +227,12 @@
       </ng-container>
       <div class="commentmainscroll">
         <div *ngFor="let cmt of resume.canReview; let i = index">
-          <ng-container>
+          <ng-container
+            *ngIf="
+              cmt?.recruiterId?._id === loggedUser._id ||
+              loggedUser.userRole === 'candidate'
+            "
+          >
             <div class="singleListData">
               <div class="cmt-box">
                 <div class="recruitercommenthead">
@@ -255,14 +261,21 @@
                     </ng-container>
                     <!--  -->
 
-                    <div
-                      class="recruiter-name"
-                      (click)="openRecruiterModal(cmt?.recruiterId._id)"
-                    >
+                    <div class="recruiter-name">
                       <span>{{
                         cmt?.recruiterId?.fullName ||
                           resume?.candidate_id?.fullName
                       }}</span>
+                      <span
+                        class="see-profile"
+                        *ngIf="
+                          loggedUser.userRole === 'candidate' &&
+                          cmt?.recruiterId?.userRole === 'recruiter'
+                        "
+                        (click)="openRecruiterModal(cmt?.recruiterId._id)"
+                      >
+                        See profile
+                      </span>
                     </div>
                   </div>
                   <div class="handle">
@@ -483,23 +496,25 @@
   <div class="ClientDetailCard">
     <div class="ClientImage">
       <div class="uploadImageDiv">
-        <ng-container *ngIf="selectedCoachingRecruiter.refUserId?.profileimage">
+        <ng-container
+          *ngIf="selectedCoachingRecruiter['refUserId']?.profileimage"
+        >
           <img
-            [src]="selectedCoachingRecruiter.refUserId?.profileimage"
+            [src]="selectedCoachingRecruiter['refUserId']?.profileimage"
             class="uploadedImg"
           />
         </ng-container>
         <ng-container
-          *ngIf="!selectedCoachingRecruiter.refUserId?.profileimage"
+          *ngIf="!selectedCoachingRecruiter['refUserId']?.profileimage"
         >
           <img src="../../../assets/img/user.png" class="uploadedImg" />
         </ng-container>
       </div>
       <div class="NameDetails">
-        <h4>{{ selectedCoachingRecruiter?.refUserId?.fullName }}</h4>
+        <h4>{{ selectedCoachingRecruiter["refUserId"]?.fullName }}</h4>
         <p>
-          Rate: ${{ selectedCoachingRecruiter?.refUserId?.rate }} for
-          {{ selectedCoachingRecruiter?.refUserId?.mins }} Minutes
+          Rate: ${{ selectedCoachingRecruiter["refUserId"]?.rate }} for
+          {{ selectedCoachingRecruiter["refUserId"]?.mins }} Minutes
         </p>
       </div>
       <ng-container *ngIf="loggedUser.userRole === 'candidate'">
@@ -515,22 +530,22 @@
     </div>
     <div class="BioDetails">
       <h2>Bio :</h2>
-      <div [innerHTML]="selectedCoachingRecruiter?.refUserId?.bio"></div>
+      <div [innerHTML]="selectedCoachingRecruiter['refUserId']?.bio"></div>
 
-      <ng-container *ngIf="selectedCoachingRecruiter?.refUserId?.companies">
+      <ng-container *ngIf="selectedCoachingRecruiter['refUserId']?.companies">
         <h5 class="BioSubHead">Companies Recruited for:</h5>
-        <p>{{ selectedCoachingRecruiter?.refUserId?.companies }}</p>
+        <p>{{ selectedCoachingRecruiter["refUserId"]?.companies }}</p>
       </ng-container>
-      <ng-container *ngIf="selectedCoachingRecruiter?.refUserId?.roles">
+      <ng-container *ngIf="selectedCoachingRecruiter['refUserId']?.roles">
         <h5 class="BioSubHead">Expertise in Recruiting for these Roles :</h5>
-        <p>{{ selectedCoachingRecruiter?.refUserId?.roles }}</p>
+        <p>{{ selectedCoachingRecruiter["refUserId"]?.roles }}</p>
       </ng-container>
-      <ng-container *ngIf="selectedCoachingRecruiter?.linkedInLink">
+      <ng-container *ngIf="selectedCoachingRecruiter['linkedInLink']">
         <h5 class="BioSubHead">LinkedIn:</h5>
         <a
           class="pointer"
-          (click)="onLinkedIn(selectedCoachingRecruiter?.linkedInLink)"
-          >{{ selectedCoachingRecruiter?.linkedInLink }}</a
+          (click)="onLinkedIn(selectedCoachingRecruiter['linkedInLink'])"
+          >{{ selectedCoachingRecruiter["linkedInLink"] }}</a
         >
       </ng-container>
     </div>
