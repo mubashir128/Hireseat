@@ -554,3 +554,6 @@ a.videoCloseBtn {
   object-fit: cover;
   border-radius: 50%;
 }
+.divide {
+  display: flex;
+}
