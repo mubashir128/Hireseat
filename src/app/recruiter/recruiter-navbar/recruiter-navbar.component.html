@@ -44,6 +44,15 @@
       <!-- <h5 id="recruiter-rewards">{{userProfile.ratingPoints}} </h5> -->
       <img src="assets/img/greenArrow.png" class="greenArrowIcon" />
       <h4>
+        <b>Advice Points</b> : <b> {{ userProfile["advicePoints"] }} </b>
+      </h4>
+      <h4>
+        <b>Candidates Helped</b> : <b> {{ userProfile["advicePoints"] }} </b>
+      </h4>
+      <h4>
+        <b>Advice Liked</b> : <b> {{ userProfile["advicePoints"] }} </b>
+      </h4>
+      <h4>
         <b>Skill Matches</b> : <b> {{ PointsSummary.skillsErn }} </b>
       </h4>
       <h4>
@@ -93,7 +102,7 @@
         <img src="assets/img/greenArrow.png" class="greenArrowIcon" />
       </div>
       <div class="col s4 borR commonDivDF">
-        <div class=" aliC">
+        <div class="aliC">
           <h4>
             <b>{{ PointsSummary.skillsErn }} </b>
           </h4>
@@ -101,7 +110,7 @@
         </div>
       </div>
       <div class="col s4 borR commonDivDF">
-        <div class=" aliC">
+        <div class="aliC">
           <h4>
             <b>Experience Match</b> <b>{{ PointsSummary.experienceEarn }} </b>
           </h4>
@@ -109,7 +118,7 @@
         </div>
       </div>
       <div class="col s4 commonDivDF">
-        <div class=" aliC">
+        <div class="aliC">
           <h4>
             <b>Education Match</b><b>{{ PointsSummary.personalityErn }} </b>
           </h4>
@@ -117,12 +126,12 @@
         </div>
       </div>
     </div>
-    <div class="col s6 m6 l6 ">
+    <div class="col s6 m6 l6">
       <div class="col s12 text-center marTB15">
         <img src="assets/img/redArrow.png" class="redArrowIcon" />
       </div>
       <div class="col s4 borR commonDivDF">
-        <div class=" aliC">
+        <div class="aliC">
           <h4>
             <b>Skills Match</b> <b>{{ PointsSummary.skillsLosePt }}</b>
           </h4>
@@ -130,7 +139,7 @@
         </div>
       </div>
       <div class="col s4 borR commonDivDF">
-        <div class=" aliC">
+        <div class="aliC">
           <h4>
             <b>Experience Match</b> <b>{{ PointsSummary.experienceLosePt }}</b>
           </h4>
@@ -138,7 +147,7 @@
         </div>
       </div>
       <div class="col s4 commonDivDF">
-        <div class=" aliC">
+        <div class="aliC">
           <h4>
             <b>Education Match</b> <b>{{ PointsSummary.personalityLosePt }} </b>
           </h4>

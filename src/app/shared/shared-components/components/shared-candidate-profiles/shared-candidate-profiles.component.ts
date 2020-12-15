@@ -216,6 +216,28 @@ export class SharedCandidateProfilesComponent
       )
       .subscribe();
   }
+  getUsersProfile() {
+    // console.log("setting up user profile");
+
+    this.userService
+      .getUserProfile(this.userService.getUserData().userRole)
+      .subscribe(
+        (data: any) => {
+          // console.log("========", data);
+
+          if (data != null && data != undefined && data != "") {
+            this.userService.setUserProfile(data.res);
+          } else {
+            Materialize.toast("Something went wrong", 1000);
+          }
+          this.spinner.hide();
+        },
+        (error) => {
+          console.log(error);
+          this.spinner.hide();
+        }
+      );
+  }
   postMycmt(i, cmt, resume) {
     if (
       this.myComment[i] === "" ||
@@ -238,6 +260,8 @@ export class SharedCandidateProfilesComponent
                 this.getMyPostedProfiles();
               } else {
                 this.getAllSharedResumes({});
+                this.getUsersProfile();
+                Materialize.toast("Total Score increased", 4000);
               }
               this.myComment[i] = "";
             }
@@ -362,8 +386,6 @@ export class SharedCandidateProfilesComponent
       .subscribe(
         (res) => {
           if (res) {
-            // console.log(res);
-
             this.resumes = res;
           }
         },

@@ -5,20 +5,25 @@ import * as myGlobals from "../globalPath";
 import { IProfile } from "../profile/model/user-profile";
 
 import { IUser } from "../models/user";
+import { BehaviorSubject, Subject } from "rxjs";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class UserService {
   public baseurl: any;
   public user: any;
   public IUser: IUser;
   public employerProfile: IProfile;
-
+  private setProfile = new BehaviorSubject<any>([]);
+  // Observable
+  _setProfileObservable = this.setProfile.asObservable();
   constructor(private http: HttpClient) {
     this.baseurl = myGlobals.baseUrl;
   }
-
+  setUserProfile(userDetails) {
+    this.setProfile.next(userDetails);
+  }
   getmeetup() {
     return this.http.get<any>(this.baseurl + "api/getMeetupEvent").pipe(
       map((res: any) => {
@@ -58,11 +63,13 @@ export class UserService {
     );
   }
   registerCandidate(info: any) {
-    return this.http.post<any>(this.baseurl + "api/registerCandidate", info).pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+    return this.http
+      .post<any>(this.baseurl + "api/registerCandidate", info)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
   }
   registerEnterprise(info: any) {
     return this.http
@@ -250,7 +257,7 @@ export class UserService {
   // functions
   numberWithCommas(x) {
     if (x != null) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   }
 }
