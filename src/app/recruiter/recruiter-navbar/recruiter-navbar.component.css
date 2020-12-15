@@ -152,15 +152,9 @@ h4.pointAdded .increaPoint{
 h4.pointAdded .increaPoint i{
     font-size: 8px;
 }
-/* .rewardImg{
-    animation-name: example;
-    animation-duration: 4s;
+.rewardImg{
+ transition:0.5s;
 }
-
-@keyframes example { 
-    from { 
-        transform: rotate(0deg); 
-    } to { 
-        transform: rotate(45deg); 
-    }
-} */
+.rewardImg.animated{
+    transform: scale(1.3);
+}
