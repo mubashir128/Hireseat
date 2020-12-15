@@ -87,7 +87,7 @@
             <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
             <a>
               <!-- <i class="fa fa-linkedin"></i> -->
-              <div class="icon-name" (click)="linkedIn(resume?.linkedIn)">
+              <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
                 <img
                   class="linkedin-icon"
                   src="../../assets/icons/linkedin-sign.png"
@@ -216,10 +216,12 @@
           <ng-container *ngIf="myComment[i]">
             <div class="btn-placement">
               <div
-                class="btn-accept"
+                class="btn-accept postCommentDiv"
                 (click)="postMycmt(i, myComment[i], resume)"
               >
-                Post
+              <span>Post</span>
+              <!-- <img src="assets/img/postComment.png" alt="profile" />  -->
+              <img src="assets/img/paper-plane.png" alt="profile" /> 
               </div>
             </div>
           </ng-container>
@@ -307,8 +309,11 @@
                   </div>
                 </div>
                 <div class="PointsDiv commonSingleInner CommentInner">
-                  <div class="PointsDivSingle PointsDivSingleN recruitercom">
+                  <div
+                    class="PointsDivSingle PointsDivSingleN recruitercom divide"
+                  >
                     <p *ngIf="editTextIndex !== cmt._id">{{ cmt?.review }}</p>
+                    <span class="see-profile">like</span>
                     <textarea
                       class="editComment"
                       *ngIf="editTextIndex == cmt._id"

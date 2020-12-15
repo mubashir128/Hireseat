@@ -122,16 +122,28 @@ padding:15px;
     position: relative;
 }
 .increaPoint{
+    /* right: 0;
+    position: absolute;
+    top: 0;
+    margin: 5px 0;
+    font-size: 12px;
+    color: #ff9100;
+    font-weight: bold; */
+
     right: 0;
     position: absolute;
     top: 0;
     margin: 5px 0;
     font-size: 11px;
-    color: red;
+    color: #ffffff;
+    background-color: #ff9100;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 2px 5px;
 }
 .increaPoint i{
-    color: red;
-    font-size: 10px;
+    color: #ffffff;
+    font-size: 9px;
 }
 h4.pointAdded .increaPoint{
     margin: 0;
@@ -140,3 +152,15 @@ h4.pointAdded .increaPoint{
 h4.pointAdded .increaPoint i{
     font-size: 8px;
 }
+/* .rewardImg{
+    animation-name: example;
+    animation-duration: 4s;
+}
+
+@keyframes example { 
+    from { 
+        transform: rotate(0deg); 
+    } to { 
+        transform: rotate(45deg); 
+    }
+} */

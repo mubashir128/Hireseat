@@ -554,3 +554,37 @@ a.videoCloseBtn {
   object-fit: cover;
   border-radius: 50%;
 }
+.divide {
+  display: flex;
+}
+.btn-accept.postCommentDiv {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px #c1c1c1;
+  /* box-shadow: 0 4px 1px #5794bf; */
+  transition: 0.5s;
+}
+.postCommentDiv span{
+display: none;
+}
+.postCommentDiv img{
+  width: 20px;
+    height: auto;
+    filter: invert(1);
+}
+.btn-accept.postCommentDiv:hover {
+  width: 100px;
+  box-shadow: 0 4px 1px #5794bf;
+}
+.postCommentDiv:hover.postCommentDiv span{
+  display: block;
+  margin-right: 10px;
+}
+.postCommentDiv:active{
+  /* transform: scale(0.9); */
+  opacity: 0.8;
+  transform: translateY(4px);
+  box-shadow: 0 1px 0px #5794bf!important;
+}

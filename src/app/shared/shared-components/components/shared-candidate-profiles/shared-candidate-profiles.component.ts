@@ -261,7 +261,7 @@ export class SharedCandidateProfilesComponent
               } else {
                 this.getAllSharedResumes({});
                 this.getUsersProfile();
-                Materialize.toast("Total Score increased", 4000);
+                Materialize.toast("Total Score increased", 6000, "red");
               }
               this.myComment[i] = "";
             }
@@ -651,9 +651,15 @@ export class SharedCandidateProfilesComponent
    * @param link opens a provided url in new window
    */
   onLinkedIn(link: string) {
+    console.log("----------------", link);
+
     if (link.includes("https")) {
+      console.log("includes https");
+
       window.open(link, "_blank");
     } else {
+      console.log("includes nothing");
+
       window.open("https://" + link, "_blank");
     }
   }
