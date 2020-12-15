@@ -118,3 +118,25 @@ padding:15px;
 	border-width: 36px;
 	margin-top: -36px;
 } */
+.pointAdded {
+    position: relative;
+}
+.increaPoint{
+    right: 0;
+    position: absolute;
+    top: 0;
+    margin: 5px 0;
+    font-size: 11px;
+    color: red;
+}
+.increaPoint i{
+    color: red;
+    font-size: 10px;
+}
+h4.pointAdded .increaPoint{
+    margin: 0;
+    font-size: 10px;
+}
+h4.pointAdded .increaPoint i{
+    font-size: 8px;
+}

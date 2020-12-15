@@ -30,11 +30,17 @@
         ><img src="assets/img/reward_points.png" height="50px" width="50px"
       /></a>
       <label for="company-reward">Ranking </label>
-      <h5 id="recruiter-rewards" class="mar0">{{ userProfile.ranking }}</h5>
+      <div class="pointAdded">
+        <h5 id="recruiter-rewards" class="mar0">{{ userProfile.ranking }}</h5>
+        <p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p>
+      </div>
       <label for="company-reward">Total Recruiter Score</label>
-      <h5 id="recruiter-rewards" class="mar0">
-        {{ userProfile.ratingPoints }}
-      </h5>
+      <div class="pointAdded">
+        <h5 id="recruiter-rewards" class="mar0">
+          {{ userProfile.ratingPoints }}
+        </h5>
+        <p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p>
+      </div>
     </div>
   </div>
   <div class="collection">
@@ -43,14 +49,14 @@
        <label (click)="showSummary()" for="company-reward">Reward Points</label> -->
       <!-- <h5 id="recruiter-rewards">{{userProfile.ratingPoints}} </h5> -->
       <img src="assets/img/greenArrow.png" class="greenArrowIcon" />
-      <h4>
-        <b>Advice Points</b> : <b> {{ userProfile["advicePoints"] }} </b>
+      <h4 class="pointAdded">
+        <b>Advice Points</b> : <b> {{ userProfile["advicePoints"] }} </b><p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p>
       </h4>
-      <h4>
-        <b>Candidates Helped</b> : <b> {{ userProfile["advicePoints"] }} </b>
+      <h4 class="pointAdded">
+        <b>Candidates Helped</b> : <b> {{ userProfile["advicePoints"] }} </b><p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p>
       </h4>
-      <h4>
-        <b>Advice Liked</b> : <b> {{ userProfile["advicePoints"] }} </b>
+      <h4 class="pointAdded">
+        <b>Advice Liked</b> : <b> {{ userProfile["advicePoints"] }} </b><p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p>
       </h4>
       <h4>
         <b>Skill Matches</b> : <b> {{ PointsSummary.skillsErn }} </b>
