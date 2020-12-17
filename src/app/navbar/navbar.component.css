@@ -121,6 +121,14 @@ nav ul a {
   .desktopRe {
     display: none;
   }
+  .CandiHelped{
+    display: none !important;
+  }
+}
+@media only screen and (min-device-width : 768px) and (max-device-width : 1023px) {
+  .CandiHelped{
+    display: none !important;
+  }
 }
 @media only screen and (min-width: 990px) and (max-width: 1250px) {
   .nav-wrapper.container {
@@ -296,3 +304,31 @@ h4.count {
   background: #fff;
   border-radius: 30px;
 }
+/* Candidate Helped Badge css :STRATS */
+.CandiHelped {
+  position: absolute;
+  left: 25%;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+.bagdeMain {
+  position: relative;
+  top: 13px;
+}
+.bagdeMain img{
+  width: 30px;
+  margin-right: 10px;
+}
+.bagdeMain span{
+  position: absolute;
+  top: -20%;
+  left: 20%;
+  display: inline-block;
+}
+.CandiHelped p{
+  margin: 0;
+    color: #da1010;
+    font-size: 15px;
+}
+/* Candidate Helped Badge css :ENDS */
