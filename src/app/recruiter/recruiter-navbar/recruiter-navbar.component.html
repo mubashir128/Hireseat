@@ -35,12 +35,11 @@
         <!-- <p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p> -->
       </div>
       <label for="company-reward">Total Recruiter Score</label>
-      <div class="pointAdded">
-        <h5 id="recruiter-rewards" class="mar0">
+      <h5 id="recruiter-rewards" class="mar0">
+        <div #ratingPoints class="noraml">
           {{ userProfile.ratingPoints }}
-        </h5>
-        <!-- <p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p> -->
-      </div>
+        </div>
+      </h5>
     </div>
   </div>
   <div class="collection">
@@ -49,17 +48,20 @@
        <label (click)="showSummary()" for="company-reward">Reward Points</label> -->
       <!-- <h5 id="recruiter-rewards">{{userProfile.ratingPoints}} </h5> -->
       <img src="assets/img/greenArrow.png" class="greenArrowIcon" />
-      <h4 class="pointAdded">
-        <b>Advice Points</b> : <b> {{ userProfile["advicePoints"] }} </b>
-        <!-- <p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p> -->
+      <h4>
+        <b>Advice Points</b> :
+        <b #advicePoints class="noraml">
+          {{ userProfile["advicePoints"] }}
+        </b>
       </h4>
-      <h4 class="pointAdded">
-        <b>Candidates Helped</b> : <b> {{ userProfile["advicePoints"] }} </b>
-          <!-- <p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p> -->
+      <h4>
+        <b>Candidates Helped</b> :
+        <b class="noraml" #candidatesHelped>
+          {{ userProfile["advicePoints"] / 100 }}
+        </b>
       </h4>
-      <h4 class="pointAdded">
-        <b>Advice Liked</b> : <b> {{ userProfile["advicePoints"] }} </b>
-        <!-- <p class="increaPoint"><i class="fa fa-arrow-up" aria-hidden="true"></i> +100</p> -->
+      <h4>
+        <b>Advice Liked</b> : <b> {{ userProfile["adviceLikedPoints"] }} </b>
       </h4>
       <h4>
         <b>Skill Matches</b> : <b> {{ PointsSummary.skillsErn }} </b>
