@@ -102,6 +102,7 @@ export class SharedCandidateProfilesComponent
   disableDay: any;
   daysArray: any;
   myProfileContent: any;
+  likeCommetSubscription: Subscription;
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -261,7 +262,11 @@ export class SharedCandidateProfilesComponent
               } else {
                 this.getAllSharedResumes({});
                 this.getUsersProfile();
-                Materialize.toast("Total Score increased", 6000, "red");
+                Materialize.toast(
+                  "You Gained 100 Recruiter Points",
+                  6000,
+                  "red"
+                );
               }
               this.myComment[i] = "";
             }
@@ -271,6 +276,37 @@ export class SharedCandidateProfilesComponent
           }
         );
     }
+  }
+  likeThisCommet(cmt, resume) {
+    let candidateProfile;
+    resume?.resumeType ? (candidateProfile = false) : (candidateProfile = true);
+
+    const payload = {
+      recruiterId: cmt.recruiterId._id,
+      cmtId: cmt._id,
+      candidateProfile: candidateProfile,
+      resumeId: resume._id,
+    };
+
+    // console.log("payload", payload);
+    this.likeCommetSubscription = this.resumeService
+      .likeComment(payload)
+      .subscribe(
+        (res) => {
+          if (res) {
+            Materialize.toast(
+              "You just gave recruiter a 50 points!",
+              5000,
+              "red"
+            );
+            this.getProfiles();
+            this.getUsersProfile();
+          }
+        },
+        (err) => {
+          Materialize.toast("The post is already liked!", 5000, "red");
+        }
+      );
   }
   edit(cmt) {
     this.editTo = cmt.review;

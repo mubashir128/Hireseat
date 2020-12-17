@@ -219,4 +219,7 @@ export class ResumeService {
   deleteComment(payload) {
     return this.http.post<any>(this.baseurl + "api/delete-comment", payload);
   }
+  likeComment(payload) {
+    return this.http.post<any>(this.baseurl + "api/like-comment", payload);
+  }
 }

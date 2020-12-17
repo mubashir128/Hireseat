@@ -557,3 +557,9 @@ a.videoCloseBtn {
 .divide {
   display: flex;
 }
+.likes {
+  width: 100%;
+  margin-right: 10px;
+  display: flex;
+  justify-content: flex-end;
+}

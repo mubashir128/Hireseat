@@ -33,7 +33,9 @@
       <h5 id="recruiter-rewards" class="mar0">{{ userProfile.ranking }}</h5>
       <label for="company-reward">Total Recruiter Score</label>
       <h5 id="recruiter-rewards" class="mar0">
-        {{ userProfile.ratingPoints }}
+        <div #ratingPoints class="noraml">
+          {{ userProfile.ratingPoints }}
+        </div>
       </h5>
     </div>
   </div>
@@ -44,14 +46,19 @@
       <!-- <h5 id="recruiter-rewards">{{userProfile.ratingPoints}} </h5> -->
       <img src="assets/img/greenArrow.png" class="greenArrowIcon" />
       <h4>
-        <b>Advice Points</b> : <b> {{ userProfile["advicePoints"] }} </b>
+        <b>Advice Points</b> :
+        <b #advicePoints class="noraml">
+          {{ userProfile["advicePoints"] }}
+        </b>
       </h4>
       <h4>
         <b>Candidates Helped</b> :
-        <b> {{ userProfile["advicePoints"] / 100 }} </b>
+        <b class="noraml" #candidatesHelped>
+          {{ userProfile["advicePoints"] / 100 }}
+        </b>
       </h4>
       <h4>
-        <b>Advice Liked</b> : <b> {{ userProfile["advicePoints"] }} </b>
+        <b>Advice Liked</b> : <b> {{ userProfile["adviceLikedPoints"] }} </b>
       </h4>
       <h4>
         <b>Skill Matches</b> : <b> {{ PointsSummary.skillsErn }} </b>

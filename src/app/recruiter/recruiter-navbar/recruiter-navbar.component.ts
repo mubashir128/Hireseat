@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
 import { Tab } from "../models/tab";
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -14,22 +14,40 @@ declare var jQuery: any;
   styleUrls: ["./recruiter-navbar.component.css"],
 })
 export class RecruiterNavbarComponent implements OnInit {
+  @ViewChild("advicePoints", { static: true }) advicePoints: ElementRef;
+  @ViewChild("ratingPoints", { static: true }) ratingPoints: ElementRef;
+
   tabs1: Tab[];
   public userProfile: IProfile;
   public PointsSummary = new RewardSummary();
+
   constructor(
     private router: Router,
     private spinner: NgxSpinnerService,
     private userService: UserService,
     private _subList: SubscriberslistService
   ) {
+    /**
+     * subcription incresed points
+     */
     this.userService._setProfileObservable.subscribe((data) => {
-      // console.log(
-      //   "______________________________-------------------------",
-      //   data
-      // );
+      console.log(data);
 
-      this.userProfile = data;
+      if (data !== null) {
+        this.userProfile = data;
+        this.animateValue(
+          this.advicePoints,
+          data.advicePoints - 100,
+          data.advicePoints,
+          5000
+        );
+        this.animateValue(
+          this.ratingPoints,
+          data.ratingPoints - 100,
+          data.ratingPoints,
+          5000
+        );
+      }
     });
     this.tabs1 = [];
     this.userProfile = new Profile();
@@ -70,7 +88,32 @@ export class RecruiterNavbarComponent implements OnInit {
       this.handleActiveList(res);
     });
   }
+  /**
+   * to display count from start to end
+   * @param obj
+   * @param start
+   * @param end
+   * @param duration
+   */
+  animateValue(obj, start, end, duration) {
+    // console.log(obj, start, end);
+    if (obj !== null || start !== NaN || end !== undefined) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.nativeElement.textContent = Math.floor(
+          progress * (end - start) + start
+        );
+        obj.nativeElement.className = "change";
 
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+  }
   handleActiveList(obj) {
     this.tabs1.forEach((tab) => {
       if (tab.displayText === "Job Postings") {
