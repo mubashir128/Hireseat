@@ -563,3 +563,14 @@ a.videoCloseBtn {
   display: flex;
   justify-content: flex-end;
 }
+.at-end {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0aafff;
+}
+.at-end:hover {
+  font-weight: 600;
+}

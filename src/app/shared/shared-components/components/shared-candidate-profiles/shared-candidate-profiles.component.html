@@ -311,14 +311,7 @@
                     class="PointsDivSingle PointsDivSingleN recruitercom divide"
                   >
                     <p *ngIf="editTextIndex !== cmt._id">{{ cmt?.review }}</p>
-                    <ng-container>
-                      <span
-                        *ngIf="loggedUser.userRole === 'candidate'"
-                        class="see-profile"
-                        (click)="likeThisCommet(cmt, resume)"
-                        >like</span
-                      >
-                    </ng-container>
+                    <!-- like button was here -->
 
                     <div class="likes">
                       <span>Likes: {{ cmt?.like.length }}</span>
@@ -347,6 +340,15 @@
                       Post
                     </div>
                   </div>
+                  <ng-container>
+                    <div class="at-end">
+                      <span
+                        *ngIf="loggedUser.userRole === 'candidate'"
+                        (click)="likeThisCommet(cmt, resume)"
+                        >like</span
+                      >
+                    </div>
+                  </ng-container>
                 </div>
               </div>
             </div>

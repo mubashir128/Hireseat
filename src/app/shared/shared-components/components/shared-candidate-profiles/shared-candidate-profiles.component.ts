@@ -300,7 +300,7 @@ export class SharedCandidateProfilesComponent
               "red"
             );
             this.getProfiles();
-            this.getUsersProfile();
+            // this.getUsersProfile();
           }
         },
         (err) => {
