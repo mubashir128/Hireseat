@@ -322,22 +322,26 @@ h4.count {
   height: 30px;
   margin-right: 10px;
   border-radius: 50%;
+  display: flex;
   border: 2px solid #ab0808;
+  align-items: center;
+  justify-content: center;
 }
 .bagdeMain img {
   width: 30px;
   margin-right: 10px;
 }
 .bagdeMain span {
-  position: absolute;
+  /* position: absolute; */
   /* top: -20%;
   left: 20%; */
-  top: -70%;
-  left: 25%;
+  /* top: -70%;
+  left: 25%; */
 }
 .CandiHelped p {
   margin: 0;
-  color: #da1010;
+  /* color: #da1010; */
+  color: #747474;
   font-size: 15px;
   font-weight: 600;
 }
