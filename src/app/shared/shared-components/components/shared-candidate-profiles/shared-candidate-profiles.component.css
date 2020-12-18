@@ -571,31 +571,42 @@ a.videoCloseBtn {
   /* box-shadow: 0 4px 1px #5794bf; */
   transition: 0.5s;
 }
-.postCommentDiv span{
-display: none;
+.postCommentDiv span {
+  display: none;
 }
-.postCommentDiv img{
+.postCommentDiv img {
   width: 20px;
-    height: auto;
-    filter: invert(1);
+  height: auto;
+  filter: invert(1);
 }
 .btn-accept.postCommentDiv:hover {
   width: 100px;
   box-shadow: 0 4px 1px #5794bf;
 }
-.postCommentDiv:hover.postCommentDiv span{
+.postCommentDiv:hover.postCommentDiv span {
   display: block;
   margin-right: 10px;
 }
-.postCommentDiv:active{
+.postCommentDiv:active {
   /* transform: scale(0.9); */
   opacity: 0.8;
   transform: translateY(4px);
-  box-shadow: 0 1px 0px #5794bf!important;
+  box-shadow: 0 1px 0px #5794bf !important;
 }
 .likes {
   width: 100%;
   margin-right: 10px;
   display: flex;
   justify-content: flex-end;
+}
+.at-end {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0aafff;
+}
+.at-end:hover {
+  font-weight: 600;
 }

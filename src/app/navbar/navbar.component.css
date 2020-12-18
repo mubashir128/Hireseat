@@ -121,12 +121,12 @@ nav ul a {
   .desktopRe {
     display: none;
   }
-  .CandiHelped{
+  .CandiHelped {
     display: none !important;
   }
 }
-@media only screen and (min-device-width : 768px) and (max-device-width : 1023px) {
-  .CandiHelped{
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .CandiHelped {
     display: none !important;
   }
 }
@@ -197,7 +197,7 @@ h4.count {
   bottom: 100%;
   left: 56%;
   border: solid transparent;
-  content: ' ';
+  content: " ";
   height: 0;
   width: 0;
   position: absolute;
@@ -296,8 +296,8 @@ h4.count {
 
 .scrollNotification::-webkit-scrollbar-thumb {
   width: 12px;
-  background-color: #A8A2A0;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
+  background-color: #a8a2a0; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
 }
 
 .scrollNotification::-webkit-scrollbar-track {
@@ -324,21 +324,27 @@ h4.count {
   border-radius: 50%;
   border: 2px solid #ab0808;
 }
-.bagdeMain img{
+.bagdeMain img {
   width: 30px;
   margin-right: 10px;
 }
-.bagdeMain span{
+.bagdeMain span {
   position: absolute;
   /* top: -20%;
   left: 20%; */
   top: -70%;
   left: 25%;
 }
-.CandiHelped p{
+.CandiHelped p {
   margin: 0;
+<<<<<<< HEAD
     /* color: #da1010; */
     color: #747474;
     font-size: 15px;
+=======
+  color: #da1010;
+  font-size: 15px;
+  font-weight: 600;
+>>>>>>> 3ebdeb9f3cde1b5e406399191febc161cfb21368
 }
 /* Candidate Helped Badge css :ENDS */
