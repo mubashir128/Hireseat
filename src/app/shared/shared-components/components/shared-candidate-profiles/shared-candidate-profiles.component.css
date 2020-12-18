@@ -258,6 +258,11 @@ button.shareBtn {
 .PointsDiv.commonSingleInner.CommentInner {
   padding-left: 55px;
 }
+.recruiter-name {
+  font-weight: 600;
+  font-size: 17px;
+  color: #272727;
+}
 .recruitercom p {
   margin: 0;
 }
