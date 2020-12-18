@@ -36,7 +36,9 @@ export class WebsocketService {
     this.socket.on("message", (data: any) => {
       this.onMessage(data);
     });
-
+    this.socket.on("comment", (data: any) => {
+      console.log(data);
+    });
     this.socket.on("disconnect", (data: any) => {
       this.onClose(data);
     });
