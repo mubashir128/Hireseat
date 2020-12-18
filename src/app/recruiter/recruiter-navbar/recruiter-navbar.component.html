@@ -27,7 +27,11 @@
   <div class="collection">
     <div class="col s12 m12 text-center l12 rewarDiv padd15">
       <a
-        ><img src="assets/img/reward_points.png" height="50px" width="50px" class="rewardImg animated"
+        ><img
+          src="assets/img/reward_points.png"
+          height="50px"
+          width="50px"
+          class="rewardImg animated"
       /></a>
       <label for="company-reward">Ranking </label>
       <div class="pointAdded">
@@ -54,15 +58,19 @@
           {{ userProfile["advicePoints"] }}
         </b>
       </h4>
-      <h4>
-        <b>Candidates Helped</b> :
-        <b class="noraml" #candidatesHelped>
-          {{ userProfile["advicePoints"] / 100 }}
-        </b>
-      </h4>
-      <h4>
-        <b>Advice Liked</b> : <b> {{ userProfile["adviceLikedPoints"] }} </b>
-      </h4>
+      <ng-container *ngIf="userProfile['advicePoints']">
+        <h4>
+          <b>Candidates Helped</b> :
+          <b class="change" #candidatesHelped>
+            {{ userProfile["advicePoints"] / 100 }}
+          </b>
+        </h4>
+      </ng-container>
+      <ng-container *ngIf="userProfile['adviceLikedPoints']">
+        <h4>
+          <b>Advice Liked</b> : <b> {{ userProfile["adviceLikedPoints"] }} </b>
+        </h4>
+      </ng-container>
       <h4>
         <b>Skill Matches</b> : <b> {{ PointsSummary.skillsErn }} </b>
       </h4>

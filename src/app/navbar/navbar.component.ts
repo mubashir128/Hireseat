@@ -1,28 +1,28 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
-import { UserService } from '../_services/user.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { AuthenticationService } from '../_services/authentication.service';
-import { SuperAdminService } from '../_services/super-admin.service';
-import { ForumService } from '../_services/forum.service';
-import { BiddingEventService } from 'src/app/_services/bidding-event.service';
-import { EnterpriseService } from '../_services/enterprise.service';
+import { Component, OnInit, Input, ElementRef } from "@angular/core";
+import { UserService } from "../_services/user.service";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
+import { AuthenticationService } from "../_services/authentication.service";
+import { SuperAdminService } from "../_services/super-admin.service";
+import { ForumService } from "../_services/forum.service";
+import { BiddingEventService } from "src/app/_services/bidding-event.service";
+import { EnterpriseService } from "../_services/enterprise.service";
 
-import { WebsocketService } from '../_services/websocket.service';
-import { Subject } from 'rxjs';
-import { PushNotificationService } from '../_services/push-notification.service';
-
+import { WebsocketService } from "../_services/websocket.service";
+import { Subject } from "rxjs";
+import { PushNotificationService } from "../_services/push-notification.service";
+declare var Materialize: any;
 declare var jQuery: any;
 declare var $: any;
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  selector: "app-navbar",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.css"],
   host: {
-    '(document:click)': 'onClick($event)'
-  }
+    "(document:click)": "onClick($event)",
+  },
 })
 export class NavbarComponent implements OnInit {
-  path: any = 'assets/img/navbar-logo.png';
+  path: any = "assets/img/navbar-logo.png";
   loggedInUser: any;
   isLoggedIn: boolean = false;
   isEmployer: boolean = false;
@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
   isCandidate: boolean = false;
   status: boolean = false;
   public show: boolean = false;
-  public buttonName: any = 'Show';
+  public buttonName: any = "Show";
   url: any;
   questDataLenght: any = [];
   suggestedQueData: any;
@@ -48,11 +48,12 @@ export class NavbarComponent implements OnInit {
   notificationObserver = new Subject();
   notificationObserver$ = this.notificationObserver.asObservable();
 
-  getAllNotifications = 'getAllNotifications';
-  newNotification = 'newNotification';
+  getAllNotifications = "getAllNotifications";
+  newNotification = "newNotification";
   limit = 15;
   createdAt;
-  selector: string = '.scrollNotification';
+  selector: string = ".scrollNotification";
+  userProfile: any;
 
   constructor(
     private userService: UserService,
@@ -69,21 +70,21 @@ export class NavbarComponent implements OnInit {
   ) {
     this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
-    if (this.loggedInUser != 'no') {
+    if (this.loggedInUser != "no") {
       this.isLoggedIn = true;
-      if (this.loggedInUser.userRole == 'employer') {
+      if (this.loggedInUser.userRole == "employer") {
         this.isEmployer = true;
         this._pushNotify.pushNotification();
-      } else if (this.loggedInUser.userRole == 'recruiter') {
+      } else if (this.loggedInUser.userRole == "recruiter") {
         this.isRecruiter = true;
         this._pushNotify.pushNotification();
-      } else if (this.loggedInUser.userRole == 'admin') {
+      } else if (this.loggedInUser.userRole == "admin") {
         this.isAdmin = true;
-      } else if (this.loggedInUser.userRole == 'super-admin') {
+      } else if (this.loggedInUser.userRole == "super-admin") {
         this.isSuperAdmin = true;
-      } else if (this.loggedInUser.userRole == 'enterprise') {
+      } else if (this.loggedInUser.userRole == "enterprise") {
         this.isEnterprise = true;
-      } else if (this.loggedInUser.userRole == 'candidate') {
+      } else if (this.loggedInUser.userRole == "candidate") {
         this.isCandidate = true;
       }
     }
@@ -92,11 +93,11 @@ export class NavbarComponent implements OnInit {
       if (val instanceof NavigationEnd) {
         // hiding notification while changes in route
         this.show = false;
-        this.buttonName = 'Hide';
+        this.buttonName = "Hide";
 
-        if (val.url === '/video-call') {
+        if (val.url === "/video-call") {
           // console.log('On video call');
-          if (!localStorage.getItem('currentUser')) {
+          if (!localStorage.getItem("currentUser")) {
             // console.log('****there is no user show candidates window');
             this.candidate = true;
           } else {
@@ -106,13 +107,18 @@ export class NavbarComponent implements OnInit {
         }
       }
     });
+
+    this.userService._setProfileObservable.subscribe((data) => {
+      this.userProfile = data;
+      console.log(data);
+    });
   }
 
   async ngOnInit() {
     this.showAdminDashboardButton = false;
     this.showEnterpriseDashboardButton = false;
 
-    let obj = JSON.parse(localStorage.getItem('currentUser'));
+    let obj = JSON.parse(localStorage.getItem("currentUser"));
     if (obj !== null) {
       await this.initSocket(obj.token, obj.userInfo.userRole);
     }
@@ -120,7 +126,7 @@ export class NavbarComponent implements OnInit {
     await this._socket.removeListener({ type: 1 });
     this._socket.addListener({
       type: 1,
-      callback: this.notificationObserver
+      callback: this.notificationObserver,
     });
 
     this.notificationObserver$.subscribe((res: any) => {
@@ -132,11 +138,11 @@ export class NavbarComponent implements OnInit {
       data: {
         subType: this.getAllNotifications,
         onLoad: true,
-        limit: this.limit
-      }
+        limit: this.limit,
+      },
     });
 
-    if (this.loggedInUser.userRole == 'employer') {
+    if (this.loggedInUser.userRole == "employer") {
       this.showAdminDashboardButton = false;
       this.showEnterpriseDashboardButton = false;
       this._forum
@@ -149,7 +155,7 @@ export class NavbarComponent implements OnInit {
             }
           });
         });
-    } else if (this.loggedInUser.userRole == 'recruiter') {
+    } else if (this.loggedInUser.userRole == "recruiter") {
       this.showAdminDashboardButton = false;
       this.showEnterpriseDashboardButton = false;
       this._forum
@@ -162,10 +168,11 @@ export class NavbarComponent implements OnInit {
             }
           });
         });
-    } else if (this.loggedInUser.userRole == 'super-admin') {
+      this.getUsersProfile();
+    } else if (this.loggedInUser.userRole == "super-admin") {
       this.showAdminDashboardButton = true;
       this.showEnterpriseDashboardButton = false;
-    } else if (this.loggedInUser.userRole == 'enterprise') {
+    } else if (this.loggedInUser.userRole == "enterprise") {
       this.showEnterpriseDashboardButton = true;
       this.showAdminDashboardButton = false;
     } else {
@@ -174,14 +181,32 @@ export class NavbarComponent implements OnInit {
     }
 
     jQuery(document).ready(function () {
-      jQuery('.button-collapse').sideNav();
+      jQuery(".button-collapse").sideNav();
     });
     this.show = false;
-    this.buttonName = 'Hide';
+    this.buttonName = "Hide";
   }
 
   async initSocket(token, userRole) {
     await this._socket.getInstance(token, userRole);
+  }
+  getUsersProfile() {
+    this.userService
+      .getUserProfile(this.userService.getUserData().userRole)
+      .subscribe(
+        (data: any) => {
+          if (data != null && data != undefined && data != "") {
+            this.userProfile = data.res;
+          } else {
+            Materialize.toast("Something went wrong", 1000);
+          }
+          // this.spinner.hide();
+        },
+        (error) => {
+          console.log(error);
+          // this.spinner.hide();
+        }
+      );
   }
 
   truncateHTML(text: string): string {
@@ -190,9 +215,9 @@ export class NavbarComponent implements OnInit {
       return text;
     }
 
-    let without_html = text.replace(/<(?:.|\n)*?>/gm, '');
-    let trim_space = without_html.trim().replace(/&nbsp;/g, '');
-    let shortened = trim_space.substring(0, charlimit) + '...';
+    let without_html = text.replace(/<(?:.|\n)*?>/gm, "");
+    let trim_space = without_html.trim().replace(/&nbsp;/g, "");
+    let shortened = trim_space.substring(0, charlimit) + "...";
     return shortened;
   }
 
@@ -202,8 +227,12 @@ export class NavbarComponent implements OnInit {
         // add all notifications to list.
         if (res.data.length !== 0) {
           this.questDataLenght = [...this.questDataLenght, ...res.data];
-          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
-          this.notificationLength = res.count ? res.count : this.notificationLength;
+          this.createdAt = this.questDataLenght[
+            this.questDataLenght.length - 1
+          ].createdAt;
+          this.notificationLength = res.count
+            ? res.count
+            : this.notificationLength;
         }
         break;
       case this.newNotification:
@@ -221,14 +250,13 @@ export class NavbarComponent implements OnInit {
   }
 
   updateQueAns(id) {
-    this._forum.updateQueAnsReadStatus(id).subscribe((data) => {
-    })
+    this._forum.updateQueAnsReadStatus(id).subscribe((data) => {});
   }
 
   navigate(path) {
-    jQuery('.button-collapse').sideNav('hide');
-    jQuery('body').css({ overflow: '', width: '' });
-    jQuery('#sidenav-overlay').css('opacity', '0');
+    jQuery(".button-collapse").sideNav("hide");
+    jQuery("body").css({ overflow: "", width: "" });
+    jQuery("#sidenav-overlay").css("opacity", "0");
     this.router.navigate([path]);
   }
 
@@ -243,8 +271,8 @@ export class NavbarComponent implements OnInit {
     this.show = !this.show;
 
     // CHANGE THE NAME OF THE BUTTON.
-    if (this.show) this.buttonName = 'Hide';
-    else this.buttonName = 'Show';
+    if (this.show) this.buttonName = "Hide";
+    else this.buttonName = "Show";
   }
   onClick(event) {
     // console.log('clicked ');
@@ -253,7 +281,7 @@ export class NavbarComponent implements OnInit {
       // or some similar check
       this.show = false;
     }
-    this.buttonName = 'Hide';
+    this.buttonName = "Hide";
   }
 
   onScroll() {
@@ -262,13 +290,12 @@ export class NavbarComponent implements OnInit {
       data: {
         subType: this.getAllNotifications,
         createdAt: this.createdAt,
-        limit: this.limit
-      }
+        limit: this.limit,
+      },
     });
   }
 
   getToQuestion(id) {
-    this.router.navigate(['/question-details/', id]);
+    this.router.navigate(["/question-details/", id]);
   }
-
 }

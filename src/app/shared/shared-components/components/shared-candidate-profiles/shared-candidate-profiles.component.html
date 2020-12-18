@@ -219,9 +219,9 @@
                 class="btn-accept postCommentDiv"
                 (click)="postMycmt(i, myComment[i], resume)"
               >
-              <span>Post</span>
-              <!-- <img src="assets/img/postComment.png" alt="profile" />  -->
-              <img src="assets/img/paper-plane.png" alt="profile" /> 
+                <span>Post</span>
+                <!-- <img src="assets/img/postComment.png" alt="profile" />  -->
+                <img src="assets/img/paper-plane.png" alt="profile" />
               </div>
             </div>
           </ng-container>
@@ -246,12 +246,6 @@
                         <img
                           [src]="cmt?.recruiterId?.profileimage"
                           alt="profile"
-                          style="
-                            width: 30px;
-                            height: 30px;
-                            border-radius: 50px;
-                            margin-right: 10px;
-                          "
                         />
                       </div>
                     </ng-container>
@@ -339,7 +333,8 @@
                       class="btn-accept postBtn"
                       (click)="editComment(cmt, resume)"
                     >
-                      Post <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                      Post
+                      <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
                     </div>
                   </div>
                   <ng-container>
