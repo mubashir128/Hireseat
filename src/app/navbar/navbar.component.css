@@ -322,29 +322,27 @@ h4.count {
   height: 30px;
   margin-right: 10px;
   border-radius: 50%;
+  display: flex;
   border: 2px solid #ab0808;
+  align-items: center;
+  justify-content: center;
 }
 .bagdeMain img {
   width: 30px;
   margin-right: 10px;
 }
 .bagdeMain span {
-  position: absolute;
+  /* position: absolute; */
   /* top: -20%;
   left: 20%; */
-  top: -70%;
-  left: 25%;
+  /* top: -70%;
+  left: 25%; */
 }
 .CandiHelped p {
   margin: 0;
-<<<<<<< HEAD
     /* color: #da1010; */
     color: #747474;
     font-size: 15px;
-=======
-  color: #da1010;
-  font-size: 15px;
-  font-weight: 600;
->>>>>>> 3ebdeb9f3cde1b5e406399191febc161cfb21368
+    font-weight: 600;
 }
 /* Candidate Helped Badge css :ENDS */
