@@ -13,7 +13,10 @@
         <div class="CandiHelped">
           <div class="bagdeMain">
             <!-- <img src="assets/img/badgeRed1.png" alt="" /> -->
-            <span> {{ userProfile["advicePoints"] / 100 }}</span>
+            <span *ngIf="userProfile['advicePoints']">
+              {{ userProfile["advicePoints"] / 100 }}</span
+            >
+            <span *ngIf="userProfile['advicePoints']"></span>
           </div>
 
           <p>Candidates Helped</p>
