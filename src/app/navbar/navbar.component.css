@@ -313,30 +313,32 @@ h4.count {
   align-items: center;
 }
 .bagdeMain {
-  /* position: relative;
-  top: 13px; */
   position: relative;
-  top: 0;
-  background-color: #da1010;
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  border-radius: 50%;
-  display: flex;
-  border: 2px solid #ab0808;
-  align-items: center;
-  justify-content: center;
+    background-color: #f91515;
+    width: 50px;
+    height: 64px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bagdeMain:before{
+  border-top: 18px solid #f91515;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  content: "";
+  height: 0;
+  left: 0;
+  position: absolute;
+  bottom: -18px;
+  width: 0;
 }
 .bagdeMain img {
   width: 30px;
   margin-right: 10px;
 }
 .bagdeMain span {
-  /* position: absolute; */
-  /* top: -20%;
-  left: 20%; */
-  /* top: -70%;
-  left: 25%; */
+  font-size: 20px;
 }
 .CandiHelped p {
   margin: 0;
