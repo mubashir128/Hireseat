@@ -174,7 +174,7 @@ h4.count {
   position: absolute;
   width: 30px;
   height: 30px;
-  background-color: #48aef3;
+  background-color: red;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -314,15 +314,15 @@ h4.count {
 }
 .bagdeMain {
   position: relative;
-    background-color: #f91515;
-    width: 50px;
-    height: 64px;
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: #f91515;
+  width: 50px;
+  height: 64px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.bagdeMain:before{
+.bagdeMain:before {
   border-top: 18px solid #f91515;
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;

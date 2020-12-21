@@ -37,7 +37,8 @@ export class WebsocketService {
       this.onMessage(data);
     });
     this.socket.on("comment", (data: any) => {
-      console.log(data);
+      console.log("-------------", data);
+      this.onComment(data);
     });
     this.socket.on("disconnect", (data: any) => {
       this.onClose(data);
@@ -62,21 +63,39 @@ export class WebsocketService {
   //   }
   // }
   sendMessage(obj: any) {
+    console.log(obj);
+
     if (this.socket !== undefined) {
+      console.log("sending a msg", obj);
+
       this.socket.emit("message", JSON.stringify(obj));
     }
   }
+  getProfiles(obj: any) {
+    if (this.socket !== undefined) {
+      console.log("sending signal to comments", obj);
 
+      this.socket.emit("comment", JSON.stringify(obj));
+    }
+  }
   private onMessage(obj: string) {
-    // console.log("message received : ");
     let res = JSON.parse(obj);
+    console.log("message received : ", res);
     this.listeners.forEach((key, index) => {
       if (res.type === key.type) {
         key.callback.next(res.data);
       }
     });
   }
-
+  private onComment(obj: string) {
+    let res = JSON.parse(obj);
+    console.log("Comment ------- : ", res);
+    this.listeners.forEach((key, index) => {
+      if (res.type === key.type) {
+        key.callback.next(res.data);
+      }
+    });
+  }
   private onClose(obj: any) {
     //  console.log("connection closed : ",obj);
   }

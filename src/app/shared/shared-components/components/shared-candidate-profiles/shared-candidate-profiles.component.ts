@@ -43,7 +43,9 @@ export class SharedCandidateProfilesComponent
   implements OnInit, OnChanges, OnDestroy {
   @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
   @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
-
+  // observer
+  sharedProfileObserver = new Subject();
+  sharedProfileObserver$ = this.sharedProfileObserver.asObservable();
   player: videojs.Player;
   canComment = false;
   // subscription
@@ -180,11 +182,75 @@ export class SharedCandidateProfilesComponent
     jQuery(".modal").modal();
     jQuery("select").material_select();
   }
-  ngOnInit() {
+  async ngOnInit() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
-    this.getProfiles();
+    // this.getProfiles();
+
+    //socket
+
+    // let obj = JSON.parse(localStorage.getItem("currentUser"));
+    // if (obj !== null) {
+    //   await this.initSocket(obj.token, obj.userInfo.userRole);
+    // }
+
+    await this._socket.removeListener({ type: 5 });
+    this._socket.addListener({
+      type: 5,
+      callback: this.sharedProfileObserver,
+    });
+
+    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
+    // this._socket.getProfiles({
+    //   type: 5,
+    //   data: {
+    //     _id: userInfo._id,
+    //     personId: userInfo._id,
+    //     type: userInfo.userRole,
+    //     subType: "getAllSharedProfiles",
+    //   },
+    // });
+
+    this._socket.sendMessage({
+      type: 5,
+      data: {
+        _id: userInfo._id,
+        personId: userInfo._id,
+        type: userInfo.userRole,
+        subType: "getAllSharedProfiles",
+      },
+    });
+
+    this.sharedProfileObserver$.subscribe((res: any) => {
+      this.handleProfileData(res);
+    });
+    // socket end
   }
+  handleProfileData(res: any) {
+    switch (res.subType) {
+      case "getAllSharedProfiles":
+        // console.log("******", res);
+        this.resumes = res.data;
+        console.log(this.resumes);
+
+        break;
+      case "addComment":
+        console.log("res________", res);
+        this.resumes.filter((element) => {
+          if (element._id === res.profileId) {
+            console.log("mached");
+
+            element.canReview.push(res.data);
+          } else {
+            console.log("not matched");
+          }
+        });
+        break;
+      default:
+        break;
+    }
+  }
+
   getProfiles() {
     if (this.loggedUser.userRole === "candidate") {
       this.getMyPostedProfiles();
@@ -272,7 +338,7 @@ export class SharedCandidateProfilesComponent
             }
           },
           (err) => {
-            Materialize.toast("Unable to post!");
+            Materialize.toast("Unable to post!", 5000);
           }
         );
     }
@@ -386,6 +452,8 @@ export class SharedCandidateProfilesComponent
       );
   }
   async initSocket(token, userRole) {
+    console.log("initiating");
+
     await this._socket.getInstance(token, userRole);
   }
   ngAfterViewInit() {

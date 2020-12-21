@@ -24,6 +24,7 @@ declare var $: any;
 export class NavbarComponent implements OnInit {
   path: any = "assets/img/navbar-logo.png";
   loggedInUser: any;
+  commets = [];
   isLoggedIn: boolean = false;
   isEmployer: boolean = false;
   isRecruiter: boolean = false;
@@ -50,6 +51,9 @@ export class NavbarComponent implements OnInit {
 
   getAllNotifications = "getAllNotifications";
   newNotification = "newNotification";
+  getAllCandidateNotifications = "getAllCandidateNotifications";
+  newCandidateNotifications = "newCandidateNotifications";
+
   limit = 15;
   createdAt;
   selector: string = ".scrollNotification";
@@ -110,7 +114,7 @@ export class NavbarComponent implements OnInit {
 
     this.userService._setProfileObservable.subscribe((data) => {
       this.userProfile = data;
-      console.log(data);
+      // console.log(data);
     });
   }
 
@@ -136,6 +140,7 @@ export class NavbarComponent implements OnInit {
     this._socket.sendMessage({
       type: 1,
       data: {
+        type: this.loggedInUser.userRole,
         subType: this.getAllNotifications,
         onLoad: true,
         limit: this.limit,
@@ -240,6 +245,28 @@ export class NavbarComponent implements OnInit {
         this.questDataLenght.unshift(res.result);
         this.incrementNotificationCount();
         break;
+      case this.getAllCandidateNotifications:
+        // console.log("----candidate----", res);
+
+        // this.notificationLength = res.data[0].canReview.length;
+        // console.log("-0-----");
+
+        res.data.filter((val) => {
+          if (val.canReview) {
+            val.canReview.filter((cmt) => {
+              this.commets.push(cmt);
+              this.incrementNotificationCount();
+            });
+          }
+        });
+        // console.log("**********", this.commets);
+
+        break;
+      case this.newCandidateNotifications:
+        // console.log("---Candidate notify---", res);
+        this.incrementNotificationCount();
+
+        break;
       default:
         break;
     }
@@ -296,6 +323,12 @@ export class NavbarComponent implements OnInit {
   }
 
   getToQuestion(id) {
+    this.toggle();
     this.router.navigate(["/question-details/", id]);
+  }
+  goToSharedProfile() {
+    this.notificationLength--;
+    this.toggle();
+    this.router.navigate(["/candidate/my-posted-profiles"]);
   }
 }
