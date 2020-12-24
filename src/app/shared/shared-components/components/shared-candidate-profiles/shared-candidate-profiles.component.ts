@@ -88,8 +88,9 @@ export class SharedCandidateProfilesComponent
   recruiterReview: any;
   showCmts: any;
   myComment: any;
+  replyToComment: any;
   editTo: any;
-  editCommentSucription: any;
+  editCommentSucription: Subscription;
   selectedCoachingRecruiter = [{}];
   availableTime: any[];
   payload: {
@@ -105,6 +106,7 @@ export class SharedCandidateProfilesComponent
   daysArray: any;
   myProfileContent: any;
   likeCommetSubscription: Subscription;
+  replyTocommentSubscription: Subscription;
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -116,6 +118,7 @@ export class SharedCandidateProfilesComponent
     private _socket: WebsocketService,
     private candidateService: CandidateService
   ) {
+    this.resumes = [];
     this.Search = this.formBuilder.group({
       tags: ["", Validators.required],
       searchTerm: [""],
@@ -146,6 +149,7 @@ export class SharedCandidateProfilesComponent
         }
       });
     this.myComment = [];
+    this.replyToComment = [];
     this.loggedUser = this.userService.getUserData();
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
       // console.log('subscribeed', res);
@@ -210,16 +214,18 @@ export class SharedCandidateProfilesComponent
     //     subType: "getAllSharedProfiles",
     //   },
     // });
+    console.log("userInfo-----------", userInfo);
 
-    this._socket.sendMessage({
-      type: 5,
-      data: {
-        _id: userInfo._id,
-        personId: userInfo._id,
-        type: userInfo.userRole,
-        subType: "getAllSharedProfiles",
-      },
-    });
+    // this._socket.sendMessage({
+    //   type: 5,
+    //   data: {
+    //     _id: userInfo._id,
+    //     personId: userInfo._id,
+    //     type: userInfo.userRole,
+    //     subType: "getAllSharedProfiles",
+    //   },
+    // });
+    this.getProfiles();
 
     this.sharedProfileObserver$.subscribe((res: any) => {
       this.handleProfileData(res);
@@ -238,9 +244,25 @@ export class SharedCandidateProfilesComponent
         console.log("res________", res);
         this.resumes.filter((element) => {
           if (element._id === res.profileId) {
-            console.log("mached");
+            // console.log("mached");
 
             element.canReview.push(res.data);
+          } else {
+            console.log("not matched");
+          }
+        });
+        break;
+      case "likeComment":
+        console.log("like comment------", res);
+        this.resumes.filter((element) => {
+          if (element._id === res.profileId) {
+            // console.log("mached");
+
+            element.canReview.filter((comment) => {
+              if (comment._id === res.data._id) {
+                comment.like.push(res.data);
+              }
+            });
           } else {
             console.log("not matched");
           }
@@ -252,11 +274,21 @@ export class SharedCandidateProfilesComponent
   }
 
   getProfiles() {
+    // this.getAllSharedResumes({});
+    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
+
+    this._socket.sendMessage({
+      type: 5,
+      data: {
+        _id: userInfo._id,
+        personId: userInfo._id,
+        type: userInfo.userRole,
+        subType: "getAllSharedProfiles",
+      },
+    });
     if (this.loggedUser.userRole === "candidate") {
-      this.getMyPostedProfiles();
+      // this.getMyPostedProfiles();
       this.myProfile();
-    } else {
-      this.getAllSharedResumes({});
     }
   }
   disabledDay(date) {}
@@ -323,17 +355,16 @@ export class SharedCandidateProfilesComponent
         .subscribe(
           (res) => {
             if (res) {
-              if (this.loggedUser.userRole === "candidate") {
-                this.getMyPostedProfiles();
-              } else {
-                this.getAllSharedResumes({});
-                this.getUsersProfile();
-                Materialize.toast(
-                  "You Gained 100 Recruiter Points",
-                  6000,
-                  "red"
-                );
-              }
+              // if (this.loggedUser.userRole === "candidate") {
+              //   this.getMyPostedProfiles();
+              // } else {
+              this.getProfiles();
+              Materialize.toast(
+                "You gained 100 recruiter karma points",
+                4000,
+                "red"
+              );
+              // }
               this.myComment[i] = "";
             }
           },
@@ -361,7 +392,7 @@ export class SharedCandidateProfilesComponent
         (res) => {
           if (res) {
             Materialize.toast(
-              "You just gave recruiter a 50 points!",
+              "You just gave recruiter a 50 Karma points!",
               5000,
               "red"
             );
@@ -451,10 +482,30 @@ export class SharedCandidateProfilesComponent
         (err) => {}
       );
   }
-  async initSocket(token, userRole) {
-    console.log("initiating");
+  replyToThisComment(i, comment, resume, cmtId) {
+    console.log(i, comment, resume, cmtId);
 
-    await this._socket.getInstance(token, userRole);
+    let candidateProfile;
+    resume?.resumeType ? (candidateProfile = false) : (candidateProfile = true);
+    const payload = {
+      resumeId: resume._id,
+      cmtId: cmtId,
+      candidateProfile: false,
+      replyComment: comment,
+    };
+
+    this.replyTocommentSubscription = this.resumeService
+      .replyToComment(payload)
+      .subscribe(
+        (res) => {
+          if (res) {
+            console.log("received");
+            this.replyToComment[i] = "";
+            this.getProfiles();
+          }
+        },
+        (err) => {}
+      );
   }
   ngAfterViewInit() {
     // server side search
@@ -491,6 +542,7 @@ export class SharedCandidateProfilesComponent
         (res) => {
           if (res) {
             this.resumes = res;
+            console.log(this.resumes);
           }
         },
         (err) => {}

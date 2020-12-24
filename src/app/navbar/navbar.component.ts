@@ -58,6 +58,7 @@ export class NavbarComponent implements OnInit {
   createdAt;
   selector: string = ".scrollNotification";
   userProfile: any;
+  likesOnComments = [];
 
   constructor(
     private userService: UserService,
@@ -246,7 +247,7 @@ export class NavbarComponent implements OnInit {
         this.incrementNotificationCount();
         break;
       case this.getAllCandidateNotifications:
-        // console.log("----candidate----", res);
+        console.log("----candidate----", res);
 
         // this.notificationLength = res.data[0].canReview.length;
         // console.log("-0-----");
@@ -263,7 +264,13 @@ export class NavbarComponent implements OnInit {
 
         break;
       case this.newCandidateNotifications:
-        // console.log("---Candidate notify---", res);
+        this.likesOnComments.push(res);
+        console.log(
+          "---Candidate likesOnComments notify---",
+          this.likesOnComments
+        );
+        console.log("---Nested---", this.likesOnComments[0].data.review);
+
         this.incrementNotificationCount();
 
         break;
@@ -329,6 +336,11 @@ export class NavbarComponent implements OnInit {
   goToSharedProfile() {
     this.notificationLength--;
     this.toggle();
-    this.router.navigate(["/candidate/my-posted-profiles"]);
+    if (this.isCandidate) {
+      this.router.navigate(["/candidate/my-posted-profiles"]);
+    }
+    if (this.isRecruiter) {
+      this.router.navigate(["/recruiter/share-candidate-profile"]);
+    }
   }
 }

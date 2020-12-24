@@ -101,6 +101,8 @@ export class WebsocketService {
   }
 
   socketClosed() {
+    console.log("closing socket");
+
     this.socket.close();
     this.socket = undefined;
   }

@@ -8,7 +8,7 @@ declare var Materialize: any;
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
   public login: any;
@@ -28,16 +28,14 @@ export class LoginComponent implements OnInit {
   ) {
     this.login = new FormGroup({
       email: new FormControl(),
-      password: new FormControl()
+      password: new FormControl(),
     });
     this.chkLoggedInUser = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "employer") {
-        console.log("employer logged in ");
-
         this.router.navigate(["employer/dashboard"]);
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
-        this.router.navigate(["recruiter/bidding-event-list"]);
+        this.router.navigate(["recruiter/share-candidate-profile"]);
       } else if (this.chkLoggedInUser.userRole == "admin") {
         this.router.navigate(["/user-list"]);
       } else if (this.chkLoggedInUser.userRole == "super-admin") {
@@ -53,7 +51,7 @@ export class LoginComponent implements OnInit {
     $(document).ready(function () {
       $("html, body").animate(
         {
-          scrollTop: 0
+          scrollTop: 0,
         },
         1500
       );
@@ -68,9 +66,9 @@ export class LoginComponent implements OnInit {
     this.login = new FormGroup({
       email: new FormControl(res.email, [
         Validators.required,
-        Validators.email
+        Validators.email,
       ]),
-      password: new FormControl(res.password, [Validators.required])
+      password: new FormControl(res.password, [Validators.required]),
     });
     if (this.login.valid) {
       this._AuthService.login(res).subscribe(
@@ -83,7 +81,7 @@ export class LoginComponent implements OnInit {
               // if (this.returnUrl) {
               //   this.router.navigate([this.returnUrl]);
               // } else {
-              this.router.navigate(["recruiter/bidding-event-list"]);
+              this.router.navigate(["recruiter/share-candidate-profile"]);
               // }
             } else if (this.userData.userRole == "admin") {
               this.router.navigate(["user-list"]);

@@ -147,6 +147,7 @@
                       >{{ ques.question }}</a
                     >
                   </li>
+                  <ng-container> </ng-container>
                   <li *ngFor="let ques of suggestedQueData">
                     <a
                       [routerLink]="[
@@ -186,6 +187,15 @@
                       >
                     </li>
                   </ng-container>
+                  <li *ngFor="let cmt of likesOnComments">
+                    <a
+                      (click)="goToSharedProfile()"
+                      [routerLink]=""
+                      routerLinkActive="notification-content"
+                      [innerHtml]="truncateHTML(cmt.data.review)"
+                      >{{ cmt.data.review }}</a
+                    >
+                  </li>
                 </ul>
               </div>
             </div>

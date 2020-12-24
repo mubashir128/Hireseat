@@ -222,4 +222,10 @@ export class ResumeService {
   likeComment(payload) {
     return this.http.post<any>(this.baseurl + "api/like-comment", payload);
   }
+  replyToComment(payload) {
+    return this.http.post<any>(
+      this.baseurl + "api/post-reply-comment",
+      payload
+    );
+  }
 }

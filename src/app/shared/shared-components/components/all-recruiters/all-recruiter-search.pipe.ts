@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class AllRecruiterSearchPipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {
-    console.log(value, "\n", args);
+    // console.log(value, "\n", args);
 
     if (value === undefined) return null;
     if (args[0] === undefined) return value;

@@ -4,17 +4,22 @@ import { AuthenticationService } from "../../_services/authentication.service";
 import { UserService } from "../../_services/user.service";
 import { Router } from "@angular/router";
 import { fromEvent } from "rxjs";
-import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
+import {
+  map,
+  filter,
+  debounceTime,
+  distinctUntilChanged,
+  tap,
+} from "rxjs/operators";
 
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
   selector: "app-sa-user-list",
   templateUrl: "./sa-user-list.component.html",
-  styleUrls: ["./sa-user-list.component.css"]
+  styleUrls: ["./sa-user-list.component.css"],
 })
 export class SAUserListComponent implements OnInit {
-
   p = 1;
   pagesAre = [1];
   createdAt = null;
@@ -28,17 +33,17 @@ export class SAUserListComponent implements OnInit {
   dropdownSettings = {};
   itemsIs: any;
 
-  @ViewChild('searchInputTerm', { static: false }) searchInputTerm: ElementRef;
+  @ViewChild("searchInputTerm", { static: false }) searchInputTerm: ElementRef;
 
   constructor(
     private superAdmin: SuperAdminService,
     private userAuth: AuthenticationService,
     private userService: UserService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
-    const saTab = localStorage.getItem('saTab');
+    const saTab = localStorage.getItem("saTab");
     if (saTab) {
       this.itemsIs = saTab;
     } else {
@@ -47,16 +52,16 @@ export class SAUserListComponent implements OnInit {
     this.getAllUsers({
       onLoad: true,
       user: this.itemsIs,
-      itemsPerPageAre: this.itemsPerPageAre
+      itemsPerPageAre: this.itemsPerPageAre,
     });
     jQuery("#" + this.itemsIs).css("background-color", "#27B1BD");
   }
 
   ngAfterViewInit() {
     // server-side search
-    fromEvent(this.searchInputTerm.nativeElement, 'keyup')
+    fromEvent(this.searchInputTerm.nativeElement, "keyup")
       .pipe(
-        map(event => event),
+        map((event) => event),
         filter(Boolean),
         debounceTime(1000),
         distinctUntilChanged(),
@@ -72,10 +77,11 @@ export class SAUserListComponent implements OnInit {
           this.getAllUsers({
             user: this.itemsIs,
             searchTerm: this.searchTerm,
-            itemsPerPageAre: this.itemsPerPageAre
+            itemsPerPageAre: this.itemsPerPageAre,
           });
         })
-      ).subscribe();
+      )
+      .subscribe();
   }
 
   resetValues() {
@@ -87,17 +93,17 @@ export class SAUserListComponent implements OnInit {
 
   getAllUsers(obj) {
     this.superAdmin.getAllUsers(obj).subscribe(
-      response => {
+      (response) => {
         if (response) {
           if (response.length !== 0) {
             this.userList = [...this.userList, ...response];
             this.createdAt = response[response.length - 1].createdAt;
             this.noBiddingEvents = this.userList.length === 0 ? true : false;
-            localStorage.setItem('saTab', obj.user);
+            localStorage.setItem("saTab", obj.user);
           }
         }
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
@@ -114,12 +120,12 @@ export class SAUserListComponent implements OnInit {
     this.userAuth.logoutWithoutNavigate();
     /* localStorage.removeItem('super-admin-email'); */
     this.superAdmin.unSecureLogin({ email: userEmail }).subscribe(
-      response => {
+      (response) => {
         if (response) {
           if (response.userInfo.userRole == "employer") {
             this.router.navigate(["employer/bidding-event-list"]);
           } else if (response.userInfo.userRole == "recruiter") {
-            this.router.navigate(["recruiter/bidding-event-list"]);
+            this.router.navigate(["recruiter/share-candidate-profile"]);
           } else if (response.userInfo.userRole == "admin") {
             this.router.navigate(["user-list"]);
           } else if (response.userInfo.userRole == "super-admin") {
@@ -133,7 +139,7 @@ export class SAUserListComponent implements OnInit {
           Materialize.toast("Enter valid details", 1000, "rounded");
         }
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
@@ -151,7 +157,7 @@ export class SAUserListComponent implements OnInit {
     this.getAllUsers({
       user: this.itemsIs,
       createdAt: this.createdAt,
-      itemsPerPageAre: this.itemsPerPageAre
+      itemsPerPageAre: this.itemsPerPageAre,
     });
   }
 
@@ -161,7 +167,7 @@ export class SAUserListComponent implements OnInit {
     this.getAllUsers({
       user: user,
       onLoad: true,
-      itemsPerPageAre: this.itemsPerPageAre
+      itemsPerPageAre: this.itemsPerPageAre,
     });
   }
 
@@ -170,5 +176,4 @@ export class SAUserListComponent implements OnInit {
     this.itemsIs = user;
     jQuery("#" + user).css("background-color", "#27B1BD");
   }
-
 }

@@ -594,13 +594,20 @@ a.videoCloseBtn {
   box-shadow: 0 1px 0px #5794bf !important;
 }
 .likes {
-  width: 100%;
+  /* width: 100%; */
   margin-right: 10px;
   display: flex;
   justify-content: flex-end;
 }
+.shape {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 1px 6px 1px 6px;
+  color: white;
+  background-color: red;
+}
 .at-end {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: flex-end;
   text-decoration: underline;
@@ -609,4 +616,31 @@ a.videoCloseBtn {
 }
 .at-end:hover {
   font-weight: 600;
+}
+.size {
+  width: 20px !important;
+  height: 20px !important;
+}
+.replyer-name {
+  font-weight: 600;
+  font-size: 12px;
+  color: #272727;
+}
+.divider {
+}
+.profilepic {
+  display: flex;
+}
+.replies {
+  border-top: 1px solid #dddddd;
+  margin-top: 10px;
+}
+.reply {
+}
+.replyComment {
+  margin-left: 50px;
+}
+.like-section {
+  display: flex;
+  justify-content: flex-end;
 }

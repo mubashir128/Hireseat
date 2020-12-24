@@ -12,7 +12,7 @@ declare var jQuery: any;
 @Component({
   selector: "app-recruiter-home",
   templateUrl: "./recruiter-home.component.html",
-  styleUrls: ["./recruiter-home.component.css"]
+  styleUrls: ["./recruiter-home.component.css"],
 })
 export class RecruiterHomeComponent implements OnInit {
   public chkLoggedInUser: any;
@@ -33,7 +33,7 @@ export class RecruiterHomeComponent implements OnInit {
   ) {
     this.chkLoggedInUser = this.userService.getUserData();
     // for live route
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         event.url === "/recruiter/profile"
           ? (this.isOnProfile = true)
@@ -58,7 +58,7 @@ export class RecruiterHomeComponent implements OnInit {
       gutter: 0, // Spacing from edge
       belowOrigin: false, // Displays dropdown below the button
       alignment: "left", // Displays dropdown with edge aligned to the left of button
-      stopPropagation: false // Stops event propagation
+      stopPropagation: false, // Stops event propagation
     });
     this.UserData = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
@@ -72,10 +72,10 @@ export class RecruiterHomeComponent implements OnInit {
     }
 
     this._forum.getUnAnsweredData().subscribe(
-      res => {
+      (res) => {
         this.questDataLenght = res;
       },
-      err => console.log(err)
+      (err) => console.log(err)
     );
   }
 
@@ -105,13 +105,13 @@ export class RecruiterHomeComponent implements OnInit {
     this.supperAdmin
       .unSecureLogin({ email: localStorage.getItem("super-admin-email") })
       .subscribe(
-        response => {
+        (response) => {
           if (response) {
             localStorage.removeItem("super-admin-email");
             this.router.navigate(["super-admin/user-list"]);
           }
         },
-        error => {
+        (error) => {
           this._AuthService.logout();
           console.log(error);
         }

@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { UserService } from 'src/app/_services/user.service';
-import { SuperAdminService } from 'src/app/_services/super-admin.service';
-import { ForumService } from 'src/app/_services/forum.service';
+import { Component, OnInit } from "@angular/core";
+import { AuthenticationService } from "src/app/_services/authentication.service";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
+import { NgxSpinnerService } from "ngx-spinner";
+import { UserService } from "src/app/_services/user.service";
+import { SuperAdminService } from "src/app/_services/super-admin.service";
+import { ForumService } from "src/app/_services/forum.service";
+import { WebsocketService } from "src/app/_services/websocket.service";
 declare var Materialize: any;
 
 declare var jQuery: any;
 declare var $: any;
 @Component({
-  selector: 'app-candidate-home',
-  templateUrl: './candidate-home.component.html',
-  styleUrls: ['./candidate-home.component.css']
+  selector: "app-candidate-home",
+  templateUrl: "./candidate-home.component.html",
+  styleUrls: ["./candidate-home.component.css"],
 })
 export class CandidateHomeComponent implements OnInit {
-
   public chkLoggedInUser: any;
   public UserData: any;
   isOnProfile: boolean = false;
@@ -30,7 +30,8 @@ export class CandidateHomeComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private userService: UserService,
     public supperAdmin: SuperAdminService,
-    private _forum: ForumService
+    private _forum: ForumService,
+    private _socket: WebsocketService
   ) {
     this.chkLoggedInUser = this.userService.getUserData();
     // for live route
@@ -105,13 +106,14 @@ export class CandidateHomeComponent implements OnInit {
     this.supperAdmin
       .unSecureLogin({ email: localStorage.getItem("super-admin-email") })
       .subscribe(
-        response => {
+        (response) => {
           if (response) {
             localStorage.removeItem("super-admin-email");
             this.router.navigate(["super-admin/user-list"]);
+            this._socket.socketClosed();
           }
         },
-        error => {
+        (error) => {
           this._AuthService.logout();
           console.log(error);
         }

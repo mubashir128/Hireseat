@@ -88,28 +88,30 @@
       </h4>
     </div>
   </div>
-  <div class="collection">
-    <div class="col s12 m12 text-center l12 rewarDiv padd15">
-      <img src="assets/img/redArrow.png" class="redArrowIcon" />
-      <h4>
-        <b>Skill Mismatches</b> : <b> {{ PointsSummary.skillsLosePt }}</b>
-      </h4>
-      <h4>
-        <b>Experience Mismatches</b> :
-        <b> {{ PointsSummary.experienceLosePt }}</b>
-      </h4>
-      <h4>
-        <b>Education Mismatches</b> :
-        <b> {{ PointsSummary.personalityLosePt }} </b>
-      </h4>
-      <h4>
-        <b>Resumes Rejected </b> : <b> {{ PointsSummary.resumeLosePt }}</b>
-      </h4>
-      <h4>
-        <b>Interviews lost</b> : <b> {{ PointsSummary.interViewLosePt }} </b>
-      </h4>
+  <ng-container *ngIf="false">
+    <div class="collection">
+      <div class="col s12 m12 text-center l12 rewarDiv padd15">
+        <img src="assets/img/redArrow.png" class="redArrowIcon" />
+        <h4>
+          <b>Skill Mismatches</b> : <b> {{ PointsSummary.skillsLosePt }}</b>
+        </h4>
+        <h4>
+          <b>Experience Mismatches</b> :
+          <b> {{ PointsSummary.experienceLosePt }}</b>
+        </h4>
+        <h4>
+          <b>Education Mismatches</b> :
+          <b> {{ PointsSummary.personalityLosePt }} </b>
+        </h4>
+        <h4>
+          <b>Resumes Rejected </b> : <b> {{ PointsSummary.resumeLosePt }}</b>
+        </h4>
+        <h4>
+          <b>Interviews lost</b> : <b> {{ PointsSummary.interViewLosePt }} </b>
+        </h4>
+      </div>
     </div>
-  </div>
+  </ng-container>
 </header>
 
 <!-- Modal Structure -->

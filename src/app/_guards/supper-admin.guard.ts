@@ -3,12 +3,12 @@ import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from "@angular/router";
 import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class SupperAdminGuard implements CanActivate {
   constructor(private router: Router) {}
@@ -23,7 +23,7 @@ export class SupperAdminGuard implements CanActivate {
         this.router.navigate(["employer/bidding-event-list"]);
         return false;
       } else if (userRole == "recruiter") {
-        this.router.navigate(["recruiter/bidding-event-list"]);
+        this.router.navigate(["recruiter/share-candidate-profile"]);
         return false;
       } else if (userRole == "admin") {
         this.router.navigate(["user-list"]);
