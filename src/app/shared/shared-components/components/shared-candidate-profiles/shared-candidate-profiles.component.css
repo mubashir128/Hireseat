@@ -602,9 +602,13 @@ a.videoCloseBtn {
 .shape {
   border: 1px solid;
   border-radius: 4px;
-  padding: 1px 6px 1px 6px;
+  padding: 3px 10px;
+  font-size: 13px;
   color: white;
-  background-color: red;
+  background-color: #3b5998;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  /* background-color: red; */
 }
 .at-end {
   /* width: 100%; */

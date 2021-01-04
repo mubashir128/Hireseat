@@ -195,7 +195,8 @@ h4.count {
 .notificationListInner:after,
 .notificationListInner:before {
   bottom: 100%;
-  left: 56%;
+  /* left: 56%; */
+  right: 5%;
   border: solid transparent;
   content: " ";
   height: 0;
