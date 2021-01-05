@@ -490,7 +490,7 @@ export class SharedCandidateProfilesComponent
     const payload = {
       resumeId: resume._id,
       cmtId: cmtId,
-      candidateProfile: false,
+      candidateProfile: candidateProfile,
       replyComment: comment,
     };
 
