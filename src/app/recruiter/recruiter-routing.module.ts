@@ -13,6 +13,7 @@ import { AllRecruitersComponent } from "../shared/shared-components/components/a
 import { WaitingListComponent } from "./waiting-list/waiting-list.component";
 import { UserCalendarComponent } from "../shared/shared-components/components/user-calendar/user-calendar.component";
 import { SharedCandidateProfilesComponent } from "../shared/shared-components/components/shared-candidate-profiles/shared-candidate-profiles.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   {
@@ -71,6 +72,10 @@ const routes: Routes = [
         path: "share-candidate-profile",
         component: SharedCandidateProfilesComponent,
       },
+      {
+        path: "dashboard",
+        component: DashboardComponent,
+      }
     ],
     // canActivate: [RecruiterGuard]
   },
