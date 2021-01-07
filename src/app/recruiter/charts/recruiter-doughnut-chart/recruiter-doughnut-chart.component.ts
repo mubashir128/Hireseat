@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Chart } from "chart.js";
 
 @Component({
@@ -13,8 +14,17 @@ export class RecruiterDoughnutChartComponent implements OnInit {
   chartObj: any;
   BarChart;
   chartColor = ["#0aafff", "#E0DFDF"];
+  public SearchFrm: FormGroup;
+  candidateHelpedCount = 10;
+  candidateThanksCount = 20;
+  candidateCommentsCount = 5;
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
+
+    this.SearchFrm = this.formBuilder.group({
+      // tags: ["", Validators.required],
+    });
+
     this.data = {
       labels: this.chartColor,
       datasets: [{

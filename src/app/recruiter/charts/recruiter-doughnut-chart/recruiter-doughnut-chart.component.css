@@ -16,3 +16,30 @@
 .donut-inner span {
   font-size: 12px;
 }
+
+.candidateStatus {
+  margin-top: -15px;
+}
+
+.candidateForm {
+  border: 2px solid #E0DFDF;
+}
+
+.candidateStatusCount {
+  margin-top: 10px;
+}
+
+.candidateHelped, .candidateHelpedCount {
+  width: 33%;
+  float: left;
+}
+
+.candidateThanks, .candidateThanksCount {
+  width: 33%;
+  float: left;
+}
+
+.candidateComments, .candidateCommentsCount {
+  width: 33%;
+  float: left;
+}

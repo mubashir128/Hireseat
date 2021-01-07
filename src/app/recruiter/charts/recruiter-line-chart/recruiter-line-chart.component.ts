@@ -17,11 +17,11 @@ export class RecruiterLineChartComponent implements OnInit {
       lineTension: "0",
       borderColor: "#FF0000",
       borderWidth: 3,
-      data: [70, 60, 68, 52, 50, 51, 10, 20, 30, 45, 11, 15]
+      data: [70, 60, 68, 52, 50, 51, 10]
     };
 
     this.lineChartDataSet = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: ["Sunday", "Monday", "Tuesday", "Wednesday" ,"Thursday", "Friday", "Saturday"],
       datasets: [totalRecs]
     };
     this.lineOptions = {
