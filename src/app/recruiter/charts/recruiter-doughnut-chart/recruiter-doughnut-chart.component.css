@@ -22,7 +22,8 @@
 }
 
 .candidateForm {
-  border: 2px solid #E0DFDF;
+  /* border: 2px solid #E0DFDF; */
+  margin-top: 20px;
 }
 
 .candidateStatusCount {

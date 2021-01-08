@@ -27,8 +27,8 @@ export class RecruiterDoughnutChartComponent implements OnInit {
   doughnutObserver = new Subject();
   doughnutObserver$ = this.doughnutObserver.asObservable();
 
-  centerTextIs = 0;
-  centerTextIs2 = 0;
+  totalText = 0;
+  targetText = 0;
 
   constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private userService: UserService) {
 
@@ -160,7 +160,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
 
   showChartData(res){
     this.candidateHelpedCount = res.data.advicePoints ? res.data.advicePoints : 0;
-    this.candidateThanksCount = res.data.adviceLikedPoints ? res.data.ReplyAdvicePoints : 0;
+    this.candidateThanksCount = res.data.adviceLikedPoints ? res.data.adviceLikedPoints : 0;
     this.candidateCommentsCount = res.data.ReplyAdvicePoints ? res.data.ReplyAdvicePoints : 0;
 
     this.data.datasets[0].data[0] = res.data.ratingPoints;
@@ -171,7 +171,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
     while(true){
       if(res.data.ratingPoints >= firstNum && res.data.ratingPoints <= secondNum){
         this.data.datasets[0].data[1] = secondNum - res.data.ratingPoints;
-        this.centerTextIs2 = secondNum - res.data.ratingPoints;
+        this.targetText = secondNum - res.data.ratingPoints;
         break;
       }else{
         firstNum = secondNum;
@@ -179,7 +179,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
       }
     }
 
-    this.centerTextIs = res.data.ratingPoints;
+    this.totalText = res.data.ratingPoints;
     
     this.changeText();
     this.BarChart.update();
@@ -200,7 +200,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
           ctx.font = fontSize + "em sans-serif";
           ctx.textBaseline = "middle";
       
-          var text = THIS.centerTextIs;
+          var text = THIS.totalText;
           let textX = Math.round((width - ctx.measureText(text).width) / 2);
           let textY = height / 2 - 50;
       
@@ -209,7 +209,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
           ctx.fillText("Total Score", textX - 25, textY + 30);
 
           ctx.textColor = 'gray';
-          var text2 = THIS.centerTextIs2;
+          var text2 = THIS.targetText;
           ctx.fillText(text2, textX, textY + 85);
           ctx.fillText("Target Score", textX - 30, textY + 115);
 
