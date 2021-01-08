@@ -17,7 +17,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
   chartObj: any;
   BarChart;
   chartColor = ["#0aafff", "#E0DFDF"];
-  public SearchFrm: FormGroup;
+  public CandidateFrm: FormGroup;
   candidateHelpedCount = 0;
   candidateThanksCount = 0;
   candidateCommentsCount = 0;
@@ -34,7 +34,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
 
     this.loggedInUser = this.userService.getUserData();
 
-    this.SearchFrm = this.formBuilder.group({
+    this.CandidateFrm = this.formBuilder.group({
       // tags: ["", Validators.required],
     });
 
