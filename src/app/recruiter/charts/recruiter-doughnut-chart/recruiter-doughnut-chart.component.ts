@@ -18,17 +18,17 @@ export class RecruiterDoughnutChartComponent implements OnInit {
   BarChart;
   chartColor = ["#0aafff", "#E0DFDF"];
   public SearchFrm: FormGroup;
-  candidateHelpedCount = 10;
-  candidateThanksCount = 20;
-  candidateCommentsCount = 5;
+  candidateHelpedCount = 0;
+  candidateThanksCount = 0;
+  candidateCommentsCount = 0;
   loggedInUser: any;
   getDoughnutChartData = "getDoughnutChartData";
 
   doughnutObserver = new Subject();
   doughnutObserver$ = this.doughnutObserver.asObservable();
 
-  centerTextIs;
-  centerTextIs2;
+  centerTextIs = 0;
+  centerTextIs2 = 0;
 
   constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private userService: UserService) {
 
@@ -159,9 +159,9 @@ export class RecruiterDoughnutChartComponent implements OnInit {
   }
 
   showChartData(res){
-    this.candidateHelpedCount = res.data.advicePoints;
-    this.candidateThanksCount = res.data.adviceLikedPoints;
-    this.candidateCommentsCount = res.data.ReplyAdvicePoints;
+    this.candidateHelpedCount = res.data.advicePoints ? res.data.advicePoints : 0;
+    this.candidateThanksCount = res.data.adviceLikedPoints ? res.data.ReplyAdvicePoints : 0;
+    this.candidateCommentsCount = res.data.ReplyAdvicePoints ? res.data.ReplyAdvicePoints : 0;
 
     this.data.datasets[0].data[0] = res.data.ratingPoints;
 
