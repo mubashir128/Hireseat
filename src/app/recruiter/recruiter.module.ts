@@ -14,6 +14,11 @@ import { TagInputModule } from "ngx-chips";
 import { NgHighlightModule } from 'ngx-text-highlight';
 import { RecruiterBrodcastModule } from '../recruiter-brodcast/recruiter-brodcast.module';
 import { WaitingListComponent } from './waiting-list/waiting-list.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RecruiterPieChartComponent } from './charts/recruiter-pie-chart/recruiter-pie-chart.component';
+import { RecruiterLineChartComponent } from './charts/recruiter-line-chart/recruiter-line-chart.component';
+import { RecruiterBarChartComponent } from './charts/recruiter-bar-chart/recruiter-bar-chart.component';
+import { RecruiterDoughnutChartComponent } from './charts/recruiter-doughnut-chart/recruiter-doughnut-chart.component';
 
 @NgModule({
   imports: [
@@ -32,7 +37,12 @@ import { WaitingListComponent } from './waiting-list/waiting-list.component';
     RecruiterHomeComponent,
     WonBidsComponent,
     SearchResumeComponent,
-    WaitingListComponent
+    WaitingListComponent,
+    DashboardComponent,
+    RecruiterPieChartComponent,
+    RecruiterLineChartComponent,
+    RecruiterBarChartComponent,
+    RecruiterDoughnutChartComponent,
   ]
 })
 export class RecruiterModule { }

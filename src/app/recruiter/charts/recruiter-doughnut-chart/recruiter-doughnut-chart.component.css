@@ -1,0 +1,45 @@
+.chart {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background-color: #ffffff;
+}
+  
+.donut-inner {
+  margin-top: -100px;
+  margin-bottom: 100px;
+}
+.donut-inner h5 {
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+.donut-inner span {
+  font-size: 12px;
+}
+
+.candidateStatus {
+  margin-top: -15px;
+}
+
+.candidateForm {
+  border: 2px solid #E0DFDF;
+}
+
+.candidateStatusCount {
+  margin-top: 10px;
+}
+
+.candidateHelped, .candidateHelpedCount {
+  width: 33%;
+  float: left;
+}
+
+.candidateThanks, .candidateThanksCount {
+  width: 33%;
+  float: left;
+}
+
+.candidateComments, .candidateCommentsCount {
+  width: 33%;
+  float: left;
+}

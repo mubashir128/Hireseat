@@ -52,6 +52,9 @@ export class RecruiterNavbarComponent implements OnInit {
     this.tabs1 = [];
     this.userProfile = new Profile();
     this.tabs1.push(
+      new Tab("/recruiter/dashboard", "Dashboard", false)
+    );
+    this.tabs1.push(
       new Tab("/recruiter/share-candidate-profile", "Shared Profiles", true)
     );
     this.tabs1.push(
