@@ -139,25 +139,25 @@
                   *ngFor="let item of this.reqslots(resume)"
                 >
                   <button
-                    *ngIf="item?.date1 != null"
+                    *ngIf="item.date1 != null"
                     class="btn TimeButton"
                     (click)="selectedReq(item?.date1, item?.time1)"
                   >
-                    {{ getDate(item?.date1) }} <br />{{ item?.time1 }}
+                    {{ getDate(item.date1) }} <br />{{ item?.time1 }}
                   </button>
                   <button
                     *ngIf="item?.date2 != null"
                     class="btn TimeButton"
                     (click)="selectedReq(item?.date2, item?.time2)"
                   >
-                    {{ getDate(item?.date2) }} <br />{{ item?.time2 }}
+                    {{ getDate(item.date2) }} <br />{{ item?.time2 }}
                   </button>
                   <button
                     *ngIf="item?.date3 != null"
                     class="btn TimeButton"
                     (click)="selectedReq(item?.date3, item?.time3)"
                   >
-                    {{ getDate(item?.date3) }} <br />{{ item?.time3 }}
+                    {{ getDate(item.date3) }} <br />{{ item?.time3 }}
                   </button>
                 </div>
               </ng-container>
