@@ -39,7 +39,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
     });
 
     this.data = {
-      labels: ["Total score", "Remain score"],
+      labels: ["Total score", "Target score"],
       datasets: [{
           labels : [],
           data: [50, 20],
