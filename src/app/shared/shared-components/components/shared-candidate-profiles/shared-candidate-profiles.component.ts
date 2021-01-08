@@ -186,6 +186,7 @@ export class SharedCandidateProfilesComponent
     jQuery(".modal").modal();
     jQuery("select").material_select();
   }
+  
   async ngOnInit() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
@@ -232,45 +233,62 @@ export class SharedCandidateProfilesComponent
     });
     // socket end
   }
+
   handleProfileData(res: any) {
     switch (res.subType) {
       case "getAllSharedProfiles":
-        // console.log("******", res);
         this.resumes = res.data;
-        console.log(this.resumes);
-
         break;
       case "addComment":
-        console.log("res________", res);
-        this.resumes.filter((element) => {
-          if (element._id === res.profileId) {
-            // console.log("mached");
-
-            element.canReview.push(res.data);
-          } else {
-            console.log("not matched");
-          }
-        });
+        this.addCommentToCommets(res);
         break;
       case "likeComment":
-        console.log("like comment------", res);
-        this.resumes.filter((element) => {
-          if (element._id === res.profileId) {
-            // console.log("mached");
-
-            element.canReview.filter((comment) => {
-              if (comment._id === res.data._id) {
-                comment.like.push(res.data);
-              }
-            });
-          } else {
-            console.log("not matched");
-          }
-        });
+        this.addLikeToComment(res);
+        break;
+      case "replyAdvicePoints":
+        this.addReplyToComment(res);
         break;
       default:
         break;
     }
+  }
+  
+  addCommentToCommets(res){
+    this.resumes.filter((element) => {
+      if (element._id === res.profileId) {
+        element.canReview.push(res.data);
+      } else {
+        console.log("not matched");
+      }
+    });
+  }
+
+  addLikeToComment(res){
+    this.resumes.filter((element) => {
+      if (element._id === res.profileId) {
+        element.canReview.filter((comment) => {
+          if (comment._id === res.data._id) {
+            comment.like.push(res.data);
+          }
+        });
+      } else {
+        console.log("not matched");
+      }
+    });
+  }
+
+  addReplyToComment(res){
+    this.resumes.filter((element) => {
+      if (element._id === res.profileId) {
+        element.canReview.filter((comment) => {
+          if (comment._id === res.data._id) {
+            comment.reply.push(res.data.replyComment);
+          }
+        });
+      } else {
+        console.log("not matched");
+      }
+    });
   }
 
   getProfiles() {
