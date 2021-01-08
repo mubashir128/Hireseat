@@ -129,15 +129,11 @@
             </div>
             <!-- <div class="divider"></div> -->
             <div class="footerAbsolute-waitinglist">
-              <ng-container
-                *ngIf="
-                  resume?.sharedWithRecruiter.applicationStatus === 'waiting'
-                "
+              <div
+                class="TimeSelectButtonDiv"
+                *ngFor="let item of this.reqslots(resume)"
               >
-                <div
-                  class="TimeSelectButtonDiv"
-                  *ngFor="let item of this.reqslots(resume)"
-                >
+                <ng-container>
                   <button
                     *ngIf="item.date1 != null"
                     class="btn TimeButton"
@@ -159,8 +155,8 @@
                   >
                     {{ getDate(item.date3) }} <br />{{ item?.time3 }}
                   </button>
-                </div>
-              </ng-container>
+                </ng-container>
+              </div>
               <div
                 class="btn-flat DownldResum"
                 style="margin-right: 0px; padding: 0 1rem"
