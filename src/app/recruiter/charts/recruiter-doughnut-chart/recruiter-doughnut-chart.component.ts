@@ -140,12 +140,6 @@ export class RecruiterDoughnutChartComponent implements OnInit {
       },
     });
 
-    // setTimeout(()=>{
-    //   this.centerTextIs = "100%";
-    //   this.changeText();
-    //   this.BarChart.update();
-    // },5000);
-
   }
 
   handleDoughnutChartData(res){

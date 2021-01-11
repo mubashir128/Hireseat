@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from "chart.js";
+import { WebsocketService } from 'src/app/_services/websocket.service';
+import { Subject } from "rxjs";
+import { UserService } from "../../../_services/user.service";
 
 @Component({
   selector: 'app-recruiter-pie-chart',
@@ -7,44 +10,78 @@ import { Chart } from "chart.js";
   styleUrls: ['./recruiter-pie-chart.component.css']
 })
 export class RecruiterPieChartComponent implements OnInit {
-  PieChart: [{}];
+  PieChart;
   data: any;
-  constructor() {
+
+  getRecruiterPieChartData = "getRecruiterPieChartData";
+
+  recruiterPieChartObserver = new Subject();
+  recruiterPieChartObserver$ = this.recruiterPieChartObserver.asObservable();
+
+  loggedInUser: any;
+  constructor(private _socket: WebsocketService, private userService: UserService) {
+    this.loggedInUser = this.userService.getUserData();
     this.data = {
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       datasets: [
         {
-          label: "AVG Number of Days",
+          label: "Number of comments / month.",
           backgroundColor: "#FF0000",
           borderColor: "#FF0000",
           borderWidth: 1,
-          data: [3, 3, 3, 3, 4, 2, 5, 7, 8, 9, 9, 10]
+          data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
         },
         {
-          label: "# of Submissions",
+          label: "% Number of comments / month.",
           backgroundColor: "#B4C7E7",
           borderColor: "#B4C7E7",
           borderWidth: 1,
-          data: [20, 18, 15, 12, 11, 6, 5, 5, 5, 4, 3, 3]
+          data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
         }
       ]
     };
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.showPieChart();
+    
+    await this._socket.removeListener({ type: 7 });
+    this._socket.addListener({
+      type: 7,
+      callback: this.recruiterPieChartObserver,
+    });
+    
+    this.recruiterPieChartObserver$.subscribe((res: any) => {
+      this.handleRecruiterPieChartData(res);
+    });
+    
+    this._socket.sendMessage({
+      type: 7,
+      data: {
+        type: this.loggedInUser.userRole,
+        subType: this.getRecruiterPieChartData,
+      },
+    });
+  }
+  
+  handleRecruiterPieChartData(res){
+    switch (res.subType) {
+      case this.getRecruiterPieChartData : 
+        this.putDataIntoFirstPieBar(res);
+        break;
+      default : 
+        break;
+    }
+  }
+
+  putDataIntoFirstPieBar(res){
+    this.data.datasets[0].data = res.data;
+    this.data.datasets[1].data = [(res.data[0]/res.monthRange[0]) * 100, (res.data[1]/res.monthRange[1]) * 100, (res.data[2]/res.monthRange[2]) * 100, (res.data[3]/res.monthRange[3]) * 100, (res.data[4]/res.monthRange[4]) * 100, (res.data[5]/res.monthRange[5]) * 100, (res.data[6]/res.monthRange[6]) * 100, (res.data[7]/res.monthRange[7]) * 100, (res.data[8]/res.monthRange[8]) * 100, (res.data[9]/res.monthRange[9]) * 100, (res.data[10]/res.monthRange[10]) * 100, (res.data[11]/res.monthRange[11]) * 100];
+    
+    this.PieChart.update();
+  }
+
+  showPieChart(){
     this.PieChart = new Chart("PieChart", {
       type: "bar",
       data: this.data,

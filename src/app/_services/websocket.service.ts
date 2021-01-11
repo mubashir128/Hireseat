@@ -63,8 +63,6 @@ export class WebsocketService {
   //   }
   // }
   sendMessage(obj: any) {
-    console.log(obj);
-
     if (this.socket !== undefined) {
       console.log("sending a msg", obj);
 
