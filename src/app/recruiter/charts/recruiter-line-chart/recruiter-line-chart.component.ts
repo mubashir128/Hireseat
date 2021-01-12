@@ -77,9 +77,10 @@ export class RecruiterLineChartComponent implements OnInit {
       label: "Total Recs",
       fill: "false",
       lineTension: "0",
-      borderColor: "#FF0000",
-      borderWidth: 3,
-      data: [0, 0, 0, 0, 0, 0, 0]
+      borderColor: "#0aafff",
+      backgroundColor : '#0aafff',
+      borderWidth: 2,
+      data: [0, 0, 0, 0, 0, 0, 0],
     };
 
     this.lineChartDataConfig = {

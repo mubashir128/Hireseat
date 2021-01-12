@@ -52,8 +52,8 @@ export class RecruiterPieChartComponent implements OnInit {
       datasets: [
         {
           label: "Candidate helped / month.",
-          backgroundColor: "#FF0000",
-          borderColor: "#FF0000",
+          backgroundColor: "#0aafff",
+          // borderColor: "#0aafff",
           borderWidth: 1,
           data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
         },
