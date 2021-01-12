@@ -209,13 +209,13 @@ export class RecruiterDoughnutChartComponent implements OnInit {
 
           ctx.textColor = 'red';
           ctx.fillText(text, textX, textY);
-          ctx.fillText("Total Score", textX - 25, textY + 30);
+          ctx.fillText("Total Score", textX - 30, textY + 30);
 
           ctx.fillStyle = 'red';
           ctx.textColor = 'gray';
           var text2 = THIS.targetText;
           ctx.fillText(text2, textX, textY + 85);
-          ctx.fillText("Target Score", textX - 30, textY + 115);
+          ctx.fillText("Target Score", textX - 35, textY + 115);
 
           ctx.save();
         }
