@@ -13,32 +13,62 @@ import { UserService } from "../../../_services/user.service";
 export class RecruiterDoughnutChartComponent implements OnInit {
 
   chartOptions: any;
-  data: any;
   chartObj: any;
-  BarChart;
+  DaughnutChart;
+  daughnutChartDataConfig: any;
   chartColor = ["#0aafff", "#E0DFDF"];
-  public CandidateFrm: FormGroup;
-  candidateHelpedCount = 0;
-  candidateThanksCount = 0;
-  candidateCommentsCount = 0;
-  loggedInUser: any;
+
   getDoughnutChartData = "getDoughnutChartData";
 
   doughnutObserver = new Subject();
   doughnutObserver$ = this.doughnutObserver.asObservable();
 
-  totalText = 0;
-  targetText = 0;
-
+  public CandidateFrm: FormGroup;
+  candidateHelpedCount = 0;
+  candidateThanksCount = 0;
+  candidateCommentsCount = 0;
+  
+  totalText = '';
+  targetText = '';
+  
+  loggedInUser: any;
   constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private userService: UserService) {
-
+    this.setDaughnutChartConfig();
     this.loggedInUser = this.userService.getUserData();
 
     this.CandidateFrm = this.formBuilder.group({
       // tags: ["", Validators.required],
     });
 
-    this.data = {
+  }
+
+  async ngOnInit() {
+    this.showDaughnutChartData();
+    
+    this.changeText();
+
+    await this._socket.removeListener({ type: 6 });
+    this._socket.addListener({
+      type: 6,
+      callback: this.doughnutObserver,
+    });
+
+    this.doughnutObserver$.subscribe((res: any) => {
+      this.handleDoughnutChartData(res);
+    });
+
+    this._socket.sendMessage({
+      type: 6,
+      data: {
+        type: this.loggedInUser.userRole,
+        subType: this.getDoughnutChartData,
+      },
+    });
+
+  }
+
+  setDaughnutChartConfig(){
+    this.daughnutChartDataConfig = {
       labels: ["Total score", "Target score"],
       datasets: [{
           labels : [],
@@ -65,7 +95,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
       },
       title: {
         display: true,
-        text: "Recruiter Performance VS Cost"
+        text: "Recruiter Performance"
       },
       centerText : true,
       // scales: {
@@ -118,30 +148,6 @@ export class RecruiterDoughnutChartComponent implements OnInit {
     };
   }
 
-  async ngOnInit() {
-    this.renderBarChartData();
-    this.changeText();
-
-    await this._socket.removeListener({ type: 6 });
-    this._socket.addListener({
-      type: 6,
-      callback: this.doughnutObserver,
-    });
-
-    this.doughnutObserver$.subscribe((res: any) => {
-      this.handleDoughnutChartData(res);
-    });
-
-    this._socket.sendMessage({
-      type: 6,
-      data: {
-        type: this.loggedInUser.userRole,
-        subType: this.getDoughnutChartData,
-      },
-    });
-
-  }
-
   handleDoughnutChartData(res){
     switch (res.subType) {
       case this.getDoughnutChartData :
@@ -153,19 +159,20 @@ export class RecruiterDoughnutChartComponent implements OnInit {
   }
 
   showChartData(res){
-    this.candidateHelpedCount = res.data.advicePoints ? res.data.advicePoints : 0;
-    this.candidateThanksCount = res.data.adviceLikedPoints ? res.data.adviceLikedPoints : 0;
-    this.candidateCommentsCount = res.data.ReplyAdvicePoints ? res.data.ReplyAdvicePoints : 0;
+    this.candidateHelpedCount = res.data.advicePoints ? res.data.advicePoints / 100 : 0;
+    this.candidateThanksCount = res.data.adviceLikedPoints ? res.data.adviceLikedPoints / 50 : 0;
+    this.candidateCommentsCount = res.data.ReplyAdvicePoints ? res.data.ReplyAdvicePoints / 25 : 0;
 
-    this.data.datasets[0].data[0] = res.data.ratingPoints;
+    this.daughnutChartDataConfig.datasets[0].data[0] = res.data.ratingPoints;
 
     let firstNum = 0;
     let secondNum = 1000;
     
     while(true){
       if(res.data.ratingPoints >= firstNum && res.data.ratingPoints <= secondNum){
-        this.data.datasets[0].data[1] = secondNum - res.data.ratingPoints;
-        this.targetText = secondNum - res.data.ratingPoints;
+        this.daughnutChartDataConfig.datasets[0].data[1] = secondNum - res.data.ratingPoints;
+        // this.targetText = (secondNum - res.data.ratingPoints) + '';
+        this.targetText = secondNum + '';
         break;
       }else{
         firstNum = secondNum;
@@ -173,10 +180,10 @@ export class RecruiterDoughnutChartComponent implements OnInit {
       }
     }
 
-    this.totalText = res.data.ratingPoints;
+    this.totalText = res.data.ratingPoints + '';
     
-    this.changeText();
-    this.BarChart.update();
+    // this.changeText();
+    this.DaughnutChart.update();
 
   }
 
@@ -198,10 +205,13 @@ export class RecruiterDoughnutChartComponent implements OnInit {
           let textX = Math.round((width - ctx.measureText(text).width) / 2);
           let textY = height / 2 - 50;
       
+          ctx.fillStyle = 'blue';
+
           ctx.textColor = 'red';
           ctx.fillText(text, textX, textY);
           ctx.fillText("Total Score", textX - 25, textY + 30);
 
+          ctx.fillStyle = 'red';
           ctx.textColor = 'gray';
           var text2 = THIS.targetText;
           ctx.fillText(text2, textX, textY + 85);
@@ -217,10 +227,10 @@ export class RecruiterDoughnutChartComponent implements OnInit {
     this.chartObj = this;
   }
 
-  renderBarChartData() {
-    this.BarChart = new Chart("doughnutChart", {
+  showDaughnutChartData() {
+    this.DaughnutChart = new Chart("doughnutChart", {
       type: "doughnut",
-      data: this.data,
+      data: this.daughnutChartDataConfig,
       options: this.chartOptions
     });
   }

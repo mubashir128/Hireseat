@@ -11,7 +11,7 @@ import { UserService } from "../../../_services/user.service";
 })
 export class RecruiterPieChartComponent implements OnInit {
   PieChart;
-  data: any;
+  pieChartDataSet: any;
 
   getRecruiterPieChartData = "getRecruiterPieChartData";
 
@@ -20,26 +20,8 @@ export class RecruiterPieChartComponent implements OnInit {
 
   loggedInUser: any;
   constructor(private _socket: WebsocketService, private userService: UserService) {
+    this.setPieChartConfig();
     this.loggedInUser = this.userService.getUserData();
-    this.data = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      datasets: [
-        {
-          label: "Number of comments / month.",
-          backgroundColor: "#FF0000",
-          borderColor: "#FF0000",
-          borderWidth: 1,
-          data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
-        },
-        {
-          label: "% Number of comments / month.",
-          backgroundColor: "#B4C7E7",
-          borderColor: "#B4C7E7",
-          borderWidth: 1,
-          data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
-        }
-      ]
-    };
   }
 
   async ngOnInit() {
@@ -64,6 +46,28 @@ export class RecruiterPieChartComponent implements OnInit {
     });
   }
   
+  setPieChartConfig(){
+    this.pieChartDataSet = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      datasets: [
+        {
+          label: "Candidate helped / month.",
+          backgroundColor: "#FF0000",
+          borderColor: "#FF0000",
+          borderWidth: 1,
+          data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
+        },
+        // {
+        //   label: "% Number of comments / month.",
+        //   backgroundColor: "#B4C7E7",
+        //   borderColor: "#B4C7E7",
+        //   borderWidth: 1,
+        //   data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
+        // }
+      ]
+    };
+  }
+
   handleRecruiterPieChartData(res){
     switch (res.subType) {
       case this.getRecruiterPieChartData : 
@@ -75,8 +79,8 @@ export class RecruiterPieChartComponent implements OnInit {
   }
 
   putDataIntoFirstPieBar(res){
-    this.data.datasets[0].data = res.data;
-    this.data.datasets[1].data = [(res.data[0]/res.monthRange[0]) * 100, (res.data[1]/res.monthRange[1]) * 100, (res.data[2]/res.monthRange[2]) * 100, (res.data[3]/res.monthRange[3]) * 100, (res.data[4]/res.monthRange[4]) * 100, (res.data[5]/res.monthRange[5]) * 100, (res.data[6]/res.monthRange[6]) * 100, (res.data[7]/res.monthRange[7]) * 100, (res.data[8]/res.monthRange[8]) * 100, (res.data[9]/res.monthRange[9]) * 100, (res.data[10]/res.monthRange[10]) * 100, (res.data[11]/res.monthRange[11]) * 100];
+    this.pieChartDataSet.datasets[0].data = res.data;
+    // this.pieChartDataSet.datasets[1].data = [(res.data[0]/res.monthRange[0]) * 100, (res.data[1]/res.monthRange[1]) * 100, (res.data[2]/res.monthRange[2]) * 100, (res.data[3]/res.monthRange[3]) * 100, (res.data[4]/res.monthRange[4]) * 100, (res.data[5]/res.monthRange[5]) * 100, (res.data[6]/res.monthRange[6]) * 100, (res.data[7]/res.monthRange[7]) * 100, (res.data[8]/res.monthRange[8]) * 100, (res.data[9]/res.monthRange[9]) * 100, (res.data[10]/res.monthRange[10]) * 100, (res.data[11]/res.monthRange[11]) * 100];
     
     this.PieChart.update();
   }
@@ -84,7 +88,7 @@ export class RecruiterPieChartComponent implements OnInit {
   showPieChart(){
     this.PieChart = new Chart("PieChart", {
       type: "bar",
-      data: this.data,
+      data: this.pieChartDataSet,
       options: {
         legend: {
           position: "bottom",
@@ -99,7 +103,7 @@ export class RecruiterPieChartComponent implements OnInit {
           }
         },
         title: {
-          text: "Recruiter Performance Breakdown",
+          text: "Candidate helped / month.",
           display: true
         },
         scales: {
@@ -112,7 +116,23 @@ export class RecruiterPieChartComponent implements OnInit {
                 color: "rgba(0, 0, 0, 0)",
                 display: true
               }
-            }
+            },
+            // {
+            //   id: "percent",
+            //   type: "linear",
+            //   position: "right",
+  
+            //   ticks: {
+            //     max: 100,
+            //     min: 0,
+            //     callback: function(value, index, values) {
+            //       return value + "%";
+            //     }
+            //   },
+            //   gridLines: {
+            //     color: "rgba(0, 0, 0, 0)"
+            //   }
+            // }
           ],
           xAxes: [
             {
