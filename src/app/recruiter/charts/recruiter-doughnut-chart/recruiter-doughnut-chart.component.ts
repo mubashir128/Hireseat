@@ -166,13 +166,13 @@ export class RecruiterDoughnutChartComponent implements OnInit {
     this.daughnutChartDataConfig.datasets[0].data[0] = res.data.ratingPoints;
 
     let firstNum = 0;
-    let secondNum = 1000;
+    let secondNum = 999;
     
     while(true){
       if(res.data.ratingPoints >= firstNum && res.data.ratingPoints <= secondNum){
         this.daughnutChartDataConfig.datasets[0].data[1] = secondNum - res.data.ratingPoints;
         // this.targetText = (secondNum - res.data.ratingPoints) + '';
-        this.targetText = secondNum + '';
+        this.targetText = (secondNum + 1) + '';
         break;
       }else{
         firstNum = secondNum;

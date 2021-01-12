@@ -60,6 +60,7 @@ export class RecruiterLineChartComponent implements OnInit {
 
   showChartData(res){
     this.lineChartDataConfig.datasets[0].data = res.data;
+    this.lineChartDataConfig.labels = res.result;
     this.LineChart.update();
   }
 
@@ -106,10 +107,13 @@ export class RecruiterLineChartComponent implements OnInit {
         ticks: {
           beginAtZero: true
         },
+        xLabelRotation : -45,
         xAxes: [
           {
             ticks: {
-              beginAtZero: true
+              beginAtZero: true,
+              maxRotation: 45,
+              minRotation: 45
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",
