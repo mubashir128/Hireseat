@@ -182,7 +182,7 @@
                         (click)="goToSharedProfile(cmt._id)"
                         [routerLink]=""
                         routerLinkActive="notification-content"
-                        *ngIf="cmt.review && cmt.notification"
+                        *ngIf="cmt.review"
                         [innerHtml]="truncateHTML(cmt.review)"
                         >{{ cmt.review }}</a
                       >
