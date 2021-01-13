@@ -7,6 +7,7 @@ import { SuperAdminService } from "../../_services/super-admin.service";
 import { ForumService } from "../../_services/forum.service";
 import { map } from "rxjs/operators";
 import { EnterpriseService } from "src/app/_services/enterprise.service";
+import { WebsocketService } from "src/app/_services/websocket.service";
 
 declare var jQuery: any;
 @Component({
@@ -29,7 +30,8 @@ export class RecruiterHomeComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private userService: UserService,
     public supperAdmin: SuperAdminService,
-    private _forum: ForumService
+    private _forum: ForumService,
+    private _socket: WebsocketService
   ) {
     this.chkLoggedInUser = this.userService.getUserData();
     // for live route
@@ -63,10 +65,10 @@ export class RecruiterHomeComponent implements OnInit {
     this.UserData = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "employer") {
-        this.router.navigate(["employer/bidding-event-list"]);
+        this.router.navigate(["employer/dashboard"]);
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
         if (this.router.url == "/recruiter") {
-          this.router.navigate(["recruiter/bidding-event-list"]);
+          this.router.navigate(["recruiter/dashboard"]);
         }
       }
     }
@@ -108,6 +110,7 @@ export class RecruiterHomeComponent implements OnInit {
         (response) => {
           if (response) {
             localStorage.removeItem("super-admin-email");
+            this._socket.socketClosed();
             this.router.navigate(["super-admin/user-list"]);
           }
         },

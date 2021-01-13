@@ -46,7 +46,7 @@ export class BarChartComponent implements OnInit {
           backgroundColor: "#00b0f0",
           borderColor: "#00b0f0",
           borderWidth: 1,
-          data: [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]
+          data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         }
       ]
     };

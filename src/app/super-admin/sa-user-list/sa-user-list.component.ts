@@ -123,9 +123,9 @@ export class SAUserListComponent implements OnInit {
       (response) => {
         if (response) {
           if (response.userInfo.userRole == "employer") {
-            this.router.navigate(["employer/bidding-event-list"]);
+            this.router.navigate(["employer/dashboard"]);
           } else if (response.userInfo.userRole == "recruiter") {
-            this.router.navigate(["recruiter/share-candidate-profile"]);
+            this.router.navigate(["recruiter/dashboard"]);
           } else if (response.userInfo.userRole == "admin") {
             this.router.navigate(["user-list"]);
           } else if (response.userInfo.userRole == "super-admin") {

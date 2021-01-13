@@ -49,13 +49,15 @@ export class RecruiterNavbarComponent implements OnInit {
         );
       }
     });
+
     this.tabs1 = [];
     this.userProfile = new Profile();
+
     this.tabs1.push(
-      new Tab("/recruiter/dashboard", "Dashboard", false)
+      new Tab("/recruiter/dashboard", "Dashboard", true)
     );
     this.tabs1.push(
-      new Tab("/recruiter/share-candidate-profile", "Shared Profiles", true)
+      new Tab("/recruiter/share-candidate-profile", "Shared Profiles", false)
     );
     this.tabs1.push(
       new Tab("/recruiter/all-recruiters", "Recruiters Market Place", false)
@@ -87,6 +89,10 @@ export class RecruiterNavbarComponent implements OnInit {
     this.SelectItem(this.router.url);
     this.getUsersProfile();
 
+    if(this.router.url === "/recruiter"){
+      this.tabs1[0].selected = true;
+    }
+
     this._subList.activebidEvent$.subscribe((res) => {
       this.handleActiveList(res);
     });
@@ -117,9 +123,10 @@ export class RecruiterNavbarComponent implements OnInit {
       window.requestAnimationFrame(step);
     }
   }
+
   handleActiveList(obj) {
     this.tabs1.forEach((tab) => {
-      if (tab.displayText === "Shared Profiles") {
+      if (tab.displayText === "Job Postings") {
         tab.selected = true;
       } else {
         tab.selected = false;
@@ -129,8 +136,11 @@ export class RecruiterNavbarComponent implements OnInit {
 
   SelectItem(item) {
     this.tabs1.forEach((tab) => {
-      if (tab.id === item) tab.selected = true;
-      else tab.selected = false;
+      if (tab.id === item){
+        tab.selected = true;
+      }else{
+        tab.selected = false;
+      }
     });
   }
 

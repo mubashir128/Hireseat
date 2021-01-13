@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       if (this.chkLoggedInUser.userRole == "employer") {
         this.router.navigate(["employer/dashboard"]);
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
-        this.router.navigate(["recruiter/share-candidate-profile"]);
+        this.router.navigate(["recruiter/dashboard"]);
       } else if (this.chkLoggedInUser.userRole == "admin") {
         this.router.navigate(["/user-list"]);
       } else if (this.chkLoggedInUser.userRole == "super-admin") {
@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
               // if (this.returnUrl) {
               //   this.router.navigate([this.returnUrl]);
               // } else {
-              this.router.navigate(["recruiter/share-candidate-profile"]);
+              this.router.navigate(["recruiter/dashboard"]);
               // }
             } else if (this.userData.userRole == "admin") {
               this.router.navigate(["user-list"]);

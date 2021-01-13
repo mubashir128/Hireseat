@@ -109,8 +109,8 @@ export class CandidateHomeComponent implements OnInit {
         (response) => {
           if (response) {
             localStorage.removeItem("super-admin-email");
-            this.router.navigate(["super-admin/user-list"]);
             this._socket.socketClosed();
+            this.router.navigate(["super-admin/user-list"]);
           }
         },
         (error) => {

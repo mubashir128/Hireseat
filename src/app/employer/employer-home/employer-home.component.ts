@@ -6,6 +6,7 @@ import { UserService } from "../../_services/user.service";
 import { SuperAdminService } from "../../_services/super-admin.service";
 import { ForumService } from "../../_services/forum.service";
 import { EnterpriseService } from "../../_services/enterprise.service";
+import { WebsocketService } from "src/app/_services/websocket.service";
 declare var jQuery: any;
 @Component({
   selector: "app-employer-home",
@@ -29,16 +30,17 @@ export class EmployerHomeComponent implements OnInit {
     private userService: UserService,
     public supperAdmin: SuperAdminService,
     public enterpriseSevice: EnterpriseService,
-    private _forum: ForumService
+    private _forum: ForumService,
+    private _socket: WebsocketService
   ) {
     this.chkLoggedInUser = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "employer") {
         if (this.router.url == "/employer") {
-          this.router.navigate(["employer/bidding-event-list"]);
+          this.router.navigate(["employer/dashboard"]);
         }
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
-        this.router.navigate(["recruiter/bidding-event-list"]);
+        this.router.navigate(["recruiter/dashboard"]);
       }
     }
     // for live route
@@ -109,6 +111,7 @@ export class EmployerHomeComponent implements OnInit {
         response => {
           if (response) {
             localStorage.removeItem("super-admin-email");
+            this._socket.socketClosed();
             this.router.navigate(["super-admin/user-list"]);
           }
         },
@@ -127,8 +130,6 @@ export class EmployerHomeComponent implements OnInit {
       })
       .subscribe(
         response => {
-          console.log("got response", response);
-
           if (response) {
             localStorage.removeItem("enterprise-email");
             this.router.navigate(["enterprise/user-list"]);

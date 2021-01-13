@@ -87,7 +87,9 @@ export class RecruiterLineChartComponent implements OnInit {
       labels: ["Sunday", "Monday", "Tuesday", "Wednesday" ,"Thursday", "Friday", "Saturday"],
       datasets: [totalRecs]
     };
+    
     this.lineOptions = {
+      responsive: true,
       legend: {
         position: "bottom",
         labels: {

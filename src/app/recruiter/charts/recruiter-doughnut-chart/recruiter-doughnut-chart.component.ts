@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Chart } from "chart.js";
 import { WebsocketService } from 'src/app/_services/websocket.service';
@@ -10,7 +10,7 @@ import { UserService } from "../../../_services/user.service";
   templateUrl: './recruiter-doughnut-chart.component.html',
   styleUrls: ['./recruiter-doughnut-chart.component.css']
 })
-export class RecruiterDoughnutChartComponent implements OnInit {
+export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
 
   chartOptions: any;
   chartObj: any;
@@ -30,7 +30,9 @@ export class RecruiterDoughnutChartComponent implements OnInit {
   
   totalText = '';
   targetText = '';
-  
+  totalScore  = "Total Score";
+  targetScore = "Target Score";
+
   loggedInUser: any;
   constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private userService: UserService) {
     this.setDaughnutChartConfig();
@@ -182,7 +184,7 @@ export class RecruiterDoughnutChartComponent implements OnInit {
 
     this.totalText = res.data.ratingPoints + '';
     
-    // this.changeText();
+    this.changeText();
     this.DaughnutChart.update();
 
   }
@@ -209,13 +211,13 @@ export class RecruiterDoughnutChartComponent implements OnInit {
 
           ctx.textColor = 'red';
           ctx.fillText(text, textX, textY);
-          ctx.fillText("Total Score", textX - 30, textY + 30);
+          ctx.fillText(THIS.totalScore, textX - 30, textY + 30);
 
           ctx.fillStyle = 'red';
           ctx.textColor = 'gray';
           var text2 = THIS.targetText;
           ctx.fillText(text2, textX, textY + 85);
-          ctx.fillText("Target Score", textX - 35, textY + 115);
+          ctx.fillText(THIS.targetScore, textX - 35, textY + 115);
 
           ctx.save();
         }
@@ -234,4 +236,13 @@ export class RecruiterDoughnutChartComponent implements OnInit {
       options: this.chartOptions
     });
   }
+
+  ngOnDestroy(){
+    this.totalText = '';
+    this.targetText = '';
+    this.totalScore = '';
+    this.targetScore = '';
+    this.changeText();
+  }
+
 }
