@@ -127,6 +127,7 @@ export class RecruiterPieChartComponent implements OnInit {
             {
               ticks: {
                 beginAtZero: true,
+                stepSize: 1,
                 callback: function (value) {
                   if (value % 1 === 0) {
                     return value;

@@ -132,7 +132,8 @@ export class RecruiterLineChartComponent implements OnInit {
         yAxes: [
           {
             ticks: {
-              beginAtZero: true
+              beginAtZero: true,
+              stepSize: 1,
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",
