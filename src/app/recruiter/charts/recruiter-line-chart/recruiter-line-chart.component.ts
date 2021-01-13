@@ -76,11 +76,19 @@ export class RecruiterLineChartComponent implements OnInit {
     const totalRecs = {
       label: "Total Recs",
       fill: true,
-      lineTension: "0",
+      lineTension: 0,
       borderColor: "#0aafff",
       backgroundColor : '#0aafff',
       borderWidth: 2,
       data: [0, 0, 0, 0, 0, 0, 0],
+      borderDash: [0, 0],
+      pointBorderColor: 'black',
+      pointBackgroundColor: 'rgba(255, 150, 0, 0.3)',
+      pointRadius: 1,
+      pointHoverRadius: 5,
+      pointHitRadius: 5,
+      pointBorderWidth: 1,
+      pointStyle: 'rectRounded'
     };
 
     this.lineChartDataConfig = {
