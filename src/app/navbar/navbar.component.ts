@@ -53,6 +53,7 @@ export class NavbarComponent implements OnInit {
   newNotification = "newNotification";
   getAllCandidateNotifications = "getAllCandidateNotifications";
   newCandidateNotifications = "newCandidateNotifications";
+  decreaseNotificationCount = "decreaseNotificationCount";
 
   limit = 15;
   createdAt;
@@ -247,32 +248,20 @@ export class NavbarComponent implements OnInit {
         this.incrementNotificationCount();
         break;
       case this.getAllCandidateNotifications:
-        console.log("----candidate----", res);
-
-        // this.notificationLength = res.data[0].canReview.length;
-        // console.log("-0-----");
-
         res.data.filter((val) => {
           if (val.canReview) {
             val.canReview.filter((cmt) => {
               this.commets.push(cmt);
-              this.incrementNotificationCount();
+              if(cmt.notification){
+                this.incrementNotificationCount();
+              }
             });
           }
         });
-        // console.log("**********", this.commets);
-
         break;
       case this.newCandidateNotifications:
         this.likesOnComments.push(res);
-        console.log(
-          "---Candidate likesOnComments notify---",
-          this.likesOnComments
-        );
-        console.log("---Nested---", this.likesOnComments[0].data.review);
-
         this.incrementNotificationCount();
-
         break;
       default:
         break;
@@ -308,6 +297,7 @@ export class NavbarComponent implements OnInit {
     if (this.show) this.buttonName = "Hide";
     else this.buttonName = "Show";
   }
+
   onClick(event) {
     // console.log('clicked ');
 
@@ -333,12 +323,34 @@ export class NavbarComponent implements OnInit {
     this.toggle();
     this.router.navigate(["/question-details/", id]);
   }
-  goToSharedProfile() {
+  
+  goToSharedProfile(cmt_id) {
     this.notificationLength--;
     this.toggle();
+    console.log("cmt_id : ",cmt_id);
+
+    this.commets.forEach((data, index)=>{
+      if(cmt_id === data._id){
+        data.notification = false;
+        // console.log(this.commets);
+        // this.commets.splice(index, 1);
+        // console.log(this.commets);
+      }
+    });
+
+    this._socket.sendMessage({
+      type: 1,
+      data: {
+        type: this.loggedInUser.userRole,
+        subType : this.decreaseNotificationCount,
+        cmt_id : cmt_id,
+      },
+    });
+
     if (this.isCandidate) {
       this.router.navigate(["/candidate/my-posted-profiles"]);
     }
+
     if (this.isRecruiter) {
       this.router.navigate(["/recruiter/share-candidate-profile"]);
     }

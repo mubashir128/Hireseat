@@ -75,7 +75,7 @@ export class RecruiterLineChartComponent implements OnInit {
   setLineChartConfig(){
     const totalRecs = {
       label: "Total Recs",
-      fill: "false",
+      fill: true,
       lineTension: "0",
       borderColor: "#0aafff",
       backgroundColor : '#0aafff',
@@ -108,7 +108,12 @@ export class RecruiterLineChartComponent implements OnInit {
       },
       scales: {
         ticks: {
-          beginAtZero: true
+          beginAtZero: true,
+          callback: function (value) {
+            if (value % 1 === 0) {
+              return value;
+            }
+          },
         },
         xLabelRotation : -45,
         xAxes: [
@@ -134,22 +139,22 @@ export class RecruiterLineChartComponent implements OnInit {
               display: false
             }
           },
-          {
-            id: "percent",
-            type: "linear",
-            position: "right",
+          // {
+          //   id: "percent",
+          //   type: "linear",
+          //   position: "right",
 
-            ticks: {
-              max: 100,
-              min: 0,
-              callback: function(value, index, values) {
-                return value + "%";
-              }
-            },
-            gridLines: {
-              color: "rgba(0, 0, 0, 0)"
-            }
-          }
+          //   ticks: {
+          //     max: 100,
+          //     min: 0,
+          //     callback: function(value, index, values) {
+          //       return value + "%";
+          //     }
+          //   },
+          //   gridLines: {
+          //     color: "rgba(0, 0, 0, 0)"
+          //   }
+          // }
         ]
       },
       elements: {
