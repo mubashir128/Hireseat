@@ -1,0 +1,42 @@
+# This file is a template, and might need editing before it works on your project.
+# Official framework image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/node/tags/
+image: node:latest
+
+#This command is run before actual stages start running
+before_script:
+  - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+  - npm install
+
+stages:
+  # - test
+  - deploy
+
+# lint and test are two different jobs in the same stage.
+# This allows us to run these two in parallel and making build faster
+
+# # Job 1:
+# lint:
+#   stage: test
+#   script:
+#     - npm install
+
+# Job 2:
+# test:
+#   stage: test
+#   script:
+# - npm install
+# ToDo: Add coverage
+
+deployToAWS:
+  only:
+    - stable
+  stage: deploy
+  before_script:
+    - mkdir -p ~/.ssh
+    - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+  script:
+    - bash deploy/deploy.sh
