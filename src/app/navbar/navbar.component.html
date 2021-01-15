@@ -194,20 +194,22 @@
 
                   <li *ngFor="let cmt of likesOnComments">
                     <a
-                      (click)="goToSharedProfile()"
+                    (click)="goToSharedProfileRecruiter(cmt.data._id, cmt.data.like[0]._id, 'like')"
                       [routerLink]=""
                       routerLinkActive="notification-content"
                       [innerHtml]="truncateHTMLMsg(cmt.data.review, ' - liked')"
+                      *ngIf = "cmt.data.like[0].notification"
                       >{{ cmt.data.review }}</a
                     >
                   </li>
 
                   <li *ngFor="let cmt of replysOnComments">
                     <a
-                      (click)="goToSharedProfile()"
+                      (click)="goToSharedProfileRecruiter(cmt.data._id, cmt.data.reply._id, 'reply')"
                       [routerLink]=""
                       routerLinkActive="notification-content"
                       [innerHtml]="truncateHTMLMsg(cmt.data.reply.replyComment, ' - replied')"
+                      *ngIf = "cmt.data.reply.notification"
                       >{{ cmt.data.review }}</a
                     >
                   </li>

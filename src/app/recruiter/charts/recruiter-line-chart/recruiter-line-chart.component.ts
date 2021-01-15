@@ -99,6 +99,7 @@ export class RecruiterLineChartComponent implements OnInit {
     this.lineOptions = {
       responsive: true,
       legend: {
+        display: false,
         position: "bottom",
         labels: {
           // fontFamily: "Comic Sans MS",
@@ -111,7 +112,7 @@ export class RecruiterLineChartComponent implements OnInit {
         }
       },
       title: {
-        text: "Aggregate Recruiter Performance",
+        text: "Candidates Helped",
         display: true
       },
       scales: {
@@ -141,7 +142,7 @@ export class RecruiterLineChartComponent implements OnInit {
           {
             ticks: {
               beginAtZero: true,
-              stepSize: 1,
+              // stepSize: 1,
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",

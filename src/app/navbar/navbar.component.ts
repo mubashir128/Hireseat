@@ -53,9 +53,11 @@ export class NavbarComponent implements OnInit {
   newNotification = "newNotification";
   getAllCandidateNotifications = "getAllCandidateNotifications";
   newCandidateNotifications = "newCandidateNotifications";
-  decreaseNotificationCount = "decreaseNotificationCount";
+  decreaseCandidateNotificationCount = "decreaseCandidateNotificationCount";
   candidateReplyNotification = "candidateReplyNotification";
   candidateLikeNotification = "candidateLikeNotification";
+  getRecruiterNotifications = "getRecruiterNotifications";
+  decreaseRecruiterNotificationCount = "decreaseRecruiterNotificationCount";
 
   limit = 15;
   createdAt;
@@ -258,12 +260,8 @@ export class NavbarComponent implements OnInit {
         // add all notifications to list.
         if (res.data.length !== 0) {
           this.questDataLenght = [...this.questDataLenght, ...res.data];
-          this.createdAt = this.questDataLenght[
-            this.questDataLenght.length - 1
-          ].createdAt;
-          this.notificationLength = res.count
-            ? res.count
-            : this.notificationLength;
+          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
+          this.notificationLength = res.count ? res.count : this.notificationLength;
         }
         break;
       case this.newNotification:
@@ -289,7 +287,7 @@ export class NavbarComponent implements OnInit {
         break;
       case this.candidateLikeNotification :
         //add notification to start of list.
-        this.likesOnComments.length !== 0 ? this.likesOnComments.unshift(res) : this.likesOnComments.push(res);
+        this.likesOnComments.length !== 0 ? this.likesOnComments.unshift(res) : this.likesOnComments.push(res);;
         this.incrementNotificationCount();
         break;
       case this.candidateReplyNotification : 
@@ -297,6 +295,13 @@ export class NavbarComponent implements OnInit {
         this.replysOnComments.length !== 0 ? this.replysOnComments.unshift(res) : this.replysOnComments.push(res);
         this.incrementNotificationCount();
         break
+      case this.getRecruiterNotifications : 
+        if (res.data.length !== 0) {
+          this.questDataLenght = [...this.questDataLenght, ...res.data];
+          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
+          this.notificationLength = res.count ? res.count : this.notificationLength;
+        }
+        break;
       default:
         break;
     }
@@ -361,14 +366,10 @@ export class NavbarComponent implements OnInit {
   goToSharedProfile(cmt_id) {
     this.notificationLength--;
     this.toggle();
-    console.log("cmt_id : ",cmt_id);
 
     this.commets.forEach((data, index)=>{
       if(cmt_id === data._id){
         data.notification = false;
-        // console.log(this.commets);
-        // this.commets.splice(index, 1);
-        // console.log(this.commets);
       }
     });
 
@@ -376,7 +377,7 @@ export class NavbarComponent implements OnInit {
       type: 1,
       data: {
         type: this.loggedInUser.userRole,
-        subType : this.decreaseNotificationCount,
+        subType : this.decreaseCandidateNotificationCount,
         cmt_id : cmt_id,
       },
     });
@@ -389,4 +390,41 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(["/recruiter/share-candidate-profile"]);
     }
   }
+
+  goToSharedProfileRecruiter(cmt_id, subId, attType){
+
+    this.notificationLength--;
+    this.toggle();
+
+    this._socket.sendMessage({
+      type: 1,
+      data: {
+        type: this.loggedInUser.userRole,
+        subType : this.decreaseRecruiterNotificationCount,
+        cmt_id : cmt_id,
+        attType : attType,
+        subId : subId
+      },
+    });
+
+    if(attType === 'like'){
+      this.likesOnComments.forEach((res, index)=>{
+        if(subId === res.data.like[0]._id){
+          res.data.like[0].notification = false;
+        }
+      });
+    }else{
+      this.replysOnComments.forEach((res, index)=>{
+        if(subId === res.data.reply._id){
+          res.data.reply.notification = false;
+        }
+      });
+    }
+
+    if (this.isRecruiter) {
+      this.router.navigate(["/recruiter/share-candidate-profile"]);
+    }
+
+  }
+
 }

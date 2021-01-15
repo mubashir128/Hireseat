@@ -32,7 +32,6 @@ export class RecruiterNavbarComponent implements OnInit {
      * subcription incresed points
      */
     this.userService._setProfileObservable.subscribe((data) => {
-      console.log(data);
 
       if (data !== null) {
         this.userProfile = data;
