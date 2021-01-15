@@ -12,5 +12,8 @@ export class SubscriberslistService {
   activebidEvent = new Subject();
   activebidEvent$ = this.activebidEvent.asObservable();
 
+  recruiterPoints = new Subject();
+  recruiterPoints$ = this.recruiterPoints.asObservable();
+
   constructor() { }
 }

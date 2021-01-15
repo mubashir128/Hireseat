@@ -19,6 +19,7 @@
 
 .candidateStatus {
   margin-top: -15px;
+  /* margin-left: -30px; */
 }
 
 .candidateForm {
@@ -28,19 +29,25 @@
 
 .candidateStatusCount {
   margin-top: 10px;
+  /* margin-left: -30px; */
+}
+
+.candidateReferred, .candidateReferredCount {
+  width: 25%;
+  float: left;
 }
 
 .candidateHelped, .candidateHelpedCount {
-  width: 33%;
+  width: 25%;
   float: left;
 }
 
 .candidateThanks, .candidateThanksCount {
-  width: 33%;
+  width: 25%;
   float: left;
 }
 
 .candidateComments, .candidateCommentsCount {
-  width: 33%;
+  width: 25%;
   float: left;
 }

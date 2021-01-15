@@ -73,13 +73,13 @@ export class RecruiterPieChartComponent implements OnInit {
           borderWidth: 1,
           data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         },
-        // {
-        //   label: "% Number of comments / month.",
-        //   backgroundColor: "#B4C7E7",
-        //   borderColor: "#B4C7E7",
-        //   borderWidth: 1,
-        //   data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
-        // }
+        {
+          label: "Candidates Referred / month.",
+          backgroundColor: "yellow",
+          // borderColor: "#B4C7E7",
+          borderWidth: 1,
+          data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
+        }
       ],
     };
   }
@@ -96,6 +96,7 @@ export class RecruiterPieChartComponent implements OnInit {
 
   putDataIntoFirstPieBar(res) {
     this.pieChartDataSet.datasets[0].data = res.data;
+    this.pieChartDataSet.datasets[1].data = res.sharePoints;
     // this.pieChartDataSet.datasets[1].data = [(res.data[0]/res.monthRange[0]) * 100, (res.data[1]/res.monthRange[1]) * 100, (res.data[2]/res.monthRange[2]) * 100, (res.data[3]/res.monthRange[3]) * 100, (res.data[4]/res.monthRange[4]) * 100, (res.data[5]/res.monthRange[5]) * 100, (res.data[6]/res.monthRange[6]) * 100, (res.data[7]/res.monthRange[7]) * 100, (res.data[8]/res.monthRange[8]) * 100, (res.data[9]/res.monthRange[9]) * 100, (res.data[10]/res.monthRange[10]) * 100, (res.data[11]/res.monthRange[11]) * 100];
 
     this.PieChart.update();
@@ -127,7 +128,7 @@ export class RecruiterPieChartComponent implements OnInit {
             {
               ticks: {
                 beginAtZero: true,
-                stepSize: 1,
+                // stepSize: 1,
                 callback: function (value) {
                   if (value % 1 === 0) {
                     return value;

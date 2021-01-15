@@ -147,7 +147,9 @@
                       >{{ ques.question }}</a
                     >
                   </li>
+
                   <ng-container> </ng-container>
+
                   <li *ngFor="let ques of suggestedQueData">
                     <a
                       [routerLink]="[
@@ -161,6 +163,7 @@
                       >{{ ques.question }}</a
                     >
                   </li>
+
                   <li *ngFor="let ques of suggestedQueData">
                     <a
                       [routerLink]="[
@@ -182,7 +185,7 @@
                         (click)="goToSharedProfile(cmt._id)"
                         [routerLink]=""
                         routerLinkActive="notification-content"
-                        *ngIf="cmt.review"
+                        *ngIf="cmt.review && cmt.notification"
                         [innerHtml]="truncateHTML(cmt.review)"
                         >{{ cmt.review }}</a
                       >
@@ -191,13 +194,26 @@
 
                   <li *ngFor="let cmt of likesOnComments">
                     <a
-                      (click)="goToSharedProfile()"
+                    (click)="goToSharedProfileRecruiter(cmt.data._id, cmt.data.like[0]._id, 'like')"
                       [routerLink]=""
                       routerLinkActive="notification-content"
-                      [innerHtml]="truncateHTML(cmt.data.review)"
+                      [innerHtml]="truncateHTMLMsg(cmt.data.review, ' - liked')"
+                      *ngIf = "cmt.data.like[0].notification"
                       >{{ cmt.data.review }}</a
                     >
                   </li>
+
+                  <li *ngFor="let cmt of replysOnComments">
+                    <a
+                      (click)="goToSharedProfileRecruiter(cmt.data._id, cmt.data.reply._id, 'reply')"
+                      [routerLink]=""
+                      routerLinkActive="notification-content"
+                      [innerHtml]="truncateHTMLMsg(cmt.data.reply.replyComment, ' - replied')"
+                      *ngIf = "cmt.data.reply.notification"
+                      >{{ cmt.data.review }}</a
+                    >
+                  </li>
+
                 </ul>
               </div>
             </div>

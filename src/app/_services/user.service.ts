@@ -18,6 +18,10 @@ export class UserService {
   private setProfile = new BehaviorSubject<any>([]);
   // Observable
   _setProfileObservable = this.setProfile.asObservable();
+
+  candidateProfileObservable = new Subject();
+  candidateProfileObservable$ = this.candidateProfileObservable.asObservable();
+
   constructor(private http: HttpClient) {
     this.baseurl = myGlobals.baseUrl;
   }
