@@ -31,6 +31,8 @@ import {
   tap,
 } from "rxjs/operators";
 import { fromEvent } from "rxjs";
+import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
+import { ConstantsService } from "src/app/_services/constants.service";
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
@@ -116,7 +118,9 @@ export class SharedCandidateProfilesComponent
     private shareVideoService: ShareVideoService,
     private formBuilder: FormBuilder,
     private _socket: WebsocketService,
-    private candidateService: CandidateService
+    private candidateService: CandidateService,
+    private _subList : SubscriberslistService,
+    private _constants : ConstantsService
   ) {
     this.resumes = [];
     this.Search = this.formBuilder.group({
@@ -392,6 +396,7 @@ export class SharedCandidateProfilesComponent
         );
     }
   }
+  
   likeThisCommet(cmt, resume) {
     let candidateProfile;
     resume?.resumeType ? (candidateProfile = false) : (candidateProfile = true);
@@ -500,6 +505,7 @@ export class SharedCandidateProfilesComponent
         (err) => {}
       );
   }
+
   replyToThisComment(i, comment, resume, cmtId) {
     console.log(i, comment, resume, cmtId);
 
@@ -525,6 +531,7 @@ export class SharedCandidateProfilesComponent
         (err) => {}
       );
   }
+  
   ngAfterViewInit() {
     // server side search
     // this.searchTermByName();
@@ -595,7 +602,6 @@ export class SharedCandidateProfilesComponent
   }
 
   async share(resume) {
-    // console.log('sharing the resume', this.recipientEmail, this.cc, this.bcc);
     jQuery("#shareEmailModal").modal("close");
     this.spinner.show();
     const subject =
@@ -607,10 +613,19 @@ export class SharedCandidateProfilesComponent
       " - " +
       this.shareResume.candidateName +
       " Profile.";
-    // console.log(subject, '&&&&&&&&&&&&&&&&&&&************', this.shareResume);
+
     const archiveIdPayload = {
       archivedId: this.shareResume.interviewLinkedByRecruiter,
     };
+
+    this.increseSharePoints({
+      recruiterId : this.loggedUser._id,
+      resumeId : this.shareResume._id,
+      to : this.recipientEmail,
+      cc : this.cc,
+      bcc : this.bcc
+    });
+
     // getting url
     this.getArchivedVideoSubscription = this.videoCallingService
       .getArchivedVideo(archiveIdPayload)
@@ -618,7 +633,7 @@ export class SharedCandidateProfilesComponent
         (res) => {
           if (res) {
             this.shareableVideoURL = res.url;
-            // console.log(this.shareableVideoURL);
+            
             this.spinner.hide();
             if (this.shareableVideoURL) {
               const payload = {
@@ -666,6 +681,22 @@ export class SharedCandidateProfilesComponent
       );
     // got url
   }
+
+  increseSharePoints(payLoad){
+    this.shareVideoSubscription = this.shareVideoService.increseSharePoints(payLoad).subscribe((res) => {
+      let eventObj = {
+        pointer : "ratingPoints",
+        increseCount : this._constants.sharedPoints
+      }
+      this._subList.recruiterPoints.next(eventObj);
+
+      eventObj.pointer = "sharePoints";
+      this._subList.recruiterPoints.next(eventObj);
+    },(err)=>{
+      Materialize.toast("Unable to increase points.", 3000);
+    });
+  }
+
   // END share process
   toggleAccordian(index, event, resume) {
     if (this.show === index) {

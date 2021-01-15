@@ -58,6 +58,12 @@
           {{ userProfile["advicePoints"] }}
         </b>
       </h4>
+      <h4>
+        <b>Share Points</b> :
+        <b #advicePoints class="noraml">
+          {{ userProfile["sharePoints"] }}
+        </b>
+      </h4>
       <ng-container *ngIf="userProfile['advicePoints']">
         <h4>
           <b>Candidates Helped</b> :

@@ -24,6 +24,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   doughnutObserver$ = this.doughnutObserver.asObservable();
 
   public CandidateFrm: FormGroup;
+  candidateSharedCount =  0;
   candidateHelpedCount = 0;
   candidateThanksCount = 0;
   candidateCommentsCount = 0;
@@ -161,6 +162,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   }
 
   showChartData(res){
+    this.candidateSharedCount = res.data.sharePoints ? res.data.sharePoints / 200 : 0;
     this.candidateHelpedCount = res.data.advicePoints ? res.data.advicePoints / 100 : 0;
     this.candidateThanksCount = res.data.adviceLikedPoints ? res.data.adviceLikedPoints / 50 : 0;
     this.candidateCommentsCount = res.data.ReplyAdvicePoints ? res.data.ReplyAdvicePoints / 25 : 0;

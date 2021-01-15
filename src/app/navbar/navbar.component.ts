@@ -54,12 +54,15 @@ export class NavbarComponent implements OnInit {
   getAllCandidateNotifications = "getAllCandidateNotifications";
   newCandidateNotifications = "newCandidateNotifications";
   decreaseNotificationCount = "decreaseNotificationCount";
+  candidateReplyNotification = "candidateReplyNotification";
+  candidateLikeNotification = "candidateLikeNotification";
 
   limit = 15;
   createdAt;
   selector: string = ".scrollNotification";
   userProfile: any;
   likesOnComments = [];
+  replysOnComments = [];
 
   constructor(
     private userService: UserService,
@@ -197,6 +200,7 @@ export class NavbarComponent implements OnInit {
   async initSocket(token, userRole) {
     await this._socket.getInstance(token, userRole);
   }
+
   getUsersProfile() {
     this.userService
       .getUserProfile(this.userService.getUserData().userRole)
@@ -228,6 +232,18 @@ export class NavbarComponent implements OnInit {
     return shortened;
   }
 
+  truncateHTMLMsg(text: string, msg : string = ''): string {
+    let charlimit = 20;
+    if (!text || text.length <= charlimit) {
+      return text + msg;
+    }
+
+    let without_html = text.replace(/<(?:.|\n)*?>/gm, "");
+    let trim_space = without_html.trim().replace(/&nbsp;/g, "");
+    let shortened = trim_space.substring(0, charlimit) + "...";
+    return shortened + msg;
+  }
+
   handleNotificationData(res: any) {
     switch (res.subType) {
       case this.getAllNotifications:
@@ -244,7 +260,7 @@ export class NavbarComponent implements OnInit {
         break;
       case this.newNotification:
         //add notification to start of list.
-        this.questDataLenght.unshift(res.result);
+        this.questDataLenght.length !== 0 ? this.questDataLenght.unshift(res.result) : this.questDataLenght.push(res.result);
         this.incrementNotificationCount();
         break;
       case this.getAllCandidateNotifications:
@@ -259,10 +275,20 @@ export class NavbarComponent implements OnInit {
           }
         });
         break;
-      case this.newCandidateNotifications:
-        this.likesOnComments.push(res);
+      case this.newCandidateNotifications :
+        this.commets.length !== 0 ? this.commets.unshift(res.data) : this.commets.push(res.data);
         this.incrementNotificationCount();
         break;
+      case this.candidateLikeNotification :
+        //add notification to start of list.
+        this.likesOnComments.length !== 0 ? this.likesOnComments.unshift(res) : this.likesOnComments.push(res);
+        this.incrementNotificationCount();
+        break;
+      case this.candidateReplyNotification : 
+        //add notification to start of list.
+        this.replysOnComments.length !== 0 ? this.replysOnComments.unshift(res) : this.replysOnComments.push(res);
+        this.incrementNotificationCount();
+        break
       default:
         break;
     }

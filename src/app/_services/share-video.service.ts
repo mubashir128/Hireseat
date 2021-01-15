@@ -55,4 +55,14 @@ export class ShareVideoService {
       );
   }
 
+  increseSharePoints(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/increseSharePoints", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
 }

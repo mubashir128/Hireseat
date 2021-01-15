@@ -6,6 +6,7 @@ import { UserService } from "src/app/_services/user.service";
 import { RewardSummary } from "src/app/profile/model/reward-summary";
 import { IProfile, Profile } from "src/app/profile/model/user-profile";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
+import { Subject } from "rxjs";
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -93,10 +94,19 @@ export class RecruiterNavbarComponent implements OnInit {
       this.tabs1[0].selected = true;
     }
 
+    this._subList.recruiterPoints$.subscribe((res: any) => {
+      this.handleRecruiterPoints(res);
+    });
+
     this._subList.activebidEvent$.subscribe((res) => {
       this.handleActiveList(res);
     });
   }
+
+  handleRecruiterPoints(res){
+    this.userProfile[res.pointer] += res.increseCount;
+  }
+
   /**
    * to display count from start to end
    * @param obj
@@ -149,6 +159,7 @@ export class RecruiterNavbarComponent implements OnInit {
       .getUserProfile(this.userService.getUserData().userRole)
       .subscribe(
         (data: any) => {
+          console.log("data : ",data);
           if (data != null && data != undefined && data != "") {
             this.userProfile = data.res;
           } else {
