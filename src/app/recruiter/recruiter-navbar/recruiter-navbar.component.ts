@@ -104,7 +104,16 @@ export class RecruiterNavbarComponent implements OnInit {
   }
 
   handleRecruiterPoints(res){
-    this.userProfile[res.pointer] += res.increseCount;
+    console.log("--- : handleRecruiterPoints : ", res);
+    switch(res.pointer){
+      case "advicePoints" : 
+        if(res.subType === "divide"){
+          this.userProfile[res.pointer] = res.increseCount;
+        }else{
+          this.userProfile[res.pointer] += res.increseCount;
+        }
+        break;
+    }
   }
 
   /**

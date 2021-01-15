@@ -372,6 +372,7 @@ export class SharedCandidateProfilesComponent
         review: cmt,
         role: "recruiter",
       };
+      
       this.postCommentSubscription = this.resumeService
         .postMyComment(payload)
         .subscribe(
@@ -386,6 +387,16 @@ export class SharedCandidateProfilesComponent
                 4000,
                 "red"
               );
+
+              let candidateObj = {
+                pointer : "advicePoints",
+                subType : "divide",
+                increseCount : res.points.advicePoints
+              }
+              this.userService.candidateProfileObservable.next(candidateObj);
+
+              this._subList.recruiterPoints.next(candidateObj);
+
               // }
               this.myComment[i] = "";
             }
@@ -633,7 +644,7 @@ export class SharedCandidateProfilesComponent
         (res) => {
           if (res) {
             this.shareableVideoURL = res.url;
-            
+
             this.spinner.hide();
             if (this.shareableVideoURL) {
               const payload = {
@@ -686,6 +697,7 @@ export class SharedCandidateProfilesComponent
     this.shareVideoSubscription = this.shareVideoService.increseSharePoints(payLoad).subscribe((res) => {
       let eventObj = {
         pointer : "ratingPoints",
+        subType : "increse",
         increseCount : this._constants.sharedPoints
       }
       this._subList.recruiterPoints.next(eventObj);

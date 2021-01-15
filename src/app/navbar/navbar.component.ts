@@ -142,6 +142,10 @@ export class NavbarComponent implements OnInit {
       this.handleNotificationData(res);
     });
 
+    this.userService.candidateProfileObservable$.subscribe((res: any) => {
+      this.handleCandidateProfile(res);
+    });
+
     this._socket.sendMessage({
       type: 1,
       data: {
@@ -242,6 +246,10 @@ export class NavbarComponent implements OnInit {
     let trim_space = without_html.trim().replace(/&nbsp;/g, "");
     let shortened = trim_space.substring(0, charlimit) + "...";
     return shortened + msg;
+  }
+
+  handleCandidateProfile(obj){
+    this.userProfile[obj.pointer] = obj.increseCount;
   }
 
   handleNotificationData(res: any) {
