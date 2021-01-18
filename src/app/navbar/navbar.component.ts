@@ -10,6 +10,9 @@ import { EnterpriseService } from "../_services/enterprise.service";
 import { WebsocketService } from "../_services/websocket.service";
 import { Subject } from "rxjs";
 import { PushNotificationService } from "../_services/push-notification.service";
+import { SubscriberslistService } from "../_services/subscriberslist.service";
+import { ConstantsService } from "../_services/constants.service";
+
 declare var Materialize: any;
 declare var jQuery: any;
 declare var $: any;
@@ -77,7 +80,9 @@ export class NavbarComponent implements OnInit {
     private _socket: WebsocketService,
     private _eref: ElementRef,
     public enterpriseService: EnterpriseService,
-    private _pushNotify: PushNotificationService
+    private _pushNotify: PushNotificationService,
+    private _constants : ConstantsService,
+    private _subList : SubscriberslistService
   ) {
     this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
@@ -293,6 +298,12 @@ export class NavbarComponent implements OnInit {
       case this.candidateReplyNotification : 
         //add notification to start of list.
         this.replysOnComments.length !== 0 ? this.replysOnComments.unshift(res) : this.replysOnComments.push(res);
+        let candidateObj = {
+          pointer : "ratingPoints",
+          subType : "add",
+          increseCount : this._constants.ReplyAdvicePoints
+        }
+        this._subList.recruiterPoints.next(candidateObj);
         this.incrementNotificationCount();
         break
       case this.getRecruiterNotifications : 

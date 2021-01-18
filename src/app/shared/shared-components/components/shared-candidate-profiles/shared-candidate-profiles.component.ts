@@ -33,6 +33,7 @@ import {
 import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { ConstantsService } from "src/app/_services/constants.service";
+
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
@@ -219,7 +220,6 @@ export class SharedCandidateProfilesComponent
     //     subType: "getAllSharedProfiles",
     //   },
     // });
-    console.log("userInfo-----------", userInfo);
 
     // this._socket.sendMessage({
     //   type: 5,

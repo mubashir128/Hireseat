@@ -4,6 +4,7 @@ import { Chart } from "chart.js";
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Subject } from "rxjs";
 import { UserService } from "../../../_services/user.service";
+import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 
 @Component({
   selector: 'app-recruiter-doughnut-chart',
@@ -35,7 +36,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   targetScore = "Target Score";
 
   loggedInUser: any;
-  constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private userService: UserService,private _subList : SubscriberslistService) {
     this.setDaughnutChartConfig();
     this.loggedInUser = this.userService.getUserData();
 
@@ -68,6 +69,19 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
       },
     });
 
+    this._subList.recruiterPoints$.subscribe((res: any) => {
+      this.handleRecruiterPoints(res);
+    });
+
+  }
+
+  handleRecruiterPoints(res){
+    switch(res.pointer){
+      case "ratingPoints" :
+        this.changeTotalAndTargetText(res);
+        // this.userProfile[res.pointer] += res.increseCount;
+        break;
+    }
   }
 
   setDaughnutChartConfig(){
@@ -189,6 +203,26 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     this.changeText();
     this.DaughnutChart.update();
 
+  }
+
+  changeTotalAndTargetText(res){
+    let firstNum = 0;
+    let secondNum = 999;
+    let totalvalue = parseInt(this.totalText) + res.increseCount;
+    this.totalText = totalvalue + "";
+
+    while(true){
+      if(totalvalue >= firstNum && totalvalue <= secondNum){
+        this.targetText = (secondNum + 1) + '';
+        break;
+      }else{
+        firstNum = secondNum;
+        secondNum += 1000;
+      }
+    }
+
+    this.changeText();
+    this.DaughnutChart.update();
   }
 
   changeText(){
