@@ -1,10 +1,14 @@
 .chart {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 16px;
-    text-align: center;
-    background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #ffffff;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-  
+
 .donut-inner {
   margin-top: -100px;
   margin-bottom: 100px;
@@ -32,22 +36,34 @@
   /* margin-left: -30px; */
 }
 
-.candidateReferred, .candidateReferredCount {
+.candidateReferred,
+.candidateReferredCount {
   width: 25%;
   float: left;
 }
 
-.candidateHelped, .candidateHelpedCount {
+.candidateHelped,
+.candidateHelpedCount {
   width: 25%;
   float: left;
 }
 
-.candidateThanks, .candidateThanksCount {
+.candidateThanks,
+.candidateThanksCount {
   width: 25%;
   float: left;
 }
 
-.candidateComments, .candidateCommentsCount {
+.candidateComments,
+.candidateCommentsCount {
   width: 25%;
   float: left;
+}
+.display-chart {
+  width: 50%;
+  height: 50%;
+}
+#doughnutChart {
+  width: 100% !important;
+  height: 100% !important;
 }
