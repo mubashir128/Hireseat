@@ -120,8 +120,8 @@ export class SharedCandidateProfilesComponent
     private formBuilder: FormBuilder,
     private _socket: WebsocketService,
     private candidateService: CandidateService,
-    private _subList : SubscriberslistService,
-    private _constants : ConstantsService
+    private _subList: SubscriberslistService,
+    private _constants: ConstantsService
   ) {
     this.resumes = [];
     this.Search = this.formBuilder.group({
@@ -191,7 +191,7 @@ export class SharedCandidateProfilesComponent
     jQuery(".modal").modal();
     jQuery("select").material_select();
   }
-  
+
   async ngOnInit() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
@@ -256,8 +256,8 @@ export class SharedCandidateProfilesComponent
         break;
     }
   }
-  
-  addCommentToCommets(res){
+
+  addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
         element.canReview.push(res.data);
@@ -267,7 +267,7 @@ export class SharedCandidateProfilesComponent
     });
   }
 
-  addLikeToComment(res){
+  addLikeToComment(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
@@ -281,7 +281,7 @@ export class SharedCandidateProfilesComponent
     });
   }
 
-  addReplyToComment(res){
+  addReplyToComment(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
@@ -372,7 +372,7 @@ export class SharedCandidateProfilesComponent
         review: cmt,
         role: "recruiter",
       };
-      
+
       this.postCommentSubscription = this.resumeService
         .postMyComment(payload)
         .subscribe(
@@ -389,10 +389,10 @@ export class SharedCandidateProfilesComponent
               );
 
               let candidateObj = {
-                pointer : "advicePoints",
-                subType : "divide",
-                increseCount : res.points.advicePoints
-              }
+                pointer: "advicePoints",
+                subType: "divide",
+                increseCount: res.points.advicePoints,
+              };
               this.userService.candidateProfileObservable.next(candidateObj);
 
               this._subList.recruiterPoints.next(candidateObj);
@@ -407,7 +407,7 @@ export class SharedCandidateProfilesComponent
         );
     }
   }
-  
+
   likeThisCommet(cmt, resume) {
     let candidateProfile;
     resume?.resumeType ? (candidateProfile = false) : (candidateProfile = true);
@@ -542,7 +542,7 @@ export class SharedCandidateProfilesComponent
         (err) => {}
       );
   }
-  
+
   ngAfterViewInit() {
     // server side search
     // this.searchTermByName();
@@ -615,6 +615,9 @@ export class SharedCandidateProfilesComponent
   async share(resume) {
     jQuery("#shareEmailModal").modal("close");
     this.spinner.show();
+    console.log("___________--------------_________");
+    console.table(resume);
+
     const subject =
       "Hireseat" +
       " - " +
@@ -630,11 +633,11 @@ export class SharedCandidateProfilesComponent
     };
 
     this.increseSharePoints({
-      recruiterId : this.loggedUser._id,
-      resumeId : this.shareResume._id,
-      to : this.recipientEmail,
-      cc : this.cc,
-      bcc : this.bcc
+      recruiterId: this.loggedUser._id,
+      resumeId: this.shareResume._id,
+      to: this.recipientEmail,
+      cc: this.cc,
+      bcc: this.bcc,
     });
 
     // getting url
@@ -693,20 +696,25 @@ export class SharedCandidateProfilesComponent
     // got url
   }
 
-  increseSharePoints(payLoad){
-    this.shareVideoSubscription = this.shareVideoService.increseSharePoints(payLoad).subscribe((res) => {
-      let eventObj = {
-        pointer : "ratingPoints",
-        subType : "increse",
-        increseCount : this._constants.sharedPoints
-      }
-      this._subList.recruiterPoints.next(eventObj);
+  increseSharePoints(payLoad) {
+    this.shareVideoSubscription = this.shareVideoService
+      .increseSharePoints(payLoad)
+      .subscribe(
+        (res) => {
+          let eventObj = {
+            pointer: "ratingPoints",
+            subType: "increse",
+            increseCount: this._constants.sharedPoints,
+          };
+          this._subList.recruiterPoints.next(eventObj);
 
-      eventObj.pointer = "sharePoints";
-      this._subList.recruiterPoints.next(eventObj);
-    },(err)=>{
-      Materialize.toast("Unable to increase points.", 3000);
-    });
+          eventObj.pointer = "sharePoints";
+          this._subList.recruiterPoints.next(eventObj);
+        },
+        (err) => {
+          Materialize.toast("Unable to increase points.", 3000);
+        }
+      );
   }
 
   // END share process
