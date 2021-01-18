@@ -94,6 +94,10 @@
   display: table-cell;
   vertical-align: middle;
 }
+.uploadBtn {
+  display: table-cell;
+  vertical-align: middle;
+}
 
 .resumePriviewDiv .grey {
   width: 100%;
@@ -767,16 +771,16 @@ iframe.interviewVideo {
   margin: 0 auto;
   position: relative;
 }
-.uploadProfileImg img{
-width: 100%;
-height: 100%;
+.uploadProfileImg img {
+  width: 100%;
+  height: 100%;
 }
 .UploadImgDefault {
   width: 100%;
   height: 100%;
   position: relative;
 }
-.uploadProfileImg:hover .profileAdd{
+.uploadProfileImg:hover .profileAdd {
   opacity: 1;
 }
 .profileAdd {
@@ -793,21 +797,21 @@ height: 100%;
   opacity: 0;
   transition: 0.8s;
 }
-.profileAdd i{
+.profileAdd i {
   color: #ffffff;
 }
-.profileAdd p{
+.profileAdd p {
   font-size: 13px;
-    color: #ffffff;
-    margin-top: 4px;
-    text-align: center;
+  color: #ffffff;
+  margin-top: 4px;
+  text-align: center;
 }
-.uploadProfileImg input{
+.uploadProfileImg input {
   position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0;
 }

@@ -128,6 +128,15 @@
             </div>
           </ng-container>
         </div>
+        <div
+          class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+          style="display: table"
+        >
+          <div class="uploadBtn" style="display: table-cell">
+            <span>Change Resume</span>
+            <input type="file" (change)="fileChange($event)" />
+          </div>
+        </div>
         <!-- <span>Re-Upload Resume</span>
                 <input type="file" (change)="fileChange($event)" /> -->
         <div
