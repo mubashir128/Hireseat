@@ -114,6 +114,9 @@ export class RecruiterNavbarComponent implements OnInit {
       case "ratingPoints" :
         this.userProfile[res.pointer] += res.increseCount;
         break;
+      case "sharePoints" :
+        this.userProfile[res.pointer] += res.increseCount;
+        break;
     }
   }
 

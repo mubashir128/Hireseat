@@ -615,8 +615,7 @@ export class SharedCandidateProfilesComponent
   async share(resume) {
     jQuery("#shareEmailModal").modal("close");
     this.spinner.show();
-    console.log("___________--------------_________");
-    console.log(this.shareResume);
+    
     const candidateName = this.shareResume.resumeType
       ? this.shareResume.candidateName
       : this.shareResume.candidate_id.fullName;
@@ -633,14 +632,6 @@ export class SharedCandidateProfilesComponent
     const archiveIdPayload = {
       archivedId: this.shareResume.interviewLinkedByRecruiter,
     };
-
-    this.increseSharePoints({
-      recruiterId: this.loggedUser._id,
-      resumeId: this.shareResume._id,
-      to: this.recipientEmail,
-      cc: this.cc,
-      bcc: this.bcc,
-    });
 
     // getting url
     this.getArchivedVideoSubscription = this.videoCallingService
@@ -674,6 +665,17 @@ export class SharedCandidateProfilesComponent
                       // console.log(res);
                       Materialize.toast(res.msg, 3000);
                       jQuery("#shareEmailModal").modal("close");
+
+                      let eventObj = {
+                        pointer: "ratingPoints",
+                        subType: "increse",
+                        increseCount: this._constants.sharedPoints,
+                      };
+                      this._subList.recruiterPoints.next(eventObj);
+            
+                      eventObj.pointer = "sharePoints";
+                      this._subList.recruiterPoints.next(eventObj);
+
                       this.spinner.hide();
                     }
                   },
@@ -701,27 +703,6 @@ export class SharedCandidateProfilesComponent
         }
       );
     // got url
-  }
-
-  increseSharePoints(payLoad) {
-    this.shareVideoSubscription = this.shareVideoService
-      .increseSharePoints(payLoad)
-      .subscribe(
-        (res) => {
-          let eventObj = {
-            pointer: "ratingPoints",
-            subType: "increse",
-            increseCount: this._constants.sharedPoints,
-          };
-          this._subList.recruiterPoints.next(eventObj);
-
-          eventObj.pointer = "sharePoints";
-          this._subList.recruiterPoints.next(eventObj);
-        },
-        (err) => {
-          Materialize.toast("Unable to increase points.", 3000);
-        }
-      );
   }
 
   // END share process
