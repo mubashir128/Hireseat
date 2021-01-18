@@ -157,7 +157,7 @@ export class SharedCandidateProfilesComponent
     this.replyToComment = [];
     this.loggedUser = this.userService.getUserData();
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
-      // console.log('subscribeed', res);
+      console.log("subscribeed", res);
       this.shareResume = res;
     });
 
@@ -603,7 +603,7 @@ export class SharedCandidateProfilesComponent
 
   // share process
   showShareModal(resume) {
-    // console.log(resume, "**********************");
+    console.log(resume, "**********************");
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -616,8 +616,10 @@ export class SharedCandidateProfilesComponent
     jQuery("#shareEmailModal").modal("close");
     this.spinner.show();
     console.log("___________--------------_________");
-    console.table(this.shareResume);
-
+    console.log(this.shareResume);
+    const candidateName = this.shareResume.resumeType
+      ? this.shareResume.candidateName
+      : this.shareResume.candidate_id.fullName;
     const subject =
       "Hireseat" +
       " - " +
@@ -625,7 +627,7 @@ export class SharedCandidateProfilesComponent
       " - " +
       this.shareResume.jobTitle +
       " - " +
-      this.shareResume.candidateName +
+      candidateName +
       " Profile.";
 
     const archiveIdPayload = {
@@ -657,9 +659,12 @@ export class SharedCandidateProfilesComponent
                 cc: this.cc,
                 bcc: this.bcc,
                 videoUrl: this.shareableVideoURL,
-                fullName: this.shareResume.candidateName,
+                fullName: this.shareResume.resumeType
+                  ? this.shareResume.candidateName
+                  : this.shareResume.candidate_id.fullName,
                 subject: subject,
                 comment: this.shareResume.comments,
+                candidateProfile: this.shareResume.resumeType ? false : true,
               };
               this.shareVideoSubscription = this.shareVideoService
                 .shareVideoViaRecruiterEmail(payload)
@@ -689,6 +694,8 @@ export class SharedCandidateProfilesComponent
           }
         },
         (err) => {
+          console.log("none responses");
+
           this.spinner.hide();
           return false;
         }
