@@ -72,8 +72,43 @@
   width: 100%;
   height: 100%;
 }
+
 .comments-div {
   width: 50%;
   height: 100%;
-  border: 1px solid;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #48aef3;
+  border-radius: 3px ;
+}
+
+.recruiterComment {
+  margin-left: 15px;
+  text-align: left;
+}
+
+.replyComment {
+  margin-left: 30px;
+  text-align: left;
+}
+
+.styleReply {
+  font-size: 14px;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+  color: brown;
+}
+
+.styleComment {
+  font-size: 16px;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+  color: crimson;
+}
+
+.allComments {
+  font-size: 18px;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+  color: darkred;
 }

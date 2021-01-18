@@ -19,6 +19,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   chartColor = ["#0aafff", "#E0DFDF"];
 
   getDoughnutChartData = "getDoughnutChartData";
+  getAllRecruiterComment = "getAllRecruiterComment";
 
   doughnutObserver = new Subject();
   doughnutObserver$ = this.doughnutObserver.asObservable();
@@ -33,6 +34,8 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   targetText = "";
   totalScore = "Total Score";
   targetScore = "Target Score";
+
+  allComments = [];
 
   loggedInUser: any;
   constructor(
@@ -69,6 +72,14 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
       data: {
         type: this.loggedInUser.userRole,
         subType: this.getDoughnutChartData,
+      },
+    });
+
+    this._socket.sendMessage({
+      type: 6,
+      data: {
+        type: this.loggedInUser.userRole,
+        subType: this.getAllRecruiterComment,
       },
     });
 
@@ -173,6 +184,10 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     switch (res.subType) {
       case this.getDoughnutChartData:
         this.showChartData(res);
+        break;
+      case this.getAllRecruiterComment : 
+        console.log("getAllRecruiterComment : ",res.data);
+        this.allComments = res.data;
         break;
       default:
         break;

@@ -1,10 +1,33 @@
 <div class="chart">
+
   <div class="partition">
     <div class="display-chart">
       <canvas id="doughnutChart"></canvas>
     </div>
-    <div class="comments-div"></div>
+    <div class="comments-div">
+      <div class="allComments">
+        All Comments
+      </div>
+      <hr style="width: 90%;">
+      <div class="recruiterComment" *ngFor="let item of allComments; index as i">
+        
+          <div class="styleComment">
+            {{i+1}}) {{item.canReview.review}}
+          </div>
+
+          <div style="margin-left: 20px; color: coral;">
+            reply's -
+          </div>
+
+        <div class="replyComment" *ngFor="let reply of item.canReview.reply">
+          <div class="styleReply">- {{reply.replyComment}}</div>
+        </div>
+
+        <hr style="width: 95%;">
+      </div>
+    </div>
   </div>
+
   <div class="row candidateForm">
     <form [formGroup]="CandidateFrm" novalidate>
       <div class="row candidateStatusCount">
