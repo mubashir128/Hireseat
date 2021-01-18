@@ -261,14 +261,14 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
           ctx.fillStyle = "blue";
 
           ctx.textColor = "red";
-          ctx.fillText(text, textX, textY);
-          ctx.fillText(THIS.totalScore, textX - 20, textY + 20);
+          ctx.fillText(text, textX, textY + 30);
+          ctx.fillText(THIS.totalScore, textX - 15, textY + 45);
 
           ctx.fillStyle = "red";
           ctx.textColor = "gray";
           var text2 = THIS.targetText;
-          ctx.fillText(text2, textX, textY + 85);
-          ctx.fillText(THIS.targetScore, textX - 20, textY + 100);
+          ctx.fillText(text2, textX, textY + 70);
+          ctx.fillText(THIS.targetScore, textX - 20, textY + 85);
 
           ctx.save();
         }
