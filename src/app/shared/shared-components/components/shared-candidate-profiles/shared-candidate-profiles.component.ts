@@ -616,7 +616,7 @@ export class SharedCandidateProfilesComponent
     jQuery("#shareEmailModal").modal("close");
     this.spinner.show();
     console.log("___________--------------_________");
-    console.table(resume);
+    console.table(this.shareResume);
 
     const subject =
       "Hireseat" +
