@@ -1,76 +1,84 @@
 <div class="chart">
-
   <div class="partition">
     <div class="display-chart">
       <canvas id="doughnutChart"></canvas>
     </div>
     <div class="comments-div">
-      <div class="allComments">
-        All Comments
-      </div>
+      <div class="allComments">All Comments</div>
 
-      <hr style="width: 98%;">
-      <div class="recruiterComment" *ngFor="let item of allComments.canReview; index as i">
-        
-          <div class="styleComment row">
+      <hr style="width: 98%" />
+      <div
+        class="recruiterComment"
+        *ngFor="let item of allComments['canReview']; index as i"
+      >
+        <div class="styleComment row">
+          <ng-container
+            *ngIf="
+              allComments['candidate_id']?.profileimage &&
+              allComments['candidateKey']?.profileimage
+            "
+          >
+            <div class="candProfile col" style="width: 20%">
+              <img
+                src="allComments?.candidate_id?.profileimage || allComments?.candidateKey?.profileimage"
+                alt="profile"
+              />
+            </div>
+          </ng-container>
 
-            <ng-container *ngIf="allComments?.candidate_id?.profileimage && allComments?.candidateKey?.profileimage">
-              <div class="candProfile col"  style="width: 20%;">
-                <img src="allComments?.candidate_id?.profileimage || allComments?.candidateKey?.profileimage" alt="profile" />
+          <ng-container
+            *ngIf="
+              !allComments['candidate_id']?.profileimage &&
+              !allComments['candidateKey']?.profileimage
+            "
+          >
+            <div class="candProfile col" style="width: 20%">
+              <img src="assets/img/profile-user.png" alt="profile" />
+            </div>
+          </ng-container>
+
+          <div class="col" style="width: 80%; margin-left: -30px">
+            {{ loggedInUser.fullName }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            class="col"
+            style="width: 100%; margin-left: 10px; margin-top: -15px"
+          >
+            {{ item.review }}
+          </div>
+        </div>
+
+        <hr style="width: 85%" />
+        <div style="margin-left: 20px; margin-top: -5px">Replies</div>
+
+        <div class="replyComment" *ngFor="let reply of item.reply">
+          <div class="row">
+            <ng-container *ngIf="reply?.user_id?.profileimage">
+              <div class="candProfile2 col">
+                <img src="reply?.user_id?.profileimage" alt="profile" />
               </div>
             </ng-container>
 
-            <ng-container *ngIf="!allComments?.candidate_id?.profileimage && !allComments?.candidateKey?.profileimage">
-              <div class="candProfile col"  style="width: 20%;">
+            <ng-container *ngIf="!reply?.user_id?.profileimage">
+              <div class="candProfile2 col">
                 <img src="assets/img/profile-user.png" alt="profile" />
               </div>
             </ng-container>
 
-            <div class="col" style="width: 80%; margin-left: -30px;">
-              {{ loggedInUser.fullName }}
+            <div class="col" style="margin-left: -50px">
+              {{ reply.user_id.fullName }}
             </div>
-
           </div>
 
           <div class="row">
-            <div class="col" style="width: 100%; margin-left: 10px; margin-top: -15px;">
-              {{item.review}}
-            </div>
+            <div class="styleReply col">{{ reply.replyComment }}</div>
           </div>
+        </div>
 
-          <hr style="width: 85%;">
-          <div style="margin-left: 20px; margin-top: -5px;">
-            Replies
-          </div>
-
-          <div class="replyComment" *ngFor="let reply of item.reply">
-
-            <div class="row">
-              <ng-container *ngIf="reply?.user_id?.profileimage">
-                <div class="candProfile2 col">
-                  <img src="reply?.user_id?.profileimage" alt="profile" />
-                </div>
-              </ng-container>
-
-              <ng-container *ngIf="!reply?.user_id?.profileimage">
-                <div class="candProfile2 col">
-                  <img src="assets/img/profile-user.png" alt="profile" />
-                </div>
-              </ng-container>
-
-              <div class="col" style="margin-left: -50px;">
-                {{reply.user_id.fullName}}
-              </div>
-
-            </div>
-
-            <div class="row">
-              <div class="styleReply col">  {{reply.replyComment}}</div>
-            </div>
-
-          </div>
-
-        <hr style="width: 98%;">
+        <hr style="width: 98%" />
       </div>
     </div>
   </div>
