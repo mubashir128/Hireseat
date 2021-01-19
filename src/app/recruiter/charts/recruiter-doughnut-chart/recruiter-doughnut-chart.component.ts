@@ -83,6 +83,8 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
       },
     });
 
+    console.log(this.loggedInUser);
+
     this._subList.recruiterPoints$.subscribe((res: any) => {
       this.handleRecruiterPoints(res);
     });
