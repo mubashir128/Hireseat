@@ -612,10 +612,11 @@ export class SharedCandidateProfilesComponent
     jQuery("#shareEmailModal").modal("close");
   }
 
-  async share(resume) {
+  async share() {
     jQuery("#shareEmailModal").modal("close");
     this.spinner.show();
-    
+    console.log("------------------------");
+
     const candidateName = this.shareResume.resumeType
       ? this.shareResume.candidateName
       : this.shareResume.candidate_id.fullName;
@@ -650,9 +651,7 @@ export class SharedCandidateProfilesComponent
                 cc: this.cc,
                 bcc: this.bcc,
                 videoUrl: this.shareableVideoURL,
-                fullName: this.shareResume.resumeType
-                  ? this.shareResume.candidateName
-                  : this.shareResume.candidate_id.fullName,
+                fullName: candidateName,
                 subject: subject,
                 comment: this.shareResume.comments,
                 candidateProfile: this.shareResume.resumeType ? false : true,
@@ -672,7 +671,7 @@ export class SharedCandidateProfilesComponent
                         increseCount: this._constants.sharedPoints,
                       };
                       this._subList.recruiterPoints.next(eventObj);
-            
+
                       eventObj.pointer = "sharePoints";
                       this._subList.recruiterPoints.next(eventObj);
 

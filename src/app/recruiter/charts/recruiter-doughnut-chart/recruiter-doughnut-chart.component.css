@@ -61,7 +61,7 @@
 }
 .display-chart {
   width: 55%;
-  height: 70%;
+  height: 60%;
 }
 #doughnutChart {
   width: 100% !important;
@@ -70,7 +70,7 @@
 .partition {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 80%;
 }
 
 .comments-div {
@@ -79,7 +79,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   border: 1px solid #48aef3;
-  border-radius: 3px ;
+  border-radius: 3px;
 }
 
 .recruiterComment {
@@ -94,21 +94,21 @@
 
 .styleReply {
   font-size: 14px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-style: italic;
   color: brown;
 }
 
 .styleComment {
   font-size: 16px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-style: italic;
   color: crimson;
 }
 
 .allComments {
   font-size: 18px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-style: italic;
   color: darkred;
 }
