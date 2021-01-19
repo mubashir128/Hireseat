@@ -518,8 +518,6 @@ export class SharedCandidateProfilesComponent
   }
 
   replyToThisComment(i, comment, resume, cmtId) {
-    console.log(i, comment, resume, cmtId);
-
     let candidateProfile;
     resume?.resumeType ? (candidateProfile = false) : (candidateProfile = true);
     const payload = {
@@ -534,7 +532,6 @@ export class SharedCandidateProfilesComponent
       .subscribe(
         (res) => {
           if (res) {
-            console.log("received");
             this.replyToComment[i] = "";
             this.getProfiles();
           }

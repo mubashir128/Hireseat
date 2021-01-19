@@ -8,11 +8,11 @@ import { SubscriberslistService } from 'src/app/_services/subscriberslist.servic
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() {
+  constructor(private _subList : SubscriberslistService) {
   }
 
   ngOnInit() {
-    
+    this._subList.activebidEvent.next({});
   }
 
 }

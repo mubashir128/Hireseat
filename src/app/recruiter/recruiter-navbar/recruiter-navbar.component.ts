@@ -149,7 +149,7 @@ export class RecruiterNavbarComponent implements OnInit {
 
   handleActiveList(obj) {
     this.tabs1.forEach((tab) => {
-      if (tab.displayText === "Job Postings") {
+      if (tab.displayText === "Dashboard") {
         tab.selected = true;
       } else {
         tab.selected = false;
