@@ -83,6 +83,8 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
       },
     });
 
+    console.log(this.loggedInUser);
+
     this._subList.recruiterPoints$.subscribe((res: any) => {
       this.handleRecruiterPoints(res);
     });
@@ -186,7 +188,9 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
         this.showChartData(res);
         break;
       case this.getAllRecruiterComment : 
-        this.allComments = res.data;
+        res.data.forEach(item => {
+          this.allComments = item;
+        });
         break;
       default:
         break;

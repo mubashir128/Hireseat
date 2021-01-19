@@ -4,7 +4,6 @@ import { IProfile, Profile } from "src/app/profile/model/user-profile";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router, NavigationEnd } from "@angular/router";
 import { UserService } from "src/app/_services/user.service";
-import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 declare var Materialize: any;
 
 declare var jQuery: any;
@@ -22,7 +21,6 @@ export class CandidateNavbarComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private userService: UserService,
-    private _subList: SubscriberslistService
   ) {
     this.tabs1 = [];
   }
@@ -60,10 +58,6 @@ export class CandidateNavbarComponent implements OnInit {
     // this.showSummary();
     this.SelectItem(this.router.url);
     // this.getUsersProfile();
-
-    this._subList.activebidEvent$.subscribe((res) => {
-      this.handleActiveList(res);
-    });
   }
 
   handleActiveList(obj) {
