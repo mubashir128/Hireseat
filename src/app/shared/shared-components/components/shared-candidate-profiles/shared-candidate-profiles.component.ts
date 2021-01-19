@@ -600,7 +600,7 @@ export class SharedCandidateProfilesComponent
 
   // share process
   showShareModal(resume) {
-    console.log(resume, "**********************");
+    // console.log(resume, "**********************");
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -660,6 +660,11 @@ export class SharedCandidateProfilesComponent
                     if (res) {
                       // console.log(res);
                       Materialize.toast(res.msg, 3000);
+                      Materialize.toast(
+                        "You gained 200 recruiter karma points",
+                        4000,
+                        "red"
+                      );
                       jQuery("#shareEmailModal").modal("close");
 
                       let eventObj = {
