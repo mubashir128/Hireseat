@@ -94,21 +94,50 @@
 
 .styleReply {
   font-size: 14px;
-  font-family: 'Courier New', Courier, monospace;
+  /* font-family: 'Courier New', Courier, monospace;
   font-style: italic;
-  color: brown;
+  color: brown; */
+  margin-top: -20px;
+  margin-left: 10px;
 }
 
 .styleComment {
   font-size: 16px;
-  font-family: 'Courier New', Courier, monospace;
+  /* font-family: 'Courier New', Courier, monospace;
   font-style: italic;
-  color: crimson;
+  color: crimson; */
 }
 
 .allComments {
   font-size: 18px;
-  font-family: 'Courier New', Courier, monospace;
+  /* font-family: 'Courier New', Courier, monospace;
   font-style: italic;
-  color: darkred;
+  color: darkred; */
+}
+
+.candProfile {
+  float: left;
+  width: 30%;
+
+}
+
+.candProfile img {
+  width: 60%;
+  height: 30%;
+  background-color: #e7e7e7;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.candProfile2 {
+  float: left;
+  width: 30%;
+}
+
+.candProfile2 img {
+  width: 30%;
+  height: 30%;
+  background-color: #e7e7e7;
+  border-radius: 20px;
+  object-fit: cover;
 }

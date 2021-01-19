@@ -64,7 +64,7 @@ export class WebsocketService {
   // }
   sendMessage(obj: any) {
     if (this.socket !== undefined) {
-      console.log("sending a msg", obj);
+      // console.log("sending a msg", obj);
 
       this.socket.emit("message", JSON.stringify(obj));
     }
@@ -78,7 +78,7 @@ export class WebsocketService {
   }
   private onMessage(obj: string) {
     let res = JSON.parse(obj);
-    console.log("message received : ", res);
+    // console.log("message received : ", res);
     this.listeners.forEach((key, index) => {
       if (res.type === key.type) {
         key.callback.next(res.data);
