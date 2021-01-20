@@ -113,7 +113,7 @@ export class RecruiterPieChartComponent implements OnInit {
             // fontFamily: "Comic Sans MS",
             boxWidth: 8,
             boxHeight: 0,
-            fontSize: 10,
+            fontSize: 15,
           },
           maxSize: {
             height: 0,
@@ -122,6 +122,7 @@ export class RecruiterPieChartComponent implements OnInit {
         title: {
           text: "Candidate helped / month.",
           display: true,
+          fontSize: 15,
         },
         scales: {
           yAxes: [
