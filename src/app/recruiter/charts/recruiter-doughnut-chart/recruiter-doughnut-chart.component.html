@@ -14,7 +14,7 @@
         <div class="styleComment row">
           <ng-container
             *ngIf="
-              allComments['candidate_id']?.profileimage &&
+              allComments['candidate_id']?.profileimage ||
               allComments['candidateKey']?.profileimage
             "
           >
@@ -28,7 +28,7 @@
 
           <ng-container
             *ngIf="
-              !allComments['candidate_id']?.profileimage &&
+              !allComments['candidate_id']?.profileimage ||
               !allComments['candidateKey']?.profileimage
             "
           >
