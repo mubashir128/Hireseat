@@ -14,13 +14,13 @@
         <div class="styleComment row">
           <ng-container
             *ngIf="
-              allComments['candidate_id']?.profileimage ||
-              allComments['candidateKey']?.profileimage
+              loggedInUser.profileimage !== '' ||
+              loggedInUser.profileimage !== ''
             "
           >
             <div class="candProfile col" style="width: 20%">
               <img
-                src="allComments?.candidate_id?.profileimage || allComments?.candidateKey?.profileimage"
+                src="loggedInUser.profileimage || loggedInUser.profileimage"
                 alt="profile"
               />
             </div>
@@ -28,8 +28,8 @@
 
           <ng-container
             *ngIf="
-              !allComments['candidate_id']?.profileimage ||
-              !allComments['candidateKey']?.profileimage
+              loggedInUser.profileimage === '' &&
+              loggedInUser.profileimage === ''
             "
           >
             <div class="candProfile col" style="width: 20%">
@@ -56,13 +56,13 @@
 
         <div class="replyComment" *ngFor="let reply of item.reply">
           <div class="row">
-            <ng-container *ngIf="reply?.user_id?.profileimage">
+            <ng-container *ngIf="reply?.user_id?.profileimage !== ''">
               <div class="candProfile2 col">
                 <img src="reply?.user_id?.profileimage" alt="profile" />
               </div>
             </ng-container>
 
-            <ng-container *ngIf="!reply?.user_id?.profileimage">
+            <ng-container *ngIf="reply?.user_id?.profileimage === ''">
               <div class="candProfile2 col">
                 <img src="assets/img/profile-user.png" alt="profile" />
               </div>
