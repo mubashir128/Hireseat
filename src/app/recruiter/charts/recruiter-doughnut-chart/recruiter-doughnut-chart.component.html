@@ -7,9 +7,10 @@
       <div class="allComments">All Comments</div>
 
       <hr style="width: 98%" />
+      
       <div
         class="recruiterComment"
-        *ngFor="let item of allComments['canReview']; index as i"
+        *ngFor="let item of allComments; index as i"
       >
         <div class="styleComment row">
           <ng-container *ngIf="loggedInUser.profileimage !== '' || loggedInUser.profileimage !== ''">
