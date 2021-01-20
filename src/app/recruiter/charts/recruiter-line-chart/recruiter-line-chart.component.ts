@@ -105,7 +105,7 @@ export class RecruiterLineChartComponent implements OnInit {
           // fontFamily: "Comic Sans MS",
           boxWidth: 30,
           boxHeight: 0,
-          fontSize: 10
+          fontSize: 15
         },
         maxSize: {
           height: 0
@@ -113,7 +113,8 @@ export class RecruiterLineChartComponent implements OnInit {
       },
       title: {
         text: "Candidates Helped",
-        display: true
+        display: true,
+        fontSize: 15
       },
       scales: {
         ticks: {
@@ -142,7 +143,7 @@ export class RecruiterLineChartComponent implements OnInit {
           {
             ticks: {
               beginAtZero: true,
-              // stepSize: 1,
+              stepSize: 1,
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",
