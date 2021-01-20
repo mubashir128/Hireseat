@@ -75,11 +75,11 @@ export class RecruiterPieChartComponent implements OnInit {
         },
         {
           label: "Candidates Referred / month.",
-          backgroundColor: "yellow",
+          backgroundColor: "#6495ED",
           // borderColor: "#B4C7E7",
           borderWidth: 1,
-          data: [0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
-        }
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        },
       ],
     };
   }

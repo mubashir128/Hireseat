@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { Chart } from "chart.js";
 
 @Component({
-  selector: 'app-recruiter-bar-chart',
-  templateUrl: './recruiter-bar-chart.component.html',
-  styleUrls: ['./recruiter-bar-chart.component.css']
+  selector: "app-recruiter-bar-chart",
+  templateUrl: "./recruiter-bar-chart.component.html",
+  styleUrls: ["./recruiter-bar-chart.component.css"],
 })
 export class RecruiterBarChartComponent implements OnInit {
   chartOptions: any;
@@ -14,13 +14,13 @@ export class RecruiterBarChartComponent implements OnInit {
 
   constructor() {
     this.data = {
-      labels: [1,2,3,4,5,6,7,8,9,10],
+      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       datasets: [
         {
           data: [10, 20, 30],
-          labels: ['Red', 'Yellow', 'Blue']
-        }
-      ]
+          labels: ["Red", "Yellow", "Blue"],
+        },
+      ],
     };
 
     this.chartOptions = {
@@ -32,12 +32,12 @@ export class RecruiterBarChartComponent implements OnInit {
           // fontFamily: "Comic Sans MS",
           boxWidth: 30,
           boxHeight: 1,
-          fontSize: 10
-        }
+          fontSize: 20,
+        },
       },
       title: {
         display: true,
-        text: "Recruiter Performance VS Cost"
+        text: "Recruiter Performance VS Cost",
       },
       scales: {
         xAxes: [
@@ -45,9 +45,9 @@ export class RecruiterBarChartComponent implements OnInit {
             barPercentage: 0.4,
             gridLines: {
               color: "rgba(0, 0, 0, 0)",
-              display: false
-            }
-          }
+              display: false,
+            },
+          },
         ],
         // yAxes: [
         //   {
@@ -79,13 +79,13 @@ export class RecruiterBarChartComponent implements OnInit {
       },
       elements: {
         line: {
-          tension: 0
+          tension: 0,
         },
         point: {
-          radius: 0
-        }
+          radius: 0,
+        },
       },
-      bezierCurve: false
+      bezierCurve: false,
     };
   }
 
@@ -101,8 +101,7 @@ export class RecruiterBarChartComponent implements OnInit {
     this.BarChart = new Chart("barChart", {
       type: "barChart",
       data: this.data,
-      options: this.chartOptions
+      options: this.chartOptions,
     });
   }
-
 }
