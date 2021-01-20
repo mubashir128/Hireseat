@@ -60,8 +60,8 @@
   float: left;
 }
 .display-chart {
-  width: 55%;
-  height: 60%;
+  width: 75%;
+  height: 75%;
 }
 #doughnutChart {
   width: 100% !important;

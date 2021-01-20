@@ -6,8 +6,6 @@
     <div class="comments-title">
       <div class="allComments">Comments History</div>
       <div class="comments-div">
-        <hr style="width: 98%" />
-
         <div
           class="recruiterComment"
           *ngFor="let item of allComments; index as i"
@@ -51,35 +49,34 @@
               {{ item.review }}
             </div>
           </div>
+          <ng-container *ngIf="item.reply.length > 0">
+            <hr style="width: 85%" />
+            <div style="margin-left: 20px; margin-top: -5px">Replies</div>
 
-          <hr style="width: 85%" />
-          <div style="margin-left: 20px; margin-top: -5px">Replies</div>
+            <div class="replyComment" *ngFor="let reply of item.reply">
+              <div class="row">
+                <ng-container *ngIf="reply?.user_id?.profileimage !== ''">
+                  <div class="candProfile2 col">
+                    <img src="reply?.user_id?.profileimage" alt="profile" />
+                  </div>
+                </ng-container>
 
-          <div class="replyComment" *ngFor="let reply of item.reply">
-            <div class="row">
-              <ng-container *ngIf="reply?.user_id?.profileimage !== ''">
-                <div class="candProfile2 col">
-                  <img src="reply?.user_id?.profileimage" alt="profile" />
+                <ng-container *ngIf="reply?.user_id?.profileimage === ''">
+                  <div class="candProfile2 col">
+                    <img src="assets/img/profile-user.png" alt="profile" />
+                  </div>
+                </ng-container>
+
+                <div class="col" style="margin-left: -50px">
+                  {{ reply.user_id.fullName }}
                 </div>
-              </ng-container>
+              </div>
 
-              <ng-container *ngIf="reply?.user_id?.profileimage === ''">
-                <div class="candProfile2 col">
-                  <img src="assets/img/profile-user.png" alt="profile" />
-                </div>
-              </ng-container>
-
-              <div class="col" style="margin-left: -50px">
-                {{ reply.user_id.fullName }}
+              <div class="row">
+                <div class="styleReply col">{{ reply.replyComment }}</div>
               </div>
             </div>
-
-            <div class="row">
-              <div class="styleReply col">{{ reply.replyComment }}</div>
-            </div>
-          </div>
-
-          <hr style="width: 98%" />
+          </ng-container>
         </div>
       </div>
     </div>
