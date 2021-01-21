@@ -5,7 +5,7 @@ set -e
 # Lets write the public key of our aws instance
 eval $(ssh-agent -s)
 echo "private key **********************************"
-echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+echo "$KEY_PRIVATE" | tr -d '\r' | ssh-add - > /dev/null
 
 # ** Alternative approach
 # echo -e "$PRIVATE_KEY" > /root/.ssh/id_rsa
@@ -17,13 +17,13 @@ echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
 
 # we have already setup the DEPLOYER_SERVER in our gitlab settings which is a
 # comma seperated values of ip addresses.
-DEPLOY_SERVERS=$DEPLOY_SERVERS
+DEPLOY_SERVERS=$SERVERS
 
 # lets split this string and convert this into array
 # In UNIX, we can use this commond to do this
 # ${string//substring/replacement}
 # our substring is "," and we replace it with nothing.
-ALL_SERVERS=(${DEPLOY_SERVERS//,/ })
+ALL_SERVERS=(${SERVERS//,/ })
 echo "ALL_SERVERS ${ALL_SERVERS}"
 
 # Lets iterate over this array and ssh into each EC2 instance
