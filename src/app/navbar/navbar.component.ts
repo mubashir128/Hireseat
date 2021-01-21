@@ -10,6 +10,9 @@ import { EnterpriseService } from "../_services/enterprise.service";
 import { WebsocketService } from "../_services/websocket.service";
 import { Subject } from "rxjs";
 import { PushNotificationService } from "../_services/push-notification.service";
+import { SubscriberslistService } from "../_services/subscriberslist.service";
+import { ConstantsService } from "../_services/constants.service";
+
 declare var Materialize: any;
 declare var jQuery: any;
 declare var $: any;
@@ -53,13 +56,18 @@ export class NavbarComponent implements OnInit {
   newNotification = "newNotification";
   getAllCandidateNotifications = "getAllCandidateNotifications";
   newCandidateNotifications = "newCandidateNotifications";
-  decreaseNotificationCount = "decreaseNotificationCount";
+  decreaseCandidateNotificationCount = "decreaseCandidateNotificationCount";
+  candidateReplyNotification = "candidateReplyNotification";
+  candidateLikeNotification = "candidateLikeNotification";
+  getRecruiterNotifications = "getRecruiterNotifications";
+  decreaseRecruiterNotificationCount = "decreaseRecruiterNotificationCount";
 
   limit = 15;
   createdAt;
   selector: string = ".scrollNotification";
   userProfile: any;
   likesOnComments = [];
+  replysOnComments = [];
 
   constructor(
     private userService: UserService,
@@ -72,7 +80,9 @@ export class NavbarComponent implements OnInit {
     private _socket: WebsocketService,
     private _eref: ElementRef,
     public enterpriseService: EnterpriseService,
-    private _pushNotify: PushNotificationService
+    private _pushNotify: PushNotificationService,
+    private _constants : ConstantsService,
+    private _subList : SubscriberslistService
   ) {
     this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
@@ -139,6 +149,10 @@ export class NavbarComponent implements OnInit {
       this.handleNotificationData(res);
     });
 
+    this.userService.candidateProfileObservable$.subscribe((res: any) => {
+      this.handleCandidateProfile(res);
+    });
+
     this._socket.sendMessage({
       type: 1,
       data: {
@@ -197,6 +211,7 @@ export class NavbarComponent implements OnInit {
   async initSocket(token, userRole) {
     await this._socket.getInstance(token, userRole);
   }
+
   getUsersProfile() {
     this.userService
       .getUserProfile(this.userService.getUserData().userRole)
@@ -228,23 +243,35 @@ export class NavbarComponent implements OnInit {
     return shortened;
   }
 
+  truncateHTMLMsg(text: string, msg : string = ''): string {
+    let charlimit = 20;
+    if (!text || text.length <= charlimit) {
+      return text + msg;
+    }
+
+    let without_html = text.replace(/<(?:.|\n)*?>/gm, "");
+    let trim_space = without_html.trim().replace(/&nbsp;/g, "");
+    let shortened = trim_space.substring(0, charlimit) + "...";
+    return shortened + msg;
+  }
+
+  handleCandidateProfile(obj){
+    this.userProfile[obj.pointer] = obj.increseCount;
+  }
+
   handleNotificationData(res: any) {
     switch (res.subType) {
       case this.getAllNotifications:
         // add all notifications to list.
         if (res.data.length !== 0) {
           this.questDataLenght = [...this.questDataLenght, ...res.data];
-          this.createdAt = this.questDataLenght[
-            this.questDataLenght.length - 1
-          ].createdAt;
-          this.notificationLength = res.count
-            ? res.count
-            : this.notificationLength;
+          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
+          this.notificationLength = res.count ? res.count : this.notificationLength;
         }
         break;
       case this.newNotification:
         //add notification to start of list.
-        this.questDataLenght.unshift(res.result);
+        this.questDataLenght.length !== 0 ? this.questDataLenght.unshift(res.result) : this.questDataLenght.push(res.result);
         this.incrementNotificationCount();
         break;
       case this.getAllCandidateNotifications:
@@ -259,9 +286,32 @@ export class NavbarComponent implements OnInit {
           }
         });
         break;
-      case this.newCandidateNotifications:
-        this.likesOnComments.push(res);
+      case this.newCandidateNotifications :
+        this.commets.length !== 0 ? this.commets.unshift(res.data) : this.commets.push(res.data);
         this.incrementNotificationCount();
+        break;
+      case this.candidateLikeNotification :
+        //add notification to start of list.
+        this.likesOnComments.length !== 0 ? this.likesOnComments.unshift(res) : this.likesOnComments.push(res);;
+        this.incrementNotificationCount();
+        break;
+      case this.candidateReplyNotification : 
+        //add notification to start of list.
+        this.replysOnComments.length !== 0 ? this.replysOnComments.unshift(res) : this.replysOnComments.push(res);
+        let candidateObj = {
+          pointer : "ratingPoints",
+          subType : "add",
+          increseCount : this._constants.ReplyAdvicePoints
+        }
+        this._subList.recruiterPoints.next(candidateObj);
+        this.incrementNotificationCount();
+        break
+      case this.getRecruiterNotifications : 
+        if (res.data.length !== 0) {
+          this.questDataLenght = [...this.questDataLenght, ...res.data];
+          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
+          this.notificationLength = res.count ? res.count : this.notificationLength;
+        }
         break;
       default:
         break;
@@ -327,14 +377,10 @@ export class NavbarComponent implements OnInit {
   goToSharedProfile(cmt_id) {
     this.notificationLength--;
     this.toggle();
-    console.log("cmt_id : ",cmt_id);
 
     this.commets.forEach((data, index)=>{
       if(cmt_id === data._id){
         data.notification = false;
-        // console.log(this.commets);
-        // this.commets.splice(index, 1);
-        // console.log(this.commets);
       }
     });
 
@@ -342,7 +388,7 @@ export class NavbarComponent implements OnInit {
       type: 1,
       data: {
         type: this.loggedInUser.userRole,
-        subType : this.decreaseNotificationCount,
+        subType : this.decreaseCandidateNotificationCount,
         cmt_id : cmt_id,
       },
     });
@@ -355,4 +401,41 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(["/recruiter/share-candidate-profile"]);
     }
   }
+
+  goToSharedProfileRecruiter(cmt_id, subId, attType){
+
+    this.notificationLength--;
+    this.toggle();
+
+    this._socket.sendMessage({
+      type: 1,
+      data: {
+        type: this.loggedInUser.userRole,
+        subType : this.decreaseRecruiterNotificationCount,
+        cmt_id : cmt_id,
+        attType : attType,
+        subId : subId
+      },
+    });
+
+    if(attType === 'like'){
+      this.likesOnComments.forEach((res, index)=>{
+        if(subId === res.data.like[0]._id){
+          res.data.like[0].notification = false;
+        }
+      });
+    }else{
+      this.replysOnComments.forEach((res, index)=>{
+        if(subId === res.data.reply._id){
+          res.data.reply.notification = false;
+        }
+      });
+    }
+
+    if (this.isRecruiter) {
+      this.router.navigate(["/recruiter/share-candidate-profile"]);
+    }
+
+  }
+
 }

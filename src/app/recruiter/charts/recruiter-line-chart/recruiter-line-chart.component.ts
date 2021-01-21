@@ -99,20 +99,22 @@ export class RecruiterLineChartComponent implements OnInit {
     this.lineOptions = {
       responsive: true,
       legend: {
+        display: false,
         position: "bottom",
         labels: {
           // fontFamily: "Comic Sans MS",
           boxWidth: 30,
           boxHeight: 0,
-          fontSize: 10
+          fontSize: 15
         },
         maxSize: {
           height: 0
         }
       },
       title: {
-        text: "Aggregate Recruiter Performance",
-        display: true
+        text: "Candidates Helped",
+        display: true,
+        fontSize: 15
       },
       scales: {
         ticks: {

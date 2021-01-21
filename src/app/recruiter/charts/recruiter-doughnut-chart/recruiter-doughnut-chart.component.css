@@ -1,10 +1,14 @@
 .chart {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 16px;
-    text-align: center;
-    background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #ffffff;
+  /* height: 50vh; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-  
+
 .donut-inner {
   margin-top: -100px;
   margin-bottom: 100px;
@@ -19,6 +23,7 @@
 
 .candidateStatus {
   margin-top: -15px;
+  /* margin-left: -30px; */
 }
 
 .candidateForm {
@@ -28,19 +33,124 @@
 
 .candidateStatusCount {
   margin-top: 10px;
+  /* margin-left: -30px; */
 }
 
-.candidateHelped, .candidateHelpedCount {
-  width: 33%;
+.candidateReferred,
+.candidateReferredCount {
+  width: 25%;
   float: left;
 }
 
-.candidateThanks, .candidateThanksCount {
-  width: 33%;
+.candidateHelped,
+.candidateHelpedCount {
+  width: 25%;
   float: left;
 }
 
-.candidateComments, .candidateCommentsCount {
-  width: 33%;
+.candidateThanks,
+.candidateThanksCount {
+  width: 25%;
   float: left;
+}
+
+.candidateComments,
+.candidateCommentsCount {
+  width: 25%;
+  float: left;
+}
+.display-chart {
+  /* width: 75%;
+  height: 75%; */
+  width: 50%;
+  height: 100%;
+  display: flex;
+  padding: 10px;
+
+  justify-content: center;
+  align-items: center;
+}
+#doughnutChart {
+  width: 100% !important;
+  /* height: 100% !important; */
+  height: auto !important;
+}
+.partition {
+  display: flex;
+  width: 100%;
+  /* height: 80%; */
+}
+
+.comments-div {
+  width: 100%;
+  /* height: 100%; */
+  height: 300px;
+  border-left: 1px solid #dddddd;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 3px;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+}
+
+.recruiterComment {
+  margin-left: 15px;
+  text-align: left;
+}
+
+.replyComment {
+  margin-left: 30px;
+  text-align: left;
+}
+
+.styleReply {
+  font-size: 14px;
+  /* font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+  color: brown; */
+  margin-top: -20px;
+  margin-left: 10px;
+}
+
+.styleComment {
+  font-size: 16px;
+  /* font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+  color: crimson; */
+}
+
+.allComments {
+  font-size: 18px;
+  /* font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+  color: darkred; */
+}
+
+.candProfile {
+  float: left;
+  width: 30%;
+}
+
+.candProfile img {
+  width: 60%;
+  height: 30%;
+  background-color: #e7e7e7;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.candProfile2 {
+  float: left;
+  width: 30%;
+}
+
+.candProfile2 img {
+  width: 30%;
+  height: 30%;
+  background-color: #e7e7e7;
+  border-radius: 20px;
+  object-fit: cover;
+}
+.comments-title {
+  width: 50%;
 }

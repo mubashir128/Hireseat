@@ -1,19 +1,105 @@
 <div class="chart">
-    <canvas id="doughnutChart"></canvas>
-
-    <div class="row candidateForm">
-        <form [formGroup]="CandidateFrm" novalidate>
-            <div class="row candidateStatusCount">
-                <div class="col candidateHelpedCount">{{candidateHelpedCount}}</div>
-                <div class="col candidateThanksCount">{{candidateThanksCount}}</div>
-                <div class="col candidateCommentsCount">{{candidateCommentsCount}}</div>
-            </div>
-            <div class="row candidateStatus">
-                <div class="col candidateHelped">Candidates Helped</div>
-                <div class="col candidateThanks">Candidates Thanks</div>
-                <div class="col candidateComments">Candidates Comments</div>
-            </div>
-        </form>
+  <div class="partition">
+    <div class="display-chart">
+      <canvas id="doughnutChart"></canvas>
     </div>
+    <div class="comments-title">
+      <div class="allComments">Candidate Replies</div>
+      <div class="comments-div">
+        <div
+          class="recruiterComment"
+          *ngFor="let item of allComments; index as i"
+        >
+          <!-- <div class="styleComment row">
+            <ng-container
+              *ngIf="
+                loggedInUser.profileimage !== '' ||
+                loggedInUser.profileimage !== ''
+              "
+            >
+              <div class="candProfile col" style="width: 20%">
+                <img
+                  src="loggedInUser.profileimage || loggedInUser.profileimage"
+                  alt="profile"
+                />
+              </div>
+            </ng-container>
 
+            <ng-container
+              *ngIf="
+                loggedInUser.profileimage === '' &&
+                loggedInUser.profileimage === ''
+              "
+            >
+              <div class="candProfile col" style="width: 20%">
+                <img src="assets/img/profile-user.png" alt="profile" />
+              </div>
+            </ng-container>
+
+            <div class="col" style="width: 80%; margin-left: -30px">
+              {{ loggedInUser.fullName }}
+            </div>
+          </div> -->
+
+          <!-- <div class="row">
+            <div
+              class="col"
+              style="width: 100%; margin-left: 10px; margin-top: -15px"
+            >
+              {{ item.review }}
+            </div>
+          </div> -->
+          <ng-container *ngIf="item.reply.length > 0">
+            <!-- <hr style="width: 85%" /> -->
+            <!-- <div style="margin-left: 20px; margin-top: -5px">Replies</div> -->
+
+            <div class="replyComment" *ngFor="let reply of item.reply">
+              <div class="row">
+                <ng-container *ngIf="reply?.user_id?.profileimage !== ''">
+                  <div class="candProfile2 col">
+                    <img [src]="reply?.user_id?.profileimage" alt="profile" />
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="reply?.user_id?.profileimage === ''">
+                  <div class="candProfile2 col">
+                    <img src="assets/img/profile-user.png" alt="profile" />
+                  </div>
+                </ng-container>
+
+                <div class="col" style="margin-left: -50px">
+                  {{ reply.user_id.fullName }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="styleReply col">{{ reply.replyComment }}</div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row candidateForm">
+    <form [formGroup]="CandidateFrm" novalidate>
+      <div class="row candidateStatusCount">
+        <div class="col candidateHelpedCount">{{ candidateHelpedCount }}</div>
+        <div class="col candidateReferredCount">
+          {{ candidateReferredCount }}
+        </div>
+        <div class="col candidateThanksCount">{{ candidateThanksCount }}</div>
+        <div class="col candidateCommentsCount">
+          {{ candidateCommentsCount }}
+        </div>
+      </div>
+      <div class="row candidateStatus">
+        <div class="col candidateHelped">Candidates Helped</div>
+        <div class="col candidateReferred">Candidates Referred</div>
+        <div class="col candidateThanks">Candidates Thanks</div>
+        <div class="col candidateComments">Candidates Comments</div>
+      </div>
+    </form>
+  </div>
 </div>

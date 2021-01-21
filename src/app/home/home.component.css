@@ -1,743 +1,740 @@
 .sectionBGimg {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 .bestRecruitment {
-    position: relative;
+  position: relative;
 }
 .bestRecruitmentText {
-    position: absolute;
-    top: 40%;
-    left: 28%;
-    /* left: 40%; */
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 40%;
+  left: 36%;
+  /* left: 40%; */
+  transform: translate(-50%, -50%);
 }
 .BoldText {
-    margin: 5px 0 40px;
-    font-family: 'gilroybold';
+  margin: 5px 0 40px;
+  font-family: "gilroybold";
 }
 .ThinTextHeading {
-    margin: 0px 0 20px;
-    font-family: 'gilroyregular';
+  margin: 0px 0 20px;
+  font-family: "gilroyregular";
 }
-.bestRecruitmentText h3{
-    font-size: 35px;
-    color: #1c2d41;
+.bestRecruitmentText h3 {
+  font-size: 28px;
+  color: #1c2d41;
 }
 .KnowMoreBtn {
-    background-color: #0aafff;
-    border: none;
-    color: #fff;
-    min-width: 200px;
-    font-size: 18px;
-    font-family: 'gilroybold';
-    height: 60px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  background-color: #0aafff;
+  border: none;
+  color: #fff;
+  min-width: 200px;
+  font-size: 18px;
+  font-family: "gilroybold";
+  height: 60px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 /*========================== sec section css =================*/
 /* .ProveBestInner {
     padding: 170px 120px ;
 } */
 .secHeadingDiv {
-    /* height: 150px; */
+  /* height: 150px; */
 }
 .width50 {
-    width: 50%;
-    float: left;
+  width: 50%;
+  float: left;
 }
-.width100{
-    width: 100%;
-    float: left;
+.width100 {
+  width: 100%;
+  float: left;
 }
 .min200 {
-    min-height: 200px;
+  min-height: 200px;
 }
-.paddT30{
-    padding-top: 30px;
+.paddT30 {
+  padding-top: 30px;
 }
-.proveTextimg{
-    width: 15%;
-    float: left;
+.proveTextimg {
+  width: 15%;
+  float: left;
 }
-.proveTextimg img{
-    margin: 30px 0;
+.proveTextimg img {
+  margin: 30px 0;
 }
 .proveHead {
-    /* display: flex;
+  /* display: flex;
     align-items: flex-end;
     margin: 0 0 -6px; */
-    display: flex;
-    align-items: flex-end;
-    margin: 0 0 -0.5555vw;
+  display: flex;
+  align-items: flex-end;
+  margin: 0 0 -0.5555vw;
 }
-.proveHead img{
-    width: 100%;
+.proveHead img {
+  width: 100%;
 }
 .SecHeading {
-    font-size: 45px;
-    color: #fff;
-    font-family: 'gilroyextrabold';
+  font-size: 45px;
+  color: #fff;
+  font-family: "gilroyextrabold";
 }
 .proveText h5 {
-    font-size: 24px;
-    color: #fff;
-    font-family: 'gilroybold';
-    margin: 20px 0;
+  font-size: 24px;
+  color: #fff;
+  font-family: "gilroybold";
+  margin: 20px 0;
 }
 .proveText p {
-    font-family: 'gilroyregular';
-    color: #fff;
-    /* font-size: 16px; */
-    font-size: 17px;
-    line-height: 1.5;
+  font-family: "gilroyregular";
+  color: #fff;
+  /* font-size: 16px; */
+  font-size: 17px;
+  line-height: 1.5;
 }
-.headeLeftImg{
-    margin: 0 0 -.0155vw;
+.headeLeftImg {
+  margin: 0 0 -0.0155vw;
 }
-.bottomLeftImg{
-    margin: -0.3550vw 0 0;
+.bottomLeftImg {
+  margin: -0.355vw 0 0;
 }
-a{
-    cursor: pointer;
+a {
+  cursor: pointer;
 }
 .flexRow {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-.marB50{
-    margin-bottom: 50px;
+.marB50 {
+  margin-bottom: 50px;
 }
 .marB20 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .proveText {
-    padding: 0 10px;
-    width: 75%;
-    float: left;
+  padding: 0 10px;
+  width: 75%;
+  float: left;
 }
 .transparentBtn {
-    height: 70px;
-    border: 3px solid #fff;
-    background-color: transparent;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    min-width: 100%;
-    border-radius: 5px;
-    font-family: 'gilroybold';
-    font-size: 20px;
+  height: 70px;
+  border: 3px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100%;
+  border-radius: 5px;
+  font-family: "gilroybold";
+  font-size: 20px;
 }
-.paddL60{
-    padding-left: 60px;
+.paddL60 {
+  padding-left: 60px;
 }
-.paddR60{
-    padding-right: 60px;
+.paddR60 {
+  padding-right: 60px;
 }
 .SecHeading.blackHed {
-    color: #1c2d41;
-    text-align: center;
-    margin: 80px 0;
+  color: #1c2d41;
+  text-align: center;
+  margin: 80px 0;
 }
 .imgDivVideoDiv h4 {
-    color: #1c2d41;
-    font-size: 20px;
-    font-family: 'gilroybold';
-    padding: 10px 20px;
-    line-height: 1.3;
+  color: #1c2d41;
+  font-size: 20px;
+  font-family: "gilroybold";
+  padding: 10px 20px;
+  line-height: 1.3;
 }
 .VideoImg {
-    width: 100%;
-    height: 320px;
-    object-fit: contain;
-    background-color: #000;
+  width: 100%;
+  height: 320px;
+  object-fit: contain;
+  background-color: #000;
 }
 .recruiterCommityInner {
-    padding: 20px 90px;
+  padding: 20px 90px;
 }
 .imgDivVideoDiv {
-    background-color: #fff;
-    box-shadow: 0 0 7px #dddddd57;
-    margin-bottom: 40px;
-    padding: 0 0px 20px;
+  background-color: #fff;
+  box-shadow: 0 0 7px #dddddd57;
+  margin-bottom: 40px;
+  padding: 0 0px 20px;
 }
-.paddLR20{
-    padding: 0 20px;
+.paddLR20 {
+  padding: 0 20px;
 }
 .homePageMain {
-    background-color: #fbfbfb;
+  background-color: #fbfbfb;
 }
 .arows {
-    margin: 0 15px;
+  margin: 0 15px;
 }
-.text-center{
-    text-align: center;
+.text-center {
+  text-align: center;
 }
-.ProveLeft{
-    background-color: #3ea9f5;
-    padding: 0 20px 0 100px;
+.ProveLeft {
+  background-color: #3ea9f5;
+  padding: 0 20px 0 100px;
 }
-.seatBack{
-    /* background-color: #0964d9;
+.seatBack {
+  /* background-color: #0964d9;
     padding: 0 40px 0 90px;
     margin: -2px 0 0 0; */
-        background-color: #0964d9;
-    padding: 0 40px 0 90px;
-    margin: 0px 0 0 0;
+  background-color: #0964d9;
+  padding: 0 40px 0 90px;
+  margin: 0px 0 0 0;
 }
-.SeatBAchH{
-    margin: 0px 0px 2px 0px !important;
+.SeatBAchH {
+  margin: 0px 0px 2px 0px !important;
 }
 .proveFooter {
-    display: flex;
-    width: 100%;
-    align-items: flex-start;
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
 }
 .proveFooter img {
-    width: 100%;
+  width: 100%;
 }
 .ProveInnerMain {
-    display: flex;
+  display: flex;
 }
-.proveF{
-    margin: -6px 0px 0 0;
+.proveF {
+  margin: -6px 0px 0 0;
 }
 .newBtnTextB {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    /* padding: 50px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* padding: 50px 0;
     padding: 50px 0 6px; */
 }
 /*============================== 3 section css =============================*/
 .boxDiv {
-    max-height: 970px;
-    overflow-y: auto;
+  max-height: 970px;
+  overflow-y: auto;
 }
 .articleDiv70 {
-    width: 63%;
-    float: left;
-    background-color: #0aafff;
-    padding: 0 70px 0 100px;
-    position: relative;
+  width: 63%;
+  float: left;
+  background-color: #0aafff;
+  padding: 0 70px 0 100px;
+  position: relative;
 }
 .articleDiv30 {
-    width: 37%;
-    float: left;
-    background-color: #1c2d41;
-    padding: 0px 180px 0 60px;
-    position: relative;
+  width: 37%;
+  float: left;
+  background-color: #1c2d41;
+  padding: 0px 180px 0 60px;
+  position: relative;
 }
-.articleDiv30 .SecHeading{
-    margin: 40px 0;
+.articleDiv30 .SecHeading {
+  margin: 40px 0;
 }
 .articleDivInner {
-    float: left;
-    width: 100%;
-    display: flex;
-    padding: 0px 0 0;
+  float: left;
+  width: 100%;
+  display: flex;
+  padding: 0px 0 0;
 }
 .min330 {
-    min-height: 330px;
+  min-height: 330px;
 }
-.flexC{
-    display: flex;
-    align-items: center;
-    position: relative;
+.flexC {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
-.flexC .proveText{
-    width: 100%;
-    position: absolute;
-    bottom: 50px;
+.flexC .proveText {
+  width: 100%;
+  position: absolute;
+  bottom: 50px;
 }
 .articleDiv70 .SecHeading.blackHed {
-    color: #1c2d41;
-    text-align: left;
-    margin: 40px 0;
+  color: #1c2d41;
+  text-align: left;
+  margin: 40px 0;
 }
 .ArticleDiv {
-    background-color: #fff;
-    padding: 25px;
-    margin: 20px 0px 0px;
-    display: block;
-    height: 100%;
+  background-color: #fff;
+  padding: 25px;
+  margin: 20px 0px 0px;
+  display: block;
+  height: 100%;
 }
 /* .ArticleDiv p :nth-child(even){
     display: block;
     color: green;
 
 } */
-.odd  {
-    display: none
+.odd {
+  display: none;
 }
 .even p {
-    display: none;
+  display: none;
 }
 /* .ArticleDiv p :nth-child(odd){
     display: none;
     color: #0964d9;
     } */
 .ArticleDiv h5 {
-    color: #1c2d41;
-    font-size: 20px;
-    margin: 10px 0;
-    font-family: 'gilroysemibold';
+  color: #1c2d41;
+  font-size: 20px;
+  margin: 10px 0;
+  font-family: "gilroysemibold";
 }
 .ArticleDiv h4 {
-    color: #1c2d41;
-    font-size: 35px;
-    font-family: 'gilroybold';
+  color: #1c2d41;
+  font-size: 35px;
+  font-family: "gilroybold";
 }
 .ArticleDiv p {
-    color: #1c2d41;
-    font-size: 15px;
-    font-family: 'gilroymedium';
+  color: #1c2d41;
+  font-size: 15px;
+  font-family: "gilroymedium";
 }
 .ArticleHeadImg {
-    width: 100%;
+  width: 100%;
 }
 .tweeterHeaderImg {
-    width: 100%;
+  width: 100%;
 }
-.mar0{
-    margin: 0;
+.mar0 {
+  margin: 0;
 }
 .articleDivInner1 .articleDiv30 {
-    padding: 0;
-    background-color: unset;
+  padding: 0;
+  background-color: unset;
 }
 .articleDivInner1 .articleDiv70 {
-    background-color: unset;
-    padding: 0;
+  background-color: unset;
+  padding: 0;
 }
 .articleDivInner1 {
-    display: flex;
-    align-items: flex-end;
-    /* margin: 0 0 -6px; */
-    margin: 0 0 -0.455vw;
-    width:100%;
+  display: flex;
+  align-items: flex-end;
+  /* margin: 0 0 -6px; */
+  margin: 0 0 -0.455vw;
+  width: 100%;
 }
 .articleDiv {
-    margin: 0px 0 0;
+  margin: 0px 0 0;
 }
 
 /* scrollbar css */
 
 .boxDiv::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  /* Track */
-  .boxDiv::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-    
-  }
-   
-  /* Handle */
-  .boxDiv::-webkit-scrollbar-thumb {
-    background: #0aafff; 
-    border-radius: 10px;
-  }
-  
-  
-  /* Handle on hover */
-  .boxDiv::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
-/* ========================== recruter section 5th start =============================*/
-.recruterMain {
-    width: 100%;
-    float: left;
-}
-.recruterInner {
-    max-width: 600px;
-    margin: 50px auto;
-    text-align: center;
-}
-.staueIcon {
-    filter: invert(1);
-    margin: 0 10px;
-}
-.recruterInner .SecHeading {
-    font-size: 40px;
-    margin: 10px 0;
-    text-transform: uppercase;
-}
-.recruterInner p {
-    color: #c4c5cb;
-    font-size: 23px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    line-height: 1;
-}
-.recruterInner h5 {
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 20px;
-    margin: 10px 0;
-    font-family: 'gilroybold';
-    width:80%;
-    position: relative;
-}
-.lineSide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin: 30px 0;
-}
-.lineSide h5:after{
-    width: 130px;
-    position: absolute;
-    content: "";
-    height: 3px;
-    background-color: #fff;
-    top: 40%;
-    left:-150px;
-} 
-.lineSide h5:before{
-    width: 130px;
-    position: absolute;
-    content: "";
-    height: 3px;
-    background-color: #fff;
-    top: 40%;
-    right: -150px;
-} 
-.DateTime {
-    display: flex;
-    margin: 25px 0;
-}
-.date {
-    border-right: 1px solid #fff;
-    min-width: 170px;
-}
-.date h3 {
-    font-size: 80px;
-    color: #fff;
-    font-family: 'gilroyregular';
-    margin: 0 0;
-    line-height: 1;
-}
-.date p {
-    font-size: 20px !important;
-    margin: 0 !important;
-    line-height: 1;
-}
-.Time h4 {
-    margin: 0 0 15px;
-    text-align: left;
-    color: #fff;
-    font-size: 30px;
-    font-family: 'gilroyregular';
-}
-.Time {
-    padding: 0 25px 0;
-}
-.Time p {
-    text-align: left !important;
-    font-size: 17px !important;
-    display: block !important;
-    font-family: 'gilroyregular';
-    margin: 7px 0 0 !important;
-}
-.postimage {
-    /* max-width: 400px;
-    min-width: 400px; */
-    width: 100%;
-    padding: 0 0px;
-    max-height: 210px;
-    height: 210px;
-    border: none;
-}
-.postimage img, .postimage video, .postimage iframe{
-    height:200px;
-    width:100%;
+  width: 5px;
 }
 
-.flexWrap{
-    display: flex;
-    flex-wrap: wrap;
+/* Track */
+.boxDiv::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.boxDiv::-webkit-scrollbar-thumb {
+  background: #0aafff;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.boxDiv::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+/* ========================== recruter section 5th start =============================*/
+.recruterMain {
+  width: 100%;
+  float: left;
+}
+.recruterInner {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+}
+.staueIcon {
+  filter: invert(1);
+  margin: 0 10px;
+}
+.recruterInner .SecHeading {
+  font-size: 40px;
+  margin: 10px 0;
+  text-transform: uppercase;
+}
+.recruterInner p {
+  color: #c4c5cb;
+  font-size: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  line-height: 1;
+}
+.recruterInner h5 {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 20px;
+  margin: 10px 0;
+  font-family: "gilroybold";
+  width: 80%;
+  position: relative;
+}
+.lineSide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 30px 0;
+}
+.lineSide h5:after {
+  width: 130px;
+  position: absolute;
+  content: "";
+  height: 3px;
+  background-color: #fff;
+  top: 40%;
+  left: -150px;
+}
+.lineSide h5:before {
+  width: 130px;
+  position: absolute;
+  content: "";
+  height: 3px;
+  background-color: #fff;
+  top: 40%;
+  right: -150px;
+}
+.DateTime {
+  display: flex;
+  margin: 25px 0;
+}
+.date {
+  border-right: 1px solid #fff;
+  min-width: 170px;
+}
+.date h3 {
+  font-size: 80px;
+  color: #fff;
+  font-family: "gilroyregular";
+  margin: 0 0;
+  line-height: 1;
+}
+.date p {
+  font-size: 20px !important;
+  margin: 0 !important;
+  line-height: 1;
+}
+.Time h4 {
+  margin: 0 0 15px;
+  text-align: left;
+  color: #fff;
+  font-size: 30px;
+  font-family: "gilroyregular";
+}
+.Time {
+  padding: 0 25px 0;
+}
+.Time p {
+  text-align: left !important;
+  font-size: 17px !important;
+  display: block !important;
+  font-family: "gilroyregular";
+  margin: 7px 0 0 !important;
+}
+.postimage {
+  /* max-width: 400px;
+    min-width: 400px; */
+  width: 100%;
+  padding: 0 0px;
+  max-height: 210px;
+  height: 210px;
+  border: none;
+}
+.postimage img,
+.postimage video,
+.postimage iframe {
+  height: 200px;
+  width: 100%;
+}
+
+.flexWrap {
+  display: flex;
+  flex-wrap: wrap;
 }
 /* ========================== recruter section 5th end =============================== */
 /*=============================== footer css ========================*/
 .footerSection {
-    width: 100%;
-    float: left;
-    padding: 50px 100px;
-    background-color: #0a111a;
+  width: 100%;
+  float: left;
+  padding: 50px 100px;
+  background-color: #0a111a;
 }
 .footerSection h4 {
-    color: #fff;
-    font-size: 17px;
-    font-family: 'gilroyregular';
-    margin: 15px 0;
+  color: #fff;
+  font-size: 17px;
+  font-family: "gilroyregular";
+  margin: 15px 0;
 }
 .footerSection p {
-    font-size: 14px;
-    color: #858c94;
-    margin: 10px 0;
+  font-size: 14px;
+  color: #858c94;
+  margin: 10px 0;
 }
-.marB30{
-    margin-bottom: 30px !important;
+.marB30 {
+  margin-bottom: 30px !important;
 }
 .Emailtext {
-    position: relative;
-    margin: 20px 0 0px;
+  position: relative;
+  margin: 20px 0 0px;
 }
 .emailF {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    filter: brightness(235%);
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  filter: brightness(235%);
 }
 .Emailtext input[type="text"] {
-    border: none !important;
-    background-color: #fff !important;
-    border-radius: 5px !important;
-    padding: 0 0 0 50px !important;
-    width: 100% !important;
-    height: 50px !important;
-    box-sizing: border-box;
+  border: none !important;
+  background-color: #fff !important;
+  border-radius: 5px !important;
+  padding: 0 0 0 50px !important;
+  width: 100% !important;
+  height: 50px !important;
+  box-sizing: border-box;
 }
- .SearchBtn {
-    background-color: #0aafff;
-    border: none;
-    min-width: 151px;
-    height: 50px;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 18px;
+.SearchBtn {
+  background-color: #0aafff;
+  border: none;
+  min-width: 151px;
+  height: 50px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 18px;
 }
 .FooterBottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: .5px solid #1c2d41;
-    padding: 30px 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 0.5px solid #1c2d41;
+  padding: 30px 0 30px;
 }
 .FooterBottom a {
-    text-decoration: none;
-    color: #858c94;
-    font-size: 13px;
+  text-decoration: none;
+  color: #858c94;
+  font-size: 13px;
 }
 /*=============================== footer css end ========================*/
 /*================================ i-pad responsive css start  ===============================*/
 
-@media only screen 
-and (min-width : 768px) 
-and (max-width : 1024px)  {
-.bestRecruitment {
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .bestRecruitment {
     height: 560px;
-}
-.bestRecruitmentText h3 {
+  }
+  .bestRecruitmentText h3 {
     font-size: 29px;
-}
-.bestRecruitmentText{
+  }
+  .bestRecruitmentText {
     /* top: 50%;
     left: 40%;
     width: 60%; */
     top: 50%;
     left: 35%;
     width: 50%;
-}
-.paddT30 {
+  }
+  .paddT30 {
     padding-top: 110px;
-}
-.SecHeading {
+  }
+  .SecHeading {
     font-size: 35px;
-}
-.ProveLeft {
+  }
+  .ProveLeft {
     padding: 0 0px 0 20px;
     margin: -2px 0 0 0;
-}
-.ProveLeft .width50, .seatBack .width50{
+  }
+  .ProveLeft .width50,
+  .seatBack .width50 {
     width: 100%;
-}
-.seatBack {
+  }
+  .seatBack {
     padding: 0 0px 0 20px;
     margin: -3px 0 0 0;
-}
-.proveTextimg {
+  }
+  .proveTextimg {
     width: 100%;
     padding: 0 10px;
-}
-.proveText {
+  }
+  .proveText {
     padding: 0 10px;
     width: 100%;
-}
-.proveTextimg img {
+  }
+  .proveTextimg img {
     margin-bottom: 0;
-}
-.secHeadingDiv{
+  }
+  .secHeadingDiv {
     /* height: 90px; */
-}
-.newBtnTextB{
+  }
+  .newBtnTextB {
     display: block;
-}
-.flexC .proveText{
+  }
+  .flexC .proveText {
     position: static;
-}
-.newBtnTextB .min330{
+  }
+  .newBtnTextB .min330 {
     min-height: unset;
-}
-.proveFooter {
+  }
+  .proveFooter {
     margin: -10px 0 0;
-}
-.SecHeading {
+  }
+  .SecHeading {
     font-size: 40px;
-}
-.articleDiv70{
+  }
+  .articleDiv70 {
     width: 60%;
     padding: 0 10px 0 20px;
-}
-.articleDiv30{
+  }
+  .articleDiv30 {
     padding: 0px 20px 0 10px;
     width: 50%;
-}
-.ArticleDiv h4 {
+  }
+  .ArticleDiv h4 {
     font-size: 25px;
-}
-.articleDivInner1{
+  }
+  .articleDivInner1 {
     margin: 0 0 -1vw;
-}
-.SeatBAchH {
+  }
+  .SeatBAchH {
     margin: 0px 0px 0px 0px !important;
-}
-.headeLeftImg {
+  }
+  .headeLeftImg {
     margin: 0 0 -0.1vw;
-}
-.flexWrap.scrollDiv{
+  }
+  .flexWrap.scrollDiv {
     max-height: 1000px;
-overflow-y: auto;
-}
+    overflow-y: auto;
+  }
 }
 
 /* mobile responsive */
 
-@media only screen 
-and (min-width : 320px) 
-and (max-width : 767px)  {
-    .bestRecruitment{
-        min-height: 400px;
-    }
-    .bestRecruitmentText{
-        /* top: 50%;
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .bestRecruitment {
+    min-height: 400px;
+  }
+  .bestRecruitmentText {
+    /* top: 50%;
         left: 43%;
         width: 60%; */
-        top: 50%;
-        left: 40%;
-        width: 55%;
-    }
-    .SecHeading {
-        font-size: 26px;
-    }
-    .ProveLeft {
-        padding: 20px 20px 40px 20px;
-        margin: 0px 0 0 0;
-        width: 100%;
-    }
-    .ProveLeft .width50, .seatBack .width50{
-        width: 100%;
-    }
-    .seatBack {
-        padding: 20px 20px 40px 20px;
-        margin: 0px 0 0 0;
-        width: 100%;
-    }
-    .secHeadingDiv{
-        height: unset;
-    }
-    .newBtnTextB{
-        display: block;
-    }
-    .flexC .proveText{
-        position: static;
-    }
-    .newBtnTextB .min330{
-        min-height: unset;
-    }
-    .proveFooter {
-        display: none !important;
-    }
-    .articleDiv70{
-        width: 100%;
-        padding: 0 10px 0 20px;
-    }
-    .articleDiv30{
-        padding: 0px 20px 0 10px;
-        width: 100%;
-    }
-    .ArticleHeadImg{
-        width: 0px;
-    }
-    .tweeterHeaderImg {
-        width: 0px;
-    }
-    .ArticleDiv h4 {
-        font-size: 25px;
-    }
-    .lineSide h5:after {
-        width: 100px;
-        left: -100px;
-    }
-    .bestRecruitmentText h3 {
-        font-size: 20px;
-    }
-    .KnowMoreBtn {
-        height: 40px;
-        min-width: 150px !important;
-        font-size: 16px !important;
-    }
-    .KnowMoreBtn .arrowImg{
-        width: 20px !important;
-    }
-    .proveHead {
-        display: none !important;
-    }
-    .proveText h5 {
-        font-size: 22px;
-    }
-    .ProveInnerMain {
-        display: block;
-    }
-    .recruiterCommityInner{
-        padding: 20px 20px;
-        width: 100%;
-        float: left;
-    }
-    .SecHeading.blackHed {
-        margin: 10px 0 30px;
-    }
-    .articleDivInner {
-        display: block !important;
-    }
-    .proveTextimg {
-        width: 100%;
-        padding: 0 10px;
-    }
-    .proveTextimg img {
-        margin-bottom: 0;
-    }
-    .proveText {
-        width: 100%;
-    }
-    .proveText p {
-        font-size: 16px;
-    }
-    .BoldText {
-        margin: 5px 0 20px;
-    }
-
+    top: 50%;
+    left: 40%;
+    width: 55%;
+  }
+  .SecHeading {
+    font-size: 26px;
+  }
+  .ProveLeft {
+    padding: 20px 20px 40px 20px;
+    margin: 0px 0 0 0;
+    width: 100%;
+  }
+  .ProveLeft .width50,
+  .seatBack .width50 {
+    width: 100%;
+  }
+  .seatBack {
+    padding: 20px 20px 40px 20px;
+    margin: 0px 0 0 0;
+    width: 100%;
+  }
+  .secHeadingDiv {
+    height: unset;
+  }
+  .newBtnTextB {
+    display: block;
+  }
+  .flexC .proveText {
+    position: static;
+  }
+  .newBtnTextB .min330 {
+    min-height: unset;
+  }
+  .proveFooter {
+    display: none !important;
+  }
+  .articleDiv70 {
+    width: 100%;
+    padding: 0 10px 0 20px;
+  }
+  .articleDiv30 {
+    padding: 0px 20px 0 10px;
+    width: 100%;
+  }
+  .ArticleHeadImg {
+    width: 0px;
+  }
+  .tweeterHeaderImg {
+    width: 0px;
+  }
+  .ArticleDiv h4 {
+    font-size: 25px;
+  }
+  .lineSide h5:after {
+    width: 100px;
+    left: -100px;
+  }
+  .bestRecruitmentText h3 {
+    font-size: 20px;
+  }
+  .KnowMoreBtn {
+    height: 40px;
+    min-width: 150px !important;
+    font-size: 16px !important;
+  }
+  .KnowMoreBtn .arrowImg {
+    width: 20px !important;
+  }
+  .proveHead {
+    display: none !important;
+  }
+  .proveText h5 {
+    font-size: 22px;
+  }
+  .ProveInnerMain {
+    display: block;
+  }
+  .recruiterCommityInner {
+    padding: 20px 20px;
+    width: 100%;
+    float: left;
+  }
+  .SecHeading.blackHed {
+    margin: 10px 0 30px;
+  }
+  .articleDivInner {
+    display: block !important;
+  }
+  .proveTextimg {
+    width: 100%;
+    padding: 0 10px;
+  }
+  .proveTextimg img {
+    margin-bottom: 0;
+  }
+  .proveText {
+    width: 100%;
+  }
+  .proveText p {
+    font-size: 16px;
+  }
+  .BoldText {
+    margin: 5px 0 20px;
+  }
 }
-@media only screen and (max-width: 1024px) and (min-width: 768px){
-    .bestRecruitmentText h3 {
-        font-size: 29px;
-    }
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+  .bestRecruitmentText h3 {
+    font-size: 29px;
+  }
 }
