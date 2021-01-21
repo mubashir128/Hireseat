@@ -60,12 +60,18 @@
   float: left;
 }
 .display-chart {
-  width: 75%;
-  height: 75%;
+  /* width: 75%;
+  height: 75%; */
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #doughnutChart {
   width: 100% !important;
-  height: 100% !important;
+  /* height: 100% !important; */
+  height: auto !important;
 }
 .partition {
   display: flex;

@@ -19,17 +19,50 @@ export class RecruiterPieChartComponent implements OnInit {
   recruiterPieChartObserver$ = this.recruiterPieChartObserver.asObservable();
 
   loggedInUser: any;
+  section: { name: string; isSelected: boolean }[];
+  pointedSection = [];
   constructor(
     private _socket: WebsocketService,
     private userService: UserService
   ) {
     this.setPieChartConfig();
     this.loggedInUser = this.userService.getUserData();
+    this.section = [
+      {
+        name: "Womens",
+        isSelected: true,
+      },
+      {
+        name: "Kids",
+        isSelected: false,
+      },
+      {
+        name: "Beauty",
+        isSelected: false,
+      },
+    ];
   }
-
+  onSelectedSection(selectedSection) {
+    this.pointedSection = [];
+    this.section.forEach((sec) => {
+      if (sec.isSelected) {
+        sec.isSelected = false;
+      }
+      if (sec.name === selectedSection.name) {
+        sec.isSelected = true;
+      }
+    });
+    console.log("-------------------------------------", this.section);
+    this.pointedSection = this.section.filter((sec) => sec.isSelected);
+    console.log();
+    console.log("-------------------------------------", this.pointedSection);
+  }
   async ngOnInit() {
     this.showPieChart();
-
+    this.onSelectedSection({
+      name: "Beauty",
+      isSelected: false,
+    });
     await this._socket.removeListener({ type: 7 });
     this._socket.addListener({
       type: 7,
