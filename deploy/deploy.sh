@@ -4,7 +4,7 @@
 set -e
 # Lets write the public key of our aws instance
 eval $(ssh-agent -s)
-echo "private key **********************************"
+echo "private key *********++++++++++***************"
 echo "$KEY_PRIVATE" | tr -d '\r' | ssh-add - > /dev/null
 
 # ** Alternative approach
