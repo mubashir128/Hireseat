@@ -57,7 +57,7 @@
               <div class="row">
                 <ng-container *ngIf="reply?.user_id?.profileimage !== ''">
                   <div class="candProfile2 col">
-                    <img src="reply?.user_id?.profileimage" alt="profile" />
+                    <img [src]="reply?.user_id?.profileimage" alt="profile" />
                   </div>
                 </ng-container>
 
