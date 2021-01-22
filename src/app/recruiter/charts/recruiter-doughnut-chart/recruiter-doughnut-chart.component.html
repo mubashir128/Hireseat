@@ -55,26 +55,30 @@
 
             <div class="replyComment" *ngFor="let reply of item.reply">
               <div class="row">
-                <ng-container *ngIf="reply?.user_id?.profileimage !== ''">
+                <ng-container *ngIf="reply?.user_id?.profileimage !== '' && item.recruiterId._id === loggedInUser._id">
                   <div class="candProfile2 col">
                     <img [src]="reply?.user_id?.profileimage" alt="profile" />
                   </div>
                 </ng-container>
 
-                <ng-container *ngIf="reply?.user_id?.profileimage === ''">
+                <ng-container *ngIf="reply?.user_id?.profileimage === '' && item.recruiterId._id === loggedInUser._id">
                   <div class="candProfile2 col">
                     <img src="assets/img/profile-user.png" alt="profile" />
                   </div>
                 </ng-container>
 
-                <div class="col" style="margin-left: -50px">
-                  {{ reply.user_id.fullName }}
-                </div>
+                <ng-container *ngIf="item.recruiterId._id === loggedInUser._id">
+                  <div class="col" style="margin-left: -50px">
+                    {{ reply.user_id.fullName }}
+                  </div>
+                </ng-container>
               </div>
 
-              <div class="row">
-                <div class="styleReply col">{{ reply.replyComment }}</div>
-              </div>
+              <ng-container *ngIf="item.recruiterId._id === loggedInUser._id">
+                <div class="row">
+                  <div class="styleReply col">{{ reply.replyComment }}</div>
+                </div>
+              </ng-container>
             </div>
           </ng-container>
         </div>
