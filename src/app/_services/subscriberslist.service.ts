@@ -15,5 +15,8 @@ export class SubscriberslistService {
   recruiterPoints = new Subject();
   recruiterPoints$ = this.recruiterPoints.asObservable();
 
+  activeCandidateNavBar = new Subject();
+  activeCandidateNavBar$ = this.activeCandidateNavBar.asObservable();
+
   constructor() { }
 }

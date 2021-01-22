@@ -394,11 +394,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
 
     if (this.isCandidate) {
+      this._subList.activeCandidateNavBar.next({profileName : "My Posted Profiles"});
       this.router.navigate(["/candidate/my-posted-profiles"]);
-    }
-
-    if (this.isRecruiter) {
-      this.router.navigate(["/recruiter/share-candidate-profile"]);
     }
   }
 
