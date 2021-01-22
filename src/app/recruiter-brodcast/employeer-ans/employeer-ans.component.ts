@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IBiddingEvent } from 'src/app/models/bidding-event';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
@@ -12,7 +12,7 @@ declare var Materialize;
   templateUrl: './employeer-ans.component.html',
   styleUrls: ['./employeer-ans.component.css']
 })
-export class EmployeerAnsComponent implements OnInit {
+export class EmployeerAnsComponent implements OnInit, OnDestroy {
   @Input() public biddingEvent: IBiddingEvent;
   user: any;
   id: any;
@@ -160,4 +160,10 @@ export class EmployeerAnsComponent implements OnInit {
     });
 
   }
+
+  ngOnDestroy() {
+    this._socket.removeListener({ type: 3 });
+    this.questionObserver.unsubscribe();
+  }
+
 }

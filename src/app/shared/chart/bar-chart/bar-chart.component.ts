@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { Chart } from "chart.js";
 import { Subject } from "rxjs";
 import { WebsocketService } from "src/app/_services/websocket.service";
@@ -8,7 +8,7 @@ import { WebsocketService } from "src/app/_services/websocket.service";
   templateUrl: "./bar-chart.component.html",
   styleUrls: ["./bar-chart.component.css"]
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnInit, OnDestroy {
   topRecruiters = [];
   biddingDetails = [];
   BarChart;
@@ -20,6 +20,7 @@ export class BarChartComponent implements OnInit {
   ratingPoints = [];
   selectedCount = [];
   @Input() recruiterData;
+
   barChartObserver = new Subject();
   barChartObserver$ = this.barChartObserver.asObservable();
 
@@ -232,6 +233,11 @@ export class BarChartComponent implements OnInit {
 
   handleLineChartClick() {
     this.chartObj = this;
+  }
+
+  ngOnDestroy() {
+    this._socket.removeListener({ type: 4 });
+    this.barChartObserver.unsubscribe();
   }
 
 }

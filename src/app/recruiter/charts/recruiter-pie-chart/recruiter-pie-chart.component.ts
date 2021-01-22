@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Chart } from "chart.js";
 import { WebsocketService } from "src/app/_services/websocket.service";
 import { Subject } from "rxjs";
@@ -9,7 +9,7 @@ import { UserService } from "../../../_services/user.service";
   templateUrl: "./recruiter-pie-chart.component.html",
   styleUrls: ["./recruiter-pie-chart.component.css"],
 })
-export class RecruiterPieChartComponent implements OnInit {
+export class RecruiterPieChartComponent implements OnInit, OnDestroy {
   PieChart;
   pieChartDataSet: any;
 
@@ -174,4 +174,10 @@ export class RecruiterPieChartComponent implements OnInit {
       },
     });
   }
+
+  ngOnDestroy() {
+    this._socket.removeListener({ type: 7 });
+    this.recruiterPieChartObserver.unsubscribe();
+  }
+
 }

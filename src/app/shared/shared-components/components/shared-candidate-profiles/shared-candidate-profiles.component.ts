@@ -46,9 +46,11 @@ export class SharedCandidateProfilesComponent
   implements OnInit, OnChanges, OnDestroy {
   @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
   @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
+
   // observer
   sharedProfileObserver = new Subject();
   sharedProfileObserver$ = this.sharedProfileObserver.asObservable();
+
   player: videojs.Player;
   canComment = false;
   // subscription
@@ -156,8 +158,8 @@ export class SharedCandidateProfilesComponent
     this.myComment = [];
     this.replyToComment = [];
     this.loggedUser = this.userService.getUserData();
+
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
-      console.log("subscribeed", res);
       this.shareResume = res;
     });
 
@@ -963,5 +965,9 @@ export class SharedCandidateProfilesComponent
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-  ngOnDestroy() {}
+
+  ngOnDestroy(){
+    this._socket.removeListener({ type: 5 });
+    this.sharedProfileObserver.unsubscribe();
+  }
 }

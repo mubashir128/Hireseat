@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Chart } from "chart.js";
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Subject } from "rxjs";
@@ -9,7 +9,7 @@ import { UserService } from "../../../_services/user.service";
   templateUrl: './recruiter-line-chart.component.html',
   styleUrls: ['./recruiter-line-chart.component.css']
 })
-export class RecruiterLineChartComponent implements OnInit {
+export class RecruiterLineChartComponent implements OnInit, OnDestroy {
   LineChart;
   lineChartDataConfig: any;
   lineOptions: any;
@@ -178,6 +178,11 @@ export class RecruiterLineChartComponent implements OnInit {
       },
       bezierCurve: false
     };
+  }
+
+  ngOnDestroy() {
+    this._socket.removeListener({ type: 8 });
+    this.recruiterLineChartObserver.unsubscribe();
   }
 
 }
