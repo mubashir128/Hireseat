@@ -121,6 +121,7 @@
 
 .allComments {
   font-size: 18px;
+  color: #666666;
   /* font-family: 'Courier New', Courier, monospace;
   font-style: italic;
   color: darkred; */
@@ -145,8 +146,8 @@
 }
 
 .candProfile2 img {
-  width: 30%;
-  height: 30%;
+  width: 40px;
+  height: 40px;
   background-color: #e7e7e7;
   border-radius: 20px;
   object-fit: cover;

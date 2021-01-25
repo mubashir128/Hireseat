@@ -188,6 +188,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
       case this.getAllRecruiterComment:
         res.data.forEach((item) => {
           this.allComments = [...this.allComments, ...item.canReview];
+          // console.log("-------+++++++---------", this.allComments);
         });
         break;
       default:
