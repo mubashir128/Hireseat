@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef } from "@angular/core";
+import { Component, OnInit, Input, ElementRef, OnDestroy } from "@angular/core";
 import { UserService } from "../_services/user.service";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { AuthenticationService } from "../_services/authentication.service";
@@ -24,7 +24,7 @@ declare var $: any;
     "(document:click)": "onClick($event)",
   },
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   path: any = "assets/img/navbar-logo.png";
   loggedInUser: any;
   commets = [];
@@ -394,11 +394,8 @@ export class NavbarComponent implements OnInit {
     });
 
     if (this.isCandidate) {
+      this._subList.activeCandidateNavBar.next({profileName : "My Posted Profiles"});
       this.router.navigate(["/candidate/my-posted-profiles"]);
-    }
-
-    if (this.isRecruiter) {
-      this.router.navigate(["/recruiter/share-candidate-profile"]);
     }
   }
 
@@ -436,6 +433,11 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(["/recruiter/share-candidate-profile"]);
     }
 
+  }
+
+  ngOnDestroy() {
+    this._socket.removeListener({ type: 4 });
+    this.notificationObserver.unsubscribe();
   }
 
 }

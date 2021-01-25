@@ -1,4 +1,4 @@
-import { Component, OnInit ,Output,EventEmitter,Input,ViewEncapsulation} from '@angular/core';
+import { Component, OnInit ,Output,EventEmitter,Input,ViewEncapsulation, OnDestroy} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {FormBuilder,FormGroup,Validators,FormArray,FormControl} from '@angular/forms';
 import {ForumService} from '../_services/forum.service';
@@ -17,7 +17,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./view-forum.component.css'],
   
 })
-export class ViewForumComponent implements OnInit {
+export class ViewForumComponent implements OnInit, OnDestroy {
   questData=[];
   public searchText : string;
 
@@ -308,6 +308,11 @@ var dateTime = date1+' '+time1;
       createdAt : this.createdAtAnswer
     };
     this.getQuestionsAndAnswers(answerObj);
+  }
+
+  ngOnDestroy() {
+    this._socket.removeListener({ type: 2 });
+    this.questionObserver.unsubscribe();
   }
 
 }

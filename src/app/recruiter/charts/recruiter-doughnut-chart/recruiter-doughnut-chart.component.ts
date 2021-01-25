@@ -311,5 +311,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     this.totalScore = "";
     this.targetScore = "";
     this.changeText();
+    this._socket.removeListener({ type: 6 });
+    this.doughnutObserver.unsubscribe();
   }
 }

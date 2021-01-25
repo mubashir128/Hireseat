@@ -4,6 +4,7 @@ import { IProfile, Profile } from "src/app/profile/model/user-profile";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router, NavigationEnd } from "@angular/router";
 import { UserService } from "src/app/_services/user.service";
+import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 declare var Materialize: any;
 
 declare var jQuery: any;
@@ -21,6 +22,7 @@ export class CandidateNavbarComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private userService: UserService,
+    private _subList: SubscriberslistService
   ) {
     this.tabs1 = [];
   }
@@ -48,21 +50,24 @@ export class CandidateNavbarComponent implements OnInit {
         }
       }
     });
+
     jQuery(".modal").modal();
     jQuery(".button-collapse").sideNav({
       menuWidth: 300, // Default is 240
       closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
     });
-    // console.log(this.router.url);
 
-    // this.showSummary();
+    this._subList.activeCandidateNavBar$.subscribe((res) => {
+      this.handleActiveList(res);
+    });
+
     this.SelectItem(this.router.url);
     // this.getUsersProfile();
   }
 
   handleActiveList(obj) {
     this.tabs1.forEach((tab) => {
-      if (tab.displayText === "My Profile") {
+      if (tab.displayText === obj.profileName) {
         tab.selected = true;
       } else {
         tab.selected = false;
