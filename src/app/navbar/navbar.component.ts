@@ -303,6 +303,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
           subType : "add",
           increseCount : this._constants.ReplyAdvicePoints
         }
+        this._subList.recruiterPointsForDoughnutChart.next(candidateObj);
         this._subList.recruiterPoints.next(candidateObj);
         this.incrementNotificationCount();
         break

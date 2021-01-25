@@ -83,7 +83,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
       },
     });
 
-    this._subList.recruiterPoints$.subscribe((res: any) => {
+    this._subList.recruiterPointsForDoughnutChart$.subscribe((res: any) => {
       this.handleRecruiterPoints(res);
     });
   }
@@ -91,8 +91,8 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   handleRecruiterPoints(res) {
     switch (res.pointer) {
       case "ratingPoints":
+        this.resetValues();
         this.changeTotalAndTargetText(res);
-        // this.userProfile[res.pointer] += res.increseCount;
         break;
     }
   }
@@ -238,23 +238,10 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   }
 
   changeTotalAndTargetText(res) {
-    let firstNum = 0;
-    let secondNum = 999;
-    let totalvalue = parseInt(this.totalText) + res.increseCount;
-    this.totalText = totalvalue + "";
-
-    while (true) {
-      if (totalvalue >= firstNum && totalvalue <= secondNum) {
-        this.targetText = secondNum + 1 + "";
-        break;
-      } else {
-        firstNum = secondNum;
-        secondNum += 1000;
-      }
-    }
-
-    this.changeText();
-    this.DaughnutChart.update();
+    //logic for changing the values.
+    
+    // this.changeText();
+    // this.DaughnutChart.update();
   }
 
   changeText() {
@@ -305,13 +292,18 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  resetValues(){
     this.totalText = "";
     this.targetText = "";
     this.totalScore = "";
     this.targetScore = "";
-    this.changeText();
+    this.changeText();  
+  }
+  
+  ngOnDestroy() {
+    this.resetValues();
     this._socket.removeListener({ type: 6 });
     this.doughnutObserver.unsubscribe();
+    // this._subList.recruiterPointsForDoughnutChart.unsubscribe();
   }
 }
