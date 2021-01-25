@@ -172,7 +172,6 @@ export class RecruiterNavbarComponent implements OnInit {
       .getUserProfile(this.userService.getUserData().userRole)
       .subscribe(
         (data: any) => {
-          console.log("data : ",data);
           if (data != null && data != undefined && data != "") {
             this.userProfile = data.res;
           } else {
