@@ -292,16 +292,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
         break;
       case this.candidateLikeNotification :
         //add notification to start of list.
-        this.likesOnComments.length !== 0 ? this.likesOnComments.unshift(res) : this.likesOnComments.push(res);;
+        this.likesOnComments.length !== 0 ? this.likesOnComments.unshift(res.data) : this.likesOnComments.push(res.data);
         this.incrementNotificationCount();
         break;
       case this.candidateReplyNotification : 
         //add notification to start of list.
-        this.replysOnComments.length !== 0 ? this.replysOnComments.unshift(res) : this.replysOnComments.push(res);
+        this.replysOnComments.length !== 0 ? this.replysOnComments.unshift(res.data) : this.replysOnComments.push(res.data);
         let candidateObj = {
           pointer : "ratingPoints",
           subType : "add",
-          increseCount : this._constants.ReplyAdvicePoints
+          increseCount : this._constants.ReplyAdvicePoints,
+          data : res.data
         }
         this._subList.recruiterPointsForDoughnutChart.next(candidateObj);
         this._subList.recruiterPoints.next(candidateObj);
@@ -313,6 +314,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
           this.notificationLength = res.count ? res.count : this.notificationLength;
         }
+        this.insertLikesAndReplyNotification(res.recdata);
         break;
       default:
         break;
@@ -321,6 +323,33 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   incrementNotificationCount() {
     this.notificationLength += 1;
+  }
+
+  insertLikesAndReplyNotification(data){
+    data.forEach((item, index) => {
+
+      item.canReview.like.forEach((ele, index) => {
+        this.likesOnComments.push({
+          _id : item.canReview._id,
+          like : [ele],
+          review : item.canReview.review  
+        });
+        if(ele.notification){
+          this.incrementNotificationCount();
+        }
+      });
+
+      item.canReview.reply.forEach((ele, index) => {
+        this.replysOnComments.push({
+          _id : item.canReview._id,
+          reply : ele
+        });
+        if(ele.notification){
+          this.incrementNotificationCount();
+        }
+      });
+
+    });
   }
 
   updateQueAns(id) {
@@ -418,14 +447,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     if(attType === 'like'){
       this.likesOnComments.forEach((res, index)=>{
-        if(subId === res.data.like[0]._id){
-          res.data.like[0].notification = false;
+        if(subId === res.like[0]._id){
+          res.like[0].notification = false;
         }
       });
     }else{
       this.replysOnComments.forEach((res, index)=>{
-        if(subId === res.data.reply._id){
-          res.data.reply.notification = false;
+        if(subId === res.reply._id){
+          res.reply.notification = false;
         }
       });
     }

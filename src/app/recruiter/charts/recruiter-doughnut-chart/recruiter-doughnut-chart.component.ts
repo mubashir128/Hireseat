@@ -35,6 +35,9 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   totalScore = "Total Score";
   targetScore = "Target Score";
 
+  totalTextTemp;
+  targetTextTemp;
+
   allComments = [];
 
   loggedInUser: any;
@@ -84,15 +87,29 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     });
 
     this._subList.recruiterPointsForDoughnutChart$.subscribe((res: any) => {
+      if(res.data){
+        this.addCommentReplyToAllComments(res.data);
+      }
       this.handleRecruiterPoints(res);
+    });
+  }
+
+  addCommentReplyToAllComments(res){
+    res.reply.user_id = res.user_id;
+    this.allComments.forEach((item, index)=>{
+      if(item._id === res._id){
+        item.reply.push(res.reply);
+      }
     });
   }
 
   handleRecruiterPoints(res) {
     switch (res.pointer) {
       case "ratingPoints":
+        this.totalTextTemp = this.totalText;
+        this.targetTextTemp = this.targetText;
         this.resetValues();
-        this.changeTotalAndTargetText(res);
+        // this.changeTotalAndTargetText(res);
         break;
     }
   }
@@ -188,7 +205,6 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
       case this.getAllRecruiterComment:
         res.data.forEach((item) => {
           this.allComments = [...this.allComments, ...item.canReview];
-          // console.log("-------+++++++---------", this.allComments);
         });
         break;
       default:
@@ -240,8 +256,27 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   changeTotalAndTargetText(res) {
     //logic for changing the values.
     
-    // this.changeText();
-    // this.DaughnutChart.update();
+    let firstNum = 0;
+    let secondNum = 999;
+
+    if(String(this.totalTextTemp) === ""){
+      this.totalText = String(res.increseCount);
+    }else{
+      this.totalText = String(parseInt(this.totalTextTemp) + res.increseCount);
+    }
+
+    while (true) {
+      if (parseInt(this.totalText) >= firstNum && parseInt(this.totalText) <= secondNum) {
+        this.targetText = String(secondNum + 1);
+        break;
+      } else {
+        firstNum = secondNum;
+        secondNum += 1000;
+      }
+    }
+
+    this.changeText();
+    this.DaughnutChart.update();
   }
 
   changeText() {
