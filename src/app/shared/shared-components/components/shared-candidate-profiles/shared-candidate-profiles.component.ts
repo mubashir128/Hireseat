@@ -254,9 +254,34 @@ export class SharedCandidateProfilesComponent
       case "replyAdvicePoints":
         this.addReplyToComment(res);
         break;
+      case "shareVideoViaRecruiterEmail":
+        this.handleResponse(res.result);
+        break;
       default:
         break;
     }
+  }
+
+  handleResponse(res){
+    if(res.message){
+      Materialize.toast(res.message, 3000, "green");
+      Materialize.toast("You gained 200 recruiter karma points", 4000, "blue");
+  
+      let eventObj = {
+        pointer: "ratingPoints",
+        subType: "increse",
+        increseCount: this._constants.sharedPoints,
+      };
+      this._subList.recruiterPoints.next(eventObj);
+  
+      eventObj.pointer = "sharePoints";
+      this._subList.recruiterPoints.next(eventObj);
+    }else{
+      Materialize.toast(res.error, 3000, "red");
+    }
+
+    jQuery("#shareEmailModal").modal("close");
+    this.spinner.hide();
   }
 
   addCommentToCommets(res) {
@@ -614,7 +639,6 @@ export class SharedCandidateProfilesComponent
   async share() {
     jQuery("#shareEmailModal").modal("close");
     this.spinner.show();
-    console.log("------------------------");
 
     const candidateName = this.shareResume.resumeType
       ? this.shareResume.candidateName
@@ -655,40 +679,52 @@ export class SharedCandidateProfilesComponent
                 comment: this.shareResume.comments,
                 candidateProfile: this.shareResume.resumeType ? false : true,
               };
-              this.shareVideoSubscription = this.shareVideoService
-                .shareVideoViaRecruiterEmail(payload)
-                .subscribe(
-                  (res) => {
-                    if (res) {
-                      // console.log(res);
-                      Materialize.toast(res.msg, 3000);
-                      Materialize.toast(
-                        "You gained 200 recruiter karma points",
-                        4000,
-                        "red"
-                      );
-                      jQuery("#shareEmailModal").modal("close");
 
-                      let eventObj = {
-                        pointer: "ratingPoints",
-                        subType: "increse",
-                        increseCount: this._constants.sharedPoints,
-                      };
-                      this._subList.recruiterPoints.next(eventObj);
+              let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
+              this._socket.sendMessage({
+                type: 5,
+                data: {
+                  type: userInfo.userRole,
+                  payload : payload,
+                  subType: "shareVideoViaRecruiterEmail"
+                },
+              });
 
-                      eventObj.pointer = "sharePoints";
-                      this._subList.recruiterPoints.next(eventObj);
+              // this.shareVideoSubscription = this.shareVideoService
+              //   .shareVideoViaRecruiterEmail(payload)
+              //   .subscribe(
+              //     (res) => {
+              //       if (res) {
+              //         // console.log(res);
+              //         Materialize.toast(res.msg, 3000);
+              //         Materialize.toast(
+              //           "You gained 200 recruiter karma points",
+              //           4000,
+              //           "red"
+              //         );
+              //         jQuery("#shareEmailModal").modal("close");
 
-                      this.spinner.hide();
-                    }
-                  },
-                  (err) => {
-                    // console.log(err);
-                    Materialize.toast("unable to send an email!", 3000);
-                    jQuery("#shareEmailModal").modal("close");
-                    this.spinner.hide();
-                  }
-                );
+              //         let eventObj = {
+              //           pointer: "ratingPoints",
+              //           subType: "increse",
+              //           increseCount: this._constants.sharedPoints,
+              //         };
+              //         this._subList.recruiterPoints.next(eventObj);
+
+              //         eventObj.pointer = "sharePoints";
+              //         this._subList.recruiterPoints.next(eventObj);
+
+              //         this.spinner.hide();
+              //       }
+              //     },
+              //     (err) => {
+              //       // console.log(err);
+              //       Materialize.toast("unable to send an email!", 3000);
+              //       jQuery("#shareEmailModal").modal("close");
+              //       this.spinner.hide();
+              //     }
+              //   );
+                
             } else {
               // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 3000);
