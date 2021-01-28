@@ -143,7 +143,7 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
           {
             ticks: {
               beginAtZero: true,
-              stepSize: 1,
+              // stepSize: 1,
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",
