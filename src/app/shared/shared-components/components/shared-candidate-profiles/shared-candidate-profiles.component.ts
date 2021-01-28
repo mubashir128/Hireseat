@@ -1002,7 +1002,7 @@ export class SharedCandidateProfilesComponent
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._socket.removeListener({ type: 5 });
     this.sharedProfileObserver.unsubscribe();
   }

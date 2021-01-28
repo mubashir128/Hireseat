@@ -77,7 +77,7 @@
               [(ngModel)]="editProfile.value.shareProfile"
               formControlName="shareProfile"
             />
-            <label for="post">Post my Profile</label>
+            <label for="post">Make My Profile Visible to Recruiters </label>
           </div>
         </div>
         <button type="submit" class="waves-effect waves-light btn">Save</button>
@@ -128,15 +128,17 @@
             </div>
           </ng-container>
         </div>
-        <div
-          class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
-          style="display: table"
-        >
-          <div class="uploadBtn" style="display: table-cell">
-            <span>Change Resume</span>
-            <input type="file" (change)="fileChange($event)" />
+        <ng-container *ngIf="fileUploaded !== 0">
+          <div
+            class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+            style="display: table; margin-left: 16px"
+          >
+            <div class="uploadBtn" style="display: table-cell">
+              <span>Change Resume</span>
+              <input type="file" (change)="fileChange($event)" />
+            </div>
           </div>
-        </div>
+        </ng-container>
         <!-- <span>Re-Upload Resume</span>
                 <input type="file" (change)="fileChange($event)" /> -->
         <div
@@ -150,10 +152,38 @@
           "
         >
           <div class="row" style="margin-bottom: 0px">
+            <div class="input-field col s12 m12 l12">
+              <div class="marB10">
+                <i class="fa fa-comment" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  <span>
+                    Value Proposition: Give your pitch directly to Recruiters
+                    below. Tell them 3 to 4 reasons why they should hire you.
+                  </span>
+                  <br /><br />
+                  <span>
+                    Highlight skills, unique or relevant experience, education,
+                    brand name companies/organizations, licenses,
+                    certifications, etc... Keep it short and use bullet points.
+                    Recruiters scan resumes very quickly and this is a chance
+                    for you to make sure they understand what you value you
+                    bring to the table.
+                  </span>
+                </span>
+              </div>
+              <textarea rows="4" formControlName="comments"></textarea>
+            </div>
             <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-user" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Full Name </span>
+                <span
+                  [ngClass]="
+                    editProfile.value.fullName ? 'resume-subtitle' : 'change'
+                  "
+                  class="resume-subtitle"
+                >
+                  Full Name
+                </span>
               </div>
               <input
                 id="candidate-name"
@@ -173,7 +203,13 @@
             <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-briefcase" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Job Title </span>
+                <span
+                  [ngClass]="
+                    editProfile.value.jobTitle ? 'resume-subtitle' : 'change'
+                  "
+                >
+                  Job Title
+                </span>
               </div>
               <input
                 id="candidate-name"
@@ -185,7 +221,14 @@
             <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Email </span>
+                <span
+                  [ngClass]="
+                    editProfile.value.email ? 'resume-subtitle' : 'change'
+                  "
+                  class="resume-subtitle"
+                >
+                  Email
+                </span>
               </div>
               <input
                 id="candidate-name"
@@ -198,7 +241,13 @@
             <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-phone" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Phone No </span>
+                <span
+                  [ngClass]="
+                    editProfile.value.phoneNo ? 'resume-subtitle' : 'change'
+                  "
+                >
+                  Phone No
+                </span>
               </div>
               <input
                 id="candidate-name"
@@ -207,7 +256,7 @@
                 formControlName="phoneNo"
               />
             </div>
-            <div class="input-field col s6 m6 l6">
+            <!-- <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span class="resume-subtitle"> Current Location </span>
@@ -230,7 +279,160 @@
                 class="validate"
                 formControlName="locationPref"
               />
+            </div> -->
+            <!-- <div class="input-field col s12 m12 l12">
+              <div>
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Current and Previous Employer
+                </span>
+              </div>
+              <div class="row">
+                <div class="input-field col s6 m6 l6">
+                  <input
+                    id="candidate-name"
+                    type="text"
+                    class="validate"
+                    formControlName="Employers1"
+                    placeholder="Employer 1"
+                  />
+                </div>
+                <div class="input-field col s6 m6 l6">
+                  <input
+                    id="candidate-name"
+                    type="text"
+                    class="validate"
+                    formControlName="Employers2"
+                    placeholder="Employer 2"
+                  />
+                </div>
+              </div>
+            </div> -->
+
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-archive" aria-hidden="true"></i>
+                <span
+                  [ngClass]="
+                    editProfile.value.skills ? 'resume-subtitle' : 'change'
+                  "
+                  class="resume-subtitle"
+                >
+                  Skills
+                </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="skills"
+              />
+              <span class="note">
+                <span style="color: #f58e8e">Note</span> : Enter Comma-separated
+                values
+              </span>
             </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                <span
+                  [ngClass]="
+                    editProfile.value.linkedIn ? 'resume-subtitle' : 'change'
+                  "
+                  class="resume-subtitle"
+                >
+                  Linked In
+                </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="linkedIn"
+              />
+            </div>
+            <div class="input-field col s6 m6 l6"></div>
+            <div class="input-field col s6 m6 l6"></div>
+
+            <!-- <div class="input-field col s6 m6 l6">
+              <div>
+                <span class="resume-subtitle"> Desired Roles </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="desiredRoles"
+              />
+            </div> -->
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <span class="resume-subtitle"> Desired Companies </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="desiredCompanies"
+              />
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <span class="resume-subtitle"> Desired Roles </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="desiredRoles"
+              />
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Total Work Experience Months
+                </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="totalWorkExpMonths"
+              />
+            </div>
+
+            <!-- <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-archive" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Skills </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="skills"
+              />
+              <span class="note">
+                <span style="color: #f58e8e">Note</span> : Enter Comma-separated
+                values
+              </span>
+            </div> -->
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="resume-subtitle">
+                  Total Work Experience Year
+                </span>
+              </div>
+              <input
+                id="candidate-name"
+                type="text"
+                class="validate"
+                formControlName="totalWorkExpYrs"
+              />
+            </div>
+            <!--  -->
             <div class="input-field col s12 m12 l12">
               <div>
                 <i class="fa fa-users" aria-hidden="true"></i>
@@ -259,86 +461,32 @@
                 </div>
               </div>
             </div>
-
+            <!--  -->
             <div class="input-field col s6 m6 l6">
               <div>
-                <i class="fa fa-linkedin-square" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Linked In </span>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Current Location </span>
               </div>
               <input
                 id="candidate-name"
                 type="text"
                 class="validate"
-                formControlName="linkedIn"
-              />
-            </div>
-            <div class="input-field col s6 m6 l6">
-              <div>
-                <span class="resume-subtitle"> Desired Roles </span>
-              </div>
-              <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                formControlName="desiredRoles"
-              />
-            </div>
-            <div class="input-field col s6 m6 l6">
-              <div>
-                <span class="resume-subtitle"> Desired Companies </span>
-              </div>
-              <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                formControlName="desiredCompanies"
+                formControlName="location"
               />
             </div>
             <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span class="resume-subtitle">
-                  Total Work Experience Months
-                </span>
+                <span class="resume-subtitle"> Location Preference </span>
               </div>
               <input
                 id="candidate-name"
                 type="text"
                 class="validate"
-                formControlName="totalWorkExpMonths"
+                formControlName="locationPref"
               />
             </div>
-            <div class="input-field col s6 m6 l6">
-              <div>
-                <i class="fa fa-archive" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Skills </span>
-              </div>
-              <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                formControlName="skills"
-              />
-              <span class="note">
-                <span style="color: #f58e8e">Note</span> : Enter Comma-separated
-                values
-              </span>
-            </div>
-            <div class="input-field col s6 m6 l6">
-              <div>
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span class="resume-subtitle">
-                  Total Work Experience Year
-                </span>
-              </div>
-              <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                formControlName="totalWorkExpYrs"
-              />
-            </div>
-
+            <!--  -->
             <div class="input-field col s12 m12 l12 iv">
               <div class="subTitle">
                 <span class="resume-subtitle"> Referrals </span>
@@ -451,13 +599,13 @@
                 </div>
               </div>
             </div>
-            <div class="input-field col s12 m12 l12">
+            <!-- <div class="input-field col s12 m12 l12">
               <div class="marB10">
                 <i class="fa fa-comment" aria-hidden="true"></i>
                 <span class="resume-subtitle"> Comments : </span>
               </div>
               <textarea rows="4" formControlName="comments"></textarea>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
