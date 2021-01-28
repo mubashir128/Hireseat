@@ -613,99 +613,98 @@ export class SharedCandidateProfilesComponent
 
   async share() {
     jQuery("#shareEmailModal").modal("close");
-    Materialize.toast("The Share feature is under process!", 4000, "red");
-    // this.spinner.show();
-    // console.log("------------------------");
+    this.spinner.show();
+    console.log("------------------------");
 
-    // const candidateName = this.shareResume.resumeType
-    //   ? this.shareResume.candidateName
-    //   : this.shareResume.candidate_id.fullName;
-    // const subject =
-    //   "Hireseat" +
-    //   " - " +
-    //   this.loggedUser.companyName +
-    //   " - " +
-    //   this.shareResume.jobTitle +
-    //   " - " +
-    //   candidateName +
-    //   " Profile.";
+    const candidateName = this.shareResume.resumeType
+      ? this.shareResume.candidateName
+      : this.shareResume.candidate_id.fullName;
+    const subject =
+      "Hireseat" +
+      " - " +
+      this.loggedUser.companyName +
+      " - " +
+      this.shareResume.jobTitle +
+      " - " +
+      candidateName +
+      " Profile.";
 
-    // const archiveIdPayload = {
-    //   archivedId: this.shareResume.interviewLinkedByRecruiter,
-    // };
+    const archiveIdPayload = {
+      archivedId: this.shareResume.interviewLinkedByRecruiter,
+    };
 
-    // // getting url
-    // this.getArchivedVideoSubscription = this.videoCallingService
-    //   .getArchivedVideo(archiveIdPayload)
-    //   .subscribe(
-    //     (res) => {
-    //       if (res) {
-    //         this.shareableVideoURL = res.url;
+    // getting url
+    this.getArchivedVideoSubscription = this.videoCallingService
+      .getArchivedVideo(archiveIdPayload)
+      .subscribe(
+        (res) => {
+          if (res) {
+            this.shareableVideoURL = res.url;
 
-    //         this.spinner.hide();
-    //         if (this.shareableVideoURL) {
-    //           const payload = {
-    //             recruiterId: this.loggedUser._id,
-    //             resumeId: this.shareResume._id,
-    //             recipientEmail: this.recipientEmail,
-    //             cc: this.cc,
-    //             bcc: this.bcc,
-    //             videoUrl: this.shareableVideoURL,
-    //             fullName: candidateName,
-    //             subject: subject,
-    //             comment: this.shareResume.comments,
-    //             candidateProfile: this.shareResume.resumeType ? false : true,
-    //           };
-    //           this.shareVideoSubscription = this.shareVideoService
-    //             .shareVideoViaRecruiterEmail(payload)
-    //             .subscribe(
-    //               (res) => {
-    //                 if (res) {
-    //                   // console.log(res);
-    //                   Materialize.toast(res.msg, 3000);
-    //                   Materialize.toast(
-    //                     "You gained 200 recruiter karma points",
-    //                     4000,
-    //                     "red"
-    //                   );
-    //                   jQuery("#shareEmailModal").modal("close");
+            this.spinner.hide();
+            if (this.shareableVideoURL) {
+              const payload = {
+                recruiterId: this.loggedUser._id,
+                resumeId: this.shareResume._id,
+                recipientEmail: this.recipientEmail,
+                cc: this.cc,
+                bcc: this.bcc,
+                videoUrl: this.shareableVideoURL,
+                fullName: candidateName,
+                subject: subject,
+                comment: this.shareResume.comments,
+                candidateProfile: this.shareResume.resumeType ? false : true,
+              };
+              this.shareVideoSubscription = this.shareVideoService
+                .shareVideoViaRecruiterEmail(payload)
+                .subscribe(
+                  (res) => {
+                    if (res) {
+                      // console.log(res);
+                      Materialize.toast(res.msg, 3000);
+                      Materialize.toast(
+                        "You gained 200 recruiter karma points",
+                        4000,
+                        "red"
+                      );
+                      jQuery("#shareEmailModal").modal("close");
 
-    //                   let eventObj = {
-    //                     pointer: "ratingPoints",
-    //                     subType: "increse",
-    //                     increseCount: this._constants.sharedPoints,
-    //                   };
-    //                   this._subList.recruiterPoints.next(eventObj);
+                      let eventObj = {
+                        pointer: "ratingPoints",
+                        subType: "increse",
+                        increseCount: this._constants.sharedPoints,
+                      };
+                      this._subList.recruiterPoints.next(eventObj);
 
-    //                   eventObj.pointer = "sharePoints";
-    //                   this._subList.recruiterPoints.next(eventObj);
+                      eventObj.pointer = "sharePoints";
+                      this._subList.recruiterPoints.next(eventObj);
 
-    //                   this.spinner.hide();
-    //                 }
-    //               },
-    //               (err) => {
-    //                 // console.log(err);
-    //                 Materialize.toast("unable to send an email!", 3000);
-    //                 jQuery("#shareEmailModal").modal("close");
-    //                 this.spinner.hide();
-    //               }
-    //             );
-    //         } else {
-    //           // console.log('no sharable video available');
-    //           Materialize.toast("no sharable video available", 3000);
-    //           this.spinner.hide();
-    //         }
-    //       } else {
-    //         this.spinner.hide();
-    //       }
-    //     },
-    //     (err) => {
-    //       console.log("none responses");
+                      this.spinner.hide();
+                    }
+                  },
+                  (err) => {
+                    // console.log(err);
+                    Materialize.toast("unable to send an email!", 3000);
+                    jQuery("#shareEmailModal").modal("close");
+                    this.spinner.hide();
+                  }
+                );
+            } else {
+              // console.log('no sharable video available');
+              Materialize.toast("no sharable video available", 3000);
+              this.spinner.hide();
+            }
+          } else {
+            this.spinner.hide();
+          }
+        },
+        (err) => {
+          console.log("none responses");
 
-    //       this.spinner.hide();
-    //       return false;
-    //     }
-    //   );
+          this.spinner.hide();
+          return false;
+        }
+      );
     // got url
   }
 

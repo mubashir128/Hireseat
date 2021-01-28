@@ -815,3 +815,6 @@ iframe.interviewVideo {
   border-radius: 50%;
   opacity: 0;
 }
+.change {
+  color: red;
+}
