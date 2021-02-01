@@ -131,7 +131,8 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
             ticks: {
               beginAtZero: true,
               maxRotation: 45,
-              minRotation: 45
+              minRotation: 45,
+              display : false
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",
