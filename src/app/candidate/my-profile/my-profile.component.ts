@@ -236,8 +236,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     });
   }
   submit() {
-    console.log("}}}}}}}}}}}}", this.editProfile.value);
-
     if (this.downloadURL) {
       this.editProfile.patchValue({
         fileURL: this.downloadURL,

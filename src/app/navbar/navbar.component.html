@@ -137,92 +137,25 @@
                 (scrolled)="onScroll()"
               >
                 <ul>
-                  <li *ngFor="let ques of questDataLenght">
+                  <li *ngFor="let notify of notificationAre">
                     <a
-                      (click)="getToQuestion(ques._id)"
+                      (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2)"
                       [routerLink]=""
                       routerLinkActive="notification-content"
-                      *ngIf="!ques.isAnswered"
-                      [innerHtml]="truncateHTML(ques.question)"
-                      >{{ ques.question }}</a
+                      [innerHtml]="truncateHTML(notify.notification.message)"
+                      >{{ notify.notification.message }}</a
                     >
                   </li>
-
-                  <ng-container> </ng-container>
-
-                  <li *ngFor="let ques of suggestedQueData">
-                    <a
-                      [routerLink]="[
-                        '/bidding-events/details',
-                        ques?.biddingEventId
-                      ]"
-                      [queryParams]="{ queid: ques?._id }"
-                      routerLinkActive="notification-content"
-                      *ngIf="ques.QueAnsStaus == '1'"
-                      [innerHtml]="truncateHTML(ques.question)"
-                      >{{ ques.question }}</a
-                    >
-                  </li>
-
-                  <li *ngFor="let ques of suggestedQueData">
-                    <a
-                      [routerLink]="[
-                        '/bidding-events/details',
-                        ques?.biddingEventId
-                      ]"
-                      [queryParams]="{ queid: ques?._id }"
-                      routerLinkActive="notification-content"
-                      *ngIf="ques.QueAnsStaus == '2' && isRecruiter"
-                      (click)="updateQueAns(ques?._id)"
-                      [innerHtml]="truncateHTML(ques.question)"
-                      >{{ ques.question }}</a
-                    >
-                  </li>
-
-                  <ng-container *ngIf="isCandidate">
-                    <li *ngFor="let cmt of commets">
-                      <a
-                        (click)="goToSharedProfile(cmt._id)"
-                        [routerLink]=""
-                        routerLinkActive="notification-content"
-                        *ngIf="cmt.review && cmt.notification"
-                        [innerHtml]="truncateHTML(cmt.review)"
-                        >{{ cmt.review }}</a
-                      >
-                    </li>
-                  </ng-container>
-
-                  <li *ngFor="let cmt of likesOnComments">
-                    <a
-                    (click)="goToSharedProfileRecruiter(cmt._id, cmt.like[0]._id, 'like')"
-                      [routerLink]=""
-                      routerLinkActive="notification-content"
-                      [innerHtml]="truncateHTMLMsg(cmt.review, ' - liked')"
-                      *ngIf = "cmt.like[0].notification"
-                      >{{ cmt.review }}</a>
-                  </li>
-
-                  <li *ngFor="let cmt of replysOnComments">
-                    <a
-                      (click)="goToSharedProfileRecruiter(cmt._id, cmt.reply._id, 'reply')"
-                      [routerLink]=""
-                      routerLinkActive="notification-content"
-                      [innerHtml]="truncateHTMLMsg(cmt.reply.replyComment, ' - replied')"
-                      *ngIf = "cmt.reply.notification"
-                      >{{ cmt.review }}</a
-                    >
-                  </li>
-
                 </ul>
               </div>
             </div>
           </div>
         </ng-container>
 
-        <li *ngIf="!isAdmin && isLoggedIn && isEmployer">
+        <li *ngIf="!isAdmin && isLoggedIn">
           <a (click)="toggle()">
             <h4 class="count" *ngIf="notificationLength > 0">
-              {{ notificationLength + suggestedQueCount }}
+              {{ notificationLength}}
             </h4>
             <img
               src="assets/img/Notification-512.png"
@@ -230,31 +163,6 @@
             />
           </a>
         </li>
-
-        <li *ngIf="!isAdmin && isLoggedIn && isRecruiter">
-          <a (click)="toggle()">
-            <h4 class="count" *ngIf="notificationLength > 0">
-              {{ notificationLength + suggestedQueAnsCount }}
-            </h4>
-            <img
-              src="assets/img/Notification-512.png"
-              style="vertical-align: middle; height: 30px; width: 30px"
-            />
-          </a>
-        </li>
-
-        <li *ngIf="!isAdmin && isLoggedIn && isCandidate">
-          <a (click)="toggle()">
-            <h4 class="count" *ngIf="notificationLength > 0">
-              {{ notificationLength + suggestedQueCount }}
-            </h4>
-            <img
-              src="assets/img/Notification-512.png"
-              style="vertical-align: middle; height: 30px; width: 30px"
-            />
-          </a>
-        </li>
-
         <li
           *ngIf="
             isLoggedIn &&

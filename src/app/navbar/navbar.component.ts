@@ -39,35 +39,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public show: boolean = false;
   public buttonName: any = "Show";
   url: any;
-  questDataLenght: any = [];
-  suggestedQueData: any;
-  suggestedQueCount: number = 0;
-  suggestedQueAnsCount: number = 0;
+
   notificationLength: any = 0;
   showAdminDashboardButton: boolean = false;
   showEnterpriseDashboardButton: boolean = false;
   permaLink: any;
   candidate = false;
 
+  notificationAre : any = [];
+
   notificationObserver = new Subject();
   notificationObserver$ = this.notificationObserver.asObservable();
 
   getAllNotifications = "getAllNotifications";
   newNotification = "newNotification";
-  getAllCandidateNotifications = "getAllCandidateNotifications";
-  newCandidateNotifications = "newCandidateNotifications";
-  decreaseCandidateNotificationCount = "decreaseCandidateNotificationCount";
-  candidateReplyNotification = "candidateReplyNotification";
-  candidateLikeNotification = "candidateLikeNotification";
-  getRecruiterNotifications = "getRecruiterNotifications";
-  decreaseRecruiterNotificationCount = "decreaseRecruiterNotificationCount";
+  decreaseNotificationCount = "decreaseNotificationCount";
 
   limit = 15;
   createdAt;
   selector: string = ".scrollNotification";
   userProfile: any;
-  likesOnComments = [];
-  replysOnComments = [];
 
   constructor(
     private userService: UserService,
@@ -166,29 +157,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.loggedInUser.userRole == "employer") {
       this.showAdminDashboardButton = false;
       this.showEnterpriseDashboardButton = false;
-      this._forum
-        .getAllUnAnsQuestionsByEmployerId(this.loggedInUser._id)
-        .subscribe((data) => {
-          this.suggestedQueData = data;
-          this.suggestedQueData.forEach((element) => {
-            if (element.QueAnsStaus == 1) {
-              this.suggestedQueCount++;
-            }
-          });
-        });
     } else if (this.loggedInUser.userRole == "recruiter") {
       this.showAdminDashboardButton = false;
       this.showEnterpriseDashboardButton = false;
-      this._forum
-        .getAllUnreadAnsQueByRecruiteId(this.loggedInUser._id)
-        .subscribe((data) => {
-          this.suggestedQueData = data;
-          this.suggestedQueData.forEach((element) => {
-            if (element.QueAnsStaus == 2) {
-              this.suggestedQueAnsCount++;
-            }
-          });
-        });
       this.getUsersProfile();
     } else if (this.loggedInUser.userRole == "super-admin") {
       this.showAdminDashboardButton = true;
@@ -231,8 +202,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       );
   }
 
-  truncateHTML(text: string): string {
-    let charlimit = 20;
+  truncateHTML(text): string {
+    let charlimit = 40;
     if (!text || text.length <= charlimit) {
       return text;
     }
@@ -241,18 +212,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     let trim_space = without_html.trim().replace(/&nbsp;/g, "");
     let shortened = trim_space.substring(0, charlimit) + "...";
     return shortened;
-  }
-
-  truncateHTMLMsg(text: string, msg : string = ''): string {
-    let charlimit = 20;
-    if (!text || text.length <= charlimit) {
-      return text + msg;
-    }
-
-    let without_html = text.replace(/<(?:.|\n)*?>/gm, "");
-    let trim_space = without_html.trim().replace(/&nbsp;/g, "");
-    let shortened = trim_space.substring(0, charlimit) + "...";
-    return shortened + msg;
   }
 
   handleCandidateProfile(obj){
@@ -264,57 +223,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
       case this.getAllNotifications:
         // add all notifications to list.
         if (res.data.length !== 0) {
-          this.questDataLenght = [...this.questDataLenght, ...res.data];
-          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
-          this.notificationLength = res.count ? res.count : this.notificationLength;
+          res.data.forEach((item, index) => {
+            item.notification = JSON.parse(item.notification);
+          });
+          this.notificationAre = [...this.notificationAre, ...res.data];
+          this.createdAt = this.notificationAre[this.notificationAre.length - 1].createdAt;
+
+          if(res.count){
+            this.notificationLength = res.count;
+          }
+
         }
         break;
       case this.newNotification:
         //add notification to start of list.
-        this.questDataLenght.length !== 0 ? this.questDataLenght.unshift(res.result) : this.questDataLenght.push(res.result);
-        this.incrementNotificationCount();
-        break;
-      case this.getAllCandidateNotifications:
-        res.data.filter((val) => {
-          if (val.canReview) {
-            val.canReview.filter((cmt) => {
-              this.commets.push(cmt);
-              if(cmt.notification){
-                this.incrementNotificationCount();
-              }
-            });
-          }
-        });
-        break;
-      case this.newCandidateNotifications :
-        this.commets.length !== 0 ? this.commets.unshift(res.data) : this.commets.push(res.data);
-        this.incrementNotificationCount();
-        break;
-      case this.candidateLikeNotification :
-        //add notification to start of list.
-        this.likesOnComments.length !== 0 ? this.likesOnComments.unshift(res.data) : this.likesOnComments.push(res.data);
-        this.incrementNotificationCount();
-        break;
-      case this.candidateReplyNotification : 
-        //add notification to start of list.
-        this.replysOnComments.length !== 0 ? this.replysOnComments.unshift(res.data) : this.replysOnComments.push(res.data);
-        let candidateObj = {
-          pointer : "ratingPoints",
-          subType : "add",
-          increseCount : this._constants.ReplyAdvicePoints,
-          data : res.data
+        if (res.data) {
+          res.data.notification = JSON.parse(res.data.notification);
+          this.notificationAre.length !== 0 ? this.notificationAre.unshift(res.data) : this.notificationAre.push(res.data);
+          this.incrementNotificationCount();
         }
-        this._subList.recruiterPointsForDoughnutChart.next(candidateObj);
-        this._subList.recruiterPoints.next(candidateObj);
-        this.incrementNotificationCount();
-        break
-      case this.getRecruiterNotifications : 
-        if (res.data.length !== 0) {
-          this.questDataLenght = [...this.questDataLenght, ...res.data];
-          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
-          this.notificationLength = res.count ? res.count : this.notificationLength;
-        }
-        this.insertLikesAndReplyNotification(res.recdata);
         break;
       default:
         break;
@@ -323,33 +250,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   incrementNotificationCount() {
     this.notificationLength += 1;
-  }
-
-  insertLikesAndReplyNotification(data){
-    data.forEach((item, index) => {
-
-      item.canReview.like.forEach((ele, index) => {
-        this.likesOnComments.push({
-          _id : item.canReview._id,
-          like : [ele],
-          review : item.canReview.review  
-        });
-        if(ele.notification){
-          this.incrementNotificationCount();
-        }
-      });
-
-      item.canReview.reply.forEach((ele, index) => {
-        this.replysOnComments.push({
-          _id : item.canReview._id,
-          reply : ele
-        });
-        if(ele.notification){
-          this.incrementNotificationCount();
-        }
-      });
-
-    });
   }
 
   updateQueAns(id) {
@@ -399,70 +299,54 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
 
-  getToQuestion(id) {
+  getToQuestion(id, type, redirectId, redirectId2) {
     this.toggle();
-    this.router.navigate(["/question-details/", id]);
+    this.decreaseNotification(id);
+
+    switch(type){
+      case "askQuestion" : 
+        this.router.navigate(["/question-details/", redirectId]);
+        break;
+      case "profileQuestion" : 
+        this.router.navigate(["/bidding-events/details/", redirectId], { queryParams: { queid: redirectId2}});
+        break;
+      case "profileAnswer" : 
+        this.router.navigate(["bidding-events/details/", redirectId], { queryParams: { queid: redirectId2}});
+        break;
+      case "comment" : 
+        this._subList.activeCandidateNavBar.next({profileName : "My Posted Profiles"});
+        this.router.navigate(["/candidate/my-posted-profiles"]);
+        break;
+      case "reply" : 
+        this.router.navigate(["/recruiter/share-candidate-profile"]);
+        break;
+      case "like" : 
+        this.router.navigate(["/recruiter/share-candidate-profile"]);
+        break;
+      case "like" : 
+        this.router.navigate(["/recruiter/share-candidate-profile"]);
+        break;
+      default : 
+        break;
+    }
   }
   
-  goToSharedProfile(cmt_id) {
+  decreaseNotification(id){
     this.notificationLength--;
-    this.toggle();
-
-    this.commets.forEach((data, index)=>{
-      if(cmt_id === data._id){
-        data.notification = false;
+    this.notificationAre.forEach((notification, index) => {
+      if(notification._id === id){
+        this.notificationAre.splice(index, 1);
+        return ;
       }
     });
 
     this._socket.sendMessage({
       type: 1,
       data: {
-        type: this.loggedInUser.userRole,
-        subType : this.decreaseCandidateNotificationCount,
-        cmt_id : cmt_id,
+        subType : this.decreaseNotificationCount,
+        _id : id,
       },
     });
-
-    if (this.isCandidate) {
-      this._subList.activeCandidateNavBar.next({profileName : "My Posted Profiles"});
-      this.router.navigate(["/candidate/my-posted-profiles"]);
-    }
-  }
-
-  goToSharedProfileRecruiter(cmt_id, subId, attType){
-
-    this.notificationLength--;
-    this.toggle();
-
-    this._socket.sendMessage({
-      type: 1,
-      data: {
-        type: this.loggedInUser.userRole,
-        subType : this.decreaseRecruiterNotificationCount,
-        cmt_id : cmt_id,
-        attType : attType,
-        subId : subId
-      },
-    });
-
-    if(attType === 'like'){
-      this.likesOnComments.forEach((res, index)=>{
-        if(subId === res.like[0]._id){
-          res.like[0].notification = false;
-        }
-      });
-    }else{
-      this.replysOnComments.forEach((res, index)=>{
-        if(subId === res.reply._id){
-          res.reply.notification = false;
-        }
-      });
-    }
-
-    if (this.isRecruiter) {
-      this.router.navigate(["/recruiter/share-candidate-profile"]);
-    }
-
   }
 
   ngOnDestroy() {
