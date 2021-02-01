@@ -128,17 +128,23 @@
             </div>
           </ng-container>
         </div>
-        <ng-container *ngIf="fileUploaded !== 0">
-          <div
-            class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
-            style="display: table; margin-left: 16px"
-          >
-            <div class="uploadBtn" style="display: table-cell">
-              <span>Change Resume</span>
-              <input type="file" (change)="fileChange($event)" />
+        <div class="example-resume">
+          <ng-container *ngIf="fileUploaded !== 0">
+            <div
+              class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
+              style="display: table; margin-top: 0px !important"
+            >
+              <div class="uploadBtn" style="display: table-cell">
+                <span>Change Resume</span>
+                <input type="file" (change)="fileChange($event)" />
+              </div>
             </div>
+          </ng-container>
+          <div class="btn-accept placement" (click)="seeExampleModal()">
+            <span>Example</span>
           </div>
-        </ng-container>
+        </div>
+
         <!-- <span>Re-Upload Resume</span>
                 <input type="file" (change)="fileChange($event)" /> -->
         <div
@@ -256,58 +262,6 @@
                 formControlName="phoneNo"
               />
             </div>
-            <!-- <div class="input-field col s6 m6 l6">
-              <div>
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Current Location </span>
-              </div>
-              <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                formControlName="location"
-              />
-            </div>
-            <div class="input-field col s6 m6 l6">
-              <div>
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Location Preference </span>
-              </div>
-              <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                formControlName="locationPref"
-              />
-            </div> -->
-            <!-- <div class="input-field col s12 m12 l12">
-              <div>
-                <i class="fa fa-users" aria-hidden="true"></i>
-                <span class="resume-subtitle">
-                  Current and Previous Employer
-                </span>
-              </div>
-              <div class="row">
-                <div class="input-field col s6 m6 l6">
-                  <input
-                    id="candidate-name"
-                    type="text"
-                    class="validate"
-                    formControlName="Employers1"
-                    placeholder="Employer 1"
-                  />
-                </div>
-                <div class="input-field col s6 m6 l6">
-                  <input
-                    id="candidate-name"
-                    type="text"
-                    class="validate"
-                    formControlName="Employers2"
-                    placeholder="Employer 2"
-                  />
-                </div>
-              </div>
-            </div> -->
 
             <div class="input-field col s6 m6 l6">
               <div>
@@ -354,17 +308,6 @@
             <div class="input-field col s6 m6 l6"></div>
             <div class="input-field col s6 m6 l6"></div>
 
-            <!-- <div class="input-field col s6 m6 l6">
-              <div>
-                <span class="resume-subtitle"> Desired Roles </span>
-              </div>
-              <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                formControlName="desiredRoles"
-              />
-            </div> -->
             <div class="input-field col s6 m6 l6">
               <div>
                 <span class="resume-subtitle"> Desired Companies </span>
@@ -402,22 +345,6 @@
               />
             </div>
 
-            <!-- <div class="input-field col s6 m6 l6">
-              <div>
-                <i class="fa fa-archive" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Skills </span>
-              </div>
-              <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                formControlName="skills"
-              />
-              <span class="note">
-                <span style="color: #f58e8e">Note</span> : Enter Comma-separated
-                values
-              </span>
-            </div> -->
             <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -599,13 +526,6 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="input-field col s12 m12 l12">
-              <div class="marB10">
-                <i class="fa fa-comment" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Comments : </span>
-              </div>
-              <textarea rows="4" formControlName="comments"></textarea>
-            </div> -->
           </div>
         </div>
       </div>
@@ -622,3 +542,26 @@
     before uploading.
   </div>
 </div>
+
+<!--  -->
+
+<div id="seeExample" class="modal videoModalMain example-popup">
+  <a (click)="closeExampleModal()" class="close-btn"
+    ><i class="material-icons">close</i></a
+  >
+  <div class="modal-content videoModalContent">
+    <h4 class="slide-heading text-center">Example</h4>
+    <div class="modalBodyPop">
+      <img src="../../../assets/img/example_img.png" alt="" />
+    </div>
+    <div class="confirm">
+      <div class="spacing">
+        <div class="no"></div>
+        <div class="yes">
+          <div class="btn-reject" (click)="closeExampleModal()">Close</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  -->

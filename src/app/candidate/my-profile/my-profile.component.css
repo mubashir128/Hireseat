@@ -782,6 +782,7 @@ iframe.interviewVideo {
 }
 .uploadProfileImg:hover .profileAdd {
   opacity: 1;
+  cursor: pointer;
 }
 .profileAdd {
   position: absolute;
@@ -796,15 +797,27 @@ iframe.interviewVideo {
   background-color: #18181842;
   opacity: 0;
   transition: 0.8s;
+  cursor: pointer;
 }
 .profileAdd i {
   color: #ffffff;
+  cursor: pointer;
 }
 .profileAdd p {
   font-size: 13px;
   color: #ffffff;
   margin-top: 4px;
   text-align: center;
+  cursor: pointer;
+}
+.profileAddInner {
+  cursor: pointer;
+}
+.example-resume {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px 0 20px;
 }
 .uploadProfileImg input {
   position: absolute;
@@ -817,4 +830,27 @@ iframe.interviewVideo {
 }
 .change {
   color: red;
+}
+.example-popup {
+  display: none;
+  position: fixed;
+  /* max-height: unset; */
+  /* max-height: 410px; */
+  box-shadow: none !important;
+  /* width: 100%; */
+  overflow: unset;
+  height: 100%;
+}
+.example-popup .slide-heading {
+  margin: 0;
+  padding: 10px 30px;
+}
+.videoModalMain a.close-btn {
+  position: absolute;
+  top: -30px;
+  color: #fff !important;
+  z-index: 99999999;
+  right: 190px !important;
+  font-size: 20px !important;
+  cursor: pointer;
 }

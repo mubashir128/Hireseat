@@ -298,6 +298,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       console.log(res);
     });
   }
+  seeExampleModal() {
+    jQuery("#seeExample").modal("open");
+  }
+  closeExampleModal() {
+    jQuery("#seeExample").modal("close");
+  }
   ngOnDestroy() {
     if (this.editCandidateProfileSubscription)
       this.editCandidateProfileSubscription.unsubscribe();
