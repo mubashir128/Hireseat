@@ -11,7 +11,6 @@ import { SharedComponentsModule } from '../shared/shared-components/shared-compo
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RecruiterHomeComponent } from './recruiter-home/recruiter-home.component';
 import { TagInputModule } from "ngx-chips";
-import { NgHighlightModule } from 'ngx-text-highlight';
 import { RecruiterBrodcastModule } from '../recruiter-brodcast/recruiter-brodcast.module';
 import { WaitingListComponent } from './waiting-list/waiting-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -29,7 +28,6 @@ import { RecruiterDoughnutChartComponent } from './charts/recruiter-doughnut-cha
     SharedComponentsModule,
     NgxPaginationModule,
     TagInputModule,
-    NgHighlightModule,
     RecruiterBrodcastModule
   ],
   declarations: [

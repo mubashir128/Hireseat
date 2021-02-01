@@ -15,7 +15,7 @@ const publish = () => {
 
 export class PublisherComponent implements AfterViewInit {
   @ViewChild('publisherDiv', { static: true }) publisherDiv: ElementRef;
-  @ViewChild('visioStopBtn', { static: false }) visioStopBtn: ElementRef;
+  @ViewChild('visioStopBtn') visioStopBtn: ElementRef;
 
   @Input() session: OT.Session;
   publisher: OT.Publisher;

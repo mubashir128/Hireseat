@@ -33,7 +33,7 @@ export class SAUserListComponent implements OnInit {
   dropdownSettings = {};
   itemsIs: any;
 
-  @ViewChild("searchInputTerm", { static: false }) searchInputTerm: ElementRef;
+  @ViewChild("searchInputTerm") searchInputTerm: ElementRef;
 
   constructor(
     private superAdmin: SuperAdminService,

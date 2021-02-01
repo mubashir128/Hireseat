@@ -36,7 +36,7 @@ export class CreateBiddingEventComponent implements OnInit {
   finalRecruitersAre = [];
   selectedRecruiters = [];
   
-  @ViewChild('searchInputTerm', { static: false }) searchInputTerm : ElementRef;
+  @ViewChild('searchInputTerm') searchInputTerm : ElementRef;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {

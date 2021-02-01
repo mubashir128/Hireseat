@@ -40,10 +40,24 @@
               "src/assets/js/jquery.paginate.js",
               "src/assets/js/ckeditor/ckeditor.js",
               "./node_modules/video.js/dist/video.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "rxjs-compat",
+              "jquery",
+              "video.js"
             ]
+
+
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

@@ -36,7 +36,7 @@ declare var Materialize: any;
   styleUrls: ["./view-profile.component.css"],
 })
 export class ViewProfileComponent implements OnInit {
-  @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
+  @ViewChild("playVideo") videojsPlay: ElementRef;
   player: videojs.Player;
   changeMyProfileStatusSubscription: Subscription;
   bookmarkSubscription: Subscription;

@@ -44,7 +44,7 @@ declare var Materialize;
 })
 export class BiddingInfoComponent
   implements AfterViewInit, OnChanges, OnDestroy, OnInit {
-  @ViewChild('target', { static: false }) target: ElementRef;
+  @ViewChild('target') target: ElementRef;
   shareVideoSubscription: Subscription;
   getArchivedVideoSubscription: Subscription;
   seeArchivedVideoSubscription: Subscription;
