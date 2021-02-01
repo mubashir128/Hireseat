@@ -323,7 +323,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       case "like" : 
         this.router.navigate(["/recruiter/share-candidate-profile"]);
         break;
-      case "like" : 
+      case "shareCandidateProfile" : 
         this.router.navigate(["/recruiter/share-candidate-profile"]);
         break;
       default : 
