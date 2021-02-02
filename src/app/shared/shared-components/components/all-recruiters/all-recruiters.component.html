@@ -127,7 +127,16 @@
   </div>
 </div>
 <!-- Card View Design : ENDS -->
-
+<div class="accept-values">
+  <input
+    type="text"
+    mwlFlatpickr
+    [altInput]="true"
+    [convertModelValue]="true"
+    [(ngModel)]="selectsDates"
+  >
+ 
+</div>
 <div id="selectDates" class="modal videoModalMain forumPopMain forumMsgPopup">
   <form [formGroup]="requestDatesForm">
     <a (click)="closeSelectDatesModal()" class="videoCloseBtn"
@@ -135,6 +144,7 @@
     >
     <div class="modal-content videoModalContent">
       <h4 class="slide-heading text-center">Select your available days</h4>
+      
       <div class="modalBodyPop">
         <div class="dates">
           <div class="start">
@@ -152,7 +162,6 @@
                   dateFormat="Y-m-dTH:i"
                   altFormat="F j, Y H:i"
                   placeholder="Not set"
-                  [disable]="[disabledDay]"
                   [minDate]="'today'"
                 />
               </div>
@@ -180,7 +189,6 @@
                   dateFormat="Y-m-dTH:i"
                   altFormat="F j, Y H:i"
                   placeholder="Not set"
-                  [disable]="[disabledDay]"
                   [minDate]="'today'"
                 />
               </div>
@@ -208,7 +216,6 @@
                   dateFormat="Y-m-dTH:i"
                   altFormat="F j, Y H:i"
                   placeholder="Not set"
-                  [disable]="[disabledDay]"
                   [minDate]="'today'"
                 />
               </div>

@@ -28,6 +28,8 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
   recruiters: any;
   selectedRecruiter: any;
   user: any;
+  public selectsDates;
+  
   // multiDate: any = [];
   availableTime: any = [];
   availableDetails: any;
