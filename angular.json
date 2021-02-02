@@ -45,7 +45,19 @@
               "chart.js",
               "rxjs-compat",
               "jquery",
-              "video.js"
+              "video.js",
+              "rxjs",
+              "videojs-vtt.js",
+              "global/document",
+              "socket.io-client",
+              "@videojs/vhs-utils/dist/codecs.js",
+              "@videojs/vhs-utils/dist/resolve-url.js",
+              "mux.js/lib/tools/ts-inspector.js",
+              "mux.js/lib/mp4/probe",
+              "@babel/runtime/helpers/inherits",
+              "@videojs/xhr",
+              "@babel/runtime/helpers/possibleConstructorReturn",
+              "@babel/runtime/helpers/construct"
             ]
 
 
