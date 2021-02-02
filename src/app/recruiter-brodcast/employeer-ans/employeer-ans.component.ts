@@ -95,7 +95,9 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
         break;
       case "answer" :
           // add answer to list.
-          this.count--;
+          if(this.count > 0){
+            this.count--;
+          }
           this.answer='';
           this.show=false;
           this.updateElement(res.data);
