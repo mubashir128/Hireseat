@@ -287,7 +287,7 @@ export class SharedCandidateProfilesComponent
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        element.canReview.push(res.data);
+        element.canReview.length !==0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
       } else {
         console.log("not matched");
       }
@@ -313,7 +313,7 @@ export class SharedCandidateProfilesComponent
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            comment.reply.push(res.data.replyComment);
+            comment.reply.length !==0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
           }
         });
       } else {
@@ -356,7 +356,6 @@ export class SharedCandidateProfilesComponent
             searchType: "name",
             searchTerm: this.searchTerm,
           };
-          console.log(obj);
 
           this.getAllSharedResumes(obj);
           // this.redirectToUser(obj);
@@ -405,10 +404,7 @@ export class SharedCandidateProfilesComponent
         .subscribe(
           (res) => {
             if (res) {
-              // if (this.loggedUser.userRole === "candidate") {
-              //   this.getMyPostedProfiles();
-              // } else {
-              this.getProfiles();
+              this.addCommentToCommets(res.detailedCommentObj);
               Materialize.toast(
                 "You gained 100 recruiter karma points",
                 4000,
@@ -424,7 +420,6 @@ export class SharedCandidateProfilesComponent
 
               this._subList.recruiterPoints.next(candidateObj);
 
-              // }
               this.myComment[i] = "";
             }
           },
@@ -457,8 +452,7 @@ export class SharedCandidateProfilesComponent
               5000,
               "red"
             );
-            this.getProfiles();
-            // this.getUsersProfile();
+            this.addLikeToComment(res);
           }
         },
         (err) => {
@@ -560,7 +554,7 @@ export class SharedCandidateProfilesComponent
         (res) => {
           if (res) {
             this.replyToComment[i] = "";
-            this.getProfiles();
+            this.addReplyToComment(res);
           }
         },
         (err) => {}

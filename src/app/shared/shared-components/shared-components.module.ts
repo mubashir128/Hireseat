@@ -51,6 +51,8 @@ import { SharedCandidateProfilesComponent } from "./components/shared-candidate-
 import { CandidateNavbarComponent } from "src/app/candidate/candidate-navbar/candidate-navbar.component";
 import { ShareProfileSearchPipe } from "./components/shared-candidate-profiles/share-profile-search.pipe";
 import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruiter-search.pipe";
+import { ReversePipe } from "../pipes/reverse.pipe";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -121,6 +123,7 @@ import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruite
     ShareProfileSearchPipe,
 
     AllRecruiterSearchPipe,
+    ReversePipe
   ],
   exports: [
     FooterComponent,
@@ -169,6 +172,7 @@ import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruite
     CandidateNavbarComponent,
     ShareProfileSearchPipe,
     AllRecruiterSearchPipe,
+    ReversePipe
   ],
 })
 export class SharedComponentsModule {}
