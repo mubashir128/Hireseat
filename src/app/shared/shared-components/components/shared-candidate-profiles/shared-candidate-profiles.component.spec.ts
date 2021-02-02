@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SharedCandidateProfilesComponent } from './shared-candidate-profiles.component';
 
@@ -6,7 +6,7 @@ describe('SharedCandidateProfilesComponent', () => {
   let component: SharedCandidateProfilesComponent;
   let fixture: ComponentFixture<SharedCandidateProfilesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SharedCandidateProfilesComponent ]
     })

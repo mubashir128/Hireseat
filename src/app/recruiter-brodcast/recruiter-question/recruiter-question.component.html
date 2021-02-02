@@ -13,8 +13,9 @@
           
           <div class="scrollDiv">
             <div class="quetion" *ngFor="let quetionAns of quetionsData ;let index = index" >
-            <h5><Span class="labelclass">Q.{{index+1}} </Span> 
-              <span class="highlightdiv" ngxTextHighlight [content]="quetionAns?.question" [searchTerm]="quetionAns._id == queid ?quetionAns.question:question"  [caseSensitive]="false">{{quetionAns?.question}}</span>
+            <h5><Span  class="labelclass">Q.{{index+1}} </Span> 
+              <span innerHtml="{{quetionAns?.question | textHighLight :question}}"></span>
+              <!-- <span class="highlightdiv" ngxTextHighlight [content]="quetionAns?.question" [searchTerm]="quetionAns._id == queid ?quetionAns.question:question"  [caseSensitive]="false">{{quetionAns?.question}}</span> -->
               <span class="queCount">{{quetionAns.questionCount}}</span></h5>
             <p><span class="labelclass">Ans: </span> <span> {{quetionAns?.Ans}}</span></p>
             </div>

@@ -30,8 +30,8 @@ export class MyReviewedProfilesComponent implements OnInit {
   selectedResumeIs;
   toggleSearch = false;
   public searchResumeBid: FormGroup;
-  @ViewChild('searchByName', { static: false }) searchByName: ElementRef;
-  @ViewChild('searchAll', { static: false }) searchAll: ElementRef;
+  @ViewChild('searchByName') searchByName: ElementRef;
+  @ViewChild('searchAll') searchAll: ElementRef;
   tags: any;
   public SearchFrm: FormGroup;
   public skillSets = [];

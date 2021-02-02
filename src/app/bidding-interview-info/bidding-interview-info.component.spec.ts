@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BiddingInterviewInfoComponent } from './bidding-interview-info.component';
 
@@ -6,7 +6,7 @@ describe('BiddingInterviewInfoComponent', () => {
   let component: BiddingInterviewInfoComponent;
   let fixture: ComponentFixture<BiddingInterviewInfoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BiddingInterviewInfoComponent ]
     })

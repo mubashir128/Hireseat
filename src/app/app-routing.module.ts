@@ -137,7 +137,7 @@ const appChildRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     RouterModule.forChild(appChildRoutes),
   ],
   exports: [RouterModule],

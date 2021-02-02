@@ -38,7 +38,6 @@ import { NgxCurrencyModule } from "ngx-currency";
 import { NgxMaskModule } from "ngx-mask";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
-import { NgHighlightModule } from "ngx-text-highlight";
 import { SelectDropDownModule } from "ngx-select-dropdown";
 import { VideoCallingService } from "./_services/video-calling.service";
 import { GlobalErrorHandler } from "./_errorHandler/global-error-handler";
@@ -139,7 +138,6 @@ import { GlobalErrorHandler } from "./_errorHandler/global-error-handler";
     NgxTwitterTimelineModule,
     Ng2CompleterModule,
     SelectDropDownModule,
-    NgHighlightModule,
     ServiceWorkerModule.register("/ngsw-worker.js", {
       enabled: environment.production,
     }),

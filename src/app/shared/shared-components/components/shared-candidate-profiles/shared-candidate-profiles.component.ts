@@ -44,7 +44,7 @@ declare var Materialize;
 })
 export class SharedCandidateProfilesComponent
   implements OnInit, OnChanges, OnDestroy {
-  @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
+  @ViewChild("playVideo") videojsPlay: ElementRef;
   @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
 
   // observer

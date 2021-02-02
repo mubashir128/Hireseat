@@ -19,20 +19,20 @@ declare var $: any;
   styleUrls: ["./create-admin.component.css"],
   providers: [UserService]
 })
-@Directive({
-  selector: "input[type=file]",
-  host: {
-    "(change)": "onChange($event.target.files)",
-    "(blur)": "onTouched()"
-  },
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: CreateAdminComponent,
-      multi: true
-    }
-  ]
-})
+// @Directive({
+//   selector: "input[type=file]",
+//   host: {
+//     "(change)": "onChange($event.target.files)",
+//     "(blur)": "onTouched()"
+//   },
+//   providers: [
+//     {
+//       provide: NG_VALUE_ACCESSOR,
+//       useExisting: CreateAdminComponent,
+//       multi: true
+//     }
+//   ]
+// })
 export class CreateAdminComponent implements OnInit, ControlValueAccessor {
   // file validator
   @HostListener("change", ["$event.target.files"]) onChange = _ => { };

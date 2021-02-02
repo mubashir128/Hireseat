@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PublisherComponent } from './publisher.component';
 import { OpentokService } from '../opentok.service';
@@ -16,7 +16,7 @@ describe('PublisherComponent', () => {
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     spyOn(OT, 'initPublisher').and.callFake(() => publisher);
     TestBed.configureTestingModule({
       declarations: [ PublisherComponent ],
