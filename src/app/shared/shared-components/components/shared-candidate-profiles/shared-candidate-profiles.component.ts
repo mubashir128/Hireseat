@@ -112,6 +112,7 @@ export class SharedCandidateProfilesComponent
   myProfileContent: any;
   likeCommetSubscription: Subscription;
   replyTocommentSubscription: Subscription;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -138,20 +139,6 @@ export class SharedCandidateProfilesComponent
             searchType: "name",
             searchTerm: res,
           };
-          //  this.resumes = this.resumes.filter((resume) => {
-          //     if (
-          //       resume.candidateName.toLowerCase().includes(res.toLowerCase()) ||
-          //       resume.candidate_id.fullName
-          //         .toLowerCase()
-          //         .includes(res.toLowerCase())
-          //     ){
-          //       console.log(resume);
-          //       return resume;
-
-          //     }
-          //   });
-          //   console.log(this.resumes);
-
           this.getAllSharedResumes(obj);
         }
       });
@@ -189,6 +176,7 @@ export class SharedCandidateProfilesComponent
       time3: new FormControl(null, Validators.compose([Validators.required])),
     });
   }
+
   ngOnChanges() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
@@ -197,47 +185,18 @@ export class SharedCandidateProfilesComponent
   async ngOnInit() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
-    // this.getProfiles();
-
-    //socket
-
-    // let obj = JSON.parse(localStorage.getItem("currentUser"));
-    // if (obj !== null) {
-    //   await this.initSocket(obj.token, obj.userInfo.userRole);
-    // }
-
+    
     await this._socket.removeListener({ type: 5 });
     this._socket.addListener({
       type: 5,
       callback: this.sharedProfileObserver,
     });
 
-    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
-    // this._socket.getProfiles({
-    //   type: 5,
-    //   data: {
-    //     _id: userInfo._id,
-    //     personId: userInfo._id,
-    //     type: userInfo.userRole,
-    //     subType: "getAllSharedProfiles",
-    //   },
-    // });
-
-    // this._socket.sendMessage({
-    //   type: 5,
-    //   data: {
-    //     _id: userInfo._id,
-    //     personId: userInfo._id,
-    //     type: userInfo.userRole,
-    //     subType: "getAllSharedProfiles",
-    //   },
-    // });
     this.getProfiles();
 
     this.sharedProfileObserver$.subscribe((res: any) => {
       this.handleProfileData(res);
     });
-    // socket end
   }
 
   handleProfileData(res: any) {
@@ -323,23 +282,18 @@ export class SharedCandidateProfilesComponent
   }
 
   getProfiles() {
-    // this.getAllSharedResumes({});
-    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
-
     this._socket.sendMessage({
       type: 5,
       data: {
-        _id: userInfo._id,
-        personId: userInfo._id,
-        type: userInfo.userRole,
         subType: "getAllSharedProfiles",
       },
     });
+    
     if (this.loggedUser.userRole === "candidate") {
-      // this.getMyPostedProfiles();
       this.myProfile();
     }
   }
+
   disabledDay(date) {}
 
   searchTermByName() {
@@ -350,28 +304,22 @@ export class SharedCandidateProfilesComponent
         debounceTime(800),
         distinctUntilChanged(),
         tap((text) => {
-          // console.log(text.target.value);
-
           let obj = {
             searchType: "name",
             searchTerm: this.searchTerm,
           };
 
           this.getAllSharedResumes(obj);
-          // this.redirectToUser(obj);
         })
       )
       .subscribe();
   }
-  getUsersProfile() {
-    // console.log("setting up user profile");
 
+  getUsersProfile() {
     this.userService
       .getUserProfile(this.userService.getUserData().userRole)
       .subscribe(
         (data: any) => {
-          // console.log("========", data);
-
           if (data != null && data != undefined && data != "") {
             this.userService.setUserProfile(data.res);
           } else {
@@ -385,6 +333,7 @@ export class SharedCandidateProfilesComponent
         }
       );
   }
+
   postMycmt(i, cmt, resume) {
     if (
       this.myComment[i] === "" ||
@@ -441,7 +390,6 @@ export class SharedCandidateProfilesComponent
       resumeId: resume._id,
     };
 
-    // console.log("payload", payload);
     this.likeCommetSubscription = this.resumeService
       .likeComment(payload)
       .subscribe(
@@ -460,6 +408,7 @@ export class SharedCandidateProfilesComponent
         }
       );
   }
+
   edit(cmt) {
     this.editTo = cmt.review;
     if (this.editTextIndex === cmt._id) {
@@ -468,12 +417,14 @@ export class SharedCandidateProfilesComponent
       this.editTextIndex = cmt._id;
     }
   }
+
   cancelEdit(cmt) {
     this.editTo = "";
     if (this.editTextIndex === cmt._id) {
       this.editTextIndex = -1;
     }
   }
+
   editComment(cmt, resume) {
     if (this.editTo === cmt.review) {
       Materialize.toast("No change!");
@@ -513,6 +464,7 @@ export class SharedCandidateProfilesComponent
         );
     }
   }
+
   deleteComment(cmt, resume) {
     let candidateProfile;
     resume?.resumeType ? (candidateProfile = false) : (candidateProfile = true);
@@ -579,6 +531,7 @@ export class SharedCandidateProfilesComponent
       );
     }
   }
+
   getMyPostedProfiles() {
     this.getMyPostedProfilesSubscription = this.candidateService
       .myPostedProfiles()
@@ -602,6 +555,7 @@ export class SharedCandidateProfilesComponent
         (err) => {}
       );
   }
+
   getVideo(payload) {
     this.getVideoURLSubscription = this.videoCallingService
       .getArchivedVideo(payload)
@@ -615,6 +569,7 @@ export class SharedCandidateProfilesComponent
         }
       });
   }
+
   linkedIn(url) {
     window.open(url, "_blank");
   }
@@ -913,6 +868,7 @@ export class SharedCandidateProfilesComponent
   selectionChanged(event) {
     console.log(event);
   }
+
   myProfile() {
     this.getProfileSubscription = this.candidateService
       .getCandidateProfile()
@@ -920,6 +876,7 @@ export class SharedCandidateProfilesComponent
         this.myProfileContent = res;
       });
   }
+
   confirmSelectDatesEvent() {
     // console.log(this.requestDatesForm.valid);
     // console.log(this.requestDatesForm.value);

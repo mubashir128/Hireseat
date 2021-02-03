@@ -147,7 +147,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this._socket.sendMessage({
       type: 1,
       data: {
-        type: this.loggedInUser.userRole,
         subType: this.getAllNotifications,
         onLoad: true,
         limit: this.limit,
