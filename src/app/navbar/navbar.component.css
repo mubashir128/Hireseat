@@ -130,6 +130,14 @@ nav ul a {
     display: none !important;
   }
 }
+@media only screen and (min-device-width:1024px) and (max-device-width:1366px){
+  .CandiHelped {
+    left: 20% !important;
+  }
+  nav.customeNav ul a {
+    padding: 0 12px !important;
+}
+}
 @media only screen and (min-width: 990px) and (max-width: 1250px) {
   .nav-wrapper.container {
     width: 95% !important;
