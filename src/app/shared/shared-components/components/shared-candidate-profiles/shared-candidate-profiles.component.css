@@ -756,3 +756,15 @@ a.videoCloseBtn {
   border: none;
   margin: 30px auto 0; 
 }
+.industries {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px 0 20px;
+}
+.industries span{
+  background-color: #f0f0f0;
+  padding: 6px 20px;
+  border-radius: 5px;
+  margin: 5px 5px;
+  font-size: 14px;
+}
