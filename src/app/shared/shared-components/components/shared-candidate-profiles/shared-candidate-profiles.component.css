@@ -723,11 +723,25 @@ a.videoCloseBtn {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-
 .industrieName{
-  font-size: 12px;
+  font-size: 12px ;
 }
 
+.candidate-name .industrieName{
+  font-size: 12px !important;
+  color: #8ca2c3 !important;
+}
+.sortIndustriesMain{
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px 30px;
+  display: block;
+  justify-content: unset;
+  margin-bottom: 20px;
+  transition: 1s;
+  height: auto;
+  background-color: #ffffff;
+}
 .sortIndustries {
   justify-content: left;
   align-items: left;
@@ -740,5 +754,5 @@ a.videoCloseBtn {
   border-radius: 3px;
   color: #fff !important;
   border: none;
-  margin: 10px auto 0; 
+  margin: 30px auto 0; 
 }

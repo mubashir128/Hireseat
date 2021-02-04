@@ -1,6 +1,6 @@
 <ng-container *ngIf="loggedUser.userRole != 'candidate'">
 
-  <div class="input-field col s12 m12 l12">
+  <div class="sortIndustriesMain  input-field col s12 m12 l12">
     <i class="fa fa-industry" aria-hidden="true"></i>
     <span class="resume-subtitle">
         Sort by Industries
@@ -97,6 +97,10 @@
                     resume?.desiredRoles ||
                       resume?.candidateProfileKey?.desiredRoles
                   }}
+                </p>
+                <p>
+                  <label>Industries :</label>
+                  <span class="industrieName" *ngFor="let industries of resume.industries">{{industries?.name}} |</span>
                 </p>
               </div>
             </div>

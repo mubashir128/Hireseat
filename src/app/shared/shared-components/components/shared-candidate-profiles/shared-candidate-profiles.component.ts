@@ -208,6 +208,7 @@ export class SharedCandidateProfilesComponent
     switch (res.subType) {
       case "getAllSharedProfiles":
         this.resumes = res.data;
+        console.log(this.resumes)
         break;
       case "addComment":
         this.addCommentToCommets(res);
@@ -989,6 +990,7 @@ export class SharedCandidateProfilesComponent
   sortByIndustries(){
     this.candidateService.getSortByIndustries({industries : this.industries}).subscribe((data: any) => {
       this.resumes = data;
+      console.log(this.resumes)
     });
   }
 
