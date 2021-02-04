@@ -44,6 +44,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   currentUserId: string | Blob;
   message: string;
   filepath: File;
+
+  industriesAre = [];
+  industries = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
@@ -95,6 +99,26 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     });
     this.getProfile();
   }
+
+  getIndustries(){
+    this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
+      if(res){
+        res.industries.forEach((item1, index1) => {
+          let temp = false;
+          this.candidateProfile.industries.forEach((item2, index2) => {
+            if(item1._id === item2._id){
+              temp = true;
+              this.industries.push(item1);
+            }
+          });
+          item1.valueType = temp;
+          this.industriesAre.push(item1);
+        });
+        
+      }
+    });
+  }
+
   updateProfileImg() {
     const fd = new FormData();
     if (!this.imagePath) {
@@ -171,8 +195,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       .getCandidateProfile()
       .subscribe(
         (res) => {
-          // console.log('************************', res);
           this.candidateProfile = res;
+          this.getIndustries();
           this.editProfile.patchValue({
             fullName: res.candidate_id.fullName,
             email: res.candidate_id.email,
@@ -235,6 +259,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   submit() {
     if (this.downloadURL) {
       this.editProfile.patchValue({
@@ -247,7 +272,11 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       "candidateId",
       new FormControl(this.candidateProfile._id)
     );
-    console.log(this.editProfile.valid);
+
+    this.editProfile.addControl(
+      "industries",
+      new FormControl(this.industries)
+    );
 
     if (this.editProfile.valid) {
       this.editCandidateProfileSubscription = this.candidateService
@@ -309,4 +338,25 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     if (this.uploadResumeSubscription)
       this.uploadResumeSubscription.unsubscribe();
   }
+
+  handleIndustries($event, _id){
+    let selectIndex = 0;
+    this.industriesAre.forEach((item, index)=>{
+      if(item._id ===_id){
+        selectIndex = index;
+      }
+    });
+
+    if($event.target.checked){
+      this.industries.push(this.industriesAre[selectIndex]);
+    }else{
+      this.industries.forEach((item, index)=>{
+        if(item._id ===_id){
+          this.industries.splice(index, 1);
+        }
+      });
+    }
+
+  }
+
 }

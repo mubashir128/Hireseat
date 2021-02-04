@@ -113,6 +113,9 @@ export class SharedCandidateProfilesComponent
   likeCommetSubscription: Subscription;
   replyTocommentSubscription: Subscription;
 
+  industriesAre = [];
+  industries = [];
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -197,6 +200,8 @@ export class SharedCandidateProfilesComponent
     this.sharedProfileObserver$.subscribe((res: any) => {
       this.handleProfileData(res);
     });
+
+    this.getIndustries();
   }
 
   handleProfileData(res: any) {
@@ -241,6 +246,14 @@ export class SharedCandidateProfilesComponent
 
     jQuery("#shareEmailModal").modal("close");
     this.spinner.hide();
+  }
+
+  getIndustries(){
+    this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
+      if(res){
+        this.industriesAre = res.industries;
+      }
+    });
   }
 
   addCommentToCommets(res) {
@@ -951,6 +964,33 @@ export class SharedCandidateProfilesComponent
 
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  handleIndustries($event, _id){
+    let selectIndex = 0;
+    this.industriesAre.forEach((item, index)=>{
+      if(item._id ===_id){
+        selectIndex = index;
+      }
+    });
+
+    if($event.target.checked){
+      this.industries.push(this.industriesAre[selectIndex]._id);
+    }else{
+      this.industries.forEach((Id, index)=>{
+        if(Id ===_id){
+          this.industries.splice(index, 1);
+        }
+      });
+    }
+
+  }
+
+  sortByIndustries(){
+    this.candidateService.getSortByIndustries({industries : this.industries}).subscribe((data: any) => {
+      this.resumes = data;
+      console.log(this.resumes)
+    });
   }
 
   ngOnDestroy() {
