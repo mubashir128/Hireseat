@@ -208,7 +208,6 @@ export class SharedCandidateProfilesComponent
     switch (res.subType) {
       case "getAllSharedProfiles":
         this.resumes = res.data;
-        console.log(this.resumes)
         break;
       case "addComment":
         this.addCommentToCommets(res);
