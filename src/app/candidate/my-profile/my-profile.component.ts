@@ -44,6 +44,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   currentUserId: string | Blob;
   message: string;
   filepath: File;
+
+  industriesAre = [];
+  industries = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
@@ -94,7 +98,19 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       fileURL: [""],
     });
     this.getProfile();
+
+    this.getIndustries();
+
   }
+
+  getIndustries(){
+    this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
+      if(res){
+        this.industriesAre = res.industries;
+      }
+    });
+  }
+
   updateProfileImg() {
     const fd = new FormData();
     if (!this.imagePath) {
@@ -235,6 +251,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   submit() {
     if (this.downloadURL) {
       this.editProfile.patchValue({
@@ -247,7 +264,11 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       "candidateId",
       new FormControl(this.candidateProfile._id)
     );
-    console.log(this.editProfile.valid);
+
+    this.editProfile.addControl(
+      "industries",
+      new FormControl(this.industries)
+    );
 
     if (this.editProfile.valid) {
       this.editCandidateProfileSubscription = this.candidateService
@@ -309,4 +330,25 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     if (this.uploadResumeSubscription)
       this.uploadResumeSubscription.unsubscribe();
   }
+
+  handleIndustries($event, _id){
+    let selectIndex = 0;
+    this.industriesAre.forEach((item, index)=>{
+      if(item._id ===_id){
+        selectIndex = index;
+      }
+    });
+
+    if($event.target.checked){
+      this.industries.push(this.industriesAre[selectIndex]);
+    }else{
+      this.industries.forEach((item, index)=>{
+        if(item._id ===_id){
+          this.industries.splice(index, 1);
+        }
+      });
+    }
+
+  }
+
 }

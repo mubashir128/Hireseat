@@ -22,6 +22,14 @@ export class CandidateService {
     );
   }
 
+  getCandidateIndustries() {
+    return this.http.get<any>(this.baseurl + "api/getCandidateIndustries").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   // auth : candidate
   editProfile(payload) {
     return this.http
@@ -102,6 +110,16 @@ export class CandidateService {
   getPostedRecruiter(payload) {
     return this.http
       .post<any>(this.baseurl + "api/get-posted-recruiter", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
+  getSortByIndustries(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/getSortByIndustries", payload)
       .pipe(
         map((res: any) => {
           return res;
