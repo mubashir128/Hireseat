@@ -988,7 +988,6 @@ export class SharedCandidateProfilesComponent
 
   sortByIndustries(){
     this.candidateService.getSortByIndustries({industries : this.industries}).subscribe((data: any) => {
-      console.log("---- data : ",data);
       this.resumes = data;
     });
   }
