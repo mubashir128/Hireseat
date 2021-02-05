@@ -130,21 +130,25 @@
               <div
                 class="scrollNotification"
                 infiniteScroll
-                [infiniteScrollDistance]="0"
-                [infiniteScrollThrottle]="50"
+                [infiniteScrollDistance]="1"
+                [infiniteScrollThrottle]="100"
                 [infiniteScrollContainer]="selector"
                 [fromRoot]="true"
                 (scrolled)="onScroll()"
               >
                 <ul>
                   <li *ngFor="let notify of notificationAre">
+
+                    <div class="notificaationDateTime">
+                      {{notify.createdAt | date:'dd/MM/yyyy HH:mm:ss.SS'}}
+                    </div>
                     <a
                       (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2)"
                       [routerLink]=""
                       routerLinkActive="notification-content"
                       [innerHtml]="truncateHTML(notify.notification.message)"
-                      >{{ notify.notification.message }}</a
-                    >
+                      >{{ notify.notification.message }}
+                    </a>
                   </li>
                 </ul>
               </div>
