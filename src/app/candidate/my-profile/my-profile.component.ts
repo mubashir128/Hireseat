@@ -358,5 +358,32 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
   }
+  checkRequiredField(event){
+    
+    if(event.target.checked == true){
+      // const invalid = [];
+      const controls = this.editProfile.controls;
+      if((controls['fullName'].value == "" || controls['jobTitle'].value == "") ||
+      (controls['email'].value == "" || controls['linkedIn'].value)|| 
+      (controls['skills'].value =="" || controls['desiredRoles'].value == "")){
+        event.preventDefault();
+        controls['shareProfile'].setValue(false)
+        Materialize.toast("fill required field", 1000);
 
+      }
+      // for (const formControl in controls){
+      //   console.log(formControl)
+      //   if(controls[formControl].value == "" || controls[formControl].invalid){
+      //       invalid.push(formControl)
+      //   }
+      // }
+      // console.log(invalid);
+      // for (const name in controls) {
+      //     if (controls[name].invalid) {
+      //         invalid.push(name);
+      //     }
+      // }
+      // return invalid;   
+     }
+  }
 }

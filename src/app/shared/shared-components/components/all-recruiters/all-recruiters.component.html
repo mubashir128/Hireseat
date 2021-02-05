@@ -150,7 +150,7 @@
           <div class="start">
             <div class="accept-dates">
               <div class="accept-values">
-                <input
+                <!-- <input
                   class="form-control"
                   type="text"
                   mwlFlatpickr
@@ -163,7 +163,11 @@
                   altFormat="F j, Y H:i"
                   placeholder="Not set"
                   [minDate]="'today'"
-                />
+                /> -->
+                <dp-date-picker dir="rtl" theme="dp-material"  required="true"
+                [formControl]="date1"  [config]="config" >
+                </dp-date-picker>
+
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown
@@ -177,7 +181,7 @@
             </div>
             <div class="accept-dates">
               <div class="accept-values">
-                <input
+                <!-- <input
                   class="form-control"
                   type="text"
                   mwlFlatpickr
@@ -190,7 +194,10 @@
                   altFormat="F j, Y H:i"
                   placeholder="Not set"
                   [minDate]="'today'"
-                />
+                /> -->
+                <dp-date-picker dir="rtl" theme="dp-material"  required="true"
+                [formControl]="date2"  [config]="config" >
+                </dp-date-picker>
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown
@@ -204,7 +211,7 @@
             </div>
             <div class="accept-dates">
               <div class="accept-values">
-                <input
+                <!-- <input
                   class="form-control"
                   type="text"
                   mwlFlatpickr
@@ -217,7 +224,10 @@
                   altFormat="F j, Y H:i"
                   placeholder="Not set"
                   [minDate]="'today'"
-                />
+                /> -->
+                <dp-date-picker dir="rtl" theme="dp-material"  required="true"
+                [formControl]="date2"  [config]="config" >
+                </dp-date-picker>
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown

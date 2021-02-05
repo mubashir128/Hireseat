@@ -76,8 +76,9 @@
               [value]="editProfile.value.shareProfile"
               [(ngModel)]="editProfile.value.shareProfile"
               formControlName="shareProfile"
+              (change)="checkRequiredField($event)"
             />
-            <label for="post">Make My Profile Visible to Recruiters </label>
+            <label class="my-profile" for="post">Make My Profile Visible to Recruiters </label>
           </div>
         </div>
         <button type="submit" class="waves-effect waves-light btn">Save</button>
@@ -342,7 +343,11 @@
             </div>
             <div class="input-field col s6 m6 l6">
               <div>
-                <span class="resume-subtitle"> Desired Roles </span>
+                <span
+                [ngClass]="
+                    editProfile.value.desiredRoles ? 'resume-subtitle' : 'change'
+                  "
+                class="resume-subtitle"> Desired Roles </span>
               </div>
               <input
                 id="candidate-name"
