@@ -371,3 +371,32 @@ h4.count {
   margin-right: 10px;
   margin-top: 25px;
 }
+
+.clearNotification{
+  float: right;
+  margin-right: 25px;
+  width: 0px;
+  margin-top: -20px;
+  height: 15px;
+}
+
+.clearNotification i {
+  color: #b2b1b0;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.clearNotification1{
+  float: right;
+  margin-right: 5px;
+  width: 0px;
+  margin-top: -40px;
+  height: 21px;
+}
+
+.clearNotification1 i {
+  color: #b2b1b0;
+  margin-right: 6px;
+  cursor: pointer;
+  color: black;
+}
