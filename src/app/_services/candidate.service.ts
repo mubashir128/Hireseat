@@ -98,15 +98,7 @@ export class CandidateService {
         })
       );
   }
-  myPostedProfiles() {
-    return this.http
-      .get<any>(this.baseurl + "api/get-all-my-posted-profile")
-      .pipe(
-        map((res: any) => {
-          return res;
-        })
-      );
-  }
+  
   getPostedRecruiter(payload) {
     return this.http
       .post<any>(this.baseurl + "api/get-posted-recruiter", payload)

@@ -221,6 +221,12 @@ export class SharedCandidateProfilesComponent
       case "shareVideoViaRecruiterEmail":
         this.handleResponse(res.result);
         break;
+      case "editComment" :
+        this.editRespectedComment(res);
+        break;
+      case "deleteComment" :
+        this.deleteRespectedComment(res);
+        break;
       default:
         break;
     }
@@ -260,8 +266,6 @@ export class SharedCandidateProfilesComponent
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
         element.canReview.length !==0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
-      } else {
-        console.log("not matched");
       }
     });
   }
@@ -274,8 +278,6 @@ export class SharedCandidateProfilesComponent
             comment.like.push(res.data);
           }
         });
-      } else {
-        console.log("not matched");
       }
     });
   }
@@ -288,8 +290,6 @@ export class SharedCandidateProfilesComponent
             comment.reply.length !==0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
           }
         });
-      } else {
-        console.log("not matched");
       }
     });
   }
@@ -463,11 +463,7 @@ export class SharedCandidateProfilesComponent
         .subscribe(
           (res) => {
             if (res) {
-              if (this.loggedUser.userRole === "candidate") {
-                this.getMyPostedProfiles();
-              } else {
-                this.getAllSharedResumes({});
-              }
+              this.editRespectedComment(res);
               this.cancelEdit(cmt);
             }
           },
@@ -476,6 +472,18 @@ export class SharedCandidateProfilesComponent
           }
         );
     }
+  }
+
+  editRespectedComment(res){
+    this.resumes.filter((element) => {
+      if (element._id === res.profileId) {
+        element.canReview.forEach((item, index) => {
+          if(item._id === res.data.cmtId){
+            item.review = res.data.review;
+          }
+        });
+      }
+    });
   }
 
   deleteComment(cmt, resume) {
@@ -492,15 +500,23 @@ export class SharedCandidateProfilesComponent
       .subscribe(
         (res) => {
           if (res) {
-            if (this.loggedUser.userRole === "candidate") {
-              this.getMyPostedProfiles();
-            } else {
-              this.getAllSharedResumes({});
-            }
+            this.deleteRespectedComment(res);
           }
         },
         (err) => {}
       );
+  }
+
+  deleteRespectedComment(res){
+    this.resumes.filter((element) => {
+      if (element._id === res.profileId) {
+        element.canReview.forEach((item, index) => {
+          if(item._id === res.data.cmtId){
+            element.canReview.splice(index,1);
+          }
+        });
+      }
+    });
   }
 
   replyToThisComment(i, comment, resume, cmtId) {
@@ -543,16 +559,6 @@ export class SharedCandidateProfilesComponent
         }
       );
     }
-  }
-
-  getMyPostedProfiles() {
-    this.getMyPostedProfilesSubscription = this.candidateService
-      .myPostedProfiles()
-      .subscribe((res) => {
-        if (res) {
-          this.resumes = res;
-        }
-      });
   }
 
   getAllSharedResumes(payload) {
@@ -989,7 +995,6 @@ export class SharedCandidateProfilesComponent
   sortByIndustries(){
     this.candidateService.getSortByIndustries({industries : this.industries}).subscribe((data: any) => {
       this.resumes = data;
-      console.log(this.resumes)
     });
   }
 
