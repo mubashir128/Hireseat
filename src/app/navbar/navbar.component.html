@@ -148,6 +148,7 @@
                     
                     <div class="notificaationDateTime">
                       {{notify.createdAt | date:'dd/MM/yyyy HH:mm:ss.SS'}}
+                      <!-- {{notify.updatedAt | prettyDate}} -->
                     </div>
                     <a
                       (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2)"

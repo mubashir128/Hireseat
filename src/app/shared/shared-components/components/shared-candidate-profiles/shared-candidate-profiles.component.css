@@ -768,3 +768,18 @@ a.videoCloseBtn {
   margin: 5px 5px;
   font-size: 14px;
 }
+
+.timstampDate{
+  /* width: 100%; */
+  float: left;
+  margin-right: 10px;
+}
+
+.notificaationDateTime{
+  font-size: 10px;
+  font-weight: initial;
+  font-family: sans-serif;
+  font-style: revert;
+  margin-right: 10px;
+  margin-top: 25px;
+}

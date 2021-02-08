@@ -362,12 +362,22 @@ h4.count {
 
 /* Candidate Helped Badge css :ENDS */
 
-.notificaationDateTime{
+/* .notificaationDateTime{
   float: right;
   font-size: 10px;
   font-weight: initial;
   font-family: 'Roboto';
   font-style: oblique;
+  margin-right: 10px;
+  margin-top: 25px;
+} */
+
+.notificaationDateTime{
+  float: right;
+  font-size: 10px;
+  font-weight: initial;
+  font-family: sans-serif;
+  font-style: revert;
   margin-right: 10px;
   margin-top: 25px;
 }

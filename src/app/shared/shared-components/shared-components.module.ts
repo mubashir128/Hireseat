@@ -53,6 +53,7 @@ import { ShareProfileSearchPipe } from "./components/shared-candidate-profiles/s
 import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruiter-search.pipe";
 import { ReversePipe } from "../pipes/reverse.pipe";
 import {DpDatePickerModule} from 'ng2-date-picker';
+import { NgxPrettyDateModule } from 'ngx-pretty-date';
 
 @NgModule({
   imports: [
@@ -72,7 +73,8 @@ import {DpDatePickerModule} from 'ng2-date-picker';
       useFactory: adapterFactory,
     }),
     NgbModalModule,
-    DpDatePickerModule 
+    DpDatePickerModule,
+    NgxPrettyDateModule
   ],
   declarations: [
     FooterComponent,
