@@ -126,6 +126,9 @@
             <div class="notificationListInner">
               <div class="hederNotification">
                 <h4>Notification</h4>
+                <div class="col" class="clearNotification1" *ngIf = "notificationAre.length > 0">
+                  <i class="fa fa-close" noClose = "true" tooltip="tootip on right" placement="right" aria-hidden="true" (click)="deleteAllNotification()"></i>
+                </div>
               </div>
               <div
                 class="scrollNotification"
@@ -139,6 +142,10 @@
                 <ul>
                   <li *ngFor="let notify of notificationAre">
 
+                    <div class="col" class="clearNotification">
+                      <i class="fa fa-trash" noClose = "true" aria-hidden="true" (click)="deleteNotification(notify._id)"></i>
+                    </div>
+                    
                     <div class="notificaationDateTime">
                       {{notify.createdAt | date:'dd/MM/yyyy HH:mm:ss.SS'}}
                     </div>

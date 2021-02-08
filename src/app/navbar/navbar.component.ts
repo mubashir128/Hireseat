@@ -278,7 +278,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   onClick(event) {
-    // console.log('clicked ');
+    if($(event.target).attr("noClose")){
+      return ;
+    }
 
     if (!this._eref.nativeElement.contains(event.target)) {
       // or some similar check
@@ -348,6 +350,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
 
+  deleteNotification(id){
+    this.decreaseNotification(id);
+  }
+
+  deleteAllNotification(){
+    this.notificationLength = 0;
+    this.notificationAre = [];
+    this._socket.sendMessage({
+      type: 1,
+      data: {
+        subType : this.decreaseNotificationCount,
+        clear : true,
+      },
+    });
+  }
+  
   ngOnDestroy() {
     this._socket.removeListener({ type: 4 });
     this.notificationObserver.unsubscribe();
