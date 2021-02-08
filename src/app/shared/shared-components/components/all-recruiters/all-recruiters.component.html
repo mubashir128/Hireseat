@@ -2,19 +2,19 @@
 <ng-container>
   <!-- <form [formGroup]="Search" novalidate style="width: 100%"> -->
   <!-- <div class="row"> -->
-    <div class="skillInput" style="margin-top: 10px">
-      <span class="note" style="float: left"
-        ><span style="color: #f58e8e">Note:</span> Search by Name :
-      </span>
-    </div>
-    <div class="inputDivMainN">
-      <input
-        type="text"
-        [(ngModel)]="searchTerm"
-        placeholder="Search here..."
-        #searchByName
-      />
-    </div>
+  <div class="skillInput" style="margin-top: 10px">
+    <span class="note" style="float: left"
+      ><span style="color: #f58e8e">Note:</span> Search by Name :
+    </span>
+  </div>
+  <div class="inputDivMainN">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search here..."
+      #searchByName
+    />
+  </div>
   <!-- </div> -->
   <!-- </form> -->
 </ng-container>
@@ -127,7 +127,6 @@
   </div>
 </div>
 <!-- Card View Design : ENDS -->
-
 <div id="selectDates" class="modal videoModalMain forumPopMain forumMsgPopup">
   <form [formGroup]="requestDatesForm">
     <a (click)="closeSelectDatesModal()" class="videoCloseBtn"
@@ -143,13 +142,8 @@
               <div class="accept-values">
                 <!-- <input
                   class="form-control"
-                  type="text"
                   mwlFlatpickr
                   (ngModelChange)="refresh.next()"
-                  [altInput]="true"
-                  [convertModelValue]="true"
-                  formControlName="date1"
-                  [enableTime]="false"
                   dateFormat="Y-m-dTH:i"
                   altFormat="F j, Y H:i"
                   placeholder="Not set"
