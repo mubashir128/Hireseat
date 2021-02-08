@@ -195,13 +195,13 @@ export class SharedCandidateProfilesComponent
       callback: this.sharedProfileObserver,
     });
 
+    this.getIndustries();
     this.getProfiles();
 
     this.sharedProfileObserver$.subscribe((res: any) => {
       this.handleProfileData(res);
     });
 
-    this.getIndustries();
   }
 
   handleProfileData(res: any) {
@@ -253,7 +253,7 @@ export class SharedCandidateProfilesComponent
     jQuery("#shareEmailModal").modal("close");
     this.spinner.hide();
   }
-
+  
   getIndustries(){
     this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
       if(res){

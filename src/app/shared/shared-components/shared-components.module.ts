@@ -52,6 +52,7 @@ import { CandidateNavbarComponent } from "src/app/candidate/candidate-navbar/can
 import { ShareProfileSearchPipe } from "./components/shared-candidate-profiles/share-profile-search.pipe";
 import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruiter-search.pipe";
 import { ReversePipe } from "../pipes/reverse.pipe";
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import { ReversePipe } from "../pipes/reverse.pipe";
       useFactory: adapterFactory,
     }),
     NgbModalModule,
+    DpDatePickerModule 
   ],
   declarations: [
     FooterComponent,

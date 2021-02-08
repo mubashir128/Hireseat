@@ -100,23 +100,24 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     this.getProfile();
   }
 
-  getIndustries(){
-    this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
-      if(res){
-        res.industries.forEach((item1, index1) => {
-          let temp = false;
-          this.candidateProfile.industries.forEach((item2, index2) => {
-            if(item1._id === item2._id){
-              temp = true;
-              this.industries.push(item1);
-            }
+  getIndustries() {
+    this.getProfileSubscription = this.candidateService
+      .getCandidateIndustries()
+      .subscribe((res) => {
+        if (res) {
+          res.industries.forEach((item1, index1) => {
+            let temp = false;
+            this.candidateProfile.industries.forEach((item2, index2) => {
+              if (item1._id === item2._id) {
+                temp = true;
+                this.industries.push(item1);
+              }
+            });
+            item1.valueType = temp;
+            this.industriesAre.push(item1);
           });
-          item1.valueType = temp;
-          this.industriesAre.push(item1);
-        });
-        
-      }
-    });
+        }
+      });
   }
 
   updateProfileImg() {
@@ -273,10 +274,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       new FormControl(this.candidateProfile._id)
     );
 
-    this.editProfile.addControl(
-      "industries",
-      new FormControl(this.industries)
-    );
+    this.editProfile.addControl("industries", new FormControl(this.industries));
 
     if (this.editProfile.valid) {
       this.editCandidateProfileSubscription = this.candidateService
@@ -339,24 +337,53 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       this.uploadResumeSubscription.unsubscribe();
   }
 
-  handleIndustries($event, _id){
+  handleIndustries($event, _id) {
     let selectIndex = 0;
-    this.industriesAre.forEach((item, index)=>{
-      if(item._id ===_id){
+    this.industriesAre.forEach((item, index) => {
+      if (item._id === _id) {
         selectIndex = index;
       }
     });
 
-    if($event.target.checked){
+    if ($event.target.checked) {
       this.industries.push(this.industriesAre[selectIndex]);
-    }else{
-      this.industries.forEach((item, index)=>{
-        if(item._id ===_id){
+    } else {
+      this.industries.forEach((item, index) => {
+        if (item._id === _id) {
           this.industries.splice(index, 1);
         }
       });
     }
-
   }
-
+  checkRequiredField(event) {
+    if (event.target.checked == true) {
+      // const invalid = [];
+      const controls = this.editProfile.controls;
+      if (
+        controls["fullName"].value == "" ||
+        controls["jobTitle"].value == "" ||
+        controls["email"].value == "" ||
+        controls["linkedIn"].value == "" ||
+        controls["skills"].value == "" ||
+        controls["desiredRoles"].value == ""
+      ) {
+        event.preventDefault();
+        controls["shareProfile"].setValue(false);
+        Materialize.toast("fill required field", 1000);
+      }
+      // for (const formControl in controls){
+      //   console.log(formControl)
+      //   if(controls[formControl].value == "" || controls[formControl].invalid){
+      //       invalid.push(formControl)
+      //   }
+      // }
+      // console.log(invalid);
+      // for (const name in controls) {
+      //     if (controls[name].invalid) {
+      //         invalid.push(name);
+      //     }
+      // }
+      // return invalid;
+    }
+  }
 }
