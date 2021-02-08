@@ -45,14 +45,13 @@ import { AllRecruitersComponent } from "./components/all-recruiters/all-recruite
 import { UserCalendarComponent } from "./components/user-calendar/user-calendar.component";
 import { CalendarModule, DateAdapter } from "angular-calendar";
 import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
-import { FlatpickrModule } from "angularx-flatpickr";
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import { SharedCandidateProfilesComponent } from "./components/shared-candidate-profiles/shared-candidate-profiles.component";
 import { CandidateNavbarComponent } from "src/app/candidate/candidate-navbar/candidate-navbar.component";
 import { ShareProfileSearchPipe } from "./components/shared-candidate-profiles/share-profile-search.pipe";
 import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruiter-search.pipe";
 import { ReversePipe } from "../pipes/reverse.pipe";
-import {DpDatePickerModule} from 'ng2-date-picker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 
 @NgModule({
   imports: [
@@ -66,13 +65,15 @@ import {DpDatePickerModule} from 'ng2-date-picker';
     TagInputModule,
     CKEditorModule,
     SelectDropDownModule,
-    FlatpickrModule.forRoot(),
+    // FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
     NgbModalModule,
-    DpDatePickerModule 
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    
   ],
   declarations: [
     FooterComponent,

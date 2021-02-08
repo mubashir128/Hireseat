@@ -163,7 +163,10 @@
 .forumMsgPopup.forumPopMain {
   max-width: 600px;
   position: fixed;
+  z-index: 999 !important;
 }
+
+
 .videoModalMain a.videoCloseBtn {
   position: absolute;
   top: -30px;

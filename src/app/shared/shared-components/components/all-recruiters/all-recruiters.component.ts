@@ -10,7 +10,6 @@ import {
   FormControl,
   Validators,
 } from "@angular/forms";
-import { IDatePickerConfig} from 'ng2-date-picker';
 
 declare var Materialize: any;
 declare var jQuery: any;
@@ -20,7 +19,8 @@ declare var jQuery: any;
   styleUrls: ["./all-recruiters.component.css"],
 })
 export class AllRecruitersComponent implements OnInit, OnDestroy {
-  today = new Date()
+  public today = new Date()
+ 
   getAllPostRecruiterSubscription: Subscription;
   shareWithRecruiterSubscription: Subscription;
   requestCoachingSubscription: Subscription;
@@ -30,10 +30,7 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
   recruiters: any;
   selectedRecruiter: any;
   user: any;
-  public selectsDates;
-  config:IDatePickerConfig = {
-    format: 'YY/M/D',
-  };
+ 
   // multiDate: any = [];
   availableTime: any = [];
   availableDetails: any;

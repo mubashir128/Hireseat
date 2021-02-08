@@ -1,6 +1,8 @@
 /* @import "../../../node_modules/angular-calendar/css/angular-calendar.css"; */
 /* @import "../../../node_modules/flatpickr/dist/flatpickr.css"; */
 
+@import "../../../node_modules/@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
+
 html {
   font-family: "gilroymedium";
 }
@@ -1285,4 +1287,14 @@ body {
 }
 .collection a.collection-item {
   color: #48aef3 !important;
+}
+.owl-dt-calendar-table .owl-dt-calendar-header .owl-dt-calendar-table-divider {
+  display: none !important ;
+}
+.requestpop .cdk-overlay-pane {
+  z-index: 999999 !important;
+}
+
+.modal-overlay {
+  z-index: 99 !important;
 }

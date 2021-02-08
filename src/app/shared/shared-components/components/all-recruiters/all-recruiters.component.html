@@ -127,16 +127,7 @@
   </div>
 </div>
 <!-- Card View Design : ENDS -->
-<div class="accept-values">
-  <input
-    type="text"
-    mwlFlatpickr
-    [altInput]="true"
-    [convertModelValue]="true"
-    [(ngModel)]="selectsDates"
-  >
- 
-</div>
+
 <div id="selectDates" class="modal videoModalMain forumPopMain forumMsgPopup">
   <form [formGroup]="requestDatesForm">
     <a (click)="closeSelectDatesModal()" class="videoCloseBtn"
@@ -145,7 +136,7 @@
     <div class="modal-content videoModalContent">
       <h4 class="slide-heading text-center">Select your available days</h4>
       
-      <div class="modalBodyPop">
+      <div class="modalBodyPop requestpop">
         <div class="dates">
           <div class="start">
             <div class="accept-dates">
@@ -164,10 +155,20 @@
                   placeholder="Not set"
                   [minDate]="'today'"
                 /> -->
-                <dp-date-picker dir="rtl" theme="dp-material"  required="true"
+                <!-- <dp-date-picker dir="rtl" theme="dp-material"  required="true"
                 [formControl]="date1"  [config]="config" >
-                </dp-date-picker>
-
+                </dp-date-picker> -->
+                
+                <input name="date1" 
+                formControlName="date1" 
+                [owlDateTime]="date1" 
+                [owlDateTimeTrigger]="date1" 
+                [selectMode]="'single'" 
+                [min]="today"/>
+              
+                <owl-date-time [firstDayOfWeek]="'1'" 
+                [pickerType]="'calendar'"  
+                #date1 ></owl-date-time>
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown
@@ -195,9 +196,16 @@
                   placeholder="Not set"
                   [minDate]="'today'"
                 /> -->
-                <dp-date-picker dir="rtl" theme="dp-material"  required="true"
-                [formControl]="date2"  [config]="config" >
-                </dp-date-picker>
+                
+                <input name="date2" 
+                formControlName="date2" 
+                [owlDateTime]="date2" 
+                [owlDateTimeTrigger]="date2" 
+                [selectMode]="'single'" [min]="today"/>
+              
+                <owl-date-time [firstDayOfWeek]="'1'" 
+                [pickerType]="'calendar'"  
+                #date2></owl-date-time>
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown
@@ -225,9 +233,20 @@
                   placeholder="Not set"
                   [minDate]="'today'"
                 /> -->
-                <dp-date-picker dir="rtl" theme="dp-material"  required="true"
+                <!-- <dp-date-picker dir="rtl" theme="dp-material"  required="true"
                 [formControl]="date2"  [config]="config" >
-                </dp-date-picker>
+                </dp-date-picker> -->
+                
+                <input name="date3" 
+                formControlName="date3" 
+                [owlDateTime]="date3" 
+                [owlDateTimeTrigger]="date3" 
+                [selectMode]="'single'"
+                [min]="today"  />
+              
+                <owl-date-time [firstDayOfWeek]="'1'" 
+                [pickerType]="'calendar'" 
+                #date3></owl-date-time>
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown
