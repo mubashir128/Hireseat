@@ -2,19 +2,19 @@
 <ng-container>
   <!-- <form [formGroup]="Search" novalidate style="width: 100%"> -->
   <!-- <div class="row"> -->
-    <div class="skillInput" style="margin-top: 10px">
-      <span class="note" style="float: left"
-        ><span style="color: #f58e8e">Note:</span> Search by Name :
-      </span>
-    </div>
-    <div class="inputDivMainN">
-      <input
-        type="text"
-        [(ngModel)]="searchTerm"
-        placeholder="Search here..."
-        #searchByName
-      />
-    </div>
+  <div class="skillInput" style="margin-top: 10px">
+    <span class="note" style="float: left"
+      ><span style="color: #f58e8e">Note:</span> Search by Name :
+    </span>
+  </div>
+  <div class="inputDivMainN">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search here..."
+      #searchByName
+    />
+  </div>
   <!-- </div> -->
   <!-- </form> -->
 </ng-container>
@@ -134,8 +134,7 @@
     [altInput]="true"
     [convertModelValue]="true"
     [(ngModel)]="selectsDates"
-  >
- 
+  />
 </div>
 <div id="selectDates" class="modal videoModalMain forumPopMain forumMsgPopup">
   <form [formGroup]="requestDatesForm">
@@ -144,7 +143,7 @@
     >
     <div class="modal-content videoModalContent">
       <h4 class="slide-heading text-center">Select your available days</h4>
-      
+
       <div class="modalBodyPop">
         <div class="dates">
           <div class="start">
@@ -164,10 +163,14 @@
                   placeholder="Not set"
                   [minDate]="'today'"
                 /> -->
-                <dp-date-picker dir="rtl" theme="dp-material"  required="true"
-                [formControl]="date1"  [config]="config" >
+                <dp-date-picker
+                  dir="rtl"
+                  theme="dp-material"
+                  required="true"
+                  formControlName="date1"
+                  [config]="config"
+                >
                 </dp-date-picker>
-
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown
@@ -195,8 +198,13 @@
                   placeholder="Not set"
                   [minDate]="'today'"
                 /> -->
-                <dp-date-picker dir="rtl" theme="dp-material"  required="true"
-                [formControl]="date2"  [config]="config" >
+                <dp-date-picker
+                  dir="rtl"
+                  theme="dp-material"
+                  required="true"
+                  formControlName="date2"
+                  [config]="config"
+                >
                 </dp-date-picker>
               </div>
               <div class="accept-values">
@@ -225,8 +233,13 @@
                   placeholder="Not set"
                   [minDate]="'today'"
                 /> -->
-                <dp-date-picker dir="rtl" theme="dp-material"  required="true"
-                [formControl]="date2"  [config]="config" >
+                <dp-date-picker
+                  dir="rtl"
+                  theme="dp-material"
+                  required="true"
+                  formControlName="date2"
+                  [config]="config"
+                >
                 </dp-date-picker>
               </div>
               <div class="accept-values">
