@@ -52,6 +52,7 @@ import { ShareProfileSearchPipe } from "./components/shared-candidate-profiles/s
 import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruiter-search.pipe";
 import { ReversePipe } from "../pipes/reverse.pipe";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { FlatpickrModule } from "angularx-flatpickr";
 
 @NgModule({
   imports: [
@@ -65,7 +66,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angul
     TagInputModule,
     CKEditorModule,
     SelectDropDownModule,
-    // FlatpickrModule.forRoot(),
+    FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
