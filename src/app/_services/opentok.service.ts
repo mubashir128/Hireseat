@@ -23,7 +23,8 @@ export class OpentokService {
   _getCandidateID = this.candidateID.asObservable();
   session: OT.Session;
   token: string;
-
+  
+  
   constructor(
     private http: HttpClient
   ) {

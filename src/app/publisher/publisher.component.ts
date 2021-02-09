@@ -30,7 +30,7 @@ export class PublisherComponent implements AfterViewInit {
     this.publisherOptions = {
       insertMode: 'append',
       width: '300px',
-      height: '300px',
+      height: '200px',
       name: 'Publisher',
       fitMode: 'contain',
       style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },

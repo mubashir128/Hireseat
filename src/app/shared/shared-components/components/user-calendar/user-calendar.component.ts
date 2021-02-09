@@ -49,7 +49,7 @@ const colors: any = {
   styleUrls: ['./user-calendar.component.css']
 })
 export class UserCalendarComponent implements OnInit, OnDestroy {
-
+  public today = new Date()
   createEventSubscription: Subscription;
   getAllEventSubscription: Subscription;
   editEventSubscription: Subscription;

@@ -53,6 +53,8 @@ export class SharedCandidateProfilesComponent
 
   player: videojs.Player;
   canComment = false;
+  public today = new Date()
+
   // subscription
   getVideoURLSubscription: Subscription;
   getAllSharedCandidateProfileSubscription: Subscription;

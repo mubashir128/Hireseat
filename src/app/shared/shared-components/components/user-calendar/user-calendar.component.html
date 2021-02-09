@@ -1,15 +1,13 @@
 <div class="row text-center CalenderMain">
     <div class="col s12 m12 l4">
         <div class="ButtGroup">
-            <div class="btn CalendCommonBtn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-                (viewDateChange)="closeOpenMonthViewDay()">
+            <div class="btn CalendCommonBtn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
                 Previous
             </div>
             <div class="btn CalendCommonBtn OutLineBtn" mwlCalendarToday [(viewDate)]="viewDate">
                 Today
             </div>
-            <div class="btn CalendCommonBtn btn-accept" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-                (viewDateChange)="closeOpenMonthViewDay()">
+            <div class="btn CalendCommonBtn btn-accept" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
                 Next
             </div>
         </div>
@@ -19,16 +17,13 @@
     </div>
     <div class="col s12 m12 l4">
         <div class="ButtGroup">
-            <div class="btn CalendCommonBtn btn-accept" (click)="setView(CalendarView.Month)"
-                [class.active]="view === CalendarView.Month">
+            <div class="btn CalendCommonBtn btn-accept" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
                 Month
             </div>
-            <div class="btn CalendCommonBtn btn-accept monthBtn" (click)="setView(CalendarView.Week)"
-                [class.active]="view === CalendarView.Week">
+            <div class="btn CalendCommonBtn btn-accept monthBtn" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
                 Week
             </div>
-            <div class="btn CalendCommonBtn btn-accept" (click)="setView(CalendarView.Day)"
-                [class.active]="view === CalendarView.Day">
+            <div class="btn CalendCommonBtn btn-accept" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
                 Day
             </div>
         </div>
@@ -36,26 +31,27 @@
 </div>
 <br />
 <div [ngSwitch]="view">
-    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-        [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
-        (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-month-view>
-    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
-        [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-week-view>
-    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-        (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-day-view>
 </div>
 
 
-<br /><br /><br />
+<br />
+<br />
+<br />
 
 <div class="EditEventMain">
     <div class="add-event">
         <h4>
-            Edit events<i class="fa fa-pencil" aria-hidden="true"></i>
+            Edit events
+            <i class="fa fa-pencil" aria-hidden="true"></i>
         </h4>
         <div class="btn-accept" (click)="addEvent()">
             Add new
@@ -79,8 +75,7 @@
             <tbody>
                 <tr *ngFor="let event of events">
                     <td>
-                        <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()"
-                            disabled />
+                        <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()" disabled />
                     </td>
                     <!-- <td>
                     <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()" />
@@ -89,16 +84,28 @@
                     <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()" />
                 </td> -->
                     <td class="dateTd">
-                        <input class="form-control InnerInput" type="text" mwlFlatpickr [(ngModel)]="event.start"
+                        <!-- <input class="form-control InnerInput" type="text" mwlFlatpickr [(ngModel)]="event.start"
                             (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true"
                             [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
-                            disabled />
+                            disabled /> -->
+
+
+                        <input name="date1" [(ngModel)]="event.start" [owlDateTime]="date1" [owlDateTimeTrigger]="date1" [selectMode]="'single'"
+                            [min]="today" />
+
+                        <owl-date-time [firstDayOfWeek]="'1'" [pickerType]="'calendar'" #date1></owl-date-time>
                     </td>
                     <td class="dateTd">
-                        <input class="form-control InnerInput" type="text" mwlFlatpickr [(ngModel)]="event.end"
+                        <!-- <input class="form-control InnerInput" type="text" mwlFlatpickr [(ngModel)]="event.end"
                             (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true"
                             [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
-                            disabled />
+                            disabled /> -->
+
+                        <input name="date2" [(ngModel)]="event.start" [owlDateTime]="date2" [owlDateTimeTrigger]="date2" [selectMode]="'single'"
+                            [min]="today" />
+
+                        <owl-date-time [firstDayOfWeek]="'1'" [pickerType]="'calendar'" #date2></owl-date-time>
+
                     </td>
                     <td>
                         <div class="btn-reject" (click)="deleteEvent(event)">
@@ -110,29 +117,38 @@
         </table>
     </div>
     <div id="editModal" class="modal videoModalMain forumPopMain forumMsgPopup">
-        <a (click)="closeEditModal()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+        <a (click)="closeEditModal()" class=" videoCloseBtn">
+            <i class="material-icons">close</i>
+        </a>
         <div class="modal-content videoModalContent">
             <h4 class="slide-heading text-center"> Edit</h4>
             <div class="modalBodyPop">
                 <div class="edit-title">
                     <span>
-                        <input type="text" class="form-control" [(ngModel)]="editEvent.title"
-                            (keyup)="refresh.next()" />
+                        <input type="text" class="form-control" [(ngModel)]="editEvent.title" (keyup)="refresh.next()" />
                     </span>
                 </div>
                 <div class="dates">
                     <div class="start">
-                        <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="editEvent.start"
+                        <!-- <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="editEvent.start"
                             (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true"
                             [disable]="[disabledDay]" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-                            placeholder="Not set" />
+                            placeholder="Not set" /> -->
+                        <input name="datestart" [(ngModel)]="editEvent.start" [owlDateTime]="datestart" [owlDateTimeTrigger]="datestart" [selectMode]="'single'"
+                            [min]="today" />
+
+                        <owl-date-time [firstDayOfWeek]="'1'" [pickerType]="'calendar'" #datestart></owl-date-time>
                     </div>
                     <div class="end">
+                        <input name="dateend" [(ngModel)]="editEvent.end" [owlDateTime]="dateend" [owlDateTimeTrigger]="dateend" [selectMode]="'single'"
+                            [min]="today" />
+                        <owl-date-time [firstDayOfWeek]="'1'" [pickerType]="'calendar'" #dateend></owl-date-time>
 
-                        <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="editEvent.end"
-                            (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true"
-                            [disable]="[disabledDay]" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-                            placeholder="Not set" />
+
+                        <!-- 
+                        <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="editEvent.end" (ngModelChange)="refresh.next()" [altInput]="true"
+                            [convertModelValue]="true" [disable]="[disabledDay]" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+                            placeholder="Not set" /> -->
                     </div>
                 </div>
             </div>
@@ -152,30 +168,38 @@
     <!-- delete modal -->
     <div id="deleteModal" class="modal videoModalMain forumPopMain forumMsgPopup">
 
-        <a (click)="closeDeleteModal()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
+        <a (click)="closeDeleteModal()" class=" videoCloseBtn">
+            <i class="material-icons">close</i>
+        </a>
         <div class="modal-content videoModalContent">
             <h4 class="slide-heading text-center"> Are you sure you want to delete this event?</h4>
             <div class="modalBodyPop">
                 <div class="edit-title">
                     <span>
-                        <input type="text" class="form-control" [(ngModel)]="eventToBeDeleted.title"
-                            (keyup)="refresh.next()" disabled />
+                        <input type="text" class="form-control" [(ngModel)]="eventToBeDeleted.title" (keyup)="refresh.next()" disabled />
                     </span>
                 </div>
                 <div class="dates">
                     <div class="start">
+<!-- 
+                        <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="eventToBeDeleted.start" (ngModelChange)="refresh.next()"
+                            [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+                            placeholder="Not set" disabled /> -->
+                            <input name="datedelete" [(ngModel)]="eventToBeDeleted.start" [owlDateTime]="datedelete" [owlDateTimeTrigger]="datedelete" [selectMode]="'single'"
+                            [min]="today" />
 
-                        <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="eventToBeDeleted.start"
-                            (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true"
-                            [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
-                            disabled />
+                        <owl-date-time [firstDayOfWeek]="'1'" [pickerType]="'calendar'" #datedelete></owl-date-time>
                     </div>
                     <div class="end">
+<!-- 
+                        <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="eventToBeDeleted.end" (ngModelChange)="refresh.next()"
+                            [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+                            placeholder="Not set" disabled /> -->
 
-                        <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="eventToBeDeleted.end"
-                            (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true"
-                            [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
-                            disabled />
+                            <input name="dateenddelete" [(ngModel)]="eventToBeDeleted.end" [owlDateTime]="dateenddelete" [owlDateTimeTrigger]="dateenddelete" [selectMode]="'single'"
+                            [min]="today" />
+
+                        <owl-date-time [firstDayOfWeek]="'1'" [pickerType]="'calendar'" #dateenddelete></owl-date-time>
                     </div>
                 </div>
             </div>

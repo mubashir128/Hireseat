@@ -541,7 +541,7 @@
           <div class="start">
             <div class="accept-dates">
               <div class="accept-values">
-                <input
+                <!-- <input
                   class="form-control"
                   type="text"
                   mwlFlatpickr
@@ -555,7 +555,18 @@
                   placeholder="Not set"
                   [disable]="[disabledDay]"
                   [minDate]="'today'"
-                />
+                /> -->
+
+                
+                <input name="date1" 
+                formControlName="date1" 
+                [owlDateTime]="date1" 
+                [owlDateTimeTrigger]="date1" 
+                [selectMode]="'single'" [min]="today"/>
+              
+                <owl-date-time [firstDayOfWeek]="'1'" 
+                [pickerType]="'calendar'"  
+                #date1></owl-date-time>
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown
@@ -569,7 +580,7 @@
             </div>
             <div class="accept-dates">
               <div class="accept-values">
-                <input
+                <!-- <input
                   class="form-control"
                   type="text"
                   mwlFlatpickr
@@ -583,7 +594,18 @@
                   placeholder="Not set"
                   [disable]="[disabledDay]"
                   [minDate]="'today'"
-                />
+                /> -->
+                
+                
+                <input name="date2" 
+                formControlName="date2" 
+                [owlDateTime]="date2" 
+                [owlDateTimeTrigger]="date2" 
+                [selectMode]="'single'" [min]="today"/>
+              
+                <owl-date-time [firstDayOfWeek]="'1'" 
+                [pickerType]="'calendar'"  
+                #date2></owl-date-time>
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown
@@ -597,7 +619,7 @@
             </div>
             <div class="accept-dates">
               <div class="accept-values">
-                <input
+                <!-- <input
                   class="form-control"
                   type="text"
                   mwlFlatpickr
@@ -611,7 +633,18 @@
                   placeholder="Not set"
                   [disable]="[disabledDay]"
                   [minDate]="'today'"
-                />
+                /> -->
+                
+                
+                <input name="date3" 
+                formControlName="date3" 
+                [owlDateTime]="date3" 
+                [owlDateTimeTrigger]="date3" 
+                [selectMode]="'single'" [min]="today"/>
+              
+                <owl-date-time [firstDayOfWeek]="'1'" 
+                [pickerType]="'calendar'"  
+                #date3></owl-date-time>
               </div>
               <div class="accept-values">
                 <ngx-select-dropdown
