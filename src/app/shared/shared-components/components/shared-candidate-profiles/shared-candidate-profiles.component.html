@@ -343,13 +343,13 @@
                             ></i>
                           </div>
 
-                          <div class="editcomment">
+                          <!-- <div class="editcomment">
                             <i
                               class="fa fa-trash"
                               aria-hidden="true"
                               (click)="deleteComment(cmt, resume)"
                             ></i>
-                          </div>
+                          </div> -->
                         </ng-container>
                       </div>
                     </div>
@@ -390,6 +390,14 @@
                           <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
                         </div>
                       </div>
+                      <ng-container>
+                        <div class="timstampDate">
+                          <span class="notificaationDateTime">
+                            {{cmt?.timestamps | date:'dd/MM/yyyy HH:mm:ss.SS'}}
+                            <!-- {{cmt?.timestamps | prettyDate}} -->
+                          </span>
+                        </div>
+                      </ng-container>
                       <ng-container>
                         <div class="like-section">
                           <div class="at-end">

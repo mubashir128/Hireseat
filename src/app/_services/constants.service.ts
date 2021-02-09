@@ -10,6 +10,8 @@ export class ConstantsService {
   ReplyAdvicePoints = 25;
   adviceLikedPoints = 50;
   advicePoints = 100;
+  notificationLimit = 15;
+  notification = 1;
 
   constructor() { }
 }

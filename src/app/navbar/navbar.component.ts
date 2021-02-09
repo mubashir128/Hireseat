@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   newNotification = "newNotification";
   decreaseNotificationCount = "decreaseNotificationCount";
 
-  limit = 15;
+  limit = this._constants.notificationLimit;
   createdAt;
   selector: string = ".scrollNotification";
   userProfile: any;
@@ -95,6 +95,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.isCandidate = true;
       }
     }
+
     router.events.subscribe((val) => {
       // see also
       if (val instanceof NavigationEnd) {
@@ -117,35 +118,40 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     this.userService._setProfileObservable.subscribe((data) => {
       this.userProfile = data;
-      // console.log(data);
     });
+
   }
 
   async ngOnInit() {
     this.showAdminDashboardButton = false;
     this.showEnterpriseDashboardButton = false;
 
+    //initiate a connection of socket at once when navbar is loaded.
     let obj = JSON.parse(localStorage.getItem("currentUser"));
     if (obj !== null) {
       await this.initSocket(obj.token, obj.userInfo.userRole);
     }
 
-    await this._socket.removeListener({ type: 1 });
+    //add a observable for notificaton
+    await this._socket.removeListener({ type: this._constants.notification });
     this._socket.addListener({
-      type: 1,
+      type: this._constants.notification,
       callback: this.notificationObserver,
     });
 
+    //when any activity of notification is happened, then this observable is called.
     this.notificationObserver$.subscribe((res: any) => {
       this.handleNotificationData(res);
     });
 
+    //increse a points of user.
     this.userService.candidateProfileObservable$.subscribe((res: any) => {
       this.handleCandidateProfile(res);
     });
 
+    //call to get all notification of user.
     this._socket.sendMessage({
-      type: 1,
+      type: this._constants.notification,
       data: {
         subType: this.getAllNotifications,
         onLoad: true,
@@ -178,6 +184,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.buttonName = "Hide";
   }
 
+  //initiate a connection through socket.
   async initSocket(token, userRole) {
     await this._socket.getInstance(token, userRole);
   }
@@ -201,6 +208,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       );
   }
 
+  //reduce the notification length.
   truncateHTML(text): string {
     let charlimit = 40;
     if (!text || text.length <= charlimit) {
@@ -213,10 +221,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return shortened;
   }
 
+  //increse points of user.
   handleCandidateProfile(obj){
     this.userProfile[obj.pointer] = obj.increseCount;
   }
 
+  //handle notifications of user.
   handleNotificationData(res: any) {
     switch (res.subType) {
       case this.getAllNotifications:
@@ -247,6 +257,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
+  //increase notification count by one.
   incrementNotificationCount() {
     this.notificationLength += 1;
   }
@@ -269,6 +280,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this._socket.socketClosed();
   }
 
+  //toggle notification DIV.
   toggle() {
     this.show = !this.show;
 
@@ -289,9 +301,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.buttonName = "Hide";
   }
 
+  //when notification DIV is scrolled, then call to get next limit notifications.
   onScroll() {
     this._socket.sendMessage({
-      type: 1,
+      type: this._constants.notification,
       data: {
         subType: this.getAllNotifications,
         createdAt: this.createdAt,
@@ -300,6 +313,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
 
+  //when cliking on notification, then it will redired to respected route.
   getToQuestion(id, type, redirectId, redirectId2) {
     this.toggle();
     this.decreaseNotification(id);
@@ -332,6 +346,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
   
+  //reduce the count of notication, remove the notification from array and make isRead flag to true for clicked notification.
   decreaseNotification(id){
     this.notificationLength--;
     this.notificationAre.forEach((notification, index) => {
@@ -342,7 +357,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
 
     this._socket.sendMessage({
-      type: 1,
+      type: this._constants.notification,
       data: {
         subType : this.decreaseNotificationCount,
         _id : id,
@@ -350,15 +365,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
 
+  //make perticular notification isRead flag to true of user.
   deleteNotification(id){
     this.decreaseNotification(id);
   }
 
+  //make isRead to true of all notifications of user.
   deleteAllNotification(){
     this.notificationLength = 0;
     this.notificationAre = [];
     this._socket.sendMessage({
-      type: 1,
+      type: this._constants.notification,
       data: {
         subType : this.decreaseNotificationCount,
         clear : true,
@@ -366,8 +383,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
   
+  //unscubscribe the subscribed variables.
   ngOnDestroy() {
-    this._socket.removeListener({ type: 4 });
+    this._socket.removeListener({ type: this._constants.notification });
     this.notificationObserver.unsubscribe();
   }
 
