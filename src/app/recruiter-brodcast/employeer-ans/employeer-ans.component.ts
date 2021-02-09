@@ -6,6 +6,7 @@ import { count } from 'rxjs/operators';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Subject } from 'rxjs';
 import { isNgTemplate } from '@angular/compiler';
+import { ConstantsService } from 'src/app/_services/constants.service';
 declare var Materialize;
 @Component({
   selector: 'app-employeer-ans',
@@ -31,7 +32,9 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
   empId;
   recId;
 
-  constructor(private router: Router, private route: ActivatedRoute,private bidEventService:BiddingEventService, private _socket: WebsocketService) {
+  postAnswer = "postAnswer";
+
+  constructor(private router: Router, private route: ActivatedRoute,private bidEventService:BiddingEventService, private _socket: WebsocketService, private _constants : ConstantsService) {
   }
 
   async ngOnInit() {
@@ -44,9 +47,9 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
       await this.initSocket(obj.token,obj.userInfo.userRole);
     }
 
-    await this._socket.removeListener({ type: 3 });
+    await this._socket.removeListener({ type: this._constants.profileQuestionType });
     this._socket.addListener({
-      type: 3,
+      type: this._constants.profileQuestionType,
       callback: this.questionObserver
     });
 
@@ -54,14 +57,11 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
       this.handleQuestionData(res);
     });
 
-    let userInfo=JSON.parse(localStorage.getItem('currentUser')).userInfo;
     this._socket.sendMessage({
-      type: 3,
+      type: this._constants.profileQuestionType,
       data: {
         _id : this.id,
-        personId : userInfo._id,
-        type : userInfo.userRole,
-        subType: "getAllQuestions"
+        subType: this._constants.getAllQuestions
       }
     });
     
@@ -72,12 +72,12 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
   }
 
   handleQuestionData(res: any) {
-    if(res.data.biddingEventId !== this.id && res.subType !== "getAllQuestions"){
+    if(res.data.biddingEventId !== this.id && res.subType !== this._constants.getAllQuestions){
       return ;
     }
 
     switch (res.subType) {
-      case "getAllQuestions" :
+      case this._constants.getAllQuestions :
         // add all questions to list.
         if(res.data.length > 0){
           this.quetionsData = res.data;
@@ -85,7 +85,7 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
           this.doWork();
         }
         break;
-      case "question" :
+      case this._constants.question :
         // add question to list.
         if(res.result){
           Materialize.toast('New Question asked', 1000);
@@ -93,7 +93,7 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
           this.count++;
         }
         break;
-      case "answer" :
+      case this._constants.answer :
           // add answer to list.
           if(this.count > 0){
             this.count--;
@@ -154,17 +154,17 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
     }
 
     this._socket.sendMessage({
-      type: 3,
+      type: this._constants.profileQuestionType,
       data: {
         info : ans,
-        subType: "postAnswer"
+        subType: this.postAnswer
       }
     });
 
   }
 
   ngOnDestroy() {
-    this._socket.removeListener({ type: 3 });
+    this._socket.removeListener({ type: this._constants.profileQuestionType });
     this.questionObserver.unsubscribe();
   }
 

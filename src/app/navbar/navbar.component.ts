@@ -51,10 +51,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   notificationObserver = new Subject();
   notificationObserver$ = this.notificationObserver.asObservable();
 
-  getAllNotifications = "getAllNotifications";
-  newNotification = "newNotification";
-  decreaseNotificationCount = "decreaseNotificationCount";
-
   limit = this._constants.notificationLimit;
   createdAt;
   selector: string = ".scrollNotification";
@@ -133,9 +129,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
 
     //add a observable for notificaton
-    await this._socket.removeListener({ type: this._constants.notification });
+    await this._socket.removeListener({ type: this._constants.notificationType });
     this._socket.addListener({
-      type: this._constants.notification,
+      type: this._constants.notificationType,
       callback: this.notificationObserver,
     });
 
@@ -151,9 +147,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     //call to get all notification of user.
     this._socket.sendMessage({
-      type: this._constants.notification,
+      type: this._constants.notificationType,
       data: {
-        subType: this.getAllNotifications,
+        subType: this._constants.getAllNotifications,
         onLoad: true,
         limit: this.limit,
       },
@@ -229,7 +225,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   //handle notifications of user.
   handleNotificationData(res: any) {
     switch (res.subType) {
-      case this.getAllNotifications:
+      case this._constants.getAllNotifications:
         // add all notifications to list.
         if (res.data.length !== 0) {
           res.data.forEach((item, index) => {
@@ -244,7 +240,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
         }
         break;
-      case this.newNotification:
+      case this._constants.newNotification:
         //add notification to start of list.
         if (res.data) {
           res.data.notification = JSON.parse(res.data.notification);
@@ -304,9 +300,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   //when notification DIV is scrolled, then call to get next limit notifications.
   onScroll() {
     this._socket.sendMessage({
-      type: this._constants.notification,
+      type: this._constants.notificationType,
       data: {
-        subType: this.getAllNotifications,
+        subType: this._constants.getAllNotifications,
         createdAt: this.createdAt,
         limit: this.limit,
       },
@@ -357,9 +353,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
 
     this._socket.sendMessage({
-      type: this._constants.notification,
+      type: this._constants.notificationType,
       data: {
-        subType : this.decreaseNotificationCount,
+        subType : this._constants.decreaseNotificationCount,
         _id : id,
       },
     });
@@ -375,9 +371,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.notificationLength = 0;
     this.notificationAre = [];
     this._socket.sendMessage({
-      type: this._constants.notification,
+      type: this._constants.notificationType,
       data: {
-        subType : this.decreaseNotificationCount,
+        subType : this._constants.decreaseNotificationCount,
         clear : true,
       },
     });
@@ -385,7 +381,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
-    this._socket.removeListener({ type: this._constants.notification });
+    this._socket.removeListener({ type: this._constants.notificationType });
     this.notificationObserver.unsubscribe();
   }
 
