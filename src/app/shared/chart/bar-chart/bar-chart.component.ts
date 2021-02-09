@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { Chart } from "chart.js";
 import { Subject } from "rxjs";
 import { WebsocketService } from "src/app/_services/websocket.service";
+import { ConstantsService } from "src/app/_services/constants.service";
 
 @Component({
   selector: "app-bar-chart",
@@ -24,7 +25,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
   barChartObserver = new Subject();
   barChartObserver$ = this.barChartObserver.asObservable();
 
-  constructor(private _socket: WebsocketService) {
+  constructor(private _socket: WebsocketService, private _constants : ConstantsService) {
 
     this.data = {
       labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
@@ -122,9 +123,9 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
     this.renderBarChartData();
 
-    await this._socket.removeListener({ type: 4 });
+    await this._socket.removeListener({ type: this._constants.barChartType });
     this._socket.addListener({
-      type: 4,
+      type: this._constants.barChartType,
       callback: this.barChartObserver
     });
 
@@ -133,9 +134,9 @@ export class BarChartComponent implements OnInit, OnDestroy {
     });
 
     this._socket.sendMessage({
-      type: 4,
+      type: this._constants.barChartType,
       data: {
-        subType: "getAllBarChartData"
+        subType: this._constants.getAllBarChartData
       }
     });
 
@@ -143,7 +144,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
   async handleBarChartData(res: any) {
     switch (res.subType) {
-      case "getAllBarChartData":
+      case this._constants.getAllBarChartData:
         this.topRecruiters = res.data.result;
         this.biddingDetails = res.data.data;
         await this.updateData(res.data);
@@ -153,13 +154,13 @@ export class BarChartComponent implements OnInit, OnDestroy {
         this.data.datasets[0].data = this.selectedCount;
         this.BarChart.update();
         break;
-      case "increaseRatingPoints":
+      case this._constants.increaseRatingPoints:
         this.updateBarChartRatingPoints(res.data);
         break;
-      case "increaseHiredCount":
+      case this._constants.increaseHiredCount:
         this.updateBarChartHiredCount(res.data);
         break;
-      case "pushNewCreatedBid":
+      case this._constants.pushNewCreatedBid:
         this.pushNewCreatedBid(res.data);
         break;
       default:
@@ -236,7 +237,7 @@ export class BarChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._socket.removeListener({ type: 4 });
+    this._socket.removeListener({ type: this._constants.barChartType });
     this.barChartObserver.unsubscribe();
   }
 

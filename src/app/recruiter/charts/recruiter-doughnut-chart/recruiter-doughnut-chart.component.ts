@@ -5,6 +5,7 @@ import { WebsocketService } from "src/app/_services/websocket.service";
 import { Subject } from "rxjs";
 import { UserService } from "../../../_services/user.service";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
+import { ConstantsService } from "src/app/_services/constants.service";
 
 @Component({
   selector: "app-recruiter-doughnut-chart",
@@ -17,9 +18,6 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   DaughnutChart;
   daughnutChartDataConfig: any;
   chartColor = ["#0aafff", "#E0DFDF"];
-
-  getDoughnutChartData = "getDoughnutChartData";
-  getAllRecruiterComment = "getAllRecruiterComment";
 
   doughnutObserver = new Subject();
   doughnutObserver$ = this.doughnutObserver.asObservable();
@@ -45,7 +43,8 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private _socket: WebsocketService,
     private userService: UserService,
-    private _subList: SubscriberslistService
+    private _subList: SubscriberslistService,
+    private _constants : ConstantsService
   ) {
     this.setDaughnutChartConfig();
     this.loggedInUser = this.userService.getUserData();
@@ -60,9 +59,9 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
 
     this.changeText();
 
-    await this._socket.removeListener({ type: 6 });
+    await this._socket.removeListener({ type: this._constants.recruiterDoughnutChartType });
     this._socket.addListener({
-      type: 6,
+      type: this._constants.recruiterDoughnutChartType,
       callback: this.doughnutObserver,
     });
 
@@ -71,18 +70,16 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     });
 
     this._socket.sendMessage({
-      type: 6,
+      type: this._constants.recruiterDoughnutChartType,
       data: {
-        type: this.loggedInUser.userRole,
-        subType: this.getDoughnutChartData,
+        subType: this._constants.getDoughnutChartData,
       },
     });
 
     this._socket.sendMessage({
-      type: 6,
+      type: this._constants.recruiterDoughnutChartType,
       data: {
-        type: this.loggedInUser.userRole,
-        subType: this.getAllRecruiterComment,
+        subType: this._constants.getAllRecruiterComment,
       },
     });
 
@@ -199,10 +196,10 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
 
   handleDoughnutChartData(res) {
     switch (res.subType) {
-      case this.getDoughnutChartData:
+      case this._constants.getDoughnutChartData:
         this.showChartData(res);
         break;
-      case this.getAllRecruiterComment:
+      case this._constants.getAllRecruiterComment:
         res.data.forEach((item) => {
           this.allComments = [...this.allComments, ...item.canReview];
         });
@@ -337,7 +334,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   
   ngOnDestroy() {
     this.resetValues();
-    this._socket.removeListener({ type: 6 });
+    this._socket.removeListener({ type: this._constants.recruiterDoughnutChartType });
     this.doughnutObserver.unsubscribe();
     // this._subList.recruiterPointsForDoughnutChart.unsubscribe();
   }

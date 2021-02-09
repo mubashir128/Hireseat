@@ -3,6 +3,7 @@ import { Chart } from "chart.js";
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Subject } from "rxjs";
 import { UserService } from "../../../_services/user.service";
+import { ConstantsService } from 'src/app/_services/constants.service';
 
 @Component({
   selector: 'app-recruiter-line-chart',
@@ -14,13 +15,11 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
   lineChartDataConfig: any;
   lineOptions: any;
 
-  getRecruiterLineChartData = "getRecruiterLineChartData";
-
   recruiterLineChartObserver = new Subject();
   recruiterLineChartObserver$ = this.recruiterLineChartObserver.asObservable();
 
   loggedInUser: any;
-  constructor(private _socket: WebsocketService, private userService: UserService) {
+  constructor(private _socket: WebsocketService, private userService: UserService, private _constants : ConstantsService) {
     this.setLineChartConfig();
     this.loggedInUser = this.userService.getUserData();
   }
@@ -28,9 +27,9 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.showLineChartData();
 
-    await this._socket.removeListener({ type: 8 });
+    await this._socket.removeListener({ type: this._constants.recruiterLineChartType });
     this._socket.addListener({
-      type: 8,
+      type: this._constants.recruiterLineChartType,
       callback: this.recruiterLineChartObserver,
     });
     
@@ -39,10 +38,9 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
     });
     
     this._socket.sendMessage({
-      type: 8,
+      type: this._constants.recruiterLineChartType,
       data: {
-        type: this.loggedInUser.userRole,
-        subType: this.getRecruiterLineChartData,
+        subType: this._constants.getRecruiterLineChartData,
       },
     });
 
@@ -50,7 +48,7 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
 
   handleRecruiterLineChartData(res){
     switch (res.subType) {
-      case this.getRecruiterLineChartData : 
+      case this._constants.getRecruiterLineChartData : 
         this.showChartData(res);
         break;
       default : 
@@ -182,7 +180,7 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._socket.removeListener({ type: 8 });
+    this._socket.removeListener({ type: this._constants.recruiterLineChartType });
     this.recruiterLineChartObserver.unsubscribe();
   }
 

@@ -189,9 +189,9 @@ export class SharedCandidateProfilesComponent
     jQuery(".modal").modal();
     jQuery("select").material_select();
     
-    await this._socket.removeListener({ type: 5 });
+    await this._socket.removeListener({ type: this._constants.sharedProfileType });
     this._socket.addListener({
-      type: 5,
+      type: this._constants.sharedProfileType,
       callback: this.sharedProfileObserver,
     });
 
@@ -206,25 +206,25 @@ export class SharedCandidateProfilesComponent
 
   handleProfileData(res: any) {
     switch (res.subType) {
-      case "getAllSharedProfiles":
+      case this._constants.getAllSharedProfiles:
         this.resumes = res.data;
         break;
-      case "addComment":
+      case this._constants.addComment:
         this.addCommentToCommets(res);
         break;
-      case "likeComment":
+      case this._constants.likeComment:
         this.addLikeToComment(res);
         break;
-      case "replyAdvicePoints":
+      case this._constants.replyComment:
         this.addReplyToComment(res);
         break;
-      case "shareVideoViaRecruiterEmail":
+      case this._constants.shareVideoViaRecruiterEmail:
         this.handleResponse(res.result);
         break;
-      case "editComment" :
+      case this._constants.editComment :
         this.editRespectedComment(res);
         break;
-      case "deleteComment" :
+      case this._constants.deleteComment :
         this.deleteRespectedComment(res);
         break;
       default:
@@ -296,9 +296,9 @@ export class SharedCandidateProfilesComponent
 
   getProfiles() {
     this._socket.sendMessage({
-      type: 5,
+      type: this._constants.sharedProfileType,
       data: {
-        subType: "getAllSharedProfiles",
+        subType: this._constants.getAllSharedProfiles,
       },
     });
     
@@ -650,7 +650,7 @@ export class SharedCandidateProfilesComponent
 
               let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
               this._socket.sendMessage({
-                type: 5,
+                type: this._constants.sharedProfileType,
                 data: {
                   type: userInfo.userRole,
                   payload : payload,
@@ -999,7 +999,7 @@ export class SharedCandidateProfilesComponent
   }
 
   ngOnDestroy() {
-    this._socket.removeListener({ type: 5 });
+    this._socket.removeListener({ type: this._constants.sharedProfileType });
     this.sharedProfileObserver.unsubscribe();
   }
 }
