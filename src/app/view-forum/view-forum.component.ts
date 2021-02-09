@@ -10,6 +10,7 @@ import { SuperAdminService } from '../_services/super-admin.service';
 import { InteractCompService } from '../_services/interact-comp.service';
 import { WebsocketService } from '../_services/websocket.service';
 import { Subject } from 'rxjs';
+import { ConstantsService } from '../_services/constants.service';
 
 @Component({
   selector: 'app-view-forum',
@@ -53,7 +54,6 @@ export class ViewForumComponent implements OnInit, OnDestroy {
 
   show = false;
 
-  getQuestion="addQuestion";
   questionObserver = new Subject();
   questionObserver$ = this.questionObserver.asObservable();
 
@@ -62,7 +62,9 @@ export class ViewForumComponent implements OnInit, OnDestroy {
     private authService:AuthenticationService,
     public supperAdmin: SuperAdminService,
     private _interactComp : InteractCompService,
-    private _socket: WebsocketService,) 
+    private _socket: WebsocketService,
+    private _constants : ConstantsService
+  ) 
   {
     this.loggedInUser=this.userService.getUserData();
     if(this.loggedInUser != "no"){
@@ -103,9 +105,9 @@ export class ViewForumComponent implements OnInit, OnDestroy {
       await this.initSocket(obj.token,obj.userInfo.userRole);
     }
 
-    await this._socket.removeListener({ type: 2 });
+    await this._socket.removeListener({ type: this._constants.askQuestionType });
     this._socket.addListener({
-      type: 2,
+      type: this._constants.askQuestionType,
       callback: this.questionObserver
     });
 
@@ -144,7 +146,7 @@ export class ViewForumComponent implements OnInit, OnDestroy {
 
   handleQuestions(res: any) {
     switch (res.subType) {
-      case this.getQuestion:
+      case this._constants.getQuestion:
         // add all notifications to list.
         this.questData.unshift(res.result);
         break;
@@ -311,7 +313,7 @@ var dateTime = date1+' '+time1;
   }
 
   ngOnDestroy() {
-    this._socket.removeListener({ type: 2 });
+    this._socket.removeListener({ type: this._constants.askQuestionType });
     this.questionObserver.unsubscribe();
   }
 

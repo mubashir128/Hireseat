@@ -3,6 +3,7 @@ import { Chart } from "chart.js";
 import { WebsocketService } from "src/app/_services/websocket.service";
 import { Subject } from "rxjs";
 import { UserService } from "../../../_services/user.service";
+import { ConstantsService } from "src/app/_services/constants.service";
 
 @Component({
   selector: "app-recruiter-pie-chart",
@@ -13,15 +14,14 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
   PieChart;
   pieChartDataSet: any;
 
-  getRecruiterPieChartData = "getRecruiterPieChartData";
-
   recruiterPieChartObserver = new Subject();
   recruiterPieChartObserver$ = this.recruiterPieChartObserver.asObservable();
 
   loggedInUser: any;
   constructor(
     private _socket: WebsocketService,
-    private userService: UserService
+    private userService: UserService,
+    private _constants : ConstantsService
   ) {
     this.setPieChartConfig();
     this.loggedInUser = this.userService.getUserData();
@@ -30,9 +30,9 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.showPieChart();
 
-    await this._socket.removeListener({ type: 7 });
+    await this._socket.removeListener({ type: this._constants.recruiterPieChartType });
     this._socket.addListener({
-      type: 7,
+      type: this._constants.recruiterPieChartType,
       callback: this.recruiterPieChartObserver,
     });
 
@@ -41,10 +41,9 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
     });
 
     this._socket.sendMessage({
-      type: 7,
+      type: this._constants.recruiterPieChartType,
       data: {
-        type: this.loggedInUser.userRole,
-        subType: this.getRecruiterPieChartData,
+        subType: this._constants.getRecruiterPieChartData,
       },
     });
   }
@@ -86,7 +85,7 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
 
   handleRecruiterPieChartData(res) {
     switch (res.subType) {
-      case this.getRecruiterPieChartData:
+      case this._constants.getRecruiterPieChartData:
         this.putDataIntoFirstPieBar(res);
         break;
       default:
@@ -176,7 +175,7 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._socket.removeListener({ type: 7 });
+    this._socket.removeListener({ type: this._constants.recruiterPieChartType });
     this.recruiterPieChartObserver.unsubscribe();
   }
 
