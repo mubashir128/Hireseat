@@ -392,9 +392,10 @@
                       </div>
                       <ng-container>
                         <div class="timstampDate">
-                          <span class="notificaationDateTime">
-                            {{cmt?.timestamps | date:'dd/MM/yyyy HH:mm:ss.SS'}}
-                            <!-- {{cmt?.timestamps | prettyDate}} -->
+                          <span class="notificationDateTime">
+                            <!-- {{cmt?.timestamps | date:'dd/MM/yyyy HH:mm:ss.SS'}} -->
+                            {{cmt?.timestamps | amTimeAgo}}
+                            <!-- {{cmt?.timestamps | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a'}} -->
                           </span>
                         </div>
                       </ng-container>

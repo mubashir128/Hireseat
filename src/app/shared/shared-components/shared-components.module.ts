@@ -53,6 +53,7 @@ import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruite
 import { ReversePipe } from "../pipes/reverse.pipe";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { FlatpickrModule } from "angularx-flatpickr";
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   imports: [
@@ -74,6 +75,7 @@ import { FlatpickrModule } from "angularx-flatpickr";
     NgbModalModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    MomentModule
     
   ],
   declarations: [
