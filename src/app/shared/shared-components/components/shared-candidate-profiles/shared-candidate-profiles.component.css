@@ -775,10 +775,10 @@ a.videoCloseBtn {
   margin-right: 10px;
 }
 
-.notificaationDateTime{
-  font-size: 10px;
+.notificationDateTime{
+  font-size: 12px;
   font-weight: initial;
-  font-family: sans-serif;
+  font-family: Roboto;
   font-style: revert;
   margin-right: 10px;
   margin-top: 25px;

@@ -57,6 +57,7 @@ import { CreateBiddingEventComponent } from "../../employer/create-bidding-event
 import { CreateJobProfileComponent } from "../../employer/create-job-profile/create-job-profile.component";
 import { JobProfileListComponent } from "../../employer/job-profile-list/job-profile-list.component";
 import { EditJobProfileComponent } from "../../employer/edit-job-profile/edit-job-profile.component";
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import { EditJobProfileComponent } from "../../employer/edit-job-profile/edit-jo
     NgbModalModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    MomentModule
     
   ],
   declarations: [
