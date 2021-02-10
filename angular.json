@@ -56,7 +56,9 @@
               "@babel/runtime/helpers/inherits",
               "@videojs/xhr",
               "@babel/runtime/helpers/possibleConstructorReturn",
-              "@babel/runtime/helpers/construct"
+              "@babel/runtime/helpers/construct",
+              "@babel/runtime/helpers/inheritsLoose"
+
             ]
 
 
