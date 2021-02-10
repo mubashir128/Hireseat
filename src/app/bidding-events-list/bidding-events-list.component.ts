@@ -41,11 +41,12 @@ export class BiddingEventsListComponent implements OnInit {
 
   startDate: any;
   endDate: any;
-
+  userRole:string;
   constructor(private router: Router, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private userService: UserService, private biddingService: BidService, private route: ActivatedRoute, private bidEventService: BiddingEventService) {
     this.chkLoggedInUser = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "employer") {
+        this.userRole = this.chkLoggedInUser.userRole;
         let obj = {
           onLoad: true,
           type: this.jobProfileType === "public" ? false : true,
@@ -54,6 +55,7 @@ export class BiddingEventsListComponent implements OnInit {
         this.getJobProfileBidding(obj);
         this.hideAddBtn = false;
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
+        this.userRole = this.chkLoggedInUser.userRole;
         this.route.params.subscribe(params => { this.handleRequest(params['type']); });
         this.hideAddBtn = true;
       }

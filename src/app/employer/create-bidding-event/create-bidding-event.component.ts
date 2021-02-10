@@ -35,12 +35,24 @@ export class CreateBiddingEventComponent implements OnInit {
   searchedRecruiters = [];
   finalRecruitersAre = [];
   selectedRecruiters = [];
-  
+  chkLoggedInUser:any;
+  userRole:string;
   @ViewChild('searchInputTerm') searchInputTerm : ElementRef;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {
     this.biddingEvent = new BiddingEvent();
+    this.chkLoggedInUser = this.userService.getUserData();
+    if (this.chkLoggedInUser != "no") {
+      if (this.chkLoggedInUser.userRole == "employer") {
+        this.userRole = this.chkLoggedInUser.userRole;
+      } else if (this.chkLoggedInUser.userRole == "recruiter") {
+        this.userRole = this.chkLoggedInUser.userRole;
+      }
+    } else {
+      //Do something
+    }
+
   }
 
   ngOnInit() {
@@ -243,26 +255,48 @@ export class CreateBiddingEventComponent implements OnInit {
     if (this.selectedJobProfile) {
       this.spinner.show();
       if (!this.auctionFrm.invalid) {
-        this.biddingEvent.setEmployer(this.userService.getIUserData());
         this.biddingEvent.updateStatus();
         this.biddingEvent.setFinalRecruiters(this.finalRecruitersAre);
         this.biddingEvent.setGlobalType(this.globalType);
         this.updateLocalStorage();
-        this.bidEventService.createBiddingEvent(this.biddingEvent).subscribe((data: any) => {
-          if (data.result == "inserted") {
-            Materialize.toast('New Auction Created !', 4000);
-            this.spinner.hide();
-            this.router.navigate(['employer/bidding-event-list']);
-          } else {
-            this.spinner.hide();
-            Materialize.toast('Something Went Wrong!', 4000);
-          }
-        },
-          (error) => {
-            console.log(error);
-            this.spinner.hide();
-            Materialize.toast('Something Went Wrong!', 4000);
-          });
+        console.log(this.biddingEvent)
+        if(this.userRole == 'employer'){
+          this.biddingEvent.setEmployer(this.userService.getIUserData());
+          this.bidEventService.createBiddingEvent(this.biddingEvent).subscribe((data: any) => {
+            if (data.result == "inserted") {
+              Materialize.toast('New Auction Created !', 4000);
+              this.spinner.hide();
+              this.router.navigate(['employer/bidding-event-list']);
+            } else {
+              this.spinner.hide();
+              Materialize.toast('Something Went Wrong!', 4000);
+            }
+          },
+            (error) => {
+              console.log(error);
+              this.spinner.hide();
+              Materialize.toast('Something Went Wrong!', 4000);
+            });
+        }else if(this.userRole == 'recruiter'){
+          this.biddingEvent.setRecruiter(this.userService.getIUserData());
+          this.bidEventService.createRecruiterBiddingEvent(this.biddingEvent).subscribe((data: any) => {
+            if (data.result == "inserted") {
+              Materialize.toast('New Auction Created !', 4000);
+              this.spinner.hide();
+              this.router.navigate(['recruiter/bidding-event-list']);
+            } else {
+              this.spinner.hide();
+              Materialize.toast('Something Went Wrong!', 4000);
+            }
+          },
+            (error) => {
+              console.log(error);
+              this.spinner.hide();
+              Materialize.toast('Something Went Wrong!', 4000);
+            });
+        }
+        
+       
       }
     } else {
       this.spinner.hide();
@@ -277,7 +311,7 @@ export class CreateBiddingEventComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/employer/bidding-event-list']);
+    this.router.navigate([`/${this.userRole}/bidding-event-list`]);
   }
 
  // Validation of reward Money 

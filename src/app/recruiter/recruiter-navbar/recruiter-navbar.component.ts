@@ -63,6 +63,10 @@ export class RecruiterNavbarComponent implements OnInit {
       new Tab("/recruiter/all-recruiters", "Recruiters Market Place", false)
     );
     this.tabs1.push(
+      new Tab( "/recruiter/job-profile-list","Job Profiles", false),
+    )
+
+    this.tabs1.push(
       new Tab("/recruiter/bidding-event-list", "Job Postings", false)
     );
     // this.tabs1.push(new Tab('/recruiter/bidding-event-list/my', 'My Candidates Submission', false));

@@ -39,7 +39,7 @@ export class EditJobProfileComponent implements OnInit {
       this.jp = new JobProfile(this.loggedUser._id, this.loggedUser.companyName);
       this.getJobProfileById(this.jobPro_id);
     } else {
-      this.router.navigate(['employer']);
+      this.router.navigate([this.loggedUser.userRole]);
     }
 
     this.jobShiftArr = [
@@ -123,7 +123,7 @@ export class EditJobProfileComponent implements OnInit {
 
   goBack() {
     localStorage.removeItem('jp_id');
-    this.router.navigate(['employer/job-profile-list']);
+    this.router.navigate([`${this.loggedUser.userRole}/job-profile-list`]);
   }
 
   onSubmit() {
@@ -134,7 +134,7 @@ export class EditJobProfileComponent implements OnInit {
           Materialize.toast('Job Profile Updated Successfully', 1000)
           localStorage.removeItem('jp_id');
           this.spinner.hide();
-          this.router.navigate(["/employer/job-profile-list"]);
+          this.router.navigate([`/${this.loggedUser.userRole}/job-profile-list`]);
         } else {
           this.spinner.hide();
           Materialize.toast('Something Went Wrong !', 1000)
@@ -146,7 +146,7 @@ export class EditJobProfileComponent implements OnInit {
           if (error) {
             Materialize.toast('Something Went Wrong !', 4000)
             localStorage.removeItem('jp_id');
-            this.router.navigate(["/employer/job-profile-list"]);
+            this.router.navigate([`/${this.loggedUser.userRole}/job-profile-list`]);
           }
         });
     }

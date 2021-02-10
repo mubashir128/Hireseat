@@ -53,6 +53,10 @@ import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruite
 import { ReversePipe } from "../pipes/reverse.pipe";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { FlatpickrModule } from "angularx-flatpickr";
+import { CreateBiddingEventComponent } from "../../employer/create-bidding-event/create-bidding-event.component";
+import { CreateJobProfileComponent } from "../../employer/create-job-profile/create-job-profile.component";
+import { JobProfileListComponent } from "../../employer/job-profile-list/job-profile-list.component";
+import { EditJobProfileComponent } from "../../employer/edit-job-profile/edit-job-profile.component";
 
 @NgModule({
   imports: [
@@ -127,7 +131,13 @@ import { FlatpickrModule } from "angularx-flatpickr";
     ShareProfileSearchPipe,
 
     AllRecruiterSearchPipe,
-    ReversePipe
+    ReversePipe,
+
+    //job posting
+    CreateBiddingEventComponent,
+    CreateJobProfileComponent,
+    JobProfileListComponent,
+    EditJobProfileComponent
   ],
   exports: [
     FooterComponent,
@@ -176,7 +186,12 @@ import { FlatpickrModule } from "angularx-flatpickr";
     CandidateNavbarComponent,
     ShareProfileSearchPipe,
     AllRecruiterSearchPipe,
-    ReversePipe
+    ReversePipe,
+    //jobposting
+    CreateBiddingEventComponent,
+    CreateJobProfileComponent,
+    JobProfileListComponent,
+    EditJobProfileComponent
   ],
 })
 export class SharedComponentsModule {}

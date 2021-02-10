@@ -113,7 +113,7 @@ export class CreateJobProfileComponent implements OnInit {
         if (data.result === "inserted") {
           Materialize.toast('Job Profile Created Successfully', 1000)
           this.spinner.hide();
-          this.router.navigate(["/employer/job-profile-list"]);
+          this.router.navigate([`/${this.loggedUser}/job-profile-list`]);
         } else {
           this.spinner.hide();
         }
