@@ -341,7 +341,7 @@ export class BiddingEventsListComponent implements OnInit {
   }
   getCandidateBiding(){
     this.spinner.show();
-    this.biddingService.getCandidateBidsCount(this.chkLoggedInUser._id).subscribe((data: BiddingEvent[]) => {
+    this.biddingService.getCandidateBidsCount().subscribe((data: BiddingEvent[]) => {
       if (data.length > 0) {
         this.noBiddingEvents = false;
         this.biddingEvents = data;
