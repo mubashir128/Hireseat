@@ -39,7 +39,7 @@
                     <div *ngIf="f.resumeLimit.errors.pattern">Numbers should not be zero</div>              
                 </div>
           </div> -->
-            <div class="input-field col s6 m4">
+            <div class="input-field col s6 m4" *ngIf="userRole == 'employer'">
                 <input id="reward-money" currencyMask type="text" class="validate" name="biddingEvent.rewardMoney"
                     [(ngModel)]="biddingEvent.rewardMoneyFrom" formControlName="rewardMoneyFrom">
                 <label for="reward-money" class="active">Placement Fee From</label>
@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <div class="input-field col s6 m4">
+            <div class="input-field col s6 m4" *ngIf="userRole == 'employer'">
                 <input id="reward-money" currencyMask type="text" class="validate" name="biddingEvent.rewardMoneyTo"
                     [(ngModel)]="biddingEvent.rewardMoneyTo" formControlName="rewardMoneyTo">
                 <label for="reward-money" class="active">Placement Fee To</label>
@@ -64,11 +64,11 @@
                     <div *ngIf="f.rewardMoneyTo.errors.pattern">Numbers Only</div>
                 </div>
             </div>
-            <div class="input-field col s6 m4">
+            <div class="input-field col s6 m4" *ngIf="userRole == 'employer'">
                 <p> per candidate </p>
             </div>
 
-            <div class="input-field col s12 m12">
+            <div class="input-field col s12 m12" *ngIf="userRole == 'employer'">
                 <div class="radioGroup">
                     <input type="radio" id="public" style="margin-left: 7px;" name="globalType" [ngModelOptions]="{standalone: true}" [(ngModel)]="globalType" value="public">
                     <label for="male">Public</label>
@@ -76,13 +76,13 @@
                     <label for="female">Private</label>
                 </div>
             </div>
-            <div class="title" style="margin-bottom:5px;" *ngIf="globalType === 'private'">Select Recruiters</div>
-            <div class="searchDiv" *ngIf="globalType === 'private'">
+            <div class="title" style="margin-bottom:5px;" *ngIf="globalType === 'private' && userRole == 'employer'">Select Recruiters</div>
+            <div class="searchDiv" *ngIf="globalType === 'private' && userRole == 'employer'">
                 <input type="text" class="searchRecruiter" formControlName="searchTerm" [(ngModel)]="searchTerm" placeholder="Search..." (focus)="searchDataList = true" #searchInputTerm>
                 <i class="fa fa-search" aria-hidden="true"></i>
             </div>
 
-            <div class="searchData" *ngIf="globalType === 'private' && searchDataList">
+            <div class="searchData" *ngIf="globalType === 'private' && searchDataList && userRole == 'employer'">
                 <div class="listHeading" *ngIf="searchedRecruiters.length > 0">Searched Recruiuters</div>
                 <div class="recruitrList" *ngFor="let item of searchedRecruiters">
                     <h4>{{ item.fullName }}</h4>

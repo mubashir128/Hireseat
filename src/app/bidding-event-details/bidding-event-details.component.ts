@@ -195,7 +195,14 @@ export class BiddingEventDetailsComponent implements OnInit {
       this.route.params.subscribe(params => {
         this.handleRequest(params["key"]);
       });
-      this.userRole = this.loggedUser.userRole == "employer" ? 1 : 2;
+      if(this.loggedUser.userRole == "employer"){
+        this.userRole = 1;//if employer login userRole should be 1
+      }else if(this.loggedUser.userRole == "recruiter"){
+        this.userRole = 2;//if recruiter login userRole should be 2
+      }else if(this.loggedUser.userRole == "candidate"){
+        this.userRole = 3;//if recruiter login userRole should be 3
+      }
+      // this.userRole = this.loggedUser.userRole == "employer" ? 1 : 2;
       this.biddingEvent = new BiddingEvent();
     } else {
       this.router.navigate(["login"]);

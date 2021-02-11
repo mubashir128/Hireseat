@@ -79,5 +79,11 @@ export class BidService {
       return res;
     }));
   }
+  getCandidateBidsCount(biddingEventKey) {
+    return this.http.get<IBid[]>(this.baseurl + 'api/getCandidateBidsCount/' + biddingEventKey).pipe(map((res: any) => {
+
+      return res;
+    }));
+  }
 
 }

@@ -6,6 +6,7 @@ import { CandidateHomeComponent } from "./candidate-home/candidate-home.componen
 import { MyReviewedProfilesComponent } from "./my-reviewed-profiles/my-reviewed-profiles.component";
 import { VideoInterviewRoomComponent } from "../video-interview-room/video-interview-room.component";
 import { SharedCandidateProfilesComponent } from "../shared/shared-components/components/shared-candidate-profiles/shared-candidate-profiles.component";
+import { BiddingEventsListComponent } from "../bidding-events-list/bidding-events-list.component";
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: "my-posted-profiles",
         component: SharedCandidateProfilesComponent,
+      },
+      {
+        path: "bidding-event-list",
+        component: BiddingEventsListComponent,
       },
     ],
   },

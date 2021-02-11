@@ -57,6 +57,11 @@ export class BiddingEventsListComponent implements OnInit {
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
         this.userRole = this.chkLoggedInUser.userRole;
         this.route.params.subscribe(params => { this.handleRequest(params['type']); });
+        this.hideAddBtn = false;
+      }else if(this.chkLoggedInUser.userRole == "candidate"){
+        this.userRole = this.chkLoggedInUser.userRole;
+        // this.route.params.subscribe(params => { this.handleRequest(params['type']); });
+        this.getCandidateBiding();
         this.hideAddBtn = true;
       }
     } else {
@@ -329,6 +334,22 @@ export class BiddingEventsListComponent implements OnInit {
     } else {
       jQuery(".postingForm").css("display", "none");
     }
+  }
+  getCandidateBiding(){
+    this.spinner.show();
+    this.biddingService.getCandidateBidsCount(this.chkLoggedInUser._id).subscribe((data: BiddingEvent[]) => {
+      if (data.length > 0) {
+        this.noBiddingEvents = false;
+        this.biddingEvents = data;
+        this.spinner.hide();
+      } else {
+        this.noBiddingEvents = true;
+        this.spinner.hide();
+      }
+    }, (error) => {
+      console.log(error);
+      this.spinner.hide();
+    });
   }
 
 }

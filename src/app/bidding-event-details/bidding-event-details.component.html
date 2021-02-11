@@ -2,7 +2,9 @@
   <div class="container custContainer">
     <div class="blueSection fullwidth">
       <div class="HeadBtnDiv">
-        <h4 class="pull-left"><a [routerLink]="['/employer/bidding-event-list']">Back</a></h4>
+        <!-- <h4 class="pull-left"><a [routerLink]="['/employer/bidding-event-list']">Back</a></h4> -->
+       
+         <h4 class="pull-left"><a routerLink="/{{loggedUser?.userRole}}/bidding-event-list">Back</a></h4>
         <h3 class="pull-right remainingtext">
           <!-- 6 days,22hrs Remaining -->
           <div *ngIf="biddingStatus===0">

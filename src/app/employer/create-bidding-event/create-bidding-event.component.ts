@@ -46,8 +46,10 @@ export class CreateBiddingEventComponent implements OnInit {
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "employer") {
         this.userRole = this.chkLoggedInUser.userRole;
+    
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
         this.userRole = this.chkLoggedInUser.userRole;
+    
       }
     } else {
       //Do something
@@ -59,7 +61,20 @@ export class CreateBiddingEventComponent implements OnInit {
     
     this.getTopRecruiterList();
     this.getJobProfile();
-
+    this.auctionFrm = this.formBuilder.group({
+      selectedJobProfile: ['', Validators.compose([Validators.required])],
+      /* resumeLimit: ['', Validators.compose([Validators.required,Validators.pattern('^[1-9][0-9]*$')])], */
+      rewardMoneyFrom: ['', Validators.compose([Validators.required])],
+      rewardMoneyTo: ['', Validators.compose([Validators.required])],
+      activationDate: [],
+      expirydate: [],
+      searchTerm : []
+    },{validator: this.checkRewardMoney });
+    if(this.chkLoggedInUser.userRole == "recruiter"){
+      this.auctionFrm.controls.rewardMoneyTo.setValue(0);
+      this.auctionFrm.controls.rewardMoneyFrom.setValue(0);
+    }
+     
     jQuery('.datepicker').on('mousedown',function(event){
         event.preventDefault();
     })
@@ -82,15 +97,6 @@ export class CreateBiddingEventComponent implements OnInit {
       stopPropagation: false // Stops event propagation activationDate
     });
 
-    this.auctionFrm = this.formBuilder.group({
-      selectedJobProfile: ['', Validators.compose([Validators.required])],
-      /* resumeLimit: ['', Validators.compose([Validators.required,Validators.pattern('^[1-9][0-9]*$')])], */
-      rewardMoneyFrom: ['', Validators.compose([Validators.required])],
-      rewardMoneyTo: ['', Validators.compose([Validators.required])],
-      activationDate: [],
-      expirydate: [],
-      searchTerm : []
-    },{validator: this.checkRewardMoney });
 
     var a = this;
     var activationDate_input = jQuery('#activationDate').pickadate();

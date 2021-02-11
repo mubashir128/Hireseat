@@ -42,6 +42,9 @@ export class CandidateNavbarComponent implements OnInit {
     this.tabs1.push(
       new Tab("/candidate/my-posted-profiles", "My Posted Profiles", false)
     );
+    this.tabs1.push(
+      new Tab("/candidate/bidding-event-list", "Job Posting", false)
+    );
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
