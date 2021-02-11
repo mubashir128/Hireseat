@@ -28,7 +28,7 @@ export class CreateBiddingEventComponent implements OnInit {
   public jobProfileName: string = "Select Job Profile";
 
   startList=[1,2,3,4,5];
-  globalType="private";
+  globalType = "private";
   searchTerm;
   searchDataList = false;
   topRecruiters = [];
@@ -263,10 +263,10 @@ export class CreateBiddingEventComponent implements OnInit {
       if (!this.auctionFrm.invalid) {
         this.biddingEvent.updateStatus();
         this.biddingEvent.setFinalRecruiters(this.finalRecruitersAre);
-        this.biddingEvent.setGlobalType(this.globalType);
         this.updateLocalStorage();
         console.log(this.biddingEvent)
         if(this.userRole == 'employer'){
+          this.biddingEvent.setGlobalType(this.globalType);
           this.biddingEvent.setEmployer(this.userService.getIUserData());
           this.bidEventService.createBiddingEvent(this.biddingEvent).subscribe((data: any) => {
             if (data.result == "inserted") {
@@ -284,6 +284,7 @@ export class CreateBiddingEventComponent implements OnInit {
               Materialize.toast('Something Went Wrong!', 4000);
             });
         }else if(this.userRole == 'recruiter'){
+          this.biddingEvent.setGlobalType("public");
           this.biddingEvent.setRecruiter(this.userService.getIUserData());
           this.bidEventService.createRecruiterBiddingEvent(this.biddingEvent).subscribe((data: any) => {
             if (data.result == "inserted") {
