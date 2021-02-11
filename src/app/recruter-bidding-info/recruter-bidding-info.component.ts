@@ -366,7 +366,6 @@ export class RecruterBiddingInfoComponent implements OnChanges {
     });
   }
   submitsuggestedBid(id, firstName, lastName) {
-
     this.selectedResume = new Resume();
     this.selectedResume._id = id;
     this.CandidateName = firstName + lastName;

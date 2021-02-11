@@ -47,7 +47,7 @@
       <!-- </div> -->
     </div>
     <div class="col s6 m6 l6">
-      <button type="submit" class="waves-effect waves-light btn pull-right whiteBtn">
+      <button type="submit" class="waves-effect waves-light btn pull-right whiteBtn" (click) = "submitBid()">
         Submit Candidate
       </button>
     </div>
@@ -469,10 +469,10 @@
       <div class="modal-footer popupFooter">
         <div class="col s6 m6 l6">
           <button style="margin: 5px;" (click)="submitresumePoints()"
-            class="left waves-effect waves-light btn popupButtonMargin">
+            class="left waves-effect waves-light btn popupButtonMargin addColorForButton">
             Save
           </button>
-          <button style="margin: 5px;" class="modal-close left waves-effect waves-light btn popupButtonMargin">
+          <button style="margin: 5px;" class="modal-close left waves-effect waves-light btn popupButtonMargin addColorForButton">
             Close
           </button>
         </div>
