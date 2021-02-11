@@ -135,4 +135,4 @@
   </div>
 
   <app-employeer-ans *ngIf="userRole==1" [biddingEvent]="biddingEvent"></app-employeer-ans>
-  <app-recruiter-question *ngIf="userRole==2" [biddingEvent]="biddingEvent"></app-recruiter-question>
+  <app-recruiter-question *ngIf="userRole==2 && userRole==3" [biddingEvent]="biddingEvent"></app-recruiter-question>

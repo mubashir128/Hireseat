@@ -35,7 +35,7 @@
           </div>
 </div>
 <div *ngIf= "userInfo.userRole =='recruiter'" class="countDiv" >{{biddingEvent?.numOfresumes}}</div>
-<a *ngIf= "userInfo.userRole =='employer'" (click)="showdelete(biddingEvent._id)" class="deletBtn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+<a *ngIf= "userInfo.userRole =='employer' || userInfo.userRole =='recruiter'" (click)="showdelete(biddingEvent._id)" class="deletBtn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 <div id="DeleteConfirm{{biddingEvent._id}}" class="modal confirmationDiv">
   <!-- <h3>Confirmation</h3> -->
   <h3>Are you sure you want to delete?</h3>
