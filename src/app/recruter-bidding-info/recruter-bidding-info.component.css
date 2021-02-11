@@ -719,3 +719,7 @@ ul.resumeDrodown {
   }
 }
 /*================================ mobile responsive css ends  ===============================*/
+
+.addColorForButton {
+  background-color: #03a9f4 !important;
+}

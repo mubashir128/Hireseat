@@ -50,6 +50,10 @@ export class ConstantsService {
   askQuestionType = 2;
   getQuestion = "getQuestion";
 
+  private = "private";
+  public = "public";
+  all = "all";
+
   constructor() { }
 }
 
