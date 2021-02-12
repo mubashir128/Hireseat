@@ -68,7 +68,7 @@
                 </div>
               </div>
               <div class="cadidateResumeDiv">
-                <!-- <button class="downloadResume">
+                <button class="downloadResume">
                   <a
                     [attr.href]="transform(resume?.fileURL)"
                     target="_blank"
@@ -77,10 +77,12 @@
                     <i class="fa fa-download"></i>
                     Download Resume
                   </a>
-                </button> -->
+                </button>
                 <div class="smallBtns">
-                  <!-- <button class="LinkedInBtn">
+                  <button class="LinkedInBtn">
+                    <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
                     <a>
+                      <!-- <i class="fa fa-linkedin"></i> -->
                       <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
                         <img
                           class="linkedin-icon"
@@ -89,15 +91,17 @@
                         <span> LinkedIn </span>
                       </div>
                     </a>
-                  </button> -->
-                  <!-- <button class="shareBtn" (click)="showShareModal(resume)">
+                  </button>
+                  <button class="shareBtn" (click)="showShareModal(resume)">
                     <a>
+                      <!-- <i class="fa fa-linkedin"></i> -->
                       <div class="icon-name">
+                        <!-- <img class="shared-icon" src="../../assets/icons/share-option.png"> -->
                         <i class="fa fa-share shared-icon" aria-hidden="true"></i>
                         <span> Share </span>
                       </div>
                     </a>
-                  </button> -->
+                  </button>
                 </div>
               </div>
             </div>

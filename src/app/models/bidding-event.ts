@@ -19,6 +19,7 @@ export interface IBiddingEvent {
   employerCompanyName: string;
   jobLocation: string;
   createdAt : any;
+  
 }
 
 export class BiddingEvent implements IBiddingEvent {

@@ -206,7 +206,6 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
       callback: this.sharedProfileObserver,
     });
 
-    this.getIndustries();
     this.getProfiles();
 
     this.sharedProfileObserver$.subscribe((res: any) => {
@@ -215,31 +214,20 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
 
   }
   submitResume(resume){
-      console.log(resume);
-      console.log(this.biddingEvent);
+   
       this.bid = {
-        RecruiterCost: "0",
-        StrongPoint1: "not found",
-        StrongPoint2: "not found",
-        StrongPoint3: "not found",
-        bidAmount: null,
         biddingEventKey: this.biddingEvent.$key,
         candidateName: resume.candidate_id.fullName,
-        comment: "",
-        recruiterKey: resume.candidate_id._id,
-        recruiterName: resume.candidate_id.fullName,
+        candidateKey: resume.candidate_id._id,
+        recruiterKey: this.biddingEvent.employerKey,
         resumeKey: resume._id,
         shortlisted: false,
         status: "pending",
       }
-      console.log(this.bid)
-      this.spinner.show();
-      // this.bid.resumeKey = this.selectedResume._id;
-      // this.bid.candidateName = this.selectedResume.candidateName;
-      // console.log(this.bid);
-      
-      this.bidService.createBid(this.bid).subscribe((data: any) => {
-        if (data.result == "inserted") {
+   
+      this.spinner.show();  
+      this.bidService.createCandidateBid(this.bid).subscribe((data: any) => {
+        if (data) {
   
           Materialize.toast('Candidate submitted successfully! !', 4000);
   
@@ -305,13 +293,7 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
     this.spinner.hide();
   }
   
-  getIndustries(){
-    this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
-      if(res){
-        this.industriesAre = res.industries;
-      }
-    });
-  }
+ 
 
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
@@ -941,11 +923,18 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
 
   myProfile() {
     this.getProfileSubscription = this.candidateService
-      .getCandidateProfile()
+      .getCandidateProfileBid()
       .subscribe((res) => {
         this.myProfileContent = res;
         console.log(this.myProfileContent);
         console.log(this.resumes)
+      });
+         this.getProfileSubscription = this.candidateService
+      .getCandidateProfileBid()
+      .subscribe((res) => {
+        console.log(res);
+        this.resume = res;
+        console.log(this.resume)
       });
   }
 

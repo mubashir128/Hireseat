@@ -85,5 +85,11 @@ export class BidService {
       return res;
     }));
   }
+  createCandidateBid(info) {
+    return this.http.post<IBid>(this.baseurl + 'api/createCandidateBid', info).pipe(map((res: any) => {
+      return res;
+    }));
+  }
+  
 
 }
