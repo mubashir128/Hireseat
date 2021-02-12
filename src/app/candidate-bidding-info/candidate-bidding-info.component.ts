@@ -214,12 +214,12 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
 
   }
   submitResume(resume){
-   
+      let recruiterKey : any = this.biddingEvent.employerKey;
       this.bid = {
         biddingEventKey: this.biddingEvent.$key,
         candidateName: resume.candidate_id.fullName,
-        candidateKey: resume.candidate_id._id,
-        recruiterKey: this.biddingEvent.employerKey,
+        candidateKey: resume._id,
+        recruiterKey: recruiterKey._id,
         resumeKey: resume._id,
         shortlisted: false,
         status: "pending",
@@ -246,7 +246,6 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
         this.resumes = res.data;
-        console.log(this.resumes);
         break;
       case this._constants.addComment:
         this.addCommentToCommets(res);
@@ -926,15 +925,13 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
       .getCandidateProfileBid()
       .subscribe((res) => {
         this.myProfileContent = res;
-        console.log(this.myProfileContent);
-        console.log(this.resumes)
       });
          this.getProfileSubscription = this.candidateService
       .getCandidateProfileBid()
       .subscribe((res) => {
         console.log(res);
         this.resume = res;
-        console.log(this.resume)
+        console.log(this.resume);
       });
   }
 
