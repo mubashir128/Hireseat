@@ -193,7 +193,13 @@ import { MomentModule } from 'ngx-moment';
     CreateBiddingEventComponent,
     CreateJobProfileComponent,
     JobProfileListComponent,
-    EditJobProfileComponent
+    EditJobProfileComponent,
+
+    NgbModalModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    MomentModule,
+    SelectDropDownModule
   ],
 })
 export class SharedComponentsModule {}

@@ -412,6 +412,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
     this.spinner.show();
     this.bid.resumeKey = this.selectedResume._id;
     this.bid.candidateName = this.selectedResume.candidateName;
+    console.log(this.bid);
     this.bidService.createBid(this.bid).subscribe((data: any) => {
       if (data.result == "inserted") {
 

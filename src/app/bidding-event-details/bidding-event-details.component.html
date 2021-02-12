@@ -65,17 +65,17 @@
           <div class="arrow"></div>
         </li>
 
-        <li class="tab col s3 bx-pager-item resume"><a href="#resume" class="bx-pager-link"
+        <li class="tab col s3 bx-pager-item resume" ><a href="#resume" class="bx-pager-link"
             (click)="addActiveClass($event,'resume')">Resumes</a>
           <div class="arrow"><span>{{resumecount}}</span></div>
           <!-- <span>{{resumecount}}</span> -->
         </li>
-        <li class="tab col s3 bx-pager-item  interview"><a class="bx-pager-link"
+        <li class="tab col s3 bx-pager-item  interview" *ngIf="userRole != 'candidate'"><a class="bx-pager-link"
             (click)="addActiveClass($event,'interview')" href="#interview">Interviews </a>
           <div class="arrow"><span>{{interviewcount}}</span></div>
           <!-- <span>{{interviewcount}}</span> -->
         </li>
-        <li class="tab col s3 bx-pager-item hired"><a href="#hired" (click)="addActiveClass($event,'hire')"
+        <li class="tab col s3 bx-pager-item hired" *ngIf="userRole != 'candidate'"><a href="#hired" (click)="addActiveClass($event,'hire')"
             class="bx-pager-link">Hired </a>
           <div class="arrow"><span>{{hiredcount}}</span></div>
           <!-- <span>{{hiredcount}}</span> -->
@@ -110,6 +110,10 @@
           <app-recruter-bidding-info (ResumeCount)="resumeCount($event)" (InterviewCount)="funcInterviewCount($event)"
             *ngIf="userRole==2 && showDiv=='resume'" [biddingEvent]="biddingEvent">
           </app-recruter-bidding-info>
+          <app-candidate-bidding-info 
+          *ngIf="userRole==3 && showDiv=='resume'" [biddingEvent]="biddingEvent">
+
+          </app-candidate-bidding-info>
         </div>
 
         <div id="interview" class="tab-pane fade">

@@ -13,6 +13,7 @@ import { BiddingHiredInfoComponent } from '../bidding-hired-info/bidding-hired-i
 import { RecruiterBiddingHiredInfoComponent } from '../recruiter-bidding-hired-info/recruiter-bidding-hired-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from "ngx-pagination";
+import { CandidateBiddingInfoComponent } from '../candidate-bidding-info/candidate-bidding-info.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { NgxPaginationModule } from "ngx-pagination";
     BiddingInterviewInfoComponent,
     RecruiterBiddingInterviewInfoComponent,
     BiddingHiredInfoComponent,
-    RecruiterBiddingHiredInfoComponent
+    RecruiterBiddingHiredInfoComponent,
+    CandidateBiddingInfoComponent
   ]
 })
 export class BiddingEventDetailsModule { }
