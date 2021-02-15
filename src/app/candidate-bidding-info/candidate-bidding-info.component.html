@@ -3,8 +3,6 @@
 
       <div
         class="singleList employerResume resumeSingleList"
-        *ngFor="
-          let resume of resumes"
       >
         <div class="docSectionBtns">
           <div class="candidate-name">
@@ -65,7 +63,7 @@
             </div>
           </div>
           <div class="cadidateResumeDiv">
-            <button class="downloadResume"  (click) = "submitResume(resume)">
+            <button class="downloadResume" [disabled]="isSubmited"  (click) = "submitResume(resume)">
               Submit Resume
             </button>
             <div class="smallBtns">

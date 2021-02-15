@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef,
   OnDestroy,
+  Input,
 } from "@angular/core";
 import {
   FormBuilder,
@@ -33,6 +34,7 @@ import {
 import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { ConstantsService } from "src/app/_services/constants.service";
+import { IBiddingEvent } from "../models/bidding-event";
 
 declare var jQuery;
 declare var $: any;
@@ -116,6 +118,7 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
 
   industriesAre = [];
   industries = [];
+  @Input() public biddingEvent: IBiddingEvent;
 
   constructor(
     private resumeService: ResumeService,
@@ -130,22 +133,22 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
     private _subList: SubscriberslistService,
     private _constants: ConstantsService
   ) {
-    this.resumes = [];
-    this.Search = this.formBuilder.group({
-      tags: ["", Validators.required],
-      searchTerm: [""],
-    });
-    this.Search.get("searchTerm")
-      .valueChanges.pipe(debounceTime(800))
-      .subscribe((res) => {
-        if (res) {
-          let obj = {
-            searchType: "name",
-            searchTerm: res,
-          };
-          this.getAllSharedResumes(obj);
-        }
-      });
+    // this.resumes = [];
+    // this.Search = this.formBuilder.group({
+    //   tags: ["", Validators.required],
+    //   searchTerm: [""],
+    // });
+    // this.Search.get("searchTerm")
+    //   .valueChanges.pipe(debounceTime(800))
+    //   .subscribe((res) => {
+    //     if (res) {
+    //       let obj = {
+    //         searchType: "name",
+    //         searchTerm: res,
+    //       };
+    //       // this.getAllSharedResumes(obj);
+    //     }
+    //   });
     this.myComment = [];
     this.replyToComment = [];
     this.loggedUser = this.userService.getUserData();
@@ -190,18 +193,18 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
     jQuery(".modal").modal();
     jQuery("select").material_select();
     
-    await this._socket.removeListener({ type: this._constants.sharedProfileType });
-    this._socket.addListener({
-      type: this._constants.sharedProfileType,
-      callback: this.sharedProfileObserver,
-    });
+    // await this._socket.removeListener({ type: this._constants.sharedProfileType });
+    // this._socket.addListener({
+    //   type: this._constants.sharedProfileType,
+    //   callback: this.sharedProfileObserver,
+    // });
 
-    this.getIndustries();
-    this.getProfiles();
-
-    this.sharedProfileObserver$.subscribe((res: any) => {
-      this.handleProfileData(res);
-    });
+    // this.getIndustries();
+    // this.getProfiles();
+    this.myProfile()
+    // this.sharedProfileObserver$.subscribe((res: any) => {
+    //   this.handleProfileData(res);
+    // });
 
   }
 
@@ -296,16 +299,16 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
   }
 
   getProfiles() {
-    this._socket.sendMessage({
-      type: this._constants.sharedProfileType,
-      data: {
-        subType: this._constants.getAllSharedProfiles,
-      },
-    });
+    // this._socket.sendMessage({
+    //   type: this._constants.sharedProfileType,
+    //   data: {
+    //     subType: this._constants.getAllSharedProfiles,
+    //   },
+    // });
     
-    if (this.loggedUser.userRole === "candidate") {
+    // if (this.loggedUser.userRole === "candidate") {
       this.myProfile();
-    }
+    // }
   }
 
   disabledDay(date) {}
@@ -323,7 +326,7 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
             searchTerm: this.searchTerm,
           };
 
-          this.getAllSharedResumes(obj);
+          // this.getAllSharedResumes(obj);
         })
       )
       .subscribe();
@@ -562,19 +565,19 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
     }
   }
 
-  getAllSharedResumes(payload) {
-    this.getAllSharedCandidateProfileSubscription = this.resumeService
-      .getAllSharedCandidateProfile(payload)
-      .subscribe(
-        (res) => {
-          if (res) {
-            this.resumes = res;
-            console.log(this.resumes);
-          }
-        },
-        (err) => {}
-      );
-  }
+  // getAllSharedResumes(payload) {
+  //   this.getAllSharedCandidateProfileSubscription = this.resumeService
+  //     .getAllSharedCandidateProfile(payload)
+  //     .subscribe(
+  //       (res) => {
+  //         if (res) {
+  //           this.resumes = res;
+  //           console.log(this.resumes);
+  //         }
+  //       },
+  //       (err) => {}
+  //     );
+  // }
 
   getVideo(payload) {
     this.getVideoURLSubscription = this.videoCallingService
@@ -890,10 +893,12 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
   }
 
   myProfile() {
+    console.log(this.biddingEvent)
     this.getProfileSubscription = this.candidateService
-      .getCandidateProfile()
+      .getRecruiterCandidateBids(this.biddingEvent.$key)
       .subscribe((res) => {
-        this.myProfileContent = res;
+        console.log(res)
+        this.resumes = res;
       });
   }
 

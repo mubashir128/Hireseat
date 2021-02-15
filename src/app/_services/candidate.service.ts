@@ -118,11 +118,19 @@ export class CandidateService {
         })
       );
   }
-  getCandidateProfileBid() {
-    return this.http.get<any>(this.baseurl + "api/getCandidateProfileBid").pipe(
+  getCandidateProfileBid(id) {
+    return this.http.get<any>(this.baseurl + "api/getCandidateProfileBid/"+ id).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
+  getRecruiterCandidateBids(id) {
+    return this.http.get<any>(this.baseurl + "api/getRecruiterCandidateBids/"+ id).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  
 }

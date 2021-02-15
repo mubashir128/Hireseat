@@ -48,6 +48,7 @@ declare var Materialize;
 })
 export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestroy {
   bid: any;
+  isSubmited:boolean = false;
   @Input() public biddingEvent: IBiddingEvent;
 
   
@@ -141,21 +142,21 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
 
   ) {
     this.resumes = [];
-    this.Search = this.formBuilder.group({
-      tags: ["", Validators.required],
-      searchTerm: [""],
-    });
-    this.Search.get("searchTerm")
-      .valueChanges.pipe(debounceTime(800))
-      .subscribe((res) => {
-        if (res) {
-          let obj = {
-            searchType: "name",
-            searchTerm: res,
-          };
-          this.getAllSharedResumes(obj);
-        }
-      });
+    // this.Search = this.formBuilder.group({
+    //   tags: ["", Validators.required],
+    //   searchTerm: [""],
+    // });
+    // this.Search.get("searchTerm")
+    //   .valueChanges.pipe(debounceTime(800))
+    //   .subscribe((res) => {
+    //     if (res) {
+    //       let obj = {
+    //         searchType: "name",
+    //         searchTerm: res,
+    //       };
+    //       // this.getAllSharedResumes(obj);
+    //     }
+    //   });
     this.myComment = [];
     this.replyToComment = [];
     this.loggedUser = this.userService.getUserData();
@@ -200,17 +201,17 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
     jQuery(".modal").modal();
     jQuery("select").material_select();
     
-    await this._socket.removeListener({ type: this._constants.sharedProfileType });
-    this._socket.addListener({
-      type: this._constants.sharedProfileType,
-      callback: this.sharedProfileObserver,
-    });
+    // await this._socket.removeListener({ type: this._constants.sharedProfileType });
+    // this._socket.addListener({
+    //   type: this._constants.sharedProfileType,
+    //   callback: this.sharedProfileObserver,
+    // });
 
     this.getProfiles();
 
-    this.sharedProfileObserver$.subscribe((res: any) => {
-      this.handleProfileData(res);
-    });
+    // this.sharedProfileObserver$.subscribe((res: any) => {
+    //   this.handleProfileData(res);
+    // });
 
   }
   submitResume(resume){
@@ -228,7 +229,7 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
       this.spinner.show();  
       this.bidService.createCandidateBid(this.bid).subscribe((data: any) => {
         if (data) {
-  
+          this.myProfile();
           Materialize.toast('Candidate submitted successfully! !', 4000);
   
         } else {
@@ -327,12 +328,12 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
   }
 
   getProfiles() {
-    this._socket.sendMessage({
-      type: this._constants.sharedProfileType,
-      data: {
-        subType: this._constants.getAllSharedProfiles,
-      },
-    });
+    // this._socket.sendMessage({
+    //   type: this._constants.sharedProfileType,
+    //   data: {
+    //     subType: this._constants.getAllSharedProfiles,
+    //   },
+    // });
     
     if (this.loggedUser.userRole === "candidate") {
       this.myProfile();
@@ -354,7 +355,7 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
             searchTerm: this.searchTerm,
           };
 
-          this.getAllSharedResumes(obj);
+          // this.getAllSharedResumes(obj);
         })
       )
       .subscribe();
@@ -593,19 +594,6 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
     }
   }
 
-  getAllSharedResumes(payload) {
-    this.getAllSharedCandidateProfileSubscription = this.resumeService
-      .getAllSharedCandidateProfile(payload)
-      .subscribe(
-        (res) => {
-          if (res) {
-            this.resumes = res;
-            console.log(this.resumes);
-          }
-        },
-        (err) => {}
-      );
-  }
 
   getVideo(payload) {
     this.getVideoURLSubscription = this.videoCallingService
@@ -922,17 +910,14 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
 
   myProfile() {
     this.getProfileSubscription = this.candidateService
-      .getCandidateProfileBid()
+      .getCandidateProfileBid(this.biddingEvent.$key)
       .subscribe((res) => {
-        this.myProfileContent = res;
+        this.isSubmited = res.isSubmited;
+        this.resume = res.candidateKey;
+        
+        console.log(this.resume)
       });
-         this.getProfileSubscription = this.candidateService
-      .getCandidateProfileBid()
-      .subscribe((res) => {
-        console.log(res);
-        this.resume = res;
-        console.log(this.resume);
-      });
+         
   }
 
   confirmSelectDatesEvent() {
@@ -1031,11 +1016,7 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
 
   }
 
-  sortByIndustries(){
-    this.candidateService.getSortByIndustries({industries : this.industries}).subscribe((data: any) => {
-      this.resumes = data;
-    });
-  }
+  
 
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.sharedProfileType });

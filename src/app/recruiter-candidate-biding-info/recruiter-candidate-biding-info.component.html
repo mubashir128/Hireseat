@@ -44,24 +44,25 @@
                       {{ resume?.candidateName || resume?.candidate_id?.fullName }}
                     </span>
                     <div class="other-details">
-                      <p><label>Job Title :</label> {{ resume?.jobTitle }}</p>
-                      <p><label>Location :</label> {{ resume?.location }}</p>
+                      <p><label>Job Title :</label> {{ resume?.jobTitle ||resume?.candidateKey?.jobTitle }}</p>
+                      <p><label>Location :</label> {{ resume?.location || resume?.candidateKey?.location}}</p>
                       <p>
                         <label>Desired Roles :</label
                         >{{
                           resume?.desiredRoles ||
                             resume?.candidateProfileKey?.desiredRoles
+                            ||resume?.candidateKey?.desiredRoles
                         }}
                       </p>
                       <div>
                         <label>Skills :</label>
                         <div class="industries">
-                            <span class="industrieName" *ngFor="let skills of resume.skills.split(',')">{{skills}}</span>
+                            <span class="industrieName" *ngFor="let skills of resume.candidateKey.skills.split(',')">{{skills}}</span>
                         </div>
                       </div>
                       <p>
                         <label>Industries :</label>
-                        <span class="industrieName" *ngFor="let industries of resume.industries">{{industries?.name}} |</span>
+                        <span class="industrieName" *ngFor="let industries of resume.candidateKey.industries">{{industries.name}} |</span>
                       </p>
                     </div>
                   </div>
@@ -70,7 +71,7 @@
               <div class="cadidateResumeDiv">
                 <button class="downloadResume">
                   <a
-                    [attr.href]="transform(resume?.fileURL)"
+                    [attr.href]="transform(resume?.candidateKey?.fileURL)"
                     target="_blank"
                     download
                   >
@@ -83,7 +84,7 @@
                     <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
                     <a>
                       <!-- <i class="fa fa-linkedin"></i> -->
-                      <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
+                      <div class="icon-name" (click)="onLinkedIn(resume?.candidateKey.linkedIn)">
                         <img
                           class="linkedin-icon"
                           src="../../assets/icons/linkedin-sign.png"
