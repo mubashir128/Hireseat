@@ -402,7 +402,7 @@
   </li>
   <!-- other li div -->
 </ul>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<pagination-controls *ngIf="biddingEvent.userType != 3"  (pageChange)="p = $event"></pagination-controls>
 
 <div>
   <div id="ThreePointsModel" class="modal modal-fixed-footer ">

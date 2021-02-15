@@ -1,60 +1,77 @@
-<ng-container *ngIf="resumes">
+<ng-container>
   <div class="ListResume">
     <div
       class="singleList employerResume resumeSingleList"
       *ngFor="
-        let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p };
+        let items of resumes | paginate: { itemsPerPage: 8, currentPage: p };
         let i = index
       "
     >
-      <!-- | shareProfileSearch: searchTerm -->
       <div class="docSectionBtns">
         <div class="candidate-name">
           <div class="CandidateDetails">
-            <ng-container *ngIf="resume?.candidateKey?.profileimage">
+            <ng-container
+              *ngIf="
+                items?.candidate_id?.profileimage ||
+                items?.candidateKey?.candidate_id?.profileimage
+              "
+            >
               <div class="candProfile">
-                <img [src]="resume?.candidateKey?.profileimage" alt="profile" />
+                <img
+                  [src]="
+                    items?.candidate_id?.profileimage ||
+                    items?.candidateKey?.candidate_id?.profileimage
+                  "
+                  alt="profile"
+                />
               </div>
             </ng-container>
 
-            <ng-container *ngIf="!resume?.candidateKey?.profileimage">
+            <ng-container
+              *ngIf="
+                !items?.candidate_id?.profileimage &&
+                !items?.candidateKey?.candidate_id?.profileimage
+              "
+            >
               <div class="candProfile">
                 <img src="assets/img/profile-user.png" alt="profile" />
               </div>
             </ng-container>
             <div class="user-details">
               <span>
-                Candidate Name :
-                {{ resume?.candidateKey?.fullName }}
+                {{ items?.candidateKey.candidate_id?.fullName }}
               </span>
               <div class="other-details">
                 <p>
-                  <label>Job Title :</label>
-                  {{ resume?.candidateKey?.jobTitle }}
+                  <label>Job Title :</label> {{ items?.candidateKey.jobTitle }}
                 </p>
                 <p>
-                  <label>Location :</label>
-                  {{ resume?.candidateKey?.location }}
+                  <label>Location :</label> {{ items?.candidateKey.location }}
                 </p>
                 <p>
                   <label>Desired Roles :</label
-                  >{{ resume?.candidateKey?.desiredRoles }}
+                  >{{
+                    items?.desiredRoles || items?.candidateKey?.desiredRoles
+                  }}
                 </p>
                 <div>
                   <label>Skills :</label>
                   <div class="industries">
-                    <span class="industrieName">{{
-                      resume.candidateKey.skills
-                    }}</span>
+                    <span
+                      class="industrieName"
+                      *ngFor="
+                        let skills of items.candidateKey.skills.split(',')
+                      "
+                      >{{ skills }}</span
+                    >
                   </div>
                 </div>
-                <!-- *ngFor="let skills of resume.candidateKey.skills.split(',')" -->
                 <p>
                   <label>Industries :</label>
                   <span
                     class="industrieName"
-                    *ngFor="let industries of resume.candidateKey.industries"
-                    >{{ industries.name }} |</span
+                    *ngFor="let industries of items.candidateKey.industries"
+                    >{{ industries?.name }} |</span
                   >
                 </p>
               </div>
@@ -64,7 +81,7 @@
         <div class="cadidateResumeDiv">
           <button class="downloadResume">
             <a
-              [attr.href]="transform(resume?.candidateKey?.fileURL)"
+              [attr.href]="transform(items?.candidateKey?.fileURL)"
               target="_blank"
               download
             >
@@ -79,7 +96,7 @@
                 <!-- <i class="fa fa-linkedin"></i> -->
                 <div
                   class="icon-name"
-                  (click)="onLinkedIn(resume?.candidateKey.linkedIn)"
+                  (click)="onLinkedIn(items?.candidateKey?.linkedIn)"
                 >
                   <img
                     class="linkedin-icon"
@@ -89,7 +106,7 @@
                 </div>
               </a>
             </button>
-            <button class="shareBtn" (click)="showShareModal(resume)">
+            <button class="shareBtn" (click)="showShareModal(items)">
               <a>
                 <!-- <i class="fa fa-linkedin"></i> -->
                 <div class="icon-name">
@@ -104,24 +121,24 @@
       </div>
       <!-- a video  -->
       <ng-container
-        *ngIf="resume?.interviewLinkedByRecruiter || resume?.recordedId"
+        *ngIf="
+          items?.interviewLinkedByRecruiter || items?.candidateKey.recordedId
+        "
       >
         <!-- <div class="btn-accept" (click)="toggleAccordian(i, $event, resume)">
-              see the interview
-            </div> -->
+      see the interview
+    </div> -->
         <div
           class="interviewvidBg"
           [ngClass]="show === i ? 'play-block' : 'occupy'"
         >
-          <div
-            class="playpauseBtn"
-            (click)="toggleAccordian(i, $event, resume)"
-          >
+          <div class="playpauseBtn" (click)="toggleAccordian(i, $event, items)">
             <!-- <i class="fa fa-play" aria-hidden="true"></i> -->
             <i class="fa fa-play-circle" aria-hidden="true"></i>
           </div>
         </div>
       </ng-container>
+
       <ng-container *ngIf="show == i">
         <!--  -->
 
@@ -192,12 +209,12 @@
       </ng-container>
       <!-- end a video -->
 
-      <ng-container *ngIf="resume?.comments">
+      <ng-container *ngIf="items?.comments">
         <div class="singleListData">
           <span class="summary">Candidate's Summary:</span>
           <div class="PointsDiv commonSingleInner">
             <div class="PointsDivSingle PointsDivSingleN">
-              <h4>{{ resume?.comments }}</h4>
+              <h4>{{ items?.comments }}</h4>
             </div>
           </div>
         </div>
@@ -216,7 +233,7 @@
               <div class="btn-placement">
                 <div
                   class="btn-accept postCommentDiv"
-                  (click)="postMycmt(i, myComment[i], resume)"
+                  (click)="postMycmt(i, myComment[i], items)"
                 >
                   <span>Post</span>
                   <!-- <img src="assets/img/postComment.png" alt="profile" />  -->
@@ -227,8 +244,10 @@
           </div>
         </ng-container>
         <div class="commentmainscroll">
-          <ng-container *ngIf="resume.canReview.length > 0">
-            <div *ngFor="let cmt of resume.comment; let i = index">
+          <ng-container *ngIf="items?.candidateKey.canReview.length > 0">
+            <div
+              *ngFor="let cmt of items?.candidateKey.canReview; let i = index"
+            >
               <ng-container
                 *ngIf="
                   cmt?.recruiterId?._id === loggedUser._id ||
@@ -296,12 +315,12 @@
                           </div>
 
                           <!-- <div class="editcomment">
-                                  <i
-                                    class="fa fa-trash"
-                                    aria-hidden="true"
-                                    (click)="deleteComment(cmt, resume)"
-                                  ></i>
-                                </div> -->
+                                <i
+                                  class="fa fa-trash"
+                                  aria-hidden="true"
+                                  (click)="deleteComment(cmt, resume)"
+                                ></i>
+                              </div> -->
                         </ng-container>
                       </div>
                     </div>
@@ -315,16 +334,16 @@
                         <!-- like button was here -->
 
                         <!-- <div class="likes">
-                            <span>Likes: {{ cmt?.like.length }}</span>
-                          </div> -->
+                          <span>Likes: {{ cmt?.like.length }}</span>
+                        </div> -->
                         <textarea
                           class="editComment"
                           *ngIf="editTextIndex == cmt._id"
                           [value]="cmt?.review"
                           [(ngModel)]="editTo"
                         >
-                            {{ cmt?.review }}
-                            </textarea
+                          {{ cmt?.review }}
+                          </textarea
                         >
                       </div>
                       <div
@@ -336,7 +355,7 @@
                       >
                         <div
                           class="btn-accept postBtn"
-                          (click)="editComment(cmt, resume)"
+                          (click)="editComment(cmt, items)"
                         >
                           Post
                           <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
@@ -356,7 +375,7 @@
                           <div class="at-end">
                             <span
                               *ngIf="loggedUser.userRole === 'candidate'"
-                              (click)="likeThisCommet(cmt, resume)"
+                              (click)="likeThisCommet(cmt, items)"
                               >Say thank you</span
                             >
                           </div>
@@ -382,7 +401,7 @@
                                   replyToThisComment(
                                     i,
                                     replyToComment[i],
-                                    resume,
+                                    items,
                                     cmt._id
                                   )
                                 "
@@ -453,7 +472,6 @@
 <div class="row">
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
-
 <div id="shareEmailModal" class="modal">
   <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
   <div class="emailTemp">
@@ -481,227 +499,3 @@
 </div>
 
 <!-- modal to select dates -->
-
-<div id="selectDates" class="modal videoModalMain forumPopMain forumMsgPopup">
-  <form [formGroup]="requestDatesForm">
-    <a (click)="closeSelectDatesModal()" class="videoCloseBtn"
-      ><i class="material-icons">close</i></a
-    >
-    <div class="modal-content videoModalContent">
-      <h4 class="slide-heading text-center">Select your available days</h4>
-      <div class="modalBodyPop">
-        <div class="dates">
-          <div class="start">
-            <div class="accept-dates">
-              <div class="accept-values">
-                <!-- <input
-                        class="form-control"
-                        type="text"
-                        mwlFlatpickr
-                        (ngModelChange)="refresh.next()"
-                        [altInput]="true"
-                        [convertModelValue]="true"
-                        formControlName="date1"
-                        [enableTime]="false"
-                        dateFormat="Y-m-dTH:i"
-                        altFormat="F j, Y H:i"
-                        placeholder="Not set"
-                        [disable]="[disabledDay]"
-                        [minDate]="'today'"
-                      /> -->
-
-                <input
-                  name="date1"
-                  formControlName="date1"
-                  [owlDateTime]="date1"
-                  [owlDateTimeTrigger]="date1"
-                  [selectMode]="'single'"
-                  [min]="today"
-                />
-
-                <owl-date-time
-                  [firstDayOfWeek]="'1'"
-                  [pickerType]="'calendar'"
-                  #date1
-                ></owl-date-time>
-              </div>
-              <div class="accept-values">
-                <ngx-select-dropdown
-                  (change)="selectionChanged($event)"
-                  [options]="availableTime"
-                  formControlName="time1"
-                  [config]="{ placeholder: 'Select a slot' }"
-                >
-                </ngx-select-dropdown>
-              </div>
-            </div>
-            <div class="accept-dates">
-              <div class="accept-values">
-                <!-- <input
-                        class="form-control"
-                        type="text"
-                        mwlFlatpickr
-                        (ngModelChange)="refresh.next()"
-                        [altInput]="true"
-                        [convertModelValue]="true"
-                        formControlName="date2"
-                        [enableTime]="false"
-                        dateFormat="Y-m-dTH:i"
-                        altFormat="F j, Y H:i"
-                        placeholder="Not set"
-                        [disable]="[disabledDay]"
-                        [minDate]="'today'"
-                      /> -->
-
-                <input
-                  name="date2"
-                  formControlName="date2"
-                  [owlDateTime]="date2"
-                  [owlDateTimeTrigger]="date2"
-                  [selectMode]="'single'"
-                  [min]="today"
-                />
-
-                <owl-date-time
-                  [firstDayOfWeek]="'1'"
-                  [pickerType]="'calendar'"
-                  #date2
-                ></owl-date-time>
-              </div>
-              <div class="accept-values">
-                <ngx-select-dropdown
-                  (change)="selectionChanged($event)"
-                  [options]="availableTime"
-                  formControlName="time2"
-                  [config]="{ placeholder: 'Select a slot' }"
-                >
-                </ngx-select-dropdown>
-              </div>
-            </div>
-            <div class="accept-dates">
-              <div class="accept-values">
-                <!-- <input
-                        class="form-control"
-                        type="text"
-                        mwlFlatpickr
-                        (ngModelChange)="refresh.next()"
-                        [altInput]="true"
-                        [convertModelValue]="true"
-                        formControlName="date3"
-                        [enableTime]="false"
-                        dateFormat="Y-m-dTH:i"
-                        altFormat="F j, Y H:i"
-                        placeholder="Not set"
-                        [disable]="[disabledDay]"
-                        [minDate]="'today'"
-                      /> -->
-
-                <input
-                  name="date3"
-                  formControlName="date3"
-                  [owlDateTime]="date3"
-                  [owlDateTimeTrigger]="date3"
-                  [selectMode]="'single'"
-                  [min]="today"
-                />
-
-                <owl-date-time
-                  [firstDayOfWeek]="'1'"
-                  [pickerType]="'calendar'"
-                  #date3
-                ></owl-date-time>
-              </div>
-              <div class="accept-values">
-                <ngx-select-dropdown
-                  (change)="selectionChanged($event)"
-                  [options]="availableTime"
-                  formControlName="time3"
-                  [config]="{ placeholder: 'Select a slot' }"
-                >
-                </ngx-select-dropdown>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="confirm">
-        <div class="spacing">
-          <div class="no">
-            <div class="btn-accept" (click)="confirmSelectDatesEvent()">
-              Request
-            </div>
-          </div>
-          <div class="yes">
-            <div class="btn-reject" (click)="closeSelectDatesModal()">
-              Cancel
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
-
-<!-- opening a recruiter details modal -->
-<div id="showRecruiterModal" class="modal recruiter">
-  <i (click)="closeRecruiterModal()" class="fa fa-times" aria-hidden="true"></i>
-  <!--  -->
-  <div class="ClientDetailCard">
-    <div class="ClientImage">
-      <div class="uploadImageDiv">
-        <ng-container
-          *ngIf="selectedCoachingRecruiter['refUserId']?.profileimage"
-        >
-          <img
-            [src]="selectedCoachingRecruiter['refUserId']?.profileimage"
-            class="uploadedImg"
-          />
-        </ng-container>
-        <ng-container
-          *ngIf="!selectedCoachingRecruiter['refUserId']?.profileimage"
-        >
-          <img src="../../../assets/img/user.png" class="uploadedImg" />
-        </ng-container>
-      </div>
-      <div class="NameDetails">
-        <h4>{{ selectedCoachingRecruiter["refUserId"]?.fullName }}</h4>
-        <p>
-          Rate: ${{ selectedCoachingRecruiter["refUserId"]?.rate }} for
-          {{ selectedCoachingRecruiter["refUserId"]?.mins }} Minutes
-        </p>
-      </div>
-      <ng-container *ngIf="loggedUser.userRole === 'candidate'">
-        <div class="req-selectedCoachingRecruiter">
-          <button
-            class="req-recruiter-coaching"
-            (click)="reqCoachingFunction()"
-          >
-            Request Coaching
-          </button>
-        </div>
-      </ng-container>
-    </div>
-    <div class="BioDetails">
-      <h2>Bio :</h2>
-      <div [innerHTML]="selectedCoachingRecruiter['refUserId']?.bio"></div>
-
-      <ng-container *ngIf="selectedCoachingRecruiter['refUserId']?.companies">
-        <h5 class="BioSubHead">Companies Recruited for:</h5>
-        <p>{{ selectedCoachingRecruiter["refUserId"]?.companies }}</p>
-      </ng-container>
-      <ng-container *ngIf="selectedCoachingRecruiter['refUserId']?.roles">
-        <h5 class="BioSubHead">Expertise in Recruiting for these Roles :</h5>
-        <p>{{ selectedCoachingRecruiter["refUserId"]?.roles }}</p>
-      </ng-container>
-      <ng-container *ngIf="selectedCoachingRecruiter['linkedInLink']">
-        <h5 class="BioSubHead">LinkedIn:</h5>
-        <a
-          class="pointer"
-          (click)="onLinkedIn(selectedCoachingRecruiter['linkedInLink'])"
-          >{{ selectedCoachingRecruiter["linkedInLink"] }}</a
-        >
-      </ng-container>
-    </div>
-  </div>
-  <!--  -->
-</div>

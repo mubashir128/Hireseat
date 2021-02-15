@@ -63,7 +63,7 @@
             </div>
           </div>
           <div class="cadidateResumeDiv">
-            <button class="downloadResume" [disabled]="isSubmited"  (click) = "submitResume(resume)">
+            <button class="downloadResume" *ngIf="!isSubmited" (click) = "submitResume(resume)">
               Submit Resume
             </button>
             <div class="smallBtns">
