@@ -899,6 +899,20 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
       .subscribe((res) => {
         console.log(res)
         this.resumes = res;
+        // res.forEach((data)=>{
+        //  var resume = {
+        //   profileimage:data.candidateKey.fileURL,
+        //   candidateName:data.candidateKey.candidate_id.fullName,
+        //   jobTitle:data.candidateKey.jobTitle,
+        //   desiredRoles:data.candidateKey.desiredRoles,
+        //   skills: data.candidateKey.skills,
+        //   industries: data.candidateKey.industries
+        //  } 
+        //  console.log(resume)
+        // this.resumes.push(resume)
+        //  console.log(this.resumes)
+
+        // })
       });
   }
 
