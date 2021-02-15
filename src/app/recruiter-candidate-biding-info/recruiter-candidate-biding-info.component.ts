@@ -40,11 +40,12 @@ declare var jQuery;
 declare var $: any;
 declare var Materialize;
 @Component({
-  selector: 'app-recruiter-candidate-biding-info',
-  templateUrl: './recruiter-candidate-biding-info.component.html',
-  styleUrls: ['./recruiter-candidate-biding-info.component.css']
+  selector: "app-recruiter-candidate-biding-info",
+  templateUrl: "./recruiter-candidate-biding-info.component.html",
+  styleUrls: ["./recruiter-candidate-biding-info.component.css"],
 })
-export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges, OnDestroy {
+export class RecruiterCandidateBidingInfoComponent
+  implements OnInit, OnChanges, OnDestroy {
   @ViewChild("playVideo") videojsPlay: ElementRef;
   @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
 
@@ -54,7 +55,7 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
 
   player: videojs.Player;
   canComment = false;
-  public today = new Date()
+  public today = new Date();
 
   // subscription
   getVideoURLSubscription: Subscription;
@@ -192,7 +193,7 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
   async ngOnInit() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
-    
+
     // await this._socket.removeListener({ type: this._constants.sharedProfileType });
     // this._socket.addListener({
     //   type: this._constants.sharedProfileType,
@@ -201,11 +202,10 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
 
     // this.getIndustries();
     // this.getProfiles();
-    this.myProfile()
+    this.myProfile();
     // this.sharedProfileObserver$.subscribe((res: any) => {
     //   this.handleProfileData(res);
     // });
-
   }
 
   handleProfileData(res: any) {
@@ -225,10 +225,10 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
       case this._constants.shareVideoViaRecruiterEmail:
         this.handleResponse(res.result);
         break;
-      case this._constants.editComment :
+      case this._constants.editComment:
         this.editRespectedComment(res);
         break;
-      case this._constants.deleteComment :
+      case this._constants.deleteComment:
         this.deleteRespectedComment(res);
         break;
       default:
@@ -236,40 +236,44 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
     }
   }
 
-  handleResponse(res){
-    if(res.message){
+  handleResponse(res) {
+    if (res.message) {
       Materialize.toast(res.message, 3000, "green");
       Materialize.toast("You gained 200 recruiter karma points", 4000, "blue");
-  
+
       let eventObj = {
         pointer: "ratingPoints",
         subType: "increse",
         increseCount: this._constants.sharedPoints,
       };
       this._subList.recruiterPoints.next(eventObj);
-  
+
       eventObj.pointer = "sharePoints";
       this._subList.recruiterPoints.next(eventObj);
-    }else{
+    } else {
       Materialize.toast(res.error, 3000, "red");
     }
 
     jQuery("#shareEmailModal").modal("close");
     this.spinner.hide();
   }
-  
-  getIndustries(){
-    this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
-      if(res){
-        this.industriesAre = res.industries;
-      }
-    });
+
+  getIndustries() {
+    this.getProfileSubscription = this.candidateService
+      .getCandidateIndustries()
+      .subscribe((res) => {
+        if (res) {
+          this.industriesAre = res.industries;
+        }
+      });
   }
 
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        element.canReview.length !==0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
+        element.canReview.length !== 0
+          ? element.canReview.unshift(res.data)
+          : element.canReview.push(res.data);
       }
     });
   }
@@ -291,7 +295,9 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            comment.reply.length !==0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
+            comment.reply.length !== 0
+              ? comment.reply.unshift(res.data.replyComment)
+              : comment.reply.push(res.data.replyComment);
           }
         });
       }
@@ -305,9 +311,9 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
     //     subType: this._constants.getAllSharedProfiles,
     //   },
     // });
-    
+
     // if (this.loggedUser.userRole === "candidate") {
-      this.myProfile();
+    this.myProfile();
     // }
   }
 
@@ -478,11 +484,11 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
     }
   }
 
-  editRespectedComment(res){
+  editRespectedComment(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
         element.canReview.forEach((item, index) => {
-          if(item._id === res.data.cmtId){
+          if (item._id === res.data.cmtId) {
             item.review = res.data.review;
           }
         });
@@ -511,12 +517,12 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
       );
   }
 
-  deleteRespectedComment(res){
+  deleteRespectedComment(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
         element.canReview.forEach((item, index) => {
-          if(item._id === res.data.cmtId){
-            element.canReview.splice(index,1);
+          if (item._id === res.data.cmtId) {
+            element.canReview.splice(index, 1);
           }
         });
       }
@@ -652,13 +658,14 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
                 candidateProfile: this.shareResume.resumeType ? false : true,
               };
 
-              let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
+              let userInfo = JSON.parse(localStorage.getItem("currentUser"))
+                .userInfo;
               this._socket.sendMessage({
                 type: this._constants.sharedProfileType,
                 data: {
                   type: userInfo.userRole,
-                  payload : payload,
-                  subType: "shareVideoViaRecruiterEmail"
+                  payload: payload,
+                  subType: "shareVideoViaRecruiterEmail",
                 },
               });
 
@@ -696,7 +703,6 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
               //       this.spinner.hide();
               //     }
               //   );
-                
             } else {
               // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 3000);
@@ -893,12 +899,12 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
   }
 
   myProfile() {
-    console.log(this.biddingEvent)
+    console.log(this.biddingEvent);
     this.getProfileSubscription = this.candidateService
       .getRecruiterCandidateBids(this.biddingEvent.$key)
       .subscribe((res) => {
-        console.log(res)
         this.resumes = res;
+        console.log(this.resumes);
       });
   }
 
@@ -978,30 +984,31 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
-  handleIndustries($event, _id){
+  handleIndustries($event, _id) {
     let selectIndex = 0;
-    this.industriesAre.forEach((item, index)=>{
-      if(item._id ===_id){
+    this.industriesAre.forEach((item, index) => {
+      if (item._id === _id) {
         selectIndex = index;
       }
     });
 
-    if($event.target.checked){
+    if ($event.target.checked) {
       this.industries.push(this.industriesAre[selectIndex]._id);
-    }else{
-      this.industries.forEach((Id, index)=>{
-        if(Id ===_id){
+    } else {
+      this.industries.forEach((Id, index) => {
+        if (Id === _id) {
           this.industries.splice(index, 1);
         }
       });
     }
-
   }
 
-  sortByIndustries(){
-    this.candidateService.getSortByIndustries({industries : this.industries}).subscribe((data: any) => {
-      this.resumes = data;
-    });
+  sortByIndustries() {
+    this.candidateService
+      .getSortByIndustries({ industries: this.industries })
+      .subscribe((data: any) => {
+        this.resumes = data;
+      });
   }
 
   ngOnDestroy() {
@@ -1009,4 +1016,3 @@ export class RecruiterCandidateBidingInfoComponent implements OnInit, OnChanges,
     this.sharedProfileObserver.unsubscribe();
   }
 }
-
