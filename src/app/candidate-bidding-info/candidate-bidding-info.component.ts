@@ -394,34 +394,34 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
         role: "recruiter",
       };
 
-      this.postCommentSubscription = this.resumeService
-        .postMyComment(payload)
-        .subscribe(
-          (res) => {
-            if (res) {
-              this.addCommentToCommets(res.detailedCommentObj);
-              Materialize.toast(
-                "You gained 100 recruiter karma points",
-                4000,
-                "red"
-              );
+    //   this.postCommentSubscription = this.resumeService
+    //     .postMyComment(payload)
+    //     .subscribe(
+    //       (res) => {
+    //         if (res) {
+    //           this.addCommentToCommets(res.detailedCommentObj);
+    //           Materialize.toast(
+    //             "You gained 100 recruiter karma points",
+    //             4000,
+    //             "red"
+    //           );
 
-              let candidateObj = {
-                pointer: "advicePoints",
-                subType: "divide",
-                increseCount: res.points.advicePoints,
-              };
-              this.userService.candidateProfileObservable.next(candidateObj);
+    //           let candidateObj = {
+    //             pointer: "advicePoints",
+    //             subType: "divide",
+    //             increseCount: res.points.advicePoints,
+    //           };
+    //           this.userService.candidateProfileObservable.next(candidateObj);
 
-              this._subList.recruiterPoints.next(candidateObj);
+    //           this._subList.recruiterPoints.next(candidateObj);
 
-              this.myComment[i] = "";
-            }
-          },
-          (err) => {
-            Materialize.toast("Unable to post!", 5000);
-          }
-        );
+    //           this.myComment[i] = "";
+    //         }
+    //       },
+    //       (err) => {
+    //         Materialize.toast("Unable to post!", 5000);
+    //       }
+    //     );
     }
   }
 

@@ -192,8 +192,250 @@
           </div>
         </ng-container>
   
+
         <ng-container>
+          <span class="comment">Comments:</span>
+          <ng-container *ngIf="loggedUser.userRole !== 'candidate'">
+            <div class="post-cmt">
+              <textarea
+                [(ngModel)]="myComment"
+                placeholder="Enter your review"
+              >
+              </textarea>
+              <ng-container *ngIf="myComment">
+                <div class="btn-placement">
+                  <div
+                    class="btn-accept postCommentDiv"
+                    (click)="postMycmt(i, myComment, resume)"
+                  >
+                    <span>Post</span>
+                    <!-- <img src="assets/img/postComment.png" alt="profile" />  -->
+                    <img src="assets/img/paper-plane.png" alt="profile" />
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+          <div class="commentmainscroll">
+            <ng-container *ngIf="resume.comments.length > 0">
+              <div *ngFor="let cmt of resume.comments; let i = index">
+                <ng-container
+                  *ngIf="
+                    cmt?.recruiterId?._id === loggedUser._id ||
+                    loggedUser.userRole === 'candidate'
+                  "
+                >
+                  <div class="singleListData">
+                    <div class="cmt-box">
+                      <div class="recruitercommenthead">
+                        <div class="recruiternamedetails">
+                          <!--  -->
   
+                          <ng-container *ngIf="cmt?.recruiterId?.profileimage">
+                            <div class="candProfile recruiterprof">
+                              <img
+                                [src]="cmt?.recruiterId?.profileimage"
+                                alt="profile"
+                              />
+                            </div>
+                          </ng-container>
+  
+                          <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
+                            <div class="candProfile recruiterprof">
+                              <img
+                                src="assets/img/profile-user.png"
+                                alt="profile"
+                              />
+                            </div>
+                          </ng-container>
+                          <!--  -->
+  
+                          <div class="recruiter-name">
+                            <span>{{
+                              cmt?.recruiterId?.fullName ||
+                                resume?.candidate_id?.fullName
+                            }}</span>
+                            <span
+                              class="see-profile"
+                              *ngIf="
+                                loggedUser.userRole === 'candidate' &&
+                                cmt?.recruiterId?.userRole === 'recruiter'
+                              "
+                              (click)="openRecruiterModal(cmt?.recruiterId._id)"
+                            >
+                              See profile
+                            </span>
+                          </div>
+                        </div>
+                        <div class="handle">
+                          <ng-container *ngIf="editTextIndex == cmt._id">
+                            <i class="fa fa-times" (click)="cancelEdit(cmt)"></i>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              cmt?.recruiterId?._id === loggedUser._id &&
+                              editTextIndex !== cmt._id
+                            "
+                          >
+                            <div class="editcomment">
+                              <i
+                                class="fa fa-pencil"
+                                aria-hidden="true"
+                                (click)="edit(cmt)"
+                              ></i>
+                            </div>
+  
+                            <!-- <div class="editcomment">
+                              <i
+                                class="fa fa-trash"
+                                aria-hidden="true"
+                                (click)="deleteComment(cmt, resume)"
+                              ></i>
+                            </div> -->
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="PointsDiv commonSingleInner CommentInner">
+                        <div
+                          class="PointsDivSingle PointsDivSingleN recruitercom divide"
+                        >
+                          <p *ngIf="editTextIndex !== cmt._id">
+                            {{ cmt?.review }}
+                          </p>
+                          <!-- like button was here -->
+  
+                          <!-- <div class="likes">
+                        <span>Likes: {{ cmt?.like.length }}</span>
+                      </div> -->
+                          <textarea
+                            class="editComment"
+                            *ngIf="editTextIndex == cmt._id"
+                            [value]="cmt?.review"
+                            [(ngModel)]="editTo"
+                          >
+                        {{ cmt?.review }}
+                        </textarea
+                          >
+                        </div>
+                        <div
+                          class="btn-placement postBtnDiv"
+                          *ngIf="
+                            cmt?.recruiterId?._id === loggedUser._id &&
+                            editTextIndex == cmt._id
+                          "
+                        >
+                          <div
+                            class="btn-accept postBtn"
+                            (click)="editComment(cmt, resume)"
+                          >
+                            Post
+                            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                        <ng-container>
+                          <div class="timstampDate">
+                            <span class="notificationDateTime">
+                              <!-- {{cmt?.timestamps | date:'dd/MM/yyyy HH:mm:ss.SS'}} -->
+                              {{cmt?.timestamps | amTimeAgo}}
+                              <!-- {{cmt?.timestamps | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a'}} -->
+                            </span>
+                          </div>
+                        </ng-container>
+                        <ng-container>
+                          <div class="like-section">
+                            <div class="at-end">
+                              <span
+                                *ngIf="loggedUser.userRole === 'candidate'"
+                                (click)="likeThisCommet(cmt, resume)"
+                                >Say thank you</span
+                              >
+                            </div>
+                            <div class="likes">
+                              <span class="shape"
+                                >Candidate Likes: {{ cmt?.like.length }}</span
+                              >
+                            </div>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngIf="loggedUser.userRole === 'candidate'">
+                          <div class="post-cmt">
+                            <textarea
+                              [(ngModel)]="replyToComment[i]"
+                              placeholder="Reply to this review"
+                            >
+                            </textarea>
+                            <ng-container *ngIf="replyToComment[i]">
+                              <div class="btn-placement">
+                                <div
+                                  class="btn-accept postCommentDiv"
+                                  (click)="
+                                    replyToThisComment(
+                                      i,
+                                      replyToComment[i],
+                                      resume,
+                                      cmt._id
+                                    )
+                                  "
+                                >
+                                  <span>Post</span>
+                                  <!-- <img src="assets/img/postComment.png" alt="profile" />  -->
+                                  <img
+                                    src="assets/img/paper-plane.png"
+                                    alt="profile"
+                                  />
+                                </div>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngIf="cmt?.reply?.length > 0">
+                          <div class="replies">
+                            <span class="comment">Replies</span>
+  
+                            <div class="reply" *ngFor="let reply of cmt.reply">
+                              <div class="profilepic">
+                                <ng-container
+                                  *ngIf="reply?.user_id?.profileimage"
+                                >
+                                  <div class="candProfile recruiterprof size">
+                                    <img
+                                      [src]="reply?.user_id?.profileimage"
+                                      alt="profile"
+                                    />
+                                  </div>
+                                </ng-container>
+  
+                                <ng-container
+                                  *ngIf="!reply?.user_id?.profileimage"
+                                >
+                                  <div class="candProfile recruiterprof size">
+                                    <img
+                                      src="assets/img/profile-user.png"
+                                      alt="profile"
+                                    />
+                                  </div>
+                                </ng-container>
+                                <div class="replyer-name">
+                                  <span>{{
+                                    reply?.user_id?.fullName ||
+                                      reply?.user_id?.fullName
+                                  }}</span>
+                                </div>
+                              </div>
+                              <div class="replyComment">
+                                {{ reply.replyComment }}
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>  
   <div id="shareEmailModal" class="modal">
     <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
     <div class="emailTemp">
