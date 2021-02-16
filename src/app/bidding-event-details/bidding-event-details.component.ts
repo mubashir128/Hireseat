@@ -10,6 +10,7 @@ import { Utils } from "../models/utils/utils";
 import { BiddingInfoComponent } from "../bidding-info/bidding-info.component";
 import { FeedbackService } from "../_services/feedback.service";
 import { PushNotificationService } from "../_services/push-notification.service";
+import { WebsocketService } from "../_services/websocket.service";
 declare var CryptoJS: any;
 declare var jQuery: any;
 @Component({
@@ -40,7 +41,8 @@ export class BiddingEventDetailsComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService,
     private feedbackService: FeedbackService,
-    private _pushNotify: PushNotificationService
+    private _pushNotify: PushNotificationService,
+    private _socket: WebsocketService,
   ) {
     let a = this;
     this.Base64 = {
@@ -172,10 +174,14 @@ export class BiddingEventDetailsComponent implements OnInit {
     };
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get("key");
-
+    
     let obj = JSON.parse(localStorage.getItem('currentUser'));
+    if (obj !== null) {
+      await this.initSocket(obj.token, obj.userInfo.userRole);
+    }
+
     if (obj !== null) {
       this._pushNotify.pushNotification();
     }
@@ -207,6 +213,11 @@ export class BiddingEventDetailsComponent implements OnInit {
     } else {
       this.router.navigate(["login"]);
     }
+  }
+
+  //initiate a connection through socket.
+  async initSocket(token, userRole) {
+    await this._socket.getInstance(token, userRole);
   }
 
   handleRequest(_id) {

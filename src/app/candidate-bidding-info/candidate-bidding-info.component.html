@@ -188,7 +188,7 @@
       </ng-container>
       <!-- end a video -->
 
-      <ng-container *ngIf="resume?.comments">
+      <!-- <ng-container *ngIf="resume?.comments">
         <div class="singleListData">
           <span class="summary">Candidate's Summary:</span>
           <div class="PointsDiv commonSingleInner">
@@ -197,7 +197,7 @@
             </div>
           </div>
         </div>
-      </ng-container>
+      </ng-container> -->
 
 
       <ng-container>
@@ -238,16 +238,16 @@
                       <div class="recruiternamedetails">
                         <!--  -->
 
-                        <ng-container *ngIf="cmt?.recruiterId?.profileimage">
+                        <ng-container *ngIf="resume?.recruiterKey?.profileimage">
                           <div class="candProfile recruiterprof">
                             <img
-                              [src]="cmt?.recruiterId?.profileimage"
+                              [src]="resume?.recruiterKey?.profileimage"
                               alt="profile"
                             />
                           </div>
                         </ng-container>
 
-                        <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
+                        <ng-container *ngIf="!resume?.recruiterKey?.profileimage">
                           <div class="candProfile recruiterprof">
                             <img
                               src="assets/img/profile-user.png"
@@ -258,17 +258,14 @@
                         <!--  -->
 
                         <div class="recruiter-name">
-                          <span>{{
-                            cmt?.recruiterId?.fullName ||
-                              resume?.candidate_id?.fullName
-                          }}</span>
+                          <span>{{resume?.recruiterKey?.fullName}}</span>
                           <span
                             class="see-profile"
                             *ngIf="
                               loggedUser.userRole === 'candidate' &&
-                              cmt?.recruiterId?.userRole === 'recruiter'
+                              resume?.recruiterKey?.userRole === 'recruiter'
                             "
-                            (click)="openRecruiterModal(cmt?.recruiterId._id)"
+                            (click)="openRecruiterModal(resume?.recruiterKey?._id)"
                           >
                             See profile
                           </span>
@@ -280,7 +277,7 @@
                         </ng-container>
                         <ng-container
                           *ngIf="
-                            cmt?.recruiterId?._id === loggedUser._id &&
+                            resume?.recruiterKey?._id === loggedUser._id &&
                             editTextIndex !== cmt._id
                           "
                         >
@@ -353,7 +350,7 @@
                           <div class="at-end">
                             <span
                               *ngIf="loggedUser.userRole === 'candidate'"
-                              (click)="likeThisCommet(cmt, resume)"
+                              (click)="likeThisCommet(cmt, resume.biddingEvent)"
                               >Say thank you</span
                             >
                           </div>
@@ -379,7 +376,7 @@
                                   replyToThisComment(
                                     i,
                                     replyToComment[i],
-                                    resume,
+                                    resume.biddingEvent,
                                     cmt._id
                                   )
                                 "

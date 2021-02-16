@@ -54,6 +54,10 @@ export class ConstantsService {
   public = "public";
   all = "all";
 
+  sharedCandidateProfileType = 10;
+  
+  sharedRecruiterProfileType = 9;
+
   constructor() { }
 }
 

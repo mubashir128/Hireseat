@@ -50,8 +50,8 @@ export class RecruiterCandidateBidingInfoComponent
   @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
 
   // observer
-  sharedProfileObserver = new Subject();
-  sharedProfileObserver$ = this.sharedProfileObserver.asObservable();
+  sharedRecruiterProfileType = new Subject();
+  sharedRecruiterProfileType$ = this.sharedRecruiterProfileType.asObservable();
 
   player: videojs.Player;
   canComment = false;
@@ -133,23 +133,7 @@ export class RecruiterCandidateBidingInfoComponent
     private candidateService: CandidateService,
     private _subList: SubscriberslistService,
     private _constants: ConstantsService
-  ) {
-    // this.resumes = [];
-    // this.Search = this.formBuilder.group({
-    //   tags: ["", Validators.required],
-    //   searchTerm: [""],
-    // });
-    // this.Search.get("searchTerm")
-    //   .valueChanges.pipe(debounceTime(800))
-    //   .subscribe((res) => {
-    //     if (res) {
-    //       let obj = {
-    //         searchType: "name",
-    //         searchTerm: res,
-    //       };
-    //       // this.getAllSharedResumes(obj);
-    //     }
-    //   });
+  ){
     this.myComment = [];
     this.replyToComment = [];
     this.loggedUser = this.userService.getUserData();
@@ -194,18 +178,17 @@ export class RecruiterCandidateBidingInfoComponent
     jQuery(".modal").modal();
     jQuery("select").material_select();
 
-    // await this._socket.removeListener({ type: this._constants.sharedProfileType });
-    // this._socket.addListener({
-    //   type: this._constants.sharedProfileType,
-    //   callback: this.sharedProfileObserver,
-    // });
+    await this._socket.removeListener({ type: this._constants.sharedRecruiterProfileType });
+    this._socket.addListener({
+      type: this._constants.sharedRecruiterProfileType,
+      callback: this.sharedRecruiterProfileType,
+    });
 
-    // this.getIndustries();
-    // this.getProfiles();
+    this.sharedRecruiterProfileType$.subscribe((res: any) => {
+      this.handleProfileData(res);
+    });
+
     this.myProfile();
-    // this.sharedProfileObserver$.subscribe((res: any) => {
-    //   this.handleProfileData(res);
-    // });
   }
 
   handleProfileData(res: any) {
@@ -213,20 +196,11 @@ export class RecruiterCandidateBidingInfoComponent
       case this._constants.getAllSharedProfiles:
         this.resumes = res.data;
         break;
-      case this._constants.addComment:
-        this.addCommentToCommets(res);
-        break;
       case this._constants.likeComment:
         this.addLikeToComment(res);
         break;
       case this._constants.replyComment:
         this.addReplyToComment(res);
-        break;
-      case this._constants.shareVideoViaRecruiterEmail:
-        this.handleResponse(res.result);
-        break;
-      case this._constants.editComment:
-        this.editRespectedComment(res);
         break;
       case this._constants.deleteComment:
         this.deleteRespectedComment(res);
@@ -271,9 +245,7 @@ export class RecruiterCandidateBidingInfoComponent
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        element.canReview.length !== 0
-          ? element.canReview.unshift(res.data)
-          : element.canReview.push(res.data);
+        element.comments.length !== 0 ? element.comments.unshift(res.data) : element.comments.push(res.data);
       }
     });
   }
@@ -281,7 +253,7 @@ export class RecruiterCandidateBidingInfoComponent
   addLikeToComment(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        element.canReview.filter((comment) => {
+        element.comments.filter((comment) => {
           if (comment._id === res.data._id) {
             comment.like.push(res.data);
           }
@@ -293,7 +265,7 @@ export class RecruiterCandidateBidingInfoComponent
   addReplyToComment(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        element.canReview.filter((comment) => {
+        element.comments.filter((comment) => {
           if (comment._id === res.data._id) {
             comment.reply.length !== 0
               ? comment.reply.unshift(res.data.replyComment)
@@ -302,19 +274,6 @@ export class RecruiterCandidateBidingInfoComponent
         });
       }
     });
-  }
-
-  getProfiles() {
-    // this._socket.sendMessage({
-    //   type: this._constants.sharedProfileType,
-    //   data: {
-    //     subType: this._constants.getAllSharedProfiles,
-    //   },
-    // });
-
-    // if (this.loggedUser.userRole === "candidate") {
-    this.myProfile();
-    // }
   }
 
   disabledDay(date) {}
@@ -358,13 +317,9 @@ export class RecruiterCandidateBidingInfoComponent
   }
 
   postMycmt(i, cmt, resume) {
-    if (
-      this.myComment[i] === "" ||
-      this.myComment[i] === null ||
-      this.myComment[i] === undefined
-    ) {
+    if (this.myComment[i] === "" || this.myComment[i] === null || this.myComment[i] === undefined){
       Materialize.toast("Comment box is empty!");
-    } else {
+    }else{
       const payload = {
         resumeId: resume._id,
         review: cmt,
@@ -372,16 +327,11 @@ export class RecruiterCandidateBidingInfoComponent
       };
 
       this.postCommentSubscription = this.resumeService
-        .postMyComment(payload)
-        .subscribe(
-          (res) => {
-            if (res) {
+        .postRecruiterComment(payload)
+        .subscribe((res)=>{
+            if(res){
               this.addCommentToCommets(res.detailedCommentObj);
-              Materialize.toast(
-                "You gained 100 recruiter karma points",
-                4000,
-                "red"
-              );
+              Materialize.toast("You gained 100 recruiter karma points", 4000, "red");
 
               let candidateObj = {
                 pointer: "advicePoints",
@@ -394,8 +344,7 @@ export class RecruiterCandidateBidingInfoComponent
 
               this.myComment[i] = "";
             }
-          },
-          (err) => {
+          }, (err) => {
             Materialize.toast("Unable to post!", 5000);
           }
         );
@@ -451,12 +400,7 @@ export class RecruiterCandidateBidingInfoComponent
   editComment(cmt, resume) {
     if (this.editTo === cmt.review) {
       Materialize.toast("No change!");
-    } else {
-      let candidateProfile;
-      resume?.resumeType
-        ? (candidateProfile = false)
-        : (candidateProfile = true);
-
+    }else{
       const payload = {
         oldCmt: {
           review: cmt.review,
@@ -466,28 +410,23 @@ export class RecruiterCandidateBidingInfoComponent
           review: this.editTo,
         },
         resumeId: resume._id,
-        candidateProfile,
       };
-      this.editCommentSucription = this.resumeService
-        .editComment(payload)
-        .subscribe(
-          (res) => {
-            if (res) {
-              this.editRespectedComment(res);
-              this.cancelEdit(cmt);
-            }
-          },
-          (err) => {
-            Materialize.toast("Something went wrong!");
+
+      this.editCommentSucription = this.resumeService.editRecruiterComment(payload).subscribe((res) => {
+          if(res){
+            this.editRespectedComment(res);
+            this.cancelEdit(cmt);
           }
-        );
+        }, (err) => {
+        Materialize.toast("Something went wrong!");
+      });
     }
   }
 
   editRespectedComment(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        element.canReview.forEach((item, index) => {
+        element.comments.forEach((item, index) => {
           if (item._id === res.data.cmtId) {
             item.review = res.data.review;
           }
@@ -605,7 +544,6 @@ export class RecruiterCandidateBidingInfoComponent
 
   // share process
   showShareModal(resume) {
-    // console.log(resume, "**********************");
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -668,43 +606,7 @@ export class RecruiterCandidateBidingInfoComponent
                   subType: "shareVideoViaRecruiterEmail",
                 },
               });
-
-              // this.shareVideoSubscription = this.shareVideoService
-              //   .shareVideoViaRecruiterEmail(payload)
-              //   .subscribe(
-              //     (res) => {
-              //       if (res) {
-              //         // console.log(res);
-              //         Materialize.toast(res.msg, 3000);
-              //         Materialize.toast(
-              //           "You gained 200 recruiter karma points",
-              //           4000,
-              //           "red"
-              //         );
-              //         jQuery("#shareEmailModal").modal("close");
-
-              //         let eventObj = {
-              //           pointer: "ratingPoints",
-              //           subType: "increse",
-              //           increseCount: this._constants.sharedPoints,
-              //         };
-              //         this._subList.recruiterPoints.next(eventObj);
-
-              //         eventObj.pointer = "sharePoints";
-              //         this._subList.recruiterPoints.next(eventObj);
-
-              //         this.spinner.hide();
-              //       }
-              //     },
-              //     (err) => {
-              //       // console.log(err);
-              //       Materialize.toast("unable to send an email!", 3000);
-              //       jQuery("#shareEmailModal").modal("close");
-              //       this.spinner.hide();
-              //     }
-              //   );
             } else {
-              // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 3000);
               this.spinner.hide();
             }
@@ -719,7 +621,6 @@ export class RecruiterCandidateBidingInfoComponent
           return false;
         }
       );
-    // got url
   }
 
   // END share process
@@ -757,6 +658,7 @@ export class RecruiterCandidateBidingInfoComponent
     }
     this.videoURL = "";
   }
+
   showComments(index, resume) {
     if (this.showCmts === index) {
       this.showCmts = -1;
@@ -764,6 +666,7 @@ export class RecruiterCandidateBidingInfoComponent
       this.showCmts = index;
     }
   }
+
   /**
    *
    * @param canReview return wheather logged in recruiter is allowed to comment or not
@@ -780,6 +683,7 @@ export class RecruiterCandidateBidingInfoComponent
       return false;
     }
   }
+
   viewVideo(archivedId) {
     this.videoURL = "";
     const payload = {
@@ -812,11 +716,12 @@ export class RecruiterCandidateBidingInfoComponent
   openSelectDatesModal() {
     jQuery("#selectDates").modal("open");
   }
+
   closeSelectDatesModal() {
     jQuery("#selectDates").modal("close");
   }
+
   openRecruiterModal(recruiterId) {
-    // console.log(recruiterId);
     jQuery("#showRecruiterModal").modal("open");
     const payload = {
       recruiterId,
@@ -832,10 +737,12 @@ export class RecruiterCandidateBidingInfoComponent
         }
       );
   }
+
   closeRecruiterModal() {
     jQuery("#showRecruiterModal").modal("close");
     this.selectedCoachingRecruiter = [{}];
   }
+
   /**
    *
    * @param recruiter open ups a modal for accepting dates from candidate
@@ -859,9 +766,7 @@ export class RecruiterCandidateBidingInfoComponent
     recruiter.refUserId.available.forEach((item) => {
       this.availableTime.push(item.from + "-" + item.to);
     });
-    // console.log(recruiter.refUserId.available);
     this.availableDetails = recruiter.refUserId.available;
-    // console.log(this.availableDetails);
     this.availableDetails.forEach((item, index) => {
       this.dayToBeAvailable.push(item.day.dayId);
     });
@@ -869,27 +774,20 @@ export class RecruiterCandidateBidingInfoComponent
       (val) => !this.dayToBeAvailable.includes(val)
     );
 
-    // console.log(this.disableDay);
-    // this.spinner.show();
-    // this.openSelectDatesModal();
-    // this.confirmSelectDatesEvent();
     this.reqCoachingFunction();
     this.closeRecruiterModal();
   }
+
   /**
    *
    * @param link opens a provided url in new window
    */
   onLinkedIn(link: string) {
-    console.log("----------------", link);
-
     if (link.includes("https")) {
       console.log("includes https");
-
       window.open(link, "_blank");
     } else {
       console.log("includes nothing");
-
       window.open("https://" + link, "_blank");
     }
   }
@@ -899,43 +797,17 @@ export class RecruiterCandidateBidingInfoComponent
   }
 
   myProfile() {
-    console.log(this.biddingEvent);
-    this.getProfileSubscription = this.candidateService
-      .getRecruiterCandidateBids(this.biddingEvent.$key)
-      .subscribe((res) => {
-        this.resumes = res;
-        // res.forEach((data)=>{
-        //  var resume = {
-        //   profileimage:data.candidateKey.fileURL,
-        //   candidateName:data.candidateKey.candidate_id.fullName,
-        //   jobTitle:data.candidateKey.jobTitle,
-        //   desiredRoles:data.candidateKey.desiredRoles,
-        //   skills: data.candidateKey.skills,
-        //   industries: data.candidateKey.industries
-        //  }
-        //  console.log(resume)
-        // this.resumes.push(resume)
-        //  console.log(this.resumes)
-
-        // })
-      });
+    this.getProfileSubscription = this.candidateService.getRecruiterCandidateBids(this.biddingEvent.$key).subscribe((res) => {
+      this.resumes = res;
+    });
   }
 
   confirmSelectDatesEvent() {
-    // console.log(this.requestDatesForm.valid);
-    // console.log(this.requestDatesForm.value);
-
-    // if (this.requestDatesForm.valid) {
     this.reqCoachingFunction();
     this.closeRecruiterModal();
-    // this.closeSelectDatesModal();
-    // } else {
-    //   Materialize.toast("Please provide your available time!", 4000);
-    // }
   }
 
   reqCoachingFunction() {
-    // console.log("requesting********** coaching", this.myProfileContent);
     this.payload = {
       recipientEmail: "contact@hireseat.com",
       candidateFullName: this.loggedUser.fullName,
@@ -945,17 +817,12 @@ export class RecruiterCandidateBidingInfoComponent
         this.loggedUser.fullName + " " + "Candidate request for coaching",
     };
     if (this.myProfileContent) {
-      // console.log("approaching coach");
-
       this.requestCoachingSubscription = this.candidateService
         .reqCoaching(this.payload)
         .subscribe(
           (res) => {
             if (res) {
-              // console.log(res);
-              // Materialize.toast("Recruiter has been notified!", 2000);
               Materialize.toast("Recruiter will reach out to you!", 4000);
-
               this.onShareWithRecruiter(this.selectedCoachingRecruiter);
               this.spinner.hide();
             }
@@ -967,6 +834,7 @@ export class RecruiterCandidateBidingInfoComponent
         );
     }
   }
+
   onShareWithRecruiter(recruiter) {
     this.spinner.show();
     Materialize.toast("Sharing your profile with the recruiter...", 4000);
@@ -991,7 +859,6 @@ export class RecruiterCandidateBidingInfoComponent
         }
       );
   }
-  // request recruiter process end
 
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -1026,6 +893,6 @@ export class RecruiterCandidateBidingInfoComponent
 
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.sharedProfileType });
-    this.sharedProfileObserver.unsubscribe();
+    this.sharedRecruiterProfileType.unsubscribe();
   }
 }
