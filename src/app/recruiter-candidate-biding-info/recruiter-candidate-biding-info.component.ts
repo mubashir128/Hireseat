@@ -266,10 +266,8 @@ export class RecruiterCandidateBidingInfoComponent
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
         element.comments.filter((comment) => {
-          if (comment._id === res.data._id) {
-            comment.reply.length !== 0
-              ? comment.reply.unshift(res.data.replyComment)
-              : comment.reply.push(res.data.replyComment);
+          if(comment._id === res.data._id){
+            comment.reply.length !== 0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
           }
         });
       }

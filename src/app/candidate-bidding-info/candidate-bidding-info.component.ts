@@ -246,7 +246,9 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
   }
   
   addCommentToCommets(res) {
-    this.resume.comments.length !==0 ? this.resume.comments.unshift(res.data) : this.resume.comments.push(res.data);
+    if(this.resume.biddingEvent._id === res.profileId){
+      this.resume.comments.length !==0 ? this.resume.comments.unshift(res.data) : this.resume.comments.push(res.data);
+    }
   }
 
   addLikeToComment(res) {
