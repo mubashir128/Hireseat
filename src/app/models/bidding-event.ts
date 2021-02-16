@@ -19,7 +19,7 @@ export interface IBiddingEvent {
   employerCompanyName: string;
   jobLocation: string;
   createdAt : any;
-  
+  userType:number
 }
 
 export class BiddingEvent implements IBiddingEvent {
@@ -48,6 +48,7 @@ export class BiddingEvent implements IBiddingEvent {
   globalType: string;
   createdAt : any;
   recruiterCompanyName:string;
+  userType:number
   constructor() {
   }
 

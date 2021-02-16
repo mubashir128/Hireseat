@@ -122,10 +122,7 @@
           </div>
           <!-- <span>{{resumecount}}</span> -->
         </li>
-        <li
-          class="tab col s3 bx-pager-item interview"
-          *ngIf="loggedUser.userRole !== 'candidate'"
-        >
+        <li class="tab col s3 bx-pager-item interview" *ngIf="userRole != 3">
           <a
             class="bx-pager-link"
             (click)="addActiveClass($event, 'interview')"
@@ -137,10 +134,7 @@
           </div>
           <!-- <span>{{interviewcount}}</span> -->
         </li>
-        <li
-          class="tab col s3 bx-pager-item hired"
-          *ngIf="loggedUser.userRole !== 'candidate'"
-        >
+        <li class="tab col s3 bx-pager-item hired" *ngIf="userRole != 3">
           <a
             href="#hired"
             (click)="addActiveClass($event, 'hire')"
@@ -164,7 +158,7 @@
         </div>
         <div id="quetions" class="tab-pane fade">
           <app-recruiter-question
-            *ngIf="userRole === 1 && showDiv == 'quetions'"
+            *ngIf="userRole == 1 && showDiv == 'quetions'"
             [biddingEvent]="biddingEvent"
           >
           </app-recruiter-question>
@@ -233,11 +227,11 @@
   </div>
 
   <app-employeer-ans
-    *ngIf="userRole === 1"
+    *ngIf="userRole == 1"
     [biddingEvent]="biddingEvent"
   ></app-employeer-ans>
   <app-recruiter-question
-    *ngIf="userRole === 2 || userRole === 3"
+    *ngIf="userRole == 2 && biddingEvent.userType != 3"
     [biddingEvent]="biddingEvent"
   ></app-recruiter-question>
 </div>
