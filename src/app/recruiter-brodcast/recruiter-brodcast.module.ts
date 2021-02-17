@@ -5,6 +5,8 @@ import { RecruiterQuestionComponent } from './recruiter-question/recruiter-quest
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedComponentsModule } from '../shared/shared-components/shared-components.module';
 import { TextHighLightPipe } from './text-highlight.pipe';
+import { CandidateQuestionComponent } from './candidate-question/candidate-question.component';
+import { RecruiterAnsComponent } from './recruiter-ans/recruiter-ans.component';
 
 @NgModule({
   imports: [
@@ -16,11 +18,15 @@ import { TextHighLightPipe } from './text-highlight.pipe';
   declarations: [
     EmployeerAnsComponent,
     RecruiterQuestionComponent,
-    TextHighLightPipe
+    TextHighLightPipe,
+    CandidateQuestionComponent,
+    RecruiterAnsComponent
   ],
   exports: [
     EmployeerAnsComponent,
-    RecruiterQuestionComponent
+    RecruiterQuestionComponent,
+    CandidateQuestionComponent,
+    RecruiterAnsComponent
   ]
 })
 export class RecruiterBrodcastModule { }

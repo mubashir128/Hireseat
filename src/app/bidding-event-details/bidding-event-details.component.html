@@ -234,4 +234,13 @@
     *ngIf="userRole == 2 && biddingEvent.userType != 3"
     [biddingEvent]="biddingEvent"
   ></app-recruiter-question>
+  <app-recruiter-ans
+  *ngIf="userRole == 2 && biddingEvent.userType == 3"
+    [biddingEvent]="biddingEvent">
+</app-recruiter-ans>
+<app-candidate-question 
+*ngIf="userRole == 3"
+[biddingEvent]="biddingEvent">
+
+</app-candidate-question>
 </div>

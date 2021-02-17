@@ -57,7 +57,7 @@ export class ConstantsService {
   sharedCandidateProfileType = 10;
   
   sharedRecruiterProfileType = 9;
-
+  candidateJobQuestionType = 11;
   constructor() { }
 }
 

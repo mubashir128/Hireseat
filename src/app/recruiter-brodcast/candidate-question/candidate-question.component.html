@@ -1,0 +1,31 @@
+<div class="quetionAns">
+
+       
+    <div class="closeBtn" (click)="showDiv()"><span *ngIf="showdata">X</span><span *ngIf="!showdata">?</span></div>
+    
+   
+     <div class="quetionAnsMain" >
+     
+        <h2>Q & A for this job posting </h2>
+        <div *ngIf="showdata">
+
+          <div class="" style="height: 15px;" *ngIf="quetionsData.length !== 0"></div>
+          
+          <div class="scrollDiv">
+            <div class="quetion" *ngFor="let quetionAns of quetionsData ;let index = index" >
+            <h5><Span  class="labelclass">Q.{{index+1}} </Span> 
+              <span innerHtml="{{quetionAns?.question | textHighLight :question}}"></span>
+              <!-- <span class="highlightdiv" ngxTextHighlight [content]="quetionAns?.question" [searchTerm]="quetionAns._id == queid ?quetionAns.question:question"  [caseSensitive]="false">{{quetionAns?.question}}</span> -->
+              <span class="queCount">{{quetionAns.questionCount}}</span></h5>
+            <p><span class="labelclass">Ans: </span> <span> {{quetionAns?.Ans}}</span></p>
+            </div>
+        </div>
+       
+        <div class="writeAns nobord">
+            <h2>Ask the Hiring Manager a Question</h2>
+            <textarea rows="3"  class="textBoxarea" placeholder="Ask your question ..." [(ngModel)]="question" (input)="updateSearch($event)" id="search-term"></textarea>
+            <button class="postBtn" (click)="AskQuestions()">Post Question</button>
+          </div>
+        </div>
+   </div>
+  </div>
