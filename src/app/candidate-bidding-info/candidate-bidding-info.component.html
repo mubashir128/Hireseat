@@ -238,16 +238,16 @@
                       <div class="recruiternamedetails">
                         <!--  -->
 
-                        <ng-container *ngIf="resume?.recruiterKey?.profileimage">
+                        <ng-container *ngIf="cmt?.recruiterId?.profileimage">
                           <div class="candProfile recruiterprof">
                             <img
-                              [src]="resume?.recruiterKey?.profileimage"
+                              [src]="cmt?.recruiterId?.profileimage"
                               alt="profile"
                             />
                           </div>
                         </ng-container>
 
-                        <ng-container *ngIf="!resume?.recruiterKey?.profileimage">
+                        <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
                           <div class="candProfile recruiterprof">
                             <img
                               src="assets/img/profile-user.png"
@@ -258,14 +258,14 @@
                         <!--  -->
 
                         <div class="recruiter-name">
-                          <span>{{resume?.recruiterKey?.fullName}}</span>
+                          <span>{{cmt?.recruiterId?.fullName}}</span>
                           <span
                             class="see-profile"
                             *ngIf="
                               loggedUser.userRole === 'candidate' &&
                               resume?.recruiterKey?.userRole === 'recruiter'
                             "
-                            (click)="openRecruiterModal(resume?.recruiterKey?._id)"
+                            (click)="openRecruiterModal(cmt?.recruiterId._id)"
                           >
                             See profile
                           </span>

@@ -253,16 +253,16 @@
                     <div class="recruitercommenthead">
                       <div class="recruiternamedetails">
 
-                        <ng-container *ngIf="items?.recruiterKey?.profileimage">
+                        <ng-container *ngIf="cmt?.recruiterId?.profileimage">
                           <div class="candProfile recruiterprof">
                             <img
-                              [src]="items?.recruiterKey?.profileimage"
+                              [src]="cmt?.recruiterId?.profileimage"
                               alt="profile"
                             />
                           </div>
                         </ng-container>
 
-                        <ng-container *ngIf="!items?.recruiterKey?.profileimage">
+                        <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
                           <div class="candProfile recruiterprof">
                             <img
                               src="assets/img/profile-user.png"
@@ -271,7 +271,7 @@
                           </div>
                         </ng-container>
                         <div class="recruiter-name">
-                          <span>{{items?.recruiterKey?.fullName}}</span>
+                          <span>{{cmt?.recruiterId?.fullName}}</span>
                           <span
                             class="see-profile"
                             *ngIf="
