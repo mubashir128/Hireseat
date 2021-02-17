@@ -299,6 +299,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       "video-call/" + "self-record@" + this.candidateProfile._id,
     ]);
   }
+
   onFilePicked(event: Event): void {
     this.errorMsg = false;
     console.log(event);
@@ -309,6 +310,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       this.onFileUpload();
     }
   }
+
   onFileUpload() {
     console.log("");
 
@@ -323,12 +325,15 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       console.log(res);
     });
   }
+  
   seeExampleModal() {
     jQuery("#seeExample").modal("open");
   }
+
   closeExampleModal() {
     jQuery("#seeExample").modal("close");
   }
+
   ngOnDestroy() {
     if (this.editCandidateProfileSubscription)
       this.editCandidateProfileSubscription.unsubscribe();
@@ -355,6 +360,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       });
     }
   }
+
   checkRequiredField(event) {
     if (event.target.checked == true) {
       // const invalid = [];
@@ -384,6 +390,16 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       //     }
       // }
       // return invalid;
+      let payLoad = {
+        _id : this.candidateProfile._id
+      };
+      this.editCandidateProfileSubscription = this.candidateService.sharedCandidateProfile(payLoad).subscribe((res) => {
+          if (res) {
+            Materialize.toast(res.msg, 1000);
+          }
+        }, (err) => {
+          Materialize.toast("Something Went Wrong !", 1000);
+        });
     }
   }
 }

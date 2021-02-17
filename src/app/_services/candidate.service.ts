@@ -41,6 +41,16 @@ export class CandidateService {
       );
   }
 
+  sharedCandidateProfile(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/sharedCandidateProfile", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
   // auth : candidate
   getAllPostRecruiters() {
     return this.http.get<any>(this.baseurl + "api/getPostedRecruiters").pipe(
