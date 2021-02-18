@@ -861,6 +861,9 @@ export class RecruiterCandidateBidingInfoComponent
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
+  openResume(url){
+    window.open(url, "_blank");
+  }
 
   handleIndustries($event, _id) {
     let selectIndex = 0;

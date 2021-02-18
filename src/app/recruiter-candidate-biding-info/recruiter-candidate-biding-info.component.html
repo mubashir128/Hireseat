@@ -7,6 +7,7 @@
         let i = index
       "
     >
+    
       <div class="docSectionBtns">
         <div class="candidate-name">
           <div class="CandidateDetails">
@@ -82,9 +83,10 @@
           <button class="downloadResume">
             <a
               [attr.href]="transform(items?.candidateKey?.fileURL)"
-              target="_blank"
+              (click)="openResume(items?.candidateKey?.fileURL)"
               download
             >
+            
               <i class="fa fa-download"></i>
               Download Resume
             </a>
