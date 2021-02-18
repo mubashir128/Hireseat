@@ -262,7 +262,7 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
   addReplyToComment(res){
     this.resume.comments.forEach((item, index) => {
       if(item._id === res.data._id){
-        item.reply.length !== 0 ? item.reply.unshift(res.data.replyComment) : this.resume.comments.reply.push(res.data.replyComment);
+        item.reply.length !== 0 ? item.reply.unshift(res.data.replyComment) : item.reply.push(res.data.replyComment);
       }
     });
   }
