@@ -83,7 +83,7 @@
 
         <img src="assets/img/hireseat_header_logo.png" class="logoHome" />
       </div>
-      <div class="salPerYear">
+      <div class="salPerYear" *ngIf = "loggedUser?.userRole === 'employer' || (loggedUser?.userRole === 'recruiter' && biddingEvent.employerKey._id !== loggedUser._id)">
         <div class="pull-right">
           <h4 class="reward">
             Reward Range: ${{
