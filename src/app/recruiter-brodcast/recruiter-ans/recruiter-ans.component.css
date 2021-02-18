@@ -201,3 +201,8 @@ and (max-width : 767px)  {
 
 }
 /*================================ mobile responsive css end  ===============================*/
+
+.answerStyle{
+    color: red;
+    font-weight: bold;
+}

@@ -147,3 +147,8 @@
     color: #787878;
     font-size: 14px;
 }
+
+.answerStyle{
+    color: red;
+    font-weight: bold;
+}

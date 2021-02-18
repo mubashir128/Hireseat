@@ -12,7 +12,7 @@
      
           <div class="quetion" *ngIf="quetionAns.Ans">
               <h5><Span class="labelclass">Q.{{index + 1}} </Span> <span>{{quetionAns.question}}</span><span class="queCount">{{quetionAns.questionCount}}</span></h5>
-              <p><span class="labelclass">Ans: </span> <span> {{quetionAns.Ans}}</span></p>
+              <p><span class="labelclass">Ans: </span> <span class="answerStyle"> {{quetionAns.Ans}}</span></p>
           </div>
         
         <div class="quetion onlyQue nobord" *ngIf="!quetionAns.Ans">
