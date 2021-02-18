@@ -66,7 +66,7 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
   // subscription
   getVideoURLSubscription: Subscription;
   getAllSharedCandidateProfileSubscription: Subscription;
-  getArchivedVideoSubscription: Subscription;
+  // getArchivedVideoSubscription: Subscription;
   shareVideoSubscription: Subscription;
   getMyPostedProfilesSubscription: Subscription;
   postCommentSubscription: Subscription;
@@ -91,9 +91,9 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
   show: any;
   editTextIndex: any;
   loggedUser: any;
-  recipientEmail: any;
-  cc: any;
-  bcc: any;
+  // recipientEmail: any;
+  // cc: any;
+  // bcc: any;
   shareableVideoURL: any;
   shareResume: any;
   videoURL: any;
@@ -271,27 +271,6 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
     if (this.loggedUser.userRole === "candidate") {
       this.myProfile();
     }
-  }
-
-  disabledDay(date) {}
-
-  searchTermByName() {
-    fromEvent(this.searchByName.nativeElement, "keyup")
-      .pipe(
-        map((event) => event),
-        filter(Boolean),
-        debounceTime(800),
-        distinctUntilChanged(),
-        tap((text) => {
-          let obj = {
-            searchType: "name",
-            searchTerm: this.searchTerm,
-          };
-
-          // this.getAllSharedResumes(obj);
-        })
-      )
-      .subscribe();
   }
 
   getUsersProfile() {
@@ -491,82 +470,82 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
   }
 
   // share process
-  showShareModal(resume) {
-    jQuery("#shareEmailModal").modal("open");
-    this.shareVideoService.setResume(resume);
-  }
+  // showShareModal(resume) {
+  //   jQuery("#shareEmailModal").modal("open");
+  //   this.shareVideoService.setResume(resume);
+  // }
 
-  closeShareModal() {
-    jQuery("#shareEmailModal").modal("close");
-  }
+  // closeShareModal() {
+  //   jQuery("#shareEmailModal").modal("close");
+  // }
 
-  async share() {
-    jQuery("#shareEmailModal").modal("close");
-    this.spinner.show();
+  // async share() {
+  //   jQuery("#shareEmailModal").modal("close");
+  //   this.spinner.show();
 
-    const candidateName = this.shareResume.resumeType
-      ? this.shareResume.candidateName
-      : this.shareResume.candidate_id.fullName;
-    const subject =
-      "Hireseat" +
-      " - " +
-      this.loggedUser.companyName +
-      " - " +
-      this.shareResume.jobTitle +
-      " - " +
-      candidateName +
-      " Profile.";
+  //   const candidateName = this.shareResume.resumeType
+  //     ? this.shareResume.candidateName
+  //     : this.shareResume.candidate_id.fullName;
+  //   const subject =
+  //     "Hireseat" +
+  //     " - " +
+  //     this.loggedUser.companyName +
+  //     " - " +
+  //     this.shareResume.jobTitle +
+  //     " - " +
+  //     candidateName +
+  //     " Profile.";
 
-    const archiveIdPayload = {
-      archivedId: this.shareResume.interviewLinkedByRecruiter,
-    };
+  //   const archiveIdPayload = {
+  //     archivedId: this.shareResume.interviewLinkedByRecruiter,
+  //   };
 
-    // getting url
-    this.getArchivedVideoSubscription = this.videoCallingService
-      .getArchivedVideo(archiveIdPayload)
-      .subscribe(
-        (res) => {
-          if (res) {
-            this.shareableVideoURL = res.url;
+  //   // getting url
+  //   this.getArchivedVideoSubscription = this.videoCallingService
+  //     .getArchivedVideo(archiveIdPayload)
+  //     .subscribe(
+  //       (res) => {
+  //         if (res) {
+  //           this.shareableVideoURL = res.url;
 
-            this.spinner.hide();
-            if (this.shareableVideoURL) {
-              const payload = {
-                recruiterId: this.loggedUser._id,
-                resumeId: this.shareResume._id,
-                recipientEmail: this.recipientEmail,
-                cc: this.cc,
-                bcc: this.bcc,
-                videoUrl: this.shareableVideoURL,
-                fullName: candidateName,
-                subject: subject,
-                comment: this.shareResume.comments,
-                candidateProfile: this.shareResume.resumeType ? false : true,
-              };
+  //           this.spinner.hide();
+  //           if (this.shareableVideoURL) {
+  //             const payload = {
+  //               recruiterId: this.loggedUser._id,
+  //               resumeId: this.shareResume._id,
+  //               recipientEmail: this.recipientEmail,
+  //               cc: this.cc,
+  //               bcc: this.bcc,
+  //               videoUrl: this.shareableVideoURL,
+  //               fullName: candidateName,
+  //               subject: subject,
+  //               comment: this.shareResume.comments,
+  //               candidateProfile: this.shareResume.resumeType ? false : true,
+  //             };
 
-              let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
-              this._socket.sendMessage({
-                type: this._constants.sharedProfileType,
-                data: {
-                  type: userInfo.userRole,
-                  payload : payload,
-                  subType: "shareVideoViaRecruiterEmail"
-                },
-              });                
-            }else{
-              Materialize.toast("no sharable video available", 3000);
-              this.spinner.hide();
-            }
-          }else{
-            this.spinner.hide();
-          }
-        },
-        (err) => {
-          this.spinner.hide();
-          return false;
-        }
-      );
-  }
+  //             let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
+  //             this._socket.sendMessage({
+  //               type: this._constants.sharedProfileType,
+  //               data: {
+  //                 type: userInfo.userRole,
+  //                 payload : payload,
+  //                 subType: "shareVideoViaRecruiterEmail"
+  //               },
+  //             });                
+  //           }else{
+  //             Materialize.toast("no sharable video available", 3000);
+  //             this.spinner.hide();
+  //           }
+  //         }else{
+  //           this.spinner.hide();
+  //         }
+  //       },
+  //       (err) => {
+  //         this.spinner.hide();
+  //         return false;
+  //       }
+  //     );
+  // }
 
   // END share process
   toggleAccordian(index, event, resume) {
@@ -657,13 +636,13 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
   /**
    *  JQuery modals operations
    */
-  openSelectDatesModal() {
-    jQuery("#selectDates").modal("open");
-  }
+  // openSelectDatesModal() {
+  //   jQuery("#selectDates").modal("open");
+  // }
 
-  closeSelectDatesModal() {
-    jQuery("#selectDates").modal("close");
-  }
+  // closeSelectDatesModal() {
+  //   jQuery("#selectDates").modal("close");
+  // }
 
 
   openRecruiterModal(recruiterId) {
@@ -727,15 +706,15 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
    *
    * @param link opens a provided url in new window
    */
-  onLinkedIn(link: string) {
-    if (link.includes("https")) {
-      console.log("includes https");
-      window.open(link, "_blank");
-    } else {
-      console.log("includes nothing");
-      window.open("https://" + link, "_blank");
-    }
-  }
+  // onLinkedIn(link: string) {
+  //   if (link.includes("https")) {
+  //     console.log("includes https");
+  //     window.open(link, "_blank");
+  //   } else {
+  //     console.log("includes nothing");
+  //     window.open("https://" + link, "_blank");
+  //   }
+  // }
 
   selectionChanged(event) {
     console.log(event);

@@ -14,6 +14,7 @@ app-subscriber {
 }
 .screens {
   display: flex;
+  position: relative;
 }
 
 .back {
@@ -633,12 +634,33 @@ nav ul a {
   /* align-items: center; */
 }
 .publisher-container {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  width: 20%;
+  height: 30%;
+  position: absolute;
+  z-index: 1000;
+  background: #fff;
+  border: solid 1px rgba(0,0,0,0.3);
+  bottom: 0;
+  /* left: 40%; */
+  right: 0px;
+  bottom: 0px;
+  /* top: 368px; */
+
+  
 }
 .candidate-container {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
+   */
+   width: 100%;
+    height: 100%;
+    background: rgb(0 0 0);
+    z-index: -1;
+/* 
+   width: 210px;
+    height: 150px; */
 }
 .back-name {
   font-size: 14px;

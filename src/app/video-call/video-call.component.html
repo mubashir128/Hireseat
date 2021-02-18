@@ -73,7 +73,7 @@
         </div>
       </ng-container>
         <div class="call" *ngIf="session">
-          <div class="screens">
+          <div class="screens" #videoCall>
             <ng-container>
               <div class="candidate-container">
                 <app-subscriber *ngFor="let stream of streams" [stream]="stream" [session]="session">
