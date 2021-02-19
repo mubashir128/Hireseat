@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, ElementRef, ViewChild, Renderer2 } from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -24,6 +24,7 @@ import * as $ from "jquery";
   providers: [OpentokService],
 })
 export class VideoCallComponent implements OnInit, OnDestroy {
+  @ViewChild('videoCall') main:ElementRef;
   bookmarkSubscription: Subscription;
   askQuestionSubscription: Subscription;
   startArchiveSubscription: Subscription;
@@ -72,7 +73,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private videoCallingService: VideoCallingService,
     private sanitizer: DomSanitizer,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private renderer: Renderer2
+
   ) {
     this.QuestionsGroup = this.fb.group({
       question1: new FormControl(null, [Validators.max(100)]),
@@ -96,6 +99,8 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       (publishedStream) => {
         this.spinner.show();
         this.publisher = publishedStream;
+  
+
         if (publishedStream) {
           this.spinner.hide();
         }

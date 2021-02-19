@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, Input, ChangeDetectionStrategy, Renderer2 } from '@angular/core';
 import { OpentokService } from '../_services/opentok.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 const publish = () => {
@@ -12,7 +12,8 @@ const publish = () => {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-
+// width: '141px',
+// height: '103px',
 export class PublisherComponent implements AfterViewInit {
   @ViewChild('publisherDiv', { static: true }) publisherDiv: ElementRef;
   @ViewChild('visioStopBtn') visioStopBtn: ElementRef;
@@ -24,13 +25,16 @@ export class PublisherComponent implements AfterViewInit {
   hideVideo = false;
   constructor(
     private opentokService: OpentokService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private renderer: Renderer2
   ) {
     this.publishing = false;
     this.publisherOptions = {
       insertMode: 'append',
       width: '141px',
       height: '103px',
+      // width: '710px',
+      // height: '350px',
       name: 'Publisher',
       fitMode: 'contain',
       style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
@@ -72,6 +76,7 @@ export class PublisherComponent implements AfterViewInit {
 
     if (this.session) {
       if (this.session['isConnected']()) {
+
         this.publish();
       }
       this.session.on('sessionConnected', () => this.publish());
@@ -87,7 +92,17 @@ export class PublisherComponent implements AfterViewInit {
       })
     }
   }
+  resizePublisher(publisherDiv){
+    console.log('click',this.publisherDiv.nativeElement.id)
+    // var publisherContainer = document.getElementById(publisherDiv);
+    // publisherContainer.style.width = "300px";
+    // publisherContainer.style.height = "141px";
+    document.getElementById("target").appendChild(this.publisherDiv.nativeElement);
+    this.publisherDiv.nativeElement.style.width = "300px";
+    this.publisherDiv.nativeElement.style.height = "141px";
+    //this.publisherDiv.nativeElement.querySelector('#' + this.publisherDiv.nativeElement.id).style.width = "400px";
 
+}
   publish() {
     this.spinner.show();
     this.session.publish(this.publisher, (err) => {
@@ -101,6 +116,7 @@ export class PublisherComponent implements AfterViewInit {
         // // console.log('******************', this.publisher);
         this.opentokService.setPublisher(this.publisher);
         this.publishing = true;
+        
       }
     });
   }
