@@ -83,7 +83,14 @@
 
         <img src="assets/img/hireseat_header_logo.png" class="logoHome" />
       </div>
-      <div class="salPerYear" *ngIf = "loggedUser?.userRole === 'employer' || (loggedUser?.userRole === 'recruiter' && biddingEvent.employerKey._id !== loggedUser._id)">
+      <div
+        class="salPerYear"
+        *ngIf="
+          loggedUser?.userRole === 'employer' ||
+          (loggedUser?.userRole === 'recruiter' &&
+            biddingEvent.employerKey['_id'] !== loggedUser._id)
+        "
+      >
         <div class="pull-right">
           <h4 class="reward">
             Reward Range: ${{
@@ -235,12 +242,10 @@
     [biddingEvent]="biddingEvent"
   ></app-recruiter-question>
   <app-recruiter-ans
-  *ngIf="userRole == 2 && biddingEvent.userType == 3"
-    [biddingEvent]="biddingEvent">
-</app-recruiter-ans>
-<app-candidate-question 
-*ngIf="userRole == 3"
-[biddingEvent]="biddingEvent">
-
-</app-candidate-question>
+    *ngIf="userRole == 2 && biddingEvent.userType == 3"
+    [biddingEvent]="biddingEvent"
+  >
+  </app-recruiter-ans>
+  <app-candidate-question *ngIf="userRole == 3" [biddingEvent]="biddingEvent">
+  </app-candidate-question>
 </div>
