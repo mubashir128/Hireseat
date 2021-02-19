@@ -726,6 +726,7 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
       .subscribe((res) => {
         this.isSubmited = res.isSubmited;
         this.resume = res.candidateKey;
+        this.resume.commentsAre = res.candidateKey.comments;
         this.resume.comments = res.biddingEvent.comments;
         this.resume.recruiterKey = res.biddingEvent.recruiterKey;
         this.resume.biddingEvent = res.biddingEvent;
