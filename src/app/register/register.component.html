@@ -83,14 +83,48 @@
                 <input type="password" class="form-control" name="password" formControlName="password" minlength="5"
                   autocomplete="off" />
                 <div *ngIf="signin.controls['password'].hasError('required')" class="error">
-                  Please Enter Password
+                  Please Enter Password.
                 </div>
                 <div *ngIf="signin.controls['password'].hasError('minlength')" class="error">
-                  Please Enter Minimum 5 Char password
+                  Please Enter Minimum 5 Char password.
+                </div>
+                <div *ngIf="signin.controls['password'].hasError('pattern')" class="error">
+                  Password should be contains,<br>
+                    <!-- -Minimum five characters.<br> -->
+                    -At least one uppercase letter.<br>
+                    -At least one lowercase letter.<br>
+                    -At least one number.<br>
+                    -At least one special character.<br>
                 </div>
                 <label for="password">Password</label>
               </div>
             </div>
+
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <input type="password" class="form-control" name="confirmPassword" (focusout)="onFocusOutEvent($event)" formControlName="confirmPassword" minlength="5"
+                  autocomplete="off" />
+                <div *ngIf="signin.controls['confirmPassword'].hasError('required')" class="error">
+                  Please Enter Confirm Password.
+                </div>
+                <div *ngIf="signin.controls['confirmPassword'].hasError('minlength')" class="error">
+                  Please Enter Minimum 5 Char Confirm Password.
+                </div>
+                <div *ngIf="confirmPasswordError" class="error">
+                  Confirm Password not matched with Password.
+                </div>
+                <div *ngIf="signin.controls['confirmPassword'].hasError('pattern')" class="error">
+                  Confirm Password should be contains,<br>
+                    <!-- -Minimum five characters.<br> -->
+                    -At least one uppercase letter.<br>
+                    -At least one lowercase letter.<br>
+                    -At least one number.<br>
+                    -At least one special character.<br>
+                </div>
+                <label for="confirmPassword">Confirm Password</label>
+              </div>
+            </div>
+
             <div class="row">
               <div class="input-field col s12 m12 l12 ">
                 <label for="image" class="choseLabel">Profile Image</label>
