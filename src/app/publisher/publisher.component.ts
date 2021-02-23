@@ -31,12 +31,12 @@ export class PublisherComponent implements AfterViewInit {
     this.publishing = false;
     this.publisherOptions = {
       insertMode: 'append',
-      width: '141px',
-      height: '103px',
-      // width: '710px',
-      // height: '350px',
+      // width: '141px',
+      // height: '103px',
+      width: '710px',
+      height: '350px',
       name: 'Publisher',
-      fitMode: 'contain',
+      fitMode: 'cover',
       style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
       publishAudio: true,
       publishVideo: true,
