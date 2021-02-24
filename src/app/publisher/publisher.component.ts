@@ -31,12 +31,12 @@ export class PublisherComponent implements AfterViewInit {
     this.publishing = false;
     this.publisherOptions = {
       insertMode: 'append',
-      width: '141px',
-      height: '103px',
-      // width: '710px',
-      // height: '350px',
+      // width: '200px',
+      // height: '150px',
+      width: '710px',
+      height: '350px',
       name: 'Publisher',
-      fitMode: 'contain',
+      fitMode: 'cover',
       style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
       publishAudio: true,
       publishVideo: true,
@@ -55,7 +55,8 @@ export class PublisherComponent implements AfterViewInit {
       animate: true,
       window: window,
       ignoreClass: 'OT_ignore',
-      position: 'relative'
+      position: 'relative',
+      insertDefaultUI:true
     };
     // this.opentokService._publishedStream.subscribe(publisher => {
     //   // console.log('publisher status', publisher);
@@ -88,21 +89,13 @@ export class PublisherComponent implements AfterViewInit {
       this.session.on('streamDestroyed', (event) => {
         event.preventDefault();
         console.log("Publisher stopped streaming.");
+        
+      
         // this.publisherDiv.nativeElement.afterClosed()
       })
     }
   }
-  resizePublisher(publisherDiv){
-    console.log('click',this.publisherDiv.nativeElement.id)
-    // var publisherContainer = document.getElementById(publisherDiv);
-    // publisherContainer.style.width = "300px";
-    // publisherContainer.style.height = "141px";
-    document.getElementById("target").appendChild(this.publisherDiv.nativeElement);
-    this.publisherDiv.nativeElement.style.width = "300px";
-    this.publisherDiv.nativeElement.style.height = "141px";
-    //this.publisherDiv.nativeElement.querySelector('#' + this.publisherDiv.nativeElement.id).style.width = "400px";
-
-}
+ 
   publish() {
     this.spinner.show();
     this.session.publish(this.publisher, (err) => {
