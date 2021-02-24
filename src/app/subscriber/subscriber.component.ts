@@ -26,12 +26,12 @@ export class SubscriberComponent implements AfterViewInit {
   ) {
     this.subscriberOptions = {
       insertMode: 'append',
-      width: '141px',
-      height: '103px',
-      // width: '710px',
-      // height: '350px',
+      // width: '141px',
+      // height: '103px',
+      width: '710px',
+      height: '350px',
       name: 'Subscriber',
-      fitMode: 'contain',
+      fitMode: 'cover',
       style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
       publishAudio: true,
       publishVideo: true
