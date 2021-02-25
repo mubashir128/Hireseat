@@ -40,7 +40,7 @@
             <button class="btn AddMediaBtn">Add Media</button>
         </div> -->
         <div class="editerDIv">
-          <ckeditor
+          <!-- <ckeditor
             formControlName="postDescription"
             [config]="ckeConfig"
             name="myckeditor"
@@ -48,7 +48,10 @@
             required
             debounce="500"
           >
-          </ckeditor>
+          </ckeditor> -->
+
+          <ckeditor [editor]="editor" formControlName="postDescription" name="myckeditor" debounce="500" required></ckeditor>
+
         </div>
         <div class="customeKeyword marT">
           <h4 class="secHead">custome Keyword</h4>

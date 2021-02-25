@@ -210,9 +210,10 @@
     <div class="row">
       <label for="job-description" [ngClass]="{ active: jp.jobDescription }">Job Description</label>
       <div class="input-field col s12">
-        <ckeditor formControlName="jobDescription" [(ngModel)]="jp.jobDescription" name="myckeditor" required
+        <!-- <ckeditor formControlName="jobDescription" [(ngModel)]="jp.jobDescription" name="myckeditor" required
           [config]="ckeConfig" debounce="500">
-        </ckeditor>
+        </ckeditor> -->
+        <ckeditor [editor]="editor" formControlName="jobDescription" [(ngModel)]="jp.jobDescription" name="myckeditor" debounce="500" required></ckeditor>
         <!-- <ck-editor name="myckeditor" formControlName="jobDescription" [(ngModel)]="jp.jobDescription" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor> -->
 
         <div *ngIf="f.jobDescription.touched && f.jobDescription.errors" class="invalid-feedback" class="error">

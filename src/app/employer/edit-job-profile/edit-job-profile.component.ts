@@ -11,6 +11,7 @@ import { SalaryCycle } from '../../models/salary-cycle';
 import { JobExperience } from '../../models/job-experience';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BiddingEventService } from '../../_services/bidding-event.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 declare var jQuery: any;
 declare var Materialize: any;
@@ -29,6 +30,7 @@ export class EditJobProfileComponent implements OnInit {
   public salaryCycleArr: SalaryCycle[];
   public jobExperienceArr: JobExperience[];
   public contractArr: Contract[];
+  editor = ClassicEditor;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private authService: AuthenticationService, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {
 

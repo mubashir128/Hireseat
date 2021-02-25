@@ -357,7 +357,7 @@
         >Job Description</label
       >
       <div class="input-field col s12">
-        <ckeditor
+        <!-- <ckeditor
           formControlName="jobDescription"
           [(ngModel)]="jp.jobDescription"
           name="myckeditor"
@@ -365,7 +365,9 @@
           [config]="ckeConfig"
           debounce="500"
         >
-        </ckeditor>
+        </ckeditor> -->
+
+        <ckeditor [editor]="editor" formControlName="jobDescription" [(ngModel)]="jp.jobDescription" name="myckeditor" debounce="500" required></ckeditor>
 
         <!-- <ck-editor name="myckeditor" formControlName="jobDescription" [(ngModel)]="jp.jobDescription" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor> -->
 

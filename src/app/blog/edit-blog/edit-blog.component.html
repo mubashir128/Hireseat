@@ -24,14 +24,15 @@
         </div>
 
         <div class="editerDIv">
-          <ckeditor
+          <!-- <ckeditor
             formControlName="description"
             name="myckeditor"
             required
             skin="moono-lisa"
             debounce="500"
           >
-          </ckeditor>
+          </ckeditor> -->
+          <ckeditor [editor]="editor" formControlName="description" name="myckeditor" debounce="500" required></ckeditor>
         </div>
         <div class="customeKeyword marT">
           <h4 class="secHead">custome Keyword</h4>

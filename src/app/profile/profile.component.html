@@ -191,9 +191,10 @@
           <span class='bio-title'>
             Bio
           </span>
-          <ckeditor formControlName="bio" [(ngModel)]="userProfile.bio" name="myckeditor" required [config]="ckeConfig"
+          <!-- <ckeditor formControlName="bio" [(ngModel)]="userProfile.bio" name="myckeditor" required [config]="ckeConfig"
             debounce="500">
-          </ckeditor>
+          </ckeditor> -->
+          <ckeditor [editor]="editor" formControlName="bio" name="myckeditor" debounce="500" required></ckeditor>
         </div>
       </div>
 

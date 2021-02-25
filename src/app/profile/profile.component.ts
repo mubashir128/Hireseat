@@ -5,6 +5,7 @@ import { UserService } from "../_services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { RewardSummary } from "./model/reward-summary";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -38,6 +39,7 @@ export class ProfileComponent implements OnInit {
     displayKey: "day", // if objects array passed which key to be displayed defaults to description
     limitTo: 6,
   };
+  editor = ClassicEditor;
   constructor(
     private userService: UserService,
     private spinner: NgxSpinnerService,
