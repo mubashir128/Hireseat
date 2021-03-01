@@ -148,6 +148,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     jQuery(".modal").modal();
+
     this.candidateInvitationLink = true;
     // candidate or interviewer
     this.candidateId = this.activatedRoute.snapshot.paramMap.get("id");
@@ -255,7 +256,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
             this.streams.splice(idx, 1);
             this.changeDetectorRef.detectChanges();
             var publisherContainer = document.getElementById(this.main.publisherDiv.nativeElement.id);
-            publisherContainer.querySelector("div").style.width = "710px";
+            publisherContainer.querySelector("div").style.width = "100%";
             publisherContainer.querySelector("div").style.height = "350px";
             publisherContainer.querySelector("div").style.position = "static";
             document.getElementById('publisher-container').style.position = "static";
