@@ -22,7 +22,8 @@
               "src/favicon.png",
               "src/assets",
               "src/.htaccess",
-              "src/manifest.json"
+              "src/manifest.json",
+              "src/firebase-messaging-sw.js"
             ],
             "styles": [
               "src/assets/css/styles.css",

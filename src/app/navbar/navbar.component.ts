@@ -13,6 +13,8 @@ import { PushNotificationService } from "../_services/push-notification.service"
 import { SubscriberslistService } from "../_services/subscriberslist.service";
 import { ConstantsService } from "../_services/constants.service";
 
+import { FirebasePushNotificationService } from "src/app/_services/firebase-push-notification.service";
+
 declare var Materialize: any;
 declare var jQuery: any;
 declare var $: any;
@@ -69,7 +71,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     public enterpriseService: EnterpriseService,
     private _pushNotify: PushNotificationService,
     private _constants : ConstantsService,
-    private _subList : SubscriberslistService
+    private _subList : SubscriberslistService,
+    private _firebasePushNotificationService : FirebasePushNotificationService
   ) {
     this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
@@ -78,9 +81,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if (this.loggedInUser.userRole == "employer") {
         this.isEmployer = true;
         this._pushNotify.pushNotification();
+        this._firebasePushNotificationService.initiate();
       } else if (this.loggedInUser.userRole == "recruiter") {
         this.isRecruiter = true;
         this._pushNotify.pushNotification();
+        this._firebasePushNotificationService.initiate();
       } else if (this.loggedInUser.userRole == "admin") {
         this.isAdmin = true;
       } else if (this.loggedInUser.userRole == "super-admin") {
@@ -274,6 +279,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.isAdmin = false;
     this.isLoggedIn = false;
     this._socket.socketClosed();
+    this._firebasePushNotificationService.closeFirebasePushNotification();
   }
 
   //toggle notification DIV.

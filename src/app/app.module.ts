@@ -41,6 +41,8 @@ import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
 import { SelectDropDownModule } from "ngx-select-dropdown";
 import { VideoCallingService } from "./_services/video-calling.service";
 import { GlobalErrorHandler } from "./_errorHandler/global-error-handler";
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireModule } from '@angular/fire';
 
 // import { SearchByNamePipe } from '../search-by-name.pipe';
 // import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -142,6 +144,8 @@ import { GlobalErrorHandler } from "./_errorHandler/global-error-handler";
       enabled: environment.production,
     }),
     SharedComponentsModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   declarations: [
     AppComponent,

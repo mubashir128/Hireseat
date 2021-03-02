@@ -7,6 +7,8 @@ import { SuperAdminService } from "../../_services/super-admin.service";
 import { ForumService } from "../../_services/forum.service";
 import { EnterpriseService } from "../../_services/enterprise.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
+import { FirebasePushNotificationService } from "src/app/_services/firebase-push-notification.service";
+
 declare var jQuery: any;
 @Component({
   selector: "app-employer-home",
@@ -31,7 +33,8 @@ export class EmployerHomeComponent implements OnInit {
     public supperAdmin: SuperAdminService,
     public enterpriseSevice: EnterpriseService,
     private _forum: ForumService,
-    private _socket: WebsocketService
+    private _socket: WebsocketService,
+    private _firebasePushNotificationService : FirebasePushNotificationService
   ) {
     this.chkLoggedInUser = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
@@ -112,6 +115,7 @@ export class EmployerHomeComponent implements OnInit {
           if (response) {
             localStorage.removeItem("super-admin-email");
             this._socket.socketClosed();
+            this._firebasePushNotificationService.closeFirebasePushNotification();
             this.router.navigate(["super-admin/user-list"]);
           }
         },
