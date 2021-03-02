@@ -631,11 +631,15 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.stopArchive();
     }
     // this.session.disconnect();
+    // this.session.unpublish(this.publisher)
     switch (id) {
       case "candidate":
+     
+
         this.router.navigate(["/"]).then(() => {
-          window.location.reload();
-        
+          // window.location.reload();
+          // this.session.unpublish(this.publisher)
+
         });
         break;
       case "recruiter":
@@ -644,8 +648,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.endCallConfirmPopup();
         } else {
           this.router.navigate(["/recruiter/video-interview-room"]).then(() => {
-            window.location.reload();
-          
+            // window.location.reload();
+            // this.session.unpublish(this.publisher)
+
           });
         }
         break;
@@ -655,8 +660,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.endCallConfirmPopup();
         } else {
           this.router.navigate(["/employer/video-interview-room"]).then(() => {
-            window.location.reload();
-          
+            // window.location.reload();
+            // this.session.unpublish(this.publisher)
+
           });
         }
         break;
@@ -665,7 +671,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.router.navigate(["/candidate/my-profile"]);
         } else {
           this.router.navigate(["/candidate/interview-room"]).then(() => {
-            window.location.reload();
+            // window.location.reload();
+            // this.session.unpublish(this.publisher)
+
           });
         }
         break;
