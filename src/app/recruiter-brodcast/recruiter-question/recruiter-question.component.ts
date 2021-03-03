@@ -3,7 +3,6 @@ import { IBiddingEvent, BiddingEvent } from 'src/app/models/bidding-event';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
 import { CompleterService, CompleterData } from 'ng2-completer';
-import { DomSanitizer } from '@angular/platform-browser'
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
@@ -40,12 +39,7 @@ export class RecruiterQuestionComponent implements OnInit, OnDestroy {
     this.id = this.route.snapshot.paramMap.get('key');
     this.route.queryParams.subscribe(params => {
       this.queid = params['queid'];
-    })
-
-    let obj = JSON.parse(localStorage.getItem('currentUser'));
-    if (obj !== null) {
-      await this.initSocket(obj.token, obj.userInfo.userRole);
-    }
+    });
 
     await this._socket.removeListener({ type: this._constants.profileQuestionType });
     this._socket.addListener({
@@ -71,10 +65,6 @@ export class RecruiterQuestionComponent implements OnInit, OnDestroy {
 
   }
 
-  async initSocket(token, userRole) {
-    await this._socket.getInstance(token, userRole);
-  }
-
   handleQuestionData(res: any) {
     if (res.data.biddingEventId !== this.id && res.subType !== this._constants.getAllQuestions) {
       return;
@@ -90,7 +80,6 @@ export class RecruiterQuestionComponent implements OnInit, OnDestroy {
         break;
       case this._constants.question:
         // add question to list.
-        console.log("--- this._constants.question : ",this._constants.question);
         if (res.result) {
           this.question = '';
           Materialize.toast('Question added successfully', 1000)
@@ -100,7 +89,6 @@ export class RecruiterQuestionComponent implements OnInit, OnDestroy {
         break;
       case this._constants.answer:
         // add answer to list.
-        console.log("--- this._constants.answer : ",this._constants.answer);
         this.updateElement(res.data);
         Materialize.toast('Answer added', 1000);
         break;

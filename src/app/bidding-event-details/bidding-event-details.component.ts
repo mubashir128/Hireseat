@@ -176,15 +176,6 @@ export class BiddingEventDetailsComponent implements OnInit {
 
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get("key");
-    
-    let obj = JSON.parse(localStorage.getItem('currentUser'));
-    if (obj !== null) {
-      await this.initSocket(obj.token, obj.userInfo.userRole);
-    }
-
-    if (obj !== null) {
-      this._pushNotify.pushNotification();
-    }
 
     this.feedbackService.getBidsByIdCount(this.id).subscribe(res => {
       this.resumecount = res;
@@ -213,11 +204,6 @@ export class BiddingEventDetailsComponent implements OnInit {
     } else {
       this.router.navigate(["login"]);
     }
-  }
-
-  //initiate a connection through socket.
-  async initSocket(token, userRole) {
-    await this._socket.getInstance(token, userRole);
   }
 
   handleRequest(_id) {

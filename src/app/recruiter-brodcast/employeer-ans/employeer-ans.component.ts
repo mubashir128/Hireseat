@@ -2,10 +2,8 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IBiddingEvent } from 'src/app/models/bidding-event';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
-import { count } from 'rxjs/operators';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Subject } from 'rxjs';
-import { isNgTemplate } from '@angular/compiler';
 import { ConstantsService } from 'src/app/_services/constants.service';
 declare var Materialize;
 @Component({
@@ -41,11 +39,6 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
 
     this.user = JSON.parse(localStorage.getItem('currentUser')).userInfo
     this.id = this.route.snapshot.paramMap.get('key');
-  
-    let obj = JSON.parse(localStorage.getItem('currentUser'));
-    if (obj !== null) {
-      await this.initSocket(obj.token,obj.userInfo.userRole);
-    }
 
     await this._socket.removeListener({ type: this._constants.profileQuestionType });
     this._socket.addListener({
@@ -65,10 +58,6 @@ export class EmployeerAnsComponent implements OnInit, OnDestroy {
       }
     });
     
-  }
-
-  async initSocket(token,userRole) {
-    await this._socket.getInstance(token,userRole);
   }
 
   handleQuestionData(res: any) {

@@ -94,6 +94,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.isEnterprise = true;
       } else if (this.loggedInUser.userRole == "candidate") {
         this.isCandidate = true;
+        this._pushNotify.pushNotification();
+        this._firebasePushNotificationService.initiate();
       }
     }
 
@@ -126,7 +128,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.showAdminDashboardButton = false;
     this.showEnterpriseDashboardButton = false;
-    console.log("--- navbar : ",this._constants);
     //initiate a connection of socket at once when navbar is loaded.
     let obj = JSON.parse(localStorage.getItem("currentUser"));
     if (obj !== null) {
@@ -150,7 +151,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.handleCandidateProfile(res);
     });
 
-    console.log("this._constants.notificationType : ",this._constants.notificationType);
     //call to get all notification of user.
     this._socket.sendMessage({
       type: this._constants.notificationType,
@@ -280,7 +280,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.isAdmin = false;
     this.isLoggedIn = false;
     this._socket.socketClosed();
-    this._firebasePushNotificationService.closeFirebasePushNotification();
   }
 
   //toggle notification DIV.

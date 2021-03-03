@@ -5,10 +5,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { UserService } from "../../_services/user.service";
 import { SuperAdminService } from "../../_services/super-admin.service";
 import { ForumService } from "../../_services/forum.service";
-import { map } from "rxjs/operators";
-import { EnterpriseService } from "src/app/_services/enterprise.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
-import { FirebasePushNotificationService } from "src/app/_services/firebase-push-notification.service";
 
 declare var jQuery: any;
 @Component({
@@ -32,16 +29,13 @@ export class RecruiterHomeComponent implements OnInit {
     private userService: UserService,
     public supperAdmin: SuperAdminService,
     private _forum: ForumService,
-    private _socket: WebsocketService,
-    private _firebasePushNotificationService : FirebasePushNotificationService
+    private _socket: WebsocketService
   ) {
     this.chkLoggedInUser = this.userService.getUserData();
     // for live route
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        event.url === "/recruiter/profile"
-          ? (this.isOnProfile = true)
-          : (this.isOnProfile = false);
+        event.url === "/recruiter/profile" ? (this.isOnProfile = true) : (this.isOnProfile = false);
       }
     });
   }
@@ -113,7 +107,6 @@ export class RecruiterHomeComponent implements OnInit {
           if (response) {
             localStorage.removeItem("super-admin-email");
             this._socket.socketClosed();
-            this._firebasePushNotificationService.closeFirebasePushNotification();
             this.router.navigate(["super-admin/user-list"]);
           }
         },

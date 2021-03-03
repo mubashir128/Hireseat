@@ -6,7 +6,6 @@ import { UserService } from "src/app/_services/user.service";
 import { SuperAdminService } from "src/app/_services/super-admin.service";
 import { ForumService } from "src/app/_services/forum.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
-import { FirebasePushNotificationService } from "src/app/_services/firebase-push-notification.service";
 
 declare var Materialize: any;
 declare var jQuery: any;
@@ -32,8 +31,7 @@ export class CandidateHomeComponent implements OnInit {
     private userService: UserService,
     public supperAdmin: SuperAdminService,
     private _forum: ForumService,
-    private _socket: WebsocketService,
-    private _firebasePushNotificationService : FirebasePushNotificationService
+    private _socket: WebsocketService
   ) {
     this.chkLoggedInUser = this.userService.getUserData();
     // for live route
@@ -112,7 +110,6 @@ export class CandidateHomeComponent implements OnInit {
           if (response) {
             localStorage.removeItem("super-admin-email");
             this._socket.socketClosed();
-            this._firebasePushNotificationService.closeFirebasePushNotification();
             this.router.navigate(["super-admin/user-list"]);
           }
         },

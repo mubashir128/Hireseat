@@ -5,7 +5,6 @@ import { SuperAdminService } from "../../_services/super-admin.service";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "../../_services/authentication.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
-import { FirebasePushNotificationService } from "src/app/_services/firebase-push-notification.service";
 @Component({
   selector: "app-userlist",
   templateUrl: "./userlist.component.html",
@@ -24,8 +23,7 @@ export class UserlistComponent implements OnInit {
     private userService: UserService,
     public supperAdmin: SuperAdminService,
     private router: Router,
-    private _socket: WebsocketService,
-    private _firebasePushNotificationService : FirebasePushNotificationService
+    private _socket: WebsocketService
   ) {}
 
   ngOnInit() {
@@ -61,7 +59,6 @@ export class UserlistComponent implements OnInit {
             localStorage.removeItem("super-admin-email");
             this.router.navigate(["super-admin/user-list"]);
             this._socket.socketClosed();
-            this._firebasePushNotificationService.closeFirebasePushNotification();
           }
         },
         (error) => {

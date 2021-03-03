@@ -42,11 +42,6 @@ export class RecruiterAnsComponent implements  OnInit, OnDestroy {
 
     this.user = JSON.parse(localStorage.getItem('currentUser')).userInfo
     this.id = this.route.snapshot.paramMap.get('key');
-  
-    let obj = JSON.parse(localStorage.getItem('currentUser'));
-    if (obj !== null) {
-      await this.initSocket(obj.token,obj.userInfo.userRole);
-    }
 
     await this._socket.removeListener({ type: this._constants.candidateJobQuestionType });
     this._socket.addListener({
@@ -66,10 +61,6 @@ export class RecruiterAnsComponent implements  OnInit, OnDestroy {
       }
     });
     
-  }
-
-  async initSocket(token,userRole) {
-    await this._socket.getInstance(token,userRole);
   }
 
   handleQuestionData(res: any) {

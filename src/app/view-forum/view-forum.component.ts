@@ -100,11 +100,6 @@ export class ViewForumComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
 
-    let obj = JSON.parse(localStorage.getItem('currentUser'));
-    if (obj !== null) {
-      await this.initSocket(obj.token,obj.userInfo.userRole);
-    }
-
     await this._socket.removeListener({ type: this._constants.askQuestionType });
     this._socket.addListener({
       type: this._constants.askQuestionType,
@@ -138,10 +133,6 @@ export class ViewForumComponent implements OnInit, OnDestroy {
       this.curerntUserId=CurreUser.userInfo._id
       this.curerntUserName=CurreUser.userInfo.fullName;
     }
-  }
-
-  async initSocket(token,userRole) {
-    await this._socket.getInstance(token,userRole);
   }
 
   handleQuestions(res: any) {

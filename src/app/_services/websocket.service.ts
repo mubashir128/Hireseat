@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as io from "socket.io-client";
 import * as myGlobals from "../globalPath";
-import { Observable, Subscriber } from "rxjs";
+import { FirebasePushNotificationService } from "src/app/_services/firebase-push-notification.service";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +10,7 @@ export class WebsocketService {
   socket: any;
   listeners = [];
   socketUrl: any;
-  constructor() {
+  constructor(private _firebasePushNotificationService : FirebasePushNotificationService) {
     this.socketUrl = myGlobals.socketUrl;
   }
 
@@ -65,6 +65,8 @@ export class WebsocketService {
   
   private onClose(obj: any) {
     //  console.log("connection closed : ",obj);
+    //for firebasePushNotification close connection.
+    this._firebasePushNotificationService.closeFirebasePushNotification();
   }
 
   socketClosed() {
