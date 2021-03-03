@@ -60,7 +60,7 @@ export class FirebasePushNotificationService {
       userToken : loggedInUser.token,
       userRole : loggedInUser.userInfo.userRole
     }
-    this.closeConnection(payload);  
+    this.closeConnection(payload);
   }
 
   openConnection(payload){

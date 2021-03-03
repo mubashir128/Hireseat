@@ -81,11 +81,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if (this.loggedInUser.userRole == "employer") {
         this.isEmployer = true;
         this._pushNotify.pushNotification();
-        this._firebasePushNotificationService.initiate();
       } else if (this.loggedInUser.userRole == "recruiter") {
         this.isRecruiter = true;
         this._pushNotify.pushNotification();
-        this._firebasePushNotificationService.initiate();
       } else if (this.loggedInUser.userRole == "admin") {
         this.isAdmin = true;
       } else if (this.loggedInUser.userRole == "super-admin") {
@@ -95,7 +93,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       } else if (this.loggedInUser.userRole == "candidate") {
         this.isCandidate = true;
         this._pushNotify.pushNotification();
-        this._firebasePushNotificationService.initiate();
       }
     }
 

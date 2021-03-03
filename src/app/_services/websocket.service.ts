@@ -44,6 +44,8 @@ export class WebsocketService {
 
   private onOpen(obj: any) {
     // console.log("connection opend : ", obj);
+    //for firebasePushNotification open connection.
+    this._firebasePushNotificationService.initiate();
   }
 
   sendMessage(obj: any) {
