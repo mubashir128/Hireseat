@@ -39,7 +39,6 @@ import { EditTagComponent } from "../../blog/edit-blog/edit-tag/edit-tag.compone
 import { TagInputModule } from "ngx-chips";
 import { VideoQuestionsComponent } from "./components/video-questions/video-questions.component";
 import { FilterDataComponent } from "./components/filter-data/filter-data.component";
-// import { CKEditorModule } from "ng2-ckeditor";
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { SelectDropDownModule } from "ngx-select-dropdown";
 import { AllRecruitersComponent } from "./components/all-recruiters/all-recruiters.component";

@@ -90,6 +90,7 @@ export class RecruiterQuestionComponent implements OnInit, OnDestroy {
         break;
       case this._constants.question:
         // add question to list.
+        console.log("--- this._constants.question : ",this._constants.question);
         if (res.result) {
           this.question = '';
           Materialize.toast('Question added successfully', 1000)
@@ -99,6 +100,7 @@ export class RecruiterQuestionComponent implements OnInit, OnDestroy {
         break;
       case this._constants.answer:
         // add answer to list.
+        console.log("--- this._constants.answer : ",this._constants.answer);
         this.updateElement(res.data);
         Materialize.toast('Answer added', 1000);
         break;

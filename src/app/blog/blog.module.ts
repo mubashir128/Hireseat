@@ -12,7 +12,6 @@ import { EditCategoryComponent } from './edit-blog/edit-category/edit-category.c
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedComponentsModule } from '../shared/shared-components/shared-components.module';
 import { Ng2CompleterModule } from "ng2-completer";
-import { CKEditorModule } from 'ng2-ckeditor';
 import { EditTagComponent } from './edit-blog/edit-tag/edit-tag.component';
 import { TagInputModule } from "ngx-chips";
 
@@ -24,7 +23,6 @@ import { TagInputModule } from "ngx-chips";
     ReactiveFormsModule,
     SharedComponentsModule,
     Ng2CompleterModule,
-    CKEditorModule,
     TagInputModule
   ],
   declarations: [

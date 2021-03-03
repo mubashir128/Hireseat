@@ -14,7 +14,6 @@ import { MycandidatesComponent } from './mycandidates/mycandidates.component';
 import { EmployerHomeComponent } from './employer-home/employer-home.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { CKEditorModule } from "ng2-ckeditor";
 import { RecruiterBrodcastModule } from '../recruiter-brodcast/recruiter-brodcast.module';
 
 @NgModule({
@@ -25,7 +24,6 @@ import { RecruiterBrodcastModule } from '../recruiter-brodcast/recruiter-brodcas
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    CKEditorModule,
     RecruiterBrodcastModule
   ],
   declarations: [

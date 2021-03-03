@@ -15,7 +15,6 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { MyBidsComponent } from "./recruiter/my-bids/my-bids.component";
 import { JobProfileDetailsComponent } from "./job-profile-details/job-profile-details.component";
 import { BidHighlightsComponent } from "./bid-highlights/bid-highlights.component";
-import { CKEditorModule } from "ng2-ckeditor";
 import { BlogMaiComponent } from "./blog/blog-mai/blog-mai.component";
 import { BlogNavComponent } from "./blog/blog-nav/blog-nav.component";
 import { EditorModule } from "@tinymce/tinymce-angular";
@@ -136,7 +135,6 @@ import { AngularFireModule } from '@angular/fire';
     NgxPaginationModule,
     NgxMaskModule.forRoot(),
     Angular2CsvModule,
-    CKEditorModule,
     NgxTwitterTimelineModule,
     Ng2CompleterModule,
     SelectDropDownModule,
