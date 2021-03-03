@@ -14,6 +14,7 @@ import { SharedComponentsModule } from '../shared/shared-components/shared-compo
 import { Ng2CompleterModule } from "ng2-completer";
 import { EditTagComponent } from './edit-blog/edit-tag/edit-tag.component';
 import { TagInputModule } from "ngx-chips";
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { TagInputModule } from "ngx-chips";
     ReactiveFormsModule,
     SharedComponentsModule,
     Ng2CompleterModule,
-    TagInputModule
+    TagInputModule,
+    CKEditorModule
   ],
   declarations: [
     BlogMainComponent,
