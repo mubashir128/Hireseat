@@ -1,7 +1,7 @@
 app-publisher,
 app-subscriber {
   display: block;
-  float: left;
+  /* float: left; */
   margin-right: 1px;
 }
 .hidevideo {
@@ -13,7 +13,7 @@ app-subscriber {
   flex-direction: column;
 }
 .screens {
-  display: flex;
+  /* display: flex; */
   position: relative;
 }
 

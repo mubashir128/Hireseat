@@ -28,7 +28,7 @@ export class SubscriberComponent implements AfterViewInit {
       insertMode: 'append',
       // width: '141px',
       // height: '103px',
-      width: '710px',
+      width: '100%',
       height: '350px',
       name: 'Subscriber',
       fitMode: 'cover',

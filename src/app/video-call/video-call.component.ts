@@ -148,6 +148,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     jQuery(".modal").modal();
+
     this.candidateInvitationLink = true;
     // candidate or interviewer
     this.candidateId = this.activatedRoute.snapshot.paramMap.get("id");
@@ -255,7 +256,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
             this.streams.splice(idx, 1);
             this.changeDetectorRef.detectChanges();
             var publisherContainer = document.getElementById(this.main.publisherDiv.nativeElement.id);
-            publisherContainer.querySelector("div").style.width = "710px";
+            publisherContainer.querySelector("div").style.width = "100%";
             publisherContainer.querySelector("div").style.height = "350px";
             publisherContainer.querySelector("div").style.position = "static";
             document.getElementById('publisher-container').style.position = "static";
@@ -630,11 +631,15 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.stopArchive();
     }
     // this.session.disconnect();
+    // this.session.unpublish(this.publisher)
     switch (id) {
       case "candidate":
+     
+
         this.router.navigate(["/"]).then(() => {
-          window.location.reload();
-        
+          // window.location.reload();
+          // this.session.unpublish(this.publisher)
+
         });
         break;
       case "recruiter":
@@ -643,8 +648,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.endCallConfirmPopup();
         } else {
           this.router.navigate(["/recruiter/video-interview-room"]).then(() => {
-            window.location.reload();
-          
+            // window.location.reload();
+            // this.session.unpublish(this.publisher)
+
           });
         }
         break;
@@ -654,8 +660,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.endCallConfirmPopup();
         } else {
           this.router.navigate(["/employer/video-interview-room"]).then(() => {
-            window.location.reload();
-          
+            // window.location.reload();
+            // this.session.unpublish(this.publisher)
+
           });
         }
         break;
@@ -664,7 +671,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.router.navigate(["/candidate/my-profile"]);
         } else {
           this.router.navigate(["/candidate/interview-room"]).then(() => {
-            window.location.reload();
+            // window.location.reload();
+            // this.session.unpublish(this.publisher)
+
           });
         }
         break;
