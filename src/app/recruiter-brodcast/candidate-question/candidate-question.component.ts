@@ -30,8 +30,6 @@ export class CandidateQuestionComponent implements OnInit {
   questionObserver = new Subject();
   questionObserver$ = this.questionObserver.asObservable();
 
-  askedQuestion = "askedQuestion";
-
   constructor(private router: Router, private completerService: CompleterService, private route: ActivatedRoute, private bidEventService: BiddingEventService, private _socket: WebsocketService,  private _constants : ConstantsService) {
   }
 
@@ -146,7 +144,7 @@ export class CandidateQuestionComponent implements OnInit {
       type: this._constants.candidateJobQuestionType,
       data: {
         info: info,
-        subType: this.askedQuestion
+        subType: this._constants.askedQuestion
       }
     });
 

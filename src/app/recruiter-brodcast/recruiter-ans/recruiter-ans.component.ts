@@ -33,8 +33,6 @@ export class RecruiterAnsComponent implements  OnInit, OnDestroy {
   canId;
   recId;
 
-  postAnswer = "postAnswer";
-
   constructor(private router: Router, private route: ActivatedRoute,private bidEventService:BiddingEventService, private _socket: WebsocketService, private _constants : ConstantsService) {
   }
 
@@ -149,7 +147,7 @@ export class RecruiterAnsComponent implements  OnInit, OnDestroy {
       type: this._constants.candidateJobQuestionType,
       data: {
         info : ans,
-        subType: this.postAnswer
+        subType: this._constants.postAnswer
       }
     });
 

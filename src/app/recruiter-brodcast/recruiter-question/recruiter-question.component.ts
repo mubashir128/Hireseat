@@ -28,8 +28,6 @@ export class RecruiterQuestionComponent implements OnInit, OnDestroy {
   questionObserver = new Subject();
   questionObserver$ = this.questionObserver.asObservable();
 
-  askedQuestion = "askedQuestion";
-
   constructor(private router: Router, private completerService: CompleterService, private route: ActivatedRoute, private bidEventService: BiddingEventService, private _socket: WebsocketService,  private _constants : ConstantsService) {
   }
 
@@ -144,7 +142,7 @@ export class RecruiterQuestionComponent implements OnInit, OnDestroy {
       type: this._constants.profileQuestionType,
       data: {
         info: info,
-        subType: this.askedQuestion
+        subType: this._constants.askedQuestion
       }
     });
 
