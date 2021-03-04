@@ -235,7 +235,8 @@ button.shareBtn {
   object-fit: cover;
 }
 .CandidateDetails {
-  display: flex;
+  /* display: flex; */
+  display: block;
   align-items: center;
 }
 .recruiternamedetails {

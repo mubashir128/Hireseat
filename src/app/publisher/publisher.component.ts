@@ -23,18 +23,29 @@ export class PublisherComponent implements AfterViewInit {
   publishing: Boolean;
   publisherOptions: any;
   hideVideo = false;
+  width:string;
+  height:string;
   constructor(
     private opentokService: OpentokService,
     private spinner: NgxSpinnerService,
     private renderer: Renderer2
   ) {
     this.publishing = false;
+    var x = window.matchMedia("(max-width: 700px)");
+    console.log('screen size',x.matches);
+    if(x.matches == true){
+      this.width = '100%';
+      this.height = '300px';
+    }else{
+      this.width = '100%';
+      this.height = '350px';
+    }
     this.publisherOptions = {
       insertMode: 'append',
       // width: '200px',
       // height: '150px',
-      width: '710px',
-      height: '350px',
+      width: this.width,
+      height: this.height,
       name: 'Publisher',
       fitMode: 'cover',
       style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
