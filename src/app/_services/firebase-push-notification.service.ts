@@ -28,7 +28,7 @@ export class FirebasePushNotificationService {
     }
 
     let loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    console.log("request FirebasePushNotification : ");
     this.angularFireMessaging.requestToken.subscribe(token=>{
       Materialize.toast("open FirebasePushNotification : "+token, 1000);
         this.token = token;
