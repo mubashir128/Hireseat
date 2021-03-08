@@ -165,17 +165,50 @@
 
               <!-- <input id='from' type="time" placeholder="from" [value]="item.from"
                 (change)="timeUpdate('from',$event,item)"> -->
-              <input class="form-control" type="text"  mwlFlatpickr [noCalendar]="true"
+              <!-- <input class="form-control" type="text"  mwlFlatpickr [noCalendar]="true"
                 [value]="item.from" [enableTime]="true" (change)="timeUpdate('from',$event,item)" [dateFormat]="'H:i'">
               <label [ngClass]="{ active: userProfile.rate }" for="from">
-                From</label>
+                From</label> -->
+                
+                <input id="from" 
+                name="date1"
+                [(ngModel)]="item.from" 
+                [owlDateTime]="date1" 
+                [owlDateTimeTrigger]="date1"
+                placeholder="from" 
+                (dateTimeChange)="onChanges('from',$event,item)" 
+                [selectMode]="'single'"/>
+              
+                <owl-date-time [firstDayOfWeek]="'1'" 
+                [pickerType]="'timer'" 
+                [(ngModel)]="item.from"
+                #date1 (dateTimeChange)="onChanges('from',$event,item)"></owl-date-time>
+                <label [ngClass]="{ active: userProfile.rate }" for="from">
+                  From</label>
+                  
             </div>
             <div class="input-field col s12 m6 l6">
               <!-- <input id='to' type="time" placeholder="to" [value]="item.to" (change)="timeUpdate('to',$event,item)"> -->
-              <input class="form-control" type="text"  mwlFlatpickr [noCalendar]="true"
+              <!-- <input class="form-control" type="text"  mwlFlatpickr [noCalendar]="true"
                 [value]="item.to" [enableTime]="true" (change)="timeUpdate('to',$event,item)" [dateFormat]="'H:i'">
               <label [ngClass]="{ active: userProfile.rate }" for="to">
-                To</label>
+                To</label> -->
+                
+                <input id="to" 
+                name="date2"
+                [(ngModel)]="item.to" 
+                [owlDateTime]="date2" 
+                [owlDateTimeTrigger]="date2" 
+                placeholder="to"
+                (dateTimeChange)="onChanges('to',$event,item)"
+                [selectMode]="'single'"/>
+              
+                <owl-date-time 
+                [pickerType]="'timer'" 
+                [(ngModel)]="item.to" 
+                #date2 (dateTimeChange)="onChanges('to',$event,item)"></owl-date-time>
+                <label [ngClass]="{ active: userProfile.rate }" for="to">
+                  To</label>
             </div>
           </div>
 
