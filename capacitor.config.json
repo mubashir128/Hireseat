@@ -1,0 +1,13 @@
+{
+  "appId": "com.hireseat.app",
+  "appName": "hire-seat",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/HireSeat",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

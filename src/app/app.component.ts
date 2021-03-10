@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConstantsService } from "src/app/_services/constants.service";
+import { Plugins } from '@capacitor/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
