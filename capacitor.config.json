@@ -9,5 +9,11 @@
       "launchShowDuration": 0
     }
   },
-  "cordova": {}
+  "cordova": {},
+  "server": {
+    "url": "https://hireseat.com/",
+    "hostname": "app",
+    "iosScheme": "ionic",
+    "androidScheme": "http"
+  }
 }
