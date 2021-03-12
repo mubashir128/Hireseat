@@ -405,6 +405,7 @@ ul.resumeList li {
     /* padding: 0 0rem !important; */
   }
   .brand-logo img {
+    display: none;
     width: 80%;
   }
   /* bidding-event-list */
