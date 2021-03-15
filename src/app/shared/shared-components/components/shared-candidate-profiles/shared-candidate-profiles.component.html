@@ -54,7 +54,14 @@
       "
     >
       <!-- | shareProfileSearch: searchTerm -->
-      <div class="docSectionBtns">
+      <div class="pro">
+        <div class="pro-3">
+          <div class="candProfile">
+            <img src="assets/img/profile-user.png" alt="profile" />
+          </div>
+        </div>
+        <div class="pro-1">
+      <div class="docSectionBtns lates-s">
         <div class="candidate-name">
           <div class="CandidateDetails">
             <ng-container
@@ -80,9 +87,7 @@
                 !resume?.candidateKey?.profileimage
               "
             >
-              <div class="candProfile">
-                <img src="assets/img/profile-user.png" alt="profile" />
-              </div>
+              
             </ng-container>
             <div class="user-details">
               <span>
@@ -112,44 +117,48 @@
             </div>
           </div>
         </div>
-        <div class="cadidateResumeDiv">
-          <button class="downloadResume">
-            <a
-              [attr.href]="transform(resume?.fileURL)"
-              target="_blank"
-              download
-            >
-              <i class="fa fa-download"></i>
-              Download Resume
+      </div>
+      </div>
+      <div class="pro-2">
+      <div class="cadidateResumeDiv set-one">
+        <button class="downloadResume">
+          <a
+            [attr.href]="transform(resume?.fileURL)"
+            target="_blank"
+            download
+          >
+            <i class="fa fa-download"></i>
+            Download Resume
+          </a>
+        </button>
+        <div class="smallBtns">
+          <button class="LinkedInBtn">
+            <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
+            <a>
+              <!-- <i class="fa fa-linkedin"></i> -->
+              <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
+                <img
+                  class="linkedin-icon"
+                  src="../../assets/icons/linkedin-sign.png"
+                />
+                <span> LinkedIn </span>
+              </div>
             </a>
           </button>
-          <div class="smallBtns">
-            <button class="LinkedInBtn">
-              <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
-              <a>
-                <!-- <i class="fa fa-linkedin"></i> -->
-                <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
-                  <img
-                    class="linkedin-icon"
-                    src="../../assets/icons/linkedin-sign.png"
-                  />
-                  <span> LinkedIn </span>
-                </div>
-              </a>
-            </button>
-            <button class="shareBtn" (click)="showShareModal(resume)">
-              <a>
-                <!-- <i class="fa fa-linkedin"></i> -->
-                <div class="icon-name">
-                  <!-- <img class="shared-icon" src="../../assets/icons/share-option.png"> -->
-                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                  <span> Share </span>
-                </div>
-              </a>
-            </button>
-          </div>
+          <button class="shareBtn" (click)="showShareModal(resume)">
+            <a>
+              <!-- <i class="fa fa-linkedin"></i> -->
+              <div class="icon-name">
+                <!-- <img class="shared-icon" src="../../assets/icons/share-option.png"> -->
+                <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                <span> Share </span>
+              </div>
+            </a>
+          </button>
         </div>
       </div>
+    </div>
+    </div>
       <!-- a video  -->
       <ng-container
         *ngIf="resume?.interviewLinkedByRecruiter || resume?.recordedId"
