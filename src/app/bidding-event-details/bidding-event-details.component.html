@@ -119,12 +119,9 @@
         </li>
 
         <li class="tab col s3 bx-pager-item resume">
-          <a
-            href="#resume"
-            class="bx-pager-link"
-            (click)="addActiveClass($event, 'resume')"
-            >Resumes</a
-          >
+          <a href="#resume" *ngIf = "userRole !== 3" class="bx-pager-link" (click)="addActiveClass($event, 'resume')">Resumes</a>
+          <a href="#resume" *ngIf = "userRole === 3" class="bx-pager-link" (click)="addActiveClass($event, 'resume')">Apply for this job</a>
+          
           <div class="arrow">
             <span>{{ resumecount }}</span>
           </div>
@@ -193,6 +190,7 @@
           >
           </app-recruter-bidding-info>
           <app-candidate-bidding-info
+            (ResumeCount)="resumeCount($event)"
             *ngIf="userRole === 3 && showDiv == 'resume'"
             [biddingEvent]="biddingEvent"
           >

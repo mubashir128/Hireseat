@@ -12,6 +12,7 @@ import { FeedbackService } from "../_services/feedback.service";
 import { PushNotificationService } from "../_services/push-notification.service";
 import { WebsocketService } from "../_services/websocket.service";
 import { ContentObserver } from "@angular/cdk/observers";
+import { CandidateService } from "../_services/candidate.service";
 declare var CryptoJS: any;
 declare var jQuery: any;
 @Component({
@@ -44,6 +45,7 @@ export class BiddingEventDetailsComponent implements OnInit {
     private feedbackService: FeedbackService,
     private _pushNotify: PushNotificationService,
     private _socket: WebsocketService,
+    private _candidateService: CandidateService
   ) {
     let a = this;
     this.Base64 = {
@@ -234,6 +236,14 @@ export class BiddingEventDetailsComponent implements OnInit {
             if(this.loggedUser.userRole == "recruiter" && this.employerProfile._id === this.loggedUser._id){
               this.feedbackService.getRecrutierCandidateBidsByIdCount(this.id).subscribe(res => {
                 this.resumecount = res;
+              });
+            }
+
+            if(this.loggedUser.userRole == "candidate"){
+              this._candidateService.getCandidateProfileBid(this.biddingEvent.$key).subscribe((res) => {
+                if(res.isSubmited){
+                  this.resumecount = 1;
+                }
               });
             }
 
