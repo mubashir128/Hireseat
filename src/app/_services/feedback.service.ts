@@ -54,6 +54,12 @@ export class FeedbackService {
     }));
   }
 
+  getRecrutierCandidateBidsByIdCount(id: string) {
+    return this.http.get<any>(this.baseurl + 'api/getRecrutierCandidateBidsByIdCount/' + id).pipe(map((res: any) => {
+      return res.length;
+    }));
+  }
+
   getBidsByIdForRecruiter(id: string) {
     return this.http.get<any>(this.baseurl + 'api/getBidsByIdForRecruiter/' + id).pipe(map((res: any) => {
       return res;
