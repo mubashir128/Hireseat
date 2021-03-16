@@ -227,7 +227,7 @@
           <!-- <ckeditor formControlName="bio" [(ngModel)]="userProfile.bio" name="myckeditor" required [config]="ckeConfig"
             debounce="500">
           </ckeditor> -->
-          <ckeditor [editor]="editor" formControlName="bio" name="myckeditor" debounce="500" required></ckeditor>
+          <ckeditor [editor]="editor" formControlName="bio" [(ngModel)]="userProfile.bio" name="myckeditor" debounce="500" required></ckeditor>
         </div>
       </div>
 

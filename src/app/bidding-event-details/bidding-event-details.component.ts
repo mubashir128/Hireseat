@@ -11,6 +11,7 @@ import { BiddingInfoComponent } from "../bidding-info/bidding-info.component";
 import { FeedbackService } from "../_services/feedback.service";
 import { PushNotificationService } from "../_services/push-notification.service";
 import { WebsocketService } from "../_services/websocket.service";
+import { ContentObserver } from "@angular/cdk/observers";
 declare var CryptoJS: any;
 declare var jQuery: any;
 @Component({
@@ -186,8 +187,10 @@ export class BiddingEventDetailsComponent implements OnInit {
     this.feedbackService.getHiredResumeCount(this.id).subscribe(res => {
       this.hiredcount = res;
     });
-    jQuery(".tabs").tabs();
+
     this.loggedUser = this.userService.getUserData();
+    jQuery(".tabs").tabs();
+
     if (this.loggedUser != "no") {
       this.route.params.subscribe(params => {
         this.handleRequest(params["key"]);
@@ -227,6 +230,13 @@ export class BiddingEventDetailsComponent implements OnInit {
             } else {
               this.biddingStatus = 0;
             }
+
+            if(this.loggedUser.userRole == "recruiter" && this.employerProfile._id === this.loggedUser._id){
+              this.feedbackService.getRecrutierCandidateBidsByIdCount(this.id).subscribe(res => {
+                this.resumecount = res;
+              });
+            }
+
           }
           this.configureMuut();
           // this.ngOnInit();
@@ -313,9 +323,14 @@ export class BiddingEventDetailsComponent implements OnInit {
   BASE64(str) {
     return this.Base64.encode(str);
   }
+
   resumeCount(count: any) {
+    if(this.loggedUser.userRole == "recruiter" && this.employerProfile._id === this.loggedUser._id){
+      return ;
+    }
     this.resumecount = count;
   }
+
   funcInterviewCount(count: any) {
     this.interviewcount = count;
   }
