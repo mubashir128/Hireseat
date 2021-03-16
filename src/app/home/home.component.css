@@ -527,6 +527,11 @@ a {
   color: #858c94;
   font-size: 13px;
 }
+.hireSeatBtn{
+  min-width: 150px !important;
+  font-size: 16px !important;
+  display: none;
+}
 /*=============================== footer css end ========================*/
 /*================================ i-pad responsive css start  ===============================*/
 
@@ -688,12 +693,27 @@ a {
   .bestRecruitmentText h3 {
     font-size: 15px;
   }
+  .hireSeatBtn{
+    background-color: #0aafff;
+    border: none;
+    color: #fff;
+    min-width: 200px;
+    font-size: 18px;
+    font-family: "gilroybold";
+    height: 60px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
   .KnowMoreBtn {
+    display:none;
     height: 40px;
     min-width: 150px !important;
     font-size: 16px !important;
   }
   .KnowMoreBtn .arrowImg {
+    display:none;
     width: 20px !important;
   }
   .proveHead {
