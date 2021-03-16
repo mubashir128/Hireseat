@@ -3,12 +3,12 @@ export const environment = {
   baseUrl: 'https://hireseat.com:5000/',
   socketUrl: "wss://hireseat.com:5000/webSocket",
   firebase : {
-    apiKey: "AIzaSyCEx3UAFAVQIFgPyOXfTJz5eOG5xixcqN4",
-    authDomain: "fir-hireseat.firebaseapp.com",
-    projectId: "fir-hireseat",
-    storageBucket: "fir-hireseat.appspot.com",
-    messagingSenderId: "256108345803",
-    appId: "1:256108345803:web:0d5258ebc68385f8f5de4e",
-    measurementId: "G-NSEGDPRKXP"
+    apiKey: "AIzaSyA8WU60YYXggSTkgHyP4nXPoh-V4iEC-Fg",
+    authDomain: "hireseat.firebaseapp.com",
+    projectId: "hireseat",
+    storageBucket: "hireseat.appspot.com",
+    messagingSenderId: "287936048712",
+    appId: "1:287936048712:web:3c1cb0e3e16fdbc240f27d",
+    measurementId: "G-PPRDY5Q0Q8"
   }
 };
