@@ -7,6 +7,8 @@ import {
   ElementRef,
   OnDestroy,
   Input,
+  Output,
+  EventEmitter
 } from "@angular/core";
 import {
   FormBuilder,
@@ -51,7 +53,8 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
   isSubmited:boolean = false;
   @Input() public biddingEvent: IBiddingEvent;
 
-  
+  @Output() ResumeCount: EventEmitter<any> = new EventEmitter<any>();
+
   @ViewChild("playVideo") videojsPlay: ElementRef;
   @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
 
@@ -215,8 +218,8 @@ export class CandidateBiddingInfoComponent implements OnInit, OnChanges, OnDestr
       this.bidService.createCandidateBid(this.bid).subscribe((data: any) => {
         if (data) {
           this.myProfile();
+          this.ResumeCount.emit(1);
           Materialize.toast('Candidate submitted successfully! !', 4000);
-  
         } else {
           Materialize.toast('Something Went Wrong!', 4000);
         }

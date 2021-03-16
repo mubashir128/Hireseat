@@ -193,6 +193,7 @@
           >
           </app-recruter-bidding-info>
           <app-candidate-bidding-info
+            (ResumeCount)="resumeCount($event)"
             *ngIf="userRole === 3 && showDiv == 'resume'"
             [biddingEvent]="biddingEvent"
           >
