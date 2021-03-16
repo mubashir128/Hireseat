@@ -1,9 +1,9 @@
 <div class="chart">
   <div class="partition">
-    <div class="display-chart">
+    <div class="display-chart" #doughtnutChartEle>
       <canvas id="doughnutChart"></canvas>
     </div>
-    <div class="comments-title">
+    <div class="comments-title" *ngIf = "allComments.length > 0">
       <div class="allComments">Candidate Replies</div>
       <div class="comments-div">
         <div

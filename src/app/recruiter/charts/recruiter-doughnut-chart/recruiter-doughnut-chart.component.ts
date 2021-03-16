@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Chart } from "chart.js";
 import { WebsocketService } from "src/app/_services/websocket.service";
@@ -39,12 +39,16 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   allComments = [];
 
   loggedInUser: any;
+
+  @ViewChild("doughtnutChartEle") doughtnutChartEle : ElementRef;
+
   constructor(
     private formBuilder: FormBuilder,
     private _socket: WebsocketService,
     private userService: UserService,
     private _subList: SubscriberslistService,
-    private _constants : ConstantsService
+    private _constants : ConstantsService,
+    private _renderer: Renderer2
   ) {
     this.setDaughnutChartConfig();
     this.loggedInUser = this.userService.getUserData();
@@ -203,6 +207,9 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
         res.data.forEach((item) => {
           this.allComments = [...this.allComments, ...item.canReview];
         });
+        if(this.allComments.length === 0){
+          this._renderer.setStyle(this.doughtnutChartEle.nativeElement, "width", '100%');
+        }
         break;
       default:
         break;

@@ -97,7 +97,30 @@ export class CreateBiddingEventComponent implements OnInit {
       stopPropagation: false // Stops event propagation activationDate
     });
 
+    setTimeout(()=>{
+      this.setCalendarDate();
+    },700);
+    
+  }
 
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.searchInputTerm.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.getRecruiterList({
+          searchTerm : this.searchTerm
+        });
+
+      })
+    ).subscribe();
+  }
+
+  setCalendarDate(){
     var a = this;
     var activationDate_input = jQuery('#activationDate').pickadate();
     var activationDate_picker = activationDate_input.pickadate('picker');
@@ -119,7 +142,6 @@ export class CreateBiddingEventComponent implements OnInit {
     expiryDate_picker.set('select', new Date(a.biddingEvent.expiryDate * 1000));
 
     activationDate_picker.on({
-      
       set: function () {
         let temp: Date = new Date(activationDate_picker.get('select').pick);
         let current: Date = new Date();
@@ -143,7 +165,6 @@ export class CreateBiddingEventComponent implements OnInit {
     });
 
     expiryDate_picker.on({
-     
       set: function () {
         let temp: Date = new Date(expiryDate_picker.get('select').pick);
         let activateDate: Date = new Date(a.biddingEvent.activationDate * 1000);
@@ -165,23 +186,6 @@ export class CreateBiddingEventComponent implements OnInit {
         }
       }
     });
-  }
-
-  ngAfterViewInit() {
-    // server-side search
-    fromEvent(this.searchInputTerm.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        this.getRecruiterList({
-          searchTerm : this.searchTerm
-        });
-
-      })
-    ).subscribe();
   }
 
   getRecruiterList(obj){
