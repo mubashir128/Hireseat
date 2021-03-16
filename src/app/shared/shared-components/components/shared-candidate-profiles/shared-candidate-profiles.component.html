@@ -55,11 +55,11 @@
     >
       <!-- | shareProfileSearch: searchTerm -->
       <div class="pro">
-        <div class="pro-3">
+        <!-- <div class="pro-3">
           <div class="candProfile">
             <img src="assets/img/profile-user.png" alt="profile" />
           </div>
-        </div>
+        </div> -->
         <div class="pro-1">
       <div class="docSectionBtns lates-s">
         <div class="candidate-name">
@@ -81,13 +81,10 @@
               </div>
             </ng-container>
 
-            <ng-container
-              *ngIf="
-                !resume?.candidate_id?.profileimage &&
-                !resume?.candidateKey?.profileimage
-              "
-            >
-              
+            <ng-container *ngIf="!resume?.candidate_id?.profileimage && !resume?.candidateKey?.profileimage">
+              <div class="candProfile">
+                <img src="assets/img/profile-user.png" alt="profile" />
+              </div>
             </ng-container>
             <div class="user-details">
               <span>
