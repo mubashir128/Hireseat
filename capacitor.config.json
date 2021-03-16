@@ -11,9 +11,10 @@
   },
   "cordova": {},
   "server": {
-    "url": "https://hireseat.com/",
-    "hostname": "app",
+    "hostname": "hireseat",
     "iosScheme": "ionic",
-    "androidScheme": "http"
+    "androidScheme": "https",
+    "allowNavigation": ["https://hireseat.com:5000"]
   }
+
 }
