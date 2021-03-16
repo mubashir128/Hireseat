@@ -29,6 +29,7 @@ export class FirebasePushNotificationService {
 
     let loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
     this.angularFireMessaging.requestToken.subscribe(token=>{
+      Materialize.toast("token : "+token, 4000, "blue");
         this.token = token;
         let payload = {
           pushToken : this.token,
@@ -38,6 +39,7 @@ export class FirebasePushNotificationService {
         this.receiveMessage();
         this.openConnection(payload);
       },(err)=>{
+        Materialize.toast("error : "+err, 4000, "blue");
         console.log("err : ",err);
       });
   }
