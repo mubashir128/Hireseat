@@ -120,7 +120,7 @@
 
         <li class="tab col s3 bx-pager-item resume">
           <a href="#resume" *ngIf = "userRole !== 3" class="bx-pager-link" (click)="addActiveClass($event, 'resume')">Resumes</a>
-          <a href="#resume" *ngIf = "userRole === 3" class="bx-pager-link" (click)="addActiveClass($event, 'resume')">Apply for this iob</a>
+          <a href="#resume" *ngIf = "userRole === 3" class="bx-pager-link" (click)="addActiveClass($event, 'resume')">Apply for this job</a>
           
           <div class="arrow">
             <span>{{ resumecount }}</span>
