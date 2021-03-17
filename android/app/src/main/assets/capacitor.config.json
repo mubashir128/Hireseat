@@ -3,7 +3,11 @@
   "appName": "hire-seat",
   "bundledWebRuntime": false,
   "npmClient": "npm",
+<<<<<<< HEAD
   "webDir": "www",
+=======
+  "webDir": "dist/HireSeat",
+>>>>>>> b1a16753d6c30ac271fdcdc829825b3a9b278210
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
@@ -11,6 +15,7 @@
   },
   "cordova": {},
   "server": {
+<<<<<<< HEAD
     "hostname": "hireseat",
     "iosScheme": "ionic",
     "androidScheme": "https",
@@ -18,3 +23,11 @@
   }
 
 }
+=======
+    "url": "https://hireseat.com/",
+    "hostname": "app",
+    "iosScheme": "ionic",
+    "androidScheme": "http"
+  }
+}
+>>>>>>> b1a16753d6c30ac271fdcdc829825b3a9b278210
