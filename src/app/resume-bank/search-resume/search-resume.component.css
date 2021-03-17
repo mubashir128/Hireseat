@@ -169,4 +169,6 @@ input[type=number] {
     .inputDivMainNN input {
         width: 48%;
     }
+    .row .col.s9 {width:100%}
+    .commonDiv {width: 100% !important;}
 }
