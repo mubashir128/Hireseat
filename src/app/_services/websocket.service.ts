@@ -10,12 +10,13 @@ export class WebsocketService {
   socket: any;
   listeners = [];
   socketUrl: any;
+  socketClose = true;
   constructor(private _firebasePushNotificationService : FirebasePushNotificationService) {
     this.socketUrl = myGlobals.socketUrl;
   }
 
   async getInstance(token: any, userRole: string) {
-    if (this.socket === undefined) {
+    if (this.socketClose) {
       // console.log("calling an instance");
       this.socket = await io(
         this.socketUrl + "?token=" + token + "&userRole=" + userRole,
@@ -23,6 +24,7 @@ export class WebsocketService {
           reconnect: false,
         }
       );
+      this.socketClose = false;
       this.handleWebSocket();
     }
     return this.socket;
@@ -73,7 +75,8 @@ export class WebsocketService {
 
   socketClosed() {
     console.log("closing socket");
-    this.socket.close();
+    this.socketClose = true;
+    this.socket.disconnect();
     this.socket = undefined;
   }
 
