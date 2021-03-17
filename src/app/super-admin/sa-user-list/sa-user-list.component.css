@@ -50,6 +50,8 @@
     margin-right: 0 !important;
     display: flex !important;
     justify-content: center;
+    width: 100%;
+
   }
   .BtnDivBuilding {
     width: 25% !important;
@@ -141,4 +143,11 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 667px) {
+  .inputDivMainN {margin-top: 10px;}
+  .tablink {height: 32px;font-size: 10px !important; width: 39%!important;}
+  .menu-1 {padding-left: 0!important;}
+  .company-name {font-size: 12px !important;}
 }
