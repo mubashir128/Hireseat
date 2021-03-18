@@ -18,7 +18,7 @@ import { BidHighlightsComponent } from "./bid-highlights/bid-highlights.componen
 import { BlogMaiComponent } from "./blog/blog-mai/blog-mai.component";
 import { BlogNavComponent } from "./blog/blog-nav/blog-nav.component";
 import { EditorModule } from "@tinymce/tinymce-angular";
-
+// 
 import { Ng2CompleterModule } from "ng2-completer";
 import { Angular2CsvModule } from "angular2-csv";
 import { RecruiterComponent } from "./recruiter-cost/recruiter/recruiter.component";
