@@ -22,6 +22,7 @@ export class FirebasePushNotificationService {
   
   initiate(){
     // this.requestPermission();
+    Materialize.toast("--- calling method this.requestAndroidDevicePermission() : ", 3000, "blue");
     this.requestAndroidDevicePermission();
   }
 
@@ -29,7 +30,7 @@ export class FirebasePushNotificationService {
     if(FirebasePushNotificationService.push){
       return ;
     }
-    Materialize.toast("PushNotifications.requestPermission() : ", 3000, "blue");
+    Materialize.toast("--- PushNotifications.requestPermission() : "+FirebasePushNotificationService.push, 3000, "blue");
     PushNotifications.requestPermission().then( result => {
       Materialize.toast("result.granted : "+result.granted, 3000, "blue");
       if (result.granted) {
