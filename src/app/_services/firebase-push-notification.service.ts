@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { AngularFireMessaging } from '@angular/fire/messaging';
 import { BehaviorSubject } from 'rxjs';
 import * as myGlobals from "../globalPath";
 declare var Materialize: any;
@@ -17,7 +16,7 @@ export class FirebasePushNotificationService {
   closePushNotifyUrl = "api/closeFirebasePushNotification"
   currentMessage = new BehaviorSubject({});
 
-  constructor(private angularFireMessaging: AngularFireMessaging, private _http: HttpClient) {
+  constructor(private _http: HttpClient) {
   }
   
   initiate(){
@@ -85,13 +84,6 @@ export class FirebasePushNotificationService {
 
   closeConnection(payload){
     FirebasePushNotificationService.push = false;
-    //we r closing it with the help of socket.
-    // this.angularFireMessaging.deleteToken(this.token).subscribe(res=>{
-    //   this.token = '';
-    //   this._http.post(myGlobals.baseUrl+""+this.closePushNotifyUrl, payload).subscribe(res=>{
-    //     FirebasePushNotificationService.push = false;
-    //   });
-    // });
   }
 
 }
