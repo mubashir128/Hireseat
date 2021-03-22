@@ -32,6 +32,7 @@ export class FirebasePushNotificationService {
     this.angularFireMessaging.requestToken.subscribe(token=>{
         this.token = token;
         let payload = {
+          web : true,
           pushToken : this.token,
           userToken : loggedInUser.token,
           userRole : loggedInUser.userInfo.userRole
