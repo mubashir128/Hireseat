@@ -42,7 +42,7 @@ export class FirebasePushNotificationService {
         Materialize.toast("false result.granted : "+result.granted, 3000, "blue");
       }
     }).catch(err=>{
-      Materialize.toast("error : "+err, 3000, "blue");
+      Materialize.toast("--- error is : "+err, 3000, "blue");
     });
 
     // On success, we should be able to receive notifications
