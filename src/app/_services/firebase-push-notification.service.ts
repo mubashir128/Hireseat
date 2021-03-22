@@ -19,6 +19,7 @@ export class FirebasePushNotificationService {
   }
   
   initiate(){
+    //for web.
     this.requestPermission();
   }
 
