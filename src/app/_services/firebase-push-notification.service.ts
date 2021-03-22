@@ -21,6 +21,7 @@ export class FirebasePushNotificationService {
   }
   
   initiate(){
+    //for ios.
     this.requestAndroidDevicePermission();
   }
 
