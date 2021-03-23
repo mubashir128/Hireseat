@@ -21,10 +21,10 @@ export class FirebasePushNotificationService {
   
   initiate(){
     //for ios.
-    this.requestAndroidDevicePermission();
+    this.requestIosDevicePermission();
   }
 
-  requestAndroidDevicePermission(){
+  requestIosDevicePermission(){
     if(FirebasePushNotificationService.push){
       return ;
     }
