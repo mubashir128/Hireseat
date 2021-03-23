@@ -153,8 +153,9 @@ export class HomeComponent implements OnInit {
 
   scrollToNextSlide() {
     //console.log('scrollToNextSlide');
-    let scrollTo: any = jQuery("#slide-2");
-    jQuery("html,body").animate({ scrollTop: scrollTo.offset().top });
+    // let scrollTo: any = jQuery("#slide-2");
+    // jQuery("html,body").animate({ scrollTop: scrollTo.offset().top });
+    this.router.navigate(["/login"]);
   }
 
   createNewAccount(role) {
