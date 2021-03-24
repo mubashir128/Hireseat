@@ -37,6 +37,7 @@ export class FirebasePushNotificationService {
           userToken : loggedInUser.token,
           userRole : loggedInUser.userInfo.userRole
         }
+        console.log("payload : ",payload);
         this.receiveMessage();
         this.openConnection(payload);
       },(err)=>{
