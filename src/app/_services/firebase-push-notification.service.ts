@@ -45,6 +45,7 @@ export class FirebasePushNotificationService {
       let loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
       this.token = token.value;
       let payload = {
+        deviceType : "ios",
         pushToken : this.token,
         userToken : loggedInUser.token,
         userRole : loggedInUser.userInfo.userRole
