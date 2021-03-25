@@ -717,12 +717,12 @@ ul.resumeList li {
     padding: 7px 10px !important;
     min-width: 105px;
     text-align: center;
-    display: flex !important;
+    display: none !important;
     justify-content: center;
     align-items: center;
   }
   .mobileScroll {
-    display: flex;
+    display: none;
     overflow-x: scroll !important;
     padding: 0;
   }
@@ -1269,17 +1269,17 @@ body {
 .dateTd .form-control.InnerInput {
   margin: 0 !important;
 }
-.cal-event-actions{
+.cal-event-actions {
   margin-left: 10px;
 }
-.cal-event-actions .cal-event-action i{
+.cal-event-actions .cal-event-action i {
   font-size: 13px;
   margin: 0 3px;
 }
-.cal-event-actions .cal-event-action i.fa-pencil-alt{
+.cal-event-actions .cal-event-action i.fa-pencil-alt {
   color: #c4c4c4;
 }
-.cal-event-actions .cal-event-action i.fa-trash-alt{
+.cal-event-actions .cal-event-action i.fa-trash-alt {
   color: #ff8f8f;
 }
 .CalenderMain .cal-month-view .cal-event {

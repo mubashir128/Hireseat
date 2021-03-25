@@ -50,12 +50,27 @@ export class CandidateNavbarComponent implements OnInit {
     );
 
     //for mobile view
-    this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters Market Place", true, "fas fa-home"));
-    this.tabs2.push(new Tab2("/candidate/my-profile", "My Profile", false, "fas fa-network-wired"));
-    this.tabs2.push(new Tab2("/candidate/bidding-event-list", "Job Posting", false, "fas fa-plus"));
-    this.tabs2.push(new Tab2("/candidate/menus", "Notification", false, "fas fa-bell"));
-    this.tabs2.push(new Tab2("/candidate/menus", "Menu", false, "fas fa-shopping-bag"));
-    
+    this.tabs2.push(
+      new Tab2("/candidate/all-recruiters", "Recruiters", true, "fas fa-home")
+    );
+    this.tabs2.push(
+      new Tab2(
+        "/candidate/my-profile",
+        "Profile",
+        false,
+        "fas fa-network-wired"
+      )
+    );
+    this.tabs2.push(
+      new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-plus")
+    );
+    this.tabs2.push(
+      new Tab2("/candidate/menus", "Notification", false, "fas fa-bell")
+    );
+    this.tabs2.push(
+      new Tab2("/candidate/menus", "Menu", false, "fas fa-shopping-bag")
+    );
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url === "/candidate/all-recruiters") {
