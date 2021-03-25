@@ -20,12 +20,12 @@
         Receive Free Feedback on your Pitch,<br />
         Resume and Linkedin from Recruiters Specializing in Your Industry
       </h3>
-      <div class="hireSeatBtn">
-        HireSeat
-      </div>
-      <button class="KnowMoreBtn" (click)="scrollToNextSlide()">
-        Login <img src="assets/img/arrow.png" class="arrowImg" />
-      </button>
+      <div class="hireSeatBtn" [routerLink]="['/login']">Login</div>
+      <!-- <button class="KnowMoreBtn"> -->
+      <!-- (click)="scrollToNextSlide()" -->
+      <!-- Login <img src="assets/img/arrow.png" class="arrowImg" /> -->
+      <!-- <a [routerLink]="['/login']">Login</a>
+      </button> -->
     </div>
   </div>
   <!--=========================== 1st section end ===============================-->
