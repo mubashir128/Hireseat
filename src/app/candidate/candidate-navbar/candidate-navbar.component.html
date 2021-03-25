@@ -2,6 +2,16 @@
     <div class="collection overflowUnset mobileScroll">
         <a class="collection-item" [ngClass]="{ active: tab.selected === true }" *ngFor="let tab of tabs1"
             (click)="SelectItem(tab.id)" [routerLink]="[tab.id]">{{ tab.displayText }}</a>
-
     </div>
+       <div class="meni-1">
+           <ul *ngFor="let tab of tabs2">
+
+               <li><a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]"><i [ngClass]="tab.addedClass"></i><br>{{ tab.displayText }}</a></li>
+
+               <!-- <li><a href="#"><i class="fas fa-network-wired"></i><br>Network</a></li>
+               <li><a href="#"><i class="fas fa-plus"></i><br>Post</a></li>
+               <li><a href="#"><i class="fas fa-bell"></i><br>Notification</a></li>
+               <li><a href="#"><i class="fas fa-shopping-bag"></i><br>jobs</a></li> -->
+           </ul>
+       </div>
 </header>
