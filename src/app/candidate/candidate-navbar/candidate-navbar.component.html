@@ -4,12 +4,14 @@
             (click)="SelectItem(tab.id)" [routerLink]="[tab.id]">{{ tab.displayText }}</a>
     </div>
        <div class="meni-1">
-           <ul>
-               <li><a href="#"><i class="fas fa-home"></i><br>Home</a></li>
-               <li><a href="#"><i class="fas fa-network-wired"></i><br>Network</a></li>
+           <ul *ngFor="let tab of tabs2">
+
+               <li><a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]"><i [ngClass]="tab.addedClass"></i><br>{{ tab.displayText }}</a></li>
+
+               <!-- <li><a href="#"><i class="fas fa-network-wired"></i><br>Network</a></li>
                <li><a href="#"><i class="fas fa-plus"></i><br>Post</a></li>
                <li><a href="#"><i class="fas fa-bell"></i><br>Notification</a></li>
-               <li><a href="#"><i class="fas fa-shopping-bag"></i><br>jobs</a></li>
+               <li><a href="#"><i class="fas fa-shopping-bag"></i><br>jobs</a></li> -->
            </ul>
        </div>
 </header>
