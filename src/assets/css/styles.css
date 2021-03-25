@@ -717,12 +717,12 @@ ul.resumeList li {
     padding: 7px 10px !important;
     min-width: 105px;
     text-align: center;
-    display: none !important;
+    display: flex !important;
     justify-content: center;
     align-items: center;
   }
   .mobileScroll {
-    display: none;
+    display: flex;
     overflow-x: scroll !important;
     padding: 0;
   }
