@@ -1,7 +1,7 @@
 .collection .collection-item {
   position: relative;
 }
-.mobileScroll a.collection-item {
+/* .mobileScroll a.collection-item {
   padding: 7px 10px !important;
   min-width: 105px;
   text-align: center;
@@ -13,7 +13,7 @@
   display: none !important;
   overflow-x: scroll !important;
   padding: 0;
-}
+} */
 /* .collection .collection-item:last-child::after{
     content: "6";
     position: absolute;
@@ -56,6 +56,19 @@
     text-transform: uppercase;
     color: #fff;
   }
+  .mobileScroll a.collection-item {
+    padding: 7px 10px !important;
+    min-width: 105px;
+    text-align: center;
+    display: none !important;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobileScroll {
+    display: none !important;
+    overflow-x: scroll !important;
+    padding: 0;
+  }
 }
 @media (max-width: 570px) {
   .meni-1 ul li {
@@ -97,5 +110,18 @@
   }
   .meni-1 ul li a {
     font-size: 12px;
+  }
+  .mobileScroll a.collection-item {
+    padding: 7px 10px !important;
+    min-width: 105px;
+    text-align: center;
+    display: none !important;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobileScroll {
+    display: none !important;
+    overflow-x: scroll !important;
+    padding: 0;
   }
 }
