@@ -65,7 +65,7 @@ export class CandidateNavbarComponent implements OnInit {
       new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-plus")
     );
     this.tabs2.push(
-      new Tab2("/candidate/menus", "Notification", false, "fas fa-bell")
+      new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
     );
     this.tabs2.push(
       new Tab2("/candidate/menus", "Menu", false, "fas fa-shopping-bag")
