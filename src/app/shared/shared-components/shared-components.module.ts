@@ -58,6 +58,8 @@ import { CreateJobProfileComponent } from "../../employer/create-job-profile/cre
 import { JobProfileListComponent } from "../../employer/job-profile-list/job-profile-list.component";
 import { EditJobProfileComponent } from "../../employer/edit-job-profile/edit-job-profile.component";
 import { MomentModule } from 'ngx-moment';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { MenusComponent } from './components/menus/menus.component';
 
 @NgModule({
   imports: [
@@ -139,7 +141,9 @@ import { MomentModule } from 'ngx-moment';
     CreateBiddingEventComponent,
     CreateJobProfileComponent,
     JobProfileListComponent,
-    EditJobProfileComponent
+    EditJobProfileComponent,
+    NotificationsComponent,
+    MenusComponent
   ],
   exports: [
     FooterComponent,

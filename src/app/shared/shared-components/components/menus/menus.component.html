@@ -1,0 +1,5 @@
+<p>Menus</p>
+
+<ul *ngFor="let tab of tabs2">
+    <li><a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]"><i [ngClass]="tab.addedClass"></i><br>{{ tab.displayText }}</a></li>
+</ul>
