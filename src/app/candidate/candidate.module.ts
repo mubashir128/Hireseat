@@ -11,8 +11,6 @@ import { MyReviewedProfilesComponent } from './my-reviewed-profiles/my-reviewed-
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProfileItemsComponent } from './profile-items/profile-items.component';
-import { MenusComponent } from './menus/menus.component';
-
 
 @NgModule({
   declarations: [
@@ -21,8 +19,7 @@ import { MenusComponent } from './menus/menus.component';
     CandidateHomeComponent,
     MyReviewedProfilesComponent,
     ViewProfileComponent,
-    ProfileItemsComponent,
-    MenusComponent
+    ProfileItemsComponent
   ],
   imports: [
     CommonModule,
