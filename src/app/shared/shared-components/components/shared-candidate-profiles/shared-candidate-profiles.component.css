@@ -816,9 +816,12 @@ a.videoCloseBtn {
 .set-one { width: 100% !important;}
 .CandidateDetails{width: 100%; display: block;}
 .candidate-name {width: 100%;}
-.pro-1{ width: 100% !important;}
+.pro-1{ width: 70% !important;}
 .pro-2{ width: 100% !important;}
 .commonSingleInner {width: 100% !important;}
+.pro-3 {width: 17%;}
+.PointsDivSingle h4 { font-size: 10px; font-weight: 200;}
+.candidate-name p {font-size: .8rem;}
   
 }
 @media (max-width: 1020px){
@@ -829,11 +832,12 @@ a.videoCloseBtn {
   .pro-1{ width: 100% !important;}
   .pro-2{ width: 100% !important;}
   .pro-3{ width:100% !important;}
+  
 }
 @media (max-width: 1440px){
   .pro-1{ width: 53%;}
   .pro-2{ width: 34%;}
-  .pro-3{ width: 10%;}
+  .pro-3{ width: 26%;}
   .pro .candProfile{
     width: 52px;
     height: 52px;
