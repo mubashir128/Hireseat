@@ -121,61 +121,10 @@
         </li>
         <!-- <li *ngIf="isEmployer && isLoggedIn "><a [routerLink]="['/home/TheRockRec']">The Rockstar Recruiter Community</a> -->
 
-        <ng-container id="notify" *ngIf="show && !isAdmin && isLoggedIn">
-          <div class="notificationList">
-            <div class="notificationListInner">
-              <div class="hederNotification">
-                <h4>Notification</h4>
-                <div class="col" class="clearNotification1" *ngIf = "notificationAre.length > 0">
-                  <i class="fa fa-close" noClose = "true" tooltip="tootip on right" placement="right" aria-hidden="true" (click)="deleteAllNotification()"></i>
-                </div>
-              </div>
-              <div
-                class="scrollNotification"
-                infiniteScroll
-                [infiniteScrollDistance]="1"
-                [infiniteScrollThrottle]="100"
-                [infiniteScrollContainer]="selector"
-                [fromRoot]="true"
-                (scrolled)="onScroll()"
-              >
-                <ul>
-                  <li *ngFor="let notify of notificationAre">
-
-                    <div class="col" class="clearNotification">
-                      <i class="fa fa-trash" noClose = "true" aria-hidden="true" (click)="deleteNotification(notify._id)"></i>
-                    </div>
-                    
-                    <div class="notificaationDateTime">
-                      <!-- {{notify.createdAt | date:'dd/MM/yyyy HH:mm:ss.SS'}} -->
-                      {{notify.updatedAt | amTimeAgo}}
-                      <!-- {{notify.createdAt | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a'}} -->
-                    </div>
-                    <a
-                      (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2)"
-                      [routerLink]=""
-                      routerLinkActive="notification-content"
-                      [innerHtml]="truncateHTML(notify.notification.message)"
-                      >{{ notify.notification.message }}
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </ng-container>
-
-        <li *ngIf="!isAdmin && isLoggedIn">
-          <a (click)="toggle()">
-            <h4 class="count" *ngIf="notificationLength > 0">
-              {{ notificationLength}}
-            </h4>
-            <img
-              src="assets/img/Notification-512.png"
-              style="vertical-align: middle; height: 30px; width: 30px"
-            />
-          </a>
+        <li>
+          <app-notifications></app-notifications>
         </li>
+        
         <li
           *ngIf="
             isLoggedIn &&
