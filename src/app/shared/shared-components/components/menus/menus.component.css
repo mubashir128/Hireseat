@@ -1,10 +1,42 @@
-.menu { width: 100%;}
-.menu ul { margin: 0; padding: 0;}
-.menu ul li { background: #fff; padding: 10px; margin-bottom: 10px;box-shadow: -3px 9px 21px -6px rgba(153,142,142,0.8);
-    -webkit-box-shadow: -3px 9px 21px -6px rgba(153,142,142,0.8);
-    -moz-box-shadow: -3px 9px 21px -6px rgba(153,142,142,0.8);}
-.menu ul li a { font-size: 18px; color: #0aafff; font-weight: 100;}
-.menu i { padding-right: 10px; color: #0aafff;}
-.menu h4 { background: #0aafff; padding: 10px; font-size: 20px; color: #fff;}
-.menu ul li:hover { background: #48aef3; color: #fff !important; display: block;}
-.menu ul a:hover { color: #fff !important;}
+.menu {
+  width: 100%;
+}
+.menu ul {
+  margin: 0;
+  padding: 0;
+}
+.menu ul li {
+  background: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: -3px 9px 21px -6px rgba(153, 142, 142, 0.8);
+  -webkit-box-shadow: -3px 9px 21px -6px rgba(153, 142, 142, 0.8);
+  -moz-box-shadow: -3px 9px 21px -6px rgba(153, 142, 142, 0.8);
+}
+.menu ul li a {
+  font-size: 18px;
+  color: #0aafff;
+  font-weight: 100;
+}
+.menu i {
+  padding-right: 10px;
+  color: #0aafff;
+}
+.menu h4 {
+  background: #0aafff;
+  padding: 10px;
+  font-size: 20px;
+  color: #fff;
+}
+.menu ul li:hover {
+  background: #48aef3;
+  color: #fff !important;
+  display: block;
+}
+.menu ul a:hover {
+  color: #fff !important;
+}
+.active {
+  color: #0aafff;
+  background: white;
+}

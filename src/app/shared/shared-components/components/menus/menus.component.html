@@ -1,7 +1,11 @@
 <div class="menu">
   <ul *ngFor="let tab of tabs2">
     <li>
-      <a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]"
+      <a
+        (click)="SelectItem2(tab.id)"
+        [routerLink]="[tab.id]"
+        routerLinkActive="active"
+        [ngClass]="{ active: tab.selected === true }"
         ><i [ngClass]="tab.addedClass"></i>{{ tab.displayText }}</a
       >
     </li>
