@@ -1,10 +1,13 @@
- <!-- <p>Menus</p>
-
-<ul *ngFor="let tab of tabs2">
-    <li><a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]"><i [ngClass]="tab.addedClass"></i><br>{{ tab.displayText }}</a></li>
-</ul>  -->
-
 <div class="menu">
+  <ul *ngFor="let tab of tabs2">
+    <li>
+      <a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]"
+        ><i [ngClass]="tab.addedClass"></i>{{ tab.displayText }}</a
+      >
+    </li>
+  </ul>
+</div>
+<!-- <div class="menu">
     <h4>Menus</h4>
     <ul>
         <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
@@ -16,4 +19,4 @@
         <li><a href="#"><i class="fas fa-male"></i>My Posted Profiles</a></li>
 
     </ul>
-</div>
+</div> -->
