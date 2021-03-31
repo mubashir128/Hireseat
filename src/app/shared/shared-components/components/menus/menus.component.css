@@ -1,0 +1,10 @@
+.menu { width: 100%;}
+.menu ul { margin: 0; padding: 0;}
+.menu ul li { background: #fff; padding: 10px; margin-bottom: 10px; box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.74);
+    -webkit-box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.74);
+    -moz-box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.74);}
+.menu ul li a { font-size: 18px; color: #010101; }
+.menu i { padding-right: 10px;}
+.menu h4 { background: #000; padding: 10px; font-size: 20px; color: #fff;}
+.menu ul li:hover { background: #48aef3; color: #fff !important; display: block;}
+.menu ul a:hover { color: #fff !important;}
