@@ -325,7 +325,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       console.log(res);
     });
   }
-  
+
   seeExampleModal() {
     jQuery("#seeExample").modal("open");
   }
@@ -391,15 +391,20 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       // }
       // return invalid;
       let payLoad = {
-        _id : this.candidateProfile._id
+        _id: this.candidateProfile._id,
       };
-      this.editCandidateProfileSubscription = this.candidateService.sharedCandidateProfile(payLoad).subscribe((res) => {
-          if (res) {
-            Materialize.toast(res.msg, 1000);
+      this.editCandidateProfileSubscription = this.candidateService
+        .sharedCandidateProfile(payLoad)
+        .subscribe(
+          (res) => {
+            if (res) {
+              Materialize.toast(res.msg, 1000);
+            }
+          },
+          (err) => {
+            Materialize.toast("Something Went Wrong !", 1000);
           }
-        }, (err) => {
-          Materialize.toast("Something Went Wrong !", 1000);
-        });
+        );
     }
   }
 }
