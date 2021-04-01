@@ -7,6 +7,7 @@ import { RewardSummary } from "src/app/profile/model/reward-summary";
 import { IProfile, Profile } from "src/app/profile/model/user-profile";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { Subject } from "rxjs";
+import { Tab2 } from "../models/tab2";
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -19,6 +20,7 @@ export class RecruiterNavbarComponent implements OnInit {
   @ViewChild("ratingPoints", { static: true }) ratingPoints: ElementRef;
 
   tabs1: Tab[];
+  tabs2: Tab2[];
   public userProfile: IProfile;
   public PointsSummary = new RewardSummary();
 
@@ -51,6 +53,8 @@ export class RecruiterNavbarComponent implements OnInit {
     });
 
     this.tabs1 = [];
+    this.tabs2 = [];
+
     this.userProfile = new Profile();
 
     this.tabs1.push(
@@ -81,6 +85,29 @@ export class RecruiterNavbarComponent implements OnInit {
       new Tab("/recruiter/video-interview-room", "Video Interview Room", false)
     );
     this.tabs1.push(new Tab("/recruiter/calendar", "Calendar", false));
+
+     //for mobile view
+     this.tabs2.push(
+      new Tab2("/recruiter/all-recruiters", "Recruiters", true, "fas fa-home")
+    );
+    this.tabs2.push(
+      new Tab2(
+        "/recruiter/profile",
+        "Profile",
+        false,
+        "fas fa-network-wired"
+      )
+    );
+    this.tabs2.push(
+      new Tab2("/recruiter/bidding-event-list", "Jobs", false, "fas fa-plus")
+    );
+    this.tabs2.push(
+      new Tab2("/recruiter/notification", "Notification", false, "fas fa-bell")
+    );
+    this.tabs2.push(
+      new Tab2("/recruiter/menus", "Menu", false, "fas fa-shopping-bag")
+    );
+
   }
 
   ngOnInit() {
