@@ -86,18 +86,11 @@ export class RecruiterNavbarComponent implements OnInit {
     );
     this.tabs1.push(new Tab("/recruiter/calendar", "Calendar", false));
 
-     //for mobile view
-     this.tabs2.push(
-      new Tab2("/recruiter/all-recruiters", "Recruiters", true, "fas fa-home")
-    );
+    //for mobile view
     this.tabs2.push(
-      new Tab2(
-        "/recruiter/profile",
-        "Profile",
-        false,
-        "fas fa-network-wired"
-      )
+      new Tab2("/recruiter/dashboard", "Dashboard", true, "fas fa-home")
     );
+    this.tabs2.push(new Tab2("/recruiter/share-candidate-profile", "Shared Profiles", false, "fas fa-shopping-bag"));
     this.tabs2.push(
       new Tab2("/recruiter/bidding-event-list", "Jobs", false, "fas fa-plus")
     );
