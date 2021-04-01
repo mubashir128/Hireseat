@@ -59,14 +59,14 @@ img.greenArrowIcon {
 }
 
 .listDiv {
-    position: absolute;
-    width: 150px;
-    left: 100%;
-    top: 0;
-    z-index: 9;
-    border: 1px solid #ddd;
-	display:none;
-	background-color: #f8f8f8;
+  position: absolute;
+  width: 150px;
+  left: 100%;
+  top: 0;
+  z-index: 9;
+  border: 1px solid #ddd;
+  display: none;
+  background-color: #f8f8f8;
 }
 .listDiv ul {
   margin: 0 0;
@@ -120,43 +120,43 @@ img.greenArrowIcon {
 	margin-top: -36px;
 } */
 .pointAdded {
-    position: relative;
+  position: relative;
 }
-.increaPoint{
-    /* right: 0;
+.increaPoint {
+  /* right: 0;
     position: absolute;
     top: 0;
     margin: 5px 0;
     font-size: 12px;
     color: #ff9100;
     font-weight: bold; */
-    right: 0;
-    position: absolute;
-    top: 0;
-    margin: 5px 0;
-    font-size: 11px;
-    color: #ffffff;
-    background-color: #ff9100;
-    border-radius: 10px;
-    font-weight: bold;
-    padding: 2px 5px;
+  right: 0;
+  position: absolute;
+  top: 0;
+  margin: 5px 0;
+  font-size: 11px;
+  color: #ffffff;
+  background-color: #ff9100;
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
 }
-.increaPoint i{
-    color: #ffffff;
-    font-size: 9px;
+.increaPoint i {
+  color: #ffffff;
+  font-size: 9px;
 }
-h4.pointAdded .increaPoint{
-    margin: 0;
-    font-size: 10px;
+h4.pointAdded .increaPoint {
+  margin: 0;
+  font-size: 10px;
 }
-h4.pointAdded .increaPoint i{
-    font-size: 8px;
+h4.pointAdded .increaPoint i {
+  font-size: 8px;
 }
-.rewardImg{
- transition:0.5s;
+.rewardImg {
+  transition: 0.5s;
 }
-.rewardImg.animated{
-    transform: scale(1.3);
+.rewardImg.animated {
+  transform: scale(1.3);
 }
 
 .change-toRed {
@@ -171,7 +171,9 @@ h4.pointAdded .increaPoint i{
 .meni-1 {
   display: none;
 }
-.meni-1 ul li a:active { background: #0c3e68;}
+.meni-1 ul li a:active {
+  background: #0c3e68;
+}
 @media only screen and (min-width: 320px) and (max-width: 667px) {
   .meni-1 {
     display: block;
@@ -189,7 +191,7 @@ h4.pointAdded .increaPoint i{
     position: fixed;
     background-color: #3fa9f5;
     z-index: 9999;
-    width: 90%;
+    width: 100%;
     bottom: 0;
   }
   .meni-1 a {
@@ -217,7 +219,6 @@ h4.pointAdded .increaPoint i{
   }
 }
 @media (max-width: 570px) {
- 
 }
 @media (max-width: 460px) {
   .meni-1 ul li {
@@ -225,7 +226,6 @@ h4.pointAdded .increaPoint i{
   }
 }
 @media (max-width: 420px) {
-  
   .meni-1 ul li {
     padding: 4px 12px;
   }
@@ -234,7 +234,6 @@ h4.pointAdded .increaPoint i{
   }
 }
 @media (max-width: 414px) {
-  
   .meni-1 ul li {
     padding: 4px 11px;
   }
