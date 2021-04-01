@@ -7,6 +7,7 @@ import { RewardSummary } from "src/app/profile/model/reward-summary";
 import { IProfile, Profile } from "src/app/profile/model/user-profile";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { Subject } from "rxjs";
+import { Tab2 } from "../models/tab2";
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -19,6 +20,7 @@ export class RecruiterNavbarComponent implements OnInit {
   @ViewChild("ratingPoints", { static: true }) ratingPoints: ElementRef;
 
   tabs1: Tab[];
+  tabs2: Tab2[];
   public userProfile: IProfile;
   public PointsSummary = new RewardSummary();
 
@@ -32,7 +34,6 @@ export class RecruiterNavbarComponent implements OnInit {
      * subcription incresed points
      */
     this.userService._setProfileObservable.subscribe((data) => {
-
       if (data !== null) {
         this.userProfile = data;
         this.animateValue(
@@ -51,20 +52,20 @@ export class RecruiterNavbarComponent implements OnInit {
     });
 
     this.tabs1 = [];
+    this.tabs2 = [];
+
     this.userProfile = new Profile();
 
+    this.tabs1.push(new Tab("/recruiter/dashboard", "Dashboard", true));
     this.tabs1.push(
-      new Tab("/recruiter/dashboard", "Dashboard", true)
-    );
-    this.tabs1.push(
-      new Tab("/recruiter/share-candidate-profile", "Shared Profiles", false)
+      new Tab("/recruiter/share-candidate-profile", "Candidates", false)
     );
     this.tabs1.push(
       new Tab("/recruiter/all-recruiters", "Recruiters Market Place", false)
     );
     this.tabs1.push(
-      new Tab( "/recruiter/job-profile-list","Job Profiles", false),
-    )
+      new Tab("/recruiter/job-profile-list", "Job Profiles", false)
+    );
 
     this.tabs1.push(
       new Tab("/recruiter/bidding-event-list", "Job Postings", false)
@@ -78,8 +79,29 @@ export class RecruiterNavbarComponent implements OnInit {
     this.tabs1.push(
       new Tab("/recruiter/video-interview-room", "Video Interview Room", false)
     );
+    this.tabs1.push(new Tab("/recruiter/calendar", "Calendar", false));
 
-    // this.tabs1.push(new Tab("/recruiter/calendar", "Calendar", false));
+    //for mobile view
+    this.tabs2.push(
+      new Tab2("/recruiter/dashboard", "Dashboard", true, "fas fa-home")
+    );
+    this.tabs2.push(
+      new Tab2(
+        "/recruiter/share-candidate-profile",
+        "Candidates",
+        false,
+        "fas fa-shopping-bag"
+      )
+    );
+    this.tabs2.push(
+      new Tab2("/recruiter/bidding-event-list", "Jobs", false, "fas fa-plus")
+    );
+    this.tabs2.push(
+      new Tab2("/recruiter/notification", "Notification", false, "fas fa-bell")
+    );
+    this.tabs2.push(
+      new Tab2("/recruiter/menus", "Menu", false, "fas fa-shopping-bag")
+    );
   }
 
   ngOnInit() {
@@ -92,7 +114,7 @@ export class RecruiterNavbarComponent implements OnInit {
     this.SelectItem(this.router.url);
     this.getUsersProfile();
 
-    if(this.router.url === "/recruiter"){
+    if (this.router.url === "/recruiter") {
       this.tabs1[0].selected = true;
     }
 
@@ -105,19 +127,19 @@ export class RecruiterNavbarComponent implements OnInit {
     });
   }
 
-  handleRecruiterPoints(res){
-    switch(res.pointer){
-      case "advicePoints" : 
-      if(res.subType === "divide"){
-        this.userProfile[res.pointer] = res.increseCount;
-      }else{
-        this.userProfile[res.pointer] += res.increseCount;
-      }
-      break;
-      case "ratingPoints" :
+  handleRecruiterPoints(res) {
+    switch (res.pointer) {
+      case "advicePoints":
+        if (res.subType === "divide") {
+          this.userProfile[res.pointer] = res.increseCount;
+        } else {
+          this.userProfile[res.pointer] += res.increseCount;
+        }
+        break;
+      case "ratingPoints":
         this.userProfile[res.pointer] += res.increseCount;
         break;
-      case "sharePoints" :
+      case "sharePoints":
         this.userProfile[res.pointer] += res.increseCount;
         break;
     }
@@ -162,9 +184,9 @@ export class RecruiterNavbarComponent implements OnInit {
 
   SelectItem(item) {
     this.tabs1.forEach((tab) => {
-      if (tab.id === item){
+      if (tab.id === item) {
         tab.selected = true;
-      }else{
+      } else {
         tab.selected = false;
       }
     });

@@ -18,6 +18,8 @@ import { CreateBiddingEventComponent } from "../employer/create-bidding-event/cr
 import { CreateJobProfileComponent } from "../employer/create-job-profile/create-job-profile.component";
 import { JobProfileListComponent } from "../employer/job-profile-list/job-profile-list.component";
 import { EditJobProfileComponent } from "../employer/edit-job-profile/edit-job-profile.component";
+import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
+import { MenusComponent } from "../shared/shared-components/components/menus/menus.component";
 
 const routes: Routes = [
   {
@@ -95,6 +97,14 @@ const routes: Routes = [
       {
         path: "edit-job-profile",
         component: EditJobProfileComponent,
+      },
+      {
+        path: "notification",
+        component: NotificationsComponent,
+      },
+      {
+        path: "menus",
+        component: MenusComponent,
       },
     ],
     // canActivate: [RecruiterGuard]
