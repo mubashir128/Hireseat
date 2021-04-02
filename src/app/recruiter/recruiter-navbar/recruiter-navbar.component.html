@@ -27,9 +27,10 @@
 <div class="meni-1">
   <ul *ngFor="let tab of tabs2">
     <li>
-      <a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]"
-        ><i [ngClass]="tab.addedClass"></i><br />{{ tab.displayText }}</a
-      >
+      <a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]">
+        <!-- <i [ngClass]="tab.addedClass"></i><br />{{ tab.displayText }} -->
+        <i [ngClass]="tab.addedClass"></i><br />
+      </a>
     </li>
   </ul>
 </div>
