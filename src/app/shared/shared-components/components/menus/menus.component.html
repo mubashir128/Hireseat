@@ -1,5 +1,26 @@
-<p>Menus</p>
+<div class="menu">
+  <ul *ngFor="let tab of tabs2">
+    <li>
+      <a
+        (click)="SelectItem2(tab.id)"
+        [routerLink]="[tab.id]"
+        routerLinkActive="active"
+        [ngClass]="{ active: tab.selected === true }"
+        ><i [ngClass]="tab.addedClass"></i>{{ tab.displayText }}</a
+      >
+    </li>
+  </ul>
+</div>
+<!-- <div class="menu">
+    <h4>Menus</h4>
+    <ul>
+        <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="#"><i class="fas fa-network-wired"></i>Ask a Recruiter </a></li>
+        <li><a href="#"><i class="fas fa-plus"></i>Candidate</a></li>
+        <li><a href="#"><i class="fab fa-blogger-b"></i>Blog</a></li>
+        <li><a href="#"><i class="fas fa-user-alt"></i> My Reviews Profiles</a></li>
+        <li><a href="#"><i class="fas fa-shopping-bag"></i> Interview Room</a></li>
+        <li><a href="#"><i class="fas fa-male"></i>My Posted Profiles</a></li>
 
-<ul *ngFor="let tab of tabs2">
-    <li><a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]"><i [ngClass]="tab.addedClass"></i><br>{{ tab.displayText }}</a></li>
-</ul>
+    </ul>
+</div> -->

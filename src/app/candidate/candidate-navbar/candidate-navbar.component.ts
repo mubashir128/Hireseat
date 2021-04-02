@@ -68,7 +68,7 @@ export class CandidateNavbarComponent implements OnInit {
       new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
     );
     this.tabs2.push(
-      new Tab2("/candidate/menus", "Menu", false, "fas fa-shopping-bag")
+      new Tab2("/candidate/menus", "Menu", false, "fas fa-bars")
     );
 
     this.router.events.subscribe((event) => {
@@ -115,8 +115,11 @@ export class CandidateNavbarComponent implements OnInit {
   //for mobile view
   SelectItem2(item) {
     this.tabs2.forEach((tab) => {
-      if (tab.id === item) tab.selected = true;
-      else tab.selected = false;
+      if (tab.id === item){
+        tab.selected = true;
+      }else{
+        tab.selected = false;
+      } 
     });
   }
 

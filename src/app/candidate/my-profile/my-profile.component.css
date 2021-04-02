@@ -933,3 +933,15 @@ iframe.interviewVideo {
   color: red;
   font-weight: 900;
 }
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+  .disF { display: block;}
+  .section-header {padding-bottom: 10px;}
+  .btn-accept { margin-bottom: 10px;}
+  .waves-effect { margin-top: 10px;}
+  .resumePriviewDiv { background: transparent;}
+  .btn-accept { margin-top: 10px;}
+  .late-mobile { width: 100% !important;}
+  .l6 { width: 100% !important;}
+}

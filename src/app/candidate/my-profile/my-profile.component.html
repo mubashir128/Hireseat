@@ -78,7 +78,9 @@
               formControlName="shareProfile"
               (change)="checkRequiredField($event)"
             />
-            <label class="my-profile" for="post">Make My Profile Visible to Recruiters </label>
+            <label class="my-profile" for="post"
+              >Make My Profile Visible to Recruiters
+            </label>
           </div>
         </div>
         <button type="submit" class="waves-effect waves-light btn">Save</button>
@@ -178,22 +180,40 @@
                   </span>
                 </span>
               </div>
-              <textarea rows="4" formControlName="comments"></textarea>
+              <textarea
+                rows="4"
+                maxlength="140"
+                formControlName="comments"
+              ></textarea>
+              <textarea
+                rows="4"
+                maxlength="140"
+                formControlName="comment2"
+              ></textarea>
+              <textarea
+                rows="4"
+                maxlength="140"
+                formControlName="comment3"
+              ></textarea>
             </div>
 
             <div class="input-field col s12 m12 l12">
               <i class="fa fa-industry" aria-hidden="true"></i>
-              <span class="resume-subtitle">
-                  Industries
-              </span>
-              <div *ngFor = "let item of industriesAre; let i = index">
-                <div class="row col s4 m4 l4">
+              <span class="resume-subtitle"> Industries </span>
+              <div *ngFor="let item of industriesAre; let i = index">
+                <div class="row col s4 m4 l4 late-mobile">
                   <div class="actionDiv">
                     <label class="CheckBoxcontainer">
-                      <input type="checkbox" name="IT" formControlName="item.name" (change)="handleIndustries($event, item._id)" [checked]="item.valueType">
+                      <input
+                        type="checkbox"
+                        name="IT"
+                        formControlName="item.name"
+                        (change)="handleIndustries($event, item._id)"
+                        [checked]="item.valueType"
+                      />
                       <span class="checkmark"></span>
                       <span class="industrieName">
-                        {{item.name}}
+                        {{ item.name }}
                       </span>
                     </label>
                   </div>
@@ -344,10 +364,15 @@
             <div class="input-field col s6 m6 l6">
               <div>
                 <span
-                [ngClass]="
-                    editProfile.value.desiredRoles ? 'resume-subtitle' : 'change'
+                  [ngClass]="
+                    editProfile.value.desiredRoles
+                      ? 'resume-subtitle'
+                      : 'change'
                   "
-                class="resume-subtitle"> Desired Roles </span>
+                  class="resume-subtitle"
+                >
+                  Desired Roles
+                </span>
               </div>
               <input
                 id="candidate-name"
@@ -356,7 +381,7 @@
                 formControlName="desiredRoles"
               />
             </div>
-            <div class="input-field col s6 m6 l6">
+            <!-- <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span class="resume-subtitle">
@@ -369,7 +394,7 @@
                 class="validate"
                 formControlName="totalWorkExpMonths"
               />
-            </div>
+            </div> -->
 
             <div class="input-field col s6 m6 l6">
               <div>
@@ -386,7 +411,7 @@
               />
             </div>
             <!--  -->
-            <div class="input-field col s12 m12 l12">
+            <!-- <div class="input-field col s12 m12 l12">
               <div>
                 <i class="fa fa-users" aria-hidden="true"></i>
                 <span class="resume-subtitle">
@@ -413,9 +438,9 @@
                   />
                 </div>
               </div>
-            </div>
+            </div> -->
             <!--  -->
-            <div class="input-field col s6 m6 l6">
+            <!-- <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span class="resume-subtitle"> Current Location </span>
@@ -426,7 +451,7 @@
                 class="validate"
                 formControlName="location"
               />
-            </div>
+            </div> -->
             <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -440,7 +465,7 @@
               />
             </div>
             <!--  -->
-            <div class="input-field col s12 m12 l12 iv">
+            <!-- <div class="input-field col s12 m12 l12 iv">
               <div class="subTitle">
                 <span class="resume-subtitle"> Referrals </span>
               </div>
@@ -551,7 +576,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -561,11 +586,6 @@
         <button type="submit" class="waves-effect waves-light btn">Save</button>
       </div>
     </form>
-  </div>
-  <div class="card red-text" style="margin-top: 30px; padding: 30px">
-    Please Note! To ensure that other recruiters do not reach out to your
-    candidate, please delete contact information from your candidate's resume
-    before uploading.
   </div>
 </div>
 

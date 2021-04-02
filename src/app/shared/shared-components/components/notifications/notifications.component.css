@@ -1,0 +1,233 @@
+.noti {display: none !important;}
+
+
+
+.notificationListOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 70px;
+  left: 0;
+}
+
+.notificationList {
+  position: absolute;
+  width: 400px;
+  /* height: 400px; */
+  height: auto;
+  right: 0;
+  padding: 0px 0px;
+  top: 70px;
+  z-index: 999999;
+  /* border: 1px solid #1c6fa9; */
+  /* background-color: #48aef3; */
+  background-color: #ffffff;
+  box-shadow: 0 0 6px #99999987;
+  border-radius: 5px;
+  border: 1px solid #33aaff;
+}
+
+.notificationList li {
+  display: block;
+  color: #000;
+  width: 100%;
+  margin: 0;
+  line-height: 2;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+h4.count {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: bold;
+  right: 5px;
+  top: -10px;
+}
+
+.notificationListInner {
+  position: relative;
+}
+
+.notificationListInner:after,
+.notificationListInner:before {
+  bottom: 100%;
+  /* left: 56%; */
+  right: 5%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.notificationListInner ul a {
+  padding: 8px 20px !important;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 15px;
+  font-weight: normal;
+  /* background-color: #f4f4f4; */
+  background-color: #ffffff;
+}
+
+.notificationListInner ul a:hover {
+  background-color: #e5f4ff;
+}
+
+.notificationListInner:after {
+  border-color: rgba(136, 183, 213, 0);
+  /* border-bottom-color: #1c6fa9; */
+  border-bottom-color: #33aaff;
+  border-width: 17px;
+  top: -34px;
+}
+
+.notificationListInner ul {
+  /* max-height: 400px; */
+  overflow-y: auto;
+  /* min-height: 130px; */
+}
+
+.notification-content {
+  background-color: #ffffff !important;
+}
+.notification-content:hover {
+  background-color: #e5f4ff !important;
+}
+/* width */
+.notificationListInner ul::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.notificationListInner ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.notificationListInner ul::-webkit-scrollbar-thumb {
+  background: #fff;
+}
+
+/* Handle on hover */
+.notificationListInner ul::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+.hederNotification {
+  border-bottom: 1px solid #fff;
+  padding: 10px 20px;
+  /* background-color: #1a6ca5f2; */
+  background-color: #33aaff;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.hederNotification h4 {
+  margin: 0;
+  /* padding: 10px 0px; */
+  font-size: 20px;
+  /* font-weight: bold; */
+}
+
+.scrollNotification {
+  max-height: 400px;
+  overflow: auto;
+  position: relative;
+  border-radius: 5px;
+}
+
+.scrollNotification:hover {
+  overflow-y: auto;
+}
+
+.scrollNotification::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 30px;
+}
+
+.scrollNotification::-webkit-scrollbar-thumb {
+  width: 12px;
+  background-color: #a8a2a0; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+.scrollNotification::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 30px;
+}
+
+/* .notificaationDateTime{
+  float: right;
+  font-size: 10px;
+  font-weight: initial;
+  font-family: 'Roboto';
+  font-style: oblique;
+  margin-right: 10px;
+  margin-top: 25px;
+} */
+
+.notificaationDateTime{
+  float: right;
+  font-size: 10px;
+  font-weight: initial;
+  font-family: Roboto;
+  font-style: revert;
+  margin-right: 10px;
+  margin-top: 25px;
+}
+
+.clearNotification{
+  float: right;
+  margin-right: 25px;
+  width: 0px;
+  margin-top: -20px;
+  height: 15px;
+}
+
+.clearNotification i {
+  color: #b2b1b0;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.clearNotification1{
+  float: right;
+  margin-right: 5px;
+  width: 0px;
+  margin-top: -40px;
+  height: 21px;
+}
+
+.clearNotification1 i {
+  margin-right: 6px;
+  cursor: pointer;
+  color: white;
+}
+
+.scrollNotification ul a {
+    color: #1c2d41;
+    /* padding: 0 20px; */
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.noticatin-a {display: none;}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .noticatin-a {display: block;}
+.noticatin-a { background-color: #fff; padding: 10px; box-shadow: -1px 0px 5px 0px rgba(84,76,76,0.75);
+  -webkit-box-shadow: -1px 0px 5px 0px rgba(84,76,76,0.75);
+  -moz-box-shadow: -1px 0px 5px 0px rgba(84,76,76,0.75);}
+.noticatin-a h6 { border-bottom: solid 1px #ccc; padding-bottom: 10px; font-weight: bold;}
+.noticatin-a span {float: right;text-align: center;}
+.noticatin-a li { border-bottom: dotted 1px #ccc; height: 53px;}
+
+}

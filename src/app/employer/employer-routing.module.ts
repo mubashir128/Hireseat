@@ -14,6 +14,8 @@ import { VideoInterviewRoomComponent } from "../video-interview-room/video-inter
 import { MycandidatesComponent } from "./mycandidates/mycandidates.component";
 import { NewResumeComponent } from "../recruiter/new-resume/new-resume.component";
 import { SharedCandidateProfilesComponent } from "../shared/shared-components/components/shared-candidate-profiles/shared-candidate-profiles.component";
+import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
+import { MenusComponent } from "../shared/shared-components/components/menus/menus.component";
 
 const routes: Routes = [
   {
@@ -71,6 +73,14 @@ const routes: Routes = [
       {
         path: "share-candidate-profile",
         component: SharedCandidateProfilesComponent,
+      },
+      {
+        path: "notification",
+        component: NotificationsComponent,
+      },
+      {
+        path: "menus",
+        component: MenusComponent,
       },
     ],
     // canActivate: [EmployerGuard]

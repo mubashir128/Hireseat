@@ -91,6 +91,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       referralEmail3: [""],
       referralPhoneNumber3: [""],
       comments: [""],
+      comment2: [""],
+      comment3: [""],
       totalWorkExpYrs: [""],
       totalWorkExpMonths: [""],
       locationPref: [""],
@@ -219,6 +221,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             referralEmail3: res.referral[2]?.referralEmail,
             referralPhoneNumber3: res.referral[2]?.referralPhoneNumber,
             comments: res.comments,
+            comment2: res.comment2,
+            comment3: res.comment3,
             totalWorkExpYrs: res.totalWorkExpYrs,
             totalWorkExpMonths: res.totalWorkExpMonths,
             locationPref: res.locationPref,
@@ -275,23 +279,24 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     );
 
     this.editProfile.addControl("industries", new FormControl(this.industries));
+    console.log(this.editProfile.value);
 
-    if (this.editProfile.valid) {
-      this.editCandidateProfileSubscription = this.candidateService
-        .editProfile(this.editProfile.value)
-        .subscribe(
-          (res) => {
-            if (res) {
-              Materialize.toast(res.msg, 1000);
-            }
-          },
-          (err) => {
-            Materialize.toast("Something Went Wrong !", 1000);
+    // if (this.editProfile.valid) {
+    this.editCandidateProfileSubscription = this.candidateService
+      .editProfile(this.editProfile.value)
+      .subscribe(
+        (res) => {
+          if (res) {
+            Materialize.toast(res.msg, 1000);
           }
-        );
-    } else {
-      Materialize.toast("Please complete the form!", 3000);
-    }
+        },
+        (err) => {
+          Materialize.toast("Something Went Wrong !", 1000);
+        }
+      );
+    // } else {
+    //   Materialize.toast("Please complete the form!", 3000);
+    // }
   }
 
   navigateToRoom() {
@@ -325,7 +330,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       console.log(res);
     });
   }
-  
+
   seeExampleModal() {
     jQuery("#seeExample").modal("open");
   }
@@ -391,15 +396,20 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       // }
       // return invalid;
       let payLoad = {
-        _id : this.candidateProfile._id
+        _id: this.candidateProfile._id,
       };
-      this.editCandidateProfileSubscription = this.candidateService.sharedCandidateProfile(payLoad).subscribe((res) => {
-          if (res) {
-            Materialize.toast(res.msg, 1000);
+      this.editCandidateProfileSubscription = this.candidateService
+        .sharedCandidateProfile(payLoad)
+        .subscribe(
+          (res) => {
+            if (res) {
+              Materialize.toast(res.msg, 1000);
+            }
+          },
+          (err) => {
+            Materialize.toast("Something Went Wrong !", 1000);
           }
-        }, (err) => {
-          Materialize.toast("Something Went Wrong !", 1000);
-        });
+        );
     }
   }
 }

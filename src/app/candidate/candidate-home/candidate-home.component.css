@@ -41,13 +41,24 @@ nav ul a {
 .mobileHeadRe {
   display: none;
 }
-
+.for-web {
+  display: block;
+}
+.for-mobile {
+  display: none;
+}
 @media only screen and (min-width: 320px) and (max-width: 667px) {
   .mobileHeadRe {
     display: flex;
   }
   .desktopRe {
     display: none;
+  }
+  .for-web {
+    display: none;
+  }
+  .for-mobile {
+    display: block;
   }
 }
 .notificationList {
