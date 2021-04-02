@@ -68,7 +68,7 @@ export class CandidateNavbarComponent implements OnInit {
       new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
     );
     this.tabs2.push(
-      new Tab2("/candidate/menus", "Menu", false, "fas fa-shopping-bag")
+      new Tab2("/candidate/menus", "Menu", false, "fas fa-bars")
     );
 
     this.router.events.subscribe((event) => {
