@@ -1,3 +1,7 @@
+.noti {display: none !important;}
+
+
+
 .notificationListOverlay {
   position: fixed;
   width: 100%;
@@ -214,4 +218,15 @@ h4.count {
     /* padding: 0 20px; */
     padding: 0 10px;
     font-size: 14px;
+}
+.noticatin-a {display: none;}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .noticatin-a {display: block;}
+.noticatin-a { background-color: #fff; padding: 10px; box-shadow: -1px 0px 5px 0px rgba(84,76,76,0.75);
+  -webkit-box-shadow: -1px 0px 5px 0px rgba(84,76,76,0.75);
+  -moz-box-shadow: -1px 0px 5px 0px rgba(84,76,76,0.75);}
+.noticatin-a h6 { border-bottom: solid 1px #ccc; padding-bottom: 10px; font-weight: bold;}
+.noticatin-a span {float: right;text-align: center;}
+.noticatin-a li { border-bottom: dotted 1px #ccc; height: 53px;}
+
 }
