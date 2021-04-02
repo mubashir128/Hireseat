@@ -115,8 +115,11 @@ export class CandidateNavbarComponent implements OnInit {
   //for mobile view
   SelectItem2(item) {
     this.tabs2.forEach((tab) => {
-      if (tab.id === item) tab.selected = true;
-      else tab.selected = false;
+      if (tab.id === item){
+        tab.selected = true;
+      }else{
+        tab.selected = false;
+      } 
     });
   }
 
