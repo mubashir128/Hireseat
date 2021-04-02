@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
 import { Tab } from "../models/tab";
-import { Router } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { UserService } from "src/app/_services/user.service";
 import { RewardSummary } from "src/app/profile/model/reward-summary";
@@ -101,9 +101,7 @@ export class RecruiterNavbarComponent implements OnInit {
     this.tabs2.push(
       new Tab2("/recruiter/notification", "Notification", false, "fas fa-bell")
     );
-    this.tabs2.push(
-      new Tab2("/recruiter/menus", "Menu", false, "fas fa-shopping-bag")
-    );
+    this.tabs2.push(new Tab2("/recruiter/menus", "Menu", false, "fas fa-bars"));
   }
 
   ngOnInit() {
@@ -126,6 +124,14 @@ export class RecruiterNavbarComponent implements OnInit {
 
     this._subList.activebidEvent$.subscribe((res) => {
       this.handleActiveList(res);
+    });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === "/candidate/all-recruiters") {
+          this.SelectItem(event.url);
+          this.SelectItem2(event.url);
+        }
+      }
     });
   }
 
@@ -193,7 +199,15 @@ export class RecruiterNavbarComponent implements OnInit {
       }
     });
   }
-
+  SelectItem2(item) {
+    this.tabs2.forEach((tab) => {
+      if (tab.id === item) {
+        tab.selected = true;
+      } else {
+        tab.selected = false;
+      }
+    });
+  }
   getUsersProfile() {
     this.userService
       .getUserProfile(this.userService.getUserData().userRole)
