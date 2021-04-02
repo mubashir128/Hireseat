@@ -260,13 +260,27 @@ ul.resumeList li {
     margin-bottom: 20px;
   }
 }
+.for-mobile {
+  display: none;
+}
 /*================================ i-pad responsive css end  ===============================*/
 /*================================ mobile responsive css start  ===============================*/
 
 @media only screen and (min-width: 320px) and (max-width: 767px) {
- .button-collapse {display: none;}
+  .pagination-previous {
+    margin-bottom: 40px;
+  }
+  .button-collapse {
+    display: none;
+  }
   .cadidateDetails p {
     padding-left: 5px !important;
+  }
+  .main-container {
+    margin-bottom: 60px;
+  }
+  .card {
+    margin-bottom: 60px !important;
   }
   .cadidateDetails h6:after {
     /* content: unset !important; */
