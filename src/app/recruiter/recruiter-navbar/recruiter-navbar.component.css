@@ -213,48 +213,50 @@ h4.pointAdded .increaPoint i {
     padding: 0;
   }
 }
-@media (max-width: 570px) {
-  .meni-1 ul li {
-    padding: 4px 25px;
-  }
+@media (max-width: 600px) {
+  .meni-1 {padding-left: 69px;}
+  .meni-1 i {font-size: 32px;}
+  .meni-1 ul li {padding: 14px 22px 20px 30px;}
 }
 @media (max-width: 570px) {
+  .meni-1 {padding-left: 69px;}
+  .meni-1 i {font-size: 32px;}
+  .meni-1 ul li {padding: 14px 22px 20px 30px;}
+}
+
+@media (max-width: 480px) {
+  .meni-1 {padding-left: 27px;}
 }
 @media (max-width: 460px) {
-  .meni-1 ul li {
-    padding: 4px 15px;
-  }
+  .meni-1 {padding-left: 10px;}
 }
 @media (max-width: 420px) {
-  .meni-1 ul li {
-    padding: 4px 12px;
-  }
+  .meni-1 {padding-left:0px;}
   .meni-1 ul li a {
     font-size: 12px;
   }
+  .meni-1 ul li {padding: 14px 22px 20px 30px;}
+}
+@media (max-width: 428px) {
+
 }
 @media (max-width: 414px) {
-  .meni-1 ul li {
-    padding: 4px 11px;
-  }
+
   .meni-1 ul li a {
     font-size: 12px;
   }
 }
+@media (max-width: 390px) {
+  .meni-1 ul li {padding: 14px 22px 20px 21px;}
+}
 @media (max-width: 375px) {
-  .meni-1 ul li {
-    padding: 4px 8px;
-  }
+  .meni-1 ul li {padding: 14px 22px 20px 19px;}
 }
 @media (max-width: 360px) {
-  .meni-1 ul li {
-    padding: 4px 7px;
-  }
+  .meni-1 ul li {padding: 14px 19px 20px 19px;}
 }
 @media (max-width: 320px) {
-  .meni-1 ul li {
-    padding: 4px 3px;
-  }
+  .meni-1 ul li {padding: 14px 15px 20px 15px;}
   .meni-1 ul li a {
     font-size: 12px;
   }

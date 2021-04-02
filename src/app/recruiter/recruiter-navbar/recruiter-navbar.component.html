@@ -29,7 +29,11 @@
     <li>
       <a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]">
         <!-- <i [ngClass]="tab.addedClass"></i><br />{{ tab.displayText }} -->
-        <i [ngClass]="tab.addedClass"></i><br />
+        <i
+          [ngClass]="tab.addedClass"
+          [ngStyle]="{ color: tab.selected ? '#393B3B' : '#ffffff' }"
+        ></i
+        ><br />
       </a>
     </li>
   </ul>
