@@ -97,7 +97,6 @@ export class NotificationsComponent implements OnInit {
           });
           this.notificationAre = [...this.notificationAre, ...res.data];
           this.createdAt = this.notificationAre[this.notificationAre.length - 1].createdAt;
-
           if(res.count){
             this.notificationLength = res.count;
           }

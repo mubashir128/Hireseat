@@ -219,6 +219,7 @@ h4.count {
     padding: 0 10px;
     font-size: 14px;
 }
+
 .noticatin-a {display: none;}
 @media only screen and (min-width: 320px) and (max-width: 767px) {
   .noticatin-a {display: block;}
