@@ -42,14 +42,27 @@
     </div>
   </ng-container>
 
-  <li *ngIf="!isAdmin && isLoggedIn">
+  <li *ngIf="!isAdmin && isLoggedIn" style="display: none;">
     <a (click)="toggle()">
       <h4 class="count" *ngIf="notificationLength > 0">
         {{ notificationLength}}
       </h4>
       <img
         src="assets/img/Notification-512.png"
-        style="vertical-align: middle; height: 30px; width: 30px"
+        style="vertical-align: middle; height: 30px; width: 30px; display: none;"
       />
     </a>
   </li>
+
+  <div class="noticatin-a">
+    <h6>Notification</h6>
+    <ul>
+      <li>Anis pathan <span><i class="fas fa-trash-alt"></i><br>21 day agro</span></li>
+      <li>Anis pathan <span><i class="fas fa-trash-alt"></i><br>21 day agro</span></li>
+      <li>Anis pathan <span><i class="fas fa-trash-alt"></i><br>21 day agro</span></li>
+      <li>Anis pathan <span><i class="fas fa-trash-alt"></i><br>21 day agro</span></li>
+      <li>Anis pathan <span><i class="fas fa-trash-alt"></i><br>21 day agro</span></li>
+      <li>Anis pathan <span><i class="fas fa-trash-alt"></i><br>21 day agro</span></li>
+      <li>Anis pathan <span><i class="fas fa-trash-alt"></i><br>21 day agro</span></li>
+    </ul>
+  </div>
