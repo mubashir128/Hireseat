@@ -153,9 +153,9 @@ export class MobileNavTabComponent implements OnInit {
       new Tab2("/login", "Login", false, "fas fa-bell")
     );
 
-    // this.tabs2.push(
-    //   new Tab2("/menus", "Menu", false, "fas fa-bars")
-    // );
+    this.tabs2.push(
+      new Tab2("/menus", "Menu", false, "fas fa-bars")
+    );
   }
 
   SelectItem2(item) {

@@ -206,6 +206,7 @@ import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-ta
     OwlNativeDateTimeModule,
     MomentModule,
     SelectDropDownModule,
+    MenusComponent,
     MobileNavTabComponent
   ],
  
