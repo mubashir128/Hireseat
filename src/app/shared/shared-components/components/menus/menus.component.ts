@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tab } from "src/app/recruiter/models/tab";
 import { Tab2 } from 'src/app/recruiter/models/tab2';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
@@ -11,10 +12,14 @@ import { UserService } from 'src/app/_services/user.service';
 export class MenusComponent implements OnInit {
 
   tabs2: Tab2[];
+
   loggedInUser: any;
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+  isSuperAdmin: boolean = false;
+  isEnterprise: boolean = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private authService:AuthenticationService) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != "no") {
@@ -25,6 +30,15 @@ export class MenusComponent implements OnInit {
         this.recruiterMenuTabs();
       }else if(this.loggedInUser.userRole == "candidate") {
         this.candidateMenuTabs();
+      }else if(this.loggedInUser.userRole == "admin") {
+        this.isAdmin = true;
+        this.adminMenuTab();
+      }else if(this.loggedInUser.userRole == "super-admin") {
+        this.isSuperAdmin = true;
+        this.superAdminMenuTab();
+      } else if(this.loggedInUser.userRole == "enterprise") {
+        this.isEnterprise = true;
+        this.enterpriseMenuTab();
       }
     }
   }
@@ -73,8 +87,30 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/candidate/my-posted-profiles", "My Posted Profiles", false, "fas fa-shopping-bag"));
   }
 
+  superAdminMenuTab(){
+    console.log("superAdminMenuTab : ");
+    this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter  ", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
+
+    this.tabs2.push(new Tab2("/super-admin/user-list", "Super Admin Dashboard", false, "fas fa-plus"));
+    this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
+  }
+
+  adminMenuTab(){
+
+  }
+
+  enterpriseMenuTab(){
+
+  }
+
   //for mobile view
-  SelectItem2(item) {
+  SelectItem2(item, text) {
+    if(text === 'Logout'){
+      this.authService.logout();
+    }
+
     this.tabs2.forEach((tab) => {
       if (tab.id === item){
         tab.selected = true;

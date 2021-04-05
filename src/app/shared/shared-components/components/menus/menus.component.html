@@ -2,7 +2,7 @@
   <ul *ngFor="let tab of tabs2">
     <li>
       <a
-        (click)="SelectItem2(tab.id)"
+        (click)="SelectItem2(tab.id, tab.displayText)"
         [routerLink]="[tab.id]"
         routerLinkActive="active"
         [ngClass]="{ active: tab.selected === true }"

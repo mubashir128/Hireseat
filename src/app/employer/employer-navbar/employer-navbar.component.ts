@@ -17,7 +17,6 @@ export class EmployerNavbarComponent implements OnInit {
   public userProfile: IProfile;
   public type: number = 0;
   tabMenu: EmployerTab[];
-  tabs2: Tab2[];
 
   constructor(
     private router: Router,
@@ -27,7 +26,6 @@ export class EmployerNavbarComponent implements OnInit {
     private _subList: SubscriberslistService
   ) {
     const employerId = JSON.parse(localStorage.getItem("currentUser")).userInfo._id;
-    this.tabs2 = [];
 
     this.tabMenu = [
       new EmployerTab(1, "Dashboard", "/employer/dashboard", true),
@@ -47,21 +45,6 @@ export class EmployerNavbarComponent implements OnInit {
         false
       ),
     ];
-
-    //for mobile view
-    this.tabs2.push(
-      new Tab2("/employer/dashboard", "Dashboard", true, "fas fa-home")
-    );
-    this.tabs2.push(new Tab2("/employer/share-candidate-profile", "Shared Profile", false, "fas fa-network-wired"));
-    this.tabs2.push(
-      new Tab2("/employer/bidding-event-list", "Jobs", false, "fas fa-plus")
-    );
-    this.tabs2.push(
-      new Tab2("/employer/notification", "Notification", false, "fas fa-bell")
-    );
-    this.tabs2.push(
-      new Tab2("/employer/menus", "Menu", false, "fas fa-shopping-bag")
-    );
 
   }
 
@@ -95,6 +78,7 @@ export class EmployerNavbarComponent implements OnInit {
       else tab.deselect();
     });
   }
+  
   getUsersProfile() {
     this.userService
       .getUserProfile(this.userService.getUserData().userRole)
