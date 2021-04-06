@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
 import { Tab } from "../models/tab";
-import { Router } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { UserService } from "src/app/_services/user.service";
 import { RewardSummary } from "src/app/profile/model/reward-summary";
@@ -20,7 +20,6 @@ export class RecruiterNavbarComponent implements OnInit {
   @ViewChild("ratingPoints", { static: true }) ratingPoints: ElementRef;
 
   tabs1: Tab[];
-  tabs2: Tab2[];
   public userProfile: IProfile;
   public PointsSummary = new RewardSummary();
 
@@ -52,7 +51,6 @@ export class RecruiterNavbarComponent implements OnInit {
     });
 
     this.tabs1 = [];
-    this.tabs2 = [];
 
     this.userProfile = new Profile();
 
@@ -80,28 +78,6 @@ export class RecruiterNavbarComponent implements OnInit {
       new Tab("/recruiter/video-interview-room", "Video Interview Room", false)
     );
     this.tabs1.push(new Tab("/recruiter/calendar", "Calendar", false));
-
-    //for mobile view
-    this.tabs2.push(
-      new Tab2("/recruiter/dashboard", "Dashboard", true, "fas fa-home")
-    );
-    this.tabs2.push(
-      new Tab2(
-        "/recruiter/share-candidate-profile",
-        "Candidates",
-        false,
-        "fas fa-shopping-bag"
-      )
-    );
-    this.tabs2.push(
-      new Tab2("/recruiter/bidding-event-list", "Jobs", false, "fas fa-plus")
-    );
-    this.tabs2.push(
-      new Tab2("/recruiter/notification", "Notification", false, "fas fa-bell")
-    );
-    this.tabs2.push(
-      new Tab2("/recruiter/menus", "Menu", false, "fas fa-shopping-bag")
-    );
   }
 
   ngOnInit() {
@@ -124,6 +100,13 @@ export class RecruiterNavbarComponent implements OnInit {
 
     this._subList.activebidEvent$.subscribe((res) => {
       this.handleActiveList(res);
+    });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === "/candidate/all-recruiters") {
+          this.SelectItem(event.url);
+        }
+      }
     });
   }
 
@@ -191,7 +174,7 @@ export class RecruiterNavbarComponent implements OnInit {
       }
     });
   }
-
+  
   getUsersProfile() {
     this.userService
       .getUserProfile(this.userService.getUserData().userRole)

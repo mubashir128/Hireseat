@@ -42,7 +42,8 @@
   width: 300px;
   float: right;
   padding: 20px 0;
-  z-index: 99999;
+  /* z-index: 99999; */
+  z-index: 1;
 }
 .forumQustionCommonBlock {
   border: 1px solid #ddd;

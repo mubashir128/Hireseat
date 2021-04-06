@@ -17,7 +17,6 @@ declare var $: any;
 })
 export class CandidateNavbarComponent implements OnInit {
   tabs1: Tab[];
-  tabs2: Tab2[];
   public userProfile: IProfile;
   // public PointsSummary = new RewardSummary();
   constructor(
@@ -27,7 +26,6 @@ export class CandidateNavbarComponent implements OnInit {
     private _subList: SubscriberslistService
   ) {
     this.tabs1 = [];
-    this.tabs2 = [];
   }
 
   ngOnInit() {
@@ -49,33 +47,10 @@ export class CandidateNavbarComponent implements OnInit {
       new Tab("/candidate/bidding-event-list", "Job Posting", false)
     );
 
-    //for mobile view
-    this.tabs2.push(
-      new Tab2("/candidate/all-recruiters", "Recruiters", true, "fas fa-home")
-    );
-    this.tabs2.push(
-      new Tab2(
-        "/candidate/my-profile",
-        "Profile",
-        false,
-        "fas fa-network-wired"
-      )
-    );
-    this.tabs2.push(
-      new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-plus")
-    );
-    this.tabs2.push(
-      new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
-    );
-    this.tabs2.push(
-      new Tab2("/candidate/menus", "Menu", false, "fas fa-bars")
-    );
-
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url === "/candidate/all-recruiters") {
           this.SelectItem(event.url);
-          this.SelectItem2(event.url);
         }
       }
     });
@@ -91,7 +66,6 @@ export class CandidateNavbarComponent implements OnInit {
     });
 
     this.SelectItem(this.router.url);
-    this.SelectItem2(this.router.url);
     // this.getUsersProfile();
   }
 
@@ -109,17 +83,6 @@ export class CandidateNavbarComponent implements OnInit {
     this.tabs1.forEach((tab) => {
       if (tab.id === item) tab.selected = true;
       else tab.selected = false;
-    });
-  }
-
-  //for mobile view
-  SelectItem2(item) {
-    this.tabs2.forEach((tab) => {
-      if (tab.id === item){
-        tab.selected = true;
-      }else{
-        tab.selected = false;
-      } 
     });
   }
 

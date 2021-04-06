@@ -99,6 +99,7 @@ export class NotificationsComponent implements OnInit {
           this.createdAt = this.notificationAre[this.notificationAre.length - 1].createdAt;
           if(res.count){
             this.notificationLength = res.count;
+            this._subList.decreaseNotificationCountObj.next({notificationLength : this.notificationLength});
           }
 
         }
@@ -119,6 +120,7 @@ export class NotificationsComponent implements OnInit {
   //increase notification count by one.
   incrementNotificationCount() {
     this.notificationLength += 1;
+    this._subList.decreaseNotificationCountObj.next({notificationLength : this.notificationLength});
   }
 
   //toggle notification DIV.
@@ -190,6 +192,7 @@ export class NotificationsComponent implements OnInit {
   //reduce the count of notication, remove the notification from array and make isRead flag to true for clicked notification.
   decreaseNotification(id){
     this.notificationLength--;
+    this._subList.decreaseNotificationCountObj.next({notificationLength : this.notificationLength});
     this.notificationAre.forEach((notification, index) => {
       if(notification._id === id){
         this.notificationAre.splice(index, 1);
@@ -214,6 +217,7 @@ export class NotificationsComponent implements OnInit {
   //make isRead to true of all notifications of user.
   deleteAllNotification(){
     this.notificationLength = 0;
+    this._subList.decreaseNotificationCountObj.next({notificationLength : this.notificationLength});
     this.notificationAre = [];
     this._socket.sendMessage({
       type: this._constants.notificationType,
@@ -226,7 +230,7 @@ export class NotificationsComponent implements OnInit {
 
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
-    this._socket.removeListener({ type: this._constants.notificationType });
+    this._subList.decreaseNotificationCountObj.next({notificationLength : this.notificationLength});
     this.notificationObserver.unsubscribe();
   }
 
