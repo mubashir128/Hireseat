@@ -20,7 +20,6 @@ export class RecruiterNavbarComponent implements OnInit {
   @ViewChild("ratingPoints", { static: true }) ratingPoints: ElementRef;
 
   tabs1: Tab[];
-  tabs2: Tab2[];
   public userProfile: IProfile;
   public PointsSummary = new RewardSummary();
 
@@ -52,7 +51,6 @@ export class RecruiterNavbarComponent implements OnInit {
     });
 
     this.tabs1 = [];
-    this.tabs2 = [];
 
     this.userProfile = new Profile();
 
@@ -80,26 +78,6 @@ export class RecruiterNavbarComponent implements OnInit {
       new Tab("/recruiter/video-interview-room", "Video Interview Room", false)
     );
     this.tabs1.push(new Tab("/recruiter/calendar", "Calendar", false));
-
-    //for mobile view
-    this.tabs2.push(
-      new Tab2("/recruiter/dashboard", "Dashboard", true, "fas fa-home")
-    );
-    this.tabs2.push(
-      new Tab2(
-        "/recruiter/share-candidate-profile",
-        "Candidates",
-        false,
-        "fas fa-shopping-bag"
-      )
-    );
-    this.tabs2.push(
-      new Tab2("/recruiter/bidding-event-list", "Jobs", false, "fas fa-plus")
-    );
-    this.tabs2.push(
-      new Tab2("/recruiter/notification", "Notification", false, "fas fa-bell")
-    );
-    this.tabs2.push(new Tab2("/recruiter/menus", "Menu", false, "fas fa-bars"));
   }
 
   ngOnInit() {
@@ -127,7 +105,6 @@ export class RecruiterNavbarComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         if (event.url === "/candidate/all-recruiters") {
           this.SelectItem(event.url);
-          this.SelectItem2(event.url);
         }
       }
     });
@@ -197,15 +174,7 @@ export class RecruiterNavbarComponent implements OnInit {
       }
     });
   }
-  SelectItem2(item) {
-    this.tabs2.forEach((tab) => {
-      if (tab.id === item) {
-        tab.selected = true;
-      } else {
-        tab.selected = false;
-      }
-    });
-  }
+  
   getUsersProfile() {
     this.userService
       .getUserProfile(this.userService.getUserData().userRole)

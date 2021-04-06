@@ -21,5 +21,8 @@ export class SubscriberslistService {
   activeCandidateNavBar = new Subject();
   activeCandidateNavBar$ = this.activeCandidateNavBar.asObservable();
 
+  decreaseNotificationCountObj = new Subject();
+  decreaseNotificationCountObj$ = this.decreaseNotificationCountObj.asObservable();
+
   constructor() { }
 }

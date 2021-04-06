@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Tab } from "src/app/recruiter/models/tab";
 import { Tab2 } from 'src/app/recruiter/models/tab2';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { SuperAdminService } from 'src/app/_services/super-admin.service';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
@@ -11,10 +13,14 @@ import { UserService } from 'src/app/_services/user.service';
 export class MenusComponent implements OnInit {
 
   tabs2: Tab2[];
+
   loggedInUser: any;
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+  isSuperAdmin: boolean = false;
+  isEnterprise: boolean = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private authService:AuthenticationService, public supperAdmin: SuperAdminService) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != "no") {
@@ -25,7 +31,18 @@ export class MenusComponent implements OnInit {
         this.recruiterMenuTabs();
       }else if(this.loggedInUser.userRole == "candidate") {
         this.candidateMenuTabs();
+      }else if(this.loggedInUser.userRole == "admin") {
+        this.isAdmin = true;
+        this.adminMenuTab();
+      }else if(this.loggedInUser.userRole == "super-admin") {
+        this.isSuperAdmin = true;
+        this.superAdminMenuTab();
+      } else if(this.loggedInUser.userRole == "enterprise") {
+        this.isEnterprise = true;
+        this.enterpriseMenuTab();
       }
+    }else{
+      this.noUserMenuTabs();
     }
   }
 
@@ -41,6 +58,10 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/employer/video-interview-room", "Video Interview Room", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/employer/mycandidates", "My Candidiate", false, "fas fa-plus"));
     this.tabs2.push(new Tab2("/employer/profile", "Profile", false, "fas fa-plus"));
+
+    if(!this.supperAdmin.checkSuperAdminEmail()){
+      this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
+    }
   }
 
   recruiterMenuTabs(){
@@ -60,6 +81,10 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/recruiter/video-interview-room", "Video Interview Room", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/recruiter/calendar", "Calendar", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/recruiter/profile", "Profile", false, "fas fa-plus"));
+
+    if(!this.supperAdmin.checkSuperAdminEmail()){
+      this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
+    }
   }
   
   candidateMenuTabs(){
@@ -71,10 +96,42 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/candidate/my-reviewed-profiles", "My Reviews Profiles", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/candidate/interview-room", "Interview Room", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/candidate/my-posted-profiles", "My Posted Profiles", false, "fas fa-shopping-bag"));
+
+    if(!this.supperAdmin.checkSuperAdminEmail()){
+      this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
+    }
+  }
+
+  superAdminMenuTab(){
+    console.log("superAdminMenuTab : ");
+    this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter  ", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
+
+    this.tabs2.push(new Tab2("/super-admin/user-list", "Super Admin Dashboard", false, "fas fa-plus"));
+    this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
+  }
+
+  adminMenuTab(){
+
+  }
+
+  enterpriseMenuTab(){
+
+  }
+
+  noUserMenuTabs(){
+    this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter  ", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
   }
 
   //for mobile view
-  SelectItem2(item) {
+  SelectItem2(item, text) {
+    if(text === 'Logout'){
+      this.authService.logout();
+    }
+
     this.tabs2.forEach((tab) => {
       if (tab.id === item){
         tab.selected = true;

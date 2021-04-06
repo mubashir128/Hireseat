@@ -2,37 +2,7 @@
   position: relative;
 }
 
-.meni-1 {
-  display: none;
-}
-.meni-1 ul li a:active {
-  background: #0c3e68;
-}
 @media only screen and (min-width: 320px) and (max-width: 667px) {
-  .meni-1 {
-    display: block;
-  }
-  .meni-1 ul {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  .meni-1 ul li {
-    float: left;
-    padding: 5px 22px 5px 30px;
-  }
-  .meni-1 {
-    position: fixed;
-    background-color: #3fa9f5;
-    z-index: 9999;
-    width: 100%;
-    bottom: 0;
-  }
-  .meni-1 a {
-    font-size: 12px;
-    text-transform: uppercase;
-    color: #fff;
-  }
   .mobileScroll a.collection-item {
     padding: 7px 10px !important;
     min-width: 105px;
@@ -47,53 +17,7 @@
     padding: 0;
   }
 }
-@media (max-width: 600px) {
-  .meni-1 {padding-left: 69px;}
-  .meni-1 i {font-size: 32px;}
-  .meni-1 ul li {padding: 14px 22px 20px 30px;}
-}
-@media (max-width: 570px) {
-  .meni-1 {padding-left: 69px;}
-  .meni-1 i {font-size: 32px;}
-  .meni-1 ul li {padding: 14px 22px 20px 30px;}
-}
-
-@media (max-width: 480px) {
-  .meni-1 {padding-left: 27px;}
-}
-@media (max-width: 460px) {
-  .meni-1 {padding-left: 10px;}
-}
-@media (max-width: 420px) {
-  .meni-1 {padding-left:0px;}
-  .meni-1 ul li a {
-    font-size: 12px;
-  }
-  .meni-1 ul li {padding: 14px 22px 20px 30px;}
-}
-@media (max-width: 428px) {
-
-}
-@media (max-width: 414px) {
-
-  .meni-1 ul li a {
-    font-size: 12px;
-  }
-}
-@media (max-width: 390px) {
-  .meni-1 ul li {padding: 14px 22px 20px 21px;}
-}
-@media (max-width: 375px) {
-  .meni-1 ul li {padding: 14px 22px 20px 19px;}
-}
-@media (max-width: 360px) {
-  .meni-1 ul li {padding: 14px 19px 20px 19px;}
-}
 @media (max-width: 320px) {
-  .meni-1 ul li {padding: 14px 15px 20px 15px;}
-  .meni-1 ul li a {
-    font-size: 12px;
-  }
   .mobileScroll a.collection-item {
     padding: 7px 10px !important;
     min-width: 105px;

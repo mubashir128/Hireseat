@@ -60,6 +60,7 @@ import { EditJobProfileComponent } from "../../employer/edit-job-profile/edit-jo
 import { MomentModule } from 'ngx-moment';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { MenusComponent } from './components/menus/menus.component';
+import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-tab.component';
 
 @NgModule({
   imports: [
@@ -143,7 +144,8 @@ import { MenusComponent } from './components/menus/menus.component';
     JobProfileListComponent,
     EditJobProfileComponent,
     NotificationsComponent,
-    MenusComponent
+    MenusComponent,
+    MobileNavTabComponent
   ],
   exports: [
     FooterComponent,
@@ -203,7 +205,9 @@ import { MenusComponent } from './components/menus/menus.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MomentModule,
-    SelectDropDownModule
+    SelectDropDownModule,
+    MenusComponent,
+    MobileNavTabComponent
   ],
  
 })
