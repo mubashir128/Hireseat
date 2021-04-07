@@ -11,7 +11,7 @@
           [ngStyle]="{ color: tab.selected ? '#393B3B' : '#ffffff' }"
         ></i><br />
       </a>
-      <span *ngIf="(tab.displayText === 'Notification')">10</span>
+      <span *ngIf="notificationLength > 0 && (tab.displayText === 'Notification')">{{ notificationLength }}</span>
     </li>
   </ul>
 </div>

@@ -42,6 +42,7 @@ export class NotificationsComponent implements OnInit {
   ) { }
 
   async ngOnInit(){
+    console.log("notification component : ");
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != "no") {
       this.isLoggedIn = true;
@@ -230,7 +231,6 @@ export class NotificationsComponent implements OnInit {
 
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
-    this._subList.decreaseNotificationCountObj.next({notificationLength : this.notificationLength});
     this.notificationObserver.unsubscribe();
   }
 

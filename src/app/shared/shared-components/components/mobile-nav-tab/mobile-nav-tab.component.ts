@@ -22,7 +22,7 @@ export class MobileNavTabComponent implements OnInit {
   isSuperAdmin: boolean = false;
   isEnterprise: boolean = false;
 
-  notificationLength = 10;
+  notificationLength = 0;
 
   constructor(private userService: UserService, private router: Router, private _subList : SubscriberslistService) {
     this.tabs2 = [];
@@ -53,9 +53,11 @@ export class MobileNavTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("mobile-nav : ");
     this.SelectItem2(this.router.url);
     this._subList.decreaseNotificationCountObj$.subscribe((res : any)=>{
       this.notificationLength = res.notificationLength;
+      console.log("--- this.notificationLength : ",this.notificationLength);
     });
   }
 
@@ -127,7 +129,7 @@ export class MobileNavTabComponent implements OnInit {
       new Tab2("/super-admin/user-list", "Jobs", false, "fas fa-home")
     );
     this.tabs2.push(
-      new Tab2("/super-admin/create-admin", "Notification", false, "fas fa-plus")
+      new Tab2("/super-admin/create-admin", "Create Admin", false, "fas fa-plus")
     );
     this.tabs2.push(
       new Tab2("/super-admin/create-enterprise", "Menu", false, "fas fa-network-wired")
