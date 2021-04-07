@@ -75,7 +75,7 @@ export class NotificationsComponent implements OnInit {
 
   //reduce the notification length.
   truncateHTML(text): string {
-    let charlimit = 40;
+    let charlimit = 22;
     if (!text || text.length <= charlimit) {
       return text;
     }
