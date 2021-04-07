@@ -42,11 +42,15 @@
     overflow-x: scroll !important;
     padding: 0;
   }
+  span { background: #ff0000!important; width: 25px !important; height: 25px !important; border-radius: 50%; color: #fff;
+   position: absolute; padding: 3px; top: 8px;}
 }
+
 @media (max-width: 600px) {
   .meni-1 {padding-left: 69px;}
   .meni-1 i {font-size: 32px;}
   .meni-1 ul li {padding: 14px 22px 20px 30px;}
+  
 }
 @media (max-width: 570px) {
   .meni-1 {padding-left: 69px;}
@@ -71,7 +75,7 @@
 
 }
 @media (max-width: 414px) {
-
+  .meni-1 ul li {padding: 14px 22px 20px 21px;}
   .meni-1 ul li a {
     font-size: 12px;
   }
