@@ -851,3 +851,8 @@ a.videoCloseBtn {
   button.shareBtn { width: 98%; display: block; border-radius: 5px;}
  
 }
+
+.hideAndSHoTab{
+  display: none;
+  margin-top: -10px;
+}

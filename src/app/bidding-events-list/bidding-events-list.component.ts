@@ -339,6 +339,7 @@ export class BiddingEventsListComponent implements OnInit {
       jQuery(".postingForm").css("display", "none");
     }
   }
+  
   getCandidateBiding(){
     this.spinner.show();
     this.biddingService.getCandidateBidsCount().subscribe((data: BiddingEvent[]) => {
