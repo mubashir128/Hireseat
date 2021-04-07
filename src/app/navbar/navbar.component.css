@@ -125,10 +125,14 @@ top: 0px;
 .navbar-fixed-top.cbp-af-header-shrink {
 padding: 10px 0;
 }
+.mobile-viwe {display: none;}
+.destop-1 { display: block;}
 @media only screen and (min-width: 320px) and (max-width: 667px) {
   .mobileHeadRe {
     display: flex;
   }
+  .mobile-viwe {display: block !important;}
+  .destop-1 { display: none  !important;;}
   .desktopRe {
     display: none;
   }
