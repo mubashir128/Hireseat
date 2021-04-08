@@ -141,6 +141,10 @@ export class UserService {
       );
   }
 
+  getUserNotificationCunt(userRole) {
+    return this.http.post(this.baseurl + "api/getUserNotificationCunt/", {userRole : userRole});
+  }
+
   updateUserProfile(info: IProfile) {
     return this.http
       .put<IProfile>(this.baseurl + "api/updateUserProfile", info)

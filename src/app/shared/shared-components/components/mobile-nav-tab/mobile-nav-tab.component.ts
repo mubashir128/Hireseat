@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tab2 } from 'src/app/recruiter/models/tab2';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/_services/user.service';
   templateUrl: './mobile-nav-tab.component.html',
   styleUrls: ['./mobile-nav-tab.component.css']
 })
-export class MobileNavTabComponent implements OnInit {
+export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   tabs2: Tab2[];
 
@@ -53,11 +53,19 @@ export class MobileNavTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("mobile-nav : ");
+    if(this.loggedInUser != "no"){
+      this.getNotificationCount();
+    }
+
     this.SelectItem2(this.router.url);
     this._subList.decreaseNotificationCountObj$.subscribe((res : any)=>{
       this.notificationLength = res.notificationLength;
-      console.log("--- this.notificationLength : ",this.notificationLength);
+    });
+  }
+
+  getNotificationCount(){
+    this.userService.getUserNotificationCunt(this.userService.getUserData().userRole).subscribe((res: any) => {
+      this.notificationLength = res.count;
     });
   }
 
@@ -168,6 +176,12 @@ export class MobileNavTabComponent implements OnInit {
         tab.selected = false;
       }
     });
+  }
+
+  ngOnDestroy(){
+    // if(this._subList.decreaseNotificationCountObj){
+    //   this._subList.decreaseNotificationCountObj.unsubscribe();
+    // }
   }
 
 }

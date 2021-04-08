@@ -42,7 +42,6 @@ export class NotificationsComponent implements OnInit {
   ) { }
 
   async ngOnInit(){
-    console.log("notification component : ");
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != "no") {
       this.isLoggedIn = true;
