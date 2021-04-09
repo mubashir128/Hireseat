@@ -49,6 +49,7 @@ export class NotificationsComponent implements OnInit {
         this.isAdmin = true;
       }
     }
+
     //add a observable for notificaton
     await this._socket.removeListener({ type: this._constants.notificationType });
     this._socket.addListener({
@@ -86,8 +87,8 @@ export class NotificationsComponent implements OnInit {
     return shortened;
   }
 
-   //handle notifications of user.
-   handleNotificationData(res: any) {
+  //handle notifications of user.
+  handleNotificationData(res: any) {
     switch (res.subType) {
       case this._constants.getAllNotifications:
         // add all notifications to list.
@@ -99,7 +100,6 @@ export class NotificationsComponent implements OnInit {
           this.createdAt = this.notificationAre[this.notificationAre.length - 1].createdAt;
           if(res.count){
             this.notificationLength = res.count;
-            this._subList.decreaseNotificationCountObj.next({notificationLength : this.notificationLength});
           }
 
         }
@@ -120,7 +120,6 @@ export class NotificationsComponent implements OnInit {
   //increase notification count by one.
   incrementNotificationCount() {
     this.notificationLength += 1;
-    this._subList.decreaseNotificationCountObj.next({notificationLength : this.notificationLength});
   }
 
   //toggle notification DIV.

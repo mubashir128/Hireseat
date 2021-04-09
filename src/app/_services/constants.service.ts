@@ -77,6 +77,9 @@ export class ConstantsService {
   SCHEDULED = "SCHEDULED";
   recruiterComment = "recruiterComment";
 
+  mobileNotificationIncrementType = 12;
+  getMobileNotificationIncrementType = "getMobileNotificationIncrementType";
+
   public baseurl: any;
   constructor(private http: HttpClient) {
     this.baseurl = myGlobals.baseUrl;
