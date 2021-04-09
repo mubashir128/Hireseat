@@ -1000,6 +1000,14 @@ export class SharedCandidateProfilesComponent
     });
   }
 
+  handleToggleSign(obj) {
+    if (obj.searchTab) {
+      jQuery(".hideAndSHoTab").css("display", "block");
+    } else {
+      jQuery(".hideAndSHoTab").css("display", "none");
+    }
+  }
+
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.sharedProfileType });
     this.sharedProfileObserver.unsubscribe();

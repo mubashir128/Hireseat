@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tab2 } from 'src/app/recruiter/models/tab2';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/_services/user.service';
   templateUrl: './mobile-nav-tab.component.html',
   styleUrls: ['./mobile-nav-tab.component.css']
 })
-export class MobileNavTabComponent implements OnInit {
+export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   tabs2: Tab2[];
 
@@ -22,7 +22,7 @@ export class MobileNavTabComponent implements OnInit {
   isSuperAdmin: boolean = false;
   isEnterprise: boolean = false;
 
-  notificationLength = 10;
+  notificationLength = 0;
 
   constructor(private userService: UserService, private router: Router, private _subList : SubscriberslistService) {
     this.tabs2 = [];
@@ -53,9 +53,19 @@ export class MobileNavTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.loggedInUser != "no"){
+      this.getNotificationCount();
+    }
+
     this.SelectItem2(this.router.url);
     this._subList.decreaseNotificationCountObj$.subscribe((res : any)=>{
       this.notificationLength = res.notificationLength;
+    });
+  }
+
+  getNotificationCount(){
+    this.userService.getUserNotificationCunt(this.userService.getUserData().userRole).subscribe((res: any) => {
+      this.notificationLength = res.count;
     });
   }
 
@@ -127,7 +137,7 @@ export class MobileNavTabComponent implements OnInit {
       new Tab2("/super-admin/user-list", "Jobs", false, "fas fa-home")
     );
     this.tabs2.push(
-      new Tab2("/super-admin/create-admin", "Notification", false, "fas fa-plus")
+      new Tab2("/super-admin/create-admin", "Create Admin", false, "fas fa-plus")
     );
     this.tabs2.push(
       new Tab2("/super-admin/create-enterprise", "Menu", false, "fas fa-network-wired")
@@ -166,6 +176,12 @@ export class MobileNavTabComponent implements OnInit {
         tab.selected = false;
       }
     });
+  }
+
+  ngOnDestroy(){
+    // if(this._subList.decreaseNotificationCountObj){
+    //   this._subList.decreaseNotificationCountObj.unsubscribe();
+    // }
   }
 
 }

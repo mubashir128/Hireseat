@@ -59,7 +59,11 @@
 <ng-container>
   <div class="noticatin-a">
     <div class="notificationListOverlay2">
-      <h6>Notification</h6>
+      <h6>Notification
+        <div style="float: right;">
+          <i class="fa fa-close" noClose = "true" tooltip="tootip on right" placement="right" aria-hidden="true" (click)="deleteAllNotification()"></i>
+        </div>
+      </h6>
         <div
           class="scrollNotification"
           infiniteScroll

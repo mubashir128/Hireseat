@@ -155,3 +155,11 @@
 .comments-title {
   width: 50%;
 }
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .candProfile2 { width: 100% !important;}
+  .mar {width: 100% !important; display: block; margin-left: 3px !important;}
+  .replyComment {margin-left: 0px !important;}
+  .partition { float: none; display: block;}
+  .display-chart { width: 100%; display: block;}
+  .comments-title { width: 100%; display: block;}
+}

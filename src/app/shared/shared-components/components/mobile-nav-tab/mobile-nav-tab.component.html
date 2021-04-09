@@ -1,6 +1,6 @@
 <div class="meni-1">
   <ul *ngFor="let tab of tabs2">
-    <li>
+    <li class="noti">
       <a (click)="SelectItem2(tab.id)" [routerLink]="[tab.id]">
         <!-- <i [ngClass]="tab.addedClass"></i><br />{{ tab.displayText }} -->
         <!-- <h4 class="count" *ngIf="notificationLength > 0 && (tab.displayText === 'Notification')">
@@ -11,6 +11,7 @@
           [ngStyle]="{ color: tab.selected ? '#393B3B' : '#ffffff' }"
         ></i><br />
       </a>
+      <span *ngIf="notificationLength > 0 && (tab.displayText === 'Notification')">{{ notificationLength }}</span>
     </li>
   </ul>
 </div>

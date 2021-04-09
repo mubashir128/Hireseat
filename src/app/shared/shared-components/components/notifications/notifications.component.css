@@ -227,7 +227,7 @@ h4.count {
   -webkit-box-shadow: -1px 0px 5px 0px rgba(84,76,76,0.75);
   -moz-box-shadow: -1px 0px 5px 0px rgba(84,76,76,0.75);}
 .noticatin-a h6 { border-bottom: solid 1px #ccc; padding-bottom: 10px; font-weight: bold;}
-.noticatin-a span {float: right;text-align: center;}
+.noticatin-a span {float: right;text-align: right; margin-right: 10px;}
 .noticatin-a li { border-bottom: dotted 1px #ccc; height: 53px;}
 
 }

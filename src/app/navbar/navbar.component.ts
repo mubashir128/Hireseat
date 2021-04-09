@@ -107,8 +107,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+
     this.showAdminDashboardButton = false;
     this.showEnterpriseDashboardButton = false;
+
     //initiate a connection of socket at once when navbar is loaded.
     let obj = JSON.parse(localStorage.getItem("currentUser"));
     if (obj !== null) {

@@ -75,7 +75,7 @@ export class NotificationsComponent implements OnInit {
 
   //reduce the notification length.
   truncateHTML(text): string {
-    let charlimit = 22;
+    let charlimit = 20;
     if (!text || text.length <= charlimit) {
       return text;
     }
@@ -230,7 +230,6 @@ export class NotificationsComponent implements OnInit {
 
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
-    this._subList.decreaseNotificationCountObj.next({notificationLength : this.notificationLength});
     this.notificationObserver.unsubscribe();
   }
 
