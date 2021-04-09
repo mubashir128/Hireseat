@@ -826,7 +826,8 @@ a.videoCloseBtn {
 .PointsDiv.commonSingleInner.CommentInner {padding-left:0px;width: 100%;float: none;}
 .shape { font-size: 11px;}
 
-
+.recruiterprof.size {width: 30px !important; height: 30px !important;}
+.size img{ width: 30px !important; height: 30px !important;}
   
 }
 @media (max-width: 1020px){
