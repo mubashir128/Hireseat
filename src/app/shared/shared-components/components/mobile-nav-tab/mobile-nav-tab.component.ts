@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { Tab2 } from 'src/app/recruiter/models/tab2';
+import { ConstantsService } from 'src/app/_services/constants.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
+import { WebsocketService } from 'src/app/_services/websocket.service';
 
 @Component({
   selector: 'app-mobile-nav-tab',
@@ -24,7 +27,10 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   notificationLength = 0;
 
-  constructor(private userService: UserService, private router: Router, private _subList : SubscriberslistService) {
+  mobileNotificationIncrementObserver = new Subject();
+  mobileNotificationIncrementObserver$ = this.mobileNotificationIncrementObserver.asObservable();
+
+  constructor(private userService: UserService, private router: Router, private _subList : SubscriberslistService, private _socket: WebsocketService, private _constants : ConstantsService) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
     if(this.loggedInUser != "no"){
@@ -52,7 +58,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
+  async ngOnInit(){
     if(this.loggedInUser != "no"){
       this.getNotificationCount();
     }
@@ -61,6 +67,30 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     this._subList.decreaseNotificationCountObj$.subscribe((res : any)=>{
       this.notificationLength = res.notificationLength;
     });
+
+    //add a observable for notificaton
+    await this._socket.removeListener({ type: this._constants.mobileNotificationIncrementType });
+    this._socket.addListener({
+      type: this._constants.mobileNotificationIncrementType,
+      callback: this.mobileNotificationIncrementObserver,
+    });
+
+    //when any activity of notification is happened, then this observable is called.
+    this.mobileNotificationIncrementObserver$.subscribe((res: any) => {
+      this.handleNotificationData(res);
+    });
+
+  }
+
+  //handle notifications of user.
+  handleNotificationData(res: any) {
+    switch (res.subType) {
+      case this._constants.getMobileNotificationIncrementType:
+        this.notificationLength += 1;
+        break;
+      default:
+        break;
+    }
   }
 
   getNotificationCount(){
@@ -179,9 +209,9 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    // if(this._subList.decreaseNotificationCountObj){
-    //   this._subList.decreaseNotificationCountObj.unsubscribe();
-    // }
+    if(this.mobileNotificationIncrementObserver){
+      this.mobileNotificationIncrementObserver.unsubscribe();
+    }
   }
 
 }
