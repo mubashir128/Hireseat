@@ -53,7 +53,7 @@ export class SharedCandidateProfilesComponent
 
   player: videojs.Player;
   canComment = false;
-  public today = new Date()
+  public today = new Date();
 
   // subscription
   getVideoURLSubscription: Subscription;
@@ -117,6 +117,9 @@ export class SharedCandidateProfilesComponent
 
   industriesAre = [];
   industries = [];
+
+  skillsClass = "fas fa-long-arrow-alt-down";
+  skillsShow = false;
 
   constructor(
     private resumeService: ResumeService,
@@ -1006,6 +1009,11 @@ export class SharedCandidateProfilesComponent
     } else {
       jQuery(".hideAndSHoTab").css("display", "none");
     }
+  }
+
+  upDownSkills(){
+    this.skillsShow = this.skillsShow ? false : true;
+    this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
   }
 
   ngOnDestroy() {
