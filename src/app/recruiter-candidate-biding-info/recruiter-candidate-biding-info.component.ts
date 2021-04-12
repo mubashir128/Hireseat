@@ -121,6 +121,9 @@ export class RecruiterCandidateBidingInfoComponent
   industries = [];
   @Input() public biddingEvent: IBiddingEvent;
 
+  skillsClass = "fas fa-long-arrow-alt-down";
+  skillsShow = false;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -890,6 +893,11 @@ export class RecruiterCandidateBidingInfoComponent
       .subscribe((data: any) => {
         this.resumes = data;
       });
+  }
+
+  upDownSkills(){
+    this.skillsShow = this.skillsShow ? false : true;
+    this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
   }
 
   ngOnDestroy() {

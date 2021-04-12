@@ -783,3 +783,10 @@
     margin-right: 10px;
     margin-top: 25px;
   }
+
+.down-1 { background: #0288d1; color: #fff; padding: 5px; width: 20%; border: none; margin-left: 6px;}
+.onLimitedSkills { margin-top: 6px;}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .industrieName {font-size: 16px;}
+}
