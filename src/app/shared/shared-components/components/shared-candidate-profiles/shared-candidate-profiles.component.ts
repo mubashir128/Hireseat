@@ -32,7 +32,7 @@ import {
 } from "rxjs/operators";
 import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
-import { ConstantsService } from "src/app/_services/constants.service";
+import { ConstantsService } from "src/app/_services/constants.service"
 
 declare var jQuery;
 declare var $: any;
@@ -53,7 +53,7 @@ export class SharedCandidateProfilesComponent
 
   player: videojs.Player;
   canComment = false;
-  public today = new Date()
+  public today = new Date();
 
   // subscription
   getVideoURLSubscription: Subscription;
@@ -117,6 +117,12 @@ export class SharedCandidateProfilesComponent
 
   industriesAre = [];
   industries = [];
+
+  skillsClass = "fas fa-long-arrow-alt-down";
+  skillsShow = false;
+
+  createdUrl = "";
+  generateLink = true;
 
   constructor(
     private resumeService: ResumeService,
@@ -229,9 +235,18 @@ export class SharedCandidateProfilesComponent
       case this._constants.deleteComment :
         this.deleteRespectedComment(res);
         break;
+      case this._constants.generateLink:
+        this.addCreatedLink(res);
+        break;
       default:
         break;
     }
+  }
+
+  addCreatedLink(res){
+    this.generateLink = false;
+    this.createdUrl = res.result.link;
+    Materialize.toast("Link generated", 1000);
   }
 
   handleResponse(res){
@@ -597,13 +612,65 @@ export class SharedCandidateProfilesComponent
 
   // share process
   showShareModal(resume) {
-    // console.log(resume, "**********************");
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
 
   closeShareModal() {
     jQuery("#shareEmailModal").modal("close");
+  }
+
+  copyLink(){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.createdUrl;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+
+    Materialize.toast("Link copied to clipboard", 1000);
+  }
+
+  async generateLinkForVideo() {
+    const archiveIdPayload = {
+      archivedId: this.shareResume.interviewLinkedByRecruiter,
+    };
+
+    const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+
+    // getting url
+    this.getArchivedVideoSubscription = this.videoCallingService.getArchivedVideo(archiveIdPayload).subscribe((res) => {
+      if (res) {
+        this.shareableVideoURL = res.url;
+
+        if (this.shareableVideoURL) {
+          const payload = {
+            recruiterId: this.loggedUser._id,
+            resumeId: this.shareResume._id,
+            videoUrl: this.shareableVideoURL,
+            fullName: candidateName,
+            comment: this.shareResume.comments,
+            candidateProfile: this.shareResume.resumeType ? false : true,
+          };
+
+          let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
+          this._socket.sendMessage({
+            type: this._constants.sharedProfileType,
+            data: {
+              type: userInfo.userRole,
+              payload : payload,
+              subType: this._constants.generateLink
+            },
+          });
+        }
+
+      }
+    });
   }
 
   async share() {
@@ -1006,6 +1073,11 @@ export class SharedCandidateProfilesComponent
     } else {
       jQuery(".hideAndSHoTab").css("display", "none");
     }
+  }
+
+  upDownSkills(){
+    this.skillsShow = this.skillsShow ? false : true;
+    this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
   }
 
   ngOnDestroy() {

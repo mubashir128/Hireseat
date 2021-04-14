@@ -80,6 +80,8 @@ export class ConstantsService {
   mobileNotificationIncrementType = 12;
   getMobileNotificationIncrementType = "getMobileNotificationIncrementType";
 
+  generateLink = "generateLink";
+
   public baseurl: any;
   constructor(private http: HttpClient) {
     this.baseurl = myGlobals.baseUrl;
@@ -151,6 +153,7 @@ export class ConstantsService {
     this.sharedRecruiterProfileType = obj.sharedRecruiterProfileType;
     this.candidateJobQuestionType = obj.candidateJobQuestionType;
     this.notificationLimit = obj.notificationLimit;
+    this.generateLink = obj.generateLink;
   }
 
 }
