@@ -583,7 +583,9 @@
       <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
     </div>
     <div class="form-group textRight">
-      <button class="sendBtn" (click)="share()">SEND</button>
+      <button class="sendBtn" (click)="copyLink()" *ngIf = "!generateLink">Copy Link</button>
+      <button class="sendBtn" (click)="generateLinkForVideo()" *ngIf = "generateLink">Generate Link</button>
+      <button class="sendBtn" (click)="share()" style="margin-left: 10px;">SEND</button>
     </div>
   </div>
 </div>
