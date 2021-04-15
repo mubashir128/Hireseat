@@ -106,7 +106,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     );
     this.tabs2.push(new Tab2("/employer/share-candidate-profile", "Shared Profile", false, "fas fa-network-wired"));
     this.tabs2.push(
-      new Tab2("/employer/bidding-event-list", "Jobs", false, "fas fa-plus")
+      new Tab2("/employer/bidding-event-list", "Jobs", false, "fas fa-search")
     );
     this.tabs2.push(
       new Tab2("/employer/notification", "Notification", false, "fas fa-bell")
@@ -119,18 +119,18 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   forRecrutierMobileTab(){
     //for mobile view
     this.tabs2.push(
-      new Tab2("/recruiter/dashboard", "Dashboard", true, "fas fa-home")
+      new Tab2("/recruiter/share-candidate-profile", "Candidates", true, "fas fa-home")
     );
     this.tabs2.push(
       new Tab2(
-        "/recruiter/share-candidate-profile",
-        "Candidates",
+        "/forum",
+        "Ask a Recruiter",
         false,
-        "fas fa-shopping-bag"
+        "fas fa-question"
       )
     );
     this.tabs2.push(
-      new Tab2("/recruiter/bidding-event-list", "Jobs", false, "fas fa-plus")
+      new Tab2("/recruiter/bidding-event-list", "Jobs", false, "fas fa-search")
     );
     this.tabs2.push(
       new Tab2("/recruiter/notification", "Notification", false, "fas fa-bell")
@@ -141,18 +141,18 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   forCandidateMobileTab(){
     //for mobile view
     this.tabs2.push(
-      new Tab2("/candidate/all-recruiters", "Recruiters", true, "fas fa-home")
+      new Tab2("/candidate/my-profile", "Profile", true, "fas fa-home")
     );
     this.tabs2.push(
       new Tab2(
-        "/candidate/my-profile",
-        "Profile",
+        "/forum",
+        "Ask a Recruiter",
         false,
-        "fas fa-network-wired"
+        "fas fa-question"
       )
     );
     this.tabs2.push(
-      new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-plus")
+      new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-search")
     );
     this.tabs2.push(
       new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
@@ -186,16 +186,16 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   }
 
   forNoUserMobileTab(){
-    this.tabs2.push(
-      new Tab2("/login", "Sign Up", false, "fas fa-home")
-    );
-    this.tabs2.push(
-      new Tab2("/login", "Login", false, "fas fa-bell")
-    );
+    // this.tabs2.push(
+    //   new Tab2("/login", "Sign Up", false, "fas fa-home")
+    // );
+    // this.tabs2.push(
+    //   new Tab2("/login", "Login", false, "fas fa-bell")
+    // );
 
-    this.tabs2.push(
-      new Tab2("/menus", "Menu", false, "fas fa-bars")
-    );
+    // this.tabs2.push(
+    //   new Tab2("/menus", "Menu", false, "fas fa-bars")
+    // );
   }
 
   SelectItem2(item) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Tab } from "src/app/recruiter/models/tab";
 import { Tab2 } from 'src/app/recruiter/models/tab2';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -20,7 +21,7 @@ export class MenusComponent implements OnInit {
   isSuperAdmin: boolean = false;
   isEnterprise: boolean = false;
 
-  constructor(private userService: UserService, private authService:AuthenticationService, public supperAdmin: SuperAdminService) {
+  constructor(private userService: UserService, private authService:AuthenticationService, public supperAdmin: SuperAdminService, private router: Router) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != "no") {
@@ -51,7 +52,7 @@ export class MenusComponent implements OnInit {
 
   employerMenuTabs(){
     this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter  ", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-network-wired"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
 
     this.tabs2.push(new Tab2("/employer/job-profile-list", "Job Profile", false, "fas fa-shopping-bag"));
@@ -66,7 +67,7 @@ export class MenusComponent implements OnInit {
 
   recruiterMenuTabs(){
     this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter  ", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/recruiter/dashboard", "Dashboard", false, "fas fa-network-wired"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
     
     this.tabs2.push(
@@ -89,7 +90,7 @@ export class MenusComponent implements OnInit {
   
   candidateMenuTabs(){
     this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter  ", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters", false, "fas fa-user-alt"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
 
     this.tabs2.push(new Tab2("/candidate/all-recruiters", "Candidate", false, "fas fa-plus"));
@@ -103,9 +104,8 @@ export class MenusComponent implements OnInit {
   }
 
   superAdminMenuTab(){
-    console.log("superAdminMenuTab : ");
     this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter  ", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-network-wired"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
 
     this.tabs2.push(new Tab2("/super-admin/user-list", "Super Admin Dashboard", false, "fas fa-plus"));
@@ -122,7 +122,7 @@ export class MenusComponent implements OnInit {
 
   noUserMenuTabs(){
     this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter  ", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-network-wired"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
   }
 
@@ -130,15 +130,19 @@ export class MenusComponent implements OnInit {
   SelectItem2(item, text) {
     if(text === 'Logout'){
       this.authService.logout();
+    }else{
+      this.router.navigate([item]);
     }
 
-    this.tabs2.forEach((tab) => {
-      if (tab.id === item){
-        tab.selected = true;
-      }else{
-        tab.selected = false;
-      } 
-    });
+    // this.tabs2.forEach((tab) => {
+    //   if (tab.id === item){
+    //     tab.selected = true;
+    //   }else{
+    //     tab.selected = false;
+    //   }
+    // });
+
+
   }
 
 }

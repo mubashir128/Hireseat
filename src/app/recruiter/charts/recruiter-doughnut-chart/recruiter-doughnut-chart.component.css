@@ -163,4 +163,5 @@
   .partition { float: none; display: block;}
   .display-chart { width: 100%; display: block;}
   .comments-title { width: 100%; display: block;}
+  .candidateForm {font-size: 12px;}
 }
