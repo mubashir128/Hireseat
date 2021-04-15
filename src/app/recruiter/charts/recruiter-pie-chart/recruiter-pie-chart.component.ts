@@ -128,7 +128,7 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
             {
               ticks: {
                 beginAtZero: true,
-                // stepSize: 1,
+                stepSize: 100,
                 callback: function (value) {
                   if (value % 1 === 0) {
                     return value;
