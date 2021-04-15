@@ -36,7 +36,7 @@
 
   .uploadBtn {
     background-color: #4db0f4;
-    border-radius: 5px;
+    /* border-radius: 5px; */
   }
 
   .card {
@@ -934,6 +934,11 @@ iframe.interviewVideo {
   font-weight: 900;
 }
 
+.changeResumeBtn{
+  display: table;
+  margin-top: 0px !important
+}
+
 @media only screen and (min-width: 320px) and (max-width: 767px) {
 
   .disF { display: block;}
@@ -944,4 +949,5 @@ iframe.interviewVideo {
   .btn-accept { margin-top: 10px;}
   .late-mobile { width: 100% !important;}
   .l6 { width: 100% !important;}
+  .changeResumeBtn {margin-top: 10px !important;}
 }

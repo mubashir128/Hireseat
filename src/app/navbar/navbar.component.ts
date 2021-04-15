@@ -107,7 +107,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-
     this.showAdminDashboardButton = false;
     this.showEnterpriseDashboardButton = false;
 

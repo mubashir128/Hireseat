@@ -612,6 +612,7 @@ export class SharedCandidateProfilesComponent
 
   // share process
   showShareModal(resume) {
+    this.generateLink = true;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }

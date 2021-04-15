@@ -134,12 +134,11 @@
         <div class="example-resume">
           <ng-container *ngIf="fileUploaded !== 0">
             <div
-              class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text"
-              style="display: table; margin-top: 0px !important"
+              class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text changeResumeBtn"
             >
               <div class="uploadBtn" style="display: table-cell">
                 <span>Change Resume</span>
-                <input type="file" (change)="fileChange($event)" />
+                <input class="chInput" type="file" (change)="fileChange($event)" />
               </div>
             </div>
           </ng-container>
