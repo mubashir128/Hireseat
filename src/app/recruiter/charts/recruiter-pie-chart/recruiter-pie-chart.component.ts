@@ -112,7 +112,7 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
             // fontFamily: "Comic Sans MS",
             boxWidth: 8,
             boxHeight: 0,
-            fontSize: 15,
+            fontSize: 12,
           },
           maxSize: {
             height: 0,
