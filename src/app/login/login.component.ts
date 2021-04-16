@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
             } else if (this.userData.userRole == "enterprise") {
               this.router.navigate(["enterprise/user-list"]);
             } else if (this.userData.userRole == "candidate") {
-              this.router.navigate(["candidate/all-recruiters"]);
+              this.router.navigate(["candidate/my-profile"]);
             }
           } else if (data == "wrongpass") {
             this.status = "wrongpass";

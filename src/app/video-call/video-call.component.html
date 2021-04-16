@@ -100,11 +100,11 @@
                 value="click to copy">
                 Candidate Invitation Link
               </button>
-              <button type="button" class="start-button" *ngIf="startArchiveButton  && userRole != 'candidate'" [ngClass]="registerCandidate && !selfRecord?'regCandidate':false" (click)="startArchive()">Start
+              <button type="button" class="start-button" *ngIf="startArchiveButton" [ngClass]="registerCandidate && !selfRecord?'regCandidate':false" (click)="startArchive()">Start
                 Recording</button>
-              <button type="button" class="stop-button" *ngIf="stopArchiveButton  && userRole != 'candidate'"
+              <button type="button" class="stop-button" *ngIf="stopArchiveButton"
                 (click)="stopArchive(archiveID)">Stop Recording</button>
-              <button type="button" class="view-button" *ngIf="viewArchiveButton  && userRole != 'candidate'" (click)="storeArchive()">Submit
+              <button type="button" class="view-button" *ngIf="viewArchiveButton" (click)="storeArchive()">Submit
                 Recording</button>
               <!-- </div> -->
 
