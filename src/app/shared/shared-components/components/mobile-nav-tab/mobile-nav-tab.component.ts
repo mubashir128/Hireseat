@@ -59,7 +59,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(){
-    if(this.loggedInUser != "no"){
+    if(this.loggedInUser != "no" && !this.isSuperAdmin){
       this.getNotificationCount();
     }
 
