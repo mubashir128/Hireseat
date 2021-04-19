@@ -944,4 +944,12 @@ iframe.interviewVideo {
   .btn-accept { margin-top: 10px;}
   .late-mobile { width: 100% !important;}
   .l6 { width: 100% !important;}
+  .btn-accept span { text-transform: uppercase;}
+  .btn {  width:100%}
+.btn-accept {  width:100%}
+.uploadBtn { border-radius: 0;}
+.resumePreview {padding: 0;}
+.example-resume {padding: 10px 14px 0 14px;}
+textarea { margin-bottom:10px; padding: 10px;}
+.btn { border-radius: 0px !importantp;}
 }
