@@ -674,6 +674,7 @@ export class SharedCandidateProfilesComponent
         recruiterId: this.loggedUser._id,
         resumeId: this.shareResume._id,
         fullName: candidateName,
+        videoUrl: '',
         comment: this.shareResume.comments,
         candidateProfile: this.shareResume.resumeType ? false : true,
       };
