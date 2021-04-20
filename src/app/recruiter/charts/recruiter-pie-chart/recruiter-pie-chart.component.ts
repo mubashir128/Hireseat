@@ -112,7 +112,7 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
             // fontFamily: "Comic Sans MS",
             boxWidth: 8,
             boxHeight: 0,
-            fontSize: 12,
+            fontSize: 10,
           },
           maxSize: {
             height: 0,
@@ -121,14 +121,14 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
         title: {
           text: "Candidate helped / month.",
           display: true,
-          fontSize: 15,
+          fontSize: 12,
         },
         scales: {
           yAxes: [
             {
               ticks: {
-                beginAtZero: true,
-                stepSize: 100,
+                // beginAtZero: true,
+                stepSize: 50,
                 callback: function (value) {
                   if (value % 1 === 0) {
                     return value;

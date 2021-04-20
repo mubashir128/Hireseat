@@ -103,7 +103,7 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
           // fontFamily: "Comic Sans MS",
           boxWidth: 30,
           boxHeight: 0,
-          fontSize: 15
+          fontSize: 10
         },
         maxSize: {
           height: 0
@@ -112,7 +112,7 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
       title: {
         text: "Candidates Helped",
         display: true,
-        fontSize: 15
+        fontSize: 12
       },
       scales: {
         ticks: {
@@ -141,8 +141,8 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
         yAxes: [
           {
             ticks: {
-              beginAtZero: true,
-              // stepSize: 1,
+              // beginAtZero: true,
+              stepSize: 50,
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",
