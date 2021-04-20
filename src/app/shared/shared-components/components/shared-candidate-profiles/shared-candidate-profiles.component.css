@@ -687,7 +687,7 @@ a.videoCloseBtn {
   width: 20px;
   margin-top: 13px;
   background-color: #eee;
-  border: 1px solid #2196F3;
+  border: 1px solid #2196f3;
 }
 
 /* On mouse-over, add a grey background color */
@@ -697,7 +697,7 @@ a.videoCloseBtn {
 
 /* When the checkbox is checked, add a blue background */
 .CheckBoxcontainer input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -723,15 +723,15 @@ a.videoCloseBtn {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.industrieName{
-  font-size: 12px ;
+.industrieName {
+  font-size: 12px;
 }
 
-.candidate-name .industrieName{
+.candidate-name .industrieName {
   font-size: 12px !important;
   color: #8ca2c3 !important;
 }
-.sortIndustriesMain{
+.sortIndustriesMain {
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 20px 30px;
@@ -754,14 +754,14 @@ a.videoCloseBtn {
   border-radius: 3px;
   color: #fff !important;
   border: none;
-  margin: 30px auto 0; 
+  margin: 30px auto 0;
 }
 .industries {
   display: flex;
   flex-wrap: wrap;
   padding: 0px 0 20px;
 }
-.industries span{
+.industries span {
   background-color: #f0f0f0;
   padding: 6px 20px;
   border-radius: 5px;
@@ -769,13 +769,13 @@ a.videoCloseBtn {
   font-size: 14px;
 }
 
-.timstampDate{
+.timstampDate {
   /* width: 100%; */
   float: left;
   margin-right: 10px;
 }
 
-.notificationDateTime{
+.notificationDateTime {
   font-size: 12px;
   font-weight: initial;
   font-family: Roboto;
@@ -783,13 +783,29 @@ a.videoCloseBtn {
   margin-right: 10px;
   margin-top: 25px;
 }
-.pro { width: 100%; float: left;}
-.pro-1 { width: 55%; float: left;}
-.pro-2 { width: 30%; float: left;}
-.pro-3 { width: 15%; float: left;}
-.icon-name {padding: 5px;}
-.downloadResume {padding: 5px;}
-.pro .candProfile{
+.pro {
+  width: 100%;
+  float: left;
+}
+.pro-1 {
+  width: 55%;
+  float: left;
+}
+.pro-2 {
+  width: 30%;
+  float: left;
+}
+.pro-3 {
+  width: 15%;
+  float: left;
+}
+.icon-name {
+  padding: 5px;
+}
+.downloadResume {
+  padding: 5px;
+}
+.pro .candProfile {
   width: 100px;
   height: 100px;
   background-color: #e7e7e7;
@@ -804,58 +820,149 @@ a.videoCloseBtn {
   -o-object-fit: cover;
   object-fit: cover;
 }
-.LinkedInBtn { width: 48%; border-radius: 7px;}
-.shareBtn { width: 48%; border-radius: 7px}
-.post-cmt textarea {border: solid 1px #999999;}
-.down-1 { background: #0288d1; color: #fff; padding: 5px; width: 20%; border: none; margin-left: 6px;}
-.onLimitedSkills { margin-top: 6px;}
-@media only screen and (min-width: 320px) and (max-width: 767px) {
-.l3 { padding: 0px !important;}
-.s12 {padding: 5px !important;}
-.industrieName {font-size: 16px;}
-.s3 {width: 100%  !important;}
-.lates-s { width: 100% !important;}
-.set-one { width: 100% !important;}
-.CandidateDetails{width: 100%; display: block;}
-.candidate-name {width: 100%;}
-.pro-1{ width: 70% !important;}
-.pro-2{ width: 100% !important;}
-.commonSingleInner {width: 100% !important;}
-.pro-3 {width: 17%;}
-.PointsDivSingle h4 { font-size: 10px; font-weight: 200;}
-.candidate-name p {font-size: .8rem;}
-.PointsDiv.commonSingleInner.CommentInner {padding-left:0px;width: 100%;float: none;}
-.shape { font-size: 11px;}
-
-.recruiterprof.size {width: 30px !important; height: 30px !important;}
-.size img{ width: 30px !important; height: 30px !important;}
-  
+.LinkedInBtn {
+  width: 48%;
+  border-radius: 7px;
 }
-@media (max-width: 1020px){
+.shareBtn {
+  width: 48%;
+  border-radius: 7px;
+}
+.post-cmt textarea {
+  border: solid 1px #999999;
+}
+.down-1 {
+  background: #0288d1;
+  color: #fff;
+  padding: 5px;
+  width: 20%;
+  border: none;
+  margin-left: 6px;
+}
+.onLimitedSkills {
+  margin-top: 6px;
+}
+.down-1 {
+  background: #0288d1;
+  color: #fff;
+  padding: 5px;
+  width: 20%;
+  border: none;
+}
+.LinkedInBtn span {
+  text-align: center;
+  margin: 0 auto;
+}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .l3 {
+    padding: 0px !important;
+  }
+  .s12 {
+    padding: 5px !important;
+  }
+  .industrieName {
+    font-size: 16px;
+  }
+  .s3 {
+    width: 100% !important;
+  }
+  .lates-s {
+    width: 100% !important;
+  }
+  .set-one {
+    width: 100% !important;
+  }
+  .CandidateDetails {
+    width: 100%;
+    display: block;
+  }
+  .candidate-name {
+    width: 100%;
+  }
+  .pro-1 {
+    width: 70% !important;
+  }
+  .pro-2 {
+    width: 100% !important;
+  }
+  .commonSingleInner {
+    width: 100% !important;
+  }
+  .pro-3 {
+    width: 17%;
+  }
+  .PointsDivSingle h4 {
+    font-size: 10px;
+    font-weight: 200;
+  }
+  .candidate-name p {
+    font-size: 0.8rem;
+  }
+  .PointsDiv.commonSingleInner.CommentInner {
+    padding-left: 0px;
+    width: 100%;
+    float: none;
+  }
+  .shape {
+    font-size: 11px;
+  }
 
+  .recruiterprof.size {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .size img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
+@media (max-width: 1020px) {
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-  .commonSingleInner {width: 100%;}
-  .pro-1{ width: 100% !important;}
-  .pro-2{ width: 100% !important;}
-  .pro-3{ width:100% !important;}
-  
+  .commonSingleInner {
+    width: 100%;
+  }
+  .pro-1 {
+    width: 100% !important;
+  }
+  .pro-2 {
+    width: 100% !important;
+  }
+  .pro-3 {
+    width: 100% !important;
+  }
 }
-@media (max-width: 1440px){
-  .pro-1{ width: 53%;}
-  .pro-2{ width: 34%;}
-  .pro-3{ width: 26%;}
-  .pro .candProfile{
+@media (max-width: 1440px) {
+  .pro-1 {
+    width: 53%;
+  }
+  .pro-2 {
+    width: 34%;
+  }
+  .pro-3 {
+    width: 26%;
+  }
+  .pro .candProfile {
     width: 52px;
     height: 52px;
   }
-  .candidate-name { width: 100%;}
-  .LinkedInBtn { width: 98%; display: block; margin-right: 1%; border-radius: 5px;}
-  button.shareBtn { width: 98%; display: block; border-radius: 5px;}
- 
+  .candidate-name {
+    width: 100%;
+  }
+  .LinkedInBtn {
+    width: 98%;
+    display: block;
+    margin-right: 1%;
+    border-radius: 5px;
+  }
+  button.shareBtn {
+    width: 98%;
+    display: block;
+    border-radius: 5px;
+  }
 }
 
-.hideAndSHoTab{
+.hideAndSHoTab {
   display: none;
   margin-top: -10px;
 }
