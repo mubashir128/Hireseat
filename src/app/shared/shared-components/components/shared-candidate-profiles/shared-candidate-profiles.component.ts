@@ -637,6 +637,8 @@ export class SharedCandidateProfilesComponent
     document.body.removeChild(selBox);
 
     Materialize.toast("Link copied to clipboard", 1000);
+
+    this.closeShareModal();
   }
 
   async generateLinkForVideo() {
@@ -644,14 +646,11 @@ export class SharedCandidateProfilesComponent
 
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
     let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
-    if (this.shareResume.interviewLinkedByRecruiter || this.shareResume.recordedId) {
 
+    if (this.shareResume.interviewLinkedByRecruiter || this.shareResume.recordedId) {
       const archiveIdPayload = {
         archivedId: this.shareResume.interviewLinkedByRecruiter ? this.shareResume.interviewLinkedByRecruiter : this.shareResume.recordedId,
       };
-
-      console.log('archiveIdPayload==================================', archiveIdPayload);
-
       // getting url
       this.getArchivedVideoSubscription = this.videoCallingService.getArchivedVideo(archiveIdPayload).subscribe((res) => {
         if (res) {
@@ -668,7 +667,13 @@ export class SharedCandidateProfilesComponent
               comment: this.shareResume.comments,
               candidateProfile: this.shareResume.resumeType ? false : true,
             };
-
+            this._socket.sendMessage({
+              type: this._constants.sharedProfileType,
+              data: {
+                payload: payload,
+                subType: this._constants.generateLink
+              },
+            });
 
           }
 
@@ -684,15 +689,14 @@ export class SharedCandidateProfilesComponent
         comment: this.shareResume.comments,
         candidateProfile: this.shareResume.resumeType ? false : true,
       };
+      this._socket.sendMessage({
+        type: this._constants.sharedProfileType,
+        data: {
+          payload: payload,
+          subType: this._constants.generateLink
+        },
+      });
     }
-    this._socket.sendMessage({
-      type: this._constants.sharedProfileType,
-      data: {
-        type: userInfo.userRole,
-        payload: payload,
-        subType: this._constants.generateLink
-      },
-    });
   }
 
   async share() {
