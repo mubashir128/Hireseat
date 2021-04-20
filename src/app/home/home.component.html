@@ -20,7 +20,9 @@
         Receive Free Feedback on your Pitch,<br />
         Resume and Linkedin from Recruiters Specializing in Your Industry
       </h3>
-      <div class="hireSeatBtn"><a style="color: #ffffff;" [routerLink]="['/login']">Login</a></div>
+      <div class="hireSeatBtn">
+        <a style="color: #ffffff" [routerLink]="['/login']">Login</a>
+      </div>
       <button class="KnowMoreBtn" (click)="scrollToNextSlide()">
         Know More <img src="assets/img/arrow.png" class="arrowImg" />
       </button>
@@ -32,10 +34,14 @@
     <div class="ProveBestInner">
       <div class="proveHead">
         <div class="width50">
-          <img src="assets/img/provebg.png" class="headeLeftImg" />
+          <img
+            src="assets/img/provebg.png"
+            class="headeLeftImg"
+            loading="lazy"
+          />
         </div>
         <div class="width50">
-          <img src="assets/img/sitBg.png" class="SeatBAchH" />
+          <img src="assets/img/sitBg.png" class="SeatBAchH" loading="lazy" />
         </div>
       </div>
       <div class="ProveInnerMain">
@@ -198,7 +204,7 @@
               <h5>{{ article?.updatedAt | date }}</h5>
               <h4>{{ article?.title }}</h4>
               <div *ngIf="article.featuredImage" class="postimage">
-                <img src="{{ article.featuredImage }}" />
+                <img src="{{ article.featuredImage }}" loading="lazy" />
               </div>
 
               <div *ngIf="article.video != null" class="postimage">
@@ -220,6 +226,7 @@
                   width="100%"
                   height="100%"
                   [src]="article?.embbedded | safe"
+                  loading="lazy"
                 ></iframe>
               </div>
 
@@ -260,10 +267,10 @@
     *ngFor="let meetUpsData of meetUpsData; let i = index"
   >
     <div class="recruterInner" *ngIf="i < 1">
-      <img src="assets/img/staue.png" class="staueIcon" />
+      <img src="assets/img/staue.png" class="staueIcon" loading="lazy" />
       <h4 class="SecHeading text-center">{{ meetUpsData?.group.name }}</h4>
       <p>
-        <img src="assets/img/location.png" class="staueIcon" />{{
+        <img src="assets/img/location.png" class="staueIcon" loading="lazy" />{{
           meetUpsData?.group.localized_location
         }}
       </p>

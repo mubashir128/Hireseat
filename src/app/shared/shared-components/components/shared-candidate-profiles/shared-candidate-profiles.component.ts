@@ -244,6 +244,8 @@ export class SharedCandidateProfilesComponent
   }
 
   addCreatedLink(res) {
+    console.log('link generated', res);
+
     this.generateLink = false;
     this.createdUrl = res.result.link;
     Materialize.toast("Link generated", 1000);
@@ -639,18 +641,22 @@ export class SharedCandidateProfilesComponent
 
   async generateLinkForVideo() {
     let payload = {};
+
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
     let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
-    if (this.shareResume.interviewLinkedByRecruiter) {
+    if (this.shareResume.interviewLinkedByRecruiter || this.shareResume.recordedId) {
 
       const archiveIdPayload = {
-        archivedId: this.shareResume.interviewLinkedByRecruiter,
+        archivedId: this.shareResume.interviewLinkedByRecruiter ? this.shareResume.interviewLinkedByRecruiter : this.shareResume.recordedId,
       };
 
+      console.log('archiveIdPayload==================================', archiveIdPayload);
 
       // getting url
       this.getArchivedVideoSubscription = this.videoCallingService.getArchivedVideo(archiveIdPayload).subscribe((res) => {
         if (res) {
+          console.log('response ', res, '--------');
+
           this.shareableVideoURL = res.url;
 
           if (this.shareableVideoURL) {
