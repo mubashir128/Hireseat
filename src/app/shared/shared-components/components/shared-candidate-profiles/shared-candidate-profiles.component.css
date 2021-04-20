@@ -808,6 +808,8 @@ a.videoCloseBtn {
 .shareBtn { width: 48%; border-radius: 7px}
 .post-cmt textarea {border: solid 1px #999999;}
 .down-1 { background: #0288d1; color: #fff; padding: 5px; width: 20%; border: none;}
+.LinkedInBtn span {text-align: 
+  center; margin: 0 auto;}
 @media only screen and (min-width: 320px) and (max-width: 767px) {
 .l3 { padding: 0px !important;}
 .s12 {padding: 5px !important;}
