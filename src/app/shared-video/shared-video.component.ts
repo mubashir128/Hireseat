@@ -152,7 +152,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
             this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
             if (this.questionsByRecruiter === null) {
 
-              if (this.questionsByRecruiter.lenghth <= 0) {
+              if (this.questionsByRecruiter.length <= 0) {
                 this.isQuestion = false;
                 this.spinner.hide();
 
