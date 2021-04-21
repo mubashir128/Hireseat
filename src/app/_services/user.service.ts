@@ -241,6 +241,15 @@ export class UserService {
       })
     );
   }
+
+  addCandidateQuestion(data: any) {
+    return this.http.post<any>(this.baseurl + "api/addCandidateQuestion/", data).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   userverification(data: any) {
     return this.http
       .post<any>(this.baseurl + "api/userVerification/", data)
