@@ -32,11 +32,14 @@
               <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
               <p><label>Location :</label> {{resume?.location}}</p>
             </div>
-            <!-- <ng-container *ngIf="!videoURL">
+            <ng-container *ngIf="!videoURL">
+              <div class="" *ngIf = "resume.candidate_id.profileimage === ''">
+                <img src="../../../assets/img/user.png" class="uploadedImg" />
+              </div>
               <div class="" *ngIf = "resume.candidate_id.profileimage !== ''">
                 <img [src]="resume.candidate_id.profileimage" class="uploadedImg" />
               </div>
-            </ng-container> -->
+            </ng-container>
             <ng-container *ngIf="videoURL">
               <app-video-questions
                 [options]="{ autoplay: false, controls: true, sources: [{ src: videoURL, type: 'video/mp4' }]}"
