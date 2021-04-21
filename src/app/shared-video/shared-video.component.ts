@@ -134,10 +134,12 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
             this.recruiterDetails = res.resumeData[1];
             this.videoURL = res.videoUrl;
 
+            console.log("--- : ",res);
+
+            this.comments = this.resume.comments;
             this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
             // console.log('questionsByRecruiter', this.questionsByRecruiter);
 
-            this.comments = this.resume.comments;
             if (this.questionsByRecruiter === null) {
 
               if (this.questionsByRecruiter.lenghth <= 0) {

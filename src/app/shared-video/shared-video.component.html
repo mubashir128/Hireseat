@@ -25,13 +25,21 @@
           <!-- <div class="interviewVideoDiv stickyDiv"> -->
           <div class="container">
             <!-- call video questions -->
-            <div class="candidate-name mobViewOnly">
+            <!-- <div class="candidate-name mobViewOnly">
               <span>
                 {{resume?.candidateName}}
               </span>
               <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
               <p><label>Location :</label> {{resume?.location}}</p>
-            </div>
+            </div> -->
+            <ng-container *ngIf="!videoURL">
+              <div class="" *ngIf = "resume.candidate_id.profileimage === ''">
+                <img src="../../../assets/img/user.png" class="uploadedImg" />
+              </div>
+              <div class="" *ngIf = "resume.candidate_id.profileimage !== ''">
+                <img [src]="resume.candidate_id.profileimage" class="uploadedImg" />
+              </div>
+            </ng-container>
             <ng-container *ngIf="videoURL">
               <app-video-questions
                 [options]="{ autoplay: false, controls: true, sources: [{ src: videoURL, type: 'video/mp4' }]}"
@@ -47,8 +55,11 @@
           <div class="singleList employerResume resumeSingleList">
             <div class="docSectionBtns">
               <div class="candidate-name">
-                <span>
-                  {{resume?.candidateName}}
+                <span *ngIf = "resume?.candidateName">
+                  {{resume.candidateName}}
+                </span>
+                <span *ngIf = "resume?.candidate_id">
+                  {{resume.candidate_id.fullName}}
                 </span>
                 <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
                 <p><label>Location :</label> {{resume?.location}}</p>
@@ -97,6 +108,7 @@
             </ng-container>
             <ng-container *ngIf="isShareFromRecruiter && comments">
               <div class="singleListData">
+                Candidate's Summary : 
                 <div class="PointsDiv commonSingleInner">
                   <div class="PointsDivSingle PointsDivSingleN">
 
