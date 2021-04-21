@@ -47,8 +47,11 @@
           <div class="singleList employerResume resumeSingleList">
             <div class="docSectionBtns">
               <div class="candidate-name">
-                <span>
-                  {{resume?.candidateName}}
+                <span *ngIf = "resume?.candidateName">
+                  {{resume.candidateName}}
+                </span>
+                <span *ngIf = "resume?.candidate_id">
+                  {{resume.candidate_id.fullName}}
                 </span>
                 <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
                 <p><label>Location :</label> {{resume?.location}}</p>
@@ -97,6 +100,7 @@
             </ng-container>
             <ng-container *ngIf="isShareFromRecruiter && comments">
               <div class="singleListData">
+                Candidate's Summary : 
                 <div class="PointsDiv commonSingleInner">
                   <div class="PointsDivSingle PointsDivSingleN">
 
