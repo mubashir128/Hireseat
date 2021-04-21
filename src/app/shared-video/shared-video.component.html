@@ -109,13 +109,16 @@
             <ng-container *ngIf="isShareFromRecruiter && comments">
               <div class="singleListData">
                 Candidate's Summary : 
-                <div class="PointsDiv commonSingleInner">
+                <div class="PointsDiv commonSingleInner"  *ngIf = "comments !== ''">
                   <div class="PointsDivSingle PointsDivSingleN">
-
-                    <h4>{{ comments }}</h4>
-
+                    <h4> - {{ comments }}</h4>
                   </div>
-
+                  <div class="PointsDivSingle PointsDivSingleN" *ngIf = "comments2 !== ''">
+                    <h4> - {{ comments2 }}</h4>
+                  </div>
+                  <div class="PointsDivSingle PointsDivSingleN"  *ngIf = "comments3 !== ''">
+                    <h4> - {{ comments3 }}</h4>
+                  </div>
                 </div>
 
               </div>
