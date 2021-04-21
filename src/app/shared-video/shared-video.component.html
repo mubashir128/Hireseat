@@ -25,13 +25,13 @@
           <!-- <div class="interviewVideoDiv stickyDiv"> -->
           <div class="container">
             <!-- call video questions -->
-            <div class="candidate-name mobViewOnly">
+            <!-- <div class="candidate-name mobViewOnly">
               <span>
                 {{resume?.candidateName}}
               </span>
               <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
               <p><label>Location :</label> {{resume?.location}}</p>
-            </div>
+            </div> -->
             <ng-container *ngIf="!videoURL">
               <div class="" *ngIf = "resume.candidate_id.profileimage === ''">
                 <img src="../../../assets/img/user.png" class="uploadedImg" />

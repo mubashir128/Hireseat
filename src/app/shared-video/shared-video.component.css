@@ -386,6 +386,11 @@ nav.customeNav {
     justify-content: space-between;
     padding-top: 15px;
   }
+
+  .uploadedImg {
+    width: 150px;
+    height: 150px;
+  }
 }
 .video-js-without-questions {
   width: 100% !important;
