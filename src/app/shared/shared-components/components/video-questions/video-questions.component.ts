@@ -79,11 +79,6 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     // this.play();
   }
   ngOnInit() {
-    console.log('resume', this.resume);
-    console.log('questionsByRecruiter', this.questionsByRecruiter);
-    console.log('questionNumber', this.questionNumber);
-
-
     // this.target.nativeElement.addEventListener('play', this.play.bind(this));
     // this.target.nativeElement.addEventListener('pause', this.pause.bind(this));
 
