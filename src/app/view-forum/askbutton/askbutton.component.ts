@@ -35,6 +35,9 @@ export class AskbuttonComponent implements OnInit {
   isEnterprise: boolean = false;
   isCandidate: boolean = false;
 
+  textFeildDivQNone;
+  textFeildDivQ;
+
   constructor(private formBuilder: FormBuilder, private router: Router, private _Userservice: UserService, private route: ActivatedRoute, private _interactComp: InteractCompService) {
     this.loggedInUser = this._Userservice.getUserData();
     if (this.loggedInUser != "no") {
