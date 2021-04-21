@@ -123,7 +123,6 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
         // debugger
         if (res) {
 
-          // console.log(res);
           if (res.from === 'recruiter') {
 
             this.isShareFromRecruiter = true;
@@ -134,15 +133,12 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
             this.recruiterDetails = res.resumeData[1];
             this.videoURL = res.videoUrl;
 
-            console.log("--- : ",res);
-
             this.comments = this.resume.comments;
-            this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
-            // console.log('questionsByRecruiter', this.questionsByRecruiter);
+            this.questionsByRecruiter = this.resume.questionsByRecruiter ? this.resume.questionsByRecruiter[0] : undefined;
 
             if (this.questionsByRecruiter === null) {
 
-              if (this.questionsByRecruiter.lenghth <= 0) {
+              if (this.questionsByRecruiter.length <= 0) {
                 this.isQuestion = false;
                 this.spinner.hide();
 
