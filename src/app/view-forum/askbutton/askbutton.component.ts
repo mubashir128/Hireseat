@@ -25,8 +25,34 @@ export class AskbuttonComponent implements OnInit {
   submitted = false;
   emailSubmitted = false;
   otpSubmitted = false;
-  constructor(private formBuilder: FormBuilder, private router: Router, private _Userservice: UserService, private route: ActivatedRoute, private _interactComp: InteractCompService) {
 
+  loggedInUser: any;
+  isLoggedIn: boolean = false;
+  isEmployer: boolean = false;
+  isRecruiter: boolean = false;
+  isAdmin: boolean = false;
+  isSuperAdmin: boolean = false;
+  isEnterprise: boolean = false;
+  isCandidate: boolean = false;
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private _Userservice: UserService, private route: ActivatedRoute, private _interactComp: InteractCompService) {
+    this.loggedInUser = this._Userservice.getUserData();
+    if (this.loggedInUser != "no") {
+      this.isLoggedIn = true;
+      if (this.loggedInUser.userRole == "employer") {
+        this.isEmployer = true;
+      } else if (this.loggedInUser.userRole == "recruiter") {
+        this.isRecruiter = true;
+      } else if (this.loggedInUser.userRole == "admin") {
+        this.isAdmin = true;
+      } else if (this.loggedInUser.userRole == "super-admin") {
+        this.isSuperAdmin = true;
+      } else if (this.loggedInUser.userRole == "enterprise") {
+        this.isEnterprise = true;
+      } else if (this.loggedInUser.userRole == "candidate") {
+        this.isCandidate = true;
+      }
+    }
   }
   ngOnInit() {
     this.verifyEmail = this.formBuilder.group({
@@ -147,15 +173,24 @@ export class AskbuttonComponent implements OnInit {
   //add question functionality
   addQuest() {
     this.askusersData = this._Userservice.getaskQuesUserId();
+    let userD = JSON.parse(this.askusersData);
 
-    let userD = JSON.parse(this.askusersData)
-
-    if (userD == null) {
-
+    if(this.isCandidate){
+      this.askQuesData = (this.askQues.value);
+      const data = this.askQuesData;
+      data.email = this.loggedInUser.email;
+      this._Userservice.addCandidateQuestion(data).subscribe(
+        res => {
+          if (res.status = 'success') {
+            this.loadData(res);
+          }
+        }, err => {
+          console.log(err);
+        }
+      );
+    }else if (userD == null) {
       this.msgForPopup = 'Please Verfiy with Email  then ask Questions';
       this.emailConfirmPopup();
-
-
     } else if (userD.isVerified == true || this.verfStatus == true) {
       this.submitted = true;
       this.askQuesData = (this.askQues.value);
