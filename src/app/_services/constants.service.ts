@@ -49,7 +49,7 @@ export class ConstantsService {
   pushNewCreatedBid = "pushNewCreatedBid";
 
   askQuestionType = 2;
-  getQuestion = "getQuestion";
+  addQuestion = "addQuestion";
 
   private = "private";
   public = "public";
@@ -97,7 +97,7 @@ export class ConstantsService {
   setVariables(obj){
     this.getAllNotifications = obj.getAllNotifications;
     this.newNotification = obj.newNotification;
-    this.getQuestion = obj.addQuestion;
+    this.addQuestion = obj.addQuestion;
     this.getAllQuestions = obj.getAllQuestions;
     this.askedQuestion = obj.askedQuestion;
     this.answer = obj.answer;

@@ -137,7 +137,7 @@ export class ViewForumComponent implements OnInit, OnDestroy {
 
   handleQuestions(res: any) {
     switch (res.subType) {
-      case this._constants.getQuestion:
+      case this._constants.addQuestion:
         // add all notifications to list.
         this.questData.unshift(res.result);
         break;

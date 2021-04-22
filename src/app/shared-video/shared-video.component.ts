@@ -53,6 +53,8 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   isShareFromRecruiter: boolean;
   isQuestion: boolean;
   comments: any;
+  comments2: any;
+  comments3: any;
   showError = false;
   showCustomLoader = false;
   buff: any;
@@ -74,14 +76,13 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     this.spinner.show();
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
     const isCandidate = this.token.split('@')[1];
-    // console.log('welcome to lazyloading', this.token, isCandidate);
+    
     if (isCandidate === 'candidate') {
       const candidateToken = this.token.split('@')[0];
       this.checkSharedTokenSubscription = this.sharedVideoService.checkCandidateSharedToken(candidateToken).subscribe((res) => {
         this.spinner.show();
         // debugger
         if (res) {
-          // console.log(res);
           // if (res.from === 'recruiter') {
 
           this.isShareFromRecruiter = true;
@@ -90,10 +91,12 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
           this.resume = res.resumeData[0];
           this.videoURL = res.videoUrl;
 
-          this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
-          // console.log('questionsByRecruiter', this.questionsByRecruiter);
+          this.questionsByRecruiter = this.resume.questionsByRecruiter ? this.resume.questionsByRecruiter[0] : undefined;
 
           this.comments = this.resume.comments;
+          this.comments2 = this.resume.comment2;
+          this.comments3 = this.resume.comment3;
+          
           if (this.questionsByRecruiter === null) {
 
             if (this.questionsByRecruiter.lenghth <= 0) {
@@ -107,7 +110,6 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
           // }
         }
       }, err => {
-        // console.log(err, '***************************look up*********************');
         this.isTokenValid = false;
         this.showCustomLoader = false;
         if (!this.isTokenValid) {
@@ -124,7 +126,6 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
         if (res) {
 
           if (res.from === 'recruiter') {
-
             this.isShareFromRecruiter = true;
             this.isTokenValid = true;
             this.showCustomLoader = true;
@@ -134,6 +135,9 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
             this.videoURL = res.videoUrl;
 
             this.comments = this.resume.comments;
+            this.comments2 = this.resume.comment2;
+            this.comments3 = this.resume.comment3;
+
             this.questionsByRecruiter = this.resume.questionsByRecruiter ? this.resume.questionsByRecruiter[0] : undefined;
 
             if (this.questionsByRecruiter === null) {
