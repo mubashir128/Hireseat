@@ -112,7 +112,7 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
       title: {
         text: "Candidates Helped",
         display: true,
-        fontSize: 12
+        fontSize: 10
       },
       scales: {
         ticks: {
@@ -141,7 +141,7 @@ export class RecruiterLineChartComponent implements OnInit, OnDestroy {
         yAxes: [
           {
             ticks: {
-              // beginAtZero: true,
+              beginAtZero: true,
               stepSize: 50,
             },
             gridLines: {

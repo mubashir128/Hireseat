@@ -121,13 +121,13 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
         title: {
           text: "Candidate helped / month.",
           display: true,
-          fontSize: 12,
+          fontSize: 10,
         },
         scales: {
           yAxes: [
             {
               ticks: {
-                // beginAtZero: true,
+                beginAtZero: true,
                 stepSize: 50,
                 callback: function (value) {
                   if (value % 1 === 0) {
@@ -161,6 +161,7 @@ export class RecruiterPieChartComponent implements OnInit, OnDestroy {
             {
               ticks: {
                 beginAtZero: true,
+                fontSize: 9,
               },
               gridLines: {
                 color: "rgba(0, 0, 0, 0)",
