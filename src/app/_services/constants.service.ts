@@ -82,6 +82,8 @@ export class ConstantsService {
 
   generateLink = "generateLink";
 
+  getAllMultiSharedProfiles = "getAllMultiSharedProfiles"
+
   public baseurl: any;
   constructor(private http: HttpClient) {
     this.baseurl = myGlobals.baseUrl;
@@ -154,6 +156,7 @@ export class ConstantsService {
     this.candidateJobQuestionType = obj.candidateJobQuestionType;
     this.notificationLimit = obj.notificationLimit;
     this.generateLink = obj.generateLink;
+    this.getAllMultiSharedProfiles = obj.getAllMultiSharedProfiles;
   }
 
 }
