@@ -122,7 +122,6 @@ export class SharedCandidateProfilesComponent
   skillsShow = false;
 
   createdUrl = "";
-  generateLink = true;
 
   constructor(
     private resumeService: ResumeService,
@@ -244,11 +243,9 @@ export class SharedCandidateProfilesComponent
   }
 
   addCreatedLink(res) {
-    console.log('link generated', res);
-
-    this.generateLink = false;
     this.createdUrl = res.result.link;
-    Materialize.toast("Link generated", 1000);
+
+    this.copyLink();
   }
 
   handleResponse(res) {
@@ -614,7 +611,6 @@ export class SharedCandidateProfilesComponent
 
   // share process
   showShareModal(resume) {
-    this.generateLink = true;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -654,7 +650,6 @@ export class SharedCandidateProfilesComponent
       // getting url
       this.getArchivedVideoSubscription = this.videoCallingService.getArchivedVideo(archiveIdPayload).subscribe((res) => {
         if (res) {
-          console.log('response ', res, '--------');
 
           this.shareableVideoURL = res.url;
 
