@@ -148,7 +148,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
         "/candidate/my-posted-profiles",
         "My Posted Profiles",
         false,
-        "fas fa-question"
+        "fa fa-user-circle-o"
       )
     );
     this.tabs2.push(
