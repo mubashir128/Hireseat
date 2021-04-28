@@ -966,3 +966,54 @@ a.videoCloseBtn {
   display: none;
   margin-top: -10px;
 }
+
+.spaceBet{
+  margin-left: 10px;
+}
+
+.title{
+  font-size:24px;
+  /* color:#114488; */
+  color: #0aafff;
+  font-weight:700;
+}
+
+.spaceBottom, .searchDiv, .searchDiv i{
+  padding: 10px;
+}
+
+.searchData {
+  position: relative;
+  border: 1px solid #33aaff;
+  width: 93%;
+  max-height: 500px;
+  margin-left: 18px;
+  margin-top: 5px;
+  overflow-y: auto;
+  /* margin-bottom: 10px; */
+}
+
+.searchData::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 30px;
+}
+
+.searchData::-webkit-scrollbar-thumb {
+  width: 12px;
+  background-color: #A8A2A0;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+}
+
+.searchData::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 30px;
+}
+
+.shareToUserClass{
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin: 10px;
+}

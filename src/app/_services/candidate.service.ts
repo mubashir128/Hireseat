@@ -142,5 +142,13 @@ export class CandidateService {
       })
     );
   }
+
+  shareWithUsers(payload) {
+    return this.http.post<any>(this.baseurl + "api/shareWithUsers", payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
   
 }

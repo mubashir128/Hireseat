@@ -117,8 +117,8 @@ export class BiddingEventService {
     }));
   }
 
-  getTopRecruiterList(){
-    return this.http.get<IRecruiterProfile[]>(this.baseurl+'api/getTopRecruiterList').pipe(map((res:IRecruiterProfile[])=>{
+  getTopRecruiterList(obj){
+    return this.http.post<IRecruiterProfile[]>(this.baseurl+'api/getTopRecruiterList', obj).pipe(map((res:IRecruiterProfile[])=>{
       return res;
     }));
   }

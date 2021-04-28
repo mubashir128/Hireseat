@@ -596,11 +596,45 @@
       <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
     </div>
     <div class="form-group textRight">
-      <button class="sendBtn" (click)="copyLink()" *ngIf = "!generateLink">Copy Link</button>
-      <button class="sendBtn" (click)="generateLinkForVideo()" *ngIf = "generateLink">Generate Link</button>
-      <button class="sendBtn" (click)="share()" style="margin-left: 10px;">SEND</button>
+      <button class="sendBtn" *ngIf="loggedUser.userRole == 'recruiter' || loggedUser.userRole == 'employer'" (click)="showShareTouserModal()">Share</button>
+      <button class="sendBtn spaceBet" (click)="generateLinkForVideo()">Copy Link</button>
+      <button class="sendBtn spaceBet" (click)="share()">SEND</button>
     </div>
   </div>
+</div>
+
+<div id="shareToUsers" class="modal">
+  <form [formGroup]="auctionFrm">
+    <i (click)="closeShareToUserModal()" class="fa fa-times" aria-hidden="true"></i>
+    <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'recruiter'">Select Recruiters</div>
+    <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'employer'">Select Employers</div>
+    <div class="searchDiv">
+      <input type="text" class="searchRecruiter" formControlName="searchTermByNameIs" [(ngModel)]="searchTermByNameIs" placeholder="Search..." #searchInputTerm>
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </div>
+
+    <div class="searchData">
+      <div class="recruitrList" *ngFor="let item of topRecruiters">
+        <ng-container *ngIf = "loggedUser._id !== item._id">
+          <h4>{{ item.fullName }}</h4>
+          <div class="starDiv" *ngFor="let star of startList">
+            <i class="fa fa-star" aria-hidden="true"></i>
+          </div>
+          <div class="actionDiv">
+            <label class="CheckBoxcontainer">
+              <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event,'search')" [checked]="item.isChecked">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="form-group textRight">
+      <button class="shareToUserClass" (click)="shareToUsers()">Share</button>
+    </div>
+
+  </form>
 </div>
 
 <!-- modal to select dates -->
