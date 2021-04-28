@@ -1,9 +1,19 @@
 <div class="chart">
   <div class="partition">
     <div class="display-chart table-responsive" #doughtnutChartEle>
-      <canvas id="doughnutChart" style="min-height:250px"  class="table"></canvas>
+      <canvas
+        id="doughnutChart"
+        width="100"
+        height="100"
+        chart-data="data"
+        chart-labels="labels"
+        chart-options="mainDonut"
+        class="chart chart-doughnut"
+      ></canvas>
+      <!-- style="min-height: 250px"
+        class="table" -->
     </div>
-    <div class="comments-title" *ngIf = "allComments.length > 0">
+    <div class="comments-title" *ngIf="allComments.length > 0">
       <div class="allComments">Candidate Replies</div>
       <div class="comments-div">
         <div
@@ -55,13 +65,23 @@
 
             <div class="replyComment" *ngFor="let reply of item.reply">
               <div class="row">
-                <ng-container *ngIf="reply?.user_id?.profileimage !== '' && item.recruiterId._id === loggedInUser._id">
+                <ng-container
+                  *ngIf="
+                    reply?.user_id?.profileimage !== '' &&
+                    item.recruiterId._id === loggedInUser._id
+                  "
+                >
                   <div class="candProfile2 col">
                     <img [src]="reply?.user_id?.profileimage" alt="profile" />
                   </div>
                 </ng-container>
 
-                <ng-container *ngIf="reply?.user_id?.profileimage === '' && item.recruiterId._id === loggedInUser._id">
+                <ng-container
+                  *ngIf="
+                    reply?.user_id?.profileimage === '' &&
+                    item.recruiterId._id === loggedInUser._id
+                  "
+                >
                   <div class="candProfile2 col">
                     <img src="assets/img/profile-user.png" alt="profile" />
                   </div>
@@ -76,7 +96,7 @@
 
               <ng-container *ngIf="item.recruiterId._id === loggedInUser._id">
                 <div class="row">
-                  <div class="styleReply col"> - {{ reply.replyComment }}</div>
+                  <div class="styleReply col">- {{ reply.replyComment }}</div>
                 </div>
               </ng-container>
             </div>

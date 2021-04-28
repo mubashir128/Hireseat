@@ -40,14 +40,14 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
 
   loggedInUser: any;
 
-  @ViewChild("doughtnutChartEle") doughtnutChartEle : ElementRef;
+  @ViewChild("doughtnutChartEle") doughtnutChartEle: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
     private _socket: WebsocketService,
     private userService: UserService,
     private _subList: SubscriberslistService,
-    private _constants : ConstantsService,
+    private _constants: ConstantsService,
     private _renderer: Renderer2
   ) {
     this.setDaughnutChartConfig();
@@ -88,17 +88,17 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     });
 
     this._subList.recruiterPointsForDoughnutChart$.subscribe((res: any) => {
-      if(res.data){
+      if (res.data) {
         this.addCommentReplyToAllComments(res.data);
       }
       this.handleRecruiterPoints(res);
     });
   }
 
-  addCommentReplyToAllComments(res){
+  addCommentReplyToAllComments(res) {
     res.reply.user_id = res.user_id;
-    this.allComments.forEach((item, index)=>{
-      if(item._id === res._id){
+    this.allComments.forEach((item, index) => {
+      if (item._id === res._id) {
         item.reply.push(res.reply);
       }
     });
@@ -133,6 +133,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
       // onClick: this.handleLineChartClick,
       cutoutPercentage: 90,
       responsive: true,
+      maintainAspectRatio: true,
       legend: {
         position: "bottom",
         labels: {
@@ -207,7 +208,7 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
         res.data.forEach((item) => {
           this.allComments = [...this.allComments, ...item.canReview];
         });
-        if(this.allComments.length === 0){
+        if (this.allComments.length === 0) {
           this._renderer.setStyle(this.doughtnutChartEle.nativeElement, "width", '100%');
         }
         break;
@@ -259,13 +260,13 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
 
   changeTotalAndTargetText(res) {
     //logic for changing the values.
-    
+
     let firstNum = 0;
     let secondNum = 999;
 
-    if(String(this.totalTextTemp) === ""){
+    if (String(this.totalTextTemp) === "") {
       this.totalText = String(res.increseCount);
-    }else{
+    } else {
       this.totalText = String(parseInt(this.totalTextTemp) + res.increseCount);
     }
 
@@ -331,14 +332,14 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  resetValues(){
+  resetValues() {
     this.totalText = "";
     this.targetText = "";
     this.totalScore = "";
     this.targetScore = "";
-    this.changeText();  
+    this.changeText();
   }
-  
+
   ngOnDestroy() {
     this.resetValues();
     this._socket.removeListener({ type: this._constants.recruiterDoughnutChartType });
