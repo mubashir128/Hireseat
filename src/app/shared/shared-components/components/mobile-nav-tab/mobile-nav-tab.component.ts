@@ -145,8 +145,8 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     );
     this.tabs2.push(
       new Tab2(
-        "/forum",
-        "Ask a Recruiter",
+        "/candidate/my-posted-profiles",
+        "My Posted Profiles",
         false,
         "fas fa-question"
       )
