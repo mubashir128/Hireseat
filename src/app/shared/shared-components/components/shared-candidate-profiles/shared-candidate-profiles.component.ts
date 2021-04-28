@@ -709,7 +709,6 @@ export class SharedCandidateProfilesComponent
     let payload = {};
 
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
-    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
 
     if (this.shareResume.interviewLinkedByRecruiter || this.shareResume.recordedId) {
       const archiveIdPayload = {
@@ -743,7 +742,6 @@ export class SharedCandidateProfilesComponent
         }
       });
     } else {
-      console.log('no archive link available ');
       payload = {
         recruiterId: this.loggedUser._id,
         resumeId: this.shareResume._id,
@@ -760,10 +758,6 @@ export class SharedCandidateProfilesComponent
         },
       });
     }
-  }
-
-  shareWithRecrutier(){
-
   }
 
   async share() {
@@ -1193,16 +1187,21 @@ export class SharedCandidateProfilesComponent
   }
 
   shareToUsers(){
-    console.log("this.finalRecruitersAre : ",this.finalRecruitersAre);
     jQuery("#shareToUsers").modal("close");
 
+    if(this.finalRecruitersAre.length === 0){
+      return ;
+    }
+
     let payload = {
-      shareFrom : this.loggedUser._id,
-      shaerTo : this.finalRecruitersAre
+      sharedFrom : this.loggedUser._id,
+      sharedTo : this.finalRecruitersAre,
+      resumeId : this.shareResume._id,
+      candidateProfile: this.shareResume.resumeType ? false : true,
     }
 
     this.shareWithRecruiterSubscription = this.candidateService.shareWithUsers(payload).subscribe((res) => {
-      console.log("--- res : ",res);
+      Materialize.toast("Shared successfully", 1000);
     }, (err) => {
       console.log(err);
       Materialize.toast("Something went wrong!", 1000);
