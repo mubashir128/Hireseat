@@ -1,4 +1,4 @@
-<ng-container *ngIf="loggedUser.userRole != 'candidate' && resumes.length !== 0">
+<ng-container *ngIf="loggedUser.userRole != 'candidate'">
   <div class="row" style="margin-top: 10px; margin-bottom: 5px; padding: 0 0px !important;">
     <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
   </div>
@@ -100,6 +100,9 @@
                       resume?.candidateName || resume?.candidate_id?.fullName
                     }}
                   </span>
+                  <div *ngIf = "resume.shareFrom">
+                    Profile shared by : {{resume.shareFrom.fullName}}
+                  </div>
                   <div class="other-details">
                     <p><label>Job Title :</label> {{ resume?.jobTitle }}</p>
                     <p><label>Location :</label> {{ resume?.location }}</p>

@@ -239,6 +239,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     switch (res.subType) {
       case this._constants.getAllMultiSharedProfiles:
         this.resumes = res.data;
+        this.addShareFromUser(res);
         break;
       case this._constants.addComment:
         this.addCommentToCommets(res);
@@ -264,6 +265,16 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
       default:
         break;
     }
+  }
+
+  addShareFromUser(res){
+    this.resumes.forEach((item , index) => {
+      res.result.forEach((item2 , index2) => {
+        if(item2.resumeId === item._id){
+          item.shareFrom = item2.sharedFrom;
+        }
+      });
+    });
   }
 
   addCreatedLink(res) {
@@ -1086,8 +1097,9 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   }
 
   getMultiSortByIndustries() {
-    this.candidateService.getMultiSortByIndustries({ industries: this.industries }).subscribe((data: any) => {
-      this.resumes = data;
+    this.candidateService.getMultiSortByIndustries({ industries: this.industries }).subscribe((res: any) => {
+      this.resumes = res.data;
+      this.addShareFromUser(res);
     });
   }
 
