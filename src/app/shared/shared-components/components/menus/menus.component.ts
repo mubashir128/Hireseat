@@ -55,6 +55,7 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-network-wired"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
 
+    this.tabs2.push(new Tab2("/employer/multi-share-candidate-profile", "Multi Shared Candidate Profile", false, "fas fa-plus"));
     this.tabs2.push(new Tab2("/employer/job-profile-list", "Job Profile", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/employer/video-interview-room", "Video Interview Room", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/employer/mycandidates", "My Candidiate", false, "fas fa-plus"));
@@ -69,6 +70,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
     this.tabs2.push(new Tab2("/recruiter/dashboard", "Dashboard", false, "fas fa-network-wired"));
     // this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
+    
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-question"));
     
     this.tabs2.push(
       new Tab2("/recruiter/all-recruiters", "Recruiters", true, "fas fa-home")
