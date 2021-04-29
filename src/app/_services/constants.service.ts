@@ -90,10 +90,10 @@ export class ConstantsService {
   }
 
   async getAllConstants(){
-    this.http.get<any>(this.baseurl + "api/getAllConstants").subscribe(res=>{
-      this.setVariables(res);
-      return true;
-    });
+    // this.http.get<any>(this.baseurl + "api/getAllConstants").subscribe(res=>{
+    //   this.setVariables(res);
+    //   return true;
+    // });
   }
   
   setVariables(obj){
