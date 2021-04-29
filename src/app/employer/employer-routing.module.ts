@@ -16,6 +16,7 @@ import { NewResumeComponent } from "../recruiter/new-resume/new-resume.component
 import { SharedCandidateProfilesComponent } from "../shared/shared-components/components/shared-candidate-profiles/shared-candidate-profiles.component";
 import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
 import { MenusComponent } from "../shared/shared-components/components/menus/menus.component";
+import { MultiSharedCandidateProfileComponent } from "../shared/shared-components/multi-shared-candidate-profile/multi-shared-candidate-profile.component";
 
 const routes: Routes = [
   {
@@ -73,6 +74,10 @@ const routes: Routes = [
       {
         path: "share-candidate-profile",
         component: SharedCandidateProfilesComponent,
+      },
+      {
+        path: "multi-share-candidate-profile",
+        component: MultiSharedCandidateProfileComponent,
       },
       {
         path: "notification",
