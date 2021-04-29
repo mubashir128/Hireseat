@@ -1,4 +1,4 @@
-<ng-container *ngIf="loggedUser.userRole != 'candidate'">
+<ng-container *ngIf="loggedUser.userRole != 'candidate' && resumes.length !== 0">
   <div class="row" style="margin-top: 10px; margin-bottom: 5px; padding: 0 0px !important;">
     <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
   </div>
@@ -572,7 +572,7 @@
   </div>
 </ng-container>
 
-<div class="row">
+<div class="row" *ngIf="loggedUser.userRole != 'candidate' && resumes.length !== 0">
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 

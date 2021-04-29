@@ -128,6 +128,17 @@ export class CandidateService {
         })
       );
   }
+
+  getMultiSortByIndustries(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/getMultiSortByIndustries", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
   getCandidateProfileBid(id) {
     return this.http.get<any>(this.baseurl + "api/getCandidateProfileBid/"+ id).pipe(
       map((res: any) => {
@@ -135,6 +146,7 @@ export class CandidateService {
       })
     );
   }
+
   getRecruiterCandidateBids(id) {
     return this.http.get<any>(this.baseurl + "api/getRecruiterCandidateBids/"+ id).pipe(
       map((res: any) => {
