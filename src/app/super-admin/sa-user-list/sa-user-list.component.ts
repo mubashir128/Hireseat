@@ -11,6 +11,7 @@ import {
   distinctUntilChanged,
   tap,
 } from "rxjs/operators";
+import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 
 declare var Materialize: any;
 declare var jQuery: any;
@@ -39,7 +40,8 @@ export class SAUserListComponent implements OnInit {
     private superAdmin: SuperAdminService,
     private userAuth: AuthenticationService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private _subList : SubscriberslistService
   ) {}
 
   ngOnInit() {
@@ -49,11 +51,13 @@ export class SAUserListComponent implements OnInit {
     } else {
       this.itemsIs = "super-admin";
     }
+
     this.getAllUsers({
       onLoad: true,
       user: this.itemsIs,
       itemsPerPageAre: this.itemsPerPageAre,
     });
+    
     jQuery("#" + this.itemsIs).css("background-color", "#27B1BD");
   }
 
@@ -92,9 +96,12 @@ export class SAUserListComponent implements OnInit {
   }
 
   getAllUsers(obj) {
+    this.userList = [];
+    this._subList.loaderList.next({type : "1"});
     this.superAdmin.getAllUsers(obj).subscribe(
       (response) => {
         if (response) {
+          this._subList.loaderList.next({type : "0"});
           if (response.length !== 0) {
             this.userList = [...this.userList, ...response];
             this.createdAt = response[response.length - 1].createdAt;
@@ -104,6 +111,7 @@ export class SAUserListComponent implements OnInit {
         }
       },
       (error) => {
+        this._subList.loaderList.next({type : "0"});
         console.log(error);
       }
     );

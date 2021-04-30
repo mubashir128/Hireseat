@@ -238,6 +238,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllMultiSharedProfiles:
+        this._subList.loaderList.next({type : "0"});
         this.resumes = res.data;
         this.addShareFromUser(res);
         break;
@@ -345,6 +346,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   }
 
   getProfiles() {
+    this._subList.loaderList.next({type : "1"});
     this._socket.sendMessage({
       type: this._constants.sharedProfileType,
       data: {

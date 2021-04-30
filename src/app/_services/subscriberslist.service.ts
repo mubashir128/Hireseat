@@ -24,5 +24,8 @@ export class SubscriberslistService {
   decreaseNotificationCountObj = new Subject();
   decreaseNotificationCountObj$ = this.decreaseNotificationCountObj.asObservable();
 
+  loaderList = new Subject();
+  loaderList$ = this.loaderList.asObservable();
+
   constructor() { }
 }
