@@ -9,7 +9,7 @@ declare var jQuery: any;
 })
 export class ListLoaderComponent implements OnInit, OnDestroy {
 
-  loaderArr = [1, 2, 3, 4, 5];
+  loaderArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private _subList : SubscriberslistService) {
     this._subList.loaderList$.subscribe(res=>{
