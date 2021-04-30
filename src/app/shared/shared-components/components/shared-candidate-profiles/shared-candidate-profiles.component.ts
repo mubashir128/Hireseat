@@ -238,6 +238,7 @@ export class SharedCandidateProfilesComponent
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
+        this._subList.loaderList.next({type : "0"});
         this.resumes = res.data;
         break;
       case this._constants.addComment:
@@ -335,6 +336,7 @@ export class SharedCandidateProfilesComponent
   }
 
   getProfiles() {
+    this._subList.loaderList.next({type : "1"});
     this._socket.sendMessage({
       type: this._constants.sharedProfileType,
       data: {

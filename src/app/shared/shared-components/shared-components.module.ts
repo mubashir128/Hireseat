@@ -62,6 +62,7 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { MenusComponent } from './components/menus/menus.component';
 import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-tab.component';
 import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-profile/multi-shared-candidate-profile.component';
+import { ListLoaderComponent } from './list-loader/list-loader.component';
 
 @NgModule({
   imports: [
@@ -147,7 +148,8 @@ import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-p
     NotificationsComponent,
     MenusComponent,
     MobileNavTabComponent,
-    MultiSharedCandidateProfileComponent
+    MultiSharedCandidateProfileComponent,
+    ListLoaderComponent
   ],
   exports: [
     FooterComponent,
@@ -209,7 +211,8 @@ import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-p
     MomentModule,
     SelectDropDownModule,
     MenusComponent,
-    MobileNavTabComponent
+    MobileNavTabComponent,
+    ListLoaderComponent
   ],
  
 })
