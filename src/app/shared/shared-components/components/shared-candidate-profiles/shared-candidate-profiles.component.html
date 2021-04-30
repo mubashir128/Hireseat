@@ -203,7 +203,7 @@
                   <div class="icon-name">
                     <!-- <img class="shared-icon" src="../../assets/icons/share-option.png"> -->
                     <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                    <span> Share </span>
+                    <span class="shareText"> Share </span>
                   </div>
                 </a>
               </button>
@@ -576,8 +576,16 @@
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 
+<div>
+  <app-list-loader></app-list-loader>
+</div>
+
 <div id="shareEmailModal" class="modal">
   <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
+  <div class="form-group textRight">
+    <button class="sendBtn spaceBetOn" *ngIf="loggedUser.userRole == 'recruiter' || loggedUser.userRole == 'employer'" (click)="showShareTouserModal()">Share on HireSeat</button>
+    <button class="sendBtn spaceBetOn" (click)="generateLinkForVideo()">Copy Link</button>
+  </div>
   <div class="emailTemp">
     <div class="form-group posRel">
       <!-- <p class="hideBtn"><a href="#">Hide CC / BCC</a></p> -->
@@ -597,9 +605,7 @@
       <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
     </div>
     <div class="form-group textRight">
-      <button class="sendBtn" *ngIf="loggedUser.userRole == 'recruiter' || loggedUser.userRole == 'employer'" (click)="showShareTouserModal()">Share</button>
-      <button class="sendBtn spaceBet" (click)="generateLinkForVideo()">Copy Link</button>
-      <button class="sendBtn spaceBet" (click)="share()">SEND</button>
+      <button class="sendBtn spaceBet" (click)="share()">Send Email</button>
     </div>
   </div>
 </div>

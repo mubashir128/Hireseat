@@ -5,6 +5,7 @@ import { SAUserListRoutingModule } from './sa-user-list-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SAUserListComponent } from './sa-user-list.component';
 import { NgxPaginationModule } from "ngx-pagination";
+import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-components.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { NgxPaginationModule } from "ngx-pagination";
     SAUserListRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SharedComponentsModule
   ],
   declarations: [
     SAUserListComponent

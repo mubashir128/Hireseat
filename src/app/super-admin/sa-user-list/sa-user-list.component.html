@@ -45,9 +45,13 @@
         <div class="divider"></div>
       </li>
     </ul>
-    <pagination-controls *ngIf="!noBiddingEvents" (pageChange)="handlePaginator($event)"></pagination-controls>
+    <pagination-controls *ngIf="!noBiddingEvents && userList.length !== 0 " (pageChange)="handlePaginator($event)"></pagination-controls>
   </div>
   <div *ngIf="noBiddingEvents">
     No Results to show
   </div>
+</div>
+
+<div>
+  <app-list-loader></app-list-loader>
 </div>
