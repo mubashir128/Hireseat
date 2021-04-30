@@ -91,7 +91,11 @@ button.shareBtn {
 .shared-icon {
   width: 20px;
   margin-right: 3px;
-  color: #fff;
+  color: #fff !important;
+}
+
+.shareText {
+  color: #fff !important;
 }
 
 .linkedin-icon {
