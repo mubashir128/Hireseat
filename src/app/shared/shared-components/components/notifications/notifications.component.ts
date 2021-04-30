@@ -183,6 +183,9 @@ export class NotificationsComponent implements OnInit {
       case "shareCandidateProfile" : 
         this.router.navigate(["/recruiter/share-candidate-profile"]);
         break;
+      case "multiShareCandidateProfile" : 
+        this.router.navigate(["/recruiter/multi-share-candidate-profile"]);
+        break;
       default : 
         break;
     }
