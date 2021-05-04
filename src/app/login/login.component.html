@@ -51,7 +51,7 @@
               </div>
               <div class="row">
                 <div class="input-field col s12 m12 l12">
-                  <input type="password" class="form-control" name="password" formControlName="password"
+                  <input [type]="showTextPassword ? 'text' : 'password'" class="form-control" name="password" formControlName="password"
                     (focus)="focusFunction($event)" minlength="5" autocomplete="off" />
                   <div *ngIf="login.controls['password'].hasError('required')" class="error">
                     Please Enter Password
@@ -60,9 +60,18 @@
                     password not match.
                   </div>
                   <label for="password">Password</label>
+
+                  <label class="CheckBoxcontainer">
+                    <input type="checkbox" name="showPassowrd" formControlName="showPassowrd" (change)="showPassword($event)"/>
+                    <span class="checkmark"></span>
+                    <span class="industrieName">
+                      Show Password
+                    </span>
+                  </label>
+
                 </div>
               </div>
-              <div class="row  center-align">
+              <div class="row center-align">
                 <button type="submit" [disabled]="!suBtnActive" class="waves-effect waves-light  commonBlueBtn">
                   <span *ngIf="suBtnActive">Sign in</span>
                   <i *ngIf="!suBtnActive" class="fa fa-spinner fa-spin" style="font-size:24px"></i>

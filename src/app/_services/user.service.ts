@@ -145,6 +145,10 @@ export class UserService {
     return this.http.post(this.baseurl + "api/getUserNotificationCunt/", {userRole : userRole});
   }
 
+  getMultiSharedCandidateProfileCount(userRole) {
+    return this.http.post(this.baseurl + "api/get-all-multi-shared-candidate-profile-count/", {userRole : userRole});
+  }
+
   updateUserProfile(info: IProfile) {
     return this.http
       .put<IProfile>(this.baseurl + "api/updateUserProfile", info)

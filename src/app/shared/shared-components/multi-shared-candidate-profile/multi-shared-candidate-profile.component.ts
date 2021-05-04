@@ -203,6 +203,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   }
 
   async ngOnInit() {
+    this.addIndustries();
     jQuery(".modal").modal();
     jQuery("select").material_select();
 
@@ -224,6 +225,20 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
       this.handleProfileData(res);
     });
 
+  }
+
+  addIndustries(){
+    this.industries.push({name : "Finance", _id : "1"});
+    this.industries.push({name : "Accounting", _id : "2"});
+    this.industries.push({name : "Technology", _id : "3"});
+    this.industries.push({name : "Healthcare", _id : "4"});
+    this.industries.push({name : "Marketing", _id : "5"});
+    this.industries.push({name : "Startups", _id : "6"});
+    this.industries.push({name : "Legal", _id : "7"});
+    this.industries.push({name : "Construction", _id : "8"});
+    this.industries.push({name : "Human Resources", _id : "9"});
+    this.industries.push({name : "Operations", _id : "10"});
+    this.industries.push({name : "Sales", _id : "11"});
   }
 
   getTopRecruiterList(){
@@ -817,7 +832,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
                 data: {
                   type: userInfo.userRole,
                   payload: payload,
-                  subType: "shareVideoViaRecruiterEmail"
+                  subType: this._constants.shareVideoViaRecruiterEmail
                 },
               });
             } else {
