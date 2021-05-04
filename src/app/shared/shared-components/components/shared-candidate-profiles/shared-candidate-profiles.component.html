@@ -350,7 +350,7 @@
         </ng-container>
         <div class="commentmainscroll">
           <ng-container *ngIf="resume.canReview.length > 0">
-            <div *ngFor="let cmt of resume.canReview; let i = index">
+            <div *ngFor="let cmt of resume.canReview | reverse; let i = index">
               <ng-container
                 *ngIf="
                   cmt?.recruiterId?._id === loggedUser._id ||
@@ -524,7 +524,7 @@
                         <div class="replies">
                           <span class="comment">Replies</span>
 
-                          <div class="reply" *ngFor="let reply of cmt.reply">
+                          <div class="reply" *ngFor="let reply of cmt.reply | reverse">
                             <div class="profilepic">
                               <ng-container
                                 *ngIf="reply?.user_id?.profileimage"

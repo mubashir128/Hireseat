@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
   status: string = null;
   returnUrl: any;
 
+  showTextPassword = false;
+
   constructor(
     private _AuthService: AuthenticationService,
     private router: Router,
@@ -135,4 +137,9 @@ export class LoginComponent implements OnInit {
   redirectToForgotPassword() {
     this.router.navigate(["/Forgot-Password"]);
   }
+
+  showPassword($event){
+    this.showTextPassword = $event.target.checked;
+  }
+
 }
