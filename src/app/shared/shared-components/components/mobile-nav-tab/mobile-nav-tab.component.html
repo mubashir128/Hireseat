@@ -11,6 +11,7 @@
           [ngStyle]="{ color: tab.selected ? '#393B3B' : '#ffffff' }"
         ></i><br />
       </a>
+      <span *ngIf="multiSharedCandidateProfileCount > 0 && (tab.displayText === 'Multi Shared Candidate Profile')">{{ multiSharedCandidateProfileCount }}</span>
       <span *ngIf="notificationLength > 0 && (tab.displayText === 'Notification')">{{ notificationLength }}</span>
     </li>
   </ul>
