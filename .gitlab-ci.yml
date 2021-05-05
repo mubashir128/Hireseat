@@ -30,7 +30,7 @@ stages:
 
 deployToAWS:
   only:
-    - master
+    - stable
   stage: deploy
   before_script:
     - mkdir -p ~/.ssh
