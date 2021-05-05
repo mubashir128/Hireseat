@@ -8,10 +8,20 @@ echo "----------*************************************************************---
 # sudo rm -rf /var/www/html/codeVianBackend/
 # navigate to the folder
 cd /var/www/html/gitlab/HireSeat_Web
+echo "----------------check git status--------------------"
+sudo git status
+echo "----------------end git status--------------------"
+echo "--------------------------------------------------"
+echo "--------------------------------------------------"
+echo "--------------------------------------------------"
 
 # clone the repo again
 # sudo git clone https://gitlab.com/pritamnb/codeVianBackend.git
 sudo git pull
+echo "--------------------------------------------------"
+echo "--------------------------------------------------"
+echo "--------------------------------------------------"
+echo "--------------------------------------------------"
 
 #source the nvm file. In an non
 #If you are not using nvm, add the actual path like
