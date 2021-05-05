@@ -1,4 +1,4 @@
-<div class="NavMain">
+<div class="NavMain sticky navbar-fixed-top cbp-af-header destop-1">
   <nav style="background: #e9f4ff" class="customeNav">
     <div class="nav-wrapper container">
       <a [routerLink]="['/']" class="brand-logo"
@@ -32,21 +32,21 @@
             >Ask a Recruiter
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a [routerLink]="['/upload-resume']" routerLinkActive="borderBA">
             Resume Bank</a
           >
-        </li>
+        </li> -->
         <li>
           <a [routerLink]="['/contact-us']" routerLinkActive="borderBA"
             >Contact Us</a
           >
         </li>
-        <li>
+        <!-- <li>
           <a [routerLink]="['/job-post']" routerLinkActive="borderBA"
             >Job Postings</a
           >
-        </li>
+        </li> -->
 
         <li *ngIf="!isLoggedIn">
           <a
@@ -121,141 +121,10 @@
         </li>
         <!-- <li *ngIf="isEmployer && isLoggedIn "><a [routerLink]="['/home/TheRockRec']">The Rockstar Recruiter Community</a> -->
 
-        <ng-container id="notify" *ngIf="show && !isAdmin && isLoggedIn">
-          <div class="notificationList">
-            <div class="notificationListInner">
-              <div class="hederNotification">
-                <h4>Notification</h4>
-              </div>
-              <div
-                class="scrollNotification"
-                infiniteScroll
-                [infiniteScrollDistance]="0"
-                [infiniteScrollThrottle]="50"
-                [infiniteScrollContainer]="selector"
-                [fromRoot]="true"
-                (scrolled)="onScroll()"
-              >
-                <ul>
-                  <li *ngFor="let ques of questDataLenght">
-                    <a
-                      (click)="getToQuestion(ques._id)"
-                      [routerLink]=""
-                      routerLinkActive="notification-content"
-                      *ngIf="!ques.isAnswered"
-                      [innerHtml]="truncateHTML(ques.question)"
-                      >{{ ques.question }}</a
-                    >
-                  </li>
-
-                  <ng-container> </ng-container>
-
-                  <li *ngFor="let ques of suggestedQueData">
-                    <a
-                      [routerLink]="[
-                        '/bidding-events/details',
-                        ques?.biddingEventId
-                      ]"
-                      [queryParams]="{ queid: ques?._id }"
-                      routerLinkActive="notification-content"
-                      *ngIf="ques.QueAnsStaus == '1'"
-                      [innerHtml]="truncateHTML(ques.question)"
-                      >{{ ques.question }}</a
-                    >
-                  </li>
-
-                  <li *ngFor="let ques of suggestedQueData">
-                    <a
-                      [routerLink]="[
-                        '/bidding-events/details',
-                        ques?.biddingEventId
-                      ]"
-                      [queryParams]="{ queid: ques?._id }"
-                      routerLinkActive="notification-content"
-                      *ngIf="ques.QueAnsStaus == '2' && isRecruiter"
-                      (click)="updateQueAns(ques?._id)"
-                      [innerHtml]="truncateHTML(ques.question)"
-                      >{{ ques.question }}</a
-                    >
-                  </li>
-
-                  <ng-container *ngIf="isCandidate">
-                    <li *ngFor="let cmt of commets">
-                      <a
-                        (click)="goToSharedProfile(cmt._id)"
-                        [routerLink]=""
-                        routerLinkActive="notification-content"
-                        *ngIf="cmt.review && cmt.notification"
-                        [innerHtml]="truncateHTML(cmt.review)"
-                        >{{ cmt.review }}</a
-                      >
-                    </li>
-                  </ng-container>
-
-                  <li *ngFor="let cmt of likesOnComments">
-                    <a
-                    (click)="goToSharedProfileRecruiter(cmt.data._id, cmt.data.like[0]._id, 'like')"
-                      [routerLink]=""
-                      routerLinkActive="notification-content"
-                      [innerHtml]="truncateHTMLMsg(cmt.data.review, ' - liked')"
-                      *ngIf = "cmt.data.like[0].notification"
-                      >{{ cmt.data.review }}</a
-                    >
-                  </li>
-
-                  <li *ngFor="let cmt of replysOnComments">
-                    <a
-                      (click)="goToSharedProfileRecruiter(cmt.data._id, cmt.data.reply._id, 'reply')"
-                      [routerLink]=""
-                      routerLinkActive="notification-content"
-                      [innerHtml]="truncateHTMLMsg(cmt.data.reply.replyComment, ' - replied')"
-                      *ngIf = "cmt.data.reply.notification"
-                      >{{ cmt.data.review }}</a
-                    >
-                  </li>
-
-                </ul>
-              </div>
-            </div>
-          </div>
-        </ng-container>
-
-        <li *ngIf="!isAdmin && isLoggedIn && isEmployer">
-          <a (click)="toggle()">
-            <h4 class="count" *ngIf="notificationLength > 0">
-              {{ notificationLength + suggestedQueCount }}
-            </h4>
-            <img
-              src="assets/img/Notification-512.png"
-              style="vertical-align: middle; height: 30px; width: 30px"
-            />
-          </a>
+        <li>
+          <app-notifications></app-notifications>
         </li>
-
-        <li *ngIf="!isAdmin && isLoggedIn && isRecruiter">
-          <a (click)="toggle()">
-            <h4 class="count" *ngIf="notificationLength > 0">
-              {{ notificationLength + suggestedQueAnsCount }}
-            </h4>
-            <img
-              src="assets/img/Notification-512.png"
-              style="vertical-align: middle; height: 30px; width: 30px"
-            />
-          </a>
-        </li>
-
-        <li *ngIf="!isAdmin && isLoggedIn && isCandidate">
-          <a (click)="toggle()">
-            <h4 class="count" *ngIf="notificationLength > 0">
-              {{ notificationLength + suggestedQueCount }}
-            </h4>
-            <img
-              src="assets/img/Notification-512.png"
-              style="vertical-align: middle; height: 30px; width: 30px"
-            />
-          </a>
-        </li>
-
+        
         <li
           *ngIf="
             isLoggedIn &&
@@ -296,19 +165,19 @@
         Ask a Recruiter
       </a>
     </li>
-    <li>
+    <!-- <li>
       <a
         class="waves-effect waves-light btn"
         (click)="navigate('/upload-resume')"
       >
         Resume Bank</a
       >
-    </li>
-    <li>
+    </li> -->
+    <!-- <li>
       <a class="waves-effect waves-light btn" (click)="navigate('/job-post')"
         >Job Postings</a
       >
-    </li>
+    </li> -->
     <li *ngIf="isRecruiter && isLoggedIn">
       <a
         class="waves-effect waves-light btn"
@@ -381,4 +250,8 @@
     </li>
   </ul>
   <!-- </ng-container> -->
+</div>
+
+<div class="mobile-viwe">
+  <app-mobile-nav-tab></app-mobile-nav-tab>
 </div>

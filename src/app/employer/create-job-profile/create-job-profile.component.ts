@@ -12,6 +12,7 @@ import { UserService } from '../../_services/user.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BiddingEventService } from '../../_services/bidding-event.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 declare var jQuery: any;
 declare var Materialize: any;
@@ -30,7 +31,7 @@ export class CreateJobProfileComponent implements OnInit {
   public contractArr: Contract[];
   public jobProfileFrm: FormGroup;
   languageProficiencyArr: LanguageProficiency[];
-
+  editor = ClassicEditor;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private authService: AuthenticationService, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {
 
@@ -113,7 +114,7 @@ export class CreateJobProfileComponent implements OnInit {
         if (data.result === "inserted") {
           Materialize.toast('Job Profile Created Successfully', 1000)
           this.spinner.hide();
-          this.router.navigate(["/employer/job-profile-list"]);
+          this.router.navigate([`/${this.loggedUser.userRole}/job-profile-list`]);
         } else {
           this.spinner.hide();
         }

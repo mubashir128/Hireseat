@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Chart } from "chart.js";
 import { WebsocketService } from "src/app/_services/websocket.service";
 import { Subject } from "rxjs";
 import { UserService } from "../../../_services/user.service";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
+import { ConstantsService } from "src/app/_services/constants.service";
 
 @Component({
   selector: "app-recruiter-doughnut-chart",
@@ -17,9 +18,6 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   DaughnutChart;
   daughnutChartDataConfig: any;
   chartColor = ["#0aafff", "#E0DFDF"];
-
-  getDoughnutChartData = "getDoughnutChartData";
-  getAllRecruiterComment = "getAllRecruiterComment";
 
   doughnutObserver = new Subject();
   doughnutObserver$ = this.doughnutObserver.asObservable();
@@ -35,14 +33,22 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   totalScore = "Total Score";
   targetScore = "Target Score";
 
+  totalTextTemp;
+  targetTextTemp;
+
   allComments = [];
 
   loggedInUser: any;
+
+  @ViewChild("doughtnutChartEle") doughtnutChartEle : ElementRef;
+
   constructor(
     private formBuilder: FormBuilder,
     private _socket: WebsocketService,
     private userService: UserService,
-    private _subList: SubscriberslistService
+    private _subList: SubscriberslistService,
+    private _constants : ConstantsService,
+    private _renderer: Renderer2
   ) {
     this.setDaughnutChartConfig();
     this.loggedInUser = this.userService.getUserData();
@@ -57,9 +63,9 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
 
     this.changeText();
 
-    await this._socket.removeListener({ type: 6 });
+    await this._socket.removeListener({ type: this._constants.recruiterDoughnutChartType });
     this._socket.addListener({
-      type: 6,
+      type: this._constants.recruiterDoughnutChartType,
       callback: this.doughnutObserver,
     });
 
@@ -68,31 +74,43 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     });
 
     this._socket.sendMessage({
-      type: 6,
+      type: this._constants.recruiterDoughnutChartType,
       data: {
-        type: this.loggedInUser.userRole,
-        subType: this.getDoughnutChartData,
+        subType: this._constants.getDoughnutChartData,
       },
     });
 
     this._socket.sendMessage({
-      type: 6,
+      type: this._constants.recruiterDoughnutChartType,
       data: {
-        type: this.loggedInUser.userRole,
-        subType: this.getAllRecruiterComment,
+        subType: this._constants.getAllRecruiterComment,
       },
     });
 
-    this._subList.recruiterPoints$.subscribe((res: any) => {
+    this._subList.recruiterPointsForDoughnutChart$.subscribe((res: any) => {
+      if(res.data){
+        this.addCommentReplyToAllComments(res.data);
+      }
       this.handleRecruiterPoints(res);
+    });
+  }
+
+  addCommentReplyToAllComments(res){
+    res.reply.user_id = res.user_id;
+    this.allComments.forEach((item, index)=>{
+      if(item._id === res._id){
+        item.reply.push(res.reply);
+      }
     });
   }
 
   handleRecruiterPoints(res) {
     switch (res.pointer) {
       case "ratingPoints":
-        this.changeTotalAndTargetText(res);
-        // this.userProfile[res.pointer] += res.increseCount;
+        this.totalTextTemp = this.totalText;
+        this.targetTextTemp = this.targetText;
+        this.resetValues();
+        // this.changeTotalAndTargetText(res);
         break;
     }
   }
@@ -182,13 +200,16 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
 
   handleDoughnutChartData(res) {
     switch (res.subType) {
-      case this.getDoughnutChartData:
+      case this._constants.getDoughnutChartData:
         this.showChartData(res);
         break;
-      case this.getAllRecruiterComment:
+      case this._constants.getAllRecruiterComment:
         res.data.forEach((item) => {
           this.allComments = [...this.allComments, ...item.canReview];
         });
+        if(this.allComments.length === 0){
+          this._renderer.setStyle(this.doughtnutChartEle.nativeElement, "width", '100%');
+        }
         break;
       default:
         break;
@@ -237,14 +258,20 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
   }
 
   changeTotalAndTargetText(res) {
+    //logic for changing the values.
+    
     let firstNum = 0;
     let secondNum = 999;
-    let totalvalue = parseInt(this.totalText) + res.increseCount;
-    this.totalText = totalvalue + "";
+
+    if(String(this.totalTextTemp) === ""){
+      this.totalText = String(res.increseCount);
+    }else{
+      this.totalText = String(parseInt(this.totalTextTemp) + res.increseCount);
+    }
 
     while (true) {
-      if (totalvalue >= firstNum && totalvalue <= secondNum) {
-        this.targetText = secondNum + 1 + "";
+      if (parseInt(this.totalText) >= firstNum && parseInt(this.totalText) <= secondNum) {
+        this.targetText = String(secondNum + 1);
         break;
       } else {
         firstNum = secondNum;
@@ -304,11 +331,18 @@ export class RecruiterDoughnutChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  resetValues(){
     this.totalText = "";
     this.targetText = "";
     this.totalScore = "";
     this.targetScore = "";
-    this.changeText();
+    this.changeText();  
+  }
+  
+  ngOnDestroy() {
+    this.resetValues();
+    this._socket.removeListener({ type: this._constants.recruiterDoughnutChartType });
+    this.doughnutObserver.unsubscribe();
+    // this._subList.recruiterPointsForDoughnutChart.unsubscribe();
   }
 }

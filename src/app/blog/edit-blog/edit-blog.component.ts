@@ -10,6 +10,7 @@ import {
 } from "@angular/forms";
 import { BlogService } from "../../_services/blog.service";
 import { DomSanitizer } from "@angular/platform-browser";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 declare var Materialize: any;
 declare var $: any;
 
@@ -69,6 +70,7 @@ export class EditBlogComponent implements OnInit {
   };
   videoUrl: any;
   videouploading: boolean = false;
+  editor = ClassicEditor;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,

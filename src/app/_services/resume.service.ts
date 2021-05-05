@@ -213,8 +213,14 @@ export class ResumeService {
   postMyComment(payload) {
     return this.http.post<any>(this.baseurl + "api/post-comment", payload);
   }
+  postRecruiterComment(payload) {
+    return this.http.post<any>(this.baseurl + "api/post-Recruiter-Comment", payload);
+  }
   editComment(payload) {
     return this.http.post<any>(this.baseurl + "api/edit-comment", payload);
+  }
+  editRecruiterComment(payload) {
+    return this.http.post<any>(this.baseurl + "api/edit-recruiter-comment", payload);
   }
   deleteComment(payload) {
     return this.http.post<any>(this.baseurl + "api/delete-comment", payload);
@@ -222,9 +228,18 @@ export class ResumeService {
   likeComment(payload) {
     return this.http.post<any>(this.baseurl + "api/like-comment", payload);
   }
+  likeRecruiterComment(payload) {
+    return this.http.post<any>(this.baseurl + "api/like-recruiter-comment", payload);
+  }
   replyToComment(payload) {
     return this.http.post<any>(
       this.baseurl + "api/post-reply-comment",
+      payload
+    );
+  }
+  replyCandidateToComment(payload) {
+    return this.http.post<any>(
+      this.baseurl + "api/post-candidate-reply",
       payload
     );
   }

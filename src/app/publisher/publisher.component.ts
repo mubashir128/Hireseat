@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, Input, ChangeDetectionStrategy, Renderer2 } from '@angular/core';
 import { OpentokService } from '../_services/opentok.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 const publish = () => {
@@ -12,27 +12,42 @@ const publish = () => {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-
+// width: '141px',
+// height: '103px',
 export class PublisherComponent implements AfterViewInit {
   @ViewChild('publisherDiv', { static: true }) publisherDiv: ElementRef;
-  @ViewChild('visioStopBtn', { static: false }) visioStopBtn: ElementRef;
+  @ViewChild('visioStopBtn') visioStopBtn: ElementRef;
 
   @Input() session: OT.Session;
   publisher: OT.Publisher;
   publishing: Boolean;
   publisherOptions: any;
   hideVideo = false;
+  width:string;
+  height:string;
   constructor(
     private opentokService: OpentokService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private renderer: Renderer2
   ) {
     this.publishing = false;
+    var x = window.matchMedia("(max-width: 700px)");
+    console.log('screen size',x.matches);
+    if(x.matches == true){
+      this.width = '100%';
+      this.height = '300px';
+    }else{
+      this.width = '100%';
+      this.height = '350px';
+    }
     this.publisherOptions = {
       insertMode: 'append',
-      width: '300px',
-      height: '300px',
+      // width: '200px',
+      // height: '150px',
+      width: this.width,
+      height: this.height,
       name: 'Publisher',
-      fitMode: 'contain',
+      fitMode: 'cover',
       style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
       publishAudio: true,
       publishVideo: true,
@@ -51,7 +66,8 @@ export class PublisherComponent implements AfterViewInit {
       animate: true,
       window: window,
       ignoreClass: 'OT_ignore',
-      position: 'relative'
+      position: 'relative',
+      insertDefaultUI:true
     };
     // this.opentokService._publishedStream.subscribe(publisher => {
     //   // console.log('publisher status', publisher);
@@ -72,6 +88,7 @@ export class PublisherComponent implements AfterViewInit {
 
     if (this.session) {
       if (this.session['isConnected']()) {
+
         this.publish();
       }
       this.session.on('sessionConnected', () => this.publish());
@@ -83,11 +100,13 @@ export class PublisherComponent implements AfterViewInit {
       this.session.on('streamDestroyed', (event) => {
         event.preventDefault();
         console.log("Publisher stopped streaming.");
+        
+      
         // this.publisherDiv.nativeElement.afterClosed()
       })
     }
   }
-
+ 
   publish() {
     this.spinner.show();
     this.session.publish(this.publisher, (err) => {
@@ -101,6 +120,7 @@ export class PublisherComponent implements AfterViewInit {
         // // console.log('******************', this.publisher);
         this.opentokService.setPublisher(this.publisher);
         this.publishing = true;
+        
       }
     });
   }

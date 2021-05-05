@@ -23,7 +23,6 @@ export class JobProfileInfoComponent implements OnInit {
     this.spinner.show();
     this.feedbackService.getJobprofileDetails(bidid).subscribe((response) => {
       this.profileDetails = response.jobProfileKey;
-      console.log(this.profileDetails);
 
       this.spinner.hide();
     }, (error) => {

@@ -2,17 +2,33 @@
   position: relative;
 }
 
-/* .collection .collection-item:last-child::after{
-    content: "6";
-    position: absolute;
-    background-color: #fb0000;
-    width: 15px;
-    height: 15px;
-    right: 37%;
-    top: 14%;
-    border-radius: 50%;
-    font-size: 11px;
-    display: flex;
+@media only screen and (min-width: 320px) and (max-width: 667px) {
+  .mobileScroll a.collection-item {
+    padding: 7px 10px !important;
+    min-width: 105px;
+    text-align: center;
+    display: none !important;
     justify-content: center;
     align-items: center;
-} */
+  }
+  .mobileScroll {
+    display: none !important;
+    overflow-x: scroll !important;
+    padding: 0;
+  }
+}
+@media (max-width: 320px) {
+  .mobileScroll a.collection-item {
+    padding: 7px 10px !important;
+    min-width: 105px;
+    text-align: center;
+    display: none !important;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobileScroll {
+    display: none !important;
+    overflow-x: scroll !important;
+    padding: 0;
+  }
+}

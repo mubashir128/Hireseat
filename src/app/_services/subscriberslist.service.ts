@@ -15,5 +15,14 @@ export class SubscriberslistService {
   recruiterPoints = new Subject();
   recruiterPoints$ = this.recruiterPoints.asObservable();
 
+  recruiterPointsForDoughnutChart = new Subject();
+  recruiterPointsForDoughnutChart$ = this.recruiterPointsForDoughnutChart.asObservable();
+
+  activeCandidateNavBar = new Subject();
+  activeCandidateNavBar$ = this.activeCandidateNavBar.asObservable();
+
+  decreaseNotificationCountObj = new Subject();
+  decreaseNotificationCountObj$ = this.decreaseNotificationCountObj.asObservable();
+
   constructor() { }
 }

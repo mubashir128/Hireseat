@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, HostListener, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, HostListener, ElementRef, Output, EventEmitter, OnInit } from '@angular/core';
 import 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Bid, IBid } from '../models/bid';
@@ -77,6 +77,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   searchvalue: any;
   data: IResume[];
   showdropdown: boolean = false;
+  userRole:number = 0;
   // resumeData = ["5dc163ceb2ca5513b07a8cc6","5dc161a4b2ca5513b07a8cc2","5dc161ffb2ca5513b07a8cc4","5dc3d3b414707b09f405916c","5dc3e9d014707b09f4059176","5dc2c88114e68e1a946e3368"];
   Data = [];
   constructor(
@@ -116,7 +117,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
   get f() { return this.bidFrm.controls; }
 
   get frm() { return this.resumePoints.controls }
-
+  
   ngOnChanges() {
 
     this.route.params.subscribe(params => { this.getJobprofileDetails(params['key']) });
@@ -366,7 +367,6 @@ export class RecruterBiddingInfoComponent implements OnChanges {
     });
   }
   submitsuggestedBid(id, firstName, lastName) {
-
     this.selectedResume = new Resume();
     this.selectedResume._id = id;
     this.CandidateName = firstName + lastName;
@@ -413,6 +413,7 @@ export class RecruterBiddingInfoComponent implements OnChanges {
     this.spinner.show();
     this.bid.resumeKey = this.selectedResume._id;
     this.bid.candidateName = this.selectedResume.candidateName;
+    console.log(this.bid);
     this.bidService.createBid(this.bid).subscribe((data: any) => {
       if (data.result == "inserted") {
 

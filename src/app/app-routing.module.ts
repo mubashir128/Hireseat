@@ -48,7 +48,7 @@ const appRoutes: Routes = [
   {
     path: "bidding-events/details/:key",
     loadChildren: () => import('./bidding-event-details/bidding-event-details.module').then(m => m.BiddingEventDetailsModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: "event/feedback/candidate/resumes/:key",
@@ -137,7 +137,7 @@ const appChildRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     RouterModule.forChild(appChildRoutes),
   ],
   exports: [RouterModule],

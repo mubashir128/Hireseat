@@ -28,26 +28,53 @@ export class CreateBiddingEventComponent implements OnInit {
   public jobProfileName: string = "Select Job Profile";
 
   startList=[1,2,3,4,5];
-  globalType="private";
+  globalType = "private";
   searchTerm;
   searchDataList = false;
   topRecruiters = [];
   searchedRecruiters = [];
   finalRecruitersAre = [];
   selectedRecruiters = [];
-  
-  @ViewChild('searchInputTerm', { static: false }) searchInputTerm : ElementRef;
+  chkLoggedInUser:any;
+  userRole:string;
+  @ViewChild('searchInputTerm') searchInputTerm : ElementRef;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {
     this.biddingEvent = new BiddingEvent();
+    this.chkLoggedInUser = this.userService.getUserData();
+    if (this.chkLoggedInUser != "no") {
+      if (this.chkLoggedInUser.userRole == "employer") {
+        this.userRole = this.chkLoggedInUser.userRole;
+    
+      } else if (this.chkLoggedInUser.userRole == "recruiter") {
+        this.userRole = this.chkLoggedInUser.userRole;
+    
+      }
+    } else {
+      //Do something
+    }
+
   }
 
   ngOnInit() {
     
     this.getTopRecruiterList();
     this.getJobProfile();
-
+    this.auctionFrm = this.formBuilder.group({
+      selectedJobProfile: ['', Validators.compose([Validators.required])],
+      /* resumeLimit: ['', Validators.compose([Validators.required,Validators.pattern('^[1-9][0-9]*$')])], */
+      rewardMoneyFrom: ['', Validators.compose([Validators.required])],
+      rewardMoneyTo: ['', Validators.compose([Validators.required])],
+      activationDate: [],
+      expirydate: [],
+      searchTerm : []
+    },{validator: this.checkRewardMoney });
+    if(this.chkLoggedInUser.userRole == "recruiter"){
+      this.auctionFrm.controls.rewardMoneyTo.setValue(0);
+      this.auctionFrm.controls.rewardMoneyFrom.setValue(0);
+    }
+     
     jQuery('.datepicker').on('mousedown',function(event){
         event.preventDefault();
     })
@@ -70,16 +97,30 @@ export class CreateBiddingEventComponent implements OnInit {
       stopPropagation: false // Stops event propagation activationDate
     });
 
-    this.auctionFrm = this.formBuilder.group({
-      selectedJobProfile: ['', Validators.compose([Validators.required])],
-      /* resumeLimit: ['', Validators.compose([Validators.required,Validators.pattern('^[1-9][0-9]*$')])], */
-      rewardMoneyFrom: ['', Validators.compose([Validators.required])],
-      rewardMoneyTo: ['', Validators.compose([Validators.required])],
-      activationDate: [],
-      expirydate: [],
-      searchTerm : []
-    },{validator: this.checkRewardMoney });
+    setTimeout(()=>{
+      this.setCalendarDate();
+    },700);
+    
+  }
 
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.searchInputTerm.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.getRecruiterList({
+          searchTerm : this.searchTerm
+        });
+
+      })
+    ).subscribe();
+  }
+
+  setCalendarDate(){
     var a = this;
     var activationDate_input = jQuery('#activationDate').pickadate();
     var activationDate_picker = activationDate_input.pickadate('picker');
@@ -101,7 +142,6 @@ export class CreateBiddingEventComponent implements OnInit {
     expiryDate_picker.set('select', new Date(a.biddingEvent.expiryDate * 1000));
 
     activationDate_picker.on({
-      
       set: function () {
         let temp: Date = new Date(activationDate_picker.get('select').pick);
         let current: Date = new Date();
@@ -125,7 +165,6 @@ export class CreateBiddingEventComponent implements OnInit {
     });
 
     expiryDate_picker.on({
-     
       set: function () {
         let temp: Date = new Date(expiryDate_picker.get('select').pick);
         let activateDate: Date = new Date(a.biddingEvent.activationDate * 1000);
@@ -147,23 +186,6 @@ export class CreateBiddingEventComponent implements OnInit {
         }
       }
     });
-  }
-
-  ngAfterViewInit() {
-    // server-side search
-    fromEvent(this.searchInputTerm.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        this.getRecruiterList({
-          searchTerm : this.searchTerm
-        });
-
-      })
-    ).subscribe();
   }
 
   getRecruiterList(obj){
@@ -243,26 +265,49 @@ export class CreateBiddingEventComponent implements OnInit {
     if (this.selectedJobProfile) {
       this.spinner.show();
       if (!this.auctionFrm.invalid) {
-        this.biddingEvent.setEmployer(this.userService.getIUserData());
         this.biddingEvent.updateStatus();
         this.biddingEvent.setFinalRecruiters(this.finalRecruitersAre);
-        this.biddingEvent.setGlobalType(this.globalType);
         this.updateLocalStorage();
-        this.bidEventService.createBiddingEvent(this.biddingEvent).subscribe((data: any) => {
-          if (data.result == "inserted") {
-            Materialize.toast('New Auction Created !', 4000);
-            this.spinner.hide();
-            this.router.navigate(['employer/bidding-event-list']);
-          } else {
-            this.spinner.hide();
-            Materialize.toast('Something Went Wrong!', 4000);
-          }
-        },
-          (error) => {
-            console.log(error);
-            this.spinner.hide();
-            Materialize.toast('Something Went Wrong!', 4000);
-          });
+        console.log(this.biddingEvent)
+        if(this.userRole == 'employer'){
+          this.biddingEvent.setGlobalType(this.globalType);
+          this.biddingEvent.setEmployer(this.userService.getIUserData());
+          this.bidEventService.createBiddingEvent(this.biddingEvent).subscribe((data: any) => {
+            if (data.result == "inserted") {
+              Materialize.toast('New Auction Created !', 4000);
+              this.spinner.hide();
+              this.router.navigate(['employer/bidding-event-list']);
+            } else {
+              this.spinner.hide();
+              Materialize.toast('Something Went Wrong!', 4000);
+            }
+          },
+            (error) => {
+              console.log(error);
+              this.spinner.hide();
+              Materialize.toast('Something Went Wrong!', 4000);
+            });
+        }else if(this.userRole == 'recruiter'){
+          this.biddingEvent.setGlobalType("public");
+          this.biddingEvent.setRecruiter(this.userService.getIUserData());
+          this.bidEventService.createRecruiterBiddingEvent(this.biddingEvent).subscribe((data: any) => {
+            if (data.result == "inserted") {
+              Materialize.toast('New Auction Created !', 4000);
+              this.spinner.hide();
+              this.router.navigate(['recruiter/bidding-event-list']);
+            } else {
+              this.spinner.hide();
+              Materialize.toast('Something Went Wrong!', 4000);
+            }
+          },
+            (error) => {
+              console.log(error);
+              this.spinner.hide();
+              Materialize.toast('Something Went Wrong!', 4000);
+            });
+        }
+        
+       
       }
     } else {
       this.spinner.hide();
@@ -277,7 +322,7 @@ export class CreateBiddingEventComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/employer/bidding-event-list']);
+    this.router.navigate([`/${this.userRole}/bidding-event-list`]);
   }
 
  // Validation of reward Money 

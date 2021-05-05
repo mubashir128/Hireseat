@@ -44,6 +44,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   currentUserId: string | Blob;
   message: string;
   filepath: File;
+
+  industriesAre = [];
+  industries = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
@@ -87,6 +91,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       referralEmail3: [""],
       referralPhoneNumber3: [""],
       comments: [""],
+      comment2: [""],
+      comment3: [""],
       totalWorkExpYrs: [""],
       totalWorkExpMonths: [""],
       locationPref: [""],
@@ -95,6 +101,27 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     });
     this.getProfile();
   }
+
+  getIndustries() {
+    this.getProfileSubscription = this.candidateService
+      .getCandidateIndustries()
+      .subscribe((res) => {
+        if (res) {
+          res.industries.forEach((item1, index1) => {
+            let temp = false;
+            this.candidateProfile.industries.forEach((item2, index2) => {
+              if (item1._id === item2._id) {
+                temp = true;
+                this.industries.push(item1);
+              }
+            });
+            item1.valueType = temp;
+            this.industriesAre.push(item1);
+          });
+        }
+      });
+  }
+
   updateProfileImg() {
     const fd = new FormData();
     if (!this.imagePath) {
@@ -171,8 +198,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       .getCandidateProfile()
       .subscribe(
         (res) => {
-          // console.log('************************', res);
           this.candidateProfile = res;
+          this.getIndustries();
           this.editProfile.patchValue({
             fullName: res.candidate_id.fullName,
             email: res.candidate_id.email,
@@ -194,6 +221,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             referralEmail3: res.referral[2]?.referralEmail,
             referralPhoneNumber3: res.referral[2]?.referralPhoneNumber,
             comments: res.comments,
+            comment2: res.comment2,
+            comment3: res.comment3,
             totalWorkExpYrs: res.totalWorkExpYrs,
             totalWorkExpMonths: res.totalWorkExpMonths,
             locationPref: res.locationPref,
@@ -235,9 +264,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
-  submit() {
-    console.log("}}}}}}}}}}}}", this.editProfile.value);
 
+  submit() {
     if (this.downloadURL) {
       this.editProfile.patchValue({
         fileURL: this.downloadURL,
@@ -249,24 +277,26 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       "candidateId",
       new FormControl(this.candidateProfile._id)
     );
-    console.log(this.editProfile.valid);
 
-    if (this.editProfile.valid) {
-      this.editCandidateProfileSubscription = this.candidateService
-        .editProfile(this.editProfile.value)
-        .subscribe(
-          (res) => {
-            if (res) {
-              Materialize.toast(res.msg, 1000);
-            }
-          },
-          (err) => {
-            Materialize.toast("Something Went Wrong !", 1000);
+    this.editProfile.addControl("industries", new FormControl(this.industries));
+    console.log(this.editProfile.value);
+
+    // if (this.editProfile.valid) {
+    this.editCandidateProfileSubscription = this.candidateService
+      .editProfile(this.editProfile.value)
+      .subscribe(
+        (res) => {
+          if (res) {
+            Materialize.toast(res.msg, 1000);
           }
-        );
-    } else {
-      Materialize.toast("Please complete the form!", 3000);
-    }
+        },
+        (err) => {
+          Materialize.toast("Something Went Wrong !", 1000);
+        }
+      );
+    // } else {
+    //   Materialize.toast("Please complete the form!", 3000);
+    // }
   }
 
   navigateToRoom() {
@@ -274,6 +304,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       "video-call/" + "self-record@" + this.candidateProfile._id,
     ]);
   }
+
   onFilePicked(event: Event): void {
     this.errorMsg = false;
     console.log(event);
@@ -284,6 +315,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       this.onFileUpload();
     }
   }
+
   onFileUpload() {
     console.log("");
 
@@ -298,11 +330,86 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       console.log(res);
     });
   }
+
+  seeExampleModal() {
+    jQuery("#seeExample").modal("open");
+  }
+
+  closeExampleModal() {
+    jQuery("#seeExample").modal("close");
+  }
+
   ngOnDestroy() {
     if (this.editCandidateProfileSubscription)
       this.editCandidateProfileSubscription.unsubscribe();
     if (this.getProfileSubscription) this.getProfileSubscription.unsubscribe();
     if (this.uploadResumeSubscription)
       this.uploadResumeSubscription.unsubscribe();
+  }
+
+  handleIndustries($event, _id) {
+    let selectIndex = 0;
+    this.industriesAre.forEach((item, index) => {
+      if (item._id === _id) {
+        selectIndex = index;
+      }
+    });
+
+    if ($event.target.checked) {
+      this.industries.push(this.industriesAre[selectIndex]);
+    } else {
+      this.industries.forEach((item, index) => {
+        if (item._id === _id) {
+          this.industries.splice(index, 1);
+        }
+      });
+    }
+  }
+
+  checkRequiredField(event) {
+    if (event.target.checked == true) {
+      // const invalid = [];
+      const controls = this.editProfile.controls;
+      if (
+        controls["fullName"].value == "" ||
+        controls["jobTitle"].value == "" ||
+        controls["email"].value == "" ||
+        controls["linkedIn"].value == "" ||
+        controls["skills"].value == "" ||
+        controls["desiredRoles"].value == ""
+      ) {
+        event.preventDefault();
+        controls["shareProfile"].setValue(false);
+        Materialize.toast("fill required field", 1000);
+      }
+      // for (const formControl in controls){
+      //   console.log(formControl)
+      //   if(controls[formControl].value == "" || controls[formControl].invalid){
+      //       invalid.push(formControl)
+      //   }
+      // }
+      // console.log(invalid);
+      // for (const name in controls) {
+      //     if (controls[name].invalid) {
+      //         invalid.push(name);
+      //     }
+      // }
+      // return invalid;
+      let payLoad = {
+        _id: this.candidateProfile._id,
+      };
+      this.editCandidateProfileSubscription = this.candidateService
+        .sharedCandidateProfile(payLoad)
+        .subscribe(
+          (res) => {
+            if (res) {
+              Materialize.toast(res.msg, 1000);
+            }
+          },
+          (err) => {
+            Materialize.toast("Something Went Wrong !", 1000);
+          }
+        );
+    }
   }
 }

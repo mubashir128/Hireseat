@@ -14,6 +14,7 @@ export class PushNotificationService {
   pushNotifyUrl = "api/pushNotification";
   pushNotification(){
     if(this._swPush.isEnabled && !PushNotificationService.push){
+      return ;
       this._swPush.requestSubscription({
         serverPublicKey: VAPID_PUBLIC,
       })

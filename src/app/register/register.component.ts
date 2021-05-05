@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
   fileModel: any;
   public message: string;
   value: string | number | string[];
+  confirmPasswordError = false;
 
   constructor(
     private http: HttpClient,
@@ -42,6 +43,7 @@ export class RegisterComponent implements OnInit {
       phoneNo: new FormControl(),
       email: new FormControl(),
       password: new FormControl(),
+      confirmPassword: new FormControl(),
       webSiteLink: new FormControl(),
       companyName: new FormControl(),
     });
@@ -78,17 +80,30 @@ export class RegisterComponent implements OnInit {
     jQuery("select").material_select();
     // this.formSubmit()
   }
+
   unReadTermsAndConditions() {
     this.value = $("#acceptTermsUnread").is(":checked");
     // console.log("accepted terms and conditions", this.value);
   }
+
+  onFocusOutEvent(event){
+    this.checkPassword();
+  }
+
+  checkPassword(){
+    if(this.signin.controls.confirmPassword.value !== "" && this.signin.controls.confirmPassword.value !== null && (this.signin.controls.password.value !== this.signin.controls.confirmPassword.value)){
+      this.confirmPasswordError = true;
+    }else{
+      this.confirmPasswordError = false;
+    }
+  }
+
   formSubmit() {
     // console.log(this.signin.value);
 
     // this.spinner.show();
     if (!this.signin.valid) {
       console.log("invalid form");
-
       this.spinner.hide();
       Materialize.toast("Please complete the form.", 1000);
     }
@@ -111,6 +126,12 @@ export class RegisterComponent implements OnInit {
         password: new FormControl(res.password, [
           Validators.required,
           Validators.minLength(5),
+          Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$")
+        ]),
+        confirmPassword: new FormControl(res.confirmPassword, [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$")
         ]),
       });
     } else {
@@ -124,6 +145,12 @@ export class RegisterComponent implements OnInit {
         password: new FormControl(res.password, [
           Validators.required,
           Validators.minLength(5),
+          Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$")
+        ]),
+        confirmPassword: new FormControl(res.confirmPassword, [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$")
         ]),
       });
     }
@@ -161,8 +188,9 @@ export class RegisterComponent implements OnInit {
     fd.append("companyName", this.signin.controls.companyName?.value);
     fd.append("webSiteLink", this.signin.controls.webSiteLink?.value);
     fd.append("password", this.signin.controls.password.value);
+    fd.append("confirmPassword", this.signin.controls.confirmPassword.value);
 
-    if (this.signin.valid) {
+    if (this.signin.valid && (this.signin.controls.password.value === this.signin.controls.confirmPassword.value)) {
       if (this.acceptedTermsCondUnread) {
         this.spinner.show();
         if (this.localRole !== "candidate") {

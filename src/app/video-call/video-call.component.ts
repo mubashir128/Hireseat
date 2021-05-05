@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, ElementRef, ViewChild, Renderer2 } from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -17,6 +17,7 @@ import { integer } from "aws-sdk/clients/cloudfront";
 declare var Materialize: any;
 declare var jQuery: any;
 import * as $ from "jquery";
+import { PublisherComponent } from "../publisher/publisher.component";
 @Component({
   selector: "app-video-call",
   templateUrl: "./video-call.component.html",
@@ -24,6 +25,9 @@ import * as $ from "jquery";
   providers: [OpentokService],
 })
 export class VideoCallComponent implements OnInit, OnDestroy {
+  //@ViewChild('videoCall') main:ElementRef;
+  @ViewChild(PublisherComponent) 
+  main: PublisherComponent;
   bookmarkSubscription: Subscription;
   askQuestionSubscription: Subscription;
   startArchiveSubscription: Subscription;
@@ -72,7 +76,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private videoCallingService: VideoCallingService,
     private sanitizer: DomSanitizer,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private renderer: Renderer2
+
   ) {
     this.QuestionsGroup = this.fb.group({
       question1: new FormControl(null, [Validators.max(100)]),
@@ -96,6 +102,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       (publishedStream) => {
         this.spinner.show();
         this.publisher = publishedStream;
+    
+        // this.renderer.setStyle(this.main.publisherDiv.nativeElement,'width','144px')
+
         if (publishedStream) {
           this.spinner.hide();
         }
@@ -115,6 +124,13 @@ export class VideoCallComponent implements OnInit, OnDestroy {
             this.roomId = this.activatedRoute.snapshot.paramMap.get("id");
             if (this.roomId == this.streamId) {
               this.allowSubscriber = true;
+              console.log('candidate enter');
+              var publisherContainer = document.getElementById(this.main.publisherDiv.nativeElement.id);
+              console.log(publisherContainer);
+              publisherContainer.querySelector("div").style.width = "144px";
+              publisherContainer.querySelector("div").style.height = "103px";
+              // publisherContainer.querySelector("div").style.position = "absolute";
+              document.getElementById("publisher-container").style.position = "absolute";
             }
           });
           opentokService._getCandidateID.subscribe((id) => {
@@ -132,6 +148,7 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     jQuery(".modal").modal();
+
     this.candidateInvitationLink = true;
     // candidate or interviewer
     this.candidateId = this.activatedRoute.snapshot.paramMap.get("id");
@@ -235,9 +252,15 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         this.session.on("streamDestroyed", (event) => {
           const idx = this.streams.indexOf(event.stream);
           if (idx > -1) {
-            // console.log('sessionDisconnected', event);
+            console.log('sessionDisconnected', event);
             this.streams.splice(idx, 1);
             this.changeDetectorRef.detectChanges();
+            var publisherContainer = document.getElementById(this.main.publisherDiv.nativeElement.id);
+            publisherContainer.querySelector("div").style.width = "100%";
+            publisherContainer.querySelector("div").style.height = "350px";
+            publisherContainer.querySelector("div").style.position = "static";
+            document.getElementById('publisher-container').style.position = "static";
+            
           }
         });
         this.session.on("sessionDisconnected", (event) => {
@@ -608,10 +631,15 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       this.stopArchive();
     }
     // this.session.disconnect();
+    // this.session.unpublish(this.publisher)
     switch (id) {
       case "candidate":
+     
+
         this.router.navigate(["/"]).then(() => {
-          window.location.reload();
+          // window.location.reload();
+          // this.session.unpublish(this.publisher)
+
         });
         break;
       case "recruiter":
@@ -620,7 +648,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.endCallConfirmPopup();
         } else {
           this.router.navigate(["/recruiter/video-interview-room"]).then(() => {
-            window.location.reload();
+            // window.location.reload();
+            // this.session.unpublish(this.publisher)
+
           });
         }
         break;
@@ -630,7 +660,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.endCallConfirmPopup();
         } else {
           this.router.navigate(["/employer/video-interview-room"]).then(() => {
-            window.location.reload();
+            // window.location.reload();
+            // this.session.unpublish(this.publisher)
+
           });
         }
         break;
@@ -639,7 +671,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           this.router.navigate(["/candidate/my-profile"]);
         } else {
           this.router.navigate(["/candidate/interview-room"]).then(() => {
-            window.location.reload();
+            // window.location.reload();
+            // this.session.unpublish(this.publisher)
+
           });
         }
         break;

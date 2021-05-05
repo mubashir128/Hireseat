@@ -243,8 +243,8 @@ button.shareBtn {
   align-items: center;
 }
 .candProfile.recruiterprof {
-  width: 60px;
-  height: 60px;
+  width: 40px !important;
+  height: 40px !important;
   background-color: #e7e7e7;
   border-radius: 50%;
   overflow: hidden;
@@ -628,7 +628,11 @@ a.videoCloseBtn {
 .replyer-name {
   font-weight: 600;
   font-size: 12px;
+  display: flex;
   color: #272727;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .divider {
 }
@@ -647,4 +651,318 @@ a.videoCloseBtn {
 .like-section {
   display: flex;
   justify-content: flex-end;
+}
+
+.CheckBoxcontainer {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 25px;
+  pointer-events: fill;
+  top: -10px;
+}
+
+/* Hide the browser's default checkbox */
+.CheckBoxcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  margin-top: 13px;
+  background-color: #eee;
+  border: 1px solid #2196f3;
+}
+
+/* On mouse-over, add a grey background color */
+.CheckBoxcontainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.CheckBoxcontainer input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.CheckBoxcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.CheckBoxcontainer .checkmark:after {
+  left: 6px;
+  top: 0px;
+  width: 7px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 2px 3px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.industrieName {
+  font-size: 12px;
+}
+
+.candidate-name .industrieName {
+  font-size: 12px !important;
+  color: #8ca2c3 !important;
+}
+.sortIndustriesMain {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px 30px;
+  display: block;
+  justify-content: unset;
+  margin-bottom: 20px;
+  transition: 1s;
+  height: auto;
+  background-color: #ffffff;
+}
+.sortIndustries {
+  justify-content: left;
+  align-items: left;
+  background-color: #0aafff !important;
+  width: auto !important;
+  padding: 2px 20px !important;
+  height: 40px;
+  box-shadow: none;
+  text-transform: capitalize;
+  border-radius: 3px;
+  color: #fff !important;
+  border: none;
+  margin: 30px auto 0;
+}
+.industries {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px 0 20px;
+}
+.industries span {
+  background-color: #f0f0f0;
+  padding: 6px 20px;
+  border-radius: 5px;
+  margin: 5px 5px;
+  font-size: 14px;
+}
+
+.timstampDate {
+  /* width: 100%; */
+  float: left;
+  margin-right: 10px;
+}
+
+.notificationDateTime {
+  font-size: 12px;
+  font-weight: initial;
+  font-family: Roboto;
+  font-style: revert;
+  margin-right: 10px;
+  margin-top: 25px;
+}
+.pro {
+  width: 100%;
+  float: left;
+}
+.pro-1 {
+  width: 55%;
+  float: left;
+}
+.pro-2 {
+  width: 30%;
+  float: left;
+}
+.pro-3 {
+  width: 15%;
+  float: left;
+}
+.icon-name {
+  padding: 5px;
+}
+.downloadResume {
+  padding: 5px;
+}
+.pro .candProfile {
+  width: 100px;
+  height: 100px;
+  background-color: #e7e7e7;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.pro .candProfile img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.LinkedInBtn {
+  width: 48%;
+  border-radius: 7px;
+}
+.shareBtn {
+  width: 48%;
+  border-radius: 7px;
+}
+.post-cmt textarea {
+  border: solid 1px #999999;
+}
+.down-1 {
+  background: #0288d1;
+  color: #fff;
+  padding: 5px;
+  width: 20%;
+  border: none;
+  margin-left: 6px;
+}
+.onLimitedSkills {
+  margin-top: 6px;
+}
+.down-1 {
+  background: #0288d1;
+  color: #fff;
+  padding: 5px;
+  width: 20%;
+  border: none;
+}
+.LinkedInBtn span {
+  text-align: center;
+  margin: 0 auto;
+}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .l3 {
+    padding: 0px !important;
+  }
+  .s12 {
+    padding: 5px !important;
+  }
+  .industrieName {
+    font-size: 16px;
+  }
+  .s3 {
+    width: 100% !important;
+  }
+  .lates-s {
+    width: 100% !important;
+  }
+  .set-one {
+    width: 100% !important;
+  }
+  .CandidateDetails {
+    width: 100%;
+    display: block;
+  }
+  .candidate-name {
+    width: 100%;
+  }
+  .pro-1 {
+    width: 70% !important;
+  }
+  .pro-2 {
+    width: 100% !important;
+  }
+  .commonSingleInner {
+    width: 100% !important;
+  }
+  .pro-3 {
+    width: 17%;
+  }
+  .PointsDivSingle h4 {
+    font-size: 10px;
+    font-weight: 200;
+  }
+  .candidate-name p {
+    font-size: 0.8rem;
+  }
+  .PointsDiv.commonSingleInner.CommentInner {
+    padding-left: 0px;
+    width: 100%;
+    float: none;
+  }
+  .shape {
+    font-size: 11px;
+  }
+
+  .recruiterprof.size {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .size img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
+@media (max-width: 1020px) {
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .commonSingleInner {
+    width: 100%;
+  }
+  .pro-1 {
+    width: 100% !important;
+  }
+  .pro-2 {
+    width: 100% !important;
+  }
+  .pro-3 {
+    width: 100% !important;
+  }
+}
+@media (max-width: 1440px) {
+  .pro-1 {
+    width: 53%;
+  }
+  .pro-2 {
+    width: 34%;
+  }
+  .pro-3 {
+    width: 26%;
+  }
+  .pro .candProfile {
+    width: 52px;
+    height: 52px;
+  }
+  .candidate-name {
+    width: 100%;
+  }
+  .LinkedInBtn {
+    width: 98%;
+    display: block;
+    margin-right: 1%;
+    border-radius: 5px;
+  }
+  button.shareBtn {
+    width: 98%;
+    display: block;
+    border-radius: 5px;
+  }
+}
+
+.hideAndSHoTab {
+  display: none;
+  margin-top: -10px;
 }

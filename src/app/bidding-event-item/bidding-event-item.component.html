@@ -34,8 +34,9 @@
                 Expired
           </div>
 </div>
-<div *ngIf= "userInfo.userRole =='recruiter'" class="countDiv" >{{biddingEvent?.numOfresumes}}</div>
-<a *ngIf= "userInfo.userRole =='employer'" (click)="showdelete(biddingEvent._id)" class="deletBtn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+<div *ngIf= "userInfo.userRole =='recruiter' && (userInfo._id !==  biddingEvent.employerKey)" class="countDiv" >{{biddingEvent?.numOfresumes}}</div>
+<div *ngIf= "userInfo.userRole =='recruiter' && (userInfo._id ===  biddingEvent.employerKey)" class="countDiv" >{{biddingEvent?.numOfresumes2}}</div>
+<a *ngIf= "userInfo._id ===  biddingEvent.employerKey" (click)="showdelete(biddingEvent._id)" class="deletBtn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 <div id="DeleteConfirm{{biddingEvent._id}}" class="modal confirmationDiv">
   <!-- <h3>Confirmation</h3> -->
   <h3>Are you sure you want to delete?</h3>

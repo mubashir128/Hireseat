@@ -10,6 +10,9 @@ import { Utils } from "../models/utils/utils";
 import { BiddingInfoComponent } from "../bidding-info/bidding-info.component";
 import { FeedbackService } from "../_services/feedback.service";
 import { PushNotificationService } from "../_services/push-notification.service";
+import { WebsocketService } from "../_services/websocket.service";
+import { ContentObserver } from "@angular/cdk/observers";
+import { CandidateService } from "../_services/candidate.service";
 declare var CryptoJS: any;
 declare var jQuery: any;
 @Component({
@@ -40,7 +43,9 @@ export class BiddingEventDetailsComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService,
     private feedbackService: FeedbackService,
-    private _pushNotify: PushNotificationService
+    private _pushNotify: PushNotificationService,
+    private _socket: WebsocketService,
+    private _candidateService: CandidateService
   ) {
     let a = this;
     this.Base64 = {
@@ -172,13 +177,8 @@ export class BiddingEventDetailsComponent implements OnInit {
     };
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get("key");
-
-    let obj = JSON.parse(localStorage.getItem('currentUser'));
-    if (obj !== null) {
-      this._pushNotify.pushNotification();
-    }
 
     this.feedbackService.getBidsByIdCount(this.id).subscribe(res => {
       this.resumecount = res;
@@ -189,13 +189,22 @@ export class BiddingEventDetailsComponent implements OnInit {
     this.feedbackService.getHiredResumeCount(this.id).subscribe(res => {
       this.hiredcount = res;
     });
-    jQuery(".tabs").tabs();
+
     this.loggedUser = this.userService.getUserData();
+    jQuery(".tabs").tabs();
+
     if (this.loggedUser != "no") {
       this.route.params.subscribe(params => {
         this.handleRequest(params["key"]);
       });
-      this.userRole = this.loggedUser.userRole == "employer" ? 1 : 2;
+      if(this.loggedUser.userRole == "employer"){
+        this.userRole = 1;//if employer login userRole should be 1
+      }else if(this.loggedUser.userRole == "recruiter"){
+        this.userRole = 2;//if recruiter login userRole should be 2
+      }else if(this.loggedUser.userRole == "candidate"){
+        this.userRole = 3;//if recruiter login userRole should be 3
+      }
+      // this.userRole = this.loggedUser.userRole == "employer" ? 1 : 2;
       this.biddingEvent = new BiddingEvent();
     } else {
       this.router.navigate(["login"]);
@@ -223,6 +232,21 @@ export class BiddingEventDetailsComponent implements OnInit {
             } else {
               this.biddingStatus = 0;
             }
+
+            if(this.loggedUser.userRole == "recruiter" && this.employerProfile._id === this.loggedUser._id){
+              this.feedbackService.getRecrutierCandidateBidsByIdCount(this.id).subscribe(res => {
+                this.resumecount = res;
+              });
+            }
+
+            if(this.loggedUser.userRole == "candidate"){
+              this._candidateService.getCandidateProfileBid(this.biddingEvent.$key).subscribe((res) => {
+                if(res.isSubmited){
+                  this.resumecount = 1;
+                }
+              });
+            }
+
           }
           this.configureMuut();
           // this.ngOnInit();
@@ -309,9 +333,14 @@ export class BiddingEventDetailsComponent implements OnInit {
   BASE64(str) {
     return this.Base64.encode(str);
   }
+
   resumeCount(count: any) {
+    if(this.loggedUser.userRole == "recruiter" && this.employerProfile._id === this.loggedUser._id){
+      return ;
+    }
     this.resumecount = count;
   }
+
   funcInterviewCount(count: any) {
     this.interviewcount = count;
   }

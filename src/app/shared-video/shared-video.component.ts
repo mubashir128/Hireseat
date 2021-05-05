@@ -53,6 +53,8 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   isShareFromRecruiter: boolean;
   isQuestion: boolean;
   comments: any;
+  comments2: any;
+  comments3: any;
   showError = false;
   showCustomLoader = false;
   buff: any;
@@ -74,14 +76,13 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     this.spinner.show();
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
     const isCandidate = this.token.split('@')[1];
-    // console.log('welcome to lazyloading', this.token, isCandidate);
+    
     if (isCandidate === 'candidate') {
       const candidateToken = this.token.split('@')[0];
       this.checkSharedTokenSubscription = this.sharedVideoService.checkCandidateSharedToken(candidateToken).subscribe((res) => {
         this.spinner.show();
         // debugger
         if (res) {
-          // console.log(res);
           // if (res.from === 'recruiter') {
 
           this.isShareFromRecruiter = true;
@@ -90,10 +91,12 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
           this.resume = res.resumeData[0];
           this.videoURL = res.videoUrl;
 
-          this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
-          // console.log('questionsByRecruiter', this.questionsByRecruiter);
+          this.questionsByRecruiter = this.resume.questionsByRecruiter ? this.resume.questionsByRecruiter[0] : undefined;
 
           this.comments = this.resume.comments;
+          this.comments2 = this.resume.comment2;
+          this.comments3 = this.resume.comment3;
+          
           if (this.questionsByRecruiter === null) {
 
             if (this.questionsByRecruiter.lenghth <= 0) {
@@ -107,7 +110,6 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
           // }
         }
       }, err => {
-        // console.log(err, '***************************look up*********************');
         this.isTokenValid = false;
         this.showCustomLoader = false;
         if (!this.isTokenValid) {
@@ -123,9 +125,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
         // debugger
         if (res) {
 
-          // console.log(res);
           if (res.from === 'recruiter') {
-
             this.isShareFromRecruiter = true;
             this.isTokenValid = true;
             this.showCustomLoader = true;
@@ -134,13 +134,15 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
             this.recruiterDetails = res.resumeData[1];
             this.videoURL = res.videoUrl;
 
-            this.questionsByRecruiter = this.resume.questionsByRecruiter[0];
-            // console.log('questionsByRecruiter', this.questionsByRecruiter);
-
             this.comments = this.resume.comments;
+            this.comments2 = this.resume.comment2;
+            this.comments3 = this.resume.comment3;
+
+            this.questionsByRecruiter = this.resume.questionsByRecruiter ? this.resume.questionsByRecruiter[0] : undefined;
+
             if (this.questionsByRecruiter === null) {
 
-              if (this.questionsByRecruiter.lenghth <= 0) {
+              if (this.questionsByRecruiter.length <= 0) {
                 this.isQuestion = false;
                 this.spinner.hide();
 
@@ -151,10 +153,10 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
           } else if (res.from === 'employer') {
             this.isShareFromRecruiter = false;
             this.currentResume = res.bidData[0];
-            this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter[0];
+            this.questionsByRecruiter = this.currentResume.resumeKey.questionsByRecruiter ? this.currentResume.resumeKey.questionsByRecruiter[0] : undefined;
             if (this.questionsByRecruiter === null) {
 
-              if (this.questionsByRecruiter.lenghth <= 0) {
+              if (this.questionsByRecruiter.length <= 0) {
                 this.isQuestion = false;
                 this.spinner.hide();
 
@@ -183,13 +185,6 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     }
 
 
-    // video mat 
-    // this.vid = this.matVideo.getVideoTag();
-
-    // Use Angular renderer or addEventListener to listen for standard HTML5 video events
-
-    // this.renderer.listen(this.video, 'ended', () => console.log('video ended'));
-    // this.vid.addEventListener('ended', (event) => console.log('video ended', event))
   }
 
   ngAfterViewInit() {
@@ -198,37 +193,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     // instantiate Video.js
     if (this.videoURL && this.isTokenValid) {
       this.spinner.show();
-      // this.options = {
-      //   autoplay: true,
-      //   sources: [{
-      //     src: this.videoURL,
-      //     type: 'video/mp4'
-      //   }]
-      // };
-      // {
-      //   "autoplay": true,
-      //   controlls: true,
-      //   preload: true
-      // }
-      // this.player = videojs(this.target.nativeElement, {
-      //   autoplay: true,
-      //   controls: true,
-      //   preload: true,
-      //   fluid: true,
-      //   aspectRatio: '4:3',
-      //   plugins: {
-      //     hotkeys: {}
-      //   }
-      // }, function onPlayerReady() {
-      //   this.target.nativeElement.play();
-      //   this.spinner.hide();
-      //   console.log('onPlayerReady', this);
-      // }, err => {
-      //   this.spinner.hide();
 
-      // });
-
-      // console.log(this.player.onwaiting());
       if (this.target.nativeElement.paused) {
         console.log('play/pause');
 
@@ -268,32 +233,12 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   setCurrentTime(seconds, questionNumber) {
     var media: any = document.getElementById("myVideo");
 
-    // setTimeout(() => {
-    //   const playPromise = this.target.nativeElement.play();
-    //   if (playPromise !== null) {
-    //     playPromise.catch(() => { this.target.nativeElement.play(); })
-    //   }
-    // }, 1000);
-    // console.log(media);
 
     this.questionNumber = questionNumber;
     this.target.nativeElement.loadingSpinner = true;
     this.isbufferLoader = true;
-    // this.spinner.show();
     try {
-      // this.time = seconds;
-      // this.autoPlay = true;
       this.seek(seconds);
-      // this.buff = this.target.nativeElement.buffered.end(0) - this.target.nativeElement.buffered.start(0);
-      // this.target.nativeElement.currentTime = seconds;
-      // this.target.nativeElement.controlls = true;
-      // this.target.nativeElement.autoplay = true;
-      // this.target.nativeElement.play();
-      // setTimeout(() => {
-      //   this.spinner.hide();
-      //   this.target.nativeElement.loadingSpinner = false;
-      // }, this.buff);
-      // this.target.nativeElement.addEventListener('click', this.onClick.bind(this));
 
     } catch (e) {
       console.log(e);
@@ -308,10 +253,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
   ngOnChanges() {
-    // const playPromise = this.target.nativeElement.play();
-    // if (playPromise !== null) {
-    //   playPromise.catch(() => { this.target.nativeElement.play(); })
-    // }
+
   }
   linkedIn(url) {
     window.open(url, "_blank");

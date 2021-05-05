@@ -103,10 +103,13 @@ pre {
   font-size: 20px;
   font-weight: bold;
   color: #101010;
+
 }
 .forumMsgPopup.forumPopMain {
   max-width: 600px;
   position: fixed;
+  z-index: 999 !important;
+
 }
 .videoModalMain a.videoCloseBtn {
   position: absolute;

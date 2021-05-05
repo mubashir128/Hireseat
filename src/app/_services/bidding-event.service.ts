@@ -123,4 +123,9 @@ export class BiddingEventService {
     }));
   }
   
+  createRecruiterBiddingEvent(info:IBiddingEvent){
+    return this.http.post<IBiddingEvent>(this.baseurl+'api/createRecruiterBiddingEvent',info).pipe(map((res:IBiddingEvent)=>{
+      return res;
+    }))
+  }
 }

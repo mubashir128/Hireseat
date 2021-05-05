@@ -26,8 +26,10 @@ export class SubscriberComponent implements AfterViewInit {
   ) {
     this.subscriberOptions = {
       insertMode: 'append',
-      width: '600px',
-      height: '600px',
+      // width: '141px',
+      // height: '103px',
+      width: '100%',
+      height: '350px',
       name: 'Subscriber',
       fitMode: 'cover',
       style: { nameDisplayMode: 'off', buttonDisplayMode: 'on' },
@@ -47,8 +49,9 @@ export class SubscriberComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.spinner.show();
 
+    this.spinner.show();
+        
     const subscriber = this.session.subscribe(this.stream, this.subscriberDiv.nativeElement, this.subscriberOptions, (err) => {
       if (err) {
         this.spinner.hide();
@@ -68,6 +71,7 @@ export class SubscriberComponent implements AfterViewInit {
         if (error) {
           // console.log("signal error ("+ error.name + "): " + error.message);
         } else {
+
           // console.log("signal sent.");
         }
       }

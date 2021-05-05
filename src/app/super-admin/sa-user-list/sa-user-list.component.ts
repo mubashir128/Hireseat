@@ -33,7 +33,7 @@ export class SAUserListComponent implements OnInit {
   dropdownSettings = {};
   itemsIs: any;
 
-  @ViewChild("searchInputTerm", { static: false }) searchInputTerm: ElementRef;
+  @ViewChild("searchInputTerm") searchInputTerm: ElementRef;
 
   constructor(
     private superAdmin: SuperAdminService,
@@ -133,7 +133,7 @@ export class SAUserListComponent implements OnInit {
           } else if (response.userInfo.userRole == "enterprise") {
             this.router.navigate(["enterprise/user-list"]);
           } else if (response.userInfo.userRole == "candidate") {
-            this.router.navigate(["candidate/all-recruiters"]);
+            this.router.navigate(["candidate/my-profile"]);
           }
         } else {
           Materialize.toast("Enter valid details", 1000, "rounded");

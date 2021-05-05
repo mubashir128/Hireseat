@@ -36,7 +36,7 @@
 
   .uploadBtn {
     background-color: #4db0f4;
-    border-radius: 5px;
+    /* border-radius: 5px; */
   }
 
   .card {
@@ -782,6 +782,7 @@ iframe.interviewVideo {
 }
 .uploadProfileImg:hover .profileAdd {
   opacity: 1;
+  cursor: pointer;
 }
 .profileAdd {
   position: absolute;
@@ -796,15 +797,27 @@ iframe.interviewVideo {
   background-color: #18181842;
   opacity: 0;
   transition: 0.8s;
+  cursor: pointer;
 }
 .profileAdd i {
   color: #ffffff;
+  cursor: pointer;
 }
 .profileAdd p {
   font-size: 13px;
   color: #ffffff;
   margin-top: 4px;
   text-align: center;
+  cursor: pointer;
+}
+.profileAddInner {
+  cursor: pointer;
+}
+.example-resume {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px 0 20px;
 }
 .uploadProfileImg input {
   position: absolute;
@@ -814,4 +827,136 @@ iframe.interviewVideo {
   height: 100%;
   border-radius: 50%;
   opacity: 0;
+}
+.change {
+  color: red;
+}
+.example-popup {
+  display: none;
+  position: fixed;
+  /* max-height: unset; */
+  /* max-height: 410px; */
+  box-shadow: none !important;
+  /* width: 100%; */
+  overflow: unset;
+  height: 100%;
+}
+.example-popup .slide-heading {
+  margin: 0;
+  padding: 10px 30px;
+}
+.videoModalMain a.close-btn {
+  position: absolute;
+  top: -30px;
+  color: #fff !important;
+  z-index: 99999999;
+  right: 190px !important;
+  font-size: 20px !important;
+  cursor: pointer;
+}
+
+.CheckBoxcontainer {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 25px;
+  pointer-events: fill;
+  top: -10px;
+}
+
+/* Hide the browser's default checkbox */
+.CheckBoxcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  margin-top: 13px;
+  background-color: #eee;
+  border: 1px solid #2196F3;
+}
+
+/* On mouse-over, add a grey background color */
+.CheckBoxcontainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.CheckBoxcontainer input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.CheckBoxcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.CheckBoxcontainer .checkmark:after {
+  left: 6px;
+  top: 0px;
+  width: 7px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 2px 3px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.industrieName{
+  font-size: 15px;
+}
+.my-profile{
+  color: red;
+  font-weight: 900;
+}
+
+.changeResumeBtn{
+  display: table;
+  margin-top: 0px !important
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+  .disF { display: block;}
+  .section-header {padding-bottom: 10px;}
+  .btn-accept { margin-bottom: 10px;}
+  .waves-effect { margin-top: 10px;}
+  .resumePriviewDiv { background: transparent;}
+  .btn-accept { margin-top: 10px;}
+  .late-mobile { width: 50% !important; height: 30px !important;}
+  .l6 { width: 100% !important;}
+  .changeResumeBtn {margin-top: 10px !important;}
+  .video-interview {margin-bottom: 150px !important;}
+  .btn-accept span { text-transform: uppercase;}
+  .btn {  width:100%}
+  .btn-accept {  width:100%}
+  .uploadBtn { border-radius: 0;}
+  .resumePreview {padding: 0;}
+  .example-resume {padding: 10px 14px 0 14px;}
+  textarea { margin-bottom:10px; padding: 10px;}
+  .btn { border-radius: 0px !important}
 }

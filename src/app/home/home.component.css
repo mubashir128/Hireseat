@@ -527,6 +527,11 @@ a {
   color: #858c94;
   font-size: 13px;
 }
+.hireSeatBtn{
+  min-width: 150px !important;
+  font-size: 16px !important;
+  display: none;
+}
 /*=============================== footer css end ========================*/
 /*================================ i-pad responsive css start  ===============================*/
 
@@ -622,7 +627,7 @@ a {
 
 @media only screen and (min-width: 320px) and (max-width: 767px) {
   .bestRecruitment {
-    min-height: 400px;
+    min-height: 500px;
   }
   .bestRecruitmentText {
     /* top: 50%;
@@ -686,14 +691,29 @@ a {
     left: -100px;
   }
   .bestRecruitmentText h3 {
-    font-size: 20px;
+    font-size: 15px;
+  }
+  .hireSeatBtn{
+    background-color: #0aafff;
+    border: none;
+    color: #fff;
+    min-width: 200px;
+    font-size: 18px;
+    font-family: "gilroybold";
+    height: 60px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
   .KnowMoreBtn {
+    display:none;
     height: 40px;
     min-width: 150px !important;
     font-size: 16px !important;
   }
   .KnowMoreBtn .arrowImg {
+    display:none;
     width: 20px !important;
   }
   .proveHead {
@@ -733,8 +753,10 @@ a {
     margin: 5px 0 20px;
   }
 }
+
 @media only screen and (max-width: 1024px) and (min-width: 768px) {
   .bestRecruitmentText h3 {
     font-size: 29px;
   }
+  
 }

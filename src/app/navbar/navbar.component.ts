@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef } from "@angular/core";
+import { Component, OnInit, Input, ElementRef, OnDestroy } from "@angular/core";
 import { UserService } from "../_services/user.service";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { AuthenticationService } from "../_services/authentication.service";
@@ -13,18 +13,17 @@ import { PushNotificationService } from "../_services/push-notification.service"
 import { SubscriberslistService } from "../_services/subscriberslist.service";
 import { ConstantsService } from "../_services/constants.service";
 
+import { FirebasePushNotificationService } from "src/app/_services/firebase-push-notification.service";
+
 declare var Materialize: any;
 declare var jQuery: any;
 declare var $: any;
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.css"],
-  host: {
-    "(document:click)": "onClick($event)",
-  },
+  styleUrls: ["./navbar.component.css"]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   path: any = "assets/img/navbar-logo.png";
   loggedInUser: any;
   commets = [];
@@ -36,38 +35,14 @@ export class NavbarComponent implements OnInit {
   isEnterprise: boolean = false;
   isCandidate: boolean = false;
   status: boolean = false;
-  public show: boolean = false;
-  public buttonName: any = "Show";
   url: any;
-  questDataLenght: any = [];
-  suggestedQueData: any;
-  suggestedQueCount: number = 0;
-  suggestedQueAnsCount: number = 0;
-  notificationLength: any = 0;
+
   showAdminDashboardButton: boolean = false;
   showEnterpriseDashboardButton: boolean = false;
   permaLink: any;
   candidate = false;
 
-  notificationObserver = new Subject();
-  notificationObserver$ = this.notificationObserver.asObservable();
-
-  getAllNotifications = "getAllNotifications";
-  newNotification = "newNotification";
-  getAllCandidateNotifications = "getAllCandidateNotifications";
-  newCandidateNotifications = "newCandidateNotifications";
-  decreaseCandidateNotificationCount = "decreaseCandidateNotificationCount";
-  candidateReplyNotification = "candidateReplyNotification";
-  candidateLikeNotification = "candidateLikeNotification";
-  getRecruiterNotifications = "getRecruiterNotifications";
-  decreaseRecruiterNotificationCount = "decreaseRecruiterNotificationCount";
-
-  limit = 15;
-  createdAt;
-  selector: string = ".scrollNotification";
   userProfile: any;
-  likesOnComments = [];
-  replysOnComments = [];
 
   constructor(
     private userService: UserService,
@@ -82,7 +57,8 @@ export class NavbarComponent implements OnInit {
     public enterpriseService: EnterpriseService,
     private _pushNotify: PushNotificationService,
     private _constants : ConstantsService,
-    private _subList : SubscriberslistService
+    private _subList : SubscriberslistService,
+    private _firebasePushNotificationService : FirebasePushNotificationService
   ) {
     this.permaLink = window.location.href;
     this.loggedInUser = this.userService.getUserData();
@@ -102,14 +78,14 @@ export class NavbarComponent implements OnInit {
         this.isEnterprise = true;
       } else if (this.loggedInUser.userRole == "candidate") {
         this.isCandidate = true;
+        this._pushNotify.pushNotification();
       }
     }
+
     router.events.subscribe((val) => {
       // see also
       if (val instanceof NavigationEnd) {
         // hiding notification while changes in route
-        this.show = false;
-        this.buttonName = "Hide";
 
         if (val.url === "/video-call") {
           // console.log('On video call');
@@ -126,69 +102,31 @@ export class NavbarComponent implements OnInit {
 
     this.userService._setProfileObservable.subscribe((data) => {
       this.userProfile = data;
-      // console.log(data);
     });
+
   }
 
   async ngOnInit() {
     this.showAdminDashboardButton = false;
     this.showEnterpriseDashboardButton = false;
 
+    //initiate a connection of socket at once when navbar is loaded.
     let obj = JSON.parse(localStorage.getItem("currentUser"));
     if (obj !== null) {
       await this.initSocket(obj.token, obj.userInfo.userRole);
     }
 
-    await this._socket.removeListener({ type: 1 });
-    this._socket.addListener({
-      type: 1,
-      callback: this.notificationObserver,
-    });
-
-    this.notificationObserver$.subscribe((res: any) => {
-      this.handleNotificationData(res);
-    });
-
+    //increse a points of user.
     this.userService.candidateProfileObservable$.subscribe((res: any) => {
       this.handleCandidateProfile(res);
-    });
-
-    this._socket.sendMessage({
-      type: 1,
-      data: {
-        type: this.loggedInUser.userRole,
-        subType: this.getAllNotifications,
-        onLoad: true,
-        limit: this.limit,
-      },
     });
 
     if (this.loggedInUser.userRole == "employer") {
       this.showAdminDashboardButton = false;
       this.showEnterpriseDashboardButton = false;
-      this._forum
-        .getAllUnAnsQuestionsByEmployerId(this.loggedInUser._id)
-        .subscribe((data) => {
-          this.suggestedQueData = data;
-          this.suggestedQueData.forEach((element) => {
-            if (element.QueAnsStaus == 1) {
-              this.suggestedQueCount++;
-            }
-          });
-        });
     } else if (this.loggedInUser.userRole == "recruiter") {
       this.showAdminDashboardButton = false;
       this.showEnterpriseDashboardButton = false;
-      this._forum
-        .getAllUnreadAnsQueByRecruiteId(this.loggedInUser._id)
-        .subscribe((data) => {
-          this.suggestedQueData = data;
-          this.suggestedQueData.forEach((element) => {
-            if (element.QueAnsStaus == 2) {
-              this.suggestedQueAnsCount++;
-            }
-          });
-        });
       this.getUsersProfile();
     } else if (this.loggedInUser.userRole == "super-admin") {
       this.showAdminDashboardButton = true;
@@ -204,10 +142,9 @@ export class NavbarComponent implements OnInit {
     jQuery(document).ready(function () {
       jQuery(".button-collapse").sideNav();
     });
-    this.show = false;
-    this.buttonName = "Hide";
   }
 
+  //initiate a connection through socket.
   async initSocket(token, userRole) {
     await this._socket.getInstance(token, userRole);
   }
@@ -231,95 +168,9 @@ export class NavbarComponent implements OnInit {
       );
   }
 
-  truncateHTML(text: string): string {
-    let charlimit = 20;
-    if (!text || text.length <= charlimit) {
-      return text;
-    }
-
-    let without_html = text.replace(/<(?:.|\n)*?>/gm, "");
-    let trim_space = without_html.trim().replace(/&nbsp;/g, "");
-    let shortened = trim_space.substring(0, charlimit) + "...";
-    return shortened;
-  }
-
-  truncateHTMLMsg(text: string, msg : string = ''): string {
-    let charlimit = 20;
-    if (!text || text.length <= charlimit) {
-      return text + msg;
-    }
-
-    let without_html = text.replace(/<(?:.|\n)*?>/gm, "");
-    let trim_space = without_html.trim().replace(/&nbsp;/g, "");
-    let shortened = trim_space.substring(0, charlimit) + "...";
-    return shortened + msg;
-  }
-
+  //increse points of user.
   handleCandidateProfile(obj){
     this.userProfile[obj.pointer] = obj.increseCount;
-  }
-
-  handleNotificationData(res: any) {
-    switch (res.subType) {
-      case this.getAllNotifications:
-        // add all notifications to list.
-        if (res.data.length !== 0) {
-          this.questDataLenght = [...this.questDataLenght, ...res.data];
-          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
-          this.notificationLength = res.count ? res.count : this.notificationLength;
-        }
-        break;
-      case this.newNotification:
-        //add notification to start of list.
-        this.questDataLenght.length !== 0 ? this.questDataLenght.unshift(res.result) : this.questDataLenght.push(res.result);
-        this.incrementNotificationCount();
-        break;
-      case this.getAllCandidateNotifications:
-        res.data.filter((val) => {
-          if (val.canReview) {
-            val.canReview.filter((cmt) => {
-              this.commets.push(cmt);
-              if(cmt.notification){
-                this.incrementNotificationCount();
-              }
-            });
-          }
-        });
-        break;
-      case this.newCandidateNotifications :
-        this.commets.length !== 0 ? this.commets.unshift(res.data) : this.commets.push(res.data);
-        this.incrementNotificationCount();
-        break;
-      case this.candidateLikeNotification :
-        //add notification to start of list.
-        this.likesOnComments.length !== 0 ? this.likesOnComments.unshift(res) : this.likesOnComments.push(res);;
-        this.incrementNotificationCount();
-        break;
-      case this.candidateReplyNotification : 
-        //add notification to start of list.
-        this.replysOnComments.length !== 0 ? this.replysOnComments.unshift(res) : this.replysOnComments.push(res);
-        let candidateObj = {
-          pointer : "ratingPoints",
-          subType : "add",
-          increseCount : this._constants.ReplyAdvicePoints
-        }
-        this._subList.recruiterPoints.next(candidateObj);
-        this.incrementNotificationCount();
-        break
-      case this.getRecruiterNotifications : 
-        if (res.data.length !== 0) {
-          this.questDataLenght = [...this.questDataLenght, ...res.data];
-          this.createdAt = this.questDataLenght[this.questDataLenght.length - 1].createdAt;
-          this.notificationLength = res.count ? res.count : this.notificationLength;
-        }
-        break;
-      default:
-        break;
-    }
-  }
-
-  incrementNotificationCount() {
-    this.notificationLength += 1;
   }
 
   updateQueAns(id) {
@@ -339,103 +190,9 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn = false;
     this._socket.socketClosed();
   }
-
-  toggle() {
-    this.show = !this.show;
-
-    // CHANGE THE NAME OF THE BUTTON.
-    if (this.show) this.buttonName = "Hide";
-    else this.buttonName = "Show";
-  }
-
-  onClick(event) {
-    // console.log('clicked ');
-
-    if (!this._eref.nativeElement.contains(event.target)) {
-      // or some similar check
-      this.show = false;
-    }
-    this.buttonName = "Hide";
-  }
-
-  onScroll() {
-    this._socket.sendMessage({
-      type: 1,
-      data: {
-        subType: this.getAllNotifications,
-        createdAt: this.createdAt,
-        limit: this.limit,
-      },
-    });
-  }
-
-  getToQuestion(id) {
-    this.toggle();
-    this.router.navigate(["/question-details/", id]);
-  }
   
-  goToSharedProfile(cmt_id) {
-    this.notificationLength--;
-    this.toggle();
-
-    this.commets.forEach((data, index)=>{
-      if(cmt_id === data._id){
-        data.notification = false;
-      }
-    });
-
-    this._socket.sendMessage({
-      type: 1,
-      data: {
-        type: this.loggedInUser.userRole,
-        subType : this.decreaseCandidateNotificationCount,
-        cmt_id : cmt_id,
-      },
-    });
-
-    if (this.isCandidate) {
-      this.router.navigate(["/candidate/my-posted-profiles"]);
-    }
-
-    if (this.isRecruiter) {
-      this.router.navigate(["/recruiter/share-candidate-profile"]);
-    }
-  }
-
-  goToSharedProfileRecruiter(cmt_id, subId, attType){
-
-    this.notificationLength--;
-    this.toggle();
-
-    this._socket.sendMessage({
-      type: 1,
-      data: {
-        type: this.loggedInUser.userRole,
-        subType : this.decreaseRecruiterNotificationCount,
-        cmt_id : cmt_id,
-        attType : attType,
-        subId : subId
-      },
-    });
-
-    if(attType === 'like'){
-      this.likesOnComments.forEach((res, index)=>{
-        if(subId === res.data.like[0]._id){
-          res.data.like[0].notification = false;
-        }
-      });
-    }else{
-      this.replysOnComments.forEach((res, index)=>{
-        if(subId === res.data.reply._id){
-          res.data.reply.notification = false;
-        }
-      });
-    }
-
-    if (this.isRecruiter) {
-      this.router.navigate(["/recruiter/share-candidate-profile"]);
-    }
-
+  //unscubscribe the subscribed variables.
+  ngOnDestroy() {
   }
 
 }

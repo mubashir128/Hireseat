@@ -163,7 +163,10 @@
 .forumMsgPopup.forumPopMain {
   max-width: 600px;
   position: fixed;
+  z-index: 999 !important;
 }
+
+
 .videoModalMain a.videoCloseBtn {
   position: absolute;
   top: -30px;
@@ -194,4 +197,11 @@
 }
 .accept-values {
   width: 50%;
+}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+  .ClientDetailCard {width: 100%; display: block;}
+    .ClientImage { width: 100%;}
+    .BioDetails { width: 100%;}
+   h2 {font-size: 20px!important;}
 }

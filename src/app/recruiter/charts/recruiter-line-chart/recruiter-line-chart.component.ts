@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Chart } from "chart.js";
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Subject } from "rxjs";
 import { UserService } from "../../../_services/user.service";
+import { ConstantsService } from 'src/app/_services/constants.service';
 
 @Component({
   selector: 'app-recruiter-line-chart',
   templateUrl: './recruiter-line-chart.component.html',
   styleUrls: ['./recruiter-line-chart.component.css']
 })
-export class RecruiterLineChartComponent implements OnInit {
+export class RecruiterLineChartComponent implements OnInit, OnDestroy {
   LineChart;
   lineChartDataConfig: any;
   lineOptions: any;
-
-  getRecruiterLineChartData = "getRecruiterLineChartData";
 
   recruiterLineChartObserver = new Subject();
   recruiterLineChartObserver$ = this.recruiterLineChartObserver.asObservable();
 
   loggedInUser: any;
-  constructor(private _socket: WebsocketService, private userService: UserService) {
+  constructor(private _socket: WebsocketService, private userService: UserService, private _constants : ConstantsService) {
     this.setLineChartConfig();
     this.loggedInUser = this.userService.getUserData();
   }
@@ -28,9 +27,9 @@ export class RecruiterLineChartComponent implements OnInit {
   async ngOnInit() {
     this.showLineChartData();
 
-    await this._socket.removeListener({ type: 8 });
+    await this._socket.removeListener({ type: this._constants.recruiterLineChartType });
     this._socket.addListener({
-      type: 8,
+      type: this._constants.recruiterLineChartType,
       callback: this.recruiterLineChartObserver,
     });
     
@@ -39,10 +38,9 @@ export class RecruiterLineChartComponent implements OnInit {
     });
     
     this._socket.sendMessage({
-      type: 8,
+      type: this._constants.recruiterLineChartType,
       data: {
-        type: this.loggedInUser.userRole,
-        subType: this.getRecruiterLineChartData,
+        subType: this._constants.getRecruiterLineChartData,
       },
     });
 
@@ -50,7 +48,7 @@ export class RecruiterLineChartComponent implements OnInit {
 
   handleRecruiterLineChartData(res){
     switch (res.subType) {
-      case this.getRecruiterLineChartData : 
+      case this._constants.getRecruiterLineChartData : 
         this.showChartData(res);
         break;
       default : 
@@ -131,7 +129,8 @@ export class RecruiterLineChartComponent implements OnInit {
             ticks: {
               beginAtZero: true,
               maxRotation: 45,
-              minRotation: 45
+              minRotation: 45,
+              display : false
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",
@@ -143,7 +142,7 @@ export class RecruiterLineChartComponent implements OnInit {
           {
             ticks: {
               beginAtZero: true,
-              stepSize: 1,
+              // stepSize: 1,
             },
             gridLines: {
               color: "rgba(0, 0, 0, 0)",
@@ -178,6 +177,11 @@ export class RecruiterLineChartComponent implements OnInit {
       },
       bezierCurve: false
     };
+  }
+
+  ngOnDestroy() {
+    this._socket.removeListener({ type: this._constants.recruiterLineChartType });
+    this.recruiterLineChartObserver.unsubscribe();
   }
 
 }

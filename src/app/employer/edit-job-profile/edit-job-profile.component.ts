@@ -11,6 +11,7 @@ import { SalaryCycle } from '../../models/salary-cycle';
 import { JobExperience } from '../../models/job-experience';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BiddingEventService } from '../../_services/bidding-event.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 declare var jQuery: any;
 declare var Materialize: any;
@@ -29,6 +30,7 @@ export class EditJobProfileComponent implements OnInit {
   public salaryCycleArr: SalaryCycle[];
   public jobExperienceArr: JobExperience[];
   public contractArr: Contract[];
+  editor = ClassicEditor;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private authService: AuthenticationService, private spinner: NgxSpinnerService,
     private bidEventService: BiddingEventService) {
 
@@ -39,7 +41,7 @@ export class EditJobProfileComponent implements OnInit {
       this.jp = new JobProfile(this.loggedUser._id, this.loggedUser.companyName);
       this.getJobProfileById(this.jobPro_id);
     } else {
-      this.router.navigate(['employer']);
+      this.router.navigate([this.loggedUser.userRole]);
     }
 
     this.jobShiftArr = [
@@ -123,7 +125,7 @@ export class EditJobProfileComponent implements OnInit {
 
   goBack() {
     localStorage.removeItem('jp_id');
-    this.router.navigate(['employer/job-profile-list']);
+    this.router.navigate([`${this.loggedUser.userRole}/job-profile-list`]);
   }
 
   onSubmit() {
@@ -134,7 +136,7 @@ export class EditJobProfileComponent implements OnInit {
           Materialize.toast('Job Profile Updated Successfully', 1000)
           localStorage.removeItem('jp_id');
           this.spinner.hide();
-          this.router.navigate(["/employer/job-profile-list"]);
+          this.router.navigate([`/${this.loggedUser.userRole}/job-profile-list`]);
         } else {
           this.spinner.hide();
           Materialize.toast('Something Went Wrong !', 1000)
@@ -146,7 +148,7 @@ export class EditJobProfileComponent implements OnInit {
           if (error) {
             Materialize.toast('Something Went Wrong !', 4000)
             localStorage.removeItem('jp_id');
-            this.router.navigate(["/employer/job-profile-list"]);
+            this.router.navigate([`/${this.loggedUser.userRole}/job-profile-list`]);
           }
         });
     }

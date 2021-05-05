@@ -7,6 +7,7 @@ import { SuperAdminService } from "../../_services/super-admin.service";
 import { ForumService } from "../../_services/forum.service";
 import { EnterpriseService } from "../../_services/enterprise.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
+
 declare var jQuery: any;
 @Component({
   selector: "app-employer-home",

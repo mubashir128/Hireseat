@@ -19,6 +19,7 @@ export interface IBiddingEvent {
   employerCompanyName: string;
   jobLocation: string;
   createdAt : any;
+  userType:number
 }
 
 export class BiddingEvent implements IBiddingEvent {
@@ -34,7 +35,7 @@ export class BiddingEvent implements IBiddingEvent {
   jobProfileKey: any;
   employerKey: string;
   bids: string[];
-
+  recruiterKey:string;
   jobTitle: string;
   rewardMoneyFrom = 0;
   rewardMoneyTo = 0;
@@ -46,7 +47,8 @@ export class BiddingEvent implements IBiddingEvent {
   finalRecruiters: any = [];
   globalType: string;
   createdAt : any;
-
+  recruiterCompanyName:string;
+  userType:number
   constructor() {
   }
 
@@ -69,7 +71,14 @@ export class BiddingEvent implements IBiddingEvent {
       this.employerCompanyName = '';
     }
   }
-
+  setRecruiter(user){
+    this.recruiterKey = user._id;
+    if (user.companyName) {
+      this.recruiterCompanyName = user.companyName;
+    } else {
+      this.recruiterCompanyName = '';
+    }
+  }
   setAsActive() {
     this.status = BiddingEvent.STATUS_ACTIVE;
     // console.log('Bidding Activated');

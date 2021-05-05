@@ -1,136 +1,250 @@
+<app-navbar></app-navbar>
 <div class="jobManegement">
   <div class="container custContainer">
     <div class="blueSection fullwidth">
       <div class="HeadBtnDiv">
-        <h4 class="pull-left"><a [routerLink]="['/employer/bidding-event-list']">Back</a></h4>
+        <!-- <h4 class="pull-left"><a [routerLink]="['/employer/bidding-event-list']">Back</a></h4> -->
+
+        <h4 class="pull-left">
+          <a routerLink="/{{ loggedUser?.userRole }}/bidding-event-list"
+            >Back</a
+          >
+        </h4>
         <h3 class="pull-right remainingtext">
           <!-- 6 days,22hrs Remaining -->
-          <div *ngIf="biddingStatus===0">
-
+          <div *ngIf="biddingStatus === 0">
             <!--  Starts in -->
-            <span *ngIf="remainingTime.remainingDays>0">{{remainingTime.remainingDays}}&nbsp;days,&nbsp;</span>
-            <span *ngIf="remainingTime.remainingHours>0">{{remainingTime.remainingHours}}&nbsp;hrs</span>
-            <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingHours>0">,&nbsp;</span>
+            <span *ngIf="remainingTime.remainingDays > 0"
+              >{{ remainingTime.remainingDays }}&nbsp;days,&nbsp;</span
+            >
+            <span *ngIf="remainingTime.remainingHours > 0"
+              >{{ remainingTime.remainingHours }}&nbsp;hrs</span
+            >
             <span
-              *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingMinutes>0">{{remainingTime.remainingMinutes}}&nbsp;mins</span>
-
+              *ngIf="
+                remainingTime.remainingDays === 0 &&
+                remainingTime.remainingHours > 0
+              "
+              >,&nbsp;</span
+            >
+            <span
+              *ngIf="
+                remainingTime.remainingDays === 0 &&
+                remainingTime.remainingMinutes > 0
+              "
+              >{{ remainingTime.remainingMinutes }}&nbsp;mins</span
+            >
           </div>
-          <div *ngIf="biddingStatus===1">
+          <div *ngIf="biddingStatus === 1">
             <!-- Closes in -->
-            <span *ngIf="remainingTime.remainingDays>0">{{remainingTime.remainingDays}}&nbsp;days,&nbsp;</span>
-            <span *ngIf="remainingTime.remainingHours>0">{{remainingTime.remainingHours}}&nbsp;hrs</span>
-            <span *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingHours>0">,&nbsp;</span>
+            <span *ngIf="remainingTime.remainingDays > 0"
+              >{{ remainingTime.remainingDays }}&nbsp;days,&nbsp;</span
+            >
+            <span *ngIf="remainingTime.remainingHours > 0"
+              >{{ remainingTime.remainingHours }}&nbsp;hrs</span
+            >
             <span
-              *ngIf="remainingTime.remainingDays===0 && remainingTime.remainingMinutes>0">{{remainingTime.remainingMinutes}}
-              &nbsp; mins</span>
+              *ngIf="
+                remainingTime.remainingDays === 0 &&
+                remainingTime.remainingHours > 0
+              "
+              >,&nbsp;</span
+            >
+            <span
+              *ngIf="
+                remainingTime.remainingDays === 0 &&
+                remainingTime.remainingMinutes > 0
+              "
+              >{{ remainingTime.remainingMinutes }} &nbsp; mins</span
+            >
           </div>
-          <div *ngIf="biddingStatus===-1">
-            Expired
-          </div>
-
+          <div *ngIf="biddingStatus === -1">Expired</div>
         </h3>
       </div>
       <div class="fullwidth posRel">
-        <h2 class="secHead">{{biddingEvent.jobTitle}}<span>
+        <h2 class="secHead">
+          {{ biddingEvent.jobTitle }}<span> <!-- ( URGENT! ) --></span>
+        </h2>
 
-            <!-- ( URGENT! ) --></span> </h2>
+        <h4 class="salHead">
+          Salary
+          <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle === '1'"
+            >per Year</span
+          >
+          <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle === '2'"
+            >per Month</span
+          >
+          <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle === '3'"
+            >per Week</span
+          >
+          ${{ numberWithCommas(biddingEvent.jobProfileKey?.salaryFrom) }} - ${{
+            numberWithCommas(biddingEvent.jobProfileKey?.salaryTo)
+          }}
+        </h4>
 
-        <h4 class="salHead">Salary
-          <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle=='1'">per Year</span>
-          <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle=='2'">per Month</span>
-          <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle=='3'">per Week</span>
-          ${{numberWithCommas(biddingEvent.jobProfileKey?.salaryFrom)}} -
-          ${{numberWithCommas(biddingEvent.jobProfileKey?.salaryTo)}} </h4>
-
-        <img src="assets/img/hireseat_header_logo.png" class="logoHome">
+        <img src="assets/img/hireseat_header_logo.png" class="logoHome" />
       </div>
-      <div class="salPerYear ">
+      <div
+        class="salPerYear"
+        *ngIf="
+          loggedUser?.userRole === 'employer' ||
+          (loggedUser?.userRole === 'recruiter' &&
+            biddingEvent.employerKey['_id'] !== loggedUser._id)
+        "
+      >
         <div class="pull-right">
-
-          <h4 class="reward">Reward Range: ${{numberWithCommas(biddingEvent.rewardMoneyFrom) }} -
-            ${{ numberWithCommas(biddingEvent.rewardMoneyTo)}} </h4>
+          <h4 class="reward">
+            Reward Range: ${{
+              numberWithCommas(biddingEvent.rewardMoneyFrom)
+            }}
+            - ${{ numberWithCommas(biddingEvent.rewardMoneyTo) }}
+          </h4>
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="eventDetails">
-  <div class=" container custContainer">
+  <div class="container custContainer">
     <div class="tabSection">
       <ul id="tabs-swipe-demo" class="tabs bx-pager bx-default-pager">
-        <li class="tab col s3 bx-pager-item active"><a href="#jobprofile" class="bx-pager-link active"
-            (click)="addActiveClass($event,'jobprofile')">Job Profile</a>
+        <li class="tab col s3 bx-pager-item active">
+          <a
+            href="#jobprofile"
+            class="bx-pager-link active"
+            (click)="addActiveClass($event, 'jobprofile')"
+            >Job Profile</a
+          >
           <div class="arrow"></div>
         </li>
 
-        <li class="tab col s3 bx-pager-item resume"><a href="#resume" class="bx-pager-link"
-            (click)="addActiveClass($event,'resume')">Resumes</a>
-          <div class="arrow"><span>{{resumecount}}</span></div>
+        <li class="tab col s3 bx-pager-item resume">
+          <a href="#resume" *ngIf = "userRole !== 3" class="bx-pager-link" (click)="addActiveClass($event, 'resume')">Resumes</a>
+          <a href="#resume" *ngIf = "userRole === 3" class="bx-pager-link" (click)="addActiveClass($event, 'resume')">Apply for this job</a>
+          
+          <div class="arrow">
+            <span>{{ resumecount }}</span>
+          </div>
           <!-- <span>{{resumecount}}</span> -->
         </li>
-        <li class="tab col s3 bx-pager-item  interview"><a class="bx-pager-link"
-            (click)="addActiveClass($event,'interview')" href="#interview">Interviews </a>
-          <div class="arrow"><span>{{interviewcount}}</span></div>
+        <li class="tab col s3 bx-pager-item interview" *ngIf="userRole != 3">
+          <a
+            class="bx-pager-link"
+            (click)="addActiveClass($event, 'interview')"
+            href="#interview"
+            >Interviews
+          </a>
+          <div class="arrow">
+            <span>{{ interviewcount }}</span>
+          </div>
           <!-- <span>{{interviewcount}}</span> -->
         </li>
-        <li class="tab col s3 bx-pager-item hired"><a href="#hired" (click)="addActiveClass($event,'hire')"
-            class="bx-pager-link">Hired </a>
-          <div class="arrow"><span>{{hiredcount}}</span></div>
+        <li class="tab col s3 bx-pager-item hired" *ngIf="userRole != 3">
+          <a
+            href="#hired"
+            (click)="addActiveClass($event, 'hire')"
+            class="bx-pager-link"
+            >Hired
+          </a>
+          <div class="arrow">
+            <span>{{ hiredcount }}</span>
+          </div>
           <!-- <span>{{hiredcount}}</span> -->
         </li>
       </ul>
 
-
       <div class="tab-content">
-
         <div id="jobprofile" class="tab-pane fade in active">
           <app-job-profile-info></app-job-profile-info>
         </div>
         <div id="jobprofilecost" class="tab-pane fade">
-
           <!-- <app-employer-cost *ngIf="userRole==1 && showDiv=='jobprofilecost'" [biddingEvent]="biddingEvent"></app-employer-cost> -->
           <!-- <app-recruiter *ngIf="userRole==2 && showDiv=='jobprofilecost'" [biddingEvent]="biddingEvent"></app-recruiter> -->
-
         </div>
         <div id="quetions" class="tab-pane fade">
-
-          <app-recruiter-question *ngIf="userRole==1 && showDiv=='quetions'" [biddingEvent]="biddingEvent">
+          <app-recruiter-question
+            *ngIf="userRole == 1 && showDiv == 'quetions'"
+            [biddingEvent]="biddingEvent"
+          >
           </app-recruiter-question>
-          <app-recruiter-question *ngIf="userRole==2 && showDiv=='quetions'" [biddingEvent]="biddingEvent">
+          <app-recruiter-question
+            *ngIf="userRole === 2 && showDiv == 'quetions'"
+            [biddingEvent]="biddingEvent"
+          >
           </app-recruiter-question>
           <!-- <app-recruiter *ngIf="userRole==2 && showDiv=='jobprofilecost'" [biddingEvent]="biddingEvent"></app-recruiter> -->
-
         </div>
 
         <div id="resume" class="tab-pane fade">
-          <app-bidding-info (ResumeCount)="resumeCount($event)" (InterviewCount)="funcInterviewCount($event)"
-            *ngIf="userRole==1 && showDiv=='resume'" [biddingEvent]="biddingEvent"></app-bidding-info>
-          <app-recruter-bidding-info (ResumeCount)="resumeCount($event)" (InterviewCount)="funcInterviewCount($event)"
-            *ngIf="userRole==2 && showDiv=='resume'" [biddingEvent]="biddingEvent">
+          <app-bidding-info
+            (ResumeCount)="resumeCount($event)"
+            (InterviewCount)="funcInterviewCount($event)"
+            *ngIf="userRole === 1 && showDiv == 'resume'"
+            [biddingEvent]="biddingEvent"
+          ></app-bidding-info>
+          <app-recruter-bidding-info
+            (ResumeCount)="resumeCount($event)"
+            (InterviewCount)="funcInterviewCount($event)"
+            *ngIf="userRole === 2 && showDiv == 'resume'"
+            [biddingEvent]="biddingEvent"
+          >
           </app-recruter-bidding-info>
+          <app-candidate-bidding-info
+            (ResumeCount)="resumeCount($event)"
+            *ngIf="userRole === 3 && showDiv == 'resume'"
+            [biddingEvent]="biddingEvent"
+          >
+          </app-candidate-bidding-info>
         </div>
 
         <div id="interview" class="tab-pane fade">
-          <app-bidding-interview-info (InterviewCount)="funcInterviewCount($event)" (HiredCount)="hiredCount($event)"
-            *ngIf="userRole==1 && showDiv=='interview'" [biddingEvent]="biddingEvent">
+          <app-bidding-interview-info
+            (InterviewCount)="funcInterviewCount($event)"
+            (HiredCount)="hiredCount($event)"
+            *ngIf="userRole === 1 && showDiv == 'interview'"
+            [biddingEvent]="biddingEvent"
+          >
           </app-bidding-interview-info>
-          <app-recruiter-bidding-interview-info (InterviewCount)="funcInterviewCount($event)"
-            (HiredCount)="hiredCount($event)" *ngIf="userRole==2 && showDiv=='interview'" [biddingEvent]="biddingEvent">
+          <app-recruiter-bidding-interview-info
+            (InterviewCount)="funcInterviewCount($event)"
+            (HiredCount)="hiredCount($event)"
+            *ngIf="userRole === 2 && showDiv == 'interview'"
+            [biddingEvent]="biddingEvent"
+          >
           </app-recruiter-bidding-interview-info>
         </div>
 
         <div id="hired" class="tab-pane fade">
-          <app-bidding-hired-info (HiredCount)="hiredCount($event)" *ngIf="userRole==1  && showDiv=='hire'"
-            [biddingEvent]="biddingEvent">
+          <app-bidding-hired-info
+            (HiredCount)="hiredCount($event)"
+            *ngIf="userRole === 1 && showDiv == 'hire'"
+            [biddingEvent]="biddingEvent"
+          >
           </app-bidding-hired-info>
-          <app-recruiter-bidding-hired-info (HiredCount)="hiredCount($event)" *ngIf="userRole==2 && showDiv=='hire'"
-            [biddingEvent]="biddingEvent">
+          <app-recruiter-bidding-hired-info
+            (HiredCount)="hiredCount($event)"
+            *ngIf="userRole === 2 && showDiv == 'hire'"
+            [biddingEvent]="biddingEvent"
+          >
           </app-recruiter-bidding-hired-info>
         </div>
-
       </div>
     </div>
   </div>
 
-  <app-employeer-ans *ngIf="userRole==1" [biddingEvent]="biddingEvent"></app-employeer-ans>
-  <app-recruiter-question *ngIf="userRole==2" [biddingEvent]="biddingEvent"></app-recruiter-question>
+  <app-employeer-ans
+    *ngIf="userRole == 1"
+    [biddingEvent]="biddingEvent"
+  ></app-employeer-ans>
+  <app-recruiter-question
+    *ngIf="userRole == 2 && biddingEvent.userType != 3"
+    [biddingEvent]="biddingEvent"
+  ></app-recruiter-question>
+  <app-recruiter-ans
+    *ngIf="userRole == 2 && biddingEvent.userType == 3"
+    [biddingEvent]="biddingEvent"
+  >
+  </app-recruiter-ans>
+  <app-candidate-question *ngIf="userRole == 3" [biddingEvent]="biddingEvent">
+  </app-candidate-question>
+</div>

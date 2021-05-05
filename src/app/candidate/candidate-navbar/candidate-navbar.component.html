@@ -1,7 +1,12 @@
 <header>
-    <div class="collection overflowUnset mobileScroll">
-        <a class="collection-item" [ngClass]="{ active: tab.selected === true }" *ngFor="let tab of tabs1"
-            (click)="SelectItem(tab.id)" [routerLink]="[tab.id]">{{ tab.displayText }}</a>
-
-    </div>
+  <div class="collection overflowUnset mobileScroll">
+    <a
+      class="collection-item"
+      [ngClass]="{ active: tab.selected === true }"
+      *ngFor="let tab of tabs1"
+      (click)="SelectItem(tab.id)"
+      [routerLink]="[tab.id]"
+      >{{ tab.displayText }}</a
+    >
+  </div>
 </header>

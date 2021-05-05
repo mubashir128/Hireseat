@@ -6,18 +6,18 @@
   </div>
 </ng-container>
 <div class="mainPageBg">
-  <ng-container>
+  <!-- <ng-container>
     <nav style="background:#E9F4FF;" class="customeNav">
-      <div class="nav-wrapper container">
+      <div class="nav-wrapper container"> -->
         <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
             style="vertical-align:middle;" /></a> -->
-        <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
+        <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
             style="vertical-align:middle; width: 50%;" /></a>
         <span class="header-title">Hire Seat</span>
 
       </div>
     </nav>
-  </ng-container>
+  </ng-container> -->
   <ng-container *ngIf="isTokenValid">
     <div class="MainTempMiddle">
       <div class="mainTemplate">
@@ -25,13 +25,21 @@
           <!-- <div class="interviewVideoDiv stickyDiv"> -->
           <div class="container">
             <!-- call video questions -->
-            <div class="candidate-name mobViewOnly">
+            <!-- <div class="candidate-name mobViewOnly">
               <span>
                 {{resume?.candidateName}}
               </span>
               <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
               <p><label>Location :</label> {{resume?.location}}</p>
-            </div>
+            </div> -->
+            <ng-container *ngIf="!videoURL">
+              <div class="" *ngIf = "resume.candidate_id.profileimage === ''">
+                <img src="../../../assets/img/user.png" class="uploadedImg" />
+              </div>
+              <div class="" *ngIf = "resume.candidate_id.profileimage !== ''">
+                <img [src]="resume.candidate_id.profileimage" class="uploadedImg" />
+              </div>
+            </ng-container>
             <ng-container *ngIf="videoURL">
               <app-video-questions
                 [options]="{ autoplay: false, controls: true, sources: [{ src: videoURL, type: 'video/mp4' }]}"
@@ -47,8 +55,11 @@
           <div class="singleList employerResume resumeSingleList">
             <div class="docSectionBtns">
               <div class="candidate-name">
-                <span>
-                  {{resume?.candidateName}}
+                <span *ngIf = "resume?.candidateName">
+                  {{resume.candidateName}}
+                </span>
+                <span *ngIf = "resume?.candidate_id">
+                  {{resume.candidate_id.fullName}}
                 </span>
                 <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
                 <p><label>Location :</label> {{resume?.location}}</p>
@@ -97,13 +108,17 @@
             </ng-container>
             <ng-container *ngIf="isShareFromRecruiter && comments">
               <div class="singleListData">
-                <div class="PointsDiv commonSingleInner">
+                Candidate's Summary : 
+                <div class="PointsDiv commonSingleInner"  *ngIf = "comments !== ''">
                   <div class="PointsDivSingle PointsDivSingleN">
-
-                    <h4>{{ comments }}</h4>
-
+                    <h4> - {{ comments }}</h4>
                   </div>
-
+                  <div class="PointsDivSingle PointsDivSingleN" *ngIf = "comments2 !== ''">
+                    <h4> - {{ comments2 }}</h4>
+                  </div>
+                  <div class="PointsDivSingle PointsDivSingleN"  *ngIf = "comments3 !== ''">
+                    <h4> - {{ comments3 }}</h4>
+                  </div>
                 </div>
 
               </div>

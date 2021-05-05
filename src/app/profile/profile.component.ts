@@ -5,8 +5,10 @@ import { UserService } from "../_services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { RewardSummary } from "./model/reward-summary";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 declare var Materialize: any;
 declare var jQuery: any;
+
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
@@ -38,6 +40,7 @@ export class ProfileComponent implements OnInit {
     displayKey: "day", // if objects array passed which key to be displayed defaults to description
     limitTo: 6,
   };
+  editor = ClassicEditor;
   constructor(
     private userService: UserService,
     private spinner: NgxSpinnerService,
@@ -130,8 +133,35 @@ export class ProfileComponent implements OnInit {
       to: "",
     });
   }
+  onChanges(ch,event,item){
+   
+    var time = event.value.toLocaleTimeString();
+    switch (ch) {
+      case "from":
+        this.available.map((ele) => {
+          if (ele.id === item.id) {
+            ele.from = time;
+          }
+        });
+        console.log(this.available);
+        this.userProfile.available = this.available;
+        break;
+      case "to":
+        this.available.map((ele) => {
+          if (ele.id === item.id) {
+            ele.to = time;
+          }
+        });
+        console.log(this.available);
+        this.userProfile.available = this.available;
+
+        break;
+      default:
+        break;
+    }
+  }
   timeUpdate(ch, event, item) {
-    // console.log(ch, item, event.target.value);
+    console.log(ch, item, event.target.value);
 
     switch (ch) {
       case "from":
@@ -140,7 +170,7 @@ export class ProfileComponent implements OnInit {
             ele.from = event.target.value;
           }
         });
-        // console.log(this.available);
+        console.log(this.available);
         this.userProfile.available = this.available;
         break;
       case "to":

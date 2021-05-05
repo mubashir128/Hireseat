@@ -5,8 +5,6 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { UserService } from "../../_services/user.service";
 import { SuperAdminService } from "../../_services/super-admin.service";
 import { ForumService } from "../../_services/forum.service";
-import { map } from "rxjs/operators";
-import { EnterpriseService } from "src/app/_services/enterprise.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
 
 declare var jQuery: any;
@@ -37,9 +35,7 @@ export class RecruiterHomeComponent implements OnInit {
     // for live route
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        event.url === "/recruiter/profile"
-          ? (this.isOnProfile = true)
-          : (this.isOnProfile = false);
+        event.url === "/recruiter/profile" ? (this.isOnProfile = true) : (this.isOnProfile = false);
       }
     });
   }

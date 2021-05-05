@@ -19,6 +19,8 @@ declare var jQuery: any;
   styleUrls: ["./all-recruiters.component.css"],
 })
 export class AllRecruitersComponent implements OnInit, OnDestroy {
+  public today = new Date()
+ 
   getAllPostRecruiterSubscription: Subscription;
   shareWithRecruiterSubscription: Subscription;
   requestCoachingSubscription: Subscription;
@@ -28,6 +30,7 @@ export class AllRecruitersComponent implements OnInit, OnDestroy {
   recruiters: any;
   selectedRecruiter: any;
   user: any;
+ 
   // multiDate: any = [];
   availableTime: any = [];
   availableDetails: any;

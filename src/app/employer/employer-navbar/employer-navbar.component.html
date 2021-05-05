@@ -1,16 +1,19 @@
 <header>
-  <div class="collection padd0">
+  <div class="collection padd0 overflowUnset mobileScroll">
     <a class="collection-item" *ngFor="let tab of tabMenu" [ngClass]="{ active: tab.selected === true }"
       (click)="SelectItem(tab.path)" [routerLink]="[tab.path]">{{ tab.name }}
     </a>
   </div>
 </header>
-<div class="collection">
-  <div class="col s12 m12 text-center l12 rewarDiv padd15">
-    <a><img src="assets/img/reward_points.png" height="50px" width="50px" /></a>
-    <label for="company-reward">Ranking</label>
-    <h5 id="recruiter-rewards" class="mar0">{{ userProfile?.ranking }}</h5>
-    <label for="company-reward">Total Score</label>
-    <h5 id="recruiter-rewards" class="mar0">{{ userProfile?.ratingPoints }}</h5>
+
+<header class="hideInMobile">
+  <div class="collection">
+    <div class="col s12 m12 text-center l12 rewarDiv padd15">
+      <a><img src="assets/img/reward_points.png" height="50px" width="50px" /></a>
+      <label for="company-reward">Ranking</label>
+      <h5 id="recruiter-rewards" class="mar0">{{ userProfile?.ranking }}</h5>
+      <label for="company-reward">Total Score</label>
+      <h5 id="recruiter-rewards" class="mar0">{{ userProfile?.ratingPoints }}</h5>
+    </div>
   </div>
-</div>
+</header>

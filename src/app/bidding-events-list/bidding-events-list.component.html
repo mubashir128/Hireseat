@@ -1,6 +1,7 @@
-<div>
+<div style="margin-bottom: 40px;">
     <div class="right-align" >
-        <a *ngIf="!hideAddBtn" class="waves-effect waves-light btn" [routerLink]="['/employer/create-bidding-event']"> <i class="material-icons left">add</i> New Job Posting</a>
+        <a *ngIf="!hideAddBtn" class="waves-effect waves-light btn" routerLink="/{{userRole}}/create-bidding-event"> <i class="material-icons left">add</i> New Job Posting</a>
+
     </div>
     <div *ngIf="!hideAddBtn" class="row" style="margin-top: 10px; margin-bottom: 5px">
         <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>

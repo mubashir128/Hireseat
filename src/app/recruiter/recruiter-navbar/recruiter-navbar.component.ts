@@ -1,12 +1,13 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
 import { Tab } from "../models/tab";
-import { Router } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { UserService } from "src/app/_services/user.service";
 import { RewardSummary } from "src/app/profile/model/reward-summary";
 import { IProfile, Profile } from "src/app/profile/model/user-profile";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { Subject } from "rxjs";
+import { Tab2 } from "../models/tab2";
 declare var Materialize: any;
 declare var jQuery: any;
 @Component({
@@ -32,7 +33,6 @@ export class RecruiterNavbarComponent implements OnInit {
      * subcription incresed points
      */
     this.userService._setProfileObservable.subscribe((data) => {
-
       if (data !== null) {
         this.userProfile = data;
         this.animateValue(
@@ -51,17 +51,20 @@ export class RecruiterNavbarComponent implements OnInit {
     });
 
     this.tabs1 = [];
+
     this.userProfile = new Profile();
 
+    this.tabs1.push(new Tab("/recruiter/dashboard", "Dashboard", true));
     this.tabs1.push(
-      new Tab("/recruiter/dashboard", "Dashboard", true)
-    );
-    this.tabs1.push(
-      new Tab("/recruiter/share-candidate-profile", "Shared Profiles", false)
+      new Tab("/recruiter/share-candidate-profile", "Candidates", false)
     );
     this.tabs1.push(
       new Tab("/recruiter/all-recruiters", "Recruiters Market Place", false)
     );
+    this.tabs1.push(
+      new Tab("/recruiter/job-profile-list", "Job Profiles", false)
+    );
+
     this.tabs1.push(
       new Tab("/recruiter/bidding-event-list", "Job Postings", false)
     );
@@ -89,7 +92,7 @@ export class RecruiterNavbarComponent implements OnInit {
     this.SelectItem(this.router.url);
     this.getUsersProfile();
 
-    if(this.router.url === "/recruiter"){
+    if (this.router.url === "/recruiter") {
       this.tabs1[0].selected = true;
     }
 
@@ -100,21 +103,28 @@ export class RecruiterNavbarComponent implements OnInit {
     this._subList.activebidEvent$.subscribe((res) => {
       this.handleActiveList(res);
     });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === "/candidate/all-recruiters") {
+          this.SelectItem(event.url);
+        }
+      }
+    });
   }
 
-  handleRecruiterPoints(res){
-    switch(res.pointer){
-      case "advicePoints" : 
-      if(res.subType === "divide"){
-        this.userProfile[res.pointer] = res.increseCount;
-      }else{
-        this.userProfile[res.pointer] += res.increseCount;
-      }
-      break;
-      case "ratingPoints" :
+  handleRecruiterPoints(res) {
+    switch (res.pointer) {
+      case "advicePoints":
+        if (res.subType === "divide") {
+          this.userProfile[res.pointer] = res.increseCount;
+        } else {
+          this.userProfile[res.pointer] += res.increseCount;
+        }
+        break;
+      case "ratingPoints":
         this.userProfile[res.pointer] += res.increseCount;
         break;
-      case "sharePoints" :
+      case "sharePoints":
         this.userProfile[res.pointer] += res.increseCount;
         break;
     }
@@ -159,20 +169,19 @@ export class RecruiterNavbarComponent implements OnInit {
 
   SelectItem(item) {
     this.tabs1.forEach((tab) => {
-      if (tab.id === item){
+      if (tab.id === item) {
         tab.selected = true;
-      }else{
+      } else {
         tab.selected = false;
       }
     });
   }
-
+  
   getUsersProfile() {
     this.userService
       .getUserProfile(this.userService.getUserData().userRole)
       .subscribe(
         (data: any) => {
-          console.log("data : ",data);
           if (data != null && data != undefined && data != "") {
             this.userProfile = data.res;
           } else {

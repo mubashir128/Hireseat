@@ -14,6 +14,12 @@ import { WaitingListComponent } from "./waiting-list/waiting-list.component";
 import { UserCalendarComponent } from "../shared/shared-components/components/user-calendar/user-calendar.component";
 import { SharedCandidateProfilesComponent } from "../shared/shared-components/components/shared-candidate-profiles/shared-candidate-profiles.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { CreateBiddingEventComponent } from "../employer/create-bidding-event/create-bidding-event.component";
+import { CreateJobProfileComponent } from "../employer/create-job-profile/create-job-profile.component";
+import { JobProfileListComponent } from "../employer/job-profile-list/job-profile-list.component";
+import { EditJobProfileComponent } from "../employer/edit-job-profile/edit-job-profile.component";
+import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
+import { MenusComponent } from "../shared/shared-components/components/menus/menus.component";
 
 const routes: Routes = [
   {
@@ -75,7 +81,31 @@ const routes: Routes = [
       {
         path: "dashboard",
         component: DashboardComponent,
-      }
+      },
+      {
+        path: "create-bidding-event",
+        component: CreateBiddingEventComponent,
+      },
+      {
+        path:"create-job-profile",
+        component:CreateJobProfileComponent
+      },
+      {
+        path: "job-profile-list",
+        component: JobProfileListComponent,
+      },
+      {
+        path: "edit-job-profile",
+        component: EditJobProfileComponent,
+      },
+      {
+        path: "notification",
+        component: NotificationsComponent,
+      },
+      {
+        path: "menus",
+        component: MenusComponent,
+      },
     ],
     // canActivate: [RecruiterGuard]
   },

@@ -25,6 +25,7 @@ export class JobProfileListComponent implements OnInit {
   searchTerm;
   search = false;
   itemsPerPage = 10;
+  userRole:string;
   // @ViewChild('searchByName', { static: true }) searchByName: ElementRef;
   @ViewChild('searchByName', { static: true }) searchByName: ElementRef;
 
@@ -37,6 +38,7 @@ export class JobProfileListComponent implements OnInit {
   ) {
     this.loggedUser = this.userService.getUserData();
     if (this.loggedUser != "no") {
+      this.userRole = this.loggedUser.userRole;
       let obj = {
         onLoad: true,
         itemsPerPage: this.itemsPerPage
@@ -104,7 +106,7 @@ export class JobProfileListComponent implements OnInit {
   select(item) {
     // console.log(item);
     localStorage.setItem("jp_id", item);
-    this.router.navigate(["employer/edit-job-profile"]);
+    this.router.navigate([`${this.userRole}/edit-job-profile`]);
   }
 
   onSelected(jobProfile: IJobProfile) {

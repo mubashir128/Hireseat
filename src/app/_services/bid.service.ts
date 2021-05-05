@@ -79,5 +79,17 @@ export class BidService {
       return res;
     }));
   }
+  getCandidateBidsCount() {
+    return this.http.get<IBid[]>(this.baseurl + 'api/getCandidateBidsCount').pipe(map((res: any) => {
+
+      return res;
+    }));
+  }
+  createCandidateBid(info) {
+    return this.http.post<IBid>(this.baseurl + 'api/createCandidateBid', info).pipe(map((res: any) => {
+      return res;
+    }));
+  }
+  
 
 }

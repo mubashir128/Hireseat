@@ -15,7 +15,6 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { MyBidsComponent } from "./recruiter/my-bids/my-bids.component";
 import { JobProfileDetailsComponent } from "./job-profile-details/job-profile-details.component";
 import { BidHighlightsComponent } from "./bid-highlights/bid-highlights.component";
-import { CKEditorModule } from "ng2-ckeditor";
 import { BlogMaiComponent } from "./blog/blog-mai/blog-mai.component";
 import { BlogNavComponent } from "./blog/blog-nav/blog-nav.component";
 import { EditorModule } from "@tinymce/tinymce-angular";
@@ -38,10 +37,11 @@ import { NgxCurrencyModule } from "ngx-currency";
 import { NgxMaskModule } from "ngx-mask";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
-import { NgHighlightModule } from "ngx-text-highlight";
 import { SelectDropDownModule } from "ngx-select-dropdown";
 import { VideoCallingService } from "./_services/video-calling.service";
 import { GlobalErrorHandler } from "./_errorHandler/global-error-handler";
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireModule } from '@angular/fire';
 
 // import { SearchByNamePipe } from '../search-by-name.pipe';
 // import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -135,15 +135,15 @@ import { GlobalErrorHandler } from "./_errorHandler/global-error-handler";
     NgxPaginationModule,
     NgxMaskModule.forRoot(),
     Angular2CsvModule,
-    CKEditorModule,
     NgxTwitterTimelineModule,
     Ng2CompleterModule,
     SelectDropDownModule,
-    NgHighlightModule,
     ServiceWorkerModule.register("/ngsw-worker.js", {
       enabled: environment.production,
     }),
     SharedComponentsModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   declarations: [
     AppComponent,

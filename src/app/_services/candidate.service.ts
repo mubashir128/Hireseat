@@ -22,10 +22,28 @@ export class CandidateService {
     );
   }
 
+  getCandidateIndustries() {
+    return this.http.get<any>(this.baseurl + "api/getCandidateIndustries").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   // auth : candidate
   editProfile(payload) {
     return this.http
       .post<any>(this.baseurl + "api/editCandidateProfile", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
+  sharedCandidateProfile(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/sharedCandidateProfile", payload)
       .pipe(
         map((res: any) => {
           return res;
@@ -90,15 +108,7 @@ export class CandidateService {
         })
       );
   }
-  myPostedProfiles() {
-    return this.http
-      .get<any>(this.baseurl + "api/get-all-my-posted-profile")
-      .pipe(
-        map((res: any) => {
-          return res;
-        })
-      );
-  }
+  
   getPostedRecruiter(payload) {
     return this.http
       .post<any>(this.baseurl + "api/get-posted-recruiter", payload)
@@ -108,4 +118,29 @@ export class CandidateService {
         })
       );
   }
+
+  getSortByIndustries(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/getSortByIndustries", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+  getCandidateProfileBid(id) {
+    return this.http.get<any>(this.baseurl + "api/getCandidateProfileBid/"+ id).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  getRecruiterCandidateBids(id) {
+    return this.http.get<any>(this.baseurl + "api/getRecruiterCandidateBids/"+ id).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  
 }

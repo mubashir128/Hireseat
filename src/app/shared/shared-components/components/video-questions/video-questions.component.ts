@@ -11,8 +11,8 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
   // @ViewChild('target', { static: true }) target: ElementRef;
   @ViewChild('target', { static: true }) target: ElementRef;
 
-  @ViewChild('juiceBar', { static: false }) juiceBar: ElementRef;
-  @ViewChild('bar', { static: false }) bar: ElementRef;
+  @ViewChild('juiceBar') juiceBar: ElementRef;
+  @ViewChild('bar') bar: ElementRef;
 
   // see options: https://github.com/videojs/video.js/blob/mastertutorial-options.html
   @Input() options: {
@@ -79,11 +79,6 @@ export class VideoQuestionsComponent implements OnInit, OnChanges, OnDestroy {
     // this.play();
   }
   ngOnInit() {
-    console.log('resume', this.resume);
-    console.log('questionsByRecruiter', this.questionsByRecruiter);
-    console.log('questionNumber', this.questionNumber);
-
-
     // this.target.nativeElement.addEventListener('play', this.play.bind(this));
     // this.target.nativeElement.addEventListener('pause', this.pause.bind(this));
 

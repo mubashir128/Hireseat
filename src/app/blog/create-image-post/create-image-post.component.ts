@@ -79,6 +79,7 @@ export class CreateImagePostComponent implements OnInit {
     author: any;
   };
   imageURL: any;
+  editor = ClassicEditor;
   constructor(
     private formBuilder: FormBuilder,
     private blogServices: BlogService,

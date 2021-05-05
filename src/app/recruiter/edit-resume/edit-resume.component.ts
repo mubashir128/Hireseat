@@ -36,7 +36,7 @@ declare var Materialize: any;
 })
 export class EditResumeComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy {
-  @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
+  @ViewChild("playVideo") videojsPlay: ElementRef;
   player: videojs.Player;
 
   bookmarkSubscription: Subscription;

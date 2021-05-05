@@ -23,12 +23,33 @@
   padding: 15px;
 }
 
-.mar0 {
-  margin: 0px;
+@media only screen and (min-width: 320px) and (max-width: 667px) {
+  .mobileScroll a.collection-item {
+    padding: 7px 10px !important;
+    min-width: 105px;
+    text-align: center;
+    display: none !important;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobileScroll {
+    display: none !important;
+    overflow-x: scroll !important;
+    padding: 0;
+  }
 }
-.rewarDiv a {
-  display: block;
-}
-.padd0 {
-  padding: 0;
+@media (max-width: 320px) {
+  .mobileScroll a.collection-item {
+    padding: 7px 10px !important;
+    min-width: 105px;
+    text-align: center;
+    display: none !important;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobileScroll {
+    display: none !important;
+    overflow-x: scroll !important;
+    padding: 0;
+  }
 }

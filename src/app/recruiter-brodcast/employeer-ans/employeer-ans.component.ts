@@ -1,18 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IBiddingEvent } from 'src/app/models/bidding-event';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
-import { count } from 'rxjs/operators';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Subject } from 'rxjs';
-import { isNgTemplate } from '@angular/compiler';
+import { ConstantsService } from 'src/app/_services/constants.service';
 declare var Materialize;
 @Component({
   selector: 'app-employeer-ans',
   templateUrl: './employeer-ans.component.html',
   styleUrls: ['./employeer-ans.component.css']
 })
-export class EmployeerAnsComponent implements OnInit {
+export class EmployeerAnsComponent implements OnInit, OnDestroy {
   @Input() public biddingEvent: IBiddingEvent;
   user: any;
   id: any;
@@ -31,22 +30,17 @@ export class EmployeerAnsComponent implements OnInit {
   empId;
   recId;
 
-  constructor(private router: Router, private route: ActivatedRoute,private bidEventService:BiddingEventService, private _socket: WebsocketService) {
+  constructor(private router: Router, private route: ActivatedRoute,private bidEventService:BiddingEventService, private _socket: WebsocketService, private _constants : ConstantsService) {
   }
 
   async ngOnInit() {
 
     this.user = JSON.parse(localStorage.getItem('currentUser')).userInfo
     this.id = this.route.snapshot.paramMap.get('key');
-  
-    let obj = JSON.parse(localStorage.getItem('currentUser'));
-    if (obj !== null) {
-      await this.initSocket(obj.token,obj.userInfo.userRole);
-    }
 
-    await this._socket.removeListener({ type: 3 });
+    await this._socket.removeListener({ type: this._constants.profileQuestionType });
     this._socket.addListener({
-      type: 3,
+      type: this._constants.profileQuestionType,
       callback: this.questionObserver
     });
 
@@ -54,30 +48,23 @@ export class EmployeerAnsComponent implements OnInit {
       this.handleQuestionData(res);
     });
 
-    let userInfo=JSON.parse(localStorage.getItem('currentUser')).userInfo;
     this._socket.sendMessage({
-      type: 3,
+      type: this._constants.profileQuestionType,
       data: {
         _id : this.id,
-        personId : userInfo._id,
-        type : userInfo.userRole,
-        subType: "getAllQuestions"
+        subType: this._constants.getAllQuestions
       }
     });
     
   }
 
-  async initSocket(token,userRole) {
-    await this._socket.getInstance(token,userRole);
-  }
-
   handleQuestionData(res: any) {
-    if(res.data.biddingEventId !== this.id && res.subType !== "getAllQuestions"){
+    if(res.data.biddingEventId !== this.id && res.subType !== this._constants.getAllQuestions){
       return ;
     }
 
     switch (res.subType) {
-      case "getAllQuestions" :
+      case this._constants.getAllQuestions :
         // add all questions to list.
         if(res.data.length > 0){
           this.quetionsData = res.data;
@@ -85,7 +72,7 @@ export class EmployeerAnsComponent implements OnInit {
           this.doWork();
         }
         break;
-      case "question" :
+      case this._constants.question :
         // add question to list.
         if(res.result){
           Materialize.toast('New Question asked', 1000);
@@ -93,9 +80,11 @@ export class EmployeerAnsComponent implements OnInit {
           this.count++;
         }
         break;
-      case "answer" :
+      case this._constants.answer :
           // add answer to list.
-          this.count--;
+          if(this.count > 0){
+            this.count--;
+          }
           this.answer='';
           this.show=false;
           this.updateElement(res.data);
@@ -152,12 +141,18 @@ export class EmployeerAnsComponent implements OnInit {
     }
 
     this._socket.sendMessage({
-      type: 3,
+      type: this._constants.profileQuestionType,
       data: {
         info : ans,
-        subType: "postAnswer"
+        subType: this._constants.postAnswer
       }
     });
 
   }
+
+  ngOnDestroy() {
+    this._socket.removeListener({ type: this._constants.profileQuestionType });
+    this.questionObserver.unsubscribe();
+  }
+
 }

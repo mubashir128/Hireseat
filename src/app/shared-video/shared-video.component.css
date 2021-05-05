@@ -386,6 +386,11 @@ nav.customeNav {
     justify-content: space-between;
     padding-top: 15px;
   }
+
+  .uploadedImg {
+    width: 150px;
+    height: 150px;
+  }
 }
 .video-js-without-questions {
   width: 100% !important;
@@ -537,4 +542,15 @@ nav.customeNav {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.uploadedImg {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

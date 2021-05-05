@@ -1,0 +1,785 @@
+.ListResume {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    float: left;
+    /* height: calc(100vh - 540px);
+                overflow: scroll; */
+  }
+  .row {
+    padding: 0 20px !important;
+  }
+  .cmt-box {
+    border-bottom: 1px solid #dddddd;
+    margin: 20px 0;
+    padding-right: 5px;
+  }
+  
+  .post-cmt {
+    margin: 20px 0;
+  }
+  .btn-placement {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .singleList.employerResume {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px 30px;
+    display: block;
+    justify-content: unset;
+    margin-bottom: 20px;
+    transition: 1s;
+    height: auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+      0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  }
+  .docSectionBtns {
+    text-align: right;
+    margin-bottom: 20px;
+    padding: 0 0 20px;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+  }
+  .candidate-name {
+    width: calc(100% - 200px);
+    text-align: left;
+  }
+  .cadidateResumeDiv {
+    /* display: flex;
+      justify-content: center;
+      align-items: center; */
+    min-width: 185px;
+  }
+  .smallBtns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 7px;
+  }
+  .candidate-name span {
+    color: #33aaff;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .candidate-name p {
+    margin: 3px 0;
+    color: #8c8c8c;
+    font-size: 14px;
+  }
+  .docSectionBtns button {
+    font-size: 13px;
+    /* min-width: 100px; */
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+  .downloadResume {
+    border: 2px solid #39aaff;
+    background-color: transparent;
+    color: #39aaff;
+    width: 100%;
+  }
+  button.shareBtn {
+    border: 2px solid #e2e2e2;
+    background-color: #f5f5f5;
+  }
+  .shared-icon {
+    width: 20px;
+    margin-right: 3px;
+  }
+  
+  .linkedin-icon {
+    width: 18px;
+    margin-right: 5px;
+    height: auto;
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+  }
+  .PointsDivSingle {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    position: relative;
+  }
+  .PointsDivSingle h4 {
+    margin: 0 20px;
+    font-size: 16px;
+    color: #919191;
+    /* word-wrap: break-word; */
+    white-space: pre-line;
+  }
+  .docSectionBtns .LinkedInBtn {
+    /* min-width: 135px !important; */
+  }
+  .LinkedInBtn {
+    background-color: #0288d1;
+    border: 1px solid #0e76a8;
+    /* margin-left: 10px; */
+    /* min-width: 125px !important; */
+  }
+  .LinkedInBtn a,
+  .LinkedInBtn a i {
+    color: #ffffff;
+  }
+  .LinkedInBtn .icon-name {
+    display: flex;
+  }
+  
+  /* Tablet css :STARTS */
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .docSectionBtns button {
+      margin-bottom: 7px !important;
+    }
+    .LinkedInBtn {
+      min-width: 193px !important;
+    }
+    .singleList.employerResume {
+      padding: 20px !important;
+    }
+    .PointsDivSingle h4 {
+      margin: 0 !important;
+    }
+  }
+  /* Tablet css :ENDS */
+  
+  /* accordian */
+  .panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+  
+  /* display video */
+  .video-js {
+    width: 100%;
+    height: 100%;
+    outline: none;
+  }
+  .interviewVideoDiv {
+    width: 100%;
+    float: left;
+    height: 100%;
+    text-align: center;
+    /* z-index: 99; */
+    display: flex;
+    justify-content: flex-end;
+  }
+  .editResumeupperDiv {
+    width: 100%;
+    height: 220px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #000;
+  }
+  
+  .leftSideQuetion {
+    width: 40%;
+    padding: 15px;
+    /* background-color: #ffffff; */
+    background-color: #000;
+    /* border-radius: 5px;z */
+    box-shadow: 0px 0px 10px #ccc;
+  }
+  .leftSideQuetion h2 {
+    font-size: 15px;
+    text-align: left;
+    color: #33aaff;
+    margin: 0 0 5px;
+  }
+  
+  .interviewQue h4 {
+    margin: 15px 0;
+    font-size: 14px;
+    text-align: left;
+  }
+  .interviewQue h4 a {
+    /* color: #449132; */
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .interviewQue h4 a:hover {
+    font-weight: bold;
+    color: #33aaff;
+  }
+  .interview-bold {
+    font-weight: lighter !important;
+    color: #33aaff !important;
+  }
+  .interviewQue {
+    height: 130px;
+    overflow-y: auto;
+  }
+  .video-js-without-questions {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  /* end displaying video */
+  .CandidateDetails .candProfile {
+    width: 100px;
+    height: 100px;
+    background-color: #e7e7e7;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+  }
+  .CandidateDetails .candProfile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .CandidateDetails {
+    display: flex;
+    align-items: center;
+  }
+  .recruiternamedetails {
+    display: flex;
+    align-items: center;
+  }
+  .candProfile.recruiterprof {
+    width: 40px !important;
+    height: 40px !important;
+    background-color: #e7e7e7;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+  }
+  .candProfile.recruiterprof img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .PointsDiv.commonSingleInner.CommentInner {
+    padding-left: 55px;
+  }
+  .recruiter-name {
+    font-weight: 600;
+    font-size: 17px;
+    color: #272727;
+  }
+  .recruitercom p {
+    margin: 0;
+  }
+  .commentmainscroll {
+    max-height: 300px;
+    overflow: auto;
+  }
+  .recruitercommenthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .editcomment i {
+    color: #b2b1b0;
+    margin-right: 6px;
+  }
+  .interviewvidBg {
+    width: 100%;
+    height: 200px;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .playpauseBtn {
+    width: 40px;
+    height: 40px;
+    /* background-color: #ffffff; */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .playpauseBtn i {
+    color: white;
+  
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 46px;
+  }
+  .playpauseBtn i:hover {
+    font-size: 50px;
+    cursor: pointer;
+  }
+  .post-cmt textarea {
+    padding: 10px;
+    outline: none;
+  }
+  .play-block {
+    display: none;
+  }
+  .occupy {
+    height: 220px;
+  }
+  .summary {
+    font-size: 16px;
+    font-weight: 600;
+    color: #635858;
+  }
+  .comment {
+    font-size: 14px;
+    font-weight: 600;
+    color: #413f3f;
+  }
+  .handle {
+    display: flex;
+  }
+  .handle i {
+    color: #b2b1b0;
+  }
+  .handle i:hover {
+    font-size: 20px;
+    cursor: pointer;
+  }
+  textarea.editComment {
+    border: none;
+    border-bottom: 1px solid #b1b1b1;
+    outline: none;
+    transition: 0.8s;
+    /* height: 2rem; */
+  }
+  textarea.editComment:focus {
+    border-bottom: 1px solid #48aef3;
+  }
+  .btn-placement.postBtnDiv {
+    margin-bottom: 10px;
+  }
+  .btn-accept.postBtn {
+    height: 34px;
+    padding: 0 20px;
+    border-radius: 3px;
+  }
+  .btn-accept.postBtn:hover {
+    opacity: 0.8;
+  }
+  
+  /* share via email modal */
+  .modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: #fafafa;
+    padding: 0;
+    max-height: 70%;
+    width: 35%;
+    margin: auto;
+    overflow-y: auto;
+    border-radius: 5px;
+    will-change: top, opacity;
+  }
+  .emailTemp {
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    padding: 20px 40px;
+  }
+  .posRel {
+    position: relative;
+  }
+  .posRel label {
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-size: 15px;
+    color: #b2b2b2;
+  }
+  .inputComm {
+    height: 40px;
+    width: 94% !important;
+    border: none;
+    margin-bottom: 10px !important;
+    padding-left: 40px !important;
+    border-bottom: 1px solid #c2c2c2;
+  }
+  button.sendBtn {
+    background-color: #039be5;
+    color: #fff;
+    border: 1px solid #039be5;
+    padding: 10px 20px;
+    border-radius: 3px;
+    margin-top: 20px;
+  }
+  .textRight {
+    text-align: right;
+  }
+  a.videoCloseBtn {
+    position: absolute;
+    top: -30px;
+    color: #fff !important;
+    z-index: 99999999;
+    right: 0;
+    font-size: 20px !important;
+    cursor: pointer;
+  }
+  .fa-times {
+    color: black !important;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  .hideBtn {
+    position: absolute;
+    right: 0;
+  }
+  .hideBtn a {
+    color: #b2b2b2;
+  }
+  /* END share via email modal */
+  
+  /* recruiter details */
+  .see-profile {
+    margin-left: 10px;
+    color: #0aafff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .req-recruiter-coaching {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0aafff !important;
+    width: auto !important;
+    padding: 2px 20px !important;
+    height: 40px;
+    box-shadow: none;
+    text-transform: capitalize;
+    border-radius: 3px;
+    color: #fff !important;
+    border: none;
+    margin: 10px auto 0;
+  }
+  .pointer:hover {
+    text-decoration: underline;
+  }
+  .ClientDetailCard {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 10px #9999996b;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #ffffff;
+    display: flex;
+    /* border-bottom: 1px solid #b9b9b9; */
+  }
+  .ClientDetailCard:last-child {
+    border-bottom: none;
+  }
+  .ClientImage {
+    /* display: flex;
+      align-items: flex-end; */
+    margin-right: 20px;
+    width: 30%;
+  }
+  .ClientImage img {
+    width: 200px;
+    /* margin-right: 20px; */
+  }
+  .ClientImage h4 {
+    font-size: 20px;
+    color: #33aaff;
+    margin: 0 0 5px;
+  }
+  .ClientImage p {
+    margin: 0;
+    color: #5a5a5a;
+  }
+  .BioDetails h2 {
+    font-size: 30px;
+    color: #19a0ff;
+    margin: 0px;
+  }
+  .BioDetails p {
+    font-size: 17px;
+    color: #3af;
+    margin: 7px 0 10px;
+    font-weight: 600;
+    max-width: unset !important;
+  }
+  .BioDetails {
+    width: 70%;
+  }
+  .UpperDetails {
+    padding-bottom: 20px;
+    box-shadow: 0 0 10px #9999996b;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #ffffff;
+  }
+  .BioSubHead {
+    font-size: 17px;
+    color: #4a4a4a;
+    margin-bottom: 0;
+    font-weight: 600;
+  }
+  .NameDetails {
+    margin-top: 15px;
+    text-align: center;
+  }
+  .recruiter {
+    width: 50% !important;
+  }
+  .uploadImageDiv {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* z-index: 0; */
+    border-radius: 50%;
+    z-index: 0;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #f7f7f7;
+    border-radius: 50%;
+  }
+  .uploadImageDiv input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 9;
+    opacity: 0;
+    left: 0;
+    top: 0;
+  }
+  .uploadImageDiv .uploadedImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .divide {
+    display: flex;
+  }
+  .btn-accept.postCommentDiv {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px #c1c1c1;
+    /* box-shadow: 0 4px 1px #5794bf; */
+    transition: 0.5s;
+  }
+  .postCommentDiv span {
+    display: none;
+  }
+  .postCommentDiv img {
+    width: 20px;
+    height: auto;
+    filter: invert(1);
+  }
+  .btn-accept.postCommentDiv:hover {
+    width: 100px;
+    box-shadow: 0 4px 1px #5794bf;
+  }
+  .postCommentDiv:hover.postCommentDiv span {
+    display: block;
+    margin-right: 10px;
+  }
+  .postCommentDiv:active {
+    /* transform: scale(0.9); */
+    opacity: 0.8;
+    transform: translateY(4px);
+    box-shadow: 0 1px 0px #5794bf !important;
+  }
+  .likes {
+    /* width: 100%; */
+    margin-right: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .shape {
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 13px;
+    color: white;
+    background-color: #c56666;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    /* background-color: red; */
+  }
+  .at-end {
+    /* width: 100%; */
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #0aafff;
+  }
+  .at-end:hover {
+    font-weight: 600;
+  }
+  .size {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .replyer-name {
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    color: #272727;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .divider {
+  }
+  .profilepic {
+    display: flex;
+  }
+  .replies {
+    border-top: 1px solid #dddddd;
+    margin-top: 10px;
+  }
+  .reply {
+  }
+  .replyComment {
+    margin-left: 50px;
+  }
+  .like-section {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .CheckBoxcontainer {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    height: 25px;
+    pointer-events: fill;
+    top: -10px;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .CheckBoxcontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    margin-top: 13px;
+    background-color: #eee;
+    border: 1px solid #2196F3;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .CheckBoxcontainer:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .CheckBoxcontainer input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .CheckBoxcontainer input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .CheckBoxcontainer .checkmark:after {
+    left: 6px;
+    top: 0px;
+    width: 7px;
+    height: 14px;
+    border: solid white;
+    border-width: 0 2px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .industrieName{
+    font-size: 12px ;
+  }
+  
+  .candidate-name .industrieName{
+    font-size: 12px !important;
+    color: #8ca2c3 !important;
+  }
+  .sortIndustriesMain{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px 30px;
+    display: block;
+    justify-content: unset;
+    margin-bottom: 20px;
+    transition: 1s;
+    height: auto;
+    background-color: #ffffff;
+  }
+  .sortIndustries {
+    justify-content: left;
+    align-items: left;
+    background-color: #0aafff !important;
+    width: auto !important;
+    padding: 2px 20px !important;
+    height: 40px;
+    box-shadow: none;
+    text-transform: capitalize;
+    border-radius: 3px;
+    color: #fff !important;
+    border: none;
+    margin: 30px auto 0; 
+  }
+  .industries {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 0 20px;
+  }
+  .industries span{
+    background-color: #f0f0f0;
+    padding: 6px 20px;
+    border-radius: 5px;
+    margin: 5px 5px;
+    font-size: 14px;
+  }
+  
+  .timstampDate{
+    /* width: 100%; */
+    float: left;
+    margin-right: 10px;
+  }
+  
+  .notificationDateTime{
+    font-size: 12px;
+    font-weight: initial;
+    font-family: Roboto;
+    font-style: revert;
+    margin-right: 10px;
+    margin-top: 25px;
+  }

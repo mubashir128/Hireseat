@@ -48,14 +48,17 @@
         tinycomments_author: 'Author name'}" (onSelectionChange)="handleEvent($event)"></editor> -->
           <!-- <ck-editor name="myckeditor" formControlName="postDescription" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor> -->
 
-          <ckeditor
+          <!-- <ckeditor
             formControlName="postDescription"
             name="myckeditor"
             required
             [config]="ckeConfig"
             debounce="500"
           >
-          </ckeditor>
+          </ckeditor> -->
+
+          <ckeditor [editor]="editor"  formControlName="postDescription" name="myckeditor" debounce="500" required></ckeditor>
+
           <!-- <div *ngIf="(f.jobDescription.touched && f.jobDescription.errors)" class="invalid-feedback"
                     class="error">
                     <div *ngIf="f.jobDescription.errors.required">Job Description is required</div>

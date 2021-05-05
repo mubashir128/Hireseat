@@ -10,6 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { BidService } from '../_services/bid.service';
 import { map, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 import { fromEvent } from 'rxjs';
+import { ConstantsService } from '../_services/constants.service';
 declare var Materialize;
 declare var jQuery: any;
 @Component({
@@ -35,26 +36,34 @@ export class BiddingEventsListComponent implements OnInit {
   // @ViewChild('searchByName', { static: true }) searchByName: ElementRef;
   @ViewChild('searchByName', { static: true }) searchByName: ElementRef;
 
-  jobProfileType: any = "public";
+  jobProfileType: any;
   selectedJobType: any;
   jp = [];
 
   startDate: any;
   endDate: any;
-
-  constructor(private router: Router, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private userService: UserService, private biddingService: BidService, private route: ActivatedRoute, private bidEventService: BiddingEventService) {
+  userRole:string;
+  constructor(private router: Router, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private userService: UserService, private biddingService: BidService, private route: ActivatedRoute, private bidEventService: BiddingEventService, private _constants : ConstantsService) {
     this.chkLoggedInUser = this.userService.getUserData();
+    this.jobProfileType = this._constants.all;
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "employer") {
+        this.userRole = this.chkLoggedInUser.userRole;
         let obj = {
           onLoad: true,
-          type: this.jobProfileType === "public" ? false : true,
+          type: this.jobProfileType,
           itemsPerPage: this.itemsPerPage
         }
         this.getJobProfileBidding(obj);
         this.hideAddBtn = false;
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
+        this.userRole = this.chkLoggedInUser.userRole;
         this.route.params.subscribe(params => { this.handleRequest(params['type']); });
+        this.hideAddBtn = false;
+      }else if(this.chkLoggedInUser.userRole == "candidate"){
+        this.userRole = this.chkLoggedInUser.userRole;
+        // this.route.params.subscribe(params => { this.handleRequest(params['type']); });
+        this.getCandidateBiding();
         this.hideAddBtn = true;
       }
     } else {
@@ -63,13 +72,15 @@ export class BiddingEventsListComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.jp = [{
+      _id: 0,
+      type: this._constants.all
+    },{
       _id: 1,
-      type: "public"
-    }, {
+      type: this._constants.public
+    },{
       _id: 2,
-      type: "private"
+      type: this._constants.private
     }];
 
     jQuery('.datepicker').on('mousedown', function (event) {
@@ -99,7 +110,7 @@ export class BiddingEventsListComponent implements OnInit {
             dateSearch: true,
             startDate: (a.startDate / 1000),
             itemsPerPage: a.itemsPerPage,
-            type: a.jobProfileType === "public" ? false : true
+            type: a.jobProfileType
           }
           a.getJobProfileBidding(obj);
           a.resetValues();
@@ -113,7 +124,7 @@ export class BiddingEventsListComponent implements OnInit {
             startDate: (a.startDate / 1000),
             endDate: (a.endDate / 1000) + (12 * 60 * 60),
             itemsPerPage: a.itemsPerPage,
-            type: a.jobProfileType === "public" ? false : true
+            type: a.jobProfileType
           }
           a.getJobProfileBidding(obj);
           a.resetValues();
@@ -133,7 +144,7 @@ export class BiddingEventsListComponent implements OnInit {
             dateSearch: true,
             endDate: (a.endDate / 1000) + (12 * 60 * 60),
             itemsPerPage: a.itemsPerPage,
-            type: a.jobProfileType === "public" ? false : true
+            type: a.jobProfileType
           }
           a.getJobProfileBidding(obj);
           a.resetValues();
@@ -147,7 +158,7 @@ export class BiddingEventsListComponent implements OnInit {
             startDate: (a.startDate / 1000),
             endDate: (a.endDate / 1000) + (12 * 60 * 60),
             itemsPerPage: a.itemsPerPage,
-            type: a.jobProfileType === "public" ? false : true
+            type: a.jobProfileType
           }
           a.getJobProfileBidding(obj);
           a.resetValues();
@@ -187,7 +198,7 @@ export class BiddingEventsListComponent implements OnInit {
           this.getJobProfileBidding({
             search: this.search,
             searchTerm: this.searchTerm,
-            type: this.jobProfileType === "public" ? false : true,
+            type: this.jobProfileType,
             itemsPerPage: this.searchTerm === "" ? this.itemsPerPage : undefined,
             onLoad: this.searchTerm === "" ? true : undefined
           });
@@ -291,7 +302,7 @@ export class BiddingEventsListComponent implements OnInit {
     this.itemsList.push($event);
     let obj = {
       createdAt: this.createdAt,
-      type: this.jobProfileType === "public" ? false : true,
+      type: this.jobProfileType,
       itemsPerPage: this.itemsPerPage
     }
     this.getJobProfileBidding(obj);
@@ -310,7 +321,7 @@ export class BiddingEventsListComponent implements OnInit {
 
     this.getJobProfileBidding({
       onLoad: true,
-      type: this.jobProfileType === "public" ? false : true,
+      type: this.jobProfileType,
       itemsPerPage: this.itemsPerPage
     });
 
@@ -327,6 +338,23 @@ export class BiddingEventsListComponent implements OnInit {
     } else {
       jQuery(".postingForm").css("display", "none");
     }
+  }
+  
+  getCandidateBiding(){
+    this.spinner.show();
+    this.biddingService.getCandidateBidsCount().subscribe((data: BiddingEvent[]) => {
+      if (data.length > 0) {
+        this.noBiddingEvents = false;
+        this.biddingEvents = data;
+        this.spinner.hide();
+      } else {
+        this.noBiddingEvents = true;
+        this.spinner.hide();
+      }
+    }, (error) => {
+      console.log(error);
+      this.spinner.hide();
+    });
   }
 
 }

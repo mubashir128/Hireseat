@@ -12,7 +12,6 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProfileItemsComponent } from './profile-items/profile-items.component';
 
-
 @NgModule({
   declarations: [
     MyProfileComponent,

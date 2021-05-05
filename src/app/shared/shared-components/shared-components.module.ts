@@ -39,18 +39,29 @@ import { EditTagComponent } from "../../blog/edit-blog/edit-tag/edit-tag.compone
 import { TagInputModule } from "ngx-chips";
 import { VideoQuestionsComponent } from "./components/video-questions/video-questions.component";
 import { FilterDataComponent } from "./components/filter-data/filter-data.component";
-import { CKEditorModule } from "ng2-ckeditor";
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { SelectDropDownModule } from "ngx-select-dropdown";
 import { AllRecruitersComponent } from "./components/all-recruiters/all-recruiters.component";
 import { UserCalendarComponent } from "./components/user-calendar/user-calendar.component";
 import { CalendarModule, DateAdapter } from "angular-calendar";
 import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
-import { FlatpickrModule } from "angularx-flatpickr";
 import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import { SharedCandidateProfilesComponent } from "./components/shared-candidate-profiles/shared-candidate-profiles.component";
 import { CandidateNavbarComponent } from "src/app/candidate/candidate-navbar/candidate-navbar.component";
 import { ShareProfileSearchPipe } from "./components/shared-candidate-profiles/share-profile-search.pipe";
 import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruiter-search.pipe";
+import { ReversePipe } from "../pipes/reverse.pipe";
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { FlatpickrModule } from "angularx-flatpickr";
+import { CreateBiddingEventComponent } from "../../employer/create-bidding-event/create-bidding-event.component";
+import { CreateJobProfileComponent } from "../../employer/create-job-profile/create-job-profile.component";
+import { JobProfileListComponent } from "../../employer/job-profile-list/job-profile-list.component";
+import { EditJobProfileComponent } from "../../employer/edit-job-profile/edit-job-profile.component";
+import { MomentModule } from 'ngx-moment';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { MenusComponent } from './components/menus/menus.component';
+import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-tab.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -69,6 +80,10 @@ import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruite
       useFactory: adapterFactory,
     }),
     NgbModalModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    MomentModule
+    
   ],
   declarations: [
     FooterComponent,
@@ -121,6 +136,16 @@ import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruite
     ShareProfileSearchPipe,
 
     AllRecruiterSearchPipe,
+    ReversePipe,
+
+    //job posting
+    CreateBiddingEventComponent,
+    CreateJobProfileComponent,
+    JobProfileListComponent,
+    EditJobProfileComponent,
+    NotificationsComponent,
+    MenusComponent,
+    MobileNavTabComponent
   ],
   exports: [
     FooterComponent,
@@ -169,6 +194,21 @@ import { AllRecruiterSearchPipe } from "./components/all-recruiters/all-recruite
     CandidateNavbarComponent,
     ShareProfileSearchPipe,
     AllRecruiterSearchPipe,
+    ReversePipe,
+    //jobposting
+    CreateBiddingEventComponent,
+    CreateJobProfileComponent,
+    JobProfileListComponent,
+    EditJobProfileComponent,
+
+    NgbModalModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    MomentModule,
+    SelectDropDownModule,
+    MenusComponent,
+    MobileNavTabComponent
   ],
+ 
 })
 export class SharedComponentsModule {}

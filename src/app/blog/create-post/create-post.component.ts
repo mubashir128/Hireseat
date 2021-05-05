@@ -9,6 +9,7 @@ import {
 } from "@angular/forms";
 import { BlogService } from "../../_services/blog.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import * as lib from "../../lib-functions";
 import { of } from "rxjs";
@@ -68,6 +69,7 @@ export class CreatePostComponent implements OnInit {
   uploadResponse = { status: "", message: "" };
   videouploading: boolean = false;
   youtubepattern: string;
+  editor = ClassicEditor;
 
   constructor(
     private formBuilder: FormBuilder,

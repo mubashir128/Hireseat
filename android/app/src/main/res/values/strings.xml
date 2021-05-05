@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">hire-seat</string>
+    <string name="title_activity_main">hire-seat</string>
+    <string name="package_name">com.hireseat.app</string>
+    <string name="custom_url_scheme">com.hireseat.app</string>
+</resources>

@@ -6,8 +6,8 @@ import { UserService } from "src/app/_services/user.service";
 import { SuperAdminService } from "src/app/_services/super-admin.service";
 import { ForumService } from "src/app/_services/forum.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
-declare var Materialize: any;
 
+declare var Materialize: any;
 declare var jQuery: any;
 declare var $: any;
 @Component({

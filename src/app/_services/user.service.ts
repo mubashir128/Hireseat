@@ -141,6 +141,10 @@ export class UserService {
       );
   }
 
+  getUserNotificationCunt(userRole) {
+    return this.http.post(this.baseurl + "api/getUserNotificationCunt/", {userRole : userRole});
+  }
+
   updateUserProfile(info: IProfile) {
     return this.http
       .put<IProfile>(this.baseurl + "api/updateUserProfile", info)
@@ -237,6 +241,15 @@ export class UserService {
       })
     );
   }
+
+  addCandidateQuestion(data: any) {
+    return this.http.post<any>(this.baseurl + "api/addCandidateQuestion/", data).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   userverification(data: any) {
     return this.http
       .post<any>(this.baseurl + "api/userVerification/", data)

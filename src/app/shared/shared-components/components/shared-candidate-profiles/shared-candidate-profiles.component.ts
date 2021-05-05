@@ -32,7 +32,7 @@ import {
 } from "rxjs/operators";
 import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
-import { ConstantsService } from "src/app/_services/constants.service";
+import { ConstantsService } from "src/app/_services/constants.service"
 
 declare var jQuery;
 declare var $: any;
@@ -44,13 +44,17 @@ declare var Materialize;
 })
 export class SharedCandidateProfilesComponent
   implements OnInit, OnChanges, OnDestroy {
-  @ViewChild("playVideo", { static: false }) videojsPlay: ElementRef;
+  @ViewChild("playVideo") videojsPlay: ElementRef;
   @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
+
   // observer
   sharedProfileObserver = new Subject();
   sharedProfileObserver$ = this.sharedProfileObserver.asObservable();
+
   player: videojs.Player;
   canComment = false;
+  public today = new Date();
+
   // subscription
   getVideoURLSubscription: Subscription;
   getAllSharedCandidateProfileSubscription: Subscription;
@@ -110,6 +114,16 @@ export class SharedCandidateProfilesComponent
   myProfileContent: any;
   likeCommetSubscription: Subscription;
   replyTocommentSubscription: Subscription;
+
+  industriesAre = [];
+  industries = [];
+
+  skillsClass = "fas fa-long-arrow-alt-down";
+  skillsShow = false;
+
+  createdUrl = "";
+  generateLink = true;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -136,28 +150,14 @@ export class SharedCandidateProfilesComponent
             searchType: "name",
             searchTerm: res,
           };
-          //  this.resumes = this.resumes.filter((resume) => {
-          //     if (
-          //       resume.candidateName.toLowerCase().includes(res.toLowerCase()) ||
-          //       resume.candidate_id.fullName
-          //         .toLowerCase()
-          //         .includes(res.toLowerCase())
-          //     ){
-          //       console.log(resume);
-          //       return resume;
-
-          //     }
-          //   });
-          //   console.log(this.resumes);
-
           this.getAllSharedResumes(obj);
         }
       });
     this.myComment = [];
     this.replyToComment = [];
     this.loggedUser = this.userService.getUserData();
+
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
-      console.log("subscribeed", res);
       this.shareResume = res;
     });
 
@@ -187,6 +187,7 @@ export class SharedCandidateProfilesComponent
       time3: new FormControl(null, Validators.compose([Validators.required])),
     });
   }
+
   ngOnChanges() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
@@ -195,74 +196,95 @@ export class SharedCandidateProfilesComponent
   async ngOnInit() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
-    // this.getProfiles();
 
-    //socket
-
-    // let obj = JSON.parse(localStorage.getItem("currentUser"));
-    // if (obj !== null) {
-    //   await this.initSocket(obj.token, obj.userInfo.userRole);
-    // }
-
-    await this._socket.removeListener({ type: 5 });
+    await this._socket.removeListener({ type: this._constants.sharedProfileType });
     this._socket.addListener({
-      type: 5,
+      type: this._constants.sharedProfileType,
       callback: this.sharedProfileObserver,
     });
 
-    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
-    // this._socket.getProfiles({
-    //   type: 5,
-    //   data: {
-    //     _id: userInfo._id,
-    //     personId: userInfo._id,
-    //     type: userInfo.userRole,
-    //     subType: "getAllSharedProfiles",
-    //   },
-    // });
-
-    // this._socket.sendMessage({
-    //   type: 5,
-    //   data: {
-    //     _id: userInfo._id,
-    //     personId: userInfo._id,
-    //     type: userInfo.userRole,
-    //     subType: "getAllSharedProfiles",
-    //   },
-    // });
+    this.getIndustries();
     this.getProfiles();
 
     this.sharedProfileObserver$.subscribe((res: any) => {
       this.handleProfileData(res);
     });
-    // socket end
+
   }
 
   handleProfileData(res: any) {
     switch (res.subType) {
-      case "getAllSharedProfiles":
+      case this._constants.getAllSharedProfiles:
         this.resumes = res.data;
         break;
-      case "addComment":
+      case this._constants.addComment:
         this.addCommentToCommets(res);
         break;
-      case "likeComment":
+      case this._constants.likeComment:
         this.addLikeToComment(res);
         break;
-      case "replyAdvicePoints":
+      case this._constants.replyComment:
         this.addReplyToComment(res);
+        break;
+      case this._constants.shareVideoViaRecruiterEmail:
+        this.handleResponse(res.result);
+        break;
+      case this._constants.editComment:
+        this.editRespectedComment(res);
+        break;
+      case this._constants.deleteComment:
+        this.deleteRespectedComment(res);
+        break;
+      case this._constants.generateLink:
+        this.addCreatedLink(res);
         break;
       default:
         break;
     }
   }
 
+  addCreatedLink(res) {
+    console.log('link generated', res);
+
+    this.generateLink = false;
+    this.createdUrl = res.result.link;
+    Materialize.toast("Link generated", 1000);
+  }
+
+  handleResponse(res) {
+    if (res.message) {
+      Materialize.toast(res.message, 3000, "green");
+      Materialize.toast("You gained 200 recruiter karma points", 4000, "blue");
+
+      let eventObj = {
+        pointer: "ratingPoints",
+        subType: "increse",
+        increseCount: this._constants.sharedPoints,
+      };
+      this._subList.recruiterPoints.next(eventObj);
+
+      eventObj.pointer = "sharePoints";
+      this._subList.recruiterPoints.next(eventObj);
+    } else {
+      Materialize.toast(res.error, 3000, "red");
+    }
+
+    jQuery("#shareEmailModal").modal("close");
+    this.spinner.hide();
+  }
+
+  getIndustries() {
+    this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
+      if (res) {
+        this.industriesAre = res.industries;
+      }
+    });
+  }
+
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        element.canReview.push(res.data);
-      } else {
-        console.log("not matched");
+        element.canReview.length !== 0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
       }
     });
   }
@@ -275,8 +297,6 @@ export class SharedCandidateProfilesComponent
             comment.like.push(res.data);
           }
         });
-      } else {
-        console.log("not matched");
       }
     });
   }
@@ -286,34 +306,27 @@ export class SharedCandidateProfilesComponent
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            comment.reply.push(res.data.replyComment);
+            comment.reply.length !== 0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
           }
         });
-      } else {
-        console.log("not matched");
       }
     });
   }
 
   getProfiles() {
-    // this.getAllSharedResumes({});
-    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
-
     this._socket.sendMessage({
-      type: 5,
+      type: this._constants.sharedProfileType,
       data: {
-        _id: userInfo._id,
-        personId: userInfo._id,
-        type: userInfo.userRole,
-        subType: "getAllSharedProfiles",
+        subType: this._constants.getAllSharedProfiles,
       },
     });
+
     if (this.loggedUser.userRole === "candidate") {
-      // this.getMyPostedProfiles();
       this.myProfile();
     }
   }
-  disabledDay(date) {}
+
+  disabledDay(date) { }
 
   searchTermByName() {
     fromEvent(this.searchByName.nativeElement, "keyup")
@@ -323,29 +336,22 @@ export class SharedCandidateProfilesComponent
         debounceTime(800),
         distinctUntilChanged(),
         tap((text) => {
-          // console.log(text.target.value);
-
           let obj = {
             searchType: "name",
             searchTerm: this.searchTerm,
           };
-          console.log(obj);
 
           this.getAllSharedResumes(obj);
-          // this.redirectToUser(obj);
         })
       )
       .subscribe();
   }
-  getUsersProfile() {
-    // console.log("setting up user profile");
 
+  getUsersProfile() {
     this.userService
       .getUserProfile(this.userService.getUserData().userRole)
       .subscribe(
         (data: any) => {
-          // console.log("========", data);
-
           if (data != null && data != undefined && data != "") {
             this.userService.setUserProfile(data.res);
           } else {
@@ -359,6 +365,7 @@ export class SharedCandidateProfilesComponent
         }
       );
   }
+
   postMycmt(i, cmt, resume) {
     if (
       this.myComment[i] === "" ||
@@ -378,10 +385,7 @@ export class SharedCandidateProfilesComponent
         .subscribe(
           (res) => {
             if (res) {
-              // if (this.loggedUser.userRole === "candidate") {
-              //   this.getMyPostedProfiles();
-              // } else {
-              this.getProfiles();
+              this.addCommentToCommets(res.detailedCommentObj);
               Materialize.toast(
                 "You gained 100 recruiter karma points",
                 4000,
@@ -397,7 +401,6 @@ export class SharedCandidateProfilesComponent
 
               this._subList.recruiterPoints.next(candidateObj);
 
-              // }
               this.myComment[i] = "";
             }
           },
@@ -419,7 +422,6 @@ export class SharedCandidateProfilesComponent
       resumeId: resume._id,
     };
 
-    // console.log("payload", payload);
     this.likeCommetSubscription = this.resumeService
       .likeComment(payload)
       .subscribe(
@@ -430,8 +432,7 @@ export class SharedCandidateProfilesComponent
               5000,
               "red"
             );
-            this.getProfiles();
-            // this.getUsersProfile();
+            this.addLikeToComment(res);
           }
         },
         (err) => {
@@ -439,6 +440,7 @@ export class SharedCandidateProfilesComponent
         }
       );
   }
+
   edit(cmt) {
     this.editTo = cmt.review;
     if (this.editTextIndex === cmt._id) {
@@ -447,12 +449,14 @@ export class SharedCandidateProfilesComponent
       this.editTextIndex = cmt._id;
     }
   }
+
   cancelEdit(cmt) {
     this.editTo = "";
     if (this.editTextIndex === cmt._id) {
       this.editTextIndex = -1;
     }
   }
+
   editComment(cmt, resume) {
     if (this.editTo === cmt.review) {
       Materialize.toast("No change!");
@@ -478,11 +482,7 @@ export class SharedCandidateProfilesComponent
         .subscribe(
           (res) => {
             if (res) {
-              if (this.loggedUser.userRole === "candidate") {
-                this.getMyPostedProfiles();
-              } else {
-                this.getAllSharedResumes({});
-              }
+              this.editRespectedComment(res);
               this.cancelEdit(cmt);
             }
           },
@@ -492,6 +492,19 @@ export class SharedCandidateProfilesComponent
         );
     }
   }
+
+  editRespectedComment(res) {
+    this.resumes.filter((element) => {
+      if (element._id === res.profileId) {
+        element.canReview.forEach((item, index) => {
+          if (item._id === res.data.cmtId) {
+            item.review = res.data.review;
+          }
+        });
+      }
+    });
+  }
+
   deleteComment(cmt, resume) {
     let candidateProfile;
     resume?.resumeType ? (candidateProfile = false) : (candidateProfile = true);
@@ -506,15 +519,23 @@ export class SharedCandidateProfilesComponent
       .subscribe(
         (res) => {
           if (res) {
-            if (this.loggedUser.userRole === "candidate") {
-              this.getMyPostedProfiles();
-            } else {
-              this.getAllSharedResumes({});
-            }
+            this.deleteRespectedComment(res);
           }
         },
-        (err) => {}
+        (err) => { }
       );
+  }
+
+  deleteRespectedComment(res) {
+    this.resumes.filter((element) => {
+      if (element._id === res.profileId) {
+        element.canReview.forEach((item, index) => {
+          if (item._id === res.data.cmtId) {
+            element.canReview.splice(index, 1);
+          }
+        });
+      }
+    });
   }
 
   replyToThisComment(i, comment, resume, cmtId) {
@@ -533,10 +554,10 @@ export class SharedCandidateProfilesComponent
         (res) => {
           if (res) {
             this.replyToComment[i] = "";
-            this.getProfiles();
+            this.addReplyToComment(res);
           }
         },
-        (err) => {}
+        (err) => { }
       );
   }
 
@@ -558,15 +579,6 @@ export class SharedCandidateProfilesComponent
       );
     }
   }
-  getMyPostedProfiles() {
-    this.getMyPostedProfilesSubscription = this.candidateService
-      .myPostedProfiles()
-      .subscribe((res) => {
-        if (res) {
-          this.resumes = res;
-        }
-      });
-  }
 
   getAllSharedResumes(payload) {
     this.getAllSharedCandidateProfileSubscription = this.resumeService
@@ -578,9 +590,10 @@ export class SharedCandidateProfilesComponent
             console.log(this.resumes);
           }
         },
-        (err) => {}
+        (err) => { }
       );
   }
+
   getVideo(payload) {
     this.getVideoURLSubscription = this.videoCallingService
       .getArchivedVideo(payload)
@@ -594,13 +607,14 @@ export class SharedCandidateProfilesComponent
         }
       });
   }
+
   linkedIn(url) {
     window.open(url, "_blank");
   }
 
   // share process
   showShareModal(resume) {
-    // console.log(resume, "**********************");
+    this.generateLink = true;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -609,10 +623,93 @@ export class SharedCandidateProfilesComponent
     jQuery("#shareEmailModal").modal("close");
   }
 
+  copyLink() {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.createdUrl;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+
+    Materialize.toast("Link copied to clipboard", 1000);
+
+    this.closeShareModal();
+  }
+
+  async generateLinkForVideo() {
+    let payload = {};
+
+    const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
+
+    if (this.shareResume.interviewLinkedByRecruiter || this.shareResume.recordedId) {
+      const archiveIdPayload = {
+        archivedId: this.shareResume.interviewLinkedByRecruiter ? this.shareResume.interviewLinkedByRecruiter : this.shareResume.recordedId,
+      };
+      // getting url
+      this.getArchivedVideoSubscription = this.videoCallingService.getArchivedVideo(archiveIdPayload).subscribe((res) => {
+        if (res) {
+          console.log('response ', res, '--------');
+
+          this.shareableVideoURL = res.url;
+
+          if (this.shareableVideoURL) {
+            payload = {
+              recruiterId: this.loggedUser._id,
+              resumeId: this.shareResume._id,
+              videoUrl: this.shareableVideoURL,
+              fullName: candidateName,
+              comment: this.shareResume.comments,
+              candidateProfile: this.shareResume.resumeType ? false : true,
+            };
+            this._socket.sendMessage({
+              type: this._constants.sharedProfileType,
+              data: {
+                payload: payload,
+                subType: this._constants.generateLink
+              },
+            });
+
+          }
+
+        }
+      });
+    } else {
+      console.log('no archive link available ');
+      payload = {
+        recruiterId: this.loggedUser._id,
+        resumeId: this.shareResume._id,
+        fullName: candidateName,
+        videoUrl: '',
+        comment: this.shareResume.comments,
+        candidateProfile: this.shareResume.resumeType ? false : true,
+      };
+      this._socket.sendMessage({
+        type: this._constants.sharedProfileType,
+        data: {
+          payload: payload,
+          subType: this._constants.generateLink
+        },
+      });
+    }
+  }
+
   async share() {
+
+    var EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (!EMAIL_REGEXP.test(this.recipientEmail)) {
+      Materialize.toast("Invalid email", 800);
+      return;
+    }
+
     jQuery("#shareEmailModal").modal("close");
     this.spinner.show();
-    console.log("------------------------");
 
     const candidateName = this.shareResume.resumeType
       ? this.shareResume.candidateName
@@ -653,40 +750,52 @@ export class SharedCandidateProfilesComponent
                 comment: this.shareResume.comments,
                 candidateProfile: this.shareResume.resumeType ? false : true,
               };
-              this.shareVideoSubscription = this.shareVideoService
-                .shareVideoViaRecruiterEmail(payload)
-                .subscribe(
-                  (res) => {
-                    if (res) {
-                      // console.log(res);
-                      Materialize.toast(res.msg, 3000);
-                      Materialize.toast(
-                        "You gained 200 recruiter karma points",
-                        4000,
-                        "red"
-                      );
-                      jQuery("#shareEmailModal").modal("close");
 
-                      let eventObj = {
-                        pointer: "ratingPoints",
-                        subType: "increse",
-                        increseCount: this._constants.sharedPoints,
-                      };
-                      this._subList.recruiterPoints.next(eventObj);
+              let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
+              this._socket.sendMessage({
+                type: this._constants.sharedProfileType,
+                data: {
+                  type: userInfo.userRole,
+                  payload: payload,
+                  subType: "shareVideoViaRecruiterEmail"
+                },
+              });
 
-                      eventObj.pointer = "sharePoints";
-                      this._subList.recruiterPoints.next(eventObj);
+              // this.shareVideoSubscription = this.shareVideoService
+              //   .shareVideoViaRecruiterEmail(payload)
+              //   .subscribe(
+              //     (res) => {
+              //       if (res) {
+              //         // console.log(res);
+              //         Materialize.toast(res.msg, 3000);
+              //         Materialize.toast(
+              //           "You gained 200 recruiter karma points",
+              //           4000,
+              //           "red"
+              //         );
+              //         jQuery("#shareEmailModal").modal("close");
 
-                      this.spinner.hide();
-                    }
-                  },
-                  (err) => {
-                    // console.log(err);
-                    Materialize.toast("unable to send an email!", 3000);
-                    jQuery("#shareEmailModal").modal("close");
-                    this.spinner.hide();
-                  }
-                );
+              //         let eventObj = {
+              //           pointer: "ratingPoints",
+              //           subType: "increse",
+              //           increseCount: this._constants.sharedPoints,
+              //         };
+              //         this._subList.recruiterPoints.next(eventObj);
+
+              //         eventObj.pointer = "sharePoints";
+              //         this._subList.recruiterPoints.next(eventObj);
+
+              //         this.spinner.hide();
+              //       }
+              //     },
+              //     (err) => {
+              //       // console.log(err);
+              //       Materialize.toast("unable to send an email!", 3000);
+              //       jQuery("#shareEmailModal").modal("close");
+              //       this.spinner.hide();
+              //     }
+              //   );
+
             } else {
               // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 3000);
@@ -881,6 +990,7 @@ export class SharedCandidateProfilesComponent
   selectionChanged(event) {
     console.log(event);
   }
+
   myProfile() {
     this.getProfileSubscription = this.candidateService
       .getCandidateProfile()
@@ -888,6 +998,7 @@ export class SharedCandidateProfilesComponent
         this.myProfileContent = res;
       });
   }
+
   confirmSelectDatesEvent() {
     // console.log(this.requestDatesForm.valid);
     // console.log(this.requestDatesForm.value);
@@ -963,5 +1074,48 @@ export class SharedCandidateProfilesComponent
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-  ngOnDestroy() {}
+
+  handleIndustries($event, _id) {
+    let selectIndex = 0;
+    this.industriesAre.forEach((item, index) => {
+      if (item._id === _id) {
+        selectIndex = index;
+      }
+    });
+
+    if ($event.target.checked) {
+      this.industries.push(this.industriesAre[selectIndex]._id);
+    } else {
+      this.industries.forEach((Id, index) => {
+        if (Id === _id) {
+          this.industries.splice(index, 1);
+        }
+      });
+    }
+
+  }
+
+  sortByIndustries() {
+    this.candidateService.getSortByIndustries({ industries: this.industries }).subscribe((data: any) => {
+      this.resumes = data;
+    });
+  }
+
+  handleToggleSign(obj) {
+    if (obj.searchTab) {
+      jQuery(".hideAndSHoTab").css("display", "block");
+    } else {
+      jQuery(".hideAndSHoTab").css("display", "none");
+    }
+  }
+
+  upDownSkills() {
+    this.skillsShow = this.skillsShow ? false : true;
+    this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
+  }
+
+  ngOnDestroy() {
+    this._socket.removeListener({ type: this._constants.sharedProfileType });
+    this.sharedProfileObserver.unsubscribe();
+  }
 }
