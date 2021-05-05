@@ -1,6 +1,8 @@
 /* @import "../../../node_modules/angular-calendar/css/angular-calendar.css"; */
 /* @import "../../../node_modules/flatpickr/dist/flatpickr.css"; */
 
+/* @import "../../../node_modules/@danielmoncada/angular-datetime-picker/assets/style/picker.min.css"; */
+
 html {
   font-family: "gilroymedium";
 }
@@ -110,6 +112,7 @@ ul.resumeList li {
 /*================================ i-pad responsive css start  ===============================*/
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
+ 
   .hentry .title {
     padding: 0px 0px 25px 0px !important;
   }
@@ -258,12 +261,32 @@ ul.resumeList li {
     margin-bottom: 20px;
   }
 }
+.for-mobile {
+  display: none;
+}
 /*================================ i-pad responsive css end  ===============================*/
 /*================================ mobile responsive css start  ===============================*/
 
 @media only screen and (min-width: 320px) and (max-width: 767px) {
+
+  .stickyBtn {
+    margin-bottom: 12%;
+  }
+  .footerSection { margin-bottom: 14%;} 
+  .pagination-previous {
+    margin-bottom: 40px;
+  }
+  .button-collapse {
+    display: none;
+  }
   .cadidateDetails p {
     padding-left: 5px !important;
+  }
+  .main-container {
+    margin-bottom: 60px;
+  }
+  .card {
+    margin-bottom: 60px !important;
   }
   .cadidateDetails h6:after {
     /* content: unset !important; */
@@ -403,6 +426,7 @@ ul.resumeList li {
     /* padding: 0 0rem !important; */
   }
   .brand-logo img {
+    display: none;
     width: 80%;
   }
   /* bidding-event-list */
@@ -760,13 +784,15 @@ nav ul a {
 
 /* new css */
 .recruterMain {
-  background: url("../img/recruterBg.png"), #535475;
+  /* background: url("../img/recruterBg.png"), #535475; */
+  background: url("../img/recruterBg.jpeg"), #535475;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 .meetupsMain {
-  background: url("../img/recruterBg.png"), #535475;
+  /* background: url("../img/recruterBg.png"), #535475; */
+  background: url("../img/recruterBg.jpeg"), #535475;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1266,17 +1292,17 @@ body {
 .dateTd .form-control.InnerInput {
   margin: 0 !important;
 }
-.cal-event-actions{
+.cal-event-actions {
   margin-left: 10px;
 }
-.cal-event-actions .cal-event-action i{
+.cal-event-actions .cal-event-action i {
   font-size: 13px;
   margin: 0 3px;
 }
-.cal-event-actions .cal-event-action i.fa-pencil-alt{
+.cal-event-actions .cal-event-action i.fa-pencil-alt {
   color: #c4c4c4;
 }
-.cal-event-actions .cal-event-action i.fa-trash-alt{
+.cal-event-actions .cal-event-action i.fa-trash-alt {
   color: #ff8f8f;
 }
 .CalenderMain .cal-month-view .cal-event {
@@ -1285,4 +1311,14 @@ body {
 }
 .collection a.collection-item {
   color: #48aef3 !important;
+}
+.owl-dt-calendar-table .owl-dt-calendar-header .owl-dt-calendar-table-divider {
+  display: none !important ;
+}
+.requestpop .cdk-overlay-pane {
+  z-index: 999999 !important;
+}
+
+.modal-overlay {
+  z-index: 99 !important;
 }
