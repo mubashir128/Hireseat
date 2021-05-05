@@ -784,13 +784,15 @@ nav ul a {
 
 /* new css */
 .recruterMain {
-  background: url("../img/recruterBg.png"), #535475;
+  /* background: url("../img/recruterBg.png"), #535475; */
+  background: url("../img/recruterBg.jpeg"), #535475;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 .meetupsMain {
-  background: url("../img/recruterBg.png"), #535475;
+  /* background: url("../img/recruterBg.png"), #535475; */
+  background: url("../img/recruterBg.jpeg"), #535475;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

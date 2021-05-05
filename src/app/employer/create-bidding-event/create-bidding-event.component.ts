@@ -113,7 +113,8 @@ export class CreateBiddingEventComponent implements OnInit {
       distinctUntilChanged(),
       tap((text) => {
         this.getRecruiterList({
-          searchTerm : this.searchTerm
+          searchTerm : this.searchTerm,
+          userRole : "recruiter"
         });
 
       })
@@ -198,7 +199,7 @@ export class CreateBiddingEventComponent implements OnInit {
   }
 
   getTopRecruiterList(){
-    this.bidEventService.getTopRecruiterList().subscribe(res=>{
+    this.bidEventService.getTopRecruiterList({userRole : "recruiter"}).subscribe(res=>{
       this.topRecruiters=res;
     },err=>{
       console.log(err);
@@ -210,7 +211,7 @@ export class CreateBiddingEventComponent implements OnInit {
 
   handleTopSelected($event,type){
     jQuery(".searchData").css("display","block");
-    let obj = type === 'top' ? this.topRecruiters : this.searchedRecruiters;
+    let obj = (type === 'top') ? this.topRecruiters : this.searchedRecruiters;
     obj.map(item=>{
       if(item._id === $event.target.name){
         if($event.target.checked){

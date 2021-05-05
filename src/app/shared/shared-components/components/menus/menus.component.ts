@@ -70,6 +70,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/recruiter/dashboard", "Dashboard", false, "fas fa-network-wired"));
     // this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
     
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-question"));
+    
     this.tabs2.push(
       new Tab2("/recruiter/all-recruiters", "Recruiters", true, "fas fa-home")
     );
@@ -93,10 +95,9 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters", false, "fas fa-user-alt"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
 
-    this.tabs2.push(new Tab2("/candidate/all-recruiters", "Candidate", false, "fas fa-plus"));
     this.tabs2.push(new Tab2("/candidate/my-reviewed-profiles", "My Reviews Profiles", false, "fas fa-shopping-bag"));
-    this.tabs2.push(new Tab2("/candidate/interview-room", "Interview Room", false, "fas fa-shopping-bag"));
-    this.tabs2.push(new Tab2("/candidate/my-posted-profiles", "My Posted Profiles", false, "fas fa-shopping-bag"));
+    this.tabs2.push(new Tab2("/candidate/interview-room", "Interview Room", false, "fas fa-question"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-shopping-bag"));
 
     if(!this.supperAdmin.checkSuperAdminEmail()){
       this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));

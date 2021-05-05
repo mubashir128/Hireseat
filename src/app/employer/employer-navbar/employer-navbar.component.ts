@@ -44,6 +44,7 @@ export class EmployerNavbarComponent implements OnInit {
         "/employer/share-candidate-profile",
         false
       ),
+      new EmployerTab(7, "Multi Shared Candidates", "/employer/multi-share-candidate-profile", false)
     ];
 
   }

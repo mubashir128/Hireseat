@@ -26,9 +26,13 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   isEnterprise: boolean = false;
 
   notificationLength = 0;
+  multiSharedCandidateProfileCount = 0;
 
   mobileNotificationIncrementObserver = new Subject();
   mobileNotificationIncrementObserver$ = this.mobileNotificationIncrementObserver.asObservable();
+
+  multiSharedCandidateProfileCountObserver = new Subject();
+  multiSharedCandidateProfileCountObserver$ = this.multiSharedCandidateProfileCountObserver.asObservable();
 
   constructor(private userService: UserService, private router: Router, private _subList : SubscriberslistService, private _socket: WebsocketService, private _constants : ConstantsService) {
     this.tabs2 = [];
@@ -61,6 +65,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   async ngOnInit(){
     if(this.loggedInUser != "no" && !this.isSuperAdmin){
       this.getNotificationCount();
+      this.getMultiSharedCandidateProfileCount();
     }
 
     this.SelectItem2(this.router.url);
@@ -80,6 +85,18 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
       this.handleNotificationData(res);
     });
 
+    //add a observable for multiSharedCandidateProfileCount
+    await this._socket.removeListener({ type: this._constants.multiSharedCandidateProfileCount });
+    this._socket.addListener({
+      type: this._constants.multiSharedCandidateProfileCount,
+      callback: this.multiSharedCandidateProfileCountObserver,
+    });
+
+    //when any activity of multi shared candidate profile is happened, then this observable is called.
+    this.multiSharedCandidateProfileCountObserver$.subscribe((res: any) => {
+      this.handleMultiSharedCandidateProfileCountData(res);
+    });
+
   }
 
   //handle notifications of user.
@@ -93,24 +110,44 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     }
   }
 
+  handleMultiSharedCandidateProfileCountData(res){
+    switch (res.subType) {
+      case this._constants.multiSharedCandidateProfileCountType:
+        this.multiSharedCandidateProfileCount += 1;
+        break;
+      default:
+        break;
+    }
+  }
+
   getNotificationCount(){
     this.userService.getUserNotificationCunt(this.userService.getUserData().userRole).subscribe((res: any) => {
       this.notificationLength = res.count;
     });
   }
 
+  getMultiSharedCandidateProfileCount(){
+    this.userService.getMultiSharedCandidateProfileCount(this.userService.getUserData().userRole).subscribe((res: any) => {
+      this.multiSharedCandidateProfileCount = res.count;
+    });
+  }
+
   forEmploerMobileTab(){
     //for mobile view
+    this.tabs2.push(new Tab2("/employer/share-candidate-profile", "Shared Profile", false, "fas fa-users"));
+
     this.tabs2.push(
-      new Tab2("/employer/dashboard", "Dashboard", true, "fas fa-home")
+      new Tab2("/employer/multi-share-candidate-profile", "Multi Shared Candidate Profile", true, "fas fa-user-friends")
     );
-    this.tabs2.push(new Tab2("/employer/share-candidate-profile", "Shared Profile", false, "fas fa-network-wired"));
+
     this.tabs2.push(
       new Tab2("/employer/bidding-event-list", "Jobs", false, "fas fa-search")
     );
+    
     this.tabs2.push(
       new Tab2("/employer/notification", "Notification", false, "fas fa-bell")
     );
+    
     this.tabs2.push(
       new Tab2("/employer/menus", "Menu", false, "fas fa-bars")
     );
@@ -119,16 +156,13 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   forRecrutierMobileTab(){
     //for mobile view
     this.tabs2.push(
-      new Tab2("/recruiter/share-candidate-profile", "Candidates", true, "fas fa-home")
+      new Tab2("/recruiter/share-candidate-profile", "Candidates", true, "fas fa-users")
     );
+
     this.tabs2.push(
-      new Tab2(
-        "/forum",
-        "Ask a Recruiter",
-        false,
-        "fas fa-question"
-      )
+      new Tab2("/recruiter/multi-share-candidate-profile", "Multi Shared Candidate Profile", true, "fas fa-user-friends")
     );
+
     this.tabs2.push(
       new Tab2("/recruiter/bidding-event-list", "Jobs", false, "fas fa-search")
     );
@@ -141,14 +175,14 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   forCandidateMobileTab(){
     //for mobile view
     this.tabs2.push(
-      new Tab2("/candidate/my-profile", "Profile", true, "fas fa-home")
+      new Tab2("/candidate/my-profile", "Profile", true, "fas fa-user")
     );
     this.tabs2.push(
       new Tab2(
-        "/forum",
-        "Ask a Recruiter",
+        "/candidate/my-posted-profiles",
+        "My Posted Profiles",
         false,
-        "fas fa-question"
+        "fas fa-user-friends"
       )
     );
     this.tabs2.push(

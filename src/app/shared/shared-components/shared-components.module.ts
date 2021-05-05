@@ -61,6 +61,8 @@ import { MomentModule } from 'ngx-moment';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { MenusComponent } from './components/menus/menus.component';
 import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-tab.component';
+import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-profile/multi-shared-candidate-profile.component';
+import { ListLoaderComponent } from './list-loader/list-loader.component';
 
 @NgModule({
   imports: [
@@ -145,7 +147,9 @@ import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-ta
     EditJobProfileComponent,
     NotificationsComponent,
     MenusComponent,
-    MobileNavTabComponent
+    MobileNavTabComponent,
+    MultiSharedCandidateProfileComponent,
+    ListLoaderComponent
   ],
   exports: [
     FooterComponent,
@@ -207,7 +211,8 @@ import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-ta
     MomentModule,
     SelectDropDownModule,
     MenusComponent,
-    MobileNavTabComponent
+    MobileNavTabComponent,
+    ListLoaderComponent
   ],
  
 })

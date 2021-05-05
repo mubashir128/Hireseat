@@ -82,16 +82,21 @@ export class ConstantsService {
 
   generateLink = "generateLink";
 
+  getAllMultiSharedProfiles = "getAllMultiSharedProfiles"
+
+  multiSharedCandidateProfileCount = 13;
+  multiSharedCandidateProfileCountType = "multiSharedCandidateProfileCountType";
+
   public baseurl: any;
   constructor(private http: HttpClient) {
     this.baseurl = myGlobals.baseUrl;
   }
 
   async getAllConstants(){
-    this.http.get<any>(this.baseurl + "api/getAllConstants").subscribe(res=>{
-      this.setVariables(res);
-      return true;
-    });
+    // this.http.get<any>(this.baseurl + "api/getAllConstants").subscribe(res=>{
+    //   this.setVariables(res);
+    //   return true;
+    // });
   }
   
   setVariables(obj){
@@ -154,6 +159,7 @@ export class ConstantsService {
     this.candidateJobQuestionType = obj.candidateJobQuestionType;
     this.notificationLimit = obj.notificationLimit;
     this.generateLink = obj.generateLink;
+    this.getAllMultiSharedProfiles = obj.getAllMultiSharedProfiles;
   }
 
 }

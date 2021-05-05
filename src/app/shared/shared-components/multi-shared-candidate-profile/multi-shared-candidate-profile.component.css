@@ -94,6 +94,11 @@ button.shareBtn {
   color: #fff !important;
 }
 
+.spaceBetOn{
+  margin: 10px 15px 0px 10px;
+}
+
+
 .shareText {
   color: #fff !important;
 }
@@ -975,12 +980,6 @@ a.videoCloseBtn {
 
 .spaceBet{
   margin-left: 10px;
-}
-
-.spaceBetOn{
-  margin: 10px 15px 0px 10px;
-  /* margin-left: 10px;
-  margin-right: 15px; */
 }
 
 .title{
