@@ -22,7 +22,7 @@ echo "--------------------------------------------------"
 echo "--------------------------------------------------"
 echo "--------------------------------------------------"
 echo "--------------------------------------------------"
-
+sudo chmod 755 /var/www/html/gitlab/HireSeat_Web/dist/
 #source the nvm file. In an non
 #If you are not using nvm, add the actual path like
 # PATH=/home/ubuntu/node/bin:$PATH
