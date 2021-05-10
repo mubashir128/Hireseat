@@ -33,6 +33,7 @@
               [routerLink]=""
               routerLinkActive="notification-content"
               [innerHtml]="truncateHTML(notify.notification.message)"
+              [ngStyle] = "{'color' : notify.isRead ? '#0AAFFF' : '#1c2d41'}"
               >{{ notify.notification.message }}
             </a>
           </li>

@@ -420,6 +420,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
         resumeId: resume._id,
         review: cmt,
         role: "recruiter",
+        isMultiShare : true
       };
 
       this.postCommentSubscription = this.resumeService

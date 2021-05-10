@@ -320,7 +320,7 @@
         <div class="commentmainscroll">
           <ng-container *ngIf="resume.canReview.length > 0">
             <div *ngFor="let cmt of resume.canReview | reverse; let i = index">
-              <ng-container *ngIf="cmt?.recruiterId?._id === loggedUser._id || loggedUser.userRole === 'candidate'">
+              <ng-container *ngIf="(cmt?.recruiterId?._id === loggedUser._id) && cmt?.isMultiShare">
                 <div class="singleListData">
                   <div class="cmt-box">
                     <div class="recruitercommenthead">
