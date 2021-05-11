@@ -573,9 +573,6 @@
         <ng-container *ngIf = "loggedUser._id !== item._id">
           <img [src]="item.profileimage !== '' ? item.profileimage : '../../../assets/img/user.png'" class="uploadedImgUser" />
           <h4>{{ item.fullName }}</h4>
-          <div class="starDiv" *ngFor="let star of startList">
-            <i class="fa fa-star" aria-hidden="true"></i>
-          </div>
           <div class="actionDiv">
             <label class="CheckBoxcontainer">
               <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event,'search')" [checked]="item.isChecked">
