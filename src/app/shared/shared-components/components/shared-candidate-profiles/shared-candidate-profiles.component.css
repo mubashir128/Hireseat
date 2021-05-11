@@ -565,6 +565,15 @@ a.videoCloseBtn {
   object-fit: cover;
   border-radius: 50%;
 }
+
+.uploadedImgUser {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50% !important;
+  margin-right: 10px;
+}
+
 .divide {
   display: flex;
 }
@@ -999,7 +1008,7 @@ a.videoCloseBtn {
   border: 1px solid #33aaff;
   width: 93%;
   max-height: 500px;
-  margin-left: 18px;
+  margin-left: 15px;
   margin-top: 5px;
   overflow-y: auto;
   /* margin-bottom: 10px; */
