@@ -199,10 +199,13 @@ export class RegisterComponent implements OnInit {
               if (data.statustxt === "success") {
                 this.spinner.hide();
                 localStorage.removeItem("Role");
-                // Materialize.toast(
-                //   "Registered Successfully Please check the e-mail !",
-                //   5000
-                // );
+                Materialize.toast(
+                  "Registered Successfully Please check the e-mail !",
+                  5000
+                );
+
+                Materialize.toast("Please check Spam. Junk, and Promotions folders for the email if you do not see it in your Inbox", 5000, "red");
+
                 this.suBtnActive = true;
                 jQuery("#registerMsg").modal("open");
               }

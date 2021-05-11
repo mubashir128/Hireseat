@@ -259,6 +259,15 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     window.open(url, "_blank");
 
   }
+
+  googlePlayStore(){
+    window.open("https://play.google.com/", "_blank");
+  }
+
+  iosPlayStore(){
+    window.open("https://www.apple.com/in/app-store/", "_blank");
+  }
+
   ngOnDestroy(): void {
     if (this.checkSharedTokenSubscription) {
       this.checkSharedTokenSubscription.unsubscribe();

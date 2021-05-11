@@ -554,3 +554,14 @@ nav.customeNav {
   margin-left: auto;
   margin-right: auto;
 }
+
+.buttGoogleIos {
+  width: 100px;
+  height: 50px;
+  float: right;
+  margin-top: 15px;
+}
+
+.buttGoogleIos:hover{
+  cursor: pointer;
+}
