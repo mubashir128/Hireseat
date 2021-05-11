@@ -391,6 +391,17 @@ nav.customeNav {
     width: 150px;
     height: 150px;
   }
+
+  .buttGoogleIos {
+    width: 70px !important;
+    height: 35px !important;
+    margin-top: 0px !important;
+  }
+
+  .iosBtn{
+    margin-right: 0px !important; 
+  }
+
 }
 .video-js-without-questions {
   width: 100% !important;
@@ -487,6 +498,7 @@ nav.customeNav {
   .PointsDivSingle h4 {
     margin: 0 !important;
   }
+
 }
 /* Tablet Responsive :ENDS */
 
@@ -564,4 +576,8 @@ nav.customeNav {
 
 .buttGoogleIos:hover{
   cursor: pointer;
+}
+
+.iosBtn{
+  margin-right: 150px; 
 }
