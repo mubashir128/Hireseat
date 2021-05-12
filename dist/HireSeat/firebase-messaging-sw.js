@@ -2,13 +2,13 @@ importScripts('https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.2.9/firebase-messaging.js');
 
 firebase.initializeApp({
-    apiKey: "AIzaSyCEx3UAFAVQIFgPyOXfTJz5eOG5xixcqN4",
-    authDomain: "fir-hireseat.firebaseapp.com",
-    projectId: "fir-hireseat",
-    storageBucket: "fir-hireseat.appspot.com",
-    messagingSenderId: "256108345803",
-    appId: "1:256108345803:web:0d5258ebc68385f8f5de4e",
-    measurementId: "G-NSEGDPRKXP"
+    apiKey: "AIzaSyCv0FeWpM2qiRy_SaYtLdZmoGQNwSpm_5I",
+    authDomain: "bluerecruting.firebaseapp.com",
+    databaseURL: "https://bluerecruting.firebaseio.com",
+    projectId: "bluerecruting",
+    storageBucket: "bluerecruting.appspot.com",
+    messagingSenderId: "861355719085",
+    appId: "1:861355719085:web:d7d0b93cfe920c68944924"
 });
 const messaging = firebase.messaging();
 
