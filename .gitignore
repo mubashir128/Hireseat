@@ -1,6 +1,4 @@
 
 node_modules/
-dist/
-/dist
-www/
+/www
 android/

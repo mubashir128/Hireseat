@@ -1028,3 +1028,10 @@ a.videoCloseBtn {
   border-radius: 3px;
   margin: 10px;
 }
+
+.uploadedImgUser {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50% !important;
+}
