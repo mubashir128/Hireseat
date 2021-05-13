@@ -695,19 +695,23 @@ export class SharedCandidateProfilesComponent
   }
 
   copyLink() {
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = this.createdUrl;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
+    var textArea;
+    textArea = document.createElement('textArea');
+    textArea.readOnly = true;
+    textArea.contentEditable = true;
+    textArea.value = this.createdUrl;
+    document.body.appendChild(textArea);
 
-    Materialize.toast("Link copied to clipboard", 1000);
+    var range, selection;
+    range = document.createRange();
+    range.selectNodeContents(textArea);
+    selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    textArea.setSelectionRange(0, 999999);
+
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
 
     this.closeShareModal();
   }
