@@ -1,21 +1,32 @@
+<div class="">
 
-<div class="row">
-    <form [formGroup]="auctionFrm">
-        <div class="searchDiv">
-            <input type="text" class="searchRecruiter" formControlName="searchTermByNameIs" [(ngModel)]="searchTermByNameIs" placeholder="Search..." #searchInputTerm>
-            <i class="fa fa-search" aria-hidden="true"></i>
-        </div>
-    </form>
-</div>
-
-<div class="chat-list">
-    <div class="chat-profile-item" *ngFor="let user of users">
-      <div class="disF" (click) = "showUserData()">
-        <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'" height="50px">
-        <div class="chat-user-title" (click)="select(jobProfile._id)"> {{ user.fullName }} </div>
-        <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
-      </div> 
-      
+  <div class="row">
+    <div class="col s6 m6 l6 textAlign" [ngClass] = "chgStyle ? 'frtClass' : 'secClass'" (click) = "changesType('1')">
+      CHATS
     </div>
-    <div class="divider"></div>
+    <div class="col s6 m6 l6 textAlign" [ngClass] = "!chgStyle ? 'frtClass' : 'secClass'" (click) = "changesType('2')">
+      EMPLOYERS
+    </div>
+  </div>
+
+  <div class="row">
+      <form [formGroup]="auctionFrm">
+          <div class="searchDiv">
+              <input type="text" class="searchRecruiter" formControlName="searchTermByNameIs" [(ngModel)]="searchTermByNameIs" placeholder="Search..." #searchInputTerm>
+              <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
+      </form>
+  </div>
+
+  <div class="chat-list">
+      <div class="chat-profile-item" *ngFor="let user of chatUsers">
+        <div class="disF" (click) = "showUserData()">
+          <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'" class="uploadedImgUser">
+          <div class="chat-user-title" (click)="select(jobProfile._id)"> {{ user.fullName }} </div>
+          <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
+        </div> 
+        
+      </div>
+      <div class="divider"></div>
+  </div>
 </div>

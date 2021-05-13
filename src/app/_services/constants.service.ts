@@ -87,6 +87,11 @@ export class ConstantsService {
   multiSharedCandidateProfileCount = 13;
   multiSharedCandidateProfileCountType = "multiSharedCandidateProfileCountType";
 
+  employerChatType = 14;
+  employerChat = "employerChat";
+
+  getAllEmployees = "getAllEmployees";
+
   public baseurl: any;
   constructor(private http: HttpClient) {
     this.baseurl = myGlobals.baseUrl;
