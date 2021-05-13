@@ -87,10 +87,10 @@ export class ConstantsService {
   multiSharedCandidateProfileCount = 13;
   multiSharedCandidateProfileCountType = "multiSharedCandidateProfileCountType";
 
-  employerChatType = 14;
-  employerChat = "employerChat";
+  userChatType = 14;
+  userChat = "userChat";
 
-  getAllEmployees = "getAllEmployees";
+  getAllUsers = "getAllUsers";
 
   public baseurl: any;
   constructor(private http: HttpClient) {

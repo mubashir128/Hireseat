@@ -5,16 +5,16 @@ import { ConstantsService } from 'src/app/_services/constants.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 
 @Component({
-  selector: 'app-employerchat',
-  templateUrl: './employerchat.component.html',
-  styleUrls: ['./employerchat.component.css']
+  selector: 'app-user-chat',
+  templateUrl: './user-chat.component.html',
+  styleUrls: ['./user-chat.component.css']
 })
-export class EmployerchatComponent implements OnInit {
+export class UserChatComponent implements OnInit {
 
   chgStyle = true;
 
-  employerChatObserver = new Subject();
-  employerChatObserver$ = this.employerChatObserver.asObservable();
+  userChatObserver = new Subject();
+  userChatObserver$ = this.userChatObserver.asObservable();
 
   chatUsers = [];
 
@@ -37,14 +37,14 @@ export class EmployerchatComponent implements OnInit {
     });
 
     //add a observable for notificaton
-    await this._socket.removeListener({ type: this._constants.employerChatType });
+    await this._socket.removeListener({ type: this._constants.userChatType });
     this._socket.addListener({
-      type: this._constants.employerChatType,
-      callback: this.employerChatObserver,
+      type: this._constants.userChatType,
+      callback: this.userChatObserver,
     });
 
     //when any activity of notification is happened, then this observable is called.
-    this.employerChatObserver$.subscribe((res: any) => {
+    this.userChatObserver$.subscribe((res: any) => {
       this.handleEmployerChat(res);
     });
   }
@@ -52,7 +52,7 @@ export class EmployerchatComponent implements OnInit {
   //handle al user chat.
   handleEmployerChat(res: any) {
     switch (res.subType) {
-      case this._constants.getAllEmployees:
+      case this._constants.getAllUsers:
         console.log("--- res : ",res);
         this.chatUsers = res.data;
         break;
@@ -61,12 +61,12 @@ export class EmployerchatComponent implements OnInit {
     }
   }
 
-  getAllEmployers(){
+  getAllUsers(){
     //call to get all emoployers.
     this._socket.sendMessage({
-      type: this._constants.employerChatType,
+      type: this._constants.userChatType,
       data: {
-        subType: this._constants.getAllEmployees
+        subType: this._constants.getAllUsers
       },
     });
   }
@@ -84,7 +84,7 @@ export class EmployerchatComponent implements OnInit {
     if(type === '1'){
       this.chatUsers = this.users;
     }else if(type === '2'){
-      this.getAllEmployers();
+      this.getAllUsers();
     }
   }
 

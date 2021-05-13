@@ -15,7 +15,6 @@ import { EmployerHomeComponent } from './employer-home/employer-home.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RecruiterBrodcastModule } from '../recruiter-brodcast/recruiter-brodcast.module';
-import { EmployerchatComponent } from './employerchat/employerchat.component';
 
 @NgModule({
   imports: [
@@ -36,8 +35,7 @@ import { EmployerchatComponent } from './employerchat/employerchat.component';
     FeedbackListComponent,
     // EmployeerAnsComponent,
     DashboardComponent,
-    MycandidatesComponent,
-    EmployerchatComponent
+    MycandidatesComponent
   ]
 })
 export class EmployerModule { }

@@ -17,7 +17,7 @@ import { SharedCandidateProfilesComponent } from "../shared/shared-components/co
 import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
 import { MenusComponent } from "../shared/shared-components/components/menus/menus.component";
 import { MultiSharedCandidateProfileComponent } from "../shared/shared-components/multi-shared-candidate-profile/multi-shared-candidate-profile.component";
-import { EmployerchatComponent } from "./employerchat/employerchat.component";
+import { UserChatComponent } from "../shared/shared-components/user-chat/user-chat.component";
 
 const routes: Routes = [
   {
@@ -90,7 +90,7 @@ const routes: Routes = [
       },
       {
         path: "chat",
-        component: EmployerchatComponent,
+        component: UserChatComponent,
       }
     ],
     // canActivate: [EmployerGuard]

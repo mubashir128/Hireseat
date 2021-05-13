@@ -63,6 +63,7 @@ import { MenusComponent } from './components/menus/menus.component';
 import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-tab.component';
 import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-profile/multi-shared-candidate-profile.component';
 import { ListLoaderComponent } from './list-loader/list-loader.component';
+import { UserChatComponent } from './user-chat/user-chat.component';
 
 @NgModule({
   imports: [
@@ -149,7 +150,8 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
     MenusComponent,
     MobileNavTabComponent,
     MultiSharedCandidateProfileComponent,
-    ListLoaderComponent
+    ListLoaderComponent,
+    UserChatComponent
   ],
   exports: [
     FooterComponent,
