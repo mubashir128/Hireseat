@@ -261,7 +261,7 @@ export class SharedCandidateProfilesComponent
     let shareRet = await Share.share({
       title: 'See cool stuff',
       text: 'Really awesome thing you need to see right meow',
-      url: 'http://ionicframework.com/',
+      url: this.createdUrl,
       dialogTitle: 'Share with buddies'
     });
     Materialize.toast("Link generated", 1000);
@@ -644,6 +644,9 @@ export class SharedCandidateProfilesComponent
     jQuery("#shareEmailModal").modal("close");
   }
 
+  closeShareToUserModal() {
+    jQuery("#shareToUsers").modal("close");
+  }
   copyLink() {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -656,14 +659,6 @@ export class SharedCandidateProfilesComponent
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-    navigator
-      .share({
-        title: document.title,
-        text: 'Hello World',
-        url: this.createdUrl
-      })
-      .then(() => console.log('Successful share! 🎉'))
-      .catch(err => console.error(err));
     Materialize.toast("Link copied to clipboard", 1000);
 
     this.closeShareModal();
@@ -1156,6 +1151,27 @@ export class SharedCandidateProfilesComponent
   upDownSkills() {
     this.skillsShow = this.skillsShow ? false : true;
     this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
+  }
+  shareToUsers() {
+    jQuery("#shareToUsers").modal("close");
+
+    if (this.finalRecruitersAre.length === 0) {
+      return;
+    }
+
+    let payload = {
+      sharedFrom: this.loggedUser._id,
+      sharedTo: this.finalRecruitersAre,
+      resumeId: this.shareResume._id,
+      candidateProfile: this.shareResume.resumeType ? false : true,
+    }
+
+    this.shareWithRecruiterSubscription = this.candidateService.shareWithUsers(payload).subscribe((res) => {
+      Materialize.toast("Shared successfully", 1000);
+    }, (err) => {
+      console.log(err);
+      Materialize.toast("Something went wrong!", 1000);
+    });
   }
 
   ngOnDestroy() {
