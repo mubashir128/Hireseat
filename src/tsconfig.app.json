@@ -1,6 +1,5 @@
 {
   "extends": "../tsconfig.json",
-  "enableIvy": false,
 
   "compilerOptions": {
     "outDir": "../out-tsc/app",
