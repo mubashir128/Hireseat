@@ -39,7 +39,8 @@ a{
 }
 
 .chat-box {
-  height: 505px;
+  /* height: 505px; */
+  height: 75%;
 }
 
 .right-chat{
