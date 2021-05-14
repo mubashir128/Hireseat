@@ -64,7 +64,7 @@
   margin: 20px 0 40px 0;
   font-size: 35px;
   font-weight: bold;
-  font-family: 'Rajdhani', sans-serif;
+  /* font-family: 'Rajdhani', sans-serif; */
 }
 .secHead span {
   color: #ff4526;
@@ -80,7 +80,7 @@
   color: #f0e31a;
   display: inline-block;
   font-weight: bold;
-  font-family: 'Rajdhani', sans-serif;
+  /* font-family: 'Rajdhani', sans-serif; */
 }
 
 /* tab style */
@@ -111,7 +111,7 @@
   flex: 1;
   padding-left: 56px;
   text-align: center;
-  font-family: 'Rajdhani', sans-serif;
+  /* font-family: 'Rajdhani', sans-serif; */
 }
 .bx-pager .bx-pager-item .arrow {
   border: solid #4e83d7;
@@ -280,7 +280,7 @@
   background-color: transparent;
   margin: 10px 20px !important;
   /*padding: 3px 0;*/
-  font-family: 'Rajdhani', sans-serif;
+  /* font-family: 'Rajdhani', sans-serif; */
 }
 .commonBtn.RejectBtn {
   border: 1px solid #f32222;

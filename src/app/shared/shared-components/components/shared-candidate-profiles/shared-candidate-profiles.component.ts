@@ -124,6 +124,13 @@ export class SharedCandidateProfilesComponent
   createdUrl = "";
   generateLink = true;
 
+  topRecruiters = [];
+  allTopRecruiters = [];
+  searchTermByNameIs;
+  public auctionFrm: FormGroup;
+  finalRecruitersAre = [];
+  @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -218,6 +225,7 @@ export class SharedCandidateProfilesComponent
         this.resumes = res.data;
         break;
       case this._constants.addComment:
+        console.log("-- res :", res);
         this.addCommentToCommets(res);
         break;
       case this._constants.likeComment:
@@ -248,6 +256,15 @@ export class SharedCandidateProfilesComponent
 
     this.generateLink = false;
     this.createdUrl = res.result.link;
+
+    navigator
+      .share({
+        title: document.title,
+        text: 'Hello World',
+        url: this.createdUrl
+      })
+      .then(() => console.log('Successful share! 🎉'))
+      .catch(err => console.error(err));
     Materialize.toast("Link generated", 1000);
   }
 
@@ -284,7 +301,9 @@ export class SharedCandidateProfilesComponent
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
+        console.log("--- element.canReview.length : ", element.canReview.length);
         element.canReview.length !== 0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
+        console.log("+++ element.canReview.length : ", element.canReview.length);
       }
     });
   }
@@ -306,7 +325,9 @@ export class SharedCandidateProfilesComponent
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
+            console.log("--- comment.reply.length : ", comment.reply.length);
             comment.reply.length !== 0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
+            console.log("--- comment.reply.length : ", comment.reply.length);
           }
         });
       }
@@ -384,6 +405,7 @@ export class SharedCandidateProfilesComponent
         .postMyComment(payload)
         .subscribe(
           (res) => {
+            console.log("-- res :", res);
             if (res) {
               this.addCommentToCommets(res.detailedCommentObj);
               Materialize.toast(
@@ -635,7 +657,14 @@ export class SharedCandidateProfilesComponent
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-
+    navigator
+      .share({
+        title: document.title,
+        text: 'Hello World',
+        url: this.createdUrl
+      })
+      .then(() => console.log('Successful share! 🎉'))
+      .catch(err => console.error(err));
     Materialize.toast("Link copied to clipboard", 1000);
 
     this.closeShareModal();
@@ -675,14 +704,14 @@ export class SharedCandidateProfilesComponent
                 subType: this._constants.generateLink
               },
             });
-            navigator
-              .share({
-                title: document.title,
-                text: 'Hello World',
-                url: window.location.href
-              })
-              .then(() => console.log('Successful share! 🎉'))
-              .catch(err => console.error(err));
+            // navigator
+            //   .share({
+            //     title: document.title,
+            //     text: 'Hello World',
+            //     url: window.location.href
+            //   })
+            //   .then(() => console.log('Successful share! 🎉'))
+            //   .catch(err => console.error(err));
           }
 
         }
@@ -704,14 +733,14 @@ export class SharedCandidateProfilesComponent
           subType: this._constants.generateLink
         },
       });
-      navigator
-        .share({
-          title: document.title,
-          text: 'Hello World',
-          url: window.location.href
-        })
-        .then(() => console.log('Successful share! 🎉'))
-        .catch(err => console.error(err));
+      // navigator
+      //   .share({
+      //     title: document.title,
+      //     text: 'Hello World',
+      //     url: window.location.href
+      //   })
+      //   .then(() => console.log('Successful share! 🎉'))
+      //   .catch(err => console.error(err));
     }
   }
 

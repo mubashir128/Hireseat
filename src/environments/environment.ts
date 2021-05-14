@@ -7,13 +7,13 @@ export const environment = {
   baseUrl: "http://localhost:5000/",
   socketUrl: "ws://localhost:5000/webSocket",
   firebase : {
-    apiKey: "AIzaSyA8WU60YYXggSTkgHyP4nXPoh-V4iEC-Fg",
-    authDomain: "hireseat.firebaseapp.com",
-    projectId: "hireseat",
-    storageBucket: "hireseat.appspot.com",
-    messagingSenderId: "287936048712",
-    appId: "1:287936048712:web:3c1cb0e3e16fdbc240f27d",
-    measurementId: "G-PPRDY5Q0Q8"
+    apiKey: "AIzaSyCv0FeWpM2qiRy_SaYtLdZmoGQNwSpm_5I",
+    authDomain: "bluerecruting.firebaseapp.com",
+    databaseURL: "https://bluerecruting.firebaseio.com",
+    projectId: "bluerecruting",
+    storageBucket: "bluerecruting.appspot.com",
+    messagingSenderId: "861355719085",
+    appId: "1:861355719085:web:d7d0b93cfe920c68944924"
   }
 };
 

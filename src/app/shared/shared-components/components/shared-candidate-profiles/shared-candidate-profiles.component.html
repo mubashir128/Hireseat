@@ -351,12 +351,13 @@
         <div class="commentmainscroll">
           <ng-container *ngIf="resume.canReview.length > 0">
             <div *ngFor="let cmt of resume.canReview | reverse; let i = index">
-              <ng-container
+              <ng-container *ngIf="(cmt?.recruiterId?._id == loggedUser._id && !cmt?.isMultiShare) || (loggedUser.userRole == 'candidate')">
+              <!-- <ng-container
                 *ngIf="
                   cmt?.recruiterId?._id === loggedUser._id ||
                   loggedUser.userRole === 'candidate'
                 "
-              >
+              > -->
                 <div class="singleListData">
                   <div class="cmt-box">
                     <div class="recruitercommenthead">
@@ -623,10 +624,8 @@
     <div class="searchData">
       <div class="recruitrList" *ngFor="let item of topRecruiters">
         <ng-container *ngIf = "loggedUser._id !== item._id">
-          <h4>{{ item.fullName }}</h4>
-          <div class="starDiv" *ngFor="let star of startList">
-            <i class="fa fa-star" aria-hidden="true"></i>
-          </div>
+          <img [src]="item.profileimage !== '' ? item.profileimage : '../../../assets/img/user.png'" class="uploadedImgUser" />
+          <h4 style="margin-left: -40px;">{{ item.fullName }}</h4>
           <div class="actionDiv">
             <label class="CheckBoxcontainer">
               <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event,'search')" [checked]="item.isChecked">

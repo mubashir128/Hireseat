@@ -163,7 +163,6 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
               }
             }
             this.resume = this.currentResume.resumeKey;
-            // console.log(this.resume);
             this.videoURL = res.videoUrl;
 
             this.isTokenValid = true;
@@ -173,7 +172,6 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
           }
         }
       }, err => {
-        // console.log(err, '***************************look up*********************');
         this.isTokenValid = false;
         this.showCustomLoader = false;
         if (!this.isTokenValid) {
@@ -199,12 +197,13 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
 
         this.target.nativeElement.play();
       }
+
       setTimeout(() => {
         const playPromise = this.target.nativeElement.play();
         if (playPromise !== null) {
           playPromise.catch(() => { this.target.nativeElement.play(); })
         }
-      }, 1000)
+      }, 1000);
 
     } else {
       // console.log('token is not valid');
@@ -213,27 +212,28 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     }
 
   }
-  onClick(event) {
-    console.log('***********', event);
 
+  onClick(event) {
   }
+
   play() {
     if (this.target.nativeElement.paused) {
       this.target.nativeElement.play();
     }
   }
+
   pause() {
     this.target.nativeElement.pause();
   }
+
   seek(seconds) {
     this.pause();
     this.target.nativeElement.currentTime = seconds;
     this.play();
   }
+
   setCurrentTime(seconds, questionNumber) {
     var media: any = document.getElementById("myVideo");
-
-
     this.questionNumber = questionNumber;
     this.target.nativeElement.loadingSpinner = true;
     this.isbufferLoader = true;
@@ -247,21 +247,32 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
 
     }
   }
+  
   transform(url) {
     if (url != null) {
       return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
   }
-  ngOnChanges() {
 
+  ngOnChanges() {
   }
+
   linkedIn(url) {
     window.open(url, "_blank");
-
   }
+
+  googlePlayStore(){
+    window.open("https://play.google.com/store/apps/details?id=com.hireseat.app", "_blank");
+  }
+
+  iosPlayStore(){
+    window.open("https://www.apple.com/in/app-store/", "_blank");
+  }
+
   ngOnDestroy(): void {
     if (this.checkSharedTokenSubscription) {
       this.checkSharedTokenSubscription.unsubscribe();
     }
   }
+
 }

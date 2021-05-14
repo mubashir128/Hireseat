@@ -127,7 +127,6 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   topRecruiters = [];
   allTopRecruiters = [];
   searchTermByNameIs;
-  startList=[1,2,3,4,5];
   public auctionFrm: FormGroup;
   finalRecruitersAre = [];
   @ViewChild('searchInputTerm') searchInputTerm : ElementRef;
@@ -420,6 +419,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
         resumeId: resume._id,
         review: cmt,
         role: "recruiter",
+        isMultiShare : true
       };
 
       this.postCommentSubscription = this.resumeService
