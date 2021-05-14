@@ -20,7 +20,7 @@
   
     <div class="chat-list">
         <div class="chat-profile-item" *ngFor="let user of chatUsers">
-          <div class="disF">
+          <div class="disF" *ngIf = "user._id !== loggedInUser._id">
             <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'" class="uploadedImgUser">
             <div class="chat-user-title" (click)="showUserData(user._id)"> {{ user.fullName }} </div>
             <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
