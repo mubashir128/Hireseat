@@ -33,7 +33,8 @@ import {
 import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { ConstantsService } from "src/app/_services/constants.service"
-
+import { Plugins } from '@capacitor/core';
+const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
@@ -251,20 +252,18 @@ export class SharedCandidateProfilesComponent
     }
   }
 
-  addCreatedLink(res) {
+  async addCreatedLink(res) {
     console.log('link generated', res);
 
     this.generateLink = false;
     this.createdUrl = res.result.link;
 
-    navigator
-      .share({
-        title: document.title,
-        text: 'Hello World',
-        url: this.createdUrl
-      })
-      .then(() => console.log('Successful share! 🎉'))
-      .catch(err => console.error(err));
+    let shareRet = await Share.share({
+      title: 'See cool stuff',
+      text: 'Really awesome thing you need to see right meow',
+      url: 'http://ionicframework.com/',
+      dialogTitle: 'Share with buddies'
+    });
     Materialize.toast("Link generated", 1000);
   }
 
