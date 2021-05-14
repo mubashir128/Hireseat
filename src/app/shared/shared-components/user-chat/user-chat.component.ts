@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
+import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 
 @Component({
@@ -18,6 +20,8 @@ export class UserChatComponent implements OnInit {
 
   chatUsers = [];
 
+  loggedInUser: any;
+
   users = [{
     fullName : 'a121',
     profileimage : ''
@@ -29,7 +33,9 @@ export class UserChatComponent implements OnInit {
 
   public auctionFrm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private _constants : ConstantsService) { }
+  constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private _constants : ConstantsService, private router: Router, private userService: UserService) {
+    this.loggedInUser = this.userService.getUserData();
+  }
 
   async ngOnInit() {
     this.auctionFrm = this.formBuilder.group({
@@ -45,15 +51,14 @@ export class UserChatComponent implements OnInit {
 
     //when any activity of notification is happened, then this observable is called.
     this.userChatObserver$.subscribe((res: any) => {
-      this.handleEmployerChat(res);
+      this.handleUserChat(res);
     });
   }
 
-  //handle al user chat.
-  handleEmployerChat(res: any) {
+  //handle all user chat.
+  handleUserChat(res: any) {
     switch (res.subType) {
       case this._constants.getAllUsers:
-        console.log("--- res : ",res);
         this.chatUsers = res.data;
         break;
       default : 
@@ -71,8 +76,9 @@ export class UserChatComponent implements OnInit {
     });
   }
 
-  showUserData(){
+  showUserData(id){
     console.log("--- showUserData : ");
+    this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", id]);
   }
 
   setting(){

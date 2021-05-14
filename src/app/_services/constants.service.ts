@@ -89,8 +89,11 @@ export class ConstantsService {
 
   userChatType = 14;
   userChat = "userChat";
-
   getAllUsers = "getAllUsers";
+  
+  userChatMessageType = 15;
+  userChatMessage = "userChatMessage";
+  addMessage = "addMessage";
 
   public baseurl: any;
   constructor(private http: HttpClient) {

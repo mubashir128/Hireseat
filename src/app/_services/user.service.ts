@@ -141,6 +141,10 @@ export class UserService {
       );
   }
 
+  getUserDetails(obj) {
+    return this.http.post(this.baseurl + "api/getUserDetails/", obj);
+  }
+
   getUserNotificationCunt(userRole) {
     return this.http.post(this.baseurl + "api/getUserNotificationCunt/", {userRole : userRole});
   }

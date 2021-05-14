@@ -1,0 +1,121 @@
+<div class="container">
+  <div class="header">
+    <div class="row">
+        <div class="col s21 m2 l2 spaceLeft">
+            <img [src]="'/assets/img/leftSide.png'" (click) = "backToChat()" class="uploadedImgUser" />
+        </div>
+        <div class="col s2 m2 l2 spaceLeft">
+            <img [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png' " class="uploadedImgUser" />
+        </div>
+        <div class="col s8 m8 l8 spaceLeft" style="padding: 10px; font-size: 12px;">
+            <span>{{user.fullName}}</span>
+        </div>
+    </div>
+  </div>
+  <div class="chat-box">
+    <div class="message-box left-img">
+      <div class="picture">
+        <img src="assets/img/user.png" title="user name"/>
+        <span class="time">10 mins</span>
+      </div>
+      <div class="message">
+        <span>Bobby Giangeruso</span>
+        <p>Hey Mike, how are you doing?</p>
+      </div>
+    </div>
+    <div class="message-box right-img">
+      <div class="picture">
+        <img src="assets/img/user.png" title="user name"/>
+        <span class="time">2 mins</span>
+      </div>
+      <div class="message">
+        <span>Mike Moloney</span>
+        <p>Pretty good, Eating nutella, nommommom</p>
+      </div>
+    </div>
+
+    <div class="message-box right-img">
+      <div class="picture">
+        <img src="assets/img/user.png" title="user name"/>
+        <span class="time">2 mins</span>
+      </div>
+      <div class="message">
+        <span>Mike Moloney</span>
+        <p>Pretty good, Eating nutella, nommommom</p>
+      </div>
+    </div>
+
+    <div class="message-box left-img">
+        <div class="picture">
+          <img src="assets/img/user.png" title="user name"/>
+          <span class="time">10 mins</span>
+        </div>
+        <div class="message">
+          <span>Bobby Giangeruso</span>
+          <p>Hey Mike, how are you doing?</p>
+        </div>
+      </div>
+
+    <div class="message-box right-img">
+        <div class="picture">
+          <img src="assets/img/user.png" title="user name"/>
+          <span class="time">2 mins</span>
+        </div>
+        <div class="message">
+          <span>Mike Moloney</span>
+          <p>Pretty good, Eating nutella, nommommom</p>
+        </div>
+      </div>
+
+      <div class="message-box right-img">
+        <div class="picture">
+          <img src="assets/img/user.png" title="user name"/>
+          <span class="time">2 mins</span>
+        </div>
+        <div class="message">
+          <span>Mike Moloney</span>
+          <p>Pretty good, Eating nutella, nommommom</p>
+        </div>
+      </div>
+
+      <div class="message-box left-img">
+        <div class="picture">
+          <img src="assets/img/user.png" title="user name"/>
+          <span class="time">10 mins</span>
+        </div>
+        <div class="message">
+          <span>Bobby Giangeruso</span>
+          <p>Hey Mike, how are you doing?</p>
+        </div>
+      </div>
+
+      <div class="message-box right-img">
+        <div class="picture">
+          <img src="assets/img/user.png" title="user name"/>
+          <span class="time">2 mins</span>
+        </div>
+        <div class="message">
+          <span>Mike Moloney</span>
+          <p>Pretty good, Eating nutella, nommommom</p>
+        </div>
+      </div>
+
+      <div class="message-box left-img">
+        <div class="picture">
+          <img src="assets/img/user.png" title="user name"/>
+          <span class="time">10 mins</span>
+        </div>
+        <div class="message">
+          <span>Bobby Giangeruso</span>
+          <p>Hey Mike, how are you doing?</p>
+        </div>
+      </div>
+    
+  </div>
+
+  <div class="right-chat">
+    <input type="text" [(ngModel)]="message" class="searchRecruiter" placeholder="Enter your message.."/>
+    <a (click)="sendChatMessage()" class="send">Send</a>
+  </div>
+
+</div>

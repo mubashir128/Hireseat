@@ -64,6 +64,7 @@ import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-ta
 import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-profile/multi-shared-candidate-profile.component';
 import { ListLoaderComponent } from './list-loader/list-loader.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
+import { ChatRecordComponent } from './chat-record/chat-record.component';
 
 @NgModule({
   imports: [
@@ -151,7 +152,8 @@ import { UserChatComponent } from './user-chat/user-chat.component';
     MobileNavTabComponent,
     MultiSharedCandidateProfileComponent,
     ListLoaderComponent,
-    UserChatComponent
+    UserChatComponent,
+    ChatRecordComponent
   ],
   exports: [
     FooterComponent,
