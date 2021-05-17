@@ -93,8 +93,9 @@ export class ConstantsService {
   
   userChatMessageType = 15;
   userChatMessage = "userChatMessage";
-  addMessage = "addMessage";
-
+  addNewChat = "addNewChat";
+  getAllChats = "getAllChats";
+  
   public baseurl: any;
   constructor(private http: HttpClient) {
     this.baseurl = myGlobals.baseUrl;

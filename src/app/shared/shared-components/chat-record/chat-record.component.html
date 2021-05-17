@@ -12,104 +12,39 @@
         </div>
     </div>
   </div>
-  <div class="chat-box">
-    <div class="message-box left-img">
-      <div class="picture">
-        <img src="assets/img/user.png" title="user name"/>
-        <span class="time">10 mins</span>
-      </div>
-      <div class="message">
-        <span>Bobby Giangeruso</span>
-        <p>Hey Mike, how are you doing?</p>
-      </div>
-    </div>
-    <div class="message-box right-img">
-      <div class="picture">
-        <img src="assets/img/user.png" title="user name"/>
-        <span class="time">2 mins</span>
-      </div>
-      <div class="message">
-        <span>Mike Moloney</span>
-        <p>Pretty good, Eating nutella, nommommom</p>
-      </div>
-    </div>
+  <div class="chat-box" #chatDiv>
+    
+    <ng-container *ngFor = "let msg of userMessages.message">
 
-    <div class="message-box right-img">
-      <div class="picture">
-        <img src="assets/img/user.png" title="user name"/>
-        <span class="time">2 mins</span>
-      </div>
-      <div class="message">
-        <span>Mike Moloney</span>
-        <p>Pretty good, Eating nutella, nommommom</p>
-      </div>
-    </div>
-
-    <div class="message-box left-img">
-        <div class="picture">
+      <!-- user1 as a sender -->
+      <div class="message-box" *ngIf = "msg.senderId === userMessages.user1._id" [ngClass] = "(msg.senderId === loggedInUser._id) ? 'rightSideMsg' : 'leftSideMsg'">
+      <!-- <div class="message-box" *ngIf = "msg.senderId === userMessages.user1._id" [ngClass] = "(msg.senderId === loggedInUser._id) ? 'left-img' : 'right-img'"> -->
+        <!-- <div class="picture">
           <img src="assets/img/user.png" title="user name"/>
           <span class="time">10 mins</span>
-        </div>
+        </div> -->
         <div class="message">
-          <span>Bobby Giangeruso</span>
-          <p>Hey Mike, how are you doing?</p>
+          <span>{{userMessages.user1.fullName}}</span>
+          <p>{{msg.message}}</p>
+          <span class="dataTime">{{msg.timestamps | date:'dd/MM/yyyy HH:mm:ss'}}</span>
         </div>
       </div>
 
-    <div class="message-box right-img">
-        <div class="picture">
-          <img src="assets/img/user.png" title="user name"/>
-          <span class="time">2 mins</span>
-        </div>
-        <div class="message">
-          <span>Mike Moloney</span>
-          <p>Pretty good, Eating nutella, nommommom</p>
-        </div>
-      </div>
-
-      <div class="message-box right-img">
-        <div class="picture">
-          <img src="assets/img/user.png" title="user name"/>
-          <span class="time">2 mins</span>
-        </div>
-        <div class="message">
-          <span>Mike Moloney</span>
-          <p>Pretty good, Eating nutella, nommommom</p>
-        </div>
-      </div>
-
-      <div class="message-box left-img">
-        <div class="picture">
+      <!-- user2 as a sender -->
+      <div class="message-box" *ngIf = "msg.senderId === userMessages.user2._id" [ngClass] = "(msg.senderId === loggedInUser._id) ? 'rightSideMsg' : 'leftSideMsg'">
+      <!-- <div class="message-box" *ngIf = "msg.senderId === userMessages.user2._id" [ngClass] = "(msg.senderId === loggedInUser._id) ? 'left-img' : 'right-img'"> -->
+        <!-- <div class="picture">
           <img src="assets/img/user.png" title="user name"/>
           <span class="time">10 mins</span>
-        </div>
+        </div> -->
         <div class="message">
-          <span>Bobby Giangeruso</span>
-          <p>Hey Mike, how are you doing?</p>
+          <span>{{userMessages.user2.fullName}}</span>
+          <p>{{msg.message}}</p>
+          <span class="dataTime">{{msg.timestamps | date:'dd/MM/yyyy HH:mm:ss'}}</span>
         </div>
       </div>
 
-      <div class="message-box right-img">
-        <div class="picture">
-          <img src="assets/img/user.png" title="user name"/>
-          <span class="time">2 mins</span>
-        </div>
-        <div class="message">
-          <span>Mike Moloney</span>
-          <p>Pretty good, Eating nutella, nommommom</p>
-        </div>
-      </div>
-
-      <div class="message-box left-img">
-        <div class="picture">
-          <img src="assets/img/user.png" title="user name"/>
-          <span class="time">10 mins</span>
-        </div>
-        <div class="message">
-          <span>Bobby Giangeruso</span>
-          <p>Hey Mike, how are you doing?</p>
-        </div>
-      </div>
+    </ng-container>
     
   </div>
 
