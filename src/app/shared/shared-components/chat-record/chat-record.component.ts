@@ -111,9 +111,6 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
   }
 
   sendChatMessage(text) {
-    console.log("--- messageIs : ", this.messageIs);
-    console.log("--- Parameterized : ", text);
-    console.log('native ele', this.inputDiv.nativeElement.value);
     this.messageIs = this.inputDiv.nativeElement.value;
     let payload = {
       receiverId: this.receiverId,
