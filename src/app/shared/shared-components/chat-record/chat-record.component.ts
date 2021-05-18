@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
@@ -10,19 +10,19 @@ import { WebsocketService } from 'src/app/_services/websocket.service';
   templateUrl: './chat-record.component.html',
   styleUrls: ['./chat-record.component.css']
 })
-export class ChatRecordComponent implements OnInit {
+export class ChatRecordComponent implements OnInit, AfterViewChecked {
 
   receiverId : any;
   loggedInUser: any;
   user : any;
-  message : any;
+  messageIs = '';
 
   userMessages : any;
 
   userChatMessageObserver = new Subject();
   userChatMessageObserver$ = this.userChatMessageObserver.asObservable();
 
-  @ViewChild('chatDiv') content: ElementRef;
+  @ViewChild('chatDiv', { static: true }) private chatDiv: ElementRef;
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private _socket: WebsocketService, private _constants : ConstantsService) {
     this.loggedInUser = this.userService.getUserData();
@@ -49,6 +49,10 @@ export class ChatRecordComponent implements OnInit {
 
   }
 
+  ngAfterViewChecked() {        
+    this.goToBottom();        
+  }
+
   getAllChats(){
     //call to get all chats.
     this._socket.sendMessage({
@@ -64,18 +68,19 @@ export class ChatRecordComponent implements OnInit {
   handleChatMessage(res: any) {
     switch (res.subType) {
       case this._constants.getAllChats:
-          console.log("+++ res : ",res);
           if(res.data){
             this.userMessages = res.data;
           }
-          // this.goToBottom();
         break;
       case this._constants.addNewChat:
-        console.log("res : ",res);
         if(res.data){
-          this.userMessages.message.push(res.data.message);
+          if(this.userMessages === undefined){
+            res.data.message = [res.data.message];
+            this.userMessages = res.data;
+          }else{
+            this.userMessages.message.push(res.data.message);
+          }
         }
-        // this.goToBottom();
         break;
       default : 
         break;
@@ -89,18 +94,17 @@ export class ChatRecordComponent implements OnInit {
   getCurrentUserDetails(){
     this.userService.getUserDetails({receiverId : this.receiverId}).subscribe((res : any)=>{
       this.user = res.data;
-      console.log("this.user : ",this.user);
     });
   }
 
   backToChat(){
-    this.router.navigate(["/"+this.loggedInUser.userRole+"/chat"]);
+    this.router.navigate(["/"+this.loggedInUser.userRole+"/user-chat"]);
   }
 
   sendChatMessage(){
     let payload = {
       receiverId : this.receiverId,
-      message : this.message
+      message : this.messageIs
     };
 
     this._socket.sendMessage({
@@ -111,14 +115,12 @@ export class ChatRecordComponent implements OnInit {
       },
     });
 
-    this.message = "";
+    this.messageIs = "";
   }
 
   goToBottom(){
-    console.log("------------------------ : ",this.content.nativeElement.scrollHeight);
     try {
-      this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
-      console.log("this.content.nativeElement.scrollHeight : ",this.content.nativeElement.scrollHeight);
+      this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight;
     }catch(err){
       console.log(err);
     }

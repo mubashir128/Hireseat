@@ -18,18 +18,10 @@ export class UserChatComponent implements OnInit {
   userChatObserver = new Subject();
   userChatObserver$ = this.userChatObserver.asObservable();
 
+  onlyChatUsers = [];
   chatUsers = [];
 
   loggedInUser: any;
-
-  users = [{
-    fullName : 'a121',
-    profileimage : ''
-  },
-  {
-    fullName : 'a1s1',
-    profileimage : ''
-  }];
 
   public auctionFrm: FormGroup;
   searchTermByName;
@@ -54,6 +46,19 @@ export class UserChatComponent implements OnInit {
     this.userChatObserver$.subscribe((res: any) => {
       this.handleUserChat(res);
     });
+
+    this.getOnlyUserChats();
+
+  }
+
+  getOnlyUserChats(){
+    //call to get all chats.
+    this._socket.sendMessage({
+      type: this._constants.userChatType,
+      data: {
+        subType: this._constants.getOnlyUserChats
+      }
+    });
   }
 
   //handle all user chat.
@@ -62,6 +67,9 @@ export class UserChatComponent implements OnInit {
       case this._constants.getAllUsers:
         this.chatUsers = res.data;
         break;
+      case this._constants.getOnlyUserChats:
+          this.onlyChatUsers = res.data;
+          break;
       default : 
         break;
     }
@@ -78,7 +86,6 @@ export class UserChatComponent implements OnInit {
   }
 
   showUserData(id){
-    console.log("--- showUserData : ");
     this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", id]);
   }
 
@@ -89,7 +96,7 @@ export class UserChatComponent implements OnInit {
   changesType(type){
     this.chgStyle = (type === '1') ? true : false;
     if(type === '1'){
-      this.chatUsers = this.users;
+      this.getOnlyUserChats();
     }else if(type === '2'){
       this.getAllUsers();
     }

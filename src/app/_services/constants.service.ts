@@ -90,6 +90,7 @@ export class ConstantsService {
   userChatType = 14;
   userChat = "userChat";
   getAllUsers = "getAllUsers";
+  getOnlyUserChats = "getOnlyUserChats";
   
   userChatMessageType = 15;
   userChatMessage = "userChatMessage";

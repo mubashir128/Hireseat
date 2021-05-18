@@ -90,7 +90,7 @@ const routes: Routes = [
         component: MenusComponent,
       },
       {
-        path: "chat",
+        path: "user-chat",
         component: UserChatComponent,
       },
       {

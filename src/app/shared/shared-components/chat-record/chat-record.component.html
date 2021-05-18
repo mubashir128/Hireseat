@@ -12,7 +12,7 @@
         </div>
     </div>
   </div>
-  <div class="chat-box" #chatDiv>
+  <div #chatDiv class="chat-box">
     
     <ng-container *ngFor = "let msg of userMessages.message">
 
@@ -49,7 +49,7 @@
   </div>
 
   <div class="right-chat">
-    <input type="text" [(ngModel)]="message" class="searchRecruiter" placeholder="Enter your message.."/>
+    <input type="text" [(ngModel)]="messageIs" placeholder="Enter your message.."/>
     <a (click)="sendChatMessage()" class="send">Send</a>
   </div>
 
