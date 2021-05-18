@@ -12,20 +12,21 @@ import { WebsocketService } from 'src/app/_services/websocket.service';
 })
 export class ChatRecordComponent implements OnInit, AfterViewChecked {
 
-  receiverId : any;
+  receiverId: any;
   loggedInUser: any;
-  user : any;
-  messageIs : any;
+  user: any;
+  messageIs: any;
 
-  userMessages : any;
+  userMessages: any;
 
   userChatMessageObserver = new Subject();
   userChatMessageObserver$ = this.userChatMessageObserver.asObservable();
 
   @ViewChild('chatDiv', { static: true }) private chatDiv: ElementRef;
+  @ViewChild('inputDiv', { static: true }) private inputDiv: ElementRef;
 
-  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private _socket: WebsocketService, private _constants : ConstantsService) {
-    this.messageIs = '';
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private _socket: WebsocketService, private _constants: ConstantsService) {
+    // this.messageIs = '';
     this.loggedInUser = this.userService.getUserData();
     this.route.params.subscribe(params => {
       this.receiverId = params.id;
@@ -33,7 +34,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
     //add a observable for userChat
     await this._socket.removeListener({ type: this._constants.userChatMessageType });
     this._socket.addListener({
@@ -49,17 +50,17 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
     this.getAllChats();
   }
 
-  ngAfterViewChecked() {        
-    this.goToBottom();        
+  ngAfterViewChecked() {
+    this.goToBottom();
   }
 
-  getAllChats(){
+  getAllChats() {
     //call to get all chats.
     this._socket.sendMessage({
       type: this._constants.userChatMessageType,
       data: {
         subType: this._constants.getAllChats,
-        receiverId : this.receiverId
+        receiverId: this.receiverId
       }
     });
   }
@@ -68,61 +69,66 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
   handleChatMessage(res: any) {
     switch (res.subType) {
       case this._constants.getAllChats:
-          if(res.data){
-            this.userMessages = res.data;
-          }
+        if (res.data) {
+          this.userMessages = res.data;
+        }
         break;
       case this._constants.addNewChat:
-        if(res.data){
-          if(this.userMessages === undefined){
+        if (res.data) {
+          if (this.userMessages === undefined) {
             res.data.message = [res.data.message];
             this.userMessages = res.data;
-          }else{
+          } else {
             this.userMessages.message.push(res.data.message);
           }
         }
         break;
-      default : 
+      default:
         break;
     }
   }
 
-  handleUserData(){
+  handleUserData() {
     this.getCurrentUserDetails();
   }
 
-  getCurrentUserDetails(){
-    this.userService.getUserDetails({receiverId : this.receiverId}).subscribe((res : any)=>{
+  getCurrentUserDetails() {
+    this.userService.getUserDetails({ receiverId: this.receiverId }).subscribe((res: any) => {
       this.user = res.data;
     });
   }
 
-  backToChat(){
-    this.router.navigate(["/"+this.loggedInUser.userRole+"/user-chat"]);
+  backToChat() {
+    this.router.navigate(["/" + this.loggedInUser.userRole + "/user-chat"]);
   }
 
-  sendChatMessage(){
-    console.log("--- messageIs : ",this.messageIs);
+  sendChatMessage(text) {
+    console.log("--- messageIs : ", this.messageIs);
+    console.log("--- Parameterized : ", text);
+    console.log('native ele', this.inputDiv.nativeElement.value);
+    this.messageIs = this.inputDiv.nativeElement.value;
     let payload = {
-      receiverId : this.receiverId,
-      message : this.messageIs
+      receiverId: this.receiverId,
+      message: this.messageIs
     };
+    if (this.messageIs) {
 
-    this._socket.sendMessage({
-      type: this._constants.userChatMessageType,
-      data: {
-        subType: this._constants.addNewChat,
-        data : payload
-      },
-    });
+      this._socket.sendMessage({
+        type: this._constants.userChatMessageType,
+        data: {
+          subType: this._constants.addNewChat,
+          data: payload
+        },
+      });
+    }
 
     this.messageIs = "";
   }
 
-  goToBottom(){
+  goToBottom() {
     try {
       this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight;
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   }

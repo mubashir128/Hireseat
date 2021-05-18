@@ -33,7 +33,7 @@ import { SubscriberComponent } from "./subscriber/subscriber.component";
 import { TagInputModule } from "ngx-chips";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxPaginationModule } from "ngx-pagination";
-import { NgxCurrencyModule } from "ngx-currency";
+// import { NgxCurrencyModule } from "ngx-currency";
 import { NgxMaskModule } from "ngx-mask";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NgxTwitterTimelineModule } from "ngx-twitter-timeline";
@@ -128,7 +128,7 @@ import { AngularFireModule } from '@angular/fire';
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
-    NgxCurrencyModule,
+    // NgxCurrencyModule,
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
@@ -252,4 +252,4 @@ import { AngularFireModule } from '@angular/fire';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

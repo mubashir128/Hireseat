@@ -69,6 +69,8 @@ import { ChatRecordComponent } from './chat-record/chat-record.component';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     NgxTwitterTimelineModule,
     FormsModule,
@@ -87,7 +89,7 @@ import { ChatRecordComponent } from './chat-record/chat-record.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MomentModule
-    
+
   ],
   declarations: [
     FooterComponent,
@@ -218,6 +220,6 @@ import { ChatRecordComponent } from './chat-record/chat-record.component';
     MobileNavTabComponent,
     ListLoaderComponent
   ],
- 
+
 })
-export class SharedComponentsModule {}
+export class SharedComponentsModule { }
