@@ -15,7 +15,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
   receiverId : any;
   loggedInUser: any;
   user : any;
-  messageIs = '';
+  messageIs : any;
 
   userMessages : any;
 
@@ -25,6 +25,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
   @ViewChild('chatDiv', { static: true }) private chatDiv: ElementRef;
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private _socket: WebsocketService, private _constants : ConstantsService) {
+    this.messageIs = '';
     this.loggedInUser = this.userService.getUserData();
     this.route.params.subscribe(params => {
       this.receiverId = params.id;
@@ -33,20 +34,19 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
   }
 
   async ngOnInit(){
-    //add a observable for notificaton
+    //add a observable for userChat
     await this._socket.removeListener({ type: this._constants.userChatMessageType });
     this._socket.addListener({
       type: this._constants.userChatMessageType,
       callback: this.userChatMessageObserver,
     });
 
-    //when any activity of notification is happened, then this observable is called.
+    //when any activity of userChat is happened, then this observable is called.
     this.userChatMessageObserver$.subscribe((res: any) => {
       this.handleChatMessage(res);
     });
 
     this.getAllChats();
-
   }
 
   ngAfterViewChecked() {        
@@ -102,6 +102,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
   }
 
   sendChatMessage(){
+    console.log("--- messageIs : ",this.messageIs);
     let payload = {
       receiverId : this.receiverId,
       message : this.messageIs
