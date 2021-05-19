@@ -1,16 +1,18 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 
+declare var jQuery;
+
 @Component({
   selector: 'app-chat-record',
   templateUrl: './chat-record.component.html',
   styleUrls: ['./chat-record.component.css']
 })
-export class ChatRecordComponent implements OnInit, AfterViewChecked {
+export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges {
 
   receiverId: any;
   loggedInUser: any;
@@ -35,6 +37,8 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
   }
 
   async ngOnInit() {
+    jQuery(".modal").modal();
+    
     //add a observable for userChat
     await this._socket.removeListener({ type: this._constants.userChatMessageType });
     this._socket.addListener({
@@ -48,6 +52,10 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
     });
 
     this.getAllChats();
+  }
+
+  ngOnChanges() {
+    jQuery(".modal").modal();
   }
 
   ngAfterViewChecked() {
@@ -112,12 +120,17 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
 
   sendChatMessage(text) {
     this.messageIs = this.inputDiv.nativeElement.value;
+
+    if(this.messageIs == '' || this.messageIs == undefined){
+      return ;
+    }
+
     let payload = {
       receiverId: this.receiverId,
       message: this.messageIs
     };
-    if (this.messageIs) {
 
+    if (this.messageIs) {
       this._socket.sendMessage({
         type: this._constants.userChatMessageType,
         data: {
@@ -136,6 +149,16 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  showImageModal(showValue) {
+    if(showValue){
+      jQuery("#showImage").modal("open");
+    }
+  }
+
+  closeImageModal() {
+    jQuery("#showImage").modal("close");
   }
 
 }

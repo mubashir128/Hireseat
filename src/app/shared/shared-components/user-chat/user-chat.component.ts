@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -6,12 +6,13 @@ import { ConstantsService } from 'src/app/_services/constants.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 
+declare var jQuery;
 @Component({
   selector: 'app-user-chat',
   templateUrl: './user-chat.component.html',
   styleUrls: ['./user-chat.component.css']
 })
-export class UserChatComponent implements OnInit {
+export class UserChatComponent implements OnInit, OnChanges {
 
   chgStyle = true;
 
@@ -23,6 +24,8 @@ export class UserChatComponent implements OnInit {
 
   loggedInUser: any;
 
+  imgVal = '';
+
   public auctionFrm: FormGroup;
   searchTermByName;
 
@@ -31,6 +34,8 @@ export class UserChatComponent implements OnInit {
   }
 
   async ngOnInit() {
+    jQuery(".modal").modal();
+
     this.auctionFrm = this.formBuilder.group({
       searchTermByNameIs : []
     });
@@ -49,6 +54,10 @@ export class UserChatComponent implements OnInit {
 
     this.getOnlyUserChats();
 
+  }
+
+  ngOnChanges() {
+    jQuery(".modal").modal();
   }
 
   getOnlyUserChats(){
@@ -100,6 +109,17 @@ export class UserChatComponent implements OnInit {
     }else if(type === '2'){
       this.getAllUsers();
     }
+  }
+
+  showImageModal(showValue) {
+    if(showValue !== 0){
+      this.imgVal = showValue;
+      jQuery("#showImage").modal("open");
+    }
+  }
+
+  closeImageModal() {
+    jQuery("#showImage").modal("close");
   }
 
 }

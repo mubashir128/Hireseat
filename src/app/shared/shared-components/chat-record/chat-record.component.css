@@ -193,3 +193,26 @@ a{
   font-size: 12px;
   font-style: italic;
 }
+
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fafafa;
+  padding: 0;
+  max-height: 70%;
+  width: 35%;
+  margin: 15% auto;
+  overflow-y: auto;
+  border-radius: 5px;
+  will-change: top, opacity;
+}
+
+.showImgUser{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* border-radius: 50% !important; */
+  margin-bottom: -5px;
+}
