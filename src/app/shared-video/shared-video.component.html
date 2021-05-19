@@ -9,9 +9,9 @@
   <!-- <ng-container>
     <nav style="background:#E9F4FF;" class="customeNav">
       <div class="nav-wrapper container"> -->
-        <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
+  <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/navbar-logo.png"
             style="vertical-align:middle;" /></a> -->
-        <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
+  <!-- <a [routerLink]="['/']" class="brand-logo"><img src="assets/img/HSfooterLogo.png"
             style="vertical-align:middle; width: 50%;" /></a>
         <span class="header-title">Hire Seat</span>
 
@@ -33,17 +33,27 @@
               <p><label>Location :</label> {{resume?.location}}</p>
             </div> -->
             <ng-container *ngIf="!videoURL">
-              <div class="" *ngIf = "resume.candidate_id.profileimage === ''">
+              <div class="" *ngIf="resume.candidate_id.profileimage === ''">
                 <img src="../../../assets/img/user.png" class="uploadedImg" />
               </div>
-              <div class="" *ngIf = "resume.candidate_id.profileimage !== ''">
-                <img [src]="resume.candidate_id.profileimage" class="uploadedImg" />
+              <div class="" *ngIf="resume.candidate_id.profileimage !== ''">
+                <img
+                  [src]="resume.candidate_id.profileimage"
+                  class="uploadedImg"
+                />
               </div>
             </ng-container>
             <ng-container *ngIf="videoURL">
               <app-video-questions
-                [options]="{ autoplay: false, controls: true, sources: [{ src: videoURL, type: 'video/mp4' }]}"
-                [resume]="resume" [questionNumber]="questionNumber" [questionsByRecruiter]="questionsByRecruiter">
+                [options]="{
+                  autoplay: false,
+                  controls: true,
+                  sources: [{ src: videoURL, type: 'video/mp4' }]
+                }"
+                [resume]="resume"
+                [questionNumber]="questionNumber"
+                [questionsByRecruiter]="questionsByRecruiter"
+              >
               </app-video-questions>
             </ng-container>
           </div>
@@ -55,37 +65,45 @@
           <div class="singleList employerResume resumeSingleList">
             <div class="docSectionBtns">
               <div class="candidate-name">
-                <span *ngIf = "resume?.candidateName">
-                  {{resume.candidateName}}
+                <span *ngIf="resume?.candidateName">
+                  {{ resume.candidateName }}
                 </span>
-                <span *ngIf = "resume?.candidate_id">
-                  {{resume.candidate_id.fullName}}
+                <span *ngIf="resume?.candidate_id">
+                  {{ resume.candidate_id.fullName }}
                 </span>
-                <p><label>Job Title :</label> {{resume?.jobTitle}}</p>
-                <p><label>Location :</label> {{resume?.location}}</p>
+                <p><label>Job Title :</label> {{ resume?.jobTitle }}</p>
+                <p><label>Location :</label> {{ resume?.location }}</p>
               </div>
               <div class="cadidateResumeDiv">
                 <button class="downloadResume">
-                  <a [attr.href]="transform(resume?.fileURL)" target="_blank" download>
+                  <a
+                    [attr.href]="transform(resume?.fileURL)"
+                    target="_blank"
+                    download
+                  >
                     <i class="fa fa-download"></i>
                     Download Resume
                   </a>
                 </button>
-                <button class="LinkedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)">
+                <button
+                  class="LinkedInBtn"
+                  *ngIf="resume?.linkedIn"
+                  (click)="linkedIn(resume?.linkedIn)"
+                >
                   <a>
                     <!-- <i class="fa fa-linkedin"></i> -->
                     <div class="icon-name">
-                      <img class="linkedin-icon" src="../../assets/icons/linkedin-sign.png">
-                      <span>
-                       LinkedIn
-                      </span>
+                      <img
+                        class="linkedin-icon"
+                        src="../../assets/icons/linkedin-sign.png"
+                      />
+                      <span> LinkedIn </span>
                     </div>
                   </a>
                 </button>
               </div>
             </div>
             <ng-container *ngIf="!isShareFromRecruiter">
-
               <div class="singleListData">
                 <div class="PointsDiv commonSingleInner">
                   <div class="PointsDivSingle PointsDivSingleN">
@@ -93,61 +111,74 @@
                     <h4>{{ currentResume.StrongPoint1 }}</h4>
                   </div>
                   <div class="PointsDivSingle PointsDivSingleN">
-                    <img src="assets/img/checkIcon.png" class="green-tick" /> 
-                    <h4>{{ currentResume.StrongPoint2}}</h4>
-
+                    <img src="assets/img/checkIcon.png" class="green-tick" />
+                    <h4>{{ currentResume.StrongPoint2 }}</h4>
                   </div>
                   <div class="PointsDivSingle PointsDivSingleN">
                     <img src="assets/img/checkIcon.png" class="green-tick" />
                     <h4>{{ currentResume.StrongPoint3 }}</h4>
-
                   </div>
                 </div>
-
               </div>
             </ng-container>
             <ng-container *ngIf="isShareFromRecruiter && comments">
               <div class="singleListData">
-                Candidate's Summary : 
-                <div class="PointsDiv commonSingleInner"  *ngIf = "comments !== ''">
+                Candidate's Summary :
+                <div
+                  class="PointsDiv commonSingleInner"
+                  *ngIf="comments !== ''"
+                >
                   <div class="PointsDivSingle PointsDivSingleN">
-                    <h4> - {{ comments }}</h4>
+                    <h4>- {{ comments }}</h4>
                   </div>
-                  <div class="PointsDivSingle PointsDivSingleN" *ngIf = "comments2 !== ''">
-                    <h4> - {{ comments2 }}</h4>
+                  <div
+                    class="PointsDivSingle PointsDivSingleN"
+                    *ngIf="comments2 !== ''"
+                  >
+                    <h4>- {{ comments2 }}</h4>
                   </div>
-                  <div class="PointsDivSingle PointsDivSingleN"  *ngIf = "comments3 !== ''">
-                    <h4> - {{ comments3 }}</h4>
+                  <div
+                    class="PointsDivSingle PointsDivSingleN"
+                    *ngIf="comments3 !== ''"
+                  >
+                    <h4>- {{ comments3 }}</h4>
                   </div>
                 </div>
-
               </div>
             </ng-container>
-
           </div>
           <!-- </li> -->
           <!-- </ul> -->
-          <div class="singleList employerResume resumeSingleList" *ngIf="recruiterDetails">
+          <div class="download-app">
+            <img
+              class="buttGoogleIos iosBtn"
+              src="assets/img/google-play-badge.png"
+              (click)="googlePlayStore()"
+            />
+            <img
+              class="buttGoogleIos"
+              src="assets/img/ios-play-badge.svg"
+              (click)="iosPlayStore()"
+            />
+          </div>
+          <div
+            class="singleList employerResume resumeSingleList"
+            *ngIf="recruiterDetails"
+          >
             <div class="recruiter-section">
               <span>
-                <span class="recruiter-name-title">
-                  Recruiter name :
-                </span>
+                <span class="recruiter-name-title"> Recruiter name : </span>
                 <span class="recruiter-name">
-                  {{  resume?.recruiterKey.fullName}}
+                  {{ resume?.recruiterKey.fullName }}
                 </span>
               </span>
 
               <span>
-                <span class="recruiter-company-title">
-                  Company name :
-                </span>
+                <span class="recruiter-company-title"> Company name : </span>
                 <span class="recruiter-company">
-                  {{recruiterDetails?.companyName}}
+                  {{ recruiterDetails?.companyName }}
                 </span>
-
               </span>
-
             </div>
           </div>
         </div>
@@ -158,33 +189,34 @@
     <div class="mainTempExpire">
       <div class="invalid-token-container">
         <span class="msg">
-          <h2>This link is expired. It was only valid for 24 hours. Contact your Recruiter for another link.</h2>
+          <h2>
+            This link is expired. It was only valid for 24 hours. Contact your
+            Recruiter for another link.
+          </h2>
         </span>
         <span>
           <span class="contact-email">
             <h2>- contact@hireseat.com</h2>
           </span>
-
         </span>
         <div class="logo-section">
-          <a [routerLink]="['/']" class="brand-logo "><img src="assets/img/HSfooterLogo.png"
-              style="vertical-align:middle;" /></a>
+          <a [routerLink]="['/']" class="brand-logo"
+            ><img
+              src="assets/img/HSfooterLogo.png"
+              style="vertical-align: middle"
+          /></a>
         </div>
-
       </div>
     </div>
   </ng-container>
 
   <div class="footer">
-    <a [routerLink]="['/']" class="brand-logo footerLogo"><img src="assets/img/HSfooterLogo.png"
-        style="vertical-align:middle;" /></a>
-    <a [routerLink]="['/']" class="link">
-      www.hireseat.com
-    </a>
+    <a [routerLink]="['/']" class="brand-logo footerLogo"
+      ><img src="assets/img/HSfooterLogo.png" style="vertical-align: middle"
+    /></a>
+    <a [routerLink]="['/']" class="link"> www.hireseat.com </a>
 
-    <img class="buttGoogleIos iosBtn" src="assets/img/google-play-badge.png" (click) = "googlePlayStore()"/>
-    <img class="buttGoogleIos" src="assets/img/ios-play-badge.svg" (click) = "iosPlayStore()"/>
-
+    <!-- <img class="buttGoogleIos iosBtn" src="assets/img/google-play-badge.png" (click) = "googlePlayStore()"/>
+    <img class="buttGoogleIos" src="assets/img/ios-play-badge.svg" (click) = "iosPlayStore()"/> -->
   </div>
-
 </div>
