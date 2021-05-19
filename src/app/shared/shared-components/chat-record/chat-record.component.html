@@ -10,8 +10,8 @@
       </div>
       <div class="col s2 m2 l2 spaceLeft">
         <img
-          [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'"
-          (click)="showImageModal(user.profileimage !== '' ? true : false)"
+          [src]="(user.profileimage !== '' || user.profileimage !== undefined) ? user.profileimage : 'assets/img/user.png'"
+          (click)="showImageModal((user.profileimage !== '' || user.profileimage !== undefined) ? true : false)"
           class="uploadedImgUser"
         />
       </div>
@@ -83,5 +83,5 @@
 </div>
 
 <div id="showImage" class="modal">
-  <img [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'" class="showImgUser"/>
+  <img [src]="(user.profileimage !== '' || user.profileimage !== undefined) ? user.profileimage : 'assets/img/user.png'" class="showImgUser"/>
 </div>
