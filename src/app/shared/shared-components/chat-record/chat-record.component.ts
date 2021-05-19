@@ -88,14 +88,16 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
             this.userMessages = res.data;
           } else {
             this.userMessages.message.push(res.data.message);
-            // if(res.data.message.senderId === this.receiverId || res.sameUser){
-            //   if(res.data){
-            //     if(this.userMessages === undefined){
-            //       res.data.message = [res.data.message];
-            //       this.userMessages = res.data;
-            //     }else{
-            //       this.userMessages.message.push(res.data.message);
-            //     }
+            if(res.data.message.senderId === this.receiverId || res.sameUser){
+              if(res.data){
+                if(this.userMessages === undefined){
+                  res.data.message = [res.data.message];
+                  this.userMessages = res.data;
+                }else{
+                  this.userMessages.message.push(res.data.message);
+                }
+              }
+            }
           }
         }
         break;
