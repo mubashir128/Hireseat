@@ -19,7 +19,7 @@
   </div>
 
   <div class="chat-list" *ngIf = "chgStyle">
-    <ng-container *ngFor="let user of onlyChatUsers">
+    <ng-container *ngFor="let user of onlyChatUsers | inUserChatSearch : searchTermByName">
 
       <div class="chat-profile-item" *ngIf = "user.user1._id !== loggedInUser._id">
         <div class="disF">
@@ -42,7 +42,7 @@
   </div>
 
   <div class="chat-list" *ngIf = "!chgStyle">
-    <ng-container *ngFor="let user of chatUsers">
+    <ng-container *ngFor="let user of chatUsers | search : searchTermByName">
 
       <div class="chat-profile-item" *ngIf = "user._id !== loggedInUser._id">
         <div class="disF">
