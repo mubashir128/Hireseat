@@ -965,7 +965,7 @@ MIT
 
 jquery
 MIT
-Copyright OpenJS Foundation and other contributors, https://openjsf.org/
+Copyright JS Foundation and other contributors, https://js.foundation/
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -2395,11 +2395,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 xmldom
-(LGPL-2.0 OR MIT)
-You can choose any one of these licenses:
+(LGPL-2.0 or MIT)
+You can choose any one of those:
 
-- MIT: https://opensource.org/licenses/MIT
-- LGPL: http://www.gnu.org/licenses/lgpl.html
+The MIT License (MIT):
+
+link:http://opensource.org/licenses/MIT
+
+LGPL:
+http://www.gnu.org/licenses/lgpl.html
 
 
 yeast
