@@ -63,10 +63,14 @@ import { MenusComponent } from './components/menus/menus.component';
 import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-tab.component';
 import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-profile/multi-shared-candidate-profile.component';
 import { ListLoaderComponent } from './list-loader/list-loader.component';
+import { UserChatComponent } from './user-chat/user-chat.component';
+import { ChatRecordComponent } from './chat-record/chat-record.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     NgxTwitterTimelineModule,
     FormsModule,
@@ -85,7 +89,7 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MomentModule
-    
+
   ],
   declarations: [
     FooterComponent,
@@ -149,7 +153,9 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
     MenusComponent,
     MobileNavTabComponent,
     MultiSharedCandidateProfileComponent,
-    ListLoaderComponent
+    ListLoaderComponent,
+    UserChatComponent,
+    ChatRecordComponent
   ],
   exports: [
     FooterComponent,
@@ -214,6 +220,6 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
     MobileNavTabComponent,
     ListLoaderComponent
   ],
- 
+
 })
-export class SharedComponentsModule {}
+export class SharedComponentsModule { }
