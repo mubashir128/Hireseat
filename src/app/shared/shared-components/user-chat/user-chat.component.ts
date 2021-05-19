@@ -85,8 +85,8 @@ export class UserChatComponent implements OnInit, OnChanges {
         this.chatUsers = res.data;
         break;
       case this._constants.getOnlyUserChats:
-          this.onlyChatUsers = res.data;
-          break;
+        this.onlyChatUsers = res.data;
+        break;
       default : 
         break;
     }
