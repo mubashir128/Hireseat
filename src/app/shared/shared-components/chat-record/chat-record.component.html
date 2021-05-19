@@ -29,21 +29,19 @@
       <div
         class="message-box"
         *ngIf="msg.senderId === userMessages.user1._id"
-        [ngClass]="
-          msg.senderId === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'
-        "
+        [ngClass]="msg.senderId === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'"
       >
         <!-- <div class="message-box" *ngIf = "msg.senderId === userMessages.user1._id" [ngClass] = "(msg.senderId === loggedInUser._id) ? 'left-img' : 'right-img'"> -->
         <!-- <div class="picture">
           <img src="assets/img/user.png" title="user name"/>
           <span class="time">10 mins</span>
         </div> -->
-        <div class="message messageRight">
-          <span>{{ userMessages.user1.fullName }}</span>
-          <p>{{ msg.message }}</p>
-          <span class="dataTime">{{
-            msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"
-          }}</span>
+        <div class="message">
+          <div [ngClass]="msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'">
+            <span>{{ userMessages.user1.fullName }}</span>
+            <p>{{ msg.message }}</p>
+            <span class="dataTime">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span>
+          </div>
         </div>
       </div>
 
@@ -60,12 +58,12 @@
           <img src="assets/img/user.png" title="user name"/>
           <span class="time">10 mins</span>
         </div> -->
-        <div class="message messageLeft">
-          <span>{{ userMessages.user2.fullName }}</span>
-          <p>{{ msg.message }}</p>
-          <span class="dataTime">{{
-            msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"
-          }}</span>
+        <div class="message">
+          <div [ngClass]="msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'">
+            <span>{{ userMessages.user2.fullName }}</span>
+            <p>{{ msg.message }}</p>
+            <span class="dataTime">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span>
+          </div>
         </div>
       </div>
     </ng-container>
