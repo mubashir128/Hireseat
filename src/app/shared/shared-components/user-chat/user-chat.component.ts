@@ -22,6 +22,7 @@ export class UserChatComponent implements OnInit, OnChanges {
   onlyChatUsers = [];
   chatUsers = [];
 
+  currentUserRole;
   loggedInUser: any;
 
   imgVal = '';
@@ -31,6 +32,13 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private _constants : ConstantsService, private router: Router, private userService: UserService) {
     this.loggedInUser = this.userService.getUserData();
+    if(this.loggedInUser.userRole == "employer"){
+      this.currentUserRole = "EMPLOYERS";
+    }else if(this.loggedInUser.userRole == "recruiter"){
+      this.currentUserRole = "RECRUITERS";
+    }else if(this.loggedInUser.userRole == "candidate"){
+      this.currentUserRole = "CANDIDATES";
+    }
   }
 
   async ngOnInit() {
