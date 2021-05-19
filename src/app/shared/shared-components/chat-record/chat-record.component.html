@@ -10,7 +10,9 @@
       </div>
       <div class="col s2 m2 l2 spaceLeft">
         <img
-          [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'"
+          [src]="
+            user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'
+          "
           (click)="showImageModal(user.profileimage !== '' ? true : false)"
           class="uploadedImgUser"
         />
@@ -29,7 +31,9 @@
       <div
         class="message-box"
         *ngIf="msg.senderId === userMessages.user1._id"
-        [ngClass]="msg.senderId === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'"
+        [ngClass]="
+          msg.senderId === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'
+        "
       >
         <!-- <div class="message-box" *ngIf = "msg.senderId === userMessages.user1._id" [ngClass] = "(msg.senderId === loggedInUser._id) ? 'left-img' : 'right-img'"> -->
         <!-- <div class="picture">
@@ -37,10 +41,16 @@
           <span class="time">10 mins</span>
         </div> -->
         <div class="message">
-          <div [ngClass]="msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'">
+          <div
+            [ngClass]="
+              msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'
+            "
+          >
             <span>{{ userMessages.user1.fullName }}</span>
             <p>{{ msg.message }}</p>
-            <span class="dataTime">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span>
+            <span class="dataTime">{{
+              msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"
+            }}</span>
           </div>
         </div>
       </div>
@@ -59,10 +69,16 @@
           <span class="time">10 mins</span>
         </div> -->
         <div class="message">
-          <div [ngClass]="msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'">
+          <div
+            [ngClass]="
+              msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'
+            "
+          >
             <span>{{ userMessages.user2.fullName }}</span>
             <p>{{ msg.message }}</p>
-            <span class="dataTime">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span>
+            <span class="dataTime">{{
+              msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"
+            }}</span>
           </div>
         </div>
       </div>
@@ -70,18 +86,25 @@
   </div>
 
   <div class="right-chat">
-    <input
-      type="text"
-      [(ngModel)]="messageIs"
-      [value]="messageIs"
-      placeholder="Enter your message.."
-      (keyup.enter)="sendChatMessage($event.target.value)"
-      #inputDiv
-    />
-    <a (click)="sendChatMessage(messageIs)" class="send">Send</a>
+    <div class="input-div">
+      <input
+        type="text"
+        [(ngModel)]="messageIs"
+        [value]="messageIs"
+        placeholder="Enter your message.."
+        (keyup.enter)="sendChatMessage($event.target.value)"
+        #inputDiv
+      />
+    </div>
+    <div class="send-div">
+      <a (click)="sendChatMessage(messageIs)" class="send">Send</a>
+    </div>
   </div>
 </div>
 
 <div id="showImage" class="modal">
-  <img [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'" class="showImgUser"/>
+  <img
+    [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'"
+    class="showImgUser"
+  />
 </div>
