@@ -48,14 +48,14 @@ export class UserChatComponent implements OnInit, OnChanges {
       searchTermByNameIs : []
     });
 
-    //add a observable for notificaton
+    //add a observable for userChat
     await this._socket.removeListener({ type: this._constants.userChatType });
     this._socket.addListener({
       type: this._constants.userChatType,
       callback: this.userChatObserver,
     });
 
-    //when any activity of notification is happened, then this observable is called.
+    //when any activity of userChat is happened, then this observable is called.
     this.userChatObserver$.subscribe((res: any) => {
       this.handleUserChat(res);
     });
