@@ -135,7 +135,19 @@ a{
   position:relative;
 }
 
-/* .message:before{
+.messageRight:before{
+  content: "";
+  position: absolute;
+  display: block;
+  right: 0;
+  border-left: 6px solid #fff;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  top: 10px;
+  margin-right: -6px;
+}
+
+.messageLeft:before{
   content:"";
   position:absolute;
   display:block;
@@ -145,7 +157,7 @@ a{
   border-bottom:6px solid transparent;
   top:10px;
   margin-left:-6px;
-} */
+}
 
 .message span{
   color:#555;
