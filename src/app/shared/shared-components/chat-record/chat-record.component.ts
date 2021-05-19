@@ -38,7 +38,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
   async ngOnInit() {
     jQuery(".modal").modal();
-    
+
     //add a observable for userChat
     await this._socket.removeListener({ type: this._constants.userChatMessageType });
     this._socket.addListener({
@@ -53,6 +53,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
     this.getAllChats();
   }
+
 
   ngOnChanges() {
     jQuery(".modal").modal();
@@ -83,7 +84,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
         break;
       case this._constants.addNewChat:
         if (res.data) {
-          if(res.data.message.senderId === this.receiverId || res.sameUser){
+          if (res.data.message.senderId === this.receiverId || res.sameUser) {
             if (this.userMessages === undefined) {
               res.data.message = [res.data.message];
               this.userMessages = res.data;
@@ -115,8 +116,8 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   sendChatMessage(text) {
     this.messageIs = this.inputDiv.nativeElement.value;
 
-    if(this.messageIs == '' || this.messageIs == undefined){
-      return ;
+    if (this.messageIs == '' || this.messageIs == undefined) {
+      return;
     }
 
     let payload = {
@@ -146,7 +147,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   }
 
   showImageModal(showValue) {
-    if(showValue){
+    if (showValue) {
       jQuery("#showImage").modal("open");
     }
   }
