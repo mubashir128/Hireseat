@@ -22,6 +22,7 @@ import { ResumeListComponent } from "../../recruiter/resume-list/resume-list.com
 import { ResumeItemComponent } from "../../recruiter/resume-item/resume-item.component";
 import { LimitPipe } from "../../../charlimit";
 import { SortPipe } from "../pipes/sort.pipe";
+import { InUserChatSearchPipe } from "../pipes/in-user-chat-search.pipe";
 import { SafePdfPipe } from "../pipes/safe-pdf.pipe";
 import { SearchPipe } from "../../shared/pipes/search.pipe";
 import { inArrayPipe } from "../pipes/inArrayPipe";
@@ -105,6 +106,7 @@ import { ChatRecordComponent } from './chat-record/chat-record.component';
     inArrayPipe,
     LimitPipe,
     SortPipe,
+    InUserChatSearchPipe,
     SafePdfPipe,
     SearchPipe,
     SearchByNamePipe,
@@ -171,6 +173,7 @@ import { ChatRecordComponent } from './chat-record/chat-record.component';
     inArrayPipe,
     LimitPipe,
     SortPipe,
+    InUserChatSearchPipe,
     SafePdfPipe,
     SearchPipe,
 

@@ -30,7 +30,12 @@ export class UserChatComponent implements OnInit, OnChanges {
   public auctionFrm: FormGroup;
   searchTermByName;
 
-  constructor(private formBuilder: FormBuilder, private _socket: WebsocketService, private _constants : ConstantsService, private router: Router, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder,
+    private _socket: WebsocketService,
+    private _constants : ConstantsService,
+    private router: Router,
+    private userService: UserService
+  ){
     this.loggedInUser = this.userService.getUserData();
     if(this.loggedInUser.userRole == "employer"){
       this.currentUserRole = "EMPLOYERS";
