@@ -23,7 +23,7 @@
 
       <div class="chat-profile-item" *ngIf = "user.user1._id !== loggedInUser._id">
         <div class="disF">
-          <img [src]="(user.user1.profileimage !=='' || user.user1.profileimage !== undefined) ? user.user1.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user1.profileimage !== '' ? user.user1.profileimage : 0)" class="uploadedImgUser">
+          <img [src]="(user.user1.profileimage !=='') ? user.user1.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user1.profileimage !== '' ? user.user1.profileimage : 0)" class="uploadedImgUser">
           <div class="chat-user-title" (click)="showUserData(user.user1._id)"> {{ user.user1.fullName }} </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
         </div>
@@ -31,7 +31,7 @@
 
       <div class="chat-profile-item" *ngIf = "user.user2._id !== loggedInUser._id">
         <div class="disF">
-          <img [src]="(user.user2.profileimage !=='' || user.user2.profileimage !== undefined) ? user.user2.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user2.profileimage !== '' ? user.user2.profileimage : 0)" class="uploadedImgUser">
+          <img [src]="(user.user2.profileimage !=='') ? user.user2.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user2.profileimage !== '' ? user.user2.profileimage : 0)" class="uploadedImgUser">
           <div class="chat-user-title" (click)="showUserData(user.user2._id)"> {{ user.user2.fullName }} </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
         </div>
@@ -46,7 +46,7 @@
 
       <div class="chat-profile-item" *ngIf = "user._id !== loggedInUser._id">
         <div class="disF">
-          <img [src]="((user.profileimage !== '' || user.profileimage !== undefined)) ? user.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.profileimage !== '' ? user.profileimage : 0)" class="uploadedImgUser">
+          <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.profileimage !== '' ? user.profileimage : 0)" class="uploadedImgUser">
           <div class="chat-user-title" (click)="showUserData(user._id)"> {{ user.fullName }} </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
         </div>
