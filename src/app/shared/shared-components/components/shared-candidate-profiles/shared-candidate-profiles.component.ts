@@ -226,7 +226,7 @@ export class SharedCandidateProfilesComponent
         this.resumes = res.data;
         break;
       case this._constants.addComment:
-        console.log("-- res :", res);
+        // console.log("-- res :", res);
         this.addCommentToCommets(res);
         break;
       case this._constants.likeComment:

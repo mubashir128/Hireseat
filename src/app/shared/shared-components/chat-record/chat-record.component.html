@@ -1,35 +1,36 @@
-<div class="container">
-  <div class="header">
-    <div class="row">
-      <div class="col s21 m2 l2 spaceLeft">
-        <img
-          [src]="'/assets/img/leftSide.png'"
-          (click)="backToChat()"
-          class="uploadedImgUser"
-        />
-      </div>
-      <div class="col s2 m2 l2 spaceLeft">
-        <img
-          [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'"
-          (click)="showImageModal(user.profileimage !== '' ? true : false)"
-          class="uploadedImgUser"
-        />
-      </div>
-      <div
-        class="col s8 m8 l8 spaceLeft"
-        style="padding: 10px; font-size: 12px"
-      >
-        <span>{{ user.fullName }}</span>
-      </div>
+<div class="header">
+  <div class="row">
+    <div class="col s21 m2 l2 spaceLeft">
+      <img
+        [src]="'/assets/img/leftSide.png'"
+        (click)="backToChat()"
+        class="uploadedImgUser"
+      />
+    </div>
+    <div class="col s2 m2 l2 spaceLeft">
+      <img
+        [src]="
+          user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'
+        "
+        (click)="showImageModal(user.profileimage !== '' ? true : false)"
+        class="uploadedImgUser"
+      />
+    </div>
+    <div class="col s8 m8 l8 spaceLeft" style="padding: 10px; font-size: 12px">
+      <span>{{ user.fullName }}</span>
     </div>
   </div>
+</div>
+<div class="container">
   <div #chatDiv class="chat-box">
     <ng-container *ngFor="let msg of userMessages.message">
       <!-- user1 as a sender -->
       <div
         class="message-box"
         *ngIf="msg.senderId === userMessages.user1._id"
-        [ngClass]="msg.senderId === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'"
+        [ngClass]="
+          msg.senderId === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'
+        "
       >
         <!-- <div class="message-box" *ngIf = "msg.senderId === userMessages.user1._id" [ngClass] = "(msg.senderId === loggedInUser._id) ? 'left-img' : 'right-img'"> -->
         <!-- <div class="picture">
@@ -37,10 +38,16 @@
           <span class="time">10 mins</span>
         </div> -->
         <div class="message">
-          <div [ngClass]="msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'">
+          <div
+            [ngClass]="
+              msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'
+            "
+          >
             <span>{{ userMessages.user1.fullName }}</span>
             <p>{{ msg.message }}</p>
-            <span class="dataTime">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span>
+            <span class="dataTime">{{
+              msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"
+            }}</span>
           </div>
         </div>
       </div>
@@ -59,17 +66,40 @@
           <span class="time">10 mins</span>
         </div> -->
         <div class="message">
-          <div [ngClass]="msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'">
+          <div
+            [ngClass]="
+              msg.senderId === loggedInUser._id ? 'messageRight' : 'messageLeft'
+            "
+          >
             <span>{{ userMessages.user2.fullName }}</span>
             <p>{{ msg.message }}</p>
-            <span class="dataTime">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span>
+            <span class="dataTime">{{
+              msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"
+            }}</span>
           </div>
         </div>
       </div>
     </ng-container>
   </div>
 
-  <div class="right-chat">
+  <!-- <div class="right-chat">
+    <div class="input-div">
+      <input
+        type="text"
+        [(ngModel)]="messageIs"
+        [value]="messageIs"
+        placeholder="Enter your message.."
+        (keyup.enter)="sendChatMessage($event.target.value)"
+        #inputDiv
+      />
+    </div>
+    <div class="send-div">
+      <a (click)="sendChatMessage(messageIs)" class="send">Send</a>
+    </div>
+  </div> -->
+</div>
+<div class="right-chat">
+  <div class="input-div">
     <input
       type="text"
       [(ngModel)]="messageIs"
@@ -78,10 +108,14 @@
       (keyup.enter)="sendChatMessage($event.target.value)"
       #inputDiv
     />
+  </div>
+  <div class="send-div">
     <a (click)="sendChatMessage(messageIs)" class="send">Send</a>
   </div>
 </div>
-
 <div id="showImage" class="modal">
-  <img [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'" class="showImgUser"/>
+  <img
+    [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'"
+    class="showImgUser"
+  />
 </div>
