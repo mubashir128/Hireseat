@@ -403,30 +403,27 @@ export class SharedCandidateProfilesComponent
       const payload = {
         resumeId: resume._id,
         review: cmt,
-        role: "recruiter",
+        role: this.loggedUser.userRole,
       };
 
       this.postCommentSubscription = this.resumeService
         .postMyComment(payload)
         .subscribe(
           (res) => {
-            console.log("-- res :",res);
             if (res) {
               this.addCommentToCommets(res.detailedCommentObj);
-              Materialize.toast(
-                "You gained 100 recruiter karma points",
-                4000,
-                "red"
-              );
-
-              let candidateObj = {
-                pointer: "advicePoints",
-                subType: "divide",
-                increseCount: res.points.advicePoints,
-              };
-              this.userService.candidateProfileObservable.next(candidateObj);
-
-              this._subList.recruiterPoints.next(candidateObj);
+              
+              if(this.loggedUser.userRole == "recruiter"){
+                Materialize.toast("You gained 100 recruiter karma points", 4000, "red");
+                let candidateObj = {
+                  pointer: "advicePoints",
+                  subType: "divide",
+                  increseCount: res.points.advicePoints,
+                };
+                this.userService.candidateProfileObservable.next(candidateObj);
+                
+                this._subList.recruiterPoints.next(candidateObj);
+              }
 
               this.myComment[i] = "";
             }
