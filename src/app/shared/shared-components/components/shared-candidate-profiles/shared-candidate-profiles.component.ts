@@ -34,6 +34,7 @@ import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { ConstantsService } from "src/app/_services/constants.service"
 import { Plugins } from '@capacitor/core';
+import { BiddingEventService } from "src/app/_services/bidding-event.service";
 const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
@@ -143,7 +144,8 @@ export class SharedCandidateProfilesComponent
     private _socket: WebsocketService,
     private candidateService: CandidateService,
     private _subList: SubscriberslistService,
-    private _constants: ConstantsService
+    private _constants: ConstantsService,
+    private _bidEventService: BiddingEventService
   ) {
     this.resumes = [];
     this.Search = this.formBuilder.group({
@@ -205,12 +207,17 @@ export class SharedCandidateProfilesComponent
     jQuery(".modal").modal();
     jQuery("select").material_select();
 
+    this.auctionFrm = this.formBuilder.group({
+      searchTermByNameIs : []
+    });
+
     await this._socket.removeListener({ type: this._constants.sharedProfileType });
     this._socket.addListener({
       type: this._constants.sharedProfileType,
       callback: this.sharedProfileObserver,
     });
 
+    this.getTopRecruiterList();
     this.getIndustries();
     this.getProfiles();
 
@@ -218,6 +225,15 @@ export class SharedCandidateProfilesComponent
       this.handleProfileData(res);
     });
 
+  }
+
+  getTopRecruiterList(){
+    this._bidEventService.getTopRecruiterList({userRole : this.loggedUser.userRole}).subscribe(res=>{
+      this.topRecruiters = res;
+      this.allTopRecruiters = this.topRecruiters;
+    },err=>{
+      console.log(err);
+    });
   }
 
   handleProfileData(res: any) {
@@ -596,6 +612,41 @@ export class SharedCandidateProfilesComponent
         }
       );
     }
+
+    // server-side search
+    fromEvent(this.searchInputTerm.nativeElement,'keyup')
+    .pipe(
+      map(event=>event),
+      filter(Boolean),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap((text) => {
+        this.getRecruiterList({
+          searchTerm : this.searchTermByNameIs,
+          userRole : this.loggedUser.userRole
+        });
+
+      })
+    ).subscribe();
+
+  }
+
+  getRecruiterList(obj){
+    if(obj.searchTerm === '' || obj.searchTerm === undefined){
+      this.topRecruiters = this.allTopRecruiters;
+      return ;
+    }
+
+    this._bidEventService.getRecruiterList(obj).subscribe(res=>{
+      jQuery(".searchData").scrollTop(0);
+      if(res.length !== 0 ){
+        this.topRecruiters = res;
+      }else{
+        this.topRecruiters = this.allTopRecruiters;
+      }
+    },err=>{
+      console.log(err);
+    });
   }
 
   getAllSharedResumes(payload) {
@@ -1149,6 +1200,24 @@ export class SharedCandidateProfilesComponent
     this.skillsShow = this.skillsShow ? false : true;
     this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
   }
+
+  showShareTouserModal() {
+    this.closeShareModal();
+    jQuery("#shareToUsers").modal("open");
+  }
+
+  handleTopSelected($event,type){
+    if($event.target.checked){
+      this.finalRecruitersAre.push($event.target.name);
+    }else{
+      this.finalRecruitersAre.map((item, index)=>{
+        if(item === $event.target.name){
+          this.finalRecruitersAre.splice(index, 1);
+        }
+      });
+    }
+  }
+
   shareToUsers() {
     jQuery("#shareToUsers").modal("close");
 
