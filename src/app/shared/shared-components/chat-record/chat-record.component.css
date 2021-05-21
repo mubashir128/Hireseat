@@ -245,3 +245,25 @@ a {
   /* border-radius: 50% !important; */
   margin-bottom: -5px;
 }
+
+@media(min-width:640px) {
+  .right-chat { bottom: 32px !important; position: fixed; z-index: 9999999999;}
+}
+@media(min-width:600px) {
+  .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+}
+@media(min-width:550px) {
+  .right-chat { bottom: 32px; position: fixed; z-index: 9999999999;}
+}
+@media(min-width:420px) {
+  .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+}
+@media(min-width:360px) {
+  .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+}
+@media(min-width:320px) {
+  .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+  .message { 
+    width: 243px;
+}
+}
