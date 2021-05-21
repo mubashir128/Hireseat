@@ -8,7 +8,7 @@ import { EventEmitter } from '@angular/core';
 })
 export class FilterDataComponent implements OnInit {
 
-  searchTab =false;
+  searchTab = false;
   @Output() handleToggleSign = new EventEmitter();
 
   constructor() { }
@@ -17,7 +17,7 @@ export class FilterDataComponent implements OnInit {
   }
 
   toggleSearch(){
-    this.searchTab=!this.searchTab;
+    this.searchTab = !this.searchTab;
     this.handleToggleSign.emit({searchTab : this.searchTab});
   }
 

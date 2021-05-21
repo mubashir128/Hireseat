@@ -726,7 +726,6 @@ export class SharedCandidateProfilesComponent
       // getting url
       this.getArchivedVideoSubscription = this.videoCallingService.getArchivedVideo(archiveIdPayload).subscribe((res) => {
         if (res) {
-          console.log('response ', res, '--------');
 
           this.shareableVideoURL = res.url;
 
