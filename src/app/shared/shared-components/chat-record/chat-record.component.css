@@ -246,24 +246,47 @@ a {
   margin-bottom: -5px;
 }
 
-@media(min-width:640px) {
-  .right-chat { bottom: 32px !important; position: fixed; z-index: 9999999999;}
+@media(max-width:640px) {
+  .right-chat { bottom: 69px !important; position: fixed; z-index: 9999999999;}
+  .chat-box {max-height: 100px;}
+  .chat-height {max-height: 100px;}
 }
-@media(min-width:600px) {
+@media(max-width:600px) {
   .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+  .chat-height{max-height: 502px;}
+  .chat-box {max-height: 520px;}
 }
-@media(min-width:550px) {
+@media(max-width:550px) {
   .right-chat { bottom: 32px; position: fixed; z-index: 9999999999;}
+  .chat-box {max-height: 503px;}
 }
-@media(min-width:420px) {
+@media(max-width:420px) {
   .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+ 
 }
-@media(min-width:360px) {
+@media(max-width:414px) {
   .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+  .chat-height{max-height:438px;}
+  .chat-box {max-height: 438px;}
 }
-@media(min-width:320px) {
+@media(max-width:411px) {
   .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
-  .message { 
-    width: 243px;
+  .chat-height{max-height:525px;}
+  .chat-box {max-height: 525px;}
 }
+@media(max-width:375px) {
+  .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+  .chat-height{max-height:369px;}
+  .chat-box {max-height: 369px;}
+}
+@media(max-width:360px) {
+  .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+  .chat-height{max-height:342px;}
+  .chat-box {max-height: 342px;}
+}
+@media(max-width:320px) {
+  .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
+  .message { width: 243px ;}
+  .chat-height{max-height:270px;}
+  .chat-box {max-height: 270px;}
 }
