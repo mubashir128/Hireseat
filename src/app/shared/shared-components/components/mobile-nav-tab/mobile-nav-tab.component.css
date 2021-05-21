@@ -69,7 +69,7 @@
   .meni-1 ul li a {
     font-size: 12px;
   }
-  .meni-1 ul li {padding: 14px 22px 20px 30px;}
+  .meni-1 ul li {padding: 14px 18px 20px 30px;}
 }
 @media (max-width: 428px) {
 
@@ -81,7 +81,7 @@
   }
 }
 @media (max-width: 390px) {
-  .meni-1 ul li {padding: 14px 22px 20px 21px;}
+  .meni-1 ul li {padding: 14px 20px 20px 21px;}
 }
 @media (max-width: 375px) {
   .meni-1 ul li {padding: 14px 22px 20px 19px;}
