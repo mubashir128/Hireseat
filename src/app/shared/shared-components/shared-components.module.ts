@@ -22,6 +22,7 @@ import { ResumeListComponent } from "../../recruiter/resume-list/resume-list.com
 import { ResumeItemComponent } from "../../recruiter/resume-item/resume-item.component";
 import { LimitPipe } from "../../../charlimit";
 import { SortPipe } from "../pipes/sort.pipe";
+import { InUserChatSearchPipe } from "../pipes/in-user-chat-search.pipe";
 import { SafePdfPipe } from "../pipes/safe-pdf.pipe";
 import { SearchPipe } from "../../shared/pipes/search.pipe";
 import { inArrayPipe } from "../pipes/inArrayPipe";
@@ -63,10 +64,14 @@ import { MenusComponent } from './components/menus/menus.component';
 import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-tab.component';
 import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-profile/multi-shared-candidate-profile.component';
 import { ListLoaderComponent } from './list-loader/list-loader.component';
+import { UserChatComponent } from './user-chat/user-chat.component';
+import { ChatRecordComponent } from './chat-record/chat-record.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     NgxTwitterTimelineModule,
     FormsModule,
@@ -85,7 +90,7 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MomentModule
-    
+
   ],
   declarations: [
     FooterComponent,
@@ -101,6 +106,7 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
     inArrayPipe,
     LimitPipe,
     SortPipe,
+    InUserChatSearchPipe,
     SafePdfPipe,
     SearchPipe,
     SearchByNamePipe,
@@ -149,7 +155,9 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
     MenusComponent,
     MobileNavTabComponent,
     MultiSharedCandidateProfileComponent,
-    ListLoaderComponent
+    ListLoaderComponent,
+    UserChatComponent,
+    ChatRecordComponent
   ],
   exports: [
     FooterComponent,
@@ -165,6 +173,7 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
     inArrayPipe,
     LimitPipe,
     SortPipe,
+    InUserChatSearchPipe,
     SafePdfPipe,
     SearchPipe,
 
@@ -214,6 +223,6 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
     MobileNavTabComponent,
     ListLoaderComponent
   ],
- 
+
 })
-export class SharedComponentsModule {}
+export class SharedComponentsModule { }

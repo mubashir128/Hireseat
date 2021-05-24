@@ -33,10 +33,9 @@ import {
 import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { ConstantsService } from "src/app/_services/constants.service"
-import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { Plugins } from '@capacitor/core';
+import { BiddingEventService } from "src/app/_services/bidding-event.service";
 const { Share } = Plugins;
-
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
@@ -125,6 +124,7 @@ export class SharedCandidateProfilesComponent
   skillsShow = false;
 
   createdUrl = "";
+  generateLink = true;
 
   topRecruiters = [];
   allTopRecruiters = [];
@@ -239,11 +239,10 @@ export class SharedCandidateProfilesComponent
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
-        this._subList.loaderList.next({ type: "0" });
         this.resumes = res.data;
         break;
       case this._constants.addComment:
-        console.log("-- res :", res);
+        // console.log("-- res :", res);
         this.addCommentToCommets(res);
         break;
       case this._constants.likeComment:
@@ -270,16 +269,18 @@ export class SharedCandidateProfilesComponent
   }
 
   async addCreatedLink(res) {
+    console.log('link generated', res);
+
+    this.generateLink = false;
     this.createdUrl = res.result.link;
 
     let shareRet = await Share.share({
-      title: 'See cool stuff',
-      text: 'Really awesome thing you need to see right meow',
+      // title: 'See cool stuff',
+      // text: 'Really awesome thing you need to see right meow',
       url: this.createdUrl,
-      dialogTitle: 'Share with buddies'
+      dialogTitle: 'Share with'
     });
-
-    // this.copyLink();
+    Materialize.toast("Link generated", 1000);
   }
 
   handleResponse(res) {
@@ -349,7 +350,6 @@ export class SharedCandidateProfilesComponent
   }
 
   getProfiles() {
-    this._subList.loaderList.next({ type: "1" });
     this._socket.sendMessage({
       type: this._constants.sharedProfileType,
       data: {
@@ -413,30 +413,27 @@ export class SharedCandidateProfilesComponent
       const payload = {
         resumeId: resume._id,
         review: cmt,
-        role: "recruiter",
+        role: this.loggedUser.userRole,
       };
 
       this.postCommentSubscription = this.resumeService
         .postMyComment(payload)
         .subscribe(
           (res) => {
-            console.log("-- res :", res);
             if (res) {
               this.addCommentToCommets(res.detailedCommentObj);
-              Materialize.toast(
-                "You gained 100 recruiter karma points",
-                4000,
-                "red"
-              );
 
-              let candidateObj = {
-                pointer: "advicePoints",
-                subType: "divide",
-                increseCount: res.points.advicePoints,
-              };
-              this.userService.candidateProfileObservable.next(candidateObj);
+              if (this.loggedUser.userRole == "recruiter") {
+                Materialize.toast("You gained 100 recruiter karma points", 4000, "red");
+                let candidateObj = {
+                  pointer: "advicePoints",
+                  subType: "divide",
+                  increseCount: res.points.advicePoints,
+                };
+                this.userService.candidateProfileObservable.next(candidateObj);
 
-              this._subList.recruiterPoints.next(candidateObj);
+                this._subList.recruiterPoints.next(candidateObj);
+              }
 
               this.myComment[i] = "";
             }
@@ -686,6 +683,7 @@ export class SharedCandidateProfilesComponent
 
   // share process
   showShareModal(resume) {
+    this.generateLink = true;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -694,15 +692,9 @@ export class SharedCandidateProfilesComponent
     jQuery("#shareEmailModal").modal("close");
   }
 
-  showShareTouserModal(resume) {
-    this.closeShareModal();
-    jQuery("#shareToUsers").modal("open");
-  }
-
   closeShareToUserModal() {
     jQuery("#shareToUsers").modal("close");
   }
-
   copyLink() {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -715,16 +707,17 @@ export class SharedCandidateProfilesComponent
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-
     Materialize.toast("Link copied to clipboard", 1000);
 
     this.closeShareModal();
+
   }
 
   async generateLinkForVideo() {
     let payload = {};
 
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
 
     if (this.shareResume.interviewLinkedByRecruiter || this.shareResume.recordedId) {
       const archiveIdPayload = {
@@ -752,12 +745,20 @@ export class SharedCandidateProfilesComponent
                 subType: this._constants.generateLink
               },
             });
-
+            // navigator
+            //   .share({
+            //     title: document.title,
+            //     text: 'Hello World',
+            //     url: window.location.href
+            //   })
+            //   .then(() => console.log('Successful share! 🎉'))
+            //   .catch(err => console.error(err));
           }
 
         }
       });
     } else {
+      console.log('no archive link available ');
       payload = {
         recruiterId: this.loggedUser._id,
         resumeId: this.shareResume._id,
@@ -773,6 +774,14 @@ export class SharedCandidateProfilesComponent
           subType: this._constants.generateLink
         },
       });
+      // navigator
+      //   .share({
+      //     title: document.title,
+      //     text: 'Hello World',
+      //     url: window.location.href
+      //   })
+      //   .then(() => console.log('Successful share! 🎉'))
+      //   .catch(err => console.error(err));
     }
   }
 
@@ -1051,6 +1060,7 @@ export class SharedCandidateProfilesComponent
    * @param link opens a provided url in new window
    */
   onLinkedIn(link: string) {
+    console.log("----------------", link);
 
     if (link.includes("https")) {
       console.log("includes https");
@@ -1190,8 +1200,13 @@ export class SharedCandidateProfilesComponent
     this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
   }
 
-  handleTopSelected($event, type) {
-    if ($event.target.checked) {
+  showShareTouserModal() {
+    this.closeShareModal();
+    jQuery("#shareToUsers").modal("open");
+  }
+
+  handleTopSelected($event,type){
+    if($event.target.checked){
       this.finalRecruitersAre.push($event.target.name);
     } else {
       this.finalRecruitersAre.map((item, index) => {
