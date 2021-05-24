@@ -266,8 +266,8 @@ a {
 }
 @media(max-width:414px) {
   .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
-  .chat-height{max-height:438px;}
-  .chat-box {max-height: 438px;}
+  .chat-height{max-height:510px;}
+  .chat-box {max-height: 510px;}
 }
 @media(max-width:411px) {
   .right-chat { bottom: 69px; position: fixed; z-index: 9999999999;}
