@@ -622,17 +622,17 @@
     </div>
 
     <div class="searchData">
-      <div class="recruitrList" *ngFor="let item of topRecruiters">
-        <ng-container *ngIf = "loggedUser._id !== item._id">
-          <img [src]="item.profileimage !== '' ? item.profileimage : '../../../assets/img/user.png'" class="uploadedImgUser" />
-          <h4 style="margin-left: -40px;">{{ item.fullName }}</h4>
-          <div class="actionDiv">
-            <label class="CheckBoxcontainer">
-              <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event,'search')" [checked]="item.isChecked">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-        </ng-container>
+      <div *ngFor="let item of topRecruiters">
+        <div class="recruitrList" *ngIf = "loggedUser._id !== item._id">
+            <img [src]="item.profileimage !== '' ? item.profileimage : '../../../assets/img/user.png'" class="uploadedImgUser" />
+            <h4 style="margin-left: -40px;">{{ item.fullName }}</h4>
+            <div class="actionDiv">
+              <label class="CheckBoxcontainer">
+                <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event,'search')" [checked]="item.isChecked">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+        </div>
       </div>
     </div>
 
@@ -868,3 +868,5 @@
   </div>
   <!--  -->
 </div>
+
+<app-no-data-available *ngIf = "resumes.length == 0"></app-no-data-available>

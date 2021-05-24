@@ -35,8 +35,9 @@ import {
 import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { ConstantsService } from "src/app/_services/constants.service"
+import { Plugins } from '@capacitor/core';
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
-
+const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
@@ -125,13 +126,14 @@ export class SharedCandidateProfilesComponent
   skillsShow = false;
 
   createdUrl = "";
+  generateLink = true;
 
   topRecruiters = [];
   allTopRecruiters = [];
   searchTermByNameIs;
   public auctionFrm: FormGroup;
   finalRecruitersAre = [];
-  @ViewChild('searchInputTerm') searchInputTerm : ElementRef;
+  @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
 
   constructor(
     private resumeService: ResumeService,
@@ -208,7 +210,7 @@ export class SharedCandidateProfilesComponent
     jQuery("select").material_select();
 
     this.auctionFrm = this.formBuilder.group({
-      searchTermByNameIs : []
+      searchTermByNameIs: []
     });
 
     await this._socket.removeListener({ type: this._constants.sharedProfileType });
@@ -227,11 +229,11 @@ export class SharedCandidateProfilesComponent
 
   }
 
-  getTopRecruiterList(){
-    this._bidEventService.getTopRecruiterList({userRole : this.loggedUser.userRole}).subscribe(res=>{
+  getTopRecruiterList() {
+    this._bidEventService.getTopRecruiterList({ userRole: this.loggedUser.userRole }).subscribe(res => {
       this.topRecruiters = res;
       this.allTopRecruiters = this.topRecruiters;
-    },err=>{
+    }, err => {
       console.log(err);
     });
   }
@@ -239,11 +241,10 @@ export class SharedCandidateProfilesComponent
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
-        this._subList.loaderList.next({type : "0"});
         this.resumes = res.data;
+        this._subList.loaderList.next({type : "0"});
         break;
       case this._constants.addComment:
-        console.log("-- res :",res);
         this.addCommentToCommets(res);
         break;
       case this._constants.likeComment:
@@ -270,23 +271,18 @@ export class SharedCandidateProfilesComponent
   }
 
   async addCreatedLink(res) {
+    console.log('link generated', res);
+
+    this.generateLink = false;
     this.createdUrl = res.result.link;
-    // navigator
-    // .share({
-    //   title: document.title,
-    //   text: 'Hello World',
-    //   url: this.createdUrl
-    // })
-    // .then(() => console.log('Successful share! 🎉'))
-    // .catch(err => console.error(err));
+
     let shareRet = await Share.share({
-      title: 'See cool stuff',
-      text: 'Really awesome thing you need to see right meow',
-      url:this.createdUrl,
-      dialogTitle: 'Share with buddies'
+      // title: 'See cool stuff',
+      // text: 'Really awesome thing you need to see right meow',
+      url: this.createdUrl,
+      dialogTitle: 'Share with'
     });
-    
-    this.copyLink();
+    Materialize.toast("Link generated", 1000);
   }
 
   handleResponse(res) {
@@ -322,9 +318,9 @@ export class SharedCandidateProfilesComponent
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        console.log("--- element.canReview.length : ",element.canReview.length);
+        console.log("--- element.canReview.length : ", element.canReview.length);
         element.canReview.length !== 0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
-        console.log("+++ element.canReview.length : ",element.canReview.length);
+        console.log("+++ element.canReview.length : ", element.canReview.length);
       }
     });
   }
@@ -346,9 +342,9 @@ export class SharedCandidateProfilesComponent
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            console.log("--- comment.reply.length : ",comment.reply.length);
+            console.log("--- comment.reply.length : ", comment.reply.length);
             comment.reply.length !== 0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
-            console.log("--- comment.reply.length : ",comment.reply.length);
+            console.log("--- comment.reply.length : ", comment.reply.length);
           }
         });
       }
@@ -356,7 +352,6 @@ export class SharedCandidateProfilesComponent
   }
 
   getProfiles() {
-    this._subList.loaderList.next({type : "1"});
     this._socket.sendMessage({
       type: this._constants.sharedProfileType,
       data: {
@@ -420,30 +415,27 @@ export class SharedCandidateProfilesComponent
       const payload = {
         resumeId: resume._id,
         review: cmt,
-        role: "recruiter",
+        role: this.loggedUser.userRole,
       };
 
       this.postCommentSubscription = this.resumeService
         .postMyComment(payload)
         .subscribe(
           (res) => {
-            console.log("-- res :",res);
             if (res) {
               this.addCommentToCommets(res.detailedCommentObj);
-              Materialize.toast(
-                "You gained 100 recruiter karma points",
-                4000,
-                "red"
-              );
 
-              let candidateObj = {
-                pointer: "advicePoints",
-                subType: "divide",
-                increseCount: res.points.advicePoints,
-              };
-              this.userService.candidateProfileObservable.next(candidateObj);
+              if (this.loggedUser.userRole == "recruiter") {
+                Materialize.toast("You gained 100 recruiter karma points", 4000, "red");
+                let candidateObj = {
+                  pointer: "advicePoints",
+                  subType: "divide",
+                  increseCount: res.points.advicePoints,
+                };
+                this.userService.candidateProfileObservable.next(candidateObj);
 
-              this._subList.recruiterPoints.next(candidateObj);
+                this._subList.recruiterPoints.next(candidateObj);
+              }
 
               this.myComment[i] = "";
             }
@@ -624,37 +616,37 @@ export class SharedCandidateProfilesComponent
     }
 
     // server-side search
-    fromEvent(this.searchInputTerm.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        this.getRecruiterList({
-          searchTerm : this.searchTermByNameIs,
-          userRole : this.loggedUser.userRole
-        });
+    fromEvent(this.searchInputTerm.nativeElement, 'keyup')
+      .pipe(
+        map(event => event),
+        filter(Boolean),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.getRecruiterList({
+            searchTerm: this.searchTermByNameIs,
+            userRole: this.loggedUser.userRole
+          });
 
-      })
-    ).subscribe();
+        })
+      ).subscribe();
 
   }
 
-  getRecruiterList(obj){
-    if(obj.searchTerm === '' || obj.searchTerm === undefined){
+  getRecruiterList(obj) {
+    if (obj.searchTerm === '' || obj.searchTerm === undefined) {
       this.topRecruiters = this.allTopRecruiters;
-      return ;
+      return;
     }
 
-    this._bidEventService.getRecruiterList(obj).subscribe(res=>{
+    this._bidEventService.getRecruiterList(obj).subscribe(res => {
       jQuery(".searchData").scrollTop(0);
-      if(res.length !== 0 ){
+      if (res.length !== 0) {
         this.topRecruiters = res;
-      }else{
+      } else {
         this.topRecruiters = this.allTopRecruiters;
       }
-    },err=>{
+    }, err => {
       console.log(err);
     });
   }
@@ -693,6 +685,7 @@ export class SharedCandidateProfilesComponent
 
   // share process
   showShareModal(resume) {
+    this.generateLink = true;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -701,41 +694,32 @@ export class SharedCandidateProfilesComponent
     jQuery("#shareEmailModal").modal("close");
   }
 
-  showShareTouserModal(resume) {
-    this.closeShareModal();
-    jQuery("#shareToUsers").modal("open");
-  }
-
   closeShareToUserModal() {
     jQuery("#shareToUsers").modal("close");
   }
-
   copyLink() {
-    var textArea;
-    textArea = document.createElement('textArea');
-    textArea.readOnly = true;
-    textArea.contentEditable = true;
-    textArea.value = this.createdUrl;
-    document.body.appendChild(textArea);
-
-    var range, selection;
-    range = document.createRange();
-    range.selectNodeContents(textArea);
-    selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-    textArea.setSelectionRange(0, 999999);
-
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.createdUrl;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
     document.execCommand('copy');
-    document.body.removeChild(textArea);
+    document.body.removeChild(selBox);
+    Materialize.toast("Link copied to clipboard", 1000);
 
     this.closeShareModal();
+
   }
 
   async generateLinkForVideo() {
     let payload = {};
 
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
 
     if (this.shareResume.interviewLinkedByRecruiter || this.shareResume.recordedId) {
       const archiveIdPayload = {
@@ -763,12 +747,20 @@ export class SharedCandidateProfilesComponent
                 subType: this._constants.generateLink
               },
             });
-
+            // navigator
+            //   .share({
+            //     title: document.title,
+            //     text: 'Hello World',
+            //     url: window.location.href
+            //   })
+            //   .then(() => console.log('Successful share! 🎉'))
+            //   .catch(err => console.error(err));
           }
 
         }
       });
     } else {
+      console.log('no archive link available ');
       payload = {
         recruiterId: this.loggedUser._id,
         resumeId: this.shareResume._id,
@@ -784,6 +776,14 @@ export class SharedCandidateProfilesComponent
           subType: this._constants.generateLink
         },
       });
+      // navigator
+      //   .share({
+      //     title: document.title,
+      //     text: 'Hello World',
+      //     url: window.location.href
+      //   })
+      //   .then(() => console.log('Successful share! 🎉'))
+      //   .catch(err => console.error(err));
     }
   }
 
@@ -1062,6 +1062,7 @@ export class SharedCandidateProfilesComponent
    * @param link opens a provided url in new window
    */
   onLinkedIn(link: string) {
+    console.log("----------------", link);
 
     if (link.includes("https")) {
       console.log("includes https");
@@ -1201,29 +1202,34 @@ export class SharedCandidateProfilesComponent
     this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
   }
 
+  showShareTouserModal() {
+    this.closeShareModal();
+    jQuery("#shareToUsers").modal("open");
+  }
+
   handleTopSelected($event,type){
     if($event.target.checked){
       this.finalRecruitersAre.push($event.target.name);
-    }else{
-      this.finalRecruitersAre.map((item, index)=>{
-        if(item === $event.target.name){
+    } else {
+      this.finalRecruitersAre.map((item, index) => {
+        if (item === $event.target.name) {
           this.finalRecruitersAre.splice(index, 1);
         }
       });
     }
   }
 
-  shareToUsers(){
+  shareToUsers() {
     jQuery("#shareToUsers").modal("close");
 
-    if(this.finalRecruitersAre.length === 0){
-      return ;
+    if (this.finalRecruitersAre.length === 0) {
+      return;
     }
 
     let payload = {
-      sharedFrom : this.loggedUser._id,
-      sharedTo : this.finalRecruitersAre,
-      resumeId : this.shareResume._id,
+      sharedFrom: this.loggedUser._id,
+      sharedTo: this.finalRecruitersAre,
+      resumeId: this.shareResume._id,
       candidateProfile: this.shareResume.resumeType ? false : true,
     }
 
