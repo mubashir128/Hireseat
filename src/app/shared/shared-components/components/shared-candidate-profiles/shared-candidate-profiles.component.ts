@@ -22,6 +22,8 @@ import { VideoCallingService } from "src/app/_services/video-calling.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
 import videojs from "video.js";
 import { CandidateService } from "src/app/_services/candidate.service";
+import { Plugins } from '@capacitor/core';
+const { Share } = Plugins;
 
 import {
   map,
@@ -267,9 +269,23 @@ export class SharedCandidateProfilesComponent
     }
   }
 
-  addCreatedLink(res) {
+  async addCreatedLink(res) {
     this.createdUrl = res.result.link;
-
+    // navigator
+    // .share({
+    //   title: document.title,
+    //   text: 'Hello World',
+    //   url: this.createdUrl
+    // })
+    // .then(() => console.log('Successful share! 🎉'))
+    // .catch(err => console.error(err));
+    let shareRet = await Share.share({
+      title: 'See cool stuff',
+      text: 'Really awesome thing you need to see right meow',
+      url:this.createdUrl,
+      dialogTitle: 'Share with buddies'
+    });
+    
     this.copyLink();
   }
 
