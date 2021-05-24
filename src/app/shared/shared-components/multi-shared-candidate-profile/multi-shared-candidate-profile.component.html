@@ -561,16 +561,15 @@
 <div id="shareToUsers" class="modal">
   <form [formGroup]="auctionFrm">
     <i (click)="closeShareToUserModal()" class="fa fa-times" aria-hidden="true"></i>
-    <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'recruiter'">Select Recruiters</div>
-    <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'employer'">Select Employers</div>
+    <div class="title spaceBottom">Select {{currentUserRole}}</div>
     <div class="searchDiv">
       <input type="text" class="searchRecruiter" formControlName="searchTermByNameIs" [(ngModel)]="searchTermByNameIs" placeholder="Search..." #searchInputTerm>
       <i class="fa fa-search" aria-hidden="true"></i>
     </div>
 
     <div class="searchData">
-      <div class="recruitrList" *ngFor="let item of topRecruiters">
-        <ng-container *ngIf = "loggedUser._id !== item._id">
+      <div *ngFor="let item of topRecruiters">
+        <div class="recruitrList" *ngIf = "loggedUser._id !== item._id">
           <img [src]="item.profileimage !== '' ? item.profileimage : '../../../assets/img/user.png'" class="uploadedImgUser" />
           <h4>{{ item.fullName }}</h4>
           <div class="actionDiv">
@@ -579,7 +578,7 @@
               <span class="checkmark"></span>
             </label>
           </div>
-        </ng-container>
+        </div>
       </div>
     </div>
 
@@ -767,3 +766,5 @@
   </div>
   <!--  -->
 </div>
+
+<app-no-data-available *ngIf = "resumes.length == 0"></app-no-data-available>

@@ -240,9 +240,9 @@ export class SharedCandidateProfilesComponent
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
         this.resumes = res.data;
+        this._subList.loaderList.next({type : "0"});
         break;
       case this._constants.addComment:
-        // console.log("-- res :", res);
         this.addCommentToCommets(res);
         break;
       case this._constants.likeComment:

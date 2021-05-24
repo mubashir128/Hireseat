@@ -66,6 +66,7 @@ import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-p
 import { ListLoaderComponent } from './list-loader/list-loader.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { ChatRecordComponent } from './chat-record/chat-record.component';
+import { NoDataAvailableComponent } from './no-data-available/no-data-available.component';
 
 @NgModule({
   imports: [
@@ -157,7 +158,8 @@ import { ChatRecordComponent } from './chat-record/chat-record.component';
     MultiSharedCandidateProfileComponent,
     ListLoaderComponent,
     UserChatComponent,
-    ChatRecordComponent
+    ChatRecordComponent,
+    NoDataAvailableComponent
   ],
   exports: [
     FooterComponent,
@@ -221,7 +223,8 @@ import { ChatRecordComponent } from './chat-record/chat-record.component';
     SelectDropDownModule,
     MenusComponent,
     MobileNavTabComponent,
-    ListLoaderComponent
+    ListLoaderComponent,
+    NoDataAvailableComponent
   ],
 
 })
