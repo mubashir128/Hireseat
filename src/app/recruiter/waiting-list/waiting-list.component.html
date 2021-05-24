@@ -209,7 +209,8 @@
   <!-- <app-edit-resume [resume]="selectedResume" (back)="comeBack()" (getAllResume)="getAllResume($event)">
     </app-edit-resume> -->
 </div>
-<div *ngIf="noResume">No Results to show</div>
+
+<app-no-data-available *ngIf = "noResume"></app-no-data-available>
 
 <!-- <div id="DeleteConfirm" class="modal">
   <div class="modal-content">

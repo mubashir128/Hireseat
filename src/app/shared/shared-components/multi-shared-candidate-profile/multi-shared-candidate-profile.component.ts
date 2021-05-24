@@ -34,6 +34,7 @@ import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { ConstantsService } from "src/app/_services/constants.service"
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
+import { conditionallyCreateMapObjectLiteral } from "@angular/compiler/src/render3/view/util";
 
 declare var jQuery;
 declare var $: any;
@@ -131,6 +132,8 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   finalRecruitersAre = [];
   @ViewChild('searchInputTerm') searchInputTerm : ElementRef;
 
+  currentUserRole : any;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -164,6 +167,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     this.myComment = [];
     this.replyToComment = [];
     this.loggedUser = this.userService.getUserData();
+    this.currentUserRole = (this.loggedUser.userRole == 'recruiter') ? 'Recruiters' : 'Employers';
 
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
       this.shareResume = res;
@@ -252,8 +256,8 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllMultiSharedProfiles:
-        this._subList.loaderList.next({type : "0"});
         this.resumes = res.data;
+        this._subList.loaderList.next({type : "0"});
         this.addShareFromUser(res);
         break;
       case this._constants.addComment:
