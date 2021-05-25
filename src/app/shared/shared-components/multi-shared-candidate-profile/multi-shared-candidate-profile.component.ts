@@ -432,11 +432,10 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
           (res) => {
             if (res) {
               this.addCommentToCommets(res.detailedCommentObj);
-              Materialize.toast(
-                "You gained 100 recruiter karma points",
-                4000,
-                "red"
-              );
+
+              if (this.loggedUser.userRole == "recruiter") {
+                Materialize.toast("You gained 100 recruiter karma points", 4000, "red");
+              }
 
               let candidateObj = {
                 pointer: "advicePoints",

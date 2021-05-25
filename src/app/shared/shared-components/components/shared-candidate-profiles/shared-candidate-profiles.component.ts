@@ -424,15 +424,16 @@ export class SharedCandidateProfilesComponent
 
               if (this.loggedUser.userRole == "recruiter") {
                 Materialize.toast("You gained 100 recruiter karma points", 4000, "red");
-                let candidateObj = {
-                  pointer: "advicePoints",
-                  subType: "divide",
-                  increseCount: res.points.advicePoints,
-                };
-                this.userService.candidateProfileObservable.next(candidateObj);
-
-                this._subList.recruiterPoints.next(candidateObj);
               }
+              
+              let candidateObj = {
+                pointer: "advicePoints",
+                subType: "divide",
+                increseCount: res.points.advicePoints,
+              };
+              this.userService.candidateProfileObservable.next(candidateObj);
+
+              this._subList.recruiterPoints.next(candidateObj);
 
               this.myComment[i] = "";
             }
