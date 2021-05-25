@@ -60,7 +60,6 @@
         <pagination-controls (pageChange)="handlePagination($event)"></pagination-controls>
     </div>
 
-    <div *ngIf="noBiddingEvents" style="padding-top: 10px;">
-        No Results to show
-    </div>
+    <app-no-data-available *ngIf = "noBiddingEvents"></app-no-data-available>
+    
 </div>
