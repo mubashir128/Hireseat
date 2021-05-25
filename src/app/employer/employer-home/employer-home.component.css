@@ -30,6 +30,27 @@ nav ul a{
     margin: 0;
     font-weight: bold;
 }
+
+.candidateHelpedCount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #48aef3;
+    color: #fff;
+    margin-top: 8px;
+    height: 25px;
+    padding: 0 20px;
+    margin-bottom: 5px;
+    background-color: red;
+}
+
+.candidateHelpedCount h4 {
+    font-size: 15px;
+    margin: 0;
+    font-weight: bold;
+}
+
+
 .LogOutOption a {
     color: #fff;
     font-size: 22px;
