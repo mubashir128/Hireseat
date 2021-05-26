@@ -22,8 +22,6 @@ import { VideoCallingService } from "src/app/_services/video-calling.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
 import videojs from "video.js";
 import { CandidateService } from "src/app/_services/candidate.service";
-import { Plugins } from '@capacitor/core';
-const { Share } = Plugins;
 
 import {
   map,
