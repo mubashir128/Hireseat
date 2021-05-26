@@ -88,6 +88,11 @@
         <h4>{{ chkLoggedInUser.fullName }} : {{ chkLoggedInUser.userRole }}</h4>
         <a (click)="logoutSA()"> Logout </a>
       </div>
+
+      <div class="candidateHelpedCount mobileHeadRe" *ngIf="this.supperAdmin.checkSuperAdminEmail() && !enterpriseLogin">
+        <h4>Candidate Helped : {{ userProfile["advicePoints"] / 100 }}</h4>
+      </div>
+
       <div class="col s12 m3 l3" *ngIf="!isOnProfile">
         <app-employer-navbar
           (selected)="navigate($event)"

@@ -13,7 +13,7 @@
           >menu</i
         ></a
       >
-      <ng-container *ngIf="loggedInUser.userRole === 'recruiter'">
+      <ng-container *ngIf="loggedInUser.userRole === 'recruiter' || loggedInUser.userRole === 'employer'">
         <div class="CandiHelped">
           <div class="bagdeMain">
             <!-- <img src="assets/img/badgeRed1.png" alt="" /> -->

@@ -124,6 +124,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.loggedInUser.userRole == "employer") {
       this.showAdminDashboardButton = false;
       this.showEnterpriseDashboardButton = false;
+      this.getUsersProfile();
     } else if (this.loggedInUser.userRole == "recruiter") {
       this.showAdminDashboardButton = false;
       this.showEnterpriseDashboardButton = false;

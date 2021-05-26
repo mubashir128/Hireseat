@@ -9,6 +9,7 @@ import { EnterpriseService } from "../../_services/enterprise.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
 
 declare var jQuery: any;
+declare var Materialize: any;
 @Component({
   selector: "app-employer-home",
   templateUrl: "./employer-home.component.html",
@@ -24,6 +25,9 @@ export class EmployerHomeComponent implements OnInit {
   questDataLenght: any = [];
   isOnProfile: boolean = false;
   enterpriseLogin: boolean;
+
+  userProfile: any;
+
   constructor(
     private _AuthService: AuthenticationService,
     private router: Router,
@@ -80,6 +84,13 @@ export class EmployerHomeComponent implements OnInit {
     });
 
     this.UserData = this.userService.getUserData();
+
+    //increse a points of user.
+    this.userService.candidateProfileObservable$.subscribe((res: any) => {
+      this.handleCandidateProfile(res);
+    });
+    this.getUsersProfile();
+
     this._forum.getUnAnsweredData().subscribe(
       res => {
         this.questDataLenght = res;
@@ -87,6 +98,31 @@ export class EmployerHomeComponent implements OnInit {
       err => console.log(err)
     );
   }
+
+  //increse points of user.
+  handleCandidateProfile(obj){
+    this.userProfile[obj.pointer] = obj.increseCount;
+  }
+
+  getUsersProfile() {
+    this.userService
+      .getUserProfile(this.userService.getUserData().userRole)
+      .subscribe(
+        (data: any) => {
+          if (data != null && data != undefined && data != "") {
+            this.userProfile = data.res;
+          } else {
+            Materialize.toast("Something went wrong", 1000);
+          }
+          // this.spinner.hide();
+        },
+        (error) => {
+          console.log(error);
+          // this.spinner.hide();
+        }
+      );
+  }
+
   logout() {
     jQuery("body").css({ overflow: "", width: "" });
     jQuery("#sidenav-overlay").css("opacity", "0");

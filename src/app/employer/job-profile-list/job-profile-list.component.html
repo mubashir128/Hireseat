@@ -29,9 +29,9 @@
       </div> 
       
     </div>
-    <div *ngIf="noJp">
-      No Results to Show
-    </div>
+
+    <app-no-data-available *ngIf = "noJp"></app-no-data-available>
+    
     <div class="divider"></div>
   </div>
   <div class="text-center">
