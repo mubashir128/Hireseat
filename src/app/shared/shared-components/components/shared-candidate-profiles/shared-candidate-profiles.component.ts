@@ -423,7 +423,9 @@ export class SharedCandidateProfilesComponent
               this.addCommentToCommets(res.detailedCommentObj);
 
               if (this.loggedUser.userRole == "recruiter") {
-                Materialize.toast("You gained 100 recruiter karma points", 4000, "red");
+                Materialize.toast("You gained 100 recruiter karma points", 2000, "red");
+              }else if (this.loggedUser.userRole == "employer"){
+                Materialize.toast("You just helped someone....and changed someones life...good job!", 2000, "red");
               }
               
               let candidateObj = {
