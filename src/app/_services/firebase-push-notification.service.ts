@@ -34,7 +34,7 @@ export class FirebasePushNotificationService {
 
     PushNotifications.requestPermission()
       .then((result) => {
-        Materialize.toast("result.granted :  " + result.granted, 2000, "blue");
+        // Materialize.toast("result.granted :  " + result.granted, 2000, "blue");
         if (result.granted) {
           // Register with Apple / Google to receive push via APNS/FCM
           PushNotifications.register();
@@ -43,14 +43,14 @@ export class FirebasePushNotificationService {
         }
       })
       .catch((err) => {
-        Materialize.toast("--- error is : " + err, 3000, "blue");
+        // Materialize.toast("--- error is : " + err, 3000, "blue");
       });
 
     // On success, we should be able to receive notifications
     PushNotifications.addListener(
       "registration",
       (token: PushNotificationToken) => {
-        Materialize.toast("token :  " + token, 2000, "blue");
+        // Materialize.toast("token :  " + token, 2000, "blue");
         let loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
         this.token = token.value;
         let payload = {
@@ -94,7 +94,7 @@ export class FirebasePushNotificationService {
       .post(myGlobals.baseUrl + "" + this.pushNotifyUrl, payload)
       .subscribe((res) => {
         FirebasePushNotificationService.push = true;
-        Materialize.toast("added a token to server :  " + res, 2000, "blue");
+        // Materialize.toast("added a token to server :  " + res, 2000, "blue");
       });
   }
 
