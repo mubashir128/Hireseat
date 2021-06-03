@@ -67,7 +67,6 @@ import { ListLoaderComponent } from './list-loader/list-loader.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { ChatRecordComponent } from './chat-record/chat-record.component';
 import { NoDataAvailableComponent } from './no-data-available/no-data-available.component';
-import { FillFormComponent } from './components/fill-form/fill-form.component';
 
 @NgModule({
   imports: [
@@ -160,8 +159,7 @@ import { FillFormComponent } from './components/fill-form/fill-form.component';
     ListLoaderComponent,
     UserChatComponent,
     ChatRecordComponent,
-    NoDataAvailableComponent,
-    FillFormComponent
+    NoDataAvailableComponent
   ],
   exports: [
     FooterComponent,
