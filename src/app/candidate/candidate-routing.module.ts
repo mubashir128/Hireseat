@@ -9,6 +9,7 @@ import { SharedCandidateProfilesComponent } from "../shared/shared-components/co
 import { BiddingEventsListComponent } from "../bidding-events-list/bidding-events-list.component";
 import {MenusComponent} from "../shared/shared-components/components/menus/menus.component";
 import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
+import { FillFormComponent } from "../shared/shared-components/components/fill-form/fill-form.component";
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
       {
         path: "notification",
         component: NotificationsComponent,
+      },
+      {
+        path: "fill-form",
+        component: FillFormComponent,
       },
     ],
   },
