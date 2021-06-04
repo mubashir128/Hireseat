@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import * as myGlobals from "../globalPath";
+import { UserService } from "./user.service";
 declare var Materialize: any;
 import {
   Plugins,
@@ -9,7 +10,6 @@ import {
   PushNotificationToken,
   PushNotificationActionPerformed,
 } from "@capacitor/core";
-import { UserService } from "./user.service";
 import { Router } from "@angular/router";
 const { PushNotifications } = Plugins;
 @Injectable({
