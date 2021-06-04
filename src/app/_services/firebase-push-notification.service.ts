@@ -1,8 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
+import { Router } from "@angular/router";
 import { BehaviorSubject } from 'rxjs';
 import * as myGlobals from "../globalPath";
+import { UserService } from "./user.service";
 declare var Materialize: any;
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,10 @@ export class FirebasePushNotificationService {
   closePushNotifyUrl = "api/closeFirebasePushNotification"
   currentMessage = new BehaviorSubject({});
 
-  constructor(private angularFireMessaging: AngularFireMessaging, private _http: HttpClient) {
+  loggedInUser : any;
+
+  constructor(private angularFireMessaging: AngularFireMessaging, private _http: HttpClient, private _userService: UserService, private _router: Router) {
+    this.loggedInUser = this._userService.getUser();
   }
   
   initiate(){
@@ -28,14 +33,13 @@ export class FirebasePushNotificationService {
       return ;
     }
 
-    let loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
     this.angularFireMessaging.requestToken.subscribe(token=>{
         this.token = token;
         let payload = {
           web : true,
           pushToken : this.token,
-          userToken : loggedInUser.token,
-          userRole : loggedInUser.userInfo.userRole
+          userToken : this.loggedInUser.token,
+          userRole : this.loggedInUser.userInfo.userRole
         }
         this.receiveMessage();
         this.openConnection(payload);
@@ -51,11 +55,10 @@ export class FirebasePushNotificationService {
   }
 
   closeFirebasePushNotification() {
-    let loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
     let payload = {
       pushToken : this.token,
-      userToken : loggedInUser.token,
-      userRole : loggedInUser.userInfo.userRole
+      userToken : this.loggedInUser.token,
+      userRole : this.loggedInUser.userInfo.userRole
     }
     this.closeConnection(payload);
   }
