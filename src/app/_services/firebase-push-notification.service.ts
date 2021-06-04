@@ -138,6 +138,6 @@ export class FirebasePushNotificationService {
   }
 
   closeConnection(payload) {
-    FirebasePushNotificationService.push = false;
+    // FirebasePushNotificationService.push = false;
   }
 }
