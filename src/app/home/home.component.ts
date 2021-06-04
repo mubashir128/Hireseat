@@ -38,6 +38,10 @@ export class HomeComponent implements OnInit {
   limit = 1000;
   article: any = [];
 
+  loggedInUser : any;
+  isLoggedIn = false;
+  btnName = "Login";
+
   constructor(
     private formBuilder: FormBuilder,
     private _sanitizer: DomSanitizer,
@@ -49,6 +53,13 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     window.addEventListener("scroll", this.scroll, true);
+
+    this.loggedInUser = this._Userservice.getUserData();
+    if (this.loggedInUser != "no") {
+      this.isLoggedIn = true;
+      this.btnName = "Enter";
+    }
+
   }
 
   ngOnInit() {

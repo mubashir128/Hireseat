@@ -9,6 +9,8 @@ import {
   PushNotificationToken,
   PushNotificationActionPerformed,
 } from "@capacitor/core";
+import { UserService } from "./user.service";
+import { Router } from "@angular/router";
 const { PushNotifications } = Plugins;
 @Injectable({
   providedIn: "root",
@@ -20,7 +22,11 @@ export class FirebasePushNotificationService {
   closePushNotifyUrl = "api/closeFirebasePushNotification";
   currentMessage = new BehaviorSubject({});
 
-  constructor(private _http: HttpClient) {}
+  loggedInUser : any;
+
+  constructor(private _http: HttpClient, private _userService: UserService, private _router: Router) {
+		this.loggedInUser = this._userService.getUser();
+	}
 
   initiate() {
     //for ios.
@@ -51,13 +57,12 @@ export class FirebasePushNotificationService {
       "registration",
       (token: PushNotificationToken) => {
         // Materialize.toast("token :  " + token, 2000, "blue");
-        let loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
         this.token = token.value;
         let payload = {
           deviceType: "ios",
           pushToken: this.token,
-          userToken: loggedInUser.token,
-          userRole: loggedInUser.userInfo.userRole,
+          userToken: this.loggedInUser.token,
+          userRole: this.loggedInUser.userInfo.userRole,
         };
         this.openConnection(payload);
       }
@@ -75,16 +80,50 @@ export class FirebasePushNotificationService {
     // Method called when tapping on a notification
     PushNotifications.addListener(
       "pushNotificationActionPerformed",
-      (notification: PushNotificationActionPerformed) => {}
+      (notification: PushNotificationActionPerformed) => {
+        this.handleData(notification);
+      }
     );
   }
 
+  handleData(notification){
+    Materialize.toast("--- pushNotificationActionPerformed : " + JSON.stringify(notification), 3000, "blue");
+    let url = notification.notification.data.url;
+    let redirectId = notification.notification.data.redirectId;
+    let redirectId2 = notification.notification.data.redirectId2;
+    switch(url){
+      case "userChat" : 
+        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/user-chat"]);
+        break;
+      case "askQuestion" : 
+        this._router.navigate(["/question-details/", redirectId]);
+        break;
+      case "profileQuestion" : 
+        this._router.navigate(["/bidding-events/details/", redirectId], { queryParams: { queid: redirectId2}});
+        break;
+      case "profileAnswer" : 
+        this._router.navigate(["bidding-events/details/", redirectId], { queryParams: { queid: redirectId2}});
+        break;
+      case "shareCandidateProfile" : 
+        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/share-candidate-profile"]);
+        break;
+      case "multiShareCandidateProfile" : 
+        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/multi-share-candidate-profile"]);
+        break;
+      case "forum" : 
+        this._router.navigate(["/forum"]);
+        break;
+      default : 
+        break;
+    }
+
+  }
+
   closeFirebasePushNotification() {
-    let loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
     let payload = {
       pushToken: this.token,
-      userToken: loggedInUser.token,
-      userRole: loggedInUser.userInfo.userRole,
+      userToken: this.loggedInUser.token,
+      userRole: this.loggedInUser.userInfo.userRole,
     };
     this.closeConnection(payload);
   }
