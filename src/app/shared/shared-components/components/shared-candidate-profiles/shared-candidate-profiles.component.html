@@ -140,76 +140,27 @@
                           resume?.candidateProfileKey?.desiredRoles
                       }}
                     </p>
-                    <div class="skill-height">
-                      <label>Skills :</label>
-                      <button class="down-1" (click)="upDownSkills()" *ngIf = "resume.skills.split(',').length > 2"><i [ngClass]="skillsClass"></i></button>
-                      <div class="industries onLimitedSkills" *ngIf = "!skillsShow">
-                        <div *ngFor="let skills of resume.skills.split(','); index as i">
-                          <span class="industrieName" *ngIf = "(i === 0 || i === 1) && skills !== '' ">
-                            {{ skills }}
-                          </span>
-                        </div>
-                      </div>
-                      <div class="industries" *ngIf = "skillsShow">
-                        <span class="industrieName" *ngFor="let skills of resume.skills.split(',')">
-                          {{ skills }}
-                        </span>
-                      </div>
-                      
-                    </div>
-                    <p>
-                      <label>Industries :</label>
-                      <span
-                        class="industrieName"
-                        *ngFor="let industries of resume.industries; index as i"
-                        > {{ industries?.name }} <span style="color: #8CA2C3;" *ngIf = "i !== resume.industries.length-1">|</span> </span
-                      >
-                    </p>
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="pro-2">
-          <div class="cadidateResumeDiv set-one">
-            <button class="downloadResume">
-              <a
-                [attr.href]="transform(resume?.fileURL)"
-                target="_blank"
-                download
-              >
-                <i class="fa fa-download"></i>
-                Download Resume
+        
+        <div class="pro-share">
+          <div class="">
+            <button class="shareBtn" (click)="showShareModal(resume)">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                  <span class="shareText"> Share </span>
+                </div>
               </a>
             </button>
-            <div class="smallBtns">
-              <button class="LinkedInBtn">
-                <!-- <button class="LikedInBtn" *ngIf="resume?.linkedIn" (click)="linkedIn(resume?.linkedIn)"> -->
-                <a>
-                  <!-- <i class="fa fa-linkedin"></i> -->
-                  <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
-                    <!-- <img
-                      class="linkedin-icon"
-                      src="../../assets/icons/linkedin-sign.png"
-                    /> -->
-                    <span> <i class="fa fa-linkedin fa-fw"></i> LinkedIn </span>
-                  </div>
-                </a>
-              </button>
-              <button class="shareBtn" (click)="showShareModal(resume)">
-                <a>
-                  <!-- <i class="fa fa-linkedin"></i> -->
-                  <div class="icon-name">
-                    <!-- <img class="shared-icon" src="../../assets/icons/share-option.png"> -->
-                    <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                    <span class="shareText"> Share </span>
-                  </div>
-                </a>
-              </button>
-            </div>
           </div>
         </div>
+        
       </div>
 
       <ng-container *ngIf="resume?.comments">
@@ -325,6 +276,58 @@
         <!--  -->
       </ng-container>
       <!-- end a video -->
+
+      <div class="otherProfileDetails">
+        <div class="skill-height">
+          <label>Skills :</label>
+          <button class="down-1" (click)="upDownSkills()" *ngIf = "resume.skills.split(',').length > 2"><i [ngClass]="skillsClass"></i></button>
+          <div class="industries onLimitedSkills" *ngIf = "!skillsShow">
+            <div *ngFor="let skills of resume.skills.split(','); index as i">
+              <span class="industrieName" *ngIf = "(i === 0 || i === 1) && skills !== '' ">
+                {{ skills }}
+              </span>
+            </div>
+          </div>
+          <div class="industries" *ngIf = "skillsShow">
+            <span class="industrieName" *ngFor="let skills of resume.skills.split(',')">
+              {{ skills }}
+            </span>
+          </div>
+          
+        </div>
+        <p>
+          <label>Industries :</label>
+          <span
+            class="industrieName"
+            *ngFor="let industries of resume.industries; index as i"
+            > {{ industries?.name }} <span style="color: #8CA2C3;" *ngIf = "i !== resume.industries.length-1">|</span> </span
+          >
+        </p>
+      </div>
+
+      <div class="pro-2">
+        <div class="cadidateResumeDiv set-one">
+          <button class="downloadResume">
+            <a
+              [attr.href]="transform(resume?.fileURL)"
+              target="_blank"
+              download
+            >
+              <i class="fa fa-download"></i>
+              Download Resume
+            </a>
+          </button>
+          <div class="smallBtns">
+            <button class="LinkedInBtn">
+              <a>
+                <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
+                  <span> <i class="fa fa-linkedin fa-fw"></i> LinkedIn </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
 
       <ng-container>
         <span class="comment">Comments:</span>

@@ -55,12 +55,11 @@
     align-items: center; */
   min-width: 185px;
 }
+
 .smallBtns {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin: 7px 0px 7px 0px;
 }
+
 .candidate-name span {
   color: #33aaff;
   font-size: 20px;
@@ -151,7 +150,7 @@ button.shareBtn {
     margin-bottom: 7px !important;
   }
   .LinkedInBtn {
-    min-width: 193px !important;
+    min-width: 100% !important;
   }
   .singleList.employerResume {
     padding: 20px !important;
@@ -807,8 +806,14 @@ a.videoCloseBtn {
   width: 55%;
   float: left;
 }
-.pro-2 {
+
+.pro-share{
   width: 30%;
+  float: left;
+}
+
+.pro-2 {
+  width: 100%;
   float: left;
 }
 .pro-3 {
@@ -837,7 +842,7 @@ a.videoCloseBtn {
   object-fit: cover;
 }
 .LinkedInBtn {
-  width: 48%;
+  width: 100%;
   border-radius: 7px;
 }
 .shareBtn {
@@ -898,6 +903,9 @@ a.videoCloseBtn {
   .pro-1 {
     width: 70% !important;
   }
+  .pro-share {
+    width: 30% !important;
+  }
   .pro-2 {
     width: 100% !important;
   }
@@ -941,6 +949,9 @@ a.videoCloseBtn {
   .pro-1 {
     width: 100% !important;
   }
+  .pro-share {
+    width: 30% !important;
+  }
   .pro-2 {
     width: 100% !important;
   }
@@ -950,10 +961,13 @@ a.videoCloseBtn {
 }
 @media (max-width: 1440px) {
   .pro-1 {
-    width: 53%;
+    width: 43% !important;
+  }
+  .pro-share {
+    width: 30% !important;
   }
   .pro-2 {
-    width: 34%;
+    width: 100%;
   }
   .pro-3 {
     width: 26%;
@@ -966,7 +980,7 @@ a.videoCloseBtn {
     width: 100%;
   }
   .LinkedInBtn {
-    width: 98%;
+    width: 100%;
     display: block;
     margin-right: 1%;
     border-radius: 5px;
@@ -1039,4 +1053,8 @@ a.videoCloseBtn {
   height: 35px;
   object-fit: cover;
   border-radius: 50% !important;
+}
+
+.otherProfileDetails{
+  margin-top: 10px;
 }
