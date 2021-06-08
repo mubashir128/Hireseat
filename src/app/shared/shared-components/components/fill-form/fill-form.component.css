@@ -1,0 +1,23 @@
+.inputInnerDiv {
+    /* width: calc(100% - 150px);
+    padding-right: 20px; */
+    width: 100%;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+@media only screen and (max-width: 767px) and (min-width: 320px){
+
+    .inputInnerDiv{
+        padding-right: 0;
+        width: 100% !important;
+    }
+    .inputDivMainNN input {
+        width: 48%;
+    }
+    .row .col.s9 {width:100%}
+    .commonDiv {width: 100% !important;}
+}

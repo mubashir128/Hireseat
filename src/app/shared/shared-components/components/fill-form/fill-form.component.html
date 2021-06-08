@@ -1,1 +1,44 @@
-<p>fill-form works!</p>
+<form [formGroup]="SearchFrm" novalidate>
+    <div class="container">
+        <div class="row">
+            <div class="input-field disFlex s12 m12 l12">
+                <div class="inputInnerDiv">
+                    <h5>Add skills</h5>
+                    <tag-input
+                        class="borderBott borderBottN skillBorBott"
+                        [(ngModel)]="tags"
+                        formControlName="tags"
+                        [addOnBlur]="true"
+                        (onAdd)="onadd($event)"
+                        (onRemove)="onadd($event)"
+                        [onlyFromAutocomplete]="true"
+                        [placeholder]="'search by skillSets'"
+                        [secondaryPlaceholder]="'search by skillSets'"
+                    >
+                        <tag-input-dropdown
+                            [autocompleteItems]="skillSets"
+                            [keepOpen]="false"
+                            [showDropdownIfEmpty]="true"
+                        >
+                        </tag-input-dropdown>
+                    </tag-input>
+
+                </div>
+                <!-- <div>
+                    <h5>Suggested skill based off your profile</h5>
+                    <tag-input [ngModel]="skillSets"
+                               formControlName="tags"
+                               [maxItems]="skillSets.length"
+                               [ripple]="false"
+                               [removable]="false">
+                    </tag-input>
+                </div> -->
+            </div>
+        </div>
+
+        <div>
+            <button class="waves-effect waves-light btn" style="float: right;" (click)="add()">Add</button>
+        </div>
+
+    </div>
+</form>
