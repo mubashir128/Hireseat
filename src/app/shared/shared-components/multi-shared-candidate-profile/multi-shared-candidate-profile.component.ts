@@ -593,6 +593,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
       cmtId: cmtId,
       candidateProfile: candidateProfile,
       replyComment: comment,
+      isMultiShare : true
     };
 
     this.replyTocommentSubscription = this.resumeService
@@ -1162,6 +1163,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
       sharedTo : this.finalRecruitersAre,
       resumeId : this.shareResume._id,
       candidateProfile: this.shareResume.resumeType ? false : true,
+      isMultiShare : true
     }
 
     this.shareWithRecruiterSubscription = this.candidateService.shareWithUsers(payload).subscribe((res) => {
