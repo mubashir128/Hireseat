@@ -3,7 +3,7 @@
         <div class="row">
             <div class="input-field disFlex s12 m12 l12">
                 <div class="inputInnerDiv">
-                    <h5>Add skills</h5>
+                    <span class="suggestSkill">Add skills</span>
                     <tag-input
                         class="borderBott borderBottN skillBorBott"
                         [(ngModel)]="tags"
@@ -24,15 +24,17 @@
                     </tag-input>
 
                 </div>
-                <!-- <div>
-                    <h5>Suggested skill based off your profile</h5>
-                    <tag-input [ngModel]="skillSets"
-                               formControlName="tags"
-                               [maxItems]="skillSets.length"
-                               [ripple]="false"
-                               [removable]="false">
-                    </tag-input>
-                </div> -->
+                <div class="inputInnerDiv2">
+                    <span class="suggestSkill">Suggested skill based off your profile</span>
+                    <div class="inputInnerDiv3">
+                        <tag-input [ngModel]="skillSets"
+                                formControlName="tagsAre"
+                                [maxItems]="skillSets.length"
+                                [ripple]="false"
+                                [removable]="false">
+                        </tag-input>
+                    </div>
+                </div>
             </div>
         </div>
 

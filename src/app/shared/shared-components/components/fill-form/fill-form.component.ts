@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SkillsetsService } from 'src/app/_services/skillsets.service';
+import { ResumeService } from 'src/app/_services/resume.service';
 
 @Component({
   selector: 'app-fill-form',
@@ -12,19 +12,27 @@ export class FillFormComponent implements OnInit {
   public skillSets = [];
   public SearchFrm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private _skillSets: SkillsetsService) {
+  constructor(private formBuilder: FormBuilder, private resumeService: ResumeService) {
     this.SearchFrm = this.formBuilder.group({
-      tags: ["", Validators.required]
+      tags : ["", Validators.required],
+      tagsAre : ["", Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.skillSets = this._skillSets.getSkillSets();
-    console.log("this.skillSets : ",this.skillSets);
+    this.getSkillsets();
   }
 
-  getSkillsets(){
-    
+  getSkillsets() {
+    this.resumeService.getSkillSets().subscribe((data: any) => {
+        if (data.length > 0) {
+          this.skillSets = data;
+        } else {
+          this.skillSets = [];
+        }
+      }, error => {
+        console.log(error);
+      });
   }
 
 }
