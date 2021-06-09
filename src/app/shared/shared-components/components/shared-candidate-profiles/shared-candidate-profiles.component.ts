@@ -1204,6 +1204,7 @@ export class SharedCandidateProfilesComponent
 
   showShareTouserModal() {
     this.closeShareModal();
+    this.finalRecruitersAre = [];
     jQuery("#shareToUsers").modal("open");
   }
 
