@@ -1,6 +1,7 @@
 .inputInnerDiv {
     width: 100%;
     margin-top: 20px;
+    font-size: 18px
 }
 
 .inputInnerDiv2 {
@@ -12,6 +13,7 @@
     width: 100%;
     max-height: 300px;
     overflow: auto;
+    font-size: 18px;
 }
 
 /* Firefox */

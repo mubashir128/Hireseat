@@ -10,6 +10,7 @@ import { ResumeService } from 'src/app/_services/resume.service';
 export class FillFormComponent implements OnInit {
 
   public skillSets = [];
+  finalSkillSets = [];
   public SearchFrm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private resumeService: ResumeService) {
@@ -33,6 +34,22 @@ export class FillFormComponent implements OnInit {
       }, error => {
         console.log(error);
       });
+  }
+
+  onadd(event) {
+    var skillSets = [];
+    if (this.SearchFrm.valid) {
+      this.SearchFrm.value.tags.forEach(element => {
+        skillSets.push(element.value);
+      });
+    } else {
+      skillSets = [];
+    }
+    this.finalSkillSets = skillSets;
+  }
+
+  addSkillAre(){
+    console.log("this.finalSkillSets : ",this.finalSkillSets);
   }
 
 }
