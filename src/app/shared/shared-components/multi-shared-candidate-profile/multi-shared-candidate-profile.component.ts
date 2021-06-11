@@ -1101,7 +1101,6 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   }
 
   handleIndustries($event, _id) {
-    console.log("this.industriesAre : ",this.industriesAre, " :--- : ", _id);
     let selectIndex = 0;
     this.industriesAre.forEach((item, index) => {
       if (item._id === _id) {
@@ -1122,7 +1121,6 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   }
 
   getMultiSortByIndustries() {
-    console.log("this.industries : ",this.industries);
     this.candidateService.getMultiSortByIndustries({ industries: this.industries }).subscribe((res: any) => {
       this.resumes = res.data;
       this.addShareFromUser(res);
