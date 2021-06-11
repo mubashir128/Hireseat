@@ -1,3 +1,117 @@
+.mainDiv {
+    margin-bottom: 30px;
+    max-height: 700px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.fill-form {display:none;}
+.fill-form p {font-size: 12px; color: #b6b6b6; margin-bottom: 30px;}
+.fill-form button {background-color: #0aafff;
+    border: none;
+    color: #fff;
+    min-width: 200px;
+    font-size: 18px;
+    font-family: "gilroybold";
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-transform: uppercase;
+ width: 100%;
+}
+.fill-form  input { border-bottom: solid 1px #ccc;}
+.fill-form {padding:30px;}
+
+.gender {display:none;}
+.gen {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+.gender h4 { margin-bottom: 30px;}
+.check {margin-bottom: 20px; margin-top:70px;}
+.gen:active { border: solid 2px #0aafff;}
+.drop-cant  {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+.drop-gen {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+
+.drop select {display: block; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+.top-bott { margin-top:150px;}
+.none {display: none;}
+
+/* screen-1  value droopp folder css  */
+.valu {display: block; margin-top: 70px;}
+.blue-box {background:#00b0f0; width:100%; height: 350px; border-radius: 40px; padding:15px; margin-bottom: 20px;}
+.valu h4 {font-size: 24px; color:#fff;}
+.valu h6 {font-size: 18px; color:#fff;}
+.valu-continue {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+
+
+/* screen--2  eductionn-tab css  */
+.eductionn-tab {display: block;}
+.eduction-blue {background:#00b0f0;  margin-bottom: 20px;  border-radius: 20px; width:45%; float: left; margin-right: 28px; height:113px;}
+.eduction-blue h6  {font-size: 16px; color:#fff; padding: 20px; text-align: center;}
+.eduction-blue-2 {background:#00b0f0; margin-bottom: 20px;  border-radius: 20px;width:45%; float: left;  height:113px;}
+.eduction-blue-2 h6  {font-size: 16px; color:#fff; padding: 20px; text-align: center;}
+.padd-40 {padding-top: 40px !important;}
+.padd-30 {padding-top: 30px !important;}
+
+/* screen-3  secound-eductions-contain css  */
+.secound-eductions {display: block;}
+.secound-eductions {width:100%;}
+.secound-eductions h4 {font-size: 24px;color: #000;}
+.secound-eductions h5 {font-size: 18px;color: #000; margin-bottom: 20px;}
+.grouup-in label {width:47%; float:left; font-size: 18px; color: #000;}
+.grouup-in input {width:48%; float:left; height: 20px;}
+.grouup-in-2 label {width:28%; float:left; font-size: 18px; color: #000;}
+.grouup-in-2 input {width:50%; float:left; height: 20px;}
+.grouup-in-3 label {width:42%; float:left; font-size: 18px; color: #000;}
+.grouup-in-3 input {width:50%; float:left; height: 20px;}
+.grouup-in-4 label {width:21%; float:left; font-size: 18px; color: #000;}
+.grouup-in-4 input {width:50%; float:left; height: 20px;}
+.bottom-text {display: block; width: 100%;float: left;}
+.bottom-text p {font-size: 20px; color: #ff0000;}
+.eduuction-btn  {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+.eduuction-cant {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+@media(max-width:320px){
+    .grouup-in label {width:50%; float:left; font-size: 18px; color: #000;}
+}
+@media(max-width:360px){
+    .grouup-in label {width:56%; float:left; font-size: 18px; color: #000;}
+    .grouup-in input {width:40%; float:left; height: 20px;}
+    .grouup-in-2 label {width:33%; float:left; font-size: 18px; color: #000;}
+    .grouup-in-2 input {width:38%; float:left; height: 20px;}
+    .grouup-in-3 label {width:50%; float:left; font-size: 18px; color: #000;}
+    .grouup-in-3 input {width:38%; float:left; height: 20px;}
+    .grouup-in-4 label {width:34%; float:left; font-size: 18px; color: #000;}
+    .grouup-in-4 input {width:38%; float:left; height: 20px;}
+}
+
+/* screen-4  css  */
+.work
+.work h4 {font-size: 24px;color: #000;}
+.work h5 {font-size: 18px;color: #000; margin-bottom: 20px;}
+.work-in label {width:52%; float:left; font-size: 18px; color: #000;}
+.work-in input {width:48%; float:left; height: 20px;}
+.work-in-2 label {width:25%; float:left; font-size: 18px; color: #000;}
+.work-in-2 input {width:48%; float:left; height: 20px;}
+.work-in-3 label {width:38%; float:left; font-size: 18px; color: #000;}
+.work-in-3 input {width:48%; float:left; height: 20px;}
+.work-in-4 label {width:48%; float:left; font-size: 18px; color: #000;}
+.work-in-4 input {width:48%; float:left; height: 20px;}
+.work-in-5 label {width:20%; float:left; font-size: 18px; color: #000;}
+.work-in-5 input {width:48%; float:left; height: 20px;}
+.bottom-text-2 {display: block; width: 100%;float: left;}
+.bottom-text-2 p {font-size: 20px; color: #ff0000;}
+.eduuction-btn-2  {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+.eduuction-cant-2 {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+
+@media(max-width:375px){
+    .work-in label {width:60%; float:left; font-size: 18px; color: #000;}
+    .work-in input {width:30%; float:left; height: 20px;}
+    .work-in-3 label {width:44%; float:left; font-size: 18px; color: #000;}
+    .work-in-3 input {width:40%; float:left; height: 20px;}
+    .work-in-4 label {width:52%; float:left; font-size: 18px; color: #000;}
+    .work-in-4 input {width:37%; float:left; height: 20px;}
+}
+
 .inputInnerDiv {
     width: 100%;
     margin-top: 20px;
@@ -16,7 +130,6 @@
     font-size: 18px;
 }
 
-/* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
 }
@@ -35,4 +148,38 @@ input[type=number] {
 
 .suggestSkill{
     font-size: 20px;
+}
+
+.marginAngle{
+    margin-top: 20px;
+}
+
+.chip {
+    width: 60px;
+    float: left;
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+
+.scrollIndustriesDiv{
+    max-height: 200px;
+    overflow: auto;
+}
+
+.skillDiv{
+    max-height: 200px;
+    overflow: auto;
+}
+
+.saveBtn{
+    margin-bottom: 20px;
+}
+
+.eduPage{
+    /* margin-top: 70px; */
 }
