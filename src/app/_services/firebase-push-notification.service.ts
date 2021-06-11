@@ -105,7 +105,11 @@ export class FirebasePushNotificationService {
         this._router.navigate(["bidding-events/details/", redirectId], { queryParams: { queid: redirectId2}});
         break;
       case "shareCandidateProfile" : 
-        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/share-candidate-profile"]);
+        let pageUrl = "share-candidate-profile";
+        if(this.loggedInUser.userInfo.userRole == "candidate"){
+          pageUrl = "my-posted-profiles";
+        }
+        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/"+pageUrl]);
         break;
       case "multiShareCandidateProfile" : 
         this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/multi-share-candidate-profile"]);
