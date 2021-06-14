@@ -34,53 +34,76 @@
         </div>
 
         <div class="details">
+            <span class="careerValueSum" *ngIf = "eduPageTab && (schoolName !== '' || companyName !== '' || finalSkillSets.length !== 0 || finalIndustriesAre.length !== 0)">
+                Career Value Summary : 
+            </span>
             <div class="bottom-text" *ngIf = "schoolName !== ''">
                 <p>
-                    <span>Education : </span>
-                    I went to {{schoolName !== '' ? schoolName : '...'}}  and I have a GPA of {{highGPA}} and a {{techMajor !== '' ? techMajor : '...'}} degree and {{degree !== '' ? degree : '...'}} phd.
+                    <span> <i class="fas fa-check-square"></i> Education : </span><br>
+                    <span class="detailsData">I went to {{schoolName !== '' ? schoolName : '...'}}  and I have a GPA of {{highGPA !== undefined ? highGPA : '...'}} and a {{techMajor !== '' ? techMajor : '...'}} major and {{degree !== '' ? degree : '...'}} degree.</span>
                 </p>
             </div>
             <div class="bottom-text" *ngIf = "companyName !== ''">
                 <p>
-                    <span>Work exp  : </span>
-                    I worked at {{companyName !== '' ? companyName : '...'}} and i had a title of {{title !== '' ? title : '...'}}.<br>
-                    I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{totalDegree !== '' ? totalDegree : '...'}} years.
+                    <span> <i class="fas fa-check-square"></i> Work exp  : </span><br>
+                    <span class="detailsData">
+                        I worked at {{companyName !== '' ? companyName : '...'}} and i had a title of {{title !== '' ? title : '...'}}.<br>
+                        I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{totalYears !== '' ? totalYears : '...'}} years.
+                    </span>
                 </p>
             </div>
             <div class="bottom-text skillDiv" *ngIf = "finalSkillSets.length !== 0">
-                <p>Skills  :</p>
-                <div class="chip" *ngFor = "let item of finalSkillSets">
-                    <span style="text-align: center;">{{item}}</span>
-                </div>
-            </div>
-            <div class="bottom-text" *ngIf = "finalIndustriesAre.length !== 0">
-                <p>Industries  :</p>
-                <div class="scrollIndustriesDiv">
-                    <div class="chip" *ngFor = "let item of finalIndustriesAre">
-                        <span style="text-align: center;">{{item.name}}</span>
+                <p><i class="fas fa-check-square"></i> Skills  :</p>
+
+                <form [formGroup]="showSkillsSetsFrm" novalidate>
+                    <div class="inputInnerDiv3">
+                        <tag-input [ngModel]="finalSkillSets"
+                                formControlName="showSkillsAre"
+                                [maxItems]="finalSkillSets.length"
+                                [ripple]="false"
+                                [removable]="false">
+                        </tag-input>
                     </div>
-                </div>
+                </form>
+
+            </div>
+            <div class="bottom-text induDiv" *ngIf = "finalIndustriesAre.length !== 0">
+                <p><i class="fas fa-check-square"></i> Industries  :</p>
+
+                <form [formGroup]="showIndustriesFrm" novalidate>
+                    <div class="inputInnerDiv3">
+                        <tag-input [ngModel]="finalIndustriesAre"
+                                formControlName="showIndustriesAre"
+                                [maxItems]="finalIndustriesAre.length"
+                                [ripple]="false"
+                                [displayBy]="'name'"
+                                [removable]="false">
+                        </tag-input>
+                    </div>
+                </form>
+
             </div>
 
             <div class="bottom-text" *ngIf = "eduPageTab && (schoolName !== '' || companyName !== '' || finalSkillSets.length !== 0 || finalIndustriesAre.length !== 0)">
                 <form [formGroup]="SearchInputFrm" novalidate>
                     <p style="font-size: 17px;">
+                        <i class="fas fa-check-square"></i>
                         Now that we highlighted some of your value propositions above, write 3 quick reasons why a hiring manager should hire you below.
                     </p>
                     <textarea
-                        rows="10"
+                        rows="15"
                         [(ngModel)] = "comments"
                         maxlength="250"
                         formControlName="comments"
                     ></textarea>
                     <textarea
-                        rows="10"
+                        rows="15"
                         [(ngModel)] = "comment2"
                         maxlength="250"
                         formControlName="comment2"
                     ></textarea>
                     <textarea
-                        rows="10"
+                        rows="15"
                         [(ngModel)] = "comment3"
                         maxlength="250"
                         formControlName="comment3"
@@ -89,68 +112,112 @@
         
             </div>
 
+            <div class="saveDetails" *ngIf = "eduPageTab && (schoolName !== '' || companyName !== '' || finalSkillSets.length !== 0 || finalIndustriesAre.length !== 0)">
+                <button class="waves-effect waves-light btn saveBtn" style="float: right;" (click)="saveCandidateInfo()">Save</button>
+            </div>
+
         </div>
 
     </div>
 
 
     <div class="secound-eductions" *ngIf = "secEduPageTab">
-        <h4>Education</h4>
-        <h5>Highlight a prestigious school,technical major, high GPA, degree </h5>
-        <div class="grouup-in">
-            <label>Prestigious School:</label>
-            <input type="text" [(ngModel)] = "schoolName">
-        </div>
-        <div class="grouup-in-2">
-            <label>High GPA:</label>
-            <input type="number" [(ngModel)] = "highGPA">
-        </div>
-        <div class="grouup-in-3">
-        <label>Technical Major:</label>
-        <input type="text"  [(ngModel)] = "techMajor">
-        </div>
-        <div class="grouup-in-4">
-            <label>Degree:</label>
-            <input type="text" [(ngModel)] = "degree">
-        </div>
-        <div class="bottom-text">
-            <p>I went to {{schoolName !== '' ? schoolName : '...'}}  and I have a GPA of {{highGPA}} and a {{techMajor !== '' ? techMajor : '...'}} degree and {{degree !== '' ? degree : '...'}} phd.</p>
-        </div>
-        <button class="eduuction-btn" (click) = "secEduSkip()">Skip</button>
-        <button class="eduuction-cant" (click) = "secEduContinue()">continue </button>
+        <form [formGroup]="educationFrm" novalidate>
+            <h4>Education</h4>
+            <h5>Highlight a prestigious school, technical major, high GPA, or impressive degree (Masters degree, PHD)</h5>
+            <div class="row grouup-in">
+                <label>Prestigious School:</label>
+                <input type="text" class="form-control" [(ngModel)] = "schoolName" name="schoolNameFrm" formControlName="schoolNameFrm">
+                <div *ngIf="educationFrm.controls['schoolNameFrm'].hasError('required')" class="error errorMsg">
+                    Please Enter School Name
+                </div>
+            </div>
+            <div class="row grouup-in-2">
+                <label>High GPA:</label>
+                <input type="number" class="form-control" [(ngModel)] = "highGPA" name="highGPAFrm" formControlName="highGPAFrm">
+                <div *ngIf="educationFrm.controls['highGPAFrm'].hasError('required')" class="error errorMsg">
+                    Please Enter GPA
+                </div>
+            </div>
+            <div class="row grouup-in-3">
+                <label>Technical Major:</label>
+                <input type="text" class="form-control" [(ngModel)] = "techMajor" name="techMajorFrm" formControlName="techMajorFrm">
+                <div *ngIf="educationFrm.controls['techMajorFrm'].hasError('required')" class="error errorMsg">
+                    Please Enter Technical Major
+                </div>
+            </div>
+            <div class="row grouup-in-4">
+                <label>Degree:</label>
+                <input type="text" class="form-control" [(ngModel)] = "degree" name="degreeFrm" formControlName="degreeFrm">
+                <div *ngIf="educationFrm.controls['degreeFrm'].hasError('required')" class="error errorMsg">
+                    Please Enter Degree
+                </div>
+            </div>
+            <div class="row bottom-text">
+                <p>
+                    <i class="fas fa-check-square"></i>
+                    I went to {{schoolName !== '' ? schoolName : '...'}}  and I have a GPA of {{highGPA !== undefined ? highGPA : '...'}} and a {{techMajor !== '' ? techMajor : '...'}} major and {{degree !== '' ? degree : '...'}} degree.
+                </p>
+            </div>
+            <button class="row eduuction-btn" (click) = "secEduSkip()">Skip</button>
+            <button type="submit" class="row eduuction-cant" (click) = "secEduContinue()">continue </button>
+        </form>
     </div>
 
     <div class="work" *ngIf = "workTab">
-        <h4>Work exp </h4>
-        <h5>Highlight a prestigious companies you worked at, managerial experience </h5>
-        <div class="work-in">
-            <label>Prestigious Companies:</label>
-            <input type="text" [(ngModel)] = "companyName">
-        </div>
-        <div class="work-in-2">
-            <!-- <label>Title (VP, Director, Lead, Head of):</label> -->
-            <label>Title:</label>
-            <input type="text" [(ngModel)] = "title">
-        </div>
-        <div class="work-in-3">
-            <label>Managerial exp:</label>
-            <input type="number" [(ngModel)] = "manageralExp">
-        </div>
-        <div class="work-in-4">
-            <label>Managed team size:</label>
-            <input type="number" [(ngModel)] = "managedTeamSize">
-        </div>
-        <div class="work-in-5">
-            <label>Degree:</label>
-            <input type="number" [(ngModel)] = "totalDegree">
-        </div>
-        
-        <div class="bottom-text-2">
-            <p>I worked at {{companyName !== '' ? companyName : '...'}} and i had a title of {{title !== '' ? title : '...'}}.</p>
-            <p>I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{totalDegree !== '' ? totalDegree : '...'}} years.</p>
-        </div>
-        <button class="eduuction-btn-2"(click) = "workSkip()">Skip</button>
-        <button class="eduuction-cant-2"(click) = "workContinue()">continue </button>
+        <form [formGroup]="workFrm" novalidate>
+            <h4>Work exp </h4>
+            <h5>Highlight experience at impressive companies, job titles (Director, VP), and any managerial experience</h5>
+            <div class="row work-in">
+                <label>Prestigious Companies:</label>
+                <input type="text" class="form-control" [(ngModel)] = "companyName" name="companyNameFrm" formControlName="companyNameFrm">
+                <div *ngIf="workFrm.controls['companyNameFrm'].hasError('required')" class="error errorMsg">
+                    Please Enter Company Name
+                </div>
+            </div>
+            <div class="row work-in-2">
+                <!-- <label>Title (VP, Director, Lead, Head of):</label> -->
+                <label>Title:</label>
+                <input type="text" class="form-control" [(ngModel)] = "title"  name="titleFrm" formControlName="titleFrm">
+                <div *ngIf="workFrm.controls['titleFrm'].hasError('required')" class="error errorMsg">
+                    Please Enter Title
+                </div>
+            </div>
+            <div class="row work-in-3">
+                <label>Managerial exp:</label>
+                <input type="number" class="form-control" [(ngModel)] = "manageralExp"  name="manageralExpFrm" formControlName="manageralExpFrm">
+                <div *ngIf="workFrm.controls['manageralExpFrm'].hasError('required')" class="error errorMsg">
+                    Please Enter Managerial experience
+                </div>
+            </div>
+            <div class="row work-in-4">
+                <label>Managed team size:</label>
+                <input type="number" class="form-control" [(ngModel)] = "managedTeamSize"  name="managedTeamSizeFrm" formControlName="managedTeamSizeFrm">
+                <div *ngIf="workFrm.controls['managedTeamSizeFrm'].hasError('required')" class="error errorMsg">
+                    Please Enter Managed team size
+                </div>
+            </div>
+            <div class="row work-in-5">
+                <label>Years:</label>
+                <input type="number" class="form-control" [(ngModel)] = "totalYears"  name="totalYearsFrm" formControlName="totalYearsFrm">
+                <div *ngIf="workFrm.controls['totalYearsFrm'].hasError('required')" class="error errorMsg">
+                    Please Enter Years
+                </div>
+            </div>
+            
+            <div class="row bottom-text-2">
+                <p>
+                    <i class="fas fa-check-square"></i>
+                    I worked at {{companyName !== '' ? companyName : '...'}} and i had a title of {{title !== '' ? title : '...'}}.
+                </p>
+                <p>
+                    <i class="fas fa-check-square"></i>
+                    I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{totalYears !== '' ? totalYears : '...'}} years.
+                </p>
+            </div>
+            <button class="row eduuction-btn-2"(click) = "workSkip()">Skip</button>
+            <button type="submit" class="row eduuction-cant-2"(click) = "workContinue()">continue </button>
+        </form>
     </div>
 
     <div class="skillsAreTheir" *ngIf = "skillSetsTab">
@@ -162,7 +229,7 @@
                             <span class="suggestSkill">Add skills</span>
                             <tag-input
                                 class="borderBott borderBottN skillBorBott"
-                                [(ngModel)]="tags"
+                                [(ngModel)]="tagsBind"
                                 formControlName="tags"
                                 [addOnBlur]="true"
                                 (onAdd)="onSkillSetsAdd($event)"
@@ -212,10 +279,10 @@
                 <div class="row">
                     <div class="input-field disFlex s12 m12 l12">
                         <div class="inputInnerDiv">
-                            <span class="suggestSkill">Add Industries</span>
+                            <span class="suggestSkill">Add experience specific to your industry</span>
                             <tag-input
                                 class="borderBott borderBottN skillBorBott"
-                                [(ngModel)]="industry"
+                                [(ngModel)]="industryBind"
                                 formControlName="industry"
                                 [addOnBlur]="true"
                                 (onAdd)="onIndustriesAdd($event)"
@@ -234,11 +301,11 @@
 
                         </div>
                         <div class="inputInnerDiv2">
-                            <span class="suggestSkill">Suggested industries based off your profile</span>
+                            <span class="suggestSkill"> Suggested experience based on your industry and role</span>
                             <div class="inputInnerDiv3">
                                 <tag-input [ngModel]="industriesAre"
                                         formControlName="industryAre"
-                                        [maxItems]="skillSets.length"
+                                        [maxItems]="industriesAre.length"
                                         [ripple]="false"
                                         [removable]="false">
                                 </tag-input>
@@ -259,9 +326,6 @@
 
     </div>
 
-    <div class="saveDetails" *ngIf = "eduPageTab && (schoolName !== '' || companyName !== '' || finalSkillSets.length !== 0 || finalIndustriesAre.length !== 0)">
-        <button class="waves-effect waves-light btn saveBtn" style="float: right;" (click)="saveCandidateInfo()">Save</button>
-    </div>
     <div class="row emptySpace" style="color: #fff;">
         Hireseat
     </div>

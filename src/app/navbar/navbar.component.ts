@@ -186,6 +186,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    if (this.loggedInUser.userRole == "candidate"){
+      this.userService.removeCandidateCareerValueFinder();
+    }
     this.authService.logout();
     this.isAdmin = false;
     this.isLoggedIn = false;
