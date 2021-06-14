@@ -54,22 +54,22 @@
 .padd-30 {padding-top: 30px !important;}
 
 /* screen-3  secound-eductions-contain css  */
-.secound-eductions {display: block;}
+.secound-eductions {display: block; margin-left: 10px;}
 .secound-eductions {width:100%;}
 .secound-eductions h4 {font-size: 24px;color: #000;}
 .secound-eductions h5 {font-size: 18px;color: #000; margin-bottom: 20px;}
 .grouup-in label {width:47%; float:left; font-size: 18px; color: #000;}
-.grouup-in input {width:48%; float:left; height: 20px;}
+.grouup-in input {width:44%; float:left; height: 20px;}
 .grouup-in-2 label {width:28%; float:left; font-size: 18px; color: #000;}
 .grouup-in-2 input {width:50%; float:left; height: 20px;}
 .grouup-in-3 label {width:42%; float:left; font-size: 18px; color: #000;}
 .grouup-in-3 input {width:50%; float:left; height: 20px;}
 .grouup-in-4 label {width:21%; float:left; font-size: 18px; color: #000;}
 .grouup-in-4 input {width:50%; float:left; height: 20px;}
-.bottom-text {display: block; width: 100%;float: left;}
+.bottom-text {display: block; width: 100%;float: left; margin-top: -10px !important;}
 .bottom-text p {font-size: 20px; color: #ff0000;}
-.eduuction-btn  {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
-.eduuction-cant {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+.eduuction-btn  {width:90%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin: auto; background-color: transparent; padding:10px; border-radius: 50px;}
+.eduuction-cant {width:90%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin: auto; margin-top: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
 @media(max-width:320px){
     .grouup-in label {width:50%; float:left; font-size: 18px; color: #000;}
 }
@@ -85,11 +85,11 @@
 }
 
 /* screen-4  css  */
-.work
+.work{margin-left: 10px;}
 .work h4 {font-size: 24px;color: #000;}
 .work h5 {font-size: 18px;color: #000; margin-bottom: 20px;}
 .work-in label {width:52%; float:left; font-size: 18px; color: #000;}
-.work-in input {width:48%; float:left; height: 20px;}
+.work-in input {width:44%; float:left; height: 20px;}
 .work-in-2 label {width:25%; float:left; font-size: 18px; color: #000;}
 .work-in-2 input {width:48%; float:left; height: 20px;}
 .work-in-3 label {width:38%; float:left; font-size: 18px; color: #000;}
@@ -100,8 +100,8 @@
 .work-in-5 input {width:48%; float:left; height: 20px;}
 .bottom-text-2 {display: block; width: 100%;float: left;}
 .bottom-text-2 p {font-size: 20px; color: #ff0000;}
-.eduuction-btn-2  {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
-.eduuction-cant-2 {width:100%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin-bottom: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
+.eduuction-btn-2  {width:90%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin: auto; background-color: transparent; padding:10px; border-radius: 50px;}
+.eduuction-cant-2 {width:90%; border-radius: 5px; border: solid 1px #ccc; text-transform: uppercase; margin: auto; margin-top: 20px; background-color: transparent; padding:10px; border-radius: 50px;}
 
 @media(max-width:375px){
     .work-in label {width:60%; float:left; font-size: 18px; color: #000;}
@@ -128,6 +128,7 @@
     max-height: 300px;
     overflow: auto;
     font-size: 18px;
+    margin-top: 10px;
 }
 
 input[type=number] {
@@ -154,32 +155,41 @@ input[type=number] {
     margin-top: 20px;
 }
 
-.chip {
-    width: 60px;
-    float: left;
-    display: inline-block;
-    padding: 0 25px;
-    height: 50px;
-    font-size: 16px;
-    line-height: 50px;
-    border-radius: 25px;
-    background-color: #f1f1f1;
-}
-
-.scrollIndustriesDiv{
-    max-height: 200px;
-    overflow: auto;
-}
-
 .skillDiv{
     max-height: 200px;
     overflow: auto;
 }
 
+.skillDiv p{
+    height: 12px;
+}
+
+.induDiv p{
+    height: 12px;
+}
+
 .saveBtn{
     margin-bottom: 20px;
+    margin-top: 12px;
 }
 
 .eduPage{
     /* margin-top: 70px; */
+}
+
+.careerValueSum{
+    font-size: 20px;
+    color: #ff0000;
+}
+
+.detailsData{
+    font-size: 15px;
+    color: #ff0000;
+}
+
+.errorMsg{
+    margin: auto;
+    width: 100%;
+    display: block;
+    float: left;
 }
