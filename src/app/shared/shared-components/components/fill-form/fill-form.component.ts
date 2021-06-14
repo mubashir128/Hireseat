@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ResumeService } from 'src/app/_services/resume.service';
+import { UserService } from 'src/app/_services/user.service';
 declare var Materialize: any;
 @Component({
   selector: 'app-fill-form',
@@ -20,19 +21,21 @@ export class FillFormComponent implements OnInit {
 
   schoolName = "";
   companyName = "";
-  highGPA = 0;
+  highGPA;
   techMajor = "";
   degree = "";
 
   title = "";
   manageralExp = 0;
   managedTeamSize = 0;
-  totalDegree = 0;
+  totalYears = 0;
 
   comments = "";
   comment2 = "";
   comment3 = "";
 
+  public tagsBind = [];
+  public industryBind = []
   public skillSets = [];
   public mainIndustriesAre = [];
   public industriesAre = [];
@@ -43,8 +46,12 @@ export class FillFormComponent implements OnInit {
   public SearchFrm: FormGroup;
   public SearchIndustryFrm: FormGroup;
   public SearchInputFrm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router) {
+  public showSkillsSetsFrm: FormGroup;
+  public showIndustriesFrm: FormGroup;
+  public educationFrm: FormGroup;
+  public workFrm: FormGroup;
+  
+  constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router, private _userService: UserService) {
     this.SearchFrm = this.formBuilder.group({
       tags : ["", Validators.required],
       tagsAre : ["", Validators.required]
@@ -61,17 +68,71 @@ export class FillFormComponent implements OnInit {
       comment3 : ["", Validators.required]
     });
 
-  }
+    this.showSkillsSetsFrm = this.formBuilder.group({
+      showSkillsAre : ["", Validators.required],
+    });
+    
+    this.showIndustriesFrm = this.formBuilder.group({
+      showIndustriesAre : ["", Validators.required],
+    });
 
+    this.educationFrm = new FormGroup({
+      schoolNameFrm : new FormControl(this.schoolName, Validators.required),
+      highGPAFrm : new FormControl(this.highGPA, Validators.required),
+      techMajorFrm : new FormControl(this.techMajor, Validators.required),
+      degreeFrm : new FormControl(this.degree, Validators.required),
+    });
+
+    this.workFrm = new FormGroup({
+      companyNameFrm : new FormControl(this.companyName, Validators.required),
+      titleFrm : new FormControl(this.title, Validators.required),
+      manageralExpFrm : new FormControl(this.manageralExp, Validators.required),
+      managedTeamSizeFrm : new FormControl(this.managedTeamSize, Validators.required),
+      totalYearsFrm : new FormControl(this.totalYears, Validators.required)
+    });
+
+  }
+  
   ngOnInit(){
+    this.setCandidateCareerValueFinder();
     this.getSkillsets();
     this.getIndustries();
+  }
+
+  setCandidateCareerValueFinder(){
+    let localStorageUserInfo = this._userService.getCandidateCareerValueFinder();
+    if(localStorageUserInfo){
+      this.schoolName = localStorageUserInfo.schoolName;
+      this.companyName = localStorageUserInfo.companyName;
+      this.highGPA = localStorageUserInfo.highGPA;
+      this.techMajor = localStorageUserInfo.techMajor;
+      
+      this.degree = localStorageUserInfo.degree;
+      this.title = localStorageUserInfo.title;
+      this.manageralExp = localStorageUserInfo.manageralExp;
+      this.managedTeamSize = localStorageUserInfo.managedTeamSize;
+      this.totalYears = localStorageUserInfo.totalYears;
+      
+      this.finalSkillSets = localStorageUserInfo.finalSkillSets;
+      this.finalIndustriesAre = localStorageUserInfo.finalIndustriesAre;
+
+      this.comments = localStorageUserInfo.comments;
+      this.comment2 = localStorageUserInfo.comment2;
+      this.comment3 = localStorageUserInfo.comment3;
+    }
   }
 
   getSkillsets() {
     this.resumeService.getSkillSets().subscribe((data: any) => {
         if (data.length > 0) {
           this.skillSets = data;
+          this.finalSkillSets.forEach((item, index)=>{
+            this.skillSets.forEach((item2, index2)=>{
+              if(item2.value.toLowerCase() == item.toLowerCase()){
+                this.tagsBind.push(item2);
+              }
+            });
+          });
         } else {
           this.skillSets = [];
         }
@@ -89,8 +150,20 @@ export class FillFormComponent implements OnInit {
             this.industriesAre.push({
               display : item.name,
               value : item.name.toLowerCase()
-            });  
+            });
           });
+          
+          this.finalIndustriesAre.forEach((item, index)=>{
+            this.mainIndustriesAre.forEach((item2, index2)=>{
+              if(item2.name == item.name){
+                this.industryBind.push({
+                  display : item.name,
+                  value : item.name.toLowerCase()
+                });
+              }
+            });
+          });
+
         } else {
           this.industriesAre = [];
         }
@@ -155,8 +228,12 @@ export class FillFormComponent implements OnInit {
   }
 
   secEduContinue(){
-    this.secEduPageTab = false;
-    this.workTab = true;
+    if(this.educationFrm.valid){
+      this.secEduPageTab = false;
+      this.workTab = true;
+    }else{
+      Materialize.toast("Please Fill the form fields !", 1000);
+    }
   }
 
   workSkip(){
@@ -165,8 +242,12 @@ export class FillFormComponent implements OnInit {
   }
 
   workContinue(){
-    this.workTab = false;
-    this.skillSetsTab = true;
+    if(this.workFrm.valid){
+      this.workTab = false;
+      this.skillSetsTab = true;
+    }else{
+      Materialize.toast("Please Fill the form fields !", 1000);
+    }
   }
 
   skillSetsClick(){
@@ -209,6 +290,25 @@ export class FillFormComponent implements OnInit {
       comment2 : this.SearchInputFrm.value.comment2 ,
       comment3 : this.SearchInputFrm.value.comment3 
     }
+
+    let userInfo = {
+      schoolName : this.schoolName,
+      companyName : this.companyName,
+      highGPA : this.highGPA,
+      techMajor : this.techMajor,
+      degree : this.degree,
+      title : this.title,
+      manageralExp : this.manageralExp,
+      managedTeamSize : this.managedTeamSize,
+      totalYears : this.totalYears,
+      finalSkillSets : this.finalSkillSets,
+      finalIndustriesAre : this.finalIndustriesAre,
+      comments : this.SearchInputFrm.value.comments,
+      comment2 : this.SearchInputFrm.value.comment2,
+      comment3 : this.SearchInputFrm.value.comment3
+    }
+
+    this._userService.setCandidateCareerValueFinder(userInfo);
 
     this.candidateService.saveCandidateProfileData(payload).subscribe((res) => {
       if (res) {
