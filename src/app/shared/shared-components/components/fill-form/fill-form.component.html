@@ -254,6 +254,7 @@
                                         formControlName="tagsAre"
                                         [maxItems]="skillSets.length"
                                         [ripple]="false"
+                                        (onSelect)="onSkillSelect($event)"
                                         [removable]="false">
                                 </tag-input>
                             </div>
@@ -307,6 +308,7 @@
                                         formControlName="industryAre"
                                         [maxItems]="industriesAre.length"
                                         [ripple]="false"
+                                        (onSelect)="onIndustriesSelect($event)"
                                         [removable]="false">
                                 </tag-input>
                             </div>

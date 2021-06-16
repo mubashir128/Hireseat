@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ResumeService } from 'src/app/_services/resume.service';
 import { UserService } from 'src/app/_services/user.service';
+import { of } from 'rxjs';
+import * as lib from "src/app/lib-functions";
 declare var Materialize: any;
 @Component({
   selector: 'app-fill-form',
@@ -183,6 +186,24 @@ export class FillFormComponent implements OnInit {
     this.finalSkillSets = skillSets;
   }
 
+  onSkillSelect(item) {
+    let temp = false;
+    if(this.tagsBind.length > 0){
+      this.tagsBind.forEach((item2, index)=>{
+        if(item.value.toLowerCase() == item2.value.toLowerCase()){
+          temp = true;
+        }
+        if(this.tagsBind.length-1 == index && !temp){
+          this.tagsBind.push(item);
+          this.finalSkillSets.push(item.value);
+        }
+      });
+    }else{
+      this.tagsBind.push(item);
+      this.finalSkillSets.push(item.value);
+    }
+  }
+
   onIndustriesAdd(event) {
     var industriesAll = [];
     if (this.SearchIndustryFrm.valid) {
@@ -197,6 +218,34 @@ export class FillFormComponent implements OnInit {
       industriesAll = [];
     }
     this.finalIndustriesAre = industriesAll;
+  }
+
+  onIndustriesSelect(item) {
+    let temp = false;
+    if(this.industryBind.length > 0){
+      this.industryBind.forEach((item2, index)=>{
+        if(item.value.toLowerCase() == item2.value.toLowerCase()){
+          temp = true;
+        }
+        if(this.industryBind.length-1 == index && !temp){
+          this.industryBind.push(item);
+
+          this.mainIndustriesAre.forEach((it, index)=>{
+            if(item.value.toLowerCase() == it.name.toLowerCase()){
+              this.finalIndustriesAre.push(it);
+            }
+          });
+
+        }
+      });
+    }else{
+      this.industryBind.push(item);
+      this.mainIndustriesAre.forEach((it, index)=>{
+        if(item.value.toLowerCase() == it.name.toLowerCase()){
+          this.finalIndustriesAre.push(it);
+        }
+      });
+    }
   }
 
   addSkillAre(){
@@ -307,11 +356,10 @@ export class FillFormComponent implements OnInit {
       comment2 : this.SearchInputFrm.value.comment2,
       comment3 : this.SearchInputFrm.value.comment3
     }
-
-    this._userService.setCandidateCareerValueFinder(userInfo);
-
+    
     this.candidateService.saveCandidateProfileData(payload).subscribe((res) => {
       if (res) {
+        this._userService.setCandidateCareerValueFinder(userInfo);
         Materialize.toast("Profile updated successfully !", 3000, "blue");
         this._router.navigate(["/candidate/my-profile"]);
       }

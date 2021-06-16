@@ -1,6 +1,6 @@
 .mainDiv {
     margin-bottom: 30px;
-    max-height: 700px;
+    max-height: 800px;
     overflow: auto;
     overflow-x: hidden;
 }
@@ -115,7 +115,9 @@
 .inputInnerDiv {
     width: 100%;
     margin-top: 20px;
-    font-size: 18px
+    font-size: 18px;
+    max-height: 250px;
+    overflow: auto;
 }
 
 .inputInnerDiv2 {
@@ -125,7 +127,7 @@
 
 .inputInnerDiv3 {
     width: 100%;
-    max-height: 300px;
+    max-height: 250px;
     overflow: auto;
     font-size: 18px;
     margin-top: 10px;

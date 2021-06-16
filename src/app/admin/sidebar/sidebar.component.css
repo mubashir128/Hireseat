@@ -153,3 +153,38 @@ img.greenArrowIcon {
   cursor: pointer;
   background-color: #003a54;
 }
+
+@media only screen and (min-width: 320px) and (max-width: 667px) {
+  .collection-item-one.active:after,
+  .collection-item-one.active:before {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .collection-item-one.active:after,
+  .collection-item-one.active:before {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .collection-item-one.active:after,
+  .collection-item-one.active:before {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .collection-item-one.active:after,
+  .collection-item-one.active:before {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .collection-item-one.active:after,
+  .collection-item-one.active:before {
+    display: none;
+  }
+}
