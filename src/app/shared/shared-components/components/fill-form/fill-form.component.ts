@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ResumeService } from 'src/app/_services/resume.service';
 import { UserService } from 'src/app/_services/user.service';
+import { of } from 'rxjs';
+import * as lib from "src/app/lib-functions";
 declare var Materialize: any;
 @Component({
   selector: 'app-fill-form',
@@ -28,7 +31,7 @@ export class FillFormComponent implements OnInit {
   title = "";
   manageralExp = 0;
   managedTeamSize = 0;
-  totalYears = 0;
+  // totalYears = 0;
 
   comments = "";
   comment2 = "";
@@ -88,7 +91,7 @@ export class FillFormComponent implements OnInit {
       titleFrm : new FormControl(this.title, Validators.required),
       manageralExpFrm : new FormControl(this.manageralExp, Validators.required),
       managedTeamSizeFrm : new FormControl(this.managedTeamSize, Validators.required),
-      totalYearsFrm : new FormControl(this.totalYears, Validators.required)
+      // totalYearsFrm : new FormControl(this.totalYears, Validators.required)
     });
 
   }
@@ -111,7 +114,7 @@ export class FillFormComponent implements OnInit {
       this.title = localStorageUserInfo.title;
       this.manageralExp = localStorageUserInfo.manageralExp;
       this.managedTeamSize = localStorageUserInfo.managedTeamSize;
-      this.totalYears = localStorageUserInfo.totalYears;
+      // this.totalYears = localStorageUserInfo.totalYears;
       
       this.finalSkillSets = localStorageUserInfo.finalSkillSets;
       this.finalIndustriesAre = localStorageUserInfo.finalIndustriesAre;
@@ -180,23 +183,122 @@ export class FillFormComponent implements OnInit {
     } else {
       skillSets = [];
     }
+
+    let temp = false;
+    this.skillSets.forEach((item, index)=>{
+      if(event.value.toLowerCase() == item.value.toLowerCase()){
+        temp = true;
+      }
+
+      if(!temp && (index == this.skillSets.length - 1)){
+        this.addNewTag(event);
+      }
+
+    });
+
     this.finalSkillSets = skillSets;
+  }
+
+  addNewTag(tag){
+    tag.display = lib.trimSpaces(tag.display);
+    tag.display = lib.titleCase(tag.display);
+
+    this.resumeService.addNewTag(tag).subscribe(res => {
+      if (res.result == "success") {
+        Materialize.toast("New tag added successfully !", 1000);
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  onSkillSelect(item) {
+    let temp = false;
+    if(this.tagsBind.length > 0){
+      this.tagsBind.forEach((item2, index)=>{
+        if(item.value.toLowerCase() == item2.value.toLowerCase()){
+          temp = true;
+        }
+        if(this.tagsBind.length-1 == index && !temp){
+          this.tagsBind.push(item);
+          this.finalSkillSets.push(item.value);
+        }
+      });
+    }else{
+      this.tagsBind.push(item);
+      this.finalSkillSets.push(item.value);
+    }
   }
 
   onIndustriesAdd(event) {
     var industriesAll = [];
+    let temp = false;
     if (this.SearchIndustryFrm.valid) {
-      this.SearchIndustryFrm.value.industry.forEach(element => {
+      this.SearchIndustryFrm.value.industry.forEach((element, ind) => {
         this.mainIndustriesAre.forEach((it, index)=>{
           if(element.value.toLowerCase() == it.name.toLowerCase()){
             industriesAll.push(it);
           }
+          
+          if(it.name.toLowerCase() == event.value.toLowerCase()){
+            temp = true;
+          }
+
+          if(!temp && (this.mainIndustriesAre.length - 1 == index) && (this.SearchIndustryFrm.value.industry.length - 1 == ind)){
+            this.addNewIndustries(event);
+          }
+
         });
       });
     } else {
       industriesAll = [];
     }
     this.finalIndustriesAre = industriesAll;
+  }
+
+  addNewIndustries(industry){
+    industry.display = lib.trimSpaces(industry.display);
+    let ind = {
+      name : lib.titleCase(industry.display)
+    }
+
+    this.resumeService.addNewIndustry(ind).subscribe(res => {
+      if (res.result == "success") {
+        this.mainIndustriesAre.push(res.data);
+        this.finalIndustriesAre.push(res.data);
+        Materialize.toast("New tag added successfully !", 1000);
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  onIndustriesSelect(item) {
+    let temp = false;
+    if(this.industryBind.length > 0){
+      this.industryBind.forEach((item2, index)=>{
+        if(item.value.toLowerCase() == item2.value.toLowerCase()){
+          temp = true;
+        }
+        if(this.industryBind.length-1 == index && !temp){
+          this.industryBind.push(item);
+
+          this.mainIndustriesAre.forEach((it, index)=>{
+            if(item.value.toLowerCase() == it.name.toLowerCase()){
+              this.finalIndustriesAre.push(it);
+            }
+          });
+
+        }
+      });
+    }else{
+      this.industryBind.push(item);
+      this.mainIndustriesAre.forEach((it, index)=>{
+        if(item.value.toLowerCase() == it.name.toLowerCase()){
+          this.finalIndustriesAre.push(it);
+        }
+      });
+    }
   }
 
   addSkillAre(){
@@ -300,19 +402,18 @@ export class FillFormComponent implements OnInit {
       title : this.title,
       manageralExp : this.manageralExp,
       managedTeamSize : this.managedTeamSize,
-      totalYears : this.totalYears,
+      // totalYears : this.totalYears,
       finalSkillSets : this.finalSkillSets,
       finalIndustriesAre : this.finalIndustriesAre,
       comments : this.SearchInputFrm.value.comments,
       comment2 : this.SearchInputFrm.value.comment2,
       comment3 : this.SearchInputFrm.value.comment3
     }
-
-    this._userService.setCandidateCareerValueFinder(userInfo);
-
+    
     this.candidateService.saveCandidateProfileData(payload).subscribe((res) => {
       if (res) {
-        Materialize.toast("Profile updated successfully !", 3000, "blue");
+        this._userService.setCandidateCareerValueFinder(userInfo);
+        Materialize.toast("Profile updated successfully !", 1000, "blue");
         this._router.navigate(["/candidate/my-profile"]);
       }
     });

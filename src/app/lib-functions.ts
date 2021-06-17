@@ -28,3 +28,15 @@ export function searchObjectArray(value, array) {
     }
   }
 }
+
+export function searchObjectArrayWithCase(value, array) {
+  for (var i = 0; i < array.length; i++) {
+    if (array[i].value === value.toUpperCase()) {
+      return array[i];
+    }
+  }
+}
+
+export function allLowerCase(str) {
+  return str.toLowerCase();
+}

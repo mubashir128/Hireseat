@@ -79,7 +79,7 @@
     display: flex;
     align-items: center;
     /* justify-content: flex-end; */
-    margin: 15px 0 30px;
+    margin-bottom: 5px;
 }
 .serchInput {
     /* border: 1px solid #ddd !important;
@@ -111,11 +111,12 @@
   border: 1px solid #03a9f4;
   color: #fff !important;
   height: 40px;
-  min-width: 150px;
+  width: 100%;
   font-size: 14px;
   background-color: #03a9f4;
   padding: 5px 10px;
-  /* border-radius: 30px; */
+  margin-bottom: 10px;
+  border-radius: 30px;
 }
 .catogoryMain {
     display: flex;
@@ -350,39 +351,42 @@ and (max-width : 1024px)  {
 @media only screen 
 and (min-width : 320px) 
 and (max-width : 767px)  {
-.tableDiv {
-  max-width: 330px;
-  overflow-x: scroll;
-  padding: 0;
+  .tableDiv {
+    width: 100%;
+    overflow-x: scroll;
+    padding: 0;
+  }
+  .msgBox {
+    max-height: 28% !important;
+  }
+  .modal-footer{
+    position: unset;
+  }
+  .searchDivN input.serchInput {
+    min-width: 290px;
+  }
+  .searchDivN label {
+    padding: 0 5px;
+  }
+  .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-flat{
+    width: 100%;
+  }
+  .disFlex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .marL0{
+    margin-left: 0 !important;
+  }
+  .commonBtn {
+    font-size: 12px;
+  }
+  h4.pageheading{
+    font-size: 26px;
+  }
 }
-.msgBox {
-  max-height: 28% !important;
+
+.makeWith{
+  width: 100% !important;
 }
-.modal-footer{
-  position: unset;
-}
-.searchDivN input.serchInput {
-  min-width: 290px;
-}
-.searchDivN label {
-  padding: 0 5px;
-}
-.modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-flat{
-  width: 100%;
-}
-.disFlex{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.marL0{
-  margin-left: 0 !important;
-}
-.commonBtn {
-  font-size: 12px;
-}
-h4.pageheading{
-  font-size: 26px;
-}
-}
-/*================================ mobile responsive css ends  ===============================*/
