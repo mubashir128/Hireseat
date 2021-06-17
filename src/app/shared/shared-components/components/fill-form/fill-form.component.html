@@ -48,7 +48,9 @@
                     <span> <i class="fas fa-check-square"></i> Work exp  : </span><br>
                     <span class="detailsData">
                         I worked at {{companyName !== '' ? companyName : '...'}} and i had a title of {{title !== '' ? title : '...'}}.<br>
-                        I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{totalYears !== '' ? totalYears : '...'}} years.
+                        <span *ngIf = "manageralExp !== 0">
+                            I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{manageralExp !== '' ? manageralExp : '...'}} years.
+                        </span>
                     </span>
                 </p>
             </div>
@@ -197,22 +199,22 @@
                     Please Enter Managed team size
                 </div>
             </div>
-            <div class="row work-in-5">
+            <!-- <div class="row work-in-5">
                 <label>Years:</label>
                 <input type="number" class="form-control" [(ngModel)] = "totalYears"  name="totalYearsFrm" formControlName="totalYearsFrm">
                 <div *ngIf="workFrm.controls['totalYearsFrm'].hasError('required')" class="error errorMsg">
                     Please Enter Years
                 </div>
-            </div>
+            </div> -->
             
             <div class="row bottom-text-2">
                 <p>
                     <i class="fas fa-check-square"></i>
                     I worked at {{companyName !== '' ? companyName : '...'}} and i had a title of {{title !== '' ? title : '...'}}.
                 </p>
-                <p>
+                <p *ngIf = "manageralExp !== 0">
                     <i class="fas fa-check-square"></i>
-                    I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{totalYears !== '' ? totalYears : '...'}} years.
+                    I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{manageralExp !== '' ? manageralExp : '...'}} years.
                 </p>
             </div>
             <button class="row eduuction-btn-2"(click) = "workSkip()">Skip</button>
@@ -227,6 +229,7 @@
                     <div class="input-field disFlex s12 m12 l12">
                         <div class="inputInnerDiv">
                             <span class="suggestSkill">Add skills</span>
+                            <!-- [onlyFromAutocomplete]="true" -->
                             <tag-input
                                 class="borderBott borderBottN skillBorBott"
                                 [(ngModel)]="tagsBind"
@@ -234,7 +237,6 @@
                                 [addOnBlur]="true"
                                 (onAdd)="onSkillSetsAdd($event)"
                                 (onRemove)="onSkillSetsAdd($event)"
-                                [onlyFromAutocomplete]="true"
                                 [placeholder]="'search by skillSets'"
                                 [secondaryPlaceholder]="'search by skillSets'"
                             >
@@ -281,6 +283,7 @@
                     <div class="input-field disFlex s12 m12 l12">
                         <div class="inputInnerDiv">
                             <span class="suggestSkill">Add experience specific to your industry</span>
+                            <!-- [onlyFromAutocomplete]="true" -->
                             <tag-input
                                 class="borderBott borderBottN skillBorBott"
                                 [(ngModel)]="industryBind"
@@ -288,7 +291,6 @@
                                 [addOnBlur]="true"
                                 (onAdd)="onIndustriesAdd($event)"
                                 (onRemove)="onIndustriesAdd($event)"
-                                [onlyFromAutocomplete]="true"
                                 [placeholder]="'search by Industries'"
                                 [secondaryPlaceholder]="'search by Industries'"
                             >

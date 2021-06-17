@@ -175,6 +175,16 @@ export class ResumeService {
       })
     );
   }
+  
+  // Here updateing industries by adding new industry
+  addNewIndustry(industry) {
+    return this.http.post<any>(this.baseurl + "api/add-new-industry", industry).pipe(
+      map((result: any) => {
+        return result;
+      })
+    );
+  }
+
   // Here remove tag when user removes he added task
   removeNewTag(tag) {
     return this.http.post<any>(this.baseurl + "api/remove-new-tag", tag).pipe(
