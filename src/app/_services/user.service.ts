@@ -14,7 +14,6 @@ export class UserService {
   public baseurl: any;
   public user: any;
   public IUser: IUser;
-  public candidateCareerValueFinder;
   public employerProfile: IProfile;
   private setProfile = new BehaviorSubject<any>([]);
   // Observable
@@ -121,23 +120,6 @@ export class UserService {
     } else {
       return "no";
     }
-  }
-
-  setCandidateCareerValueFinder(candidateInfo) {
-    localStorage.setItem("candidateCareerValueFinder", JSON.stringify(candidateInfo));
-  }
-
-  getCandidateCareerValueFinder() {
-    this.candidateCareerValueFinder = JSON.parse(localStorage.getItem("candidateCareerValueFinder"));
-    if(this.candidateCareerValueFinder){
-      return this.candidateCareerValueFinder;
-    }else{
-      return false;
-    }
-  }
-
-  removeCandidateCareerValueFinder() {
-    localStorage.removeItem('candidateCareerValueFinder');
   }
 
   getIUserData(): IUser {

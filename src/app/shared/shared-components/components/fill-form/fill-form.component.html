@@ -47,8 +47,13 @@
                 <p>
                     <span> <i class="fas fa-check-square"></i> Work exp  : </span><br>
                     <span class="detailsData">
-                        I worked at {{companyName !== '' ? companyName : '...'}} and i had a title of {{title !== '' ? title : '...'}}.<br>
+                        I worked at {{companyName !== '' ? companyName : '...'}}.
+                        <span *ngIf = "title !== ''">
+                            <br>
+                            I had a title of {{title}}.
+                        </span>
                         <span *ngIf = "manageralExp !== 0">
+                            <br>
                             I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{manageralExp !== '' ? manageralExp : '...'}} years.
                         </span>
                     </span>
@@ -181,9 +186,9 @@
                 <!-- <label>Title (VP, Director, Lead, Head of):</label> -->
                 <label>Title:</label>
                 <input type="text" class="form-control" [(ngModel)] = "title"  name="titleFrm" formControlName="titleFrm">
-                <div *ngIf="workFrm.controls['titleFrm'].hasError('required')" class="error errorMsg">
+                <!-- <div *ngIf="workFrm.controls['titleFrm'].hasError('required')" class="error errorMsg">
                     Please Enter Title
-                </div>
+                </div> -->
             </div>
             <div class="row work-in-3">
                 <label>Managerial exp:</label>
@@ -210,7 +215,11 @@
             <div class="row bottom-text-2">
                 <p>
                     <i class="fas fa-check-square"></i>
-                    I worked at {{companyName !== '' ? companyName : '...'}} and i had a title of {{title !== '' ? title : '...'}}.
+                    I worked at {{companyName !== '' ? companyName : '...'}}.
+                </p>
+                <p *ngIf = "title !== ''">
+                    <i class="fas fa-check-square"></i>
+                    I had a title of {{title}}.
                 </p>
                 <p *ngIf = "manageralExp !== 0">
                     <i class="fas fa-check-square"></i>

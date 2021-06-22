@@ -177,8 +177,8 @@ export class ResumeService {
   }
   
   // Here updateing industries by adding new industry
-  addNewIndustry(industry) {
-    return this.http.post<any>(this.baseurl + "api/add-new-industry", industry).pipe(
+  addNewExpIndustries(industry) {
+    return this.http.post<any>(this.baseurl + "api/add-new-experience-industry", industry).pipe(
       map((result: any) => {
         return result;
       })

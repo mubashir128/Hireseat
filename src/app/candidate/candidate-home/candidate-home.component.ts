@@ -103,9 +103,6 @@ export class CandidateHomeComponent implements OnInit {
 
   logoutSA() {
     // logout super admin
-    if (this.chkLoggedInUser.userRole == "candidate"){
-      this.userService.removeCandidateCareerValueFinder();
-    }
     this.supperAdmin
       .unSecureLogin({ email: localStorage.getItem("super-admin-email") })
       .subscribe(
