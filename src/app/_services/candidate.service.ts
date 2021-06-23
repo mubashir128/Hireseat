@@ -30,6 +30,14 @@ export class CandidateService {
     );
   }
 
+  getCandidateExperienceIndustries() {
+    return this.http.get<any>(this.baseurl + "api/getCandidateExperienceIndustries").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   saveCandidateProfileData(payload) {
     return this.http
       .post<any>(this.baseurl + "api/saveCandidateProfileData", payload)

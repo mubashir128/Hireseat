@@ -53,6 +53,9 @@ export class FillFormComponent implements OnInit {
   public showIndustriesFrm: FormGroup;
   public educationFrm: FormGroup;
   public workFrm: FormGroup;
+
+  loggedInUser: any;
+  isLoggedIn: boolean = false;
   
   constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router, private _userService: UserService) {
     this.SearchFrm = this.formBuilder.group({
@@ -88,7 +91,8 @@ export class FillFormComponent implements OnInit {
 
     this.workFrm = new FormGroup({
       companyNameFrm : new FormControl(this.companyName, Validators.required),
-      titleFrm : new FormControl(this.title, Validators.required),
+      // titleFrm : new FormControl(this.title, Validators.required),
+      titleFrm : new FormControl(),
       manageralExpFrm : new FormControl(this.manageralExp, Validators.required),
       managedTeamSizeFrm : new FormControl(this.managedTeamSize, Validators.required),
       // totalYearsFrm : new FormControl(this.totalYears, Validators.required)
@@ -97,13 +101,21 @@ export class FillFormComponent implements OnInit {
   }
   
   ngOnInit(){
+    this.loggedInUser = this._userService.getUserData();
+    if (this.loggedInUser != "no") {
+      this.isLoggedIn = true;
+    }
+
     this.setCandidateCareerValueFinder();
     this.getSkillsets();
-    this.getIndustries();
+    this.getExperienceIndustries();
   }
 
   setCandidateCareerValueFinder(){
-    let localStorageUserInfo = this._userService.getCandidateCareerValueFinder();
+    if(this.loggedInUser.careerValueFinder === undefined){
+      return ;
+    }
+    let localStorageUserInfo = JSON.parse(this.loggedInUser.careerValueFinder);
     if(localStorageUserInfo){
       this.schoolName = localStorageUserInfo.schoolName;
       this.companyName = localStorageUserInfo.companyName;
@@ -144,8 +156,8 @@ export class FillFormComponent implements OnInit {
       });
   }
 
-  getIndustries() {
-    this.candidateService.getCandidateIndustries().subscribe((res) => {
+  getExperienceIndustries() {
+    this.candidateService.getCandidateExperienceIndustries().subscribe((res) => {
       if (res) {
         if (res.industries.length > 0) {
           this.mainIndustriesAre = res.industries;
@@ -245,7 +257,7 @@ export class FillFormComponent implements OnInit {
           }
 
           if(!temp && (this.mainIndustriesAre.length - 1 == index) && (this.SearchIndustryFrm.value.industry.length - 1 == ind)){
-            this.addNewIndustries(event);
+            this.addNewExpIndustries(event);
           }
 
         });
@@ -256,13 +268,13 @@ export class FillFormComponent implements OnInit {
     this.finalIndustriesAre = industriesAll;
   }
 
-  addNewIndustries(industry){
+  addNewExpIndustries(industry){
     industry.display = lib.trimSpaces(industry.display);
     let ind = {
       name : lib.titleCase(industry.display)
     }
 
-    this.resumeService.addNewIndustry(ind).subscribe(res => {
+    this.resumeService.addNewExpIndustries(ind).subscribe(res => {
       if (res.result == "success") {
         this.mainIndustriesAre.push(res.data);
         this.finalIndustriesAre.push(res.data);
@@ -384,15 +396,7 @@ export class FillFormComponent implements OnInit {
     this.addIndustriesAre();
   }
 
-  saveCandidateInfo(){
-    let payload = {
-      skills : this.finalSkillSets.join().toLowerCase(),
-      industries : this.finalIndustriesAre,
-      comments : this.SearchInputFrm.value.comments ,
-      comment2 : this.SearchInputFrm.value.comment2 ,
-      comment3 : this.SearchInputFrm.value.comment3 
-    }
-
+  saveCandidateInfo(){ 
     let userInfo = {
       schoolName : this.schoolName,
       companyName : this.companyName,
@@ -410,9 +414,21 @@ export class FillFormComponent implements OnInit {
       comment3 : this.SearchInputFrm.value.comment3
     }
     
+    let payload = {
+      skills : this.finalSkillSets.join().toLowerCase(),
+      industries : this.finalIndustriesAre,
+      comments : this.SearchInputFrm.value.comments,
+      comment2 : this.SearchInputFrm.value.comment2,
+      comment3 : this.SearchInputFrm.value.comment3,
+      careerValueFinder : JSON.stringify(userInfo)
+    }
+
     this.candidateService.saveCandidateProfileData(payload).subscribe((res) => {
       if (res) {
-        this._userService.setCandidateCareerValueFinder(userInfo);
+        //add careerValueFinder to localStorage.
+        let usrObj = this._userService.getUser();
+        usrObj.userInfo.careerValueFinder = JSON.stringify(userInfo);
+        localStorage.setItem('currentUser', JSON.stringify(usrObj));
         Materialize.toast("Profile updated successfully !", 1000, "blue");
         this._router.navigate(["/candidate/my-profile"]);
       }
