@@ -269,10 +269,10 @@ export class SharedCandidateProfilesComponent
   }
 
   async addCreatedLink(res) {
-    console.log('link generated', res);
-
     this.generateLink = false;
     this.createdUrl = res.result.link;
+
+    this.copyLink();
 
     let shareRet = await Share.share({
       // title: 'See cool stuff',
@@ -280,7 +280,6 @@ export class SharedCandidateProfilesComponent
       url: this.createdUrl,
       dialogTitle: 'Share with'
     });
-    Materialize.toast("Link generated", 1000);
   }
 
   handleResponse(res) {
@@ -698,6 +697,7 @@ export class SharedCandidateProfilesComponent
   closeShareToUserModal() {
     jQuery("#shareToUsers").modal("close");
   }
+
   copyLink() {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -710,10 +710,10 @@ export class SharedCandidateProfilesComponent
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+
     Materialize.toast("Link copied to clipboard", 1000);
 
     this.closeShareModal();
-
   }
 
   async generateLinkForVideo() {
