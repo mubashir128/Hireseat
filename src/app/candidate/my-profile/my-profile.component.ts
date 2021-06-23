@@ -16,6 +16,7 @@ import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { VideoCallingService } from "src/app/_services/video-calling.service";
 import { UserService } from "src/app/_services/user.service";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-my-profile",
@@ -54,7 +55,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private candidateService: CandidateService,
     private router: Router,
     private videoCallingService: VideoCallingService,
-    private userService: UserService
+    private userService: UserService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
@@ -94,6 +96,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       comment2: [""],
       comment3: [""],
       totalWorkExpYrs: [""],
+      gender: [""],
       totalWorkExpMonths: [""],
       locationPref: [""],
       shareProfile: [false],
@@ -198,6 +201,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       .getCandidateProfile()
       .subscribe(
         (res) => {
+          this.spinner.hide();
           this.candidateProfile = res;
           this.getIndustries();
           this.editProfile.patchValue({
