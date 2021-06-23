@@ -44,6 +44,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(["super-admin/user-list"]);
       } else if (this.chkLoggedInUser.userRole == "enterprise") {
         this.router.navigate(["enterprise/user-list"]);
+      }else if (this.chkLoggedInUser.userRole == "candidate") {
+        this.router.navigate(["candidate/my-profile"]);
       }
     }
   }
