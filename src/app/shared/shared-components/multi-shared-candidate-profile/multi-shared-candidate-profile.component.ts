@@ -34,7 +34,8 @@ import { fromEvent } from "rxjs";
 import { SubscriberslistService } from "src/app/_services/subscriberslist.service";
 import { ConstantsService } from "src/app/_services/constants.service"
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
-import { conditionallyCreateMapObjectLiteral } from "@angular/compiler/src/render3/view/util";
+import { Plugins } from '@capacitor/core';
+const { Share } = Plugins;
 
 declare var jQuery;
 declare var $: any;
@@ -124,6 +125,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   skillsShow = false;
 
   createdUrl = "";
+  generateLink = true;
 
   topRecruiters = [];
   allTopRecruiters = [];
@@ -297,9 +299,18 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     });
   }
 
-  addCreatedLink(res) {
+  async addCreatedLink(res) {
+    this.generateLink = false;
     this.createdUrl = res.result.link;
+
     this.copyLink();
+
+    let shareRet = await Share.share({
+      // title: 'See cool stuff',
+      // text: 'Really awesome thing you need to see right meow',
+      url: this.createdUrl,
+      dialogTitle: 'Share with'
+    });
   }
 
   handleResponse(res) {
@@ -692,6 +703,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
 
   // share process
   showShareModal(resume) {
+    this.generateLink = true;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
