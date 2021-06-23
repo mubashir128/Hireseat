@@ -21,6 +21,7 @@ export class FillFormComponent implements OnInit {
   secEduPageTab = false;
   workTab = false;
   industriesTab = false;
+  accomTab = false;
 
   schoolName = "";
   companyName = "";
@@ -36,6 +37,10 @@ export class FillFormComponent implements OnInit {
   comments = "";
   comment2 = "";
   comment3 = "";
+
+  accom1 = "";
+  accom2 = "";
+  accom3 = "";
 
   public tagsBind = [];
   public industryBind = []
@@ -53,6 +58,7 @@ export class FillFormComponent implements OnInit {
   public showIndustriesFrm: FormGroup;
   public educationFrm: FormGroup;
   public workFrm: FormGroup;
+  public accomFrm: FormGroup;
 
   loggedInUser: any;
   isLoggedIn: boolean = false;
@@ -97,6 +103,12 @@ export class FillFormComponent implements OnInit {
       managedTeamSizeFrm : new FormControl(this.managedTeamSize, Validators.required),
       // totalYearsFrm : new FormControl(this.totalYears, Validators.required)
     });
+    
+    this.accomFrm = new FormGroup({
+      accomFrm1 : new FormControl(this.accom1, Validators.required),
+      accomFrm2 : new FormControl(),
+      accomFrm3 : new FormControl()
+    });
 
   }
   
@@ -134,6 +146,10 @@ export class FillFormComponent implements OnInit {
       this.comments = localStorageUserInfo.comments;
       this.comment2 = localStorageUserInfo.comment2;
       this.comment3 = localStorageUserInfo.comment3;
+
+      this.accom1 = localStorageUserInfo.accom1;
+      this.accom2 = localStorageUserInfo.accom2;
+      this.accom3 = localStorageUserInfo.accom3;
     }
   }
 
@@ -385,15 +401,34 @@ export class FillFormComponent implements OnInit {
     this.industriesTab = true;
   }
 
+  accomplishmentClick(){
+    this.eduPageTab = false;
+    this.accomTab = true;
+  }
+
   industriesSkip(){
     this.industriesTab = false;
     this.eduPageTab = true;
   }
 
+  accomSkip(){
+    this.eduPageTab = true;
+    this.accomTab = false;
+  }
+
   industriesContinue(){
     this.industriesTab = false;
-    this.eduPageTab = true;
+    this.accomTab = true;
     this.addIndustriesAre();
+  }
+
+  accomContinue(){
+    if(this.accomFrm.valid){
+      this.accomTab = false;
+      this.eduPageTab = true;
+    }else{
+      Materialize.toast("Please Fill the form fields !", 1000);
+    }
   }
 
   saveCandidateInfo(){ 
@@ -411,7 +446,10 @@ export class FillFormComponent implements OnInit {
       finalIndustriesAre : this.finalIndustriesAre,
       comments : this.SearchInputFrm.value.comments,
       comment2 : this.SearchInputFrm.value.comment2,
-      comment3 : this.SearchInputFrm.value.comment3
+      comment3 : this.SearchInputFrm.value.comment3,
+      accom1 : this.accom1,
+      accom2 : this.accom2,
+      accom3 : this.accom3
     }
     
     let payload = {

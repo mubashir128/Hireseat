@@ -25,8 +25,8 @@
             </div>
         </div>  
         <div class="eductionn-tab">
-            <div class="eduction-blue" >
-                <h6>Accomplishm<br>ents<br> and Unique Exp </h6>
+            <div class="eduction-blue" (click) = "accomplishmentClick()">
+                <h6>Accomplishments<br> and <br> Unique Exp </h6>
             </div>
             <div class="eduction-blue-2">
                 <h6 class="padd-30">Video –<br>soft skills </h6>
@@ -40,21 +40,21 @@
             <div class="bottom-text" *ngIf = "schoolName !== ''">
                 <p>
                     <span> <i class="fas fa-check-square"></i> Education : </span><br>
-                    <span class="detailsData">I went to {{schoolName !== '' ? schoolName : '...'}}  and I have a GPA of {{highGPA !== undefined ? highGPA : '...'}} and a {{techMajor !== '' ? techMajor : '...'}} major and {{degree !== '' ? degree : '...'}} degree.</span>
+                    <span class="detailsData">- I went to {{schoolName !== '' ? schoolName : '...'}}  and I have a GPA of {{highGPA !== undefined ? highGPA : '...'}} and a {{techMajor !== '' ? techMajor : '...'}} major and {{degree !== '' ? degree : '...'}} degree.</span>
                 </p>
             </div>
             <div class="bottom-text" *ngIf = "companyName !== ''">
                 <p>
                     <span> <i class="fas fa-check-square"></i> Work exp  : </span><br>
                     <span class="detailsData">
-                        I worked at {{companyName !== '' ? companyName : '...'}}.
+                        - I worked at {{companyName !== '' ? companyName : '...'}}.
                         <span *ngIf = "title !== ''">
                             <br>
-                            I had a title of {{title}}.
+                            - I had a title of {{title}}.
                         </span>
                         <span *ngIf = "manageralExp !== 0">
                             <br>
-                            I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{manageralExp !== '' ? manageralExp : '...'}} years.
+                            - I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{manageralExp !== '' ? manageralExp : '...'}} years.
                         </span>
                     </span>
                 </p>
@@ -65,30 +65,38 @@
                 <form [formGroup]="showSkillsSetsFrm" novalidate>
                     <div class="inputInnerDiv3">
                         <tag-input [ngModel]="finalSkillSets"
-                                formControlName="showSkillsAre"
-                                [maxItems]="finalSkillSets.length"
-                                [ripple]="false"
-                                [removable]="false">
+                            formControlName="showSkillsAre"
+                            [maxItems]="finalSkillSets.length"
+                            [ripple]="false"
+                            [removable]="false">
                         </tag-input>
                     </div>
                 </form>
 
             </div>
             <div class="bottom-text induDiv" *ngIf = "finalIndustriesAre.length !== 0">
-                <p><i class="fas fa-check-square"></i> Industries  :</p>
+                <p><i class="fas fa-check-square"></i> Industries : </p>
 
                 <form [formGroup]="showIndustriesFrm" novalidate>
                     <div class="inputInnerDiv3">
                         <tag-input [ngModel]="finalIndustriesAre"
-                                formControlName="showIndustriesAre"
-                                [maxItems]="finalIndustriesAre.length"
-                                [ripple]="false"
-                                [displayBy]="'name'"
-                                [removable]="false">
+                            formControlName="showIndustriesAre"
+                            [maxItems]="finalIndustriesAre.length"
+                            [ripple]="false"
+                            [displayBy]="'name'"
+                            [removable]="false">
                         </tag-input>
                     </div>
                 </form>
 
+            </div>
+            <div class="bottom-text" *ngIf = "accom1 !== '' && accom2 !== '' && accom3 !== ''">
+                <p>
+                    <span> <i class="fas fa-check-square"></i> Accomplishments and Unique Experiences : </span><br>
+                    <span class="detailsData">- {{accom1}}.</span><br>
+                    <span class="detailsData">- {{accom2}}.</span><br>
+                    <span class="detailsData">- {{accom3}}.</span><br>
+                </p>
             </div>
 
             <div class="bottom-text" *ngIf = "eduPageTab && (schoolName !== '' || companyName !== '' || finalSkillSets.length !== 0 || finalIndustriesAre.length !== 0)">
@@ -97,24 +105,30 @@
                         <i class="fas fa-check-square"></i>
                         Now that we highlighted some of your value propositions above, write 3 quick reasons why a hiring manager should hire you below.
                     </p>
-                    <textarea
-                        rows="15"
-                        [(ngModel)] = "comments"
-                        maxlength="250"
-                        formControlName="comments"
-                    ></textarea>
-                    <textarea
-                        rows="15"
-                        [(ngModel)] = "comment2"
-                        maxlength="250"
-                        formControlName="comment2"
-                    ></textarea>
-                    <textarea
-                        rows="15"
-                        [(ngModel)] = "comment3"
-                        maxlength="250"
-                        formControlName="comment3"
-                    ></textarea>
+                    <div class="row accomCss">
+                        <textarea
+                            rows="15"
+                            [(ngModel)] = "comments"
+                            maxlength="250"
+                            formControlName="comments"
+                        ></textarea>
+                    </div>
+                    <div class="row accomCss">
+                        <textarea
+                            rows="15"
+                            [(ngModel)] = "comment2"
+                            maxlength="250"
+                            formControlName="comment2"
+                        ></textarea>
+                    </div>
+                    <div class="row accomCss">
+                        <textarea
+                            rows="15"
+                            [(ngModel)] = "comment3"
+                            maxlength="250"
+                            formControlName="comment3"
+                        ></textarea>
+                    </div>
                 </form>
         
             </div>
@@ -337,6 +351,71 @@
         <button class="eduuction-btn marginAngle" (click) = "industriesSkip()">Skip</button>
         <button class="eduuction-cant" (click) = "industriesContinue()">continue </button>
 
+    </div>
+
+    <div class="work" *ngIf = "accomTab">
+        <form [formGroup]="accomFrm" novalidate>
+            <h4>Accomplishments and Unique Experiences</h4>
+            <h5>Highlight below the accomplishments you are most proud of or unique experiences that can add value to a future employer.</h5>
+            <span class="exPointsCss">
+                Ex.1) I automated the reconciliation process using Python and saved over a million dollars in cost. <br>
+                Ex.2) I have built a successful YouTube channel and have hands on experience with social media marketing and data analysis. <br>
+                Ex.3) I have both Agency and Corp recruiting experience. <br>
+            </span>
+            <div class="row accomCss">
+                <textarea
+                    rows="15"
+                    [(ngModel)] = "accom1"
+                    maxlength="250"
+                    formControlName="accomFrm1"
+                ></textarea>
+                <div *ngIf="accomFrm.controls['accomFrm1'].hasError('required')" class="error errorMsg">
+                    Accomplishment/Unique Experience 1.
+                </div>
+                <div *ngIf="!accomFrm.controls['accomFrm1'].hasError('required')">
+                    Accomplishment/Unique Experience 1.
+                </div>
+            </div>
+            <div class="row accomCss">
+                <textarea
+                    rows="15"
+                    [(ngModel)] = "accom2"
+                    maxlength="250"
+                    formControlName="accomFrm2"
+                ></textarea>
+                <div>
+                    Accomplishment/Unique Experience 2.
+                </div>
+            </div>
+            <div class="row accomCss">
+                <textarea
+                    rows="15"
+                    [(ngModel)] = "accom3"
+                    maxlength="250"
+                    formControlName="accomFrm3"
+                ></textarea>
+                <div>
+                    Accomplishment/Unique Experience 3.
+                </div>
+            </div>
+            
+            <div class="row bottom-text-2">
+                <p *ngIf = "accom1 !== ''">
+                    <i class="fas fa-check-square"></i>
+                    {{accom1}}.
+                </p>
+                <p *ngIf = "accom2 !== ''">
+                    <i class="fas fa-check-square"></i>
+                    {{accom2}}.
+                </p>
+                <p *ngIf = "accom3 !== ''">
+                    <i class="fas fa-check-square"></i>
+                    {{accom3}}.
+                </p>
+            </div>
+            <button class="row eduuction-btn-2"(click) = "accomSkip()">Skip</button>
+            <button type="submit" class="row eduuction-cant-2"(click) = "accomContinue()">continue </button>
+        </form>
     </div>
 
     <div class="row emptySpace" style="color: #fff;">

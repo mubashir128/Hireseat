@@ -195,3 +195,18 @@ input[type=number] {
     display: block;
     float: left;
 }
+
+.accomCss{
+    width: 95%;
+    margin-left: 0px;
+    margin-top: 10px !important;
+}
+
+textarea{
+    height: 60px;
+}
+
+.exPointsCss{
+    font-size: 15px;
+    font-family: 'Font Awesome 5 Free';
+}
