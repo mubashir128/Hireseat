@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ declare var Materialize: any;
   templateUrl: './fill-form.component.html',
   styleUrls: ['./fill-form.component.css']
 })
-export class FillFormComponent implements OnInit {
+export class FillFormComponent implements OnInit, OnDestroy {
 
   skillSetsTab = false;
   valuePropFinderTab = true;
@@ -62,6 +62,8 @@ export class FillFormComponent implements OnInit {
 
   loggedInUser: any;
   isLoggedIn: boolean = false;
+
+  saveRedirect = false;
   
   constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router, private _userService: UserService) {
     this.SearchFrm = this.formBuilder.group({
@@ -431,7 +433,8 @@ export class FillFormComponent implements OnInit {
     }
   }
 
-  saveCandidateInfo(){ 
+  saveCandidateInfo(autoSave){
+    this.saveRedirect = true;
     let userInfo = {
       schoolName : this.schoolName,
       companyName : this.companyName,
@@ -453,11 +456,11 @@ export class FillFormComponent implements OnInit {
     }
     
     let payload = {
-      skills : this.finalSkillSets.join().toLowerCase(),
-      industries : this.finalIndustriesAre,
-      comments : this.SearchInputFrm.value.comments,
-      comment2 : this.SearchInputFrm.value.comment2,
-      comment3 : this.SearchInputFrm.value.comment3,
+      // skills : this.finalSkillSets.join().toLowerCase(),
+      // industries : this.finalIndustriesAre,
+      comments : autoSave ? "" : this.SearchInputFrm.value.comments,
+      comment2 : autoSave ? "" : this.SearchInputFrm.value.comment2,
+      comment3 : autoSave ? "" : this.SearchInputFrm.value.comment3,
       careerValueFinder : JSON.stringify(userInfo)
     }
 
@@ -467,10 +470,18 @@ export class FillFormComponent implements OnInit {
         let usrObj = this._userService.getUser();
         usrObj.userInfo.careerValueFinder = JSON.stringify(userInfo);
         localStorage.setItem('currentUser', JSON.stringify(usrObj));
-        Materialize.toast("Profile updated successfully !", 1000, "blue");
+        if(!autoSave){
+          Materialize.toast("Profile updated successfully !", 1000, "blue");
+        }
         this._router.navigate(["/candidate/my-profile"]);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if(!this.saveRedirect){
+      this.saveCandidateInfo(true);
+    }
   }
 
 }

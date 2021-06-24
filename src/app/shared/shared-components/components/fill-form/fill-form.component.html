@@ -90,12 +90,12 @@
                 </form>
 
             </div>
-            <div class="bottom-text" *ngIf = "accom1 !== '' && accom2 !== '' && accom3 !== ''">
+            <div class="bottom-text" *ngIf = "accom1 !== ''">
                 <p>
                     <span> <i class="fas fa-check-square"></i> Accomplishments and Unique Experiences : </span><br>
-                    <span class="detailsData">- {{accom1}}.</span><br>
-                    <span class="detailsData">- {{accom2}}.</span><br>
-                    <span class="detailsData">- {{accom3}}.</span><br>
+                    <span class="detailsData" *ngIf = "accom1 !== ''">- {{accom1}}.</span><br>
+                    <span class="detailsData" *ngIf = "accom2 !== ''">- {{accom2}}. <br> </span>
+                    <span class="detailsData" *ngIf = "accom3 !== ''">- {{accom3}}. <br> </span>
                 </p>
             </div>
 
@@ -134,7 +134,7 @@
             </div>
 
             <div class="saveDetails" *ngIf = "eduPageTab && (schoolName !== '' || companyName !== '' || finalSkillSets.length !== 0 || finalIndustriesAre.length !== 0)">
-                <button class="waves-effect waves-light btn saveBtn" style="float: right;" (click)="saveCandidateInfo()">Save</button>
+                <button class="waves-effect waves-light btn saveBtn" style="float: right;" (click)="saveCandidateInfo(false)">Save</button>
             </div>
 
         </div>
@@ -276,11 +276,11 @@
                             <span class="suggestSkill">Suggested skill based off your profile</span>
                             <div class="inputInnerDiv3">
                                 <tag-input [ngModel]="skillSets"
-                                        formControlName="tagsAre"
-                                        [maxItems]="skillSets.length"
-                                        [ripple]="false"
-                                        (onSelect)="onSkillSelect($event)"
-                                        [removable]="false">
+                                    formControlName="tagsAre"
+                                    [maxItems]="skillSets.length"
+                                    [ripple]="false"
+                                    (onSelect)="onSkillSelect($event)"
+                                    [removable]="false">
                                 </tag-input>
                             </div>
                         </div>
@@ -327,14 +327,14 @@
 
                         </div>
                         <div class="inputInnerDiv2">
-                            <span class="suggestSkill"> Suggested experience based on your industry and role</span>
+                            <span class="suggestSkill">Suggested experience based on your industry and role</span>
                             <div class="inputInnerDiv3">
                                 <tag-input [ngModel]="industriesAre"
-                                        formControlName="industryAre"
-                                        [maxItems]="industriesAre.length"
-                                        [ripple]="false"
-                                        (onSelect)="onIndustriesSelect($event)"
-                                        [removable]="false">
+                                    formControlName="industryAre"
+                                    [maxItems]="industriesAre.length"
+                                    [ripple]="false"
+                                    (onSelect)="onIndustriesSelect($event)"
+                                    [removable]="false">
                                 </tag-input>
                             </div>
                         </div>
