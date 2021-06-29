@@ -480,6 +480,7 @@ export class FillFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if(!this.saveRedirect){
+      //auto save
       this.saveCandidateInfo(true);
     }
   }
