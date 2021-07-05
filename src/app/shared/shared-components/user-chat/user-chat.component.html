@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row slidein">
     <form [formGroup]="auctionFrm">
       <div class="searchDiv">
         <input type="text" class="searchRecruiter" formControlName="searchTermByNameIs" [(ngModel)]="searchTermByName" placeholder="Search..." #searchInputTerm>
@@ -18,7 +18,7 @@
     </form>
   </div>
 
-  <div class="chat-list" *ngIf = "chgStyle">
+  <div class="chat-list slidein" *ngIf = "chgStyle">
     <ng-container *ngFor="let user of onlyChatUsers | inUserChatSearch : searchTermByName">
 
       <div class="chat-profile-item" *ngIf = "user.user1._id !== loggedInUser._id">
@@ -41,7 +41,7 @@
     <div class="divider"></div>
   </div>
 
-  <div class="chat-list" *ngIf = "!chgStyle">
+  <div class="chat-list slidein" *ngIf = "!chgStyle">
     <ng-container *ngFor="let user of chatUsers | search : searchTermByName">
 
       <div class="chat-profile-item" *ngIf = "user._id !== loggedInUser._id">
