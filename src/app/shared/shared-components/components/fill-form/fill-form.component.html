@@ -7,7 +7,7 @@
     <button class="valu-continue" (click) = "valuePropFinderBtn()">continue </button>
     </div>
 
-    <div class="eduPage" *ngIf = "eduPageTab">
+    <div class="eduPage slidein" *ngIf = "eduPageTab">
         <div class="eductionn-tab" (click) = "educationClick()">
             <div class="eduction-blue">
                 <h6 class="padd-40">Education</h6>
@@ -142,7 +142,7 @@
     </div>
 
 
-    <div class="secound-eductions" *ngIf = "secEduPageTab">
+    <div class="secound-eductions slidein" *ngIf = "secEduPageTab">
         <form [formGroup]="educationFrm" novalidate>
             <h4>Education</h4>
             <h5>Highlight a prestigious school, technical major, high GPA, or impressive degree (Masters degree, PHD)</h5>
@@ -185,7 +185,7 @@
         </form>
     </div>
 
-    <div class="work" *ngIf = "workTab">
+    <div class="work slidein" *ngIf = "workTab">
         <form [formGroup]="workFrm" novalidate>
             <h4>Work exp </h4>
             <h5>Highlight experience at impressive companies, job titles (Director, VP), and any managerial experience</h5>
@@ -245,7 +245,7 @@
         </form>
     </div>
 
-    <div class="skillsAreTheir" *ngIf = "skillSetsTab">
+    <div class="skillsAreTheir slidein" *ngIf = "skillSetsTab">
         <form [formGroup]="SearchFrm" novalidate>
             <div class="container">
                 <div class="row">
