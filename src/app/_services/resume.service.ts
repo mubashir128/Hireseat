@@ -135,6 +135,14 @@ export class ResumeService {
     );
   }
 
+  getResumeSkillsets() {
+    return this.http.get<any>(this.baseurl + "api/getResumeSkillsets").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   getResumeCandidates(obj) {
     return this.http
       .post<any>(this.baseurl + "api/getResumeCandidates", obj)

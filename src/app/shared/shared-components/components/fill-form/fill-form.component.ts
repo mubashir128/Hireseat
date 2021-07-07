@@ -169,6 +169,28 @@ export class FillFormComponent implements OnInit, OnDestroy {
         } else {
           this.skillSets = [];
         }
+
+        this.resumeService.getResumeSkillsets().subscribe((res: any) => {
+          let resumeData = res.data.toLowerCase();
+          Materialize.toast(""+resumeData, 3000);
+          this.skillSets.forEach((item2, index2)=>{
+            if(resumeData.search(item2.value.toLowerCase()) !== -1){
+              let temp = false;
+              this.tagsBind.forEach((item, index)=>{
+                if(item.value.toLowerCase() == item2.value.toLowerCase()){
+                  temp = true;
+                }
+                if(index == this.tagsBind.length - 1 && !temp){
+                  this.tagsBind.push(item2);
+                  this.finalSkillSets.push(item2.value.toLowerCase());
+                }
+              });
+            }else{
+              // console.log("--- not found : ",item2.value.toLowerCase());
+            }
+          });
+        });
+
       }, error => {
         console.log(error);
       });
