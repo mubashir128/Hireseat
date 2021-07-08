@@ -172,7 +172,7 @@ export class FillFormComponent implements OnInit, OnDestroy {
 
         this.resumeService.getResumeSkillsets().subscribe((res: any) => {
           let resumeData = res.data.toLowerCase();
-          Materialize.toast(""+resumeData, 700);
+          // Materialize.toast("pdf readed successfully : ", 700);
           this.skillSets.forEach((item2, index2)=>{
             if(resumeData.search(item2.value.toLowerCase()) !== -1){
               if(this.tagsBind.length === 0){
@@ -227,6 +227,42 @@ export class FillFormComponent implements OnInit, OnDestroy {
         } else {
           this.industriesAre = [];
         }
+
+        this.resumeService.getResumeSkillsets().subscribe((res: any) => {
+          let resumeData = res.data.toLowerCase();
+          // Materialize.toast("pdf readed successfully : ", 700);
+          this.mainIndustriesAre.forEach((item2, index2)=>{
+            if(resumeData.search(item2.name.toLowerCase()) !== -1){
+              if(this.industryBind.length === 0){
+                this.industryBind.push({
+                  display : item2.name,
+                  value : item2.name.toLowerCase()
+                });
+                this.finalIndustriesAre.push(item2);
+              }else{
+                let temp = false;
+                this.industryBind.forEach((item, index)=>{
+
+                  if(item.value.toLowerCase() == item2.name.toLowerCase()){
+                    temp = true;
+                  }
+                  if(index == this.industryBind.length - 1 && !temp){
+                    this.industryBind.push({
+                      display : item2.name,
+                      value : item2.name.toLowerCase()
+                    });
+                    this.finalIndustriesAre.push(item2);
+                  }
+
+                });
+              }
+            }else{
+              // console.log("--- not found : ",item2.name.toLowerCase());
+            }
+          });
+
+        });
+
       }
     });
   }
