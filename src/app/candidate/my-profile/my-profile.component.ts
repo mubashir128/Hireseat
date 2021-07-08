@@ -254,6 +254,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         }
       );
   }
+
   viewVideo(archivedId) {
     this.videoURL = "";
     // console.log(archivedId);
