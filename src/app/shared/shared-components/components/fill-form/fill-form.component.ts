@@ -7,6 +7,7 @@ import { ResumeService } from 'src/app/_services/resume.service';
 import { UserService } from 'src/app/_services/user.service';
 import { of } from 'rxjs';
 import * as lib from "src/app/lib-functions";
+import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.service';
 declare var Materialize: any;
 @Component({
   selector: 'app-fill-form',
@@ -65,7 +66,13 @@ export class FillFormComponent implements OnInit, OnDestroy {
 
   saveRedirect = false;
   
-  constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router, private _userService: UserService) {
+  schoolsArray = [];
+  techMajorArray = [];
+  degreeArray = [];
+  titleArray = [];
+  companiesArray = [];
+  
+  constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router, private _userService: UserService, private _candidateCarrer : CandidateCarrerService) {
     this.SearchFrm = this.formBuilder.group({
       tags : ["", Validators.required],
       tagsAre : ["", Validators.required]
@@ -120,6 +127,12 @@ export class FillFormComponent implements OnInit, OnDestroy {
       this.isLoggedIn = true;
     }
 
+    this.schoolsArray = this._candidateCarrer.getSchool();
+    this.techMajorArray = this._candidateCarrer.getTechnocalMajor();
+    this.degreeArray =this._candidateCarrer.getDegree();
+    this.titleArray = this._candidateCarrer.getTitle();
+    this.companiesArray =  this._candidateCarrer.getCompanies();
+    
     this.setCandidateCareerValueFinder();
     this.getSkillsets();
     this.getExperienceIndustries();
@@ -153,6 +166,41 @@ export class FillFormComponent implements OnInit, OnDestroy {
       this.accom2 = localStorageUserInfo.accom2;
       this.accom3 = localStorageUserInfo.accom3;
     }
+
+    this.resumeService.getResumeSkillsets().subscribe((res: any) => {
+      let resumeData = res.data.toLowerCase();
+      this.schoolsArray.forEach((school, index)=>{
+        if(resumeData.search(school.toLowerCase()) !== -1){
+          this.schoolName = school;
+        }
+      });
+
+      this.techMajorArray.forEach((techMaj, index)=>{
+        if(resumeData.search(techMaj.toLowerCase()) !== -1){
+          this.techMajor = techMaj;
+        }
+      });
+      
+      this.degreeArray.forEach((degreeA, index)=>{
+        if(resumeData.search(degreeA.toLowerCase()) !== -1){
+          this.degree = degreeA;
+        }
+      });
+
+      this.titleArray.forEach((titleA, index)=>{
+        if(resumeData.search(titleA.toLowerCase()) !== -1){
+          this.title = titleA;
+        }
+      });
+
+      this.companiesArray.forEach((companiesA, index)=>{
+        if(resumeData.search(companiesA.toLowerCase()) !== -1){
+          this.companyName = companiesA;
+        }
+      });
+
+    });
+
   }
 
   getSkillsets() {
