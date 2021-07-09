@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,13 +7,14 @@ import { ResumeService } from 'src/app/_services/resume.service';
 import { UserService } from 'src/app/_services/user.service';
 import { of } from 'rxjs';
 import * as lib from "src/app/lib-functions";
+import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.service';
 declare var Materialize: any;
 @Component({
   selector: 'app-fill-form',
   templateUrl: './fill-form.component.html',
   styleUrls: ['./fill-form.component.css']
 })
-export class FillFormComponent implements OnInit {
+export class FillFormComponent implements OnInit, OnDestroy {
 
   skillSetsTab = false;
   valuePropFinderTab = true;
@@ -62,8 +63,16 @@ export class FillFormComponent implements OnInit {
 
   loggedInUser: any;
   isLoggedIn: boolean = false;
+
+  saveRedirect = false;
   
-  constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router, private _userService: UserService) {
+  schoolsArray = [];
+  techMajorArray = [];
+  degreeArray = [];
+  titleArray = [];
+  companiesArray = [];
+  
+  constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router, private _userService: UserService, private _candidateCarrer : CandidateCarrerService) {
     this.SearchFrm = this.formBuilder.group({
       tags : ["", Validators.required],
       tagsAre : ["", Validators.required]
@@ -118,6 +127,12 @@ export class FillFormComponent implements OnInit {
       this.isLoggedIn = true;
     }
 
+    this.schoolsArray = this._candidateCarrer.getSchool();
+    this.techMajorArray = this._candidateCarrer.getTechnocalMajor();
+    this.degreeArray =this._candidateCarrer.getDegree();
+    this.titleArray = this._candidateCarrer.getTitle();
+    this.companiesArray =  this._candidateCarrer.getCompanies();
+    
     this.setCandidateCareerValueFinder();
     this.getSkillsets();
     this.getExperienceIndustries();
@@ -151,6 +166,41 @@ export class FillFormComponent implements OnInit {
       this.accom2 = localStorageUserInfo.accom2;
       this.accom3 = localStorageUserInfo.accom3;
     }
+
+    this.resumeService.getResumeSkillsets().subscribe((res: any) => {
+      let resumeData = res.data.toLowerCase();
+      this.schoolsArray.forEach((school, index)=>{
+        if(resumeData.search(school.toLowerCase()) !== -1){
+          this.schoolName = school;
+        }
+      });
+
+      this.techMajorArray.forEach((techMaj, index)=>{
+        if(resumeData.search(techMaj.toLowerCase()) !== -1){
+          this.techMajor = techMaj;
+        }
+      });
+      
+      this.degreeArray.forEach((degreeA, index)=>{
+        if(resumeData.search(degreeA.toLowerCase()) !== -1){
+          this.degree = degreeA;
+        }
+      });
+
+      this.titleArray.forEach((titleA, index)=>{
+        if(resumeData.search(titleA.toLowerCase()) !== -1){
+          this.title = titleA;
+        }
+      });
+
+      this.companiesArray.forEach((companiesA, index)=>{
+        if(resumeData.search(companiesA.toLowerCase()) !== -1){
+          this.companyName = companiesA;
+        }
+      });
+
+    });
+
   }
 
   getSkillsets() {
@@ -167,6 +217,33 @@ export class FillFormComponent implements OnInit {
         } else {
           this.skillSets = [];
         }
+
+        this.resumeService.getResumeSkillsets().subscribe((res: any) => {
+          let resumeData = res.data.toLowerCase();
+          // Materialize.toast("pdf readed successfully : ", 700);
+          this.skillSets.forEach((item2, index2)=>{
+            if(resumeData.search(item2.value.toLowerCase()) !== -1){
+              if(this.tagsBind.length === 0){
+                this.tagsBind.push(item2);
+                this.finalSkillSets.push(item2.value.toLowerCase());
+              }else{
+                let temp = false;
+                this.tagsBind.forEach((item, index)=>{
+                  if(item.value.toLowerCase() == item2.value.toLowerCase()){
+                    temp = true;
+                  }
+                  if(index == this.tagsBind.length - 1 && !temp){
+                    this.tagsBind.push(item2);
+                    this.finalSkillSets.push(item2.value.toLowerCase());
+                  }
+                });
+              }
+            }else{
+              // console.log("--- not found : ",item2.value.toLowerCase());
+            }
+          });
+        });
+
       }, error => {
         console.log(error);
       });
@@ -198,6 +275,42 @@ export class FillFormComponent implements OnInit {
         } else {
           this.industriesAre = [];
         }
+
+        this.resumeService.getResumeSkillsets().subscribe((res: any) => {
+          let resumeData = res.data.toLowerCase();
+          // Materialize.toast("pdf readed successfully : ", 700);
+          this.mainIndustriesAre.forEach((item2, index2)=>{
+            if(resumeData.search(item2.name.toLowerCase()) !== -1){
+              if(this.industryBind.length === 0){
+                this.industryBind.push({
+                  display : item2.name,
+                  value : item2.name.toLowerCase()
+                });
+                this.finalIndustriesAre.push(item2);
+              }else{
+                let temp = false;
+                this.industryBind.forEach((item, index)=>{
+
+                  if(item.value.toLowerCase() == item2.name.toLowerCase()){
+                    temp = true;
+                  }
+                  if(index == this.industryBind.length - 1 && !temp){
+                    this.industryBind.push({
+                      display : item2.name,
+                      value : item2.name.toLowerCase()
+                    });
+                    this.finalIndustriesAre.push(item2);
+                  }
+
+                });
+              }
+            }else{
+              // console.log("--- not found : ",item2.name.toLowerCase());
+            }
+          });
+
+        });
+
       }
     });
   }
@@ -431,7 +544,8 @@ export class FillFormComponent implements OnInit {
     }
   }
 
-  saveCandidateInfo(){ 
+  saveCandidateInfo(autoSave){
+    this.saveRedirect = true;
     let userInfo = {
       schoolName : this.schoolName,
       companyName : this.companyName,
@@ -453,11 +567,11 @@ export class FillFormComponent implements OnInit {
     }
     
     let payload = {
-      skills : this.finalSkillSets.join().toLowerCase(),
-      industries : this.finalIndustriesAre,
-      comments : this.SearchInputFrm.value.comments,
-      comment2 : this.SearchInputFrm.value.comment2,
-      comment3 : this.SearchInputFrm.value.comment3,
+      // skills : this.finalSkillSets.join().toLowerCase(),
+      // industries : this.finalIndustriesAre,
+      comments : autoSave ? "" : this.SearchInputFrm.value.comments,
+      comment2 : autoSave ? "" : this.SearchInputFrm.value.comment2,
+      comment3 : autoSave ? "" : this.SearchInputFrm.value.comment3,
       careerValueFinder : JSON.stringify(userInfo)
     }
 
@@ -467,10 +581,19 @@ export class FillFormComponent implements OnInit {
         let usrObj = this._userService.getUser();
         usrObj.userInfo.careerValueFinder = JSON.stringify(userInfo);
         localStorage.setItem('currentUser', JSON.stringify(usrObj));
-        Materialize.toast("Profile updated successfully !", 1000, "blue");
+        if(!autoSave){
+          Materialize.toast("Profile updated successfully !", 1000, "blue");
+        }
         this._router.navigate(["/candidate/my-profile"]);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if(!this.saveRedirect){
+      //auto save
+      this.saveCandidateInfo(true);
+    }
   }
 
 }

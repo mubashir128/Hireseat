@@ -1,0 +1,203 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CandidateCarrerService {
+
+  constructor() { }
+
+  getSchool(){
+    return [
+      "Harvard University",
+      "Stanford University",
+      "Massachusetts Institute of Technology (MIT)",
+      "University of California Berkeley (UCB)",
+      "University of California, Los Angeles (UCLA)",
+      "Yale University",
+      "Columbia University",
+      "Princeton University",
+      "New York University (NYU)",
+      "University of Pennsylvania",
+      "University of Chicago",
+      "Cornell University",
+      "Duke University",
+      "Johns Hopkins University",
+      "University of Southern California",
+      "Northwestern University",
+      "Carnegie Mellon University",
+      "University of Michigan",
+      "Brown University",
+      "Boston University",
+      "California Institute of Technology (Caltech)",
+      "Emory University",
+      "Rice University",
+      "University of Washington, Seattle",
+      "Washington University in St. Louis",
+      "Georgetown University",
+      "University of California, San Diego (UCSD)",
+      "Vanderbilt University",
+      "University of Texas at Austin",
+      "University of Illinois at Urbana-Champaign",
+      "University of Rochester",
+      "Dartmouth College",
+      "University of North Carolina, Chapel Hill",
+      "University of California, Davis (UCD)",
+      "University of Florida",
+      "Tufts University",
+      "University of Illinois, Chicago (UIC)",
+      "Georgia Institute of Technology (Georgia Tech)",
+      "Stony Brook University",
+      "University of Virginia",
+      "Case Western Reserve University",
+      "Rutgers - The State University of New Jersey",
+      "University of California, Santa Barbara (UCSB)",
+      "Pennsylvania State University, University Park",
+      "George Washington University",
+      "University of California, Irvine (UCI)",
+      "University of Notre Dame",
+      "University of Miami",
+      "Northeastern University",
+      "Ohio State University, Columbus",
+      "University at Buffalo SUNY"
+    ];
+  }
+
+  getTechnocalMajor(){
+    return [
+      "Public Accounting",
+      "Engineering",
+      "Computer Science",
+      "Physics",
+      "Mathematics",
+      "Statistics"
+    ];
+  }
+
+  getDegree(){
+    return [
+      "Masters Degree",
+      "PHD"
+    ];
+  }
+
+  getTitle(){
+    return [
+      "VP",
+      "Vice President",
+      "Director",
+      "Managing Director",
+      "MD",
+      "Head of"
+    ];
+  }
+
+  getCompanies(){
+    return [
+      "Walmart",
+      "Amazon",
+      "Apple",
+      "CVS Health",
+      "United Health Group",
+      "Berkshire Hathaway",
+      "McKesson",
+      "Amerisource Bergen",
+      "Alphabet",
+      "Exxon Mobil",
+      "AT&T",
+      "Costco Wholesale",
+      "Cigna",
+      "Cardinal Health",
+      "Microsoft",
+      "Walgreens Boots Alliance",
+      "Kroger",
+      "Home Depot",
+      "JPMorgan Chase",
+      "Verizon Communications",
+      "Ford Motor",
+      "General Motors",
+      "Anthem",
+      "Centene",
+      "Fannie Mae",
+      "Comcast",
+      "Chevron",
+      "Dell Technologies",
+      "Bank of America",
+      "Target",
+      "Lowe’s",
+      "Marathon Petroleum",
+      "Citigroup",
+      "Facebook",
+      "UPS",
+      "Johnson & Johnson",
+      "Wells Fargo",
+      "General Electric",
+      "State Farm Insurance",
+      "Intel",
+      "Humana",
+      "IBM",
+      "Procter Gamble",
+      "PepsiCo",
+      "FedEx",
+      "MetLife",
+      "Freddie Mac",
+      "Phillips 66",
+      "Lockheed-Martin",
+      "Walt Disney",
+      "Archer Daniels Midland",
+      "Albertsons",
+      "Valero Energy",
+      "Boeing",
+      "Prudential Financial",
+      "HP",
+      "Raytheon Technologies",
+      "Stone X Group",
+      "Goldman Sachs Group",
+      "Sysco",
+      "Morgan Stanley",
+      "HCA Healthcare",
+      "Cisco Systems",
+      "Charter Communications",
+      "Merck",
+      "Best Buy",
+      "New York life Insurance",
+      "AbbVie",
+      "Publix Super Markets",
+      "Allstate",
+      "Liberty Mutual Insurance Group",
+      "AIG",
+      "Tyson Foods",
+      "Progressive",
+      "Bristol Myers Squibb",
+      "Nationwide",
+      "Pfizer",
+      "Caterpillar",
+      "TIAA",
+      "Oracle",
+      "Energy Transfer",
+      "Dow",
+      "American Express",
+      "General Dynamics",
+      "Nike",
+      "Northrop Grumman",
+      "USAA",
+      "Deere",
+      "Abbott Laboratories",
+      "Northwestern Mutual",
+      "Dollar General",
+      "Exelon",
+      "Coca-Cola",
+      "Honeywell International",
+      "Thermo Fisher Scientific",
+      "3M",
+      "TJX",
+      "Travelers",
+      "Capital One Financial",
+      "Tesla",
+      "Philip Morris International",
+      "Arrow Electronics",
+      "CHS",
+      "Jabil"
+    ];
+  }
+}
