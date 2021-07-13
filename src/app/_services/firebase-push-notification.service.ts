@@ -87,7 +87,6 @@ export class FirebasePushNotificationService {
   }
 
   handleData(notification){
-    Materialize.toast("--- pushNotificationActionPerformed : " + JSON.stringify(notification), 3000, "blue");
     let url = notification.notification.data.url;
     let redirectId = notification.notification.data.redirectId;
     let redirectId2 = notification.notification.data.redirectId2;
