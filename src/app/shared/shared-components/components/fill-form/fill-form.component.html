@@ -96,6 +96,8 @@
                     <span class="detailsData" *ngIf = "accom1 !== ''">- {{accom1}}.</span><br>
                     <span class="detailsData" *ngIf = "accom2 !== ''">- {{accom2}}. <br> </span>
                     <span class="detailsData" *ngIf = "accom3 !== ''">- {{accom3}}. <br> </span>
+                    <span class="detailsData" *ngIf = "accom4 !== ''">- {{accom4}}. <br> </span>
+                    <span class="detailsData" *ngIf = "accom5 !== ''">- {{accom5}}. <br> </span>
                 </p>
             </div>
 
@@ -107,25 +109,25 @@
                     </p>
                     <div class="row accomCss">
                         <textarea
-                            rows="15"
+                            rows="50"
                             [(ngModel)] = "comments"
-                            maxlength="250"
+                            maxlength="25000"
                             formControlName="comments"
                         ></textarea>
                     </div>
                     <div class="row accomCss">
                         <textarea
-                            rows="15"
+                            rows="50"
                             [(ngModel)] = "comment2"
-                            maxlength="250"
+                            maxlength="25000"
                             formControlName="comment2"
                         ></textarea>
                     </div>
                     <div class="row accomCss">
                         <textarea
-                            rows="15"
+                            rows="50"
                             [(ngModel)] = "comment3"
-                            maxlength="250"
+                            maxlength="25000"
                             formControlName="comment3"
                         ></textarea>
                     </div>
@@ -364,9 +366,9 @@
             </span>
             <div class="row accomCss">
                 <textarea
-                    rows="15"
+                    rows="50"
                     [(ngModel)] = "accom1"
-                    maxlength="250"
+                    maxlength="25000"
                     formControlName="accomFrm1"
                 ></textarea>
                 <div *ngIf="accomFrm.controls['accomFrm1'].hasError('required')" class="error errorMsg">
@@ -378,9 +380,9 @@
             </div>
             <div class="row accomCss">
                 <textarea
-                    rows="15"
+                    rows="50"
                     [(ngModel)] = "accom2"
-                    maxlength="250"
+                    maxlength="25000"
                     formControlName="accomFrm2"
                 ></textarea>
                 <div>
@@ -389,13 +391,35 @@
             </div>
             <div class="row accomCss">
                 <textarea
-                    rows="15"
+                    rows="50"
                     [(ngModel)] = "accom3"
-                    maxlength="250"
+                    maxlength="25000"
                     formControlName="accomFrm3"
                 ></textarea>
                 <div>
                     Accomplishment/Unique Experience 3.
+                </div>
+            </div>
+            <div class="row accomCss">
+                <textarea
+                    rows="50"
+                    [(ngModel)] = "accom4"
+                    maxlength="25000"
+                    formControlName="accomFrm4"
+                ></textarea>
+                <div>
+                    Accomplishment/Unique Experience 4.
+                </div>
+            </div>
+            <div class="row accomCss">
+                <textarea
+                    rows="50"
+                    [(ngModel)] = "accom5"
+                    maxlength="25000"
+                    formControlName="accomFrm5"
+                ></textarea>
+                <div>
+                    Accomplishment/Unique Experience 5.
                 </div>
             </div>
             
@@ -411,6 +435,14 @@
                 <p *ngIf = "accom3 !== ''">
                     <i class="fas fa-check-square"></i>
                     {{accom3}}.
+                </p>
+                <p *ngIf = "accom4 !== ''">
+                    <i class="fas fa-check-square"></i>
+                    {{accom4}}.
+                </p>
+                <p *ngIf = "accom5 !== ''">
+                    <i class="fas fa-check-square"></i>
+                    {{accom5}}.
                 </p>
             </div>
             <button class="row eduuction-btn-2"(click) = "accomSkip()">Skip</button>
