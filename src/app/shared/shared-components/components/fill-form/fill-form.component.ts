@@ -42,6 +42,8 @@ export class FillFormComponent implements OnInit, OnDestroy {
   accom1 = "";
   accom2 = "";
   accom3 = "";
+  accom4 = "";
+  accom5 = "";
 
   public tagsBind = [];
   public industryBind = []
@@ -71,6 +73,14 @@ export class FillFormComponent implements OnInit, OnDestroy {
   degreeArray = [];
   titleArray = [];
   companiesArray = [];
+
+  allResumeData;
+
+  loopSkills;
+  loopIndustries;
+  loopAchivments;
+
+  loopExcludeWord;
   
   constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router, private _userService: UserService, private _candidateCarrer : CandidateCarrerService) {
     this.SearchFrm = this.formBuilder.group({
@@ -116,7 +126,9 @@ export class FillFormComponent implements OnInit, OnDestroy {
     this.accomFrm = new FormGroup({
       accomFrm1 : new FormControl(this.accom1, Validators.required),
       accomFrm2 : new FormControl(),
-      accomFrm3 : new FormControl()
+      accomFrm3 : new FormControl(),
+      accomFrm4 : new FormControl(),
+      accomFrm5 : new FormControl()
     });
 
   }
@@ -133,9 +145,24 @@ export class FillFormComponent implements OnInit, OnDestroy {
     this.titleArray = this._candidateCarrer.getTitle();
     this.companiesArray =  this._candidateCarrer.getCompanies();
     
+    this.loopSkills = this._candidateCarrer.getLoopSkills();
+    this.loopIndustries = this._candidateCarrer.getLoopIndustries();
+    this.loopAchivments = this._candidateCarrer.getLoopAchievement();
+
+    this.loopExcludeWord = this._candidateCarrer.getExcludeWords();
+
     this.setCandidateCareerValueFinder();
     this.getSkillsets();
     this.getExperienceIndustries();
+
+    this.getResumeValues();
+  }
+
+  getResumeValues(){
+    this.resumeService.getResumeSkillsets().subscribe((res: any) => {
+      this.allResumeData = res.data.toLowerCase();
+      this.expBoxValues();
+    });
   }
 
   setCandidateCareerValueFinder(){
@@ -165,6 +192,8 @@ export class FillFormComponent implements OnInit, OnDestroy {
       this.accom1 = localStorageUserInfo.accom1;
       this.accom2 = localStorageUserInfo.accom2;
       this.accom3 = localStorageUserInfo.accom3;
+      this.accom4 = localStorageUserInfo.accom4;
+      this.accom5 = localStorageUserInfo.accom5;
     }
 
     this.resumeService.getResumeSkillsets().subscribe((res: any) => {
@@ -195,7 +224,11 @@ export class FillFormComponent implements OnInit, OnDestroy {
 
       this.companiesArray.forEach((companiesA, index)=>{
         if(resumeData.search(companiesA.toLowerCase()) !== -1){
-          this.companyName = companiesA;
+          if(this.companyName !== ""){
+            this.companyName = this.companyName +" , "+ companiesA;
+          }else{
+            this.companyName = companiesA;
+          }
         }
       });
 
@@ -203,8 +236,317 @@ export class FillFormComponent implements OnInit, OnDestroy {
 
   }
 
-  getSkillsets() {
-    this.resumeService.getSkillSets().subscribe((data: any) => {
+  expBoxValues(){
+    this.accom1 = "";
+    this.accom2 = "";
+    this.accom3 = "";
+    this.accom4 = "";
+    this.accom5 = "";
+
+    let resumeData = this.allResumeData;
+
+    // console.log("resumeData : ",resumeData);
+    // resumeData = "\n name : interest rate swaps. \n swaptions is good for health \n it's my long best ex for long term";
+    // this.finalIndustriesAre.push({name : "mathamatics"});
+    // console.log("this.finalIndustriesAre : ",this.finalIndustriesAre);
+    // resumeData = "\n name : java fixed income treasuries increased rate swaps. \n sql swapation market risk develop is good for health \n it's my research long best ex for long term \n";
+    // resumeData = "\nc++, vba, python , java, sql, sql server, nosql, hadoop, kdb, hive, pig, relational databases, rdbms, macros, microsoft office suite\n";
+      // resumeData = "\n developed through vba/sql an automated access client kyc database that automatically produces new daily reports \n";
+      let firstArray = [];
+      Object.entries(this.loopSkills).forEach((values)=>{
+        let globalString = "";
+        // let sIndex = resumeData.indexOf(values[0].toLowerCase());
+
+        let sIndex = 0;
+        let i = 0;
+        while((sIndex = resumeData.indexOf(values[0].toLowerCase(), i + sIndex)) !== -1){
+          i = 1;
+          let startString = "";
+          for(let i = sIndex; i >= 0 && sIndex !== -1; i--){
+            if(resumeData.charAt(i) == '\n'){
+              startString = startString.substring(0, startString.length - 1)
+              break ;
+            }else{
+              startString = resumeData.charAt(i) + startString;
+            }
+          }
+          
+          let endString = "";
+          for(let i = sIndex; i <= resumeData.length - 1 && sIndex !== -1; i++){
+            if(resumeData.charAt(i) == '\n'){
+              break ;
+            }else{
+              endString = endString + resumeData.charAt(i);
+            }
+          }
+
+          globalString = startString +""+ endString;
+
+          if(globalString !== ""){
+            let obj = {
+              stm : globalString,
+              value : this.loopSkills[values[0].toLowerCase()] == undefined ? 0 : this.loopSkills[values[0].toLowerCase()]
+            };
+            
+            // console.log(values[0].toLowerCase() , " = ",this.loopSkills[values[0]]);
+            Object.entries(this.loopSkills).forEach((key) => {
+              if((globalString.indexOf(key[0].toLowerCase()) !== -1) && (key[0].toLowerCase() !== values[0].toLowerCase())){
+                obj.value = obj.value + this.loopSkills[key[0]];
+              }
+            });
+            // console.log("++++++++++++++++ : ", obj.value);
+
+            Object.entries(this.loopIndustries).forEach((key) => {
+              if(globalString.indexOf(key[0].toLowerCase()) !== -1){
+                obj.value = obj.value + this.loopIndustries[key[0]];
+              }
+            });
+
+            Object.entries(this.loopAchivments).forEach((key) => {
+              if(globalString.indexOf(key[0].toLowerCase()) !== -1){
+                obj.value = obj.value + this.loopAchivments[key[0]];
+              }
+            });
+
+            //don't push same statements
+            let temp = true;
+            firstArray.forEach((item, index)=>{
+              if(obj.stm == item.stm){
+                if(obj.value > item.value){
+                  item.value = obj.value;
+                }
+                temp = false;
+              }
+            });
+
+            if(temp){
+              firstArray.push(obj);
+            }
+          }
+        }
+      });
+
+      // console.log("----------------------------------------- 1) firstArray : ",firstArray);
+
+      let secondArray = [];
+      Object.entries(this.loopIndustries).forEach((values)=>{
+        let globalString = "";
+        // let sIndex = resumeData.indexOf(values[0].toLowerCase());
+
+        let sIndex = 0;
+        let i = 0;
+        while((sIndex = resumeData.indexOf(values[0].toLowerCase(), i + sIndex)) !== -1){
+          i = 1;
+          let startString = "";
+          for(let i = sIndex; i >= 0 && sIndex !== -1; i--){
+            if(resumeData.charAt(i) == '\n'){
+              startString = startString.substring(0, startString.length - 1)
+              break ;
+            }else{
+              startString = resumeData.charAt(i) + startString;
+            }
+          }
+          
+          let endString = "";
+          for(let i = sIndex; i <= resumeData.length - 1 && sIndex !== -1; i++){
+            if(resumeData.charAt(i) == '\n'){
+              break ;
+            }else{
+              endString = endString + resumeData.charAt(i);
+            }
+          }
+
+          globalString = startString +""+ endString;
+
+          if(globalString !== ""){
+            let obj = {
+              stm : globalString,
+              value : this.loopSkills[values[0].toLowerCase()] == undefined ? 0 : this.loopSkills[values[0].toLowerCase()]
+            };
+            
+            // console.log(values[0].toLowerCase() , " = ",this.loopIndustries[values[0]]);
+            Object.entries(this.loopIndustries).forEach((key) => {
+              if((globalString.indexOf(key[0].toLowerCase()) !== -1) && (key[0].toLowerCase() !== values[0].toLowerCase())){
+                obj.value = obj.value + this.loopIndustries[key[0]];
+              }
+            });
+            // console.log("++++++++++++++++ : ", obj.value);
+
+            Object.entries(this.loopAchivments).forEach((key) => {
+              if(globalString.indexOf(key[0].toLowerCase()) !== -1){
+                obj.value = obj.value + this.loopAchivments[key[0]];
+              }
+            });
+
+            //don't push same statements
+            let temp = true;
+            secondArray.forEach((item, index)=>{
+              if(obj.stm == item.stm){
+                if(obj.value > item.value){
+                  item.value = obj.value;
+                }
+                temp = false;
+              }
+            });
+
+            if(temp){
+              secondArray.push(obj);
+            }
+          }
+        }
+      });
+
+      // console.log("---------------------------------------------- 2) secondArray : ",secondArray);
+
+      let thirdArray = [];
+      Object.entries(this.loopAchivments).forEach((values)=>{
+        let globalString = "";
+        // let sIndex = resumeData.indexOf(values[0].toLowerCase());
+
+        let sIndex = 0;
+        let i = 0;
+        while((sIndex = resumeData.indexOf(values[0].toLowerCase(), i + sIndex)) !== -1){
+          i = 1;
+          let startString = "";
+          for(let i = sIndex; i >= 0 && sIndex !== -1; i--){
+            if(resumeData.charAt(i) == '\n'){
+              startString = startString.substring(0, startString.length - 1)
+              break ;
+            }else{
+              startString = resumeData.charAt(i) + startString;
+            }
+          }
+          
+          let endString = "";
+          for(let i = sIndex; i <= resumeData.length - 1 && sIndex !== -1; i++){
+            if(resumeData.charAt(i) == '\n'){
+              break ;
+            }else{
+              endString = endString + resumeData.charAt(i);
+            }
+          }
+
+          globalString = startString +""+ endString;
+
+          if(globalString !== ""){
+            let obj = {
+              stm : globalString,
+              value : this.loopAchivments[values[0].toLowerCase()] == undefined ? 0 : this.loopAchivments[values[0].toLowerCase()]
+            };
+
+            // console.log(values[0].toLowerCase() , " = ",this.loopAchivments[values[0]]);
+            Object.entries(this.loopAchivments).forEach((key) => {
+              if((globalString.indexOf(key[0].toLowerCase()) !== -1) && (key[0].toLowerCase() !== values[0].toLowerCase())){
+                obj.value = obj.value + this.loopAchivments[key[0]];
+              }
+            });
+            // console.log("++++++++++++++++ : ", obj.value);
+
+            //don't push same statements
+            let temp = true;
+            thirdArray.forEach((item, index)=>{
+              if(obj.stm == item.stm){
+                if(obj.value > item.value){
+                  item.value = obj.value;
+                }
+                temp = false;
+              }
+            });
+
+            if(temp){
+              thirdArray.push(obj);
+            }
+          }
+        }
+      });
+
+      // console.log("---------------------------------------------- 3) thirdArray : ",thirdArray);
+
+      //sort array in descending order
+      firstArray.forEach((item, index)=>{
+        for(let i = index + 1; i < firstArray.length; i++){
+          if(firstArray[i].value > firstArray[index].value){
+            let temp = firstArray[index];
+            firstArray[index] = firstArray[i];
+            firstArray[i] = temp;
+          }
+        }
+      });
+
+      //
+      //remove a sentences from array that contains a above words
+      firstArray.forEach((item, index)=>{
+        let arr = item.stm.split(" ");
+        let temp = true;
+        this.loopExcludeWord.forEach((val, index1)=>{
+          if(arr.includes(val.toLowerCase())){
+            temp = false;
+            return ;
+          }
+        });
+
+        if(temp){
+          firstArray.splice(index, 1);
+        }
+      });
+
+      //combine first three statements.
+      firstArray.forEach((val ,index)=>{
+        // if(index <= 2){
+        //   if(this.accom1 == ""){
+        //     this.accom1 =  (index + 1) + " ). " + val.stm;
+        //   }else{
+        //     this.accom1 = this.accom1 + "\r\n" + (index + 1) + " ). " + val.stm;
+        //   }
+        // }else{
+        //   return ;
+        // }
+
+        switch(index){
+          case 0 : 
+            this.accom1 = val.stm;
+            this.comment2 = val.stm;
+            break;
+          case 1 : 
+            this.accom2 = val.stm;
+            this.comment3 = val.stm;
+            break;
+          case 2 : 
+            this.accom3 = val.stm;
+            break;
+          case 3 :  
+            this.accom4 = val.stm;
+            break;
+          case 4 : 
+            this.accom5 = val.stm;
+            break;
+          default : 
+            break;
+        }
+
+      });
+
+      this.addFirstBoxValues();
+      
+      // console.log("---------------------------------------------- firstArray : ",firstArray);
+      
+    }
+
+    addFirstBoxValues(){
+      this.comments = "Education : \n"+
+                        "  - I went to "+this.schoolName+". \n"+
+                        "  - I have a GPA of "+this.highGPA+" and a "+this.techMajor+" major. \n"+
+                        "  - "+this.degree+" degree. \n\n"+
+
+                      "Work exp : \n"+
+                        "  - I worked at "+this.companyName+". \n"+
+                        "  - I had a title of "+this.title+". \n"+
+                        "  - I have "+this.manageralExp+" Managerial experience. \n"+
+                        "  - I have managed a team of "+this.managedTeamSize+" for "+this.manageralExp+" years. \n";
+    }
+    
+    getSkillsets() {
+      this.resumeService.getSkillSets().subscribe((data: any) => {
         if (data.length > 0) {
           this.skillSets = data;
           this.finalSkillSets.forEach((item, index)=>{
@@ -395,6 +737,7 @@ export class FillFormComponent implements OnInit, OnDestroy {
       industriesAll = [];
     }
     this.finalIndustriesAre = industriesAll;
+    // this.expBoxValues();
   }
 
   addNewExpIndustries(industry){
@@ -440,6 +783,9 @@ export class FillFormComponent implements OnInit, OnDestroy {
         }
       });
     }
+
+    // this.expBoxValues();
+
   }
 
   addSkillAre(){
@@ -563,7 +909,9 @@ export class FillFormComponent implements OnInit, OnDestroy {
       comment3 : this.SearchInputFrm.value.comment3,
       accom1 : this.accom1,
       accom2 : this.accom2,
-      accom3 : this.accom3
+      accom3 : this.accom3,
+      accom4 : this.accom4,
+      accom5 : this.accom5
     }
     
     let payload = {
