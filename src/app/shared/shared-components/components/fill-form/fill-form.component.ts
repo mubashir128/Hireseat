@@ -251,7 +251,7 @@ export class FillFormComponent implements OnInit, OnDestroy {
     // console.log("this.finalIndustriesAre : ",this.finalIndustriesAre);
     // resumeData = "\n name : java fixed income treasuries increased rate swaps. \n sql swapation market risk develop is good for health \n it's my research long best ex for long term \n";
     // resumeData = "\nc++, vba, python , java, sql, sql server, nosql, hadoop, kdb, hive, pig, relational databases, rdbms, macros, microsoft office suite\n";
-      // resumeData = "\n developed through vba/sql an automated access client kyc database that automatically produces new daily reports \n";
+
       let firstArray = [];
       Object.entries(this.loopSkills).forEach((values)=>{
         let globalString = "";
@@ -473,6 +473,8 @@ export class FillFormComponent implements OnInit, OnDestroy {
         }
       });
 
+      let finalStatementsArr = [];
+
       //
       //remove a sentences from array that contains a above words
       firstArray.forEach((item, index)=>{
@@ -486,21 +488,16 @@ export class FillFormComponent implements OnInit, OnDestroy {
         });
 
         if(temp){
-          firstArray.splice(index, 1);
+          //if we delete element then index position creating a issue.
+          // firstArray.splice(index, 1);
+        }else{
+          //just push to new array.
+          finalStatementsArr.push(item);
         }
       });
 
       //combine first three statements.
-      firstArray.forEach((val ,index)=>{
-        // if(index <= 2){
-        //   if(this.accom1 == ""){
-        //     this.accom1 =  (index + 1) + " ). " + val.stm;
-        //   }else{
-        //     this.accom1 = this.accom1 + "\r\n" + (index + 1) + " ). " + val.stm;
-        //   }
-        // }else{
-        //   return ;
-        // }
+      finalStatementsArr.forEach((val ,index)=>{
 
         switch(index){
           case 0 : 
@@ -528,6 +525,7 @@ export class FillFormComponent implements OnInit, OnDestroy {
 
       this.addFirstBoxValues();
       
+      // console.log("---------------------------------------------- finalStatementsArr : ",finalStatementsArr);
       // console.log("---------------------------------------------- firstArray : ",firstArray);
       
     }
