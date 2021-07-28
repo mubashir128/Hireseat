@@ -523,7 +523,7 @@ export class FillFormComponent implements OnInit, OnDestroy {
 
       });
 
-      this.addFirstBoxValues();
+      this.addFirstBoxValues2();
       
       // console.log("---------------------------------------------- finalStatementsArr : ",finalStatementsArr);
       // console.log("---------------------------------------------- firstArray : ",firstArray);
@@ -541,6 +541,38 @@ export class FillFormComponent implements OnInit, OnDestroy {
                         "  - I had a title of "+this.title+". \n"+
                         "  - I have "+this.manageralExp+" Managerial experience. \n"+
                         "  - I have managed a team of "+this.managedTeamSize+" for "+this.manageralExp+" years. \n";
+    }
+
+    addFirstBoxValues2(){
+      if(this.schoolName !== ''){
+        this.comments = "Education : \n"+
+                        "  - I went to "+this.schoolName+". \n";
+        if(this.highGPA !== undefined){
+          this.comments += "  - I have a GPA of "+this.highGPA+". \n";
+        }
+        if(this.techMajor !== ''){
+          this.comments += "  - A "+this.techMajor+" major. \n";
+        }
+        if(this.degree !== ''){
+          this.comments += "  - "+this.degree+" degree. \n";
+        }
+        this.comments += "\n";
+      }
+
+      if(this.companyName !== ''){
+        this.comments += "Work exp : \n"+
+                          "  - I worked at "+this.companyName+". \n";
+        if(this.title !== ''){
+          this.comments += "  - I had a title of "+this.title+". \n";
+        }
+        if(this.manageralExp !== 0){
+          this.comments += "  - I have "+this.manageralExp+" Managerial experience. \n";
+        }
+        if(this.managedTeamSize !== 0){
+          this.comments += "  - I have managed a team of "+this.managedTeamSize+" for "+this.manageralExp+" years. \n";
+        }
+      }
+
     }
     
     getSkillsets() {
