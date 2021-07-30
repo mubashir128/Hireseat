@@ -68,6 +68,9 @@ import { UserChatComponent } from './user-chat/user-chat.component';
 import { ChatRecordComponent } from './chat-record/chat-record.component';
 import { NoDataAvailableComponent } from './no-data-available/no-data-available.component';
 import { FillFormComponent } from './components/fill-form/fill-form.component';
+import { SerchBySkillsPipe } from '../../shared/pipes/serch-by-skills.pipe';
+import { SerchByFullNamePipe } from '../../shared/pipes/serch-by-full-name.pipe';
+import { SerchByJobTitlePipe } from '../../shared/pipes/serch-by-job-title.pipe';
 
 @NgModule({
   imports: [
@@ -161,7 +164,10 @@ import { FillFormComponent } from './components/fill-form/fill-form.component';
     UserChatComponent,
     ChatRecordComponent,
     NoDataAvailableComponent,
-    FillFormComponent
+    FillFormComponent,
+    SerchBySkillsPipe,
+    SerchByFullNamePipe,
+    SerchByJobTitlePipe
   ],
   exports: [
     FooterComponent,
@@ -226,7 +232,10 @@ import { FillFormComponent } from './components/fill-form/fill-form.component';
     MenusComponent,
     MobileNavTabComponent,
     ListLoaderComponent,
-    NoDataAvailableComponent
+    NoDataAvailableComponent,
+    SerchBySkillsPipe,
+    SerchByFullNamePipe,
+    SerchByJobTitlePipe
   ],
 
 })
