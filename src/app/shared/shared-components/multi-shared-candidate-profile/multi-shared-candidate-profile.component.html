@@ -28,26 +28,68 @@
       <div class="row col s12 m12 l12">
         <button class="sortIndustries" (click)="getMultiSortByIndustries()">Sort</button>
       </div>
-    </div>
+    
+      <div class="">
+        <form [formGroup]="Search" novalidate style="width: 100%">
+          <div class="row">
+            <div class="skillInput" style="margin-top: 10px">
+              <span class="note" style="float: left"
+                ><span style="color: #f58e8e">Note:</span> Search by Name :
+              </span>
+            </div>
+            <div class="inputDivMainN">
+              <input
+                type="text"
+                [(ngModel)]="searchTerm"
+                formControlName="searchTerm"
+                placeholder="Search here..."
+                #searchByName
+              />
+            </div>
+          </div>
+        </form>
 
-    <!-- <form [formGroup]="Search" novalidate style="width: 100%">
-      <div class="row">
-        <div class="skillInput" style="margin-top: 10px">
-          <span class="note" style="float: left"
-            ><span style="color: #f58e8e">Note:</span> Search by Name :
-          </span>
-        </div>
-        <div class="inputDivMainN">
-          <input
+        
+        <form [formGroup]="searchJobTitleFrm" novalidate style="width: 100%">
+          <div class="row">
+            <div class="skillInput" style="margin-top: 10px">
+              <span class="note" style="float: left"
+              ><span style="color: #f58e8e">Note:</span> Search by Job Profile :
+            </span>
+          </div>
+          <div class="inputDivMainN">
+            <input
             type="text"
-            [(ngModel)]="searchTerm"
-            formControlName="searchTerm"
-            placeholder="Search here..."
-            #searchByName
-          />
+            [(ngModel)]="searchJobTitleTerm"
+            formControlName="searchJobTitleTerm"
+            placeholder="Search here by Job Title..."
+            />
+          </div>
         </div>
+      </form>
+
+      <form [formGroup]="searchSkillsFrm" novalidate style="width: 100%">
+        <div class="row">
+          <div class="skillInput" style="margin-top: 10px">
+            <span class="note" style="float: left"
+              ><span style="color: #f58e8e">Note:</span> Search by Skills : <br>
+              <span style="font-size: 10px; color: red;">For multi search use comma (ex- abc , lmn) seperated values.</span>
+            </span>
+          </div>
+          <div class="inputDivMainN">
+            <input
+              type="text"
+              [(ngModel)]="searchSkillTerm"
+              formControlName="searchSkillTerm"
+              placeholder="Search here by skills..."
+              (ngModelChange)='skillsModelChanged.next($event)'
+            />
+          </div>
+        </div>
+      </form>
+
       </div>
-    </form> -->
+    </div>
   </div>
 </ng-container>
 
@@ -56,7 +98,7 @@
     <div
       class="singleList employerResume resumeSingleList"
       *ngFor="
-        let resume of resumes | paginate: { itemsPerPage: 8, currentPage: p };
+        let resume of resumes | serchByFullName : searchTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: 8, currentPage: p };
         let i = index
       "
     >
