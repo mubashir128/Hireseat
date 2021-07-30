@@ -225,6 +225,27 @@ export class ResumeService {
         })
       );
   }
+
+  getSearchBySkills(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/getSearchBySkills", payload)
+      .pipe(
+        map((result: any) => {
+          return result;
+        })
+      );
+  }
+
+  getMultiSearchBySkills(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/getMultiSearchBySkills", payload)
+      .pipe(
+        map((result: any) => {
+          return result;
+        })
+      );
+  }
+
   /**
    * post my comment for recruiter
    */

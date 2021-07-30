@@ -40,21 +40,37 @@
             <div class="bottom-text" *ngIf = "schoolName !== ''">
                 <p>
                     <span> <i class="fas fa-check-square"></i> Education : </span><br>
-                    <span class="detailsData">- I went to {{schoolName !== '' ? schoolName : '...'}}  and I have a GPA of {{highGPA !== undefined ? highGPA : '...'}} and a {{techMajor !== '' ? techMajor : '...'}} major and {{degree !== '' ? degree : '...'}} degree.</span>
+                    <span class="detailsData">- I went to {{schoolName}}.</span>
+                    <span class="detailsData" *ngIf = "highGPA !== undefined">
+                        <br>
+                        - I have a GPA of {{highGPA}}.
+                    </span>
+                    <span class="detailsData" *ngIf = "techMajor !== ''">
+                        <br>
+                        - A {{techMajor}} major.
+                    </span>
+                    <span class="detailsData" *ngIf = "degree !== ''">
+                        <br>
+                        - {{degree}} degree.
+                    </span>
                 </p>
             </div>
             <div class="bottom-text" *ngIf = "companyName !== ''">
                 <p>
                     <span> <i class="fas fa-check-square"></i> Work exp  : </span><br>
                     <span class="detailsData">
-                        - I worked at {{companyName !== '' ? companyName : '...'}}.
+                        - I worked at {{companyName}}.
                         <span *ngIf = "title !== ''">
                             <br>
                             - I had a title of {{title}}.
                         </span>
                         <span *ngIf = "manageralExp !== 0">
                             <br>
-                            - I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{manageralExp !== '' ? manageralExp : '...'}} years.
+                            - I have {{manageralExp}} Managerial experience.
+                        </span>
+                        <span *ngIf = "managedTeamSize !== 0">
+                            <br>
+                            -I have managed a team of {{managedTeamSize}} for {{manageralExp}} years.
                         </span>
                     </span>
                 </p>
@@ -177,9 +193,21 @@
                 </div>
             </div>
             <div class="row bottom-text">
-                <p>
+                <p *ngIf = "schoolName !== ''">
                     <i class="fas fa-check-square"></i>
-                    I went to {{schoolName !== '' ? schoolName : '...'}}  and I have a GPA of {{highGPA !== undefined ? highGPA : '...'}} and a {{techMajor !== '' ? techMajor : '...'}} major and {{degree !== '' ? degree : '...'}} degree.
+                    I went to {{schoolName}}.
+                </p>
+                <p *ngIf = "highGPA !== undefined">
+                    <i class="fas fa-check-square"></i>
+                    I have a GPA of {{highGPA}}.
+                </p>
+                <p *ngIf = "techMajor !== ''">
+                    <i class="fas fa-check-square"></i>
+                    A {{techMajor}} major.
+                </p>
+                <p *ngIf = "degree !== ''">
+                    <i class="fas fa-check-square"></i>
+                    {{degree}} degree.
                 </p>
             </div>
             <button class="row eduuction-btn" (click) = "secEduSkip()">Skip</button>
@@ -229,9 +257,9 @@
             </div> -->
             
             <div class="row bottom-text-2">
-                <p>
+                <p *ngIf = "companyName !== ''">
                     <i class="fas fa-check-square"></i>
-                    I worked at {{companyName !== '' ? companyName : '...'}}.
+                    I worked at {{companyName}}.
                 </p>
                 <p *ngIf = "title !== ''">
                     <i class="fas fa-check-square"></i>
@@ -239,7 +267,11 @@
                 </p>
                 <p *ngIf = "manageralExp !== 0">
                     <i class="fas fa-check-square"></i>
-                    I have {{manageralExp !== '' ? manageralExp : '...'}} Managerial experience and  I have managed a team of {{managedTeamSize !== '' ? managedTeamSize : '...'}} for {{manageralExp !== '' ? manageralExp : '...'}} years.
+                    I have {{manageralExp}} Managerial experience.
+                </p>
+                <p *ngIf = "managedTeamSize !== 0">
+                    <i class="fas fa-check-square"></i>
+                    I have managed a team of {{managedTeamSize}} for {{manageralExp}} years.
                 </p>
             </div>
             <button class="row eduuction-btn-2"(click) = "workSkip()">Skip</button>

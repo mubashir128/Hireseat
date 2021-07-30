@@ -76,7 +76,11 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
 
   // form group
   QuestionsGroup: FormGroup;
+
   Search: FormGroup;
+  searchSkillsFrm: FormGroup;
+  searchJobTitleFrm: FormGroup;
+
   requestDatesForm: FormGroup;
   // pagination
   p = 1;
@@ -136,6 +140,10 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
 
   currentUserRole : any;
 
+  onLoad = true;
+  private skillsModelChanged: Subject<string> = new Subject<string>();
+  private notesModelChangeSubscription: Subscription;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -151,20 +159,31 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     private _bidEventService: BiddingEventService
   ) {
     this.resumes = [];
+
     this.Search = this.formBuilder.group({
       tags: ["", Validators.required],
       searchTerm: [""],
     });
 
-    this.Search.get("searchTerm").valueChanges.pipe(debounceTime(800)).subscribe((res) => {
-      if (res) {
-        let obj = {
-          searchType: "name",
-          searchTerm: res,
-        };
-        this.getAllSharedResumes(obj);
-      }
+    this.searchSkillsFrm = this.formBuilder.group({
+      tags: ["", Validators.required],
+      searchSkillTerm: [""],
     });
+
+    this.searchJobTitleFrm = this.formBuilder.group({
+      tags: ["", Validators.required],
+      searchJobTitleTerm: [""],
+    });
+
+    // this.Search.get("searchTerm").valueChanges.pipe(debounceTime(800)).subscribe((res) => {
+    //   if (res) {
+    //     let obj = {
+    //       searchType: "name",
+    //       searchTerm: res,
+    //     };
+    //     this.getAllSharedResumes(obj);
+    //   }
+    // });
 
     this.myComment = [];
     this.replyToComment = [];
@@ -225,10 +244,33 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     this.getIndustries();
     this.getProfiles();
 
+    this.debounceSearchForSkills();
+
     this.multiSharedProfileObserver$.subscribe((res: any) => {
       this.handleProfileData(res);
     });
 
+  }
+
+  debounceSearchForSkills(){
+    this.notesModelChangeSubscription = this.skillsModelChanged
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged()
+      ).subscribe(newText => {
+        if(this.onLoad){
+          this.onLoad = false;
+          return;
+        }
+        let obj = {};
+        if(newText !== undefined ){
+          obj = {
+            searchType: "skill",
+            searchSkills: newText,
+          };
+        }
+        this.getMultiSearchBySkills(obj);
+      });
   }
 
   getTopRecruiterList(){
@@ -385,23 +427,33 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     });
   }
 
-  searchTermByName() {
-    fromEvent(this.searchByName.nativeElement, "keyup")
-      .pipe(
-        map((event) => event),
-        filter(Boolean),
-        debounceTime(800),
-        distinctUntilChanged(),
-        tap((text) => {
-          let obj = {
-            searchType: "name",
-            searchTerm: this.searchTerm,
-          };
+  // searchTermByName() {
+  //   fromEvent(this.searchByName.nativeElement, "keyup")
+  //     .pipe(
+  //       map((event) => event),
+  //       filter(Boolean),
+  //       debounceTime(800),
+  //       distinctUntilChanged(),
+  //       tap((text) => {
+  //         let obj = {
+  //           searchType: "name",
+  //           searchTerm: this.searchTerm,
+  //         };
 
-          this.getAllSharedResumes(obj);
-        })
-      )
-      .subscribe();
+  //         this.getAllSharedResumes(obj);
+  //       })
+  //     )
+  //     .subscribe();
+  // }
+
+  getMultiSearchBySkills(payload){
+    this.resumeService.getMultiSearchBySkills(payload).subscribe((res) => {
+        if (res) {
+          this.resumes = res;
+          console.log(this.resumes);
+        }
+      }, (err) => {
+    });
   }
 
   getUsersProfile() {
@@ -651,7 +703,6 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
           searchTerm : this.searchTermByNameIs,
           userRole : this.loggedUser.userRole
         });
-
       })
     ).subscribe();
 

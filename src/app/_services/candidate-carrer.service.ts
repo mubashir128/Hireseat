@@ -296,7 +296,6 @@ export class CandidateCarrerService {
       "series 63" : 5,
       "etf trading" : 5,
       "customer service" : 5,
-      
       "strong communication" : 5,
       "tax enquiries" : 7,
       "tax preparations" : 8,
@@ -318,20 +317,62 @@ export class CandidateCarrerService {
       "machine learning" : 10,
       "deep learning" : 10,
       "statistical analysis" : 5,
-      "lider" : 10
+      "lider" : 15,
+      "strategy" : 20,
+      "market" : 15,
+      "customer" : 10,
+      "client" : 10,
+      "brand" : 10,
+      "product" : 10,
+      "sale" : 10,
+      "leader" : 15,
+      "diversity" : 10,
+      "content" : 10
     }
   }
 
   getLoopAchievement(){
     return {
-      "increased" : 10,
+      "increas" : 10,
       "led" : 15,
-      "%" : 20,
-      "decreased" : 10,
+      "%" : 30,
+      "decreas" : 10,
       "manag" : 15,
       "automat" : 15,
       "design" : 15,
-      "develop" : 20
+      "develop" : 20,
+      "implement" : 10,
+      "perform" : 10,
+      "built" : 15,
+      "modeled" : 15,
+      "improv" : 10,
+      "negotiat" : 15,
+      "budgeted" : 10,
+      "enhanc" : 10,
+      "collaborat" : 5,
+      "saved" : 15,
+      "coordinat" : 5,
+      "product" : 10,
+      "oversaw" : 15,
+      "oversee" : 15,
+      "architected" : 20,
+      "launch" : 20,
+      "served" : 10,
+      "serving" : 10,
+      "deliver" : 15,
+      "responsible" : 10,
+      "upgrad" : 15,
+      "creat" : 15,
+      "provid" : 10,
+      "drove" : 15,
+      "drive" : 15,
+      "build" : 15,
+      "spearhead" : 20,
+      "lead" : 20,
+      "recommend" : 15,
+      "sourc" : 10,
+      "host" : 15,
+      "$" : 30
     }
   }
 
