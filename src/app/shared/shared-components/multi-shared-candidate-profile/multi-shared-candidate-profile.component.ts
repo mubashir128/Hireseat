@@ -282,6 +282,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
             searchType: "skill",
             searchSkills: newText,
           };
+          this.skillText = newText;
         }
         this.getMultiSearchBySkills(obj);
       });
@@ -1360,7 +1361,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
         }
       });
       // console.log("--- firstArray : ",firstArray);
-      // console.log("--- finalStatementsArr : ",finalStatementsArr);
+      console.log("--- finalStatementsArr : ",finalStatementsArr);
 
       //combine first three statements.
       finalStatementsArr.forEach((val ,index)=>{

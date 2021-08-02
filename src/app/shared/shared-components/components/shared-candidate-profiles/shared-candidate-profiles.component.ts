@@ -267,7 +267,7 @@ export class SharedCandidateProfilesComponent
     this.notesModelChangeSubscription = this.skillsModelChanged
       .pipe(
         debounceTime(1000),
-        distinctUntilChanged()
+        // distinctUntilChanged()
       ).subscribe(newText => {
         if(this.onLoad){
           this.onLoad = false;
@@ -1417,7 +1417,7 @@ export class SharedCandidateProfilesComponent
         }
       });
       // console.log("--- firstArray : ",firstArray);
-      // console.log("--- finalStatementsArr : ",finalStatementsArr);
+      console.log("--- finalStatementsArr : ",finalStatementsArr);
 
       //combine first three statements.
       finalStatementsArr.forEach((val ,index)=>{
