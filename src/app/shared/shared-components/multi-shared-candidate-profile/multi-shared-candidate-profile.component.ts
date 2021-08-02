@@ -1361,7 +1361,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
         }
       });
       // console.log("--- firstArray : ",firstArray);
-      console.log("--- finalStatementsArr : ",finalStatementsArr);
+      // console.log("--- finalStatementsArr : ",finalStatementsArr);
 
       //combine first three statements.
       finalStatementsArr.forEach((val ,index)=>{
