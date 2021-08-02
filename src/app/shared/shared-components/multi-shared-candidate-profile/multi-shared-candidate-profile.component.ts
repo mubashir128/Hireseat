@@ -270,7 +270,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     this.notesModelChangeSubscription = this.skillsModelChanged
       .pipe(
         debounceTime(1000),
-        distinctUntilChanged()
+        // distinctUntilChanged()
       ).subscribe(newText => {
         if(this.onLoad){
           this.onLoad = false;
@@ -282,6 +282,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
             searchType: "skill",
             searchSkills: newText,
           };
+          this.skillText = newText;
         }
         this.getMultiSearchBySkills(obj);
       });
