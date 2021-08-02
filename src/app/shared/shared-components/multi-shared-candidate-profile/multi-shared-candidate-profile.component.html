@@ -180,6 +180,24 @@
       <ng-container *ngIf="resume?.comments">
         <div class="singleListData">
           <span class="summary">Candidate's Summary:</span>
+
+          <!-- resume data top three comments -->
+          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume1">
+            <div class="PointsDivSingle PointsDivSingleN">
+              <h4> <i class="fas fa-check-square"></i> {{ resume?.commentsResume1 }}</h4>
+            </div>
+          </div>
+          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume2">
+            <div class="PointsDivSingle PointsDivSingleN">
+              <h4> <i class="fas fa-check-square"></i> {{ resume?.commentsResume2 }}</h4>
+            </div>
+          </div>
+          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume3">
+            <div class="PointsDivSingle PointsDivSingleN">
+              <h4> <i class="fas fa-check-square"></i> {{ resume?.commentsResume3 }}</h4>
+            </div>
+          </div>
+
           <div class="PointsDiv commonSingleInner">
             <div class="PointsDivSingle PointsDivSingleN">
               <h4> <i class="fas fa-check-square"></i> {{ resume?.comments }}</h4>
