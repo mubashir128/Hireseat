@@ -270,7 +270,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     this.notesModelChangeSubscription = this.skillsModelChanged
       .pipe(
         debounceTime(1000),
-        distinctUntilChanged()
+        // distinctUntilChanged()
       ).subscribe(newText => {
         if(this.onLoad){
           this.onLoad = false;
