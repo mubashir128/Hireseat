@@ -137,10 +137,6 @@ export class SharedCandidateProfilesComponent
   public auctionFrm: FormGroup;
   finalRecruitersAre = [];
   @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
-  
-  onLoad = true;
-  private skillsModelChanged: Subject<string> = new Subject<string>();
-  private notesModelChangeSubscription: Subscription;
 
   loopSkills;
   loopIndustries;
@@ -264,24 +260,19 @@ export class SharedCandidateProfilesComponent
   }
 
   debounceSearchForSkills(){
-    this.notesModelChangeSubscription = this.skillsModelChanged
+    this.searchSkillsFrm.valueChanges
       .pipe(
-        debounceTime(1000),
-        // distinctUntilChanged()
-      ).subscribe(newText => {
-        if(this.onLoad){
-          this.onLoad = false;
-          return;
-        }
-        let obj = {};
-        if(newText !== undefined ){
-          obj = {
-            searchType: "skill",
-            searchSkills: newText
-          };
-          this.skillText = newText;
-        }
-        this.getSearchBySkills(obj);
+        debounceTime(1500),
+        distinctUntilChanged()).subscribe((value) => {
+          let obj = {};
+          if(value.searchSkillTerm !== undefined ){
+            this.skillText = value.searchSkillTerm;
+            obj = {
+              searchType: "skill",
+              searchSkills: this.skillText
+            };
+          }
+          this.getSearchBySkills(obj);
       });
   }
 

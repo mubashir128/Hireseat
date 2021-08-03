@@ -81,8 +81,8 @@
               type="text"
               [(ngModel)]="searchSkillTerm"
               formControlName="searchSkillTerm"
+              autocomplete="off"
               placeholder="Search here by skills..."
-              (ngModelChange)='skillsModelChanged.next($event)'
             />
           </div>
         </div>
