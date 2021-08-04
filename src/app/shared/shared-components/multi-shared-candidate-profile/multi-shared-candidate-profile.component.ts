@@ -141,10 +141,6 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
 
   currentUserRole : any;
 
-  onLoad = true;
-  private skillsModelChanged: Subject<string> = new Subject<string>();
-  private notesModelChangeSubscription: Subscription;
-
   loopSkills;
   loopIndustries;
   loopAchivments;
@@ -267,24 +263,19 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   }
 
   debounceSearchForSkills(){
-    this.notesModelChangeSubscription = this.skillsModelChanged
+    this.searchSkillsFrm.valueChanges
       .pipe(
-        debounceTime(1000),
-        // distinctUntilChanged()
-      ).subscribe(newText => {
-        if(this.onLoad){
-          this.onLoad = false;
-          return;
-        }
-        let obj = {};
-        if(newText !== undefined ){
-          obj = {
-            searchType: "skill",
-            searchSkills: newText,
-          };
-          this.skillText = newText;
-        }
-        this.getMultiSearchBySkills(obj);
+        debounceTime(1500),
+        distinctUntilChanged()).subscribe((value) => {
+          let obj = {};
+          if(value.searchSkillTerm !== undefined ){
+            this.skillText = value.searchSkillTerm;
+            obj = {
+              searchType: "skill",
+              searchSkills: this.skillText
+            };
+          }
+          this.getMultiSearchBySkills(obj);
       });
   }
 
