@@ -17,6 +17,7 @@ import { Router } from "@angular/router";
 import { VideoCallingService } from "src/app/_services/video-calling.service";
 import { UserService } from "src/app/_services/user.service";
 import { NgxSpinnerService } from "ngx-spinner";
+import { CandidateCarrerService } from "src/app/_services/candidate-carrer.service";
 
 @Component({
   selector: "app-my-profile",
@@ -49,6 +50,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   industriesAre = [];
   industries = [];
 
+  loopSkills;
+  loopIndustries;
+  loopAchivments;
+
+  loopExcludeWord;
+
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
@@ -56,7 +63,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private router: Router,
     private videoCallingService: VideoCallingService,
     private userService: UserService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _candidateCarrer : CandidateCarrerService
   ) {}
 
   ngOnInit() {
@@ -102,6 +110,13 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       shareProfile: [false],
       fileURL: [""],
     });
+
+    this.loopSkills = this._candidateCarrer.getLoopSkills();
+    this.loopIndustries = this._candidateCarrer.getLoopIndustries();
+    this.loopAchivments = this._candidateCarrer.getLoopAchievement();
+
+    this.loopExcludeWord = this._candidateCarrer.getExcludeWords();
+
     this.getProfile();
   }
 
@@ -247,12 +262,311 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           if (res.recordedId) {
             this.viewVideo(res.recordedId);
           }
+
+          //here for resume data reading and patching.
+          // if(res.resumeDataIs !== undefined && (this.editProfile.controls['comments'].value == "" || this.editProfile.controls['comment2'].value == "" || this.editProfile.controls['comment3'].value == "")){
+          if(res.resumeDataIs !== undefined){
+            this.handleResumeData(res.resumeDataIs.toLowerCase());
+          }
+
         },
         (err) => {
           // console.log(err);
           Materialize.toast("Something Went Wrong !", 1000);
         }
       );
+  }
+
+  handleResumeData(resumeData){
+    let firstArray = [];
+    Object.entries(this.loopSkills).forEach((values)=>{
+      let globalString = "";
+
+      let sIndex = 0;
+      let i = 0;
+      while((sIndex = resumeData.indexOf(values[0].toLowerCase(), i + sIndex)) !== -1){
+        i = 1;
+        let startString = "";
+        for(let i = sIndex; i >= 0 && sIndex !== -1; i--){
+          if(resumeData.charAt(i) == '\n'){
+            startString = startString.substring(0, startString.length - 1)
+            break ;
+          }else{
+            startString = resumeData.charAt(i) + startString;
+          }
+        }
+        
+        let endString = "";
+        for(let i = sIndex; i <= resumeData.length - 1 && sIndex !== -1; i++){
+          if(resumeData.charAt(i) == '\n'){
+            break ;
+          }else{
+            endString = endString + resumeData.charAt(i);
+          }
+        }
+
+        globalString = startString +""+ endString;
+
+        if(globalString !== ""){
+          let obj = {
+            stm : globalString,
+            value : this.loopSkills[values[0].toLowerCase()] == undefined ? 0 : this.loopSkills[values[0].toLowerCase()]
+          };
+          
+          Object.entries(this.loopSkills).forEach((key) => {
+            if((globalString.indexOf(key[0].toLowerCase()) !== -1) && (key[0].toLowerCase() !== values[0].toLowerCase())){
+              obj.value = obj.value + this.loopSkills[key[0]];
+            }
+          });
+
+          Object.entries(this.loopIndustries).forEach((key) => {
+            if(globalString.indexOf(key[0].toLowerCase()) !== -1){
+              obj.value = obj.value + this.loopIndustries[key[0]];
+            }
+          });
+
+          Object.entries(this.loopAchivments).forEach((key) => {
+            if(globalString.indexOf(key[0].toLowerCase()) !== -1){
+              obj.value = obj.value + this.loopAchivments[key[0]];
+            }
+          });
+
+          //don't push same statements
+          let temp = true;
+          firstArray.forEach((item, index)=>{
+            if(obj.stm == item.stm){
+              if(obj.value > item.value){
+                item.value = obj.value;
+              }
+              temp = false;
+            }
+          });
+
+          if(temp){
+            firstArray.push(obj);
+          }
+        }
+      }
+    });
+
+    let secondArray = [];
+    Object.entries(this.loopIndustries).forEach((values)=>{
+      let globalString = "";
+
+      let sIndex = 0;
+      let i = 0;
+      while((sIndex = resumeData.indexOf(values[0].toLowerCase(), i + sIndex)) !== -1){
+        i = 1;
+        let startString = "";
+        for(let i = sIndex; i >= 0 && sIndex !== -1; i--){
+          if(resumeData.charAt(i) == '\n'){
+            startString = startString.substring(0, startString.length - 1)
+            break ;
+          }else{
+            startString = resumeData.charAt(i) + startString;
+          }
+        }
+        
+        let endString = "";
+        for(let i = sIndex; i <= resumeData.length - 1 && sIndex !== -1; i++){
+          if(resumeData.charAt(i) == '\n'){
+            break ;
+          }else{
+            endString = endString + resumeData.charAt(i);
+          }
+        }
+
+        globalString = startString +""+ endString;
+
+        if(globalString !== ""){
+          let obj = {
+            stm : globalString,
+            value : this.loopSkills[values[0].toLowerCase()] == undefined ? 0 : this.loopSkills[values[0].toLowerCase()]
+          };
+          
+          Object.entries(this.loopIndustries).forEach((key) => {
+            if((globalString.indexOf(key[0].toLowerCase()) !== -1) && (key[0].toLowerCase() !== values[0].toLowerCase())){
+              obj.value = obj.value + this.loopIndustries[key[0]];
+            }
+          });
+
+          Object.entries(this.loopAchivments).forEach((key) => {
+            if(globalString.indexOf(key[0].toLowerCase()) !== -1){
+              obj.value = obj.value + this.loopAchivments[key[0]];
+            }
+          });
+
+          //don't push same statements
+          let temp = true;
+          secondArray.forEach((item, index)=>{
+            if(obj.stm == item.stm){
+              if(obj.value > item.value){
+                item.value = obj.value;
+              }
+              temp = false;
+            }
+          });
+
+          if(temp){
+            secondArray.push(obj);
+          }
+        }
+      }
+    });
+
+    let thirdArray = [];
+    Object.entries(this.loopAchivments).forEach((values)=>{
+      let globalString = "";
+
+      let sIndex = 0;
+      let i = 0;
+      while((sIndex = resumeData.indexOf(values[0].toLowerCase(), i + sIndex)) !== -1){
+        i = 1;
+        let startString = "";
+        for(let i = sIndex; i >= 0 && sIndex !== -1; i--){
+          if(resumeData.charAt(i) == '\n'){
+            startString = startString.substring(0, startString.length - 1)
+            break ;
+          }else{
+            startString = resumeData.charAt(i) + startString;
+          }
+        }
+        
+        let endString = "";
+        for(let i = sIndex; i <= resumeData.length - 1 && sIndex !== -1; i++){
+          if(resumeData.charAt(i) == '\n'){
+            break ;
+          }else{
+            endString = endString + resumeData.charAt(i);
+          }
+        }
+
+        globalString = startString +""+ endString;
+
+        if(globalString !== ""){
+          let obj = {
+            stm : globalString,
+            value : this.loopAchivments[values[0].toLowerCase()] == undefined ? 0 : this.loopAchivments[values[0].toLowerCase()]
+          };
+
+          Object.entries(this.loopAchivments).forEach((key) => {
+            if((globalString.indexOf(key[0].toLowerCase()) !== -1) && (key[0].toLowerCase() !== values[0].toLowerCase())){
+              obj.value = obj.value + this.loopAchivments[key[0]];
+            }
+          });
+
+          //don't push same statements
+          let temp = true;
+          thirdArray.forEach((item, index)=>{
+            if(obj.stm == item.stm){
+              if(obj.value > item.value){
+                item.value = obj.value;
+              }
+              temp = false;
+            }
+          });
+
+          if(temp){
+            thirdArray.push(obj);
+          }
+        }
+      }
+    });
+
+    //sort array in descending order
+    firstArray.forEach((item, index)=>{
+      for(let i = index + 1; i < firstArray.length; i++){
+        if(firstArray[i].value > firstArray[index].value){
+          let temp = firstArray[index];
+          firstArray[index] = firstArray[i];
+          firstArray[i] = temp;
+        }
+      }
+    });
+
+    let finalStatementsArr = [];
+
+    //
+    //remove a sentences from array that contains a above words
+    firstArray.forEach((item, index)=>{
+      let arr = item.stm.split(" ");
+      let temp = true;
+      this.loopExcludeWord.forEach((val, index1)=>{
+        if(arr.includes(val.toLowerCase())){
+          temp = false;
+          return ;
+        }
+      });
+
+      if(temp){
+        //if we delete element then index position creating a issue.
+        // firstArray.splice(index, 1);
+      }else{
+        //just push to new array.
+        finalStatementsArr.push(item);
+      }
+    });
+
+    //combine first three statements into three boxes if they are empty.
+    finalStatementsArr.forEach((val ,index)=>{
+
+      switch(index){
+        case 0 : 
+          if(this.editProfile.controls['comments'].value == ""){
+            this.editProfile.patchValue({
+              comments : val.stm
+            });
+          }
+          break;
+        case 1 : 
+          if(this.editProfile.controls['comment2'].value == ""){
+            this.editProfile.patchValue({
+              comment2 : val.stm
+            });
+          }
+          break;
+        case 2 : 
+          if(this.editProfile.controls['comment3'].value == ""){
+            this.editProfile.patchValue({
+              comment3 : val.stm
+            });
+          }
+          break;
+        default : 
+          break;
+      }
+
+    });
+
+    // console.log("---------------------------------------------- firstArray : ",firstArray);
+    // console.log("---------------------------------------------- finalStatementsArr : ",finalStatementsArr);
+
+    //update Skills and Industry Experience using skills.
+    Object.entries(this.loopSkills).forEach((values, index) => {
+      // console.log("+++ values : ",values);
+      let skillsAre = this.editProfile.value["skills"].toLowerCase();
+      if(resumeData.indexOf(values[0].toLowerCase()) !== -1){
+        if(skillsAre.indexOf(values[0].toLowerCase()) == -1){
+          this.editProfile.patchValue({
+            skills : skillsAre + ", "+ values[0].toLowerCase()
+          });
+        }
+      }
+    });
+    
+    //update Skills and Industry Experience using industries.
+    Object.entries(this.loopIndustries).forEach((values, index) => {
+      // console.log("+++ values : ",values);
+      let skillsAre = this.editProfile.value["skills"].toLowerCase();
+      if(resumeData.indexOf(values[0].toLowerCase()) !== -1){
+        if(skillsAre.indexOf(values[0].toLowerCase()) == -1){
+          this.editProfile.patchValue({
+            skills : skillsAre + ", "+ values[0].toLowerCase()
+          });
+        }
+      }
+    });
+
   }
 
   viewVideo(archivedId) {
@@ -284,7 +598,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     );
 
     this.editProfile.addControl("industries", new FormControl(this.industries));
-    console.log(this.editProfile.value);
 
     // if (this.editProfile.valid) {
     this.editCandidateProfileSubscription = this.candidateService
@@ -293,6 +606,11 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         (res) => {
           if (res) {
             Materialize.toast(res.msg, 1000);
+            //here for resume data reading and patching.
+            // if(res.data.resumeDataIs !== undefined && (this.editProfile.controls['comments'].value == "" || this.editProfile.controls['comment2'].value == "" || this.editProfile.controls['comment3'].value == "")){
+            if(res.data.resumeDataIs !== undefined){
+              this.handleResumeData(res.data.resumeDataIs.toLowerCase());
+            }
           }
         },
         (err) => {
