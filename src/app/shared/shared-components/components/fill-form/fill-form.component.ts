@@ -225,7 +225,10 @@ export class FillFormComponent implements OnInit, OnDestroy {
       this.companiesArray.forEach((companiesA, index)=>{
         if(resumeData.search(companiesA.toLowerCase()) !== -1){
           if(this.companyName !== ""){
-            this.companyName = this.companyName +" , "+ companiesA;
+            //check already exists or not.
+            if(this.companyName.toLocaleLowerCase().indexOf(companiesA.toLowerCase()) == -1){
+              this.companyName = this.companyName +" , "+ companiesA;
+            }
           }else{
             this.companyName = companiesA;
           }
@@ -547,9 +550,12 @@ export class FillFormComponent implements OnInit, OnDestroy {
       if(this.schoolName !== ''){
         this.comments = "Education : \n"+
                         "  - I went to "+this.schoolName+". \n";
-        if(this.highGPA !== undefined){
+        if(this.highGPA == undefined || this.highGPA == null || this.highGPA == 0){
+          //
+        }else{
           this.comments += "  - I have a GPA of "+this.highGPA+". \n";
         }
+
         if(this.techMajor !== ''){
           this.comments += "  - A "+this.techMajor+" major. \n";
         }
@@ -565,11 +571,23 @@ export class FillFormComponent implements OnInit, OnDestroy {
         if(this.title !== ''){
           this.comments += "  - I had a title of "+this.title+". \n";
         }
-        if(this.manageralExp !== 0){
+
+        if(this.manageralExp == undefined || this.manageralExp == null || this.manageralExp == 0){
+          //
+        }else{
           this.comments += "  - I have "+this.manageralExp+" Managerial experience. \n";
         }
-        if(this.managedTeamSize !== 0){
-          this.comments += "  - I have managed a team of "+this.managedTeamSize+" for "+this.manageralExp+" years. \n";
+
+        if(this.managedTeamSize == undefined || this.managedTeamSize == null || this.managedTeamSize == 0){
+          //
+        }else{
+          this.comments += "  - I have managed a team of "+this.managedTeamSize;
+          if(this.manageralExp == undefined || this.manageralExp == null || this.manageralExp == 0){
+            //
+            this.comments += " . \n";
+          }else{
+            this.comments += " for "+this.manageralExp+" years. \n";
+          }
         }
       }
 
@@ -844,12 +862,14 @@ export class FillFormComponent implements OnInit, OnDestroy {
   secEduSkip(){
     this.secEduPageTab = false;
     this.eduPageTab = true;
+    this.addFirstBoxValues2();
   }
 
   secEduContinue(){
     if(this.educationFrm.valid){
       this.secEduPageTab = false;
       this.workTab = true;
+      this.addFirstBoxValues2();
     }else{
       Materialize.toast("Please Fill the form fields !", 1000);
     }
@@ -858,12 +878,14 @@ export class FillFormComponent implements OnInit, OnDestroy {
   workSkip(){
     this.eduPageTab = true;
     this.workTab = false;
+    this.addFirstBoxValues2();
   }
 
   workContinue(){
     if(this.workFrm.valid){
       this.workTab = false;
       this.skillSetsTab = true;
+      this.addFirstBoxValues2();
     }else{
       Materialize.toast("Please Fill the form fields !", 1000);
     }
