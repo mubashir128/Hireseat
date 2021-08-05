@@ -272,6 +272,8 @@ export class SharedCandidateProfilesComponent
               searchSkills: this.skillText
             };
           }
+          this.resumes = [];
+          this._subList.loaderListAfterSearch.next({type : "1"});
           this.getSearchBySkills(obj);
       });
   }
@@ -398,6 +400,7 @@ export class SharedCandidateProfilesComponent
   }
 
   getProfiles() {
+    this._subList.loaderList.next({type : "1"});
     this._socket.sendMessage({
       type: this._constants.sharedProfileType,
       data: {
@@ -435,9 +438,11 @@ export class SharedCandidateProfilesComponent
     this.resumeService.getSearchBySkills(payload).subscribe((res) => {
         if (res) {
           this.resumes = res;
+          this._subList.loaderListAfterSearch.next({type : "0"});
           this.handleResumeData();
         }
       }, (err) => {
+        this._subList.loaderListAfterSearch.next({type : "0"});
     });
   }
 
