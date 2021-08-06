@@ -275,6 +275,8 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
               searchSkills: this.skillText
             };
           }
+          this.resumes = [];
+          this._subList.loaderListAfterSearch.next({type : "1"});
           this.getMultiSearchBySkills(obj);
       });
   }
@@ -456,9 +458,11 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     this.resumeService.getMultiSearchBySkills(payload).subscribe((res) => {
         if (res) {
           this.resumes = res;
+          this._subList.loaderListAfterSearch.next({type : "0"});
           this.handleResumeData();
         }
       }, (err) => {
+        this._subList.loaderListAfterSearch.next({type : "0"});
     });
   }
 

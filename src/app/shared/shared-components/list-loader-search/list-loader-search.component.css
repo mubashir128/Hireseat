@@ -1,4 +1,4 @@
-@keyframes placeHolderShimmer{
+@keyframes placeHolderShimmer2{
   0%{
     background-position: -468px 0
   }
@@ -7,11 +7,11 @@
   }
 }
 
-.linear-background {
+.linear-background-search {
   animation-duration: 1s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
-  animation-name: placeHolderShimmer;
+  animation-name: placeHolderShimmer2;
   animation-timing-function: linear;
   background: #f6f7f8;
   background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
@@ -25,6 +25,7 @@
   margin-top: 10px;
 }
 
-.eleAllPosition{
+.eleSearchPosition{
   display: none;
+  margin-top: 675px;
 }

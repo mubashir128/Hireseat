@@ -71,6 +71,7 @@ import { FillFormComponent } from './components/fill-form/fill-form.component';
 import { SerchBySkillsPipe } from '../../shared/pipes/serch-by-skills.pipe';
 import { SerchByFullNamePipe } from '../../shared/pipes/serch-by-full-name.pipe';
 import { SerchByJobTitlePipe } from '../../shared/pipes/serch-by-job-title.pipe';
+import { ListLoaderSearchComponent } from './list-loader-search/list-loader-search.component';
 
 @NgModule({
   imports: [
@@ -161,6 +162,7 @@ import { SerchByJobTitlePipe } from '../../shared/pipes/serch-by-job-title.pipe'
     MobileNavTabComponent,
     MultiSharedCandidateProfileComponent,
     ListLoaderComponent,
+    ListLoaderSearchComponent,
     UserChatComponent,
     ChatRecordComponent,
     NoDataAvailableComponent,
@@ -232,6 +234,7 @@ import { SerchByJobTitlePipe } from '../../shared/pipes/serch-by-job-title.pipe'
     MenusComponent,
     MobileNavTabComponent,
     ListLoaderComponent,
+    ListLoaderSearchComponent,
     NoDataAvailableComponent,
     SerchBySkillsPipe,
     SerchByFullNamePipe,

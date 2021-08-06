@@ -23,20 +23,22 @@ export class ListLoaderComponent implements OnInit, OnDestroy {
   handleList(res){
     switch(res.type){
       case "1" : 
+        console.log("ListLoaderComponent : show");
         this.show();
         break;
       case "0" : 
+        console.log("ListLoaderComponent : hide");
         this.hide();
         break;
     }
   }
 
   show(){
-    jQuery(".linear-background").css("display", "block");
+    jQuery(".eleAllPosition").css("display", "block");
   }
 
   hide(){
-    jQuery(".linear-background").css("display", "none");
+    jQuery(".eleAllPosition").css("display", "none");
   }
 
   ngOnDestroy(){
