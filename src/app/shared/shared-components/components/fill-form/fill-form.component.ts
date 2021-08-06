@@ -547,6 +547,7 @@ export class FillFormComponent implements OnInit, OnDestroy {
     }
 
     addFirstBoxValues2(){
+      this.comments = "";
       if(this.schoolName !== ''){
         this.comments = "Education : \n"+
                         "  - I went to "+this.schoolName+". \n";
