@@ -275,6 +275,8 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
               searchSkills: this.skillText
             };
           }
+          this.resumes = [];
+          this._subList.loaderListAfterSearch.next({type : "1"});
           this.getMultiSearchBySkills(obj);
       });
   }
@@ -394,7 +396,8 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        element.canReview.length !== 0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
+        // element.canReview.length !== 0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
+        element.canReview = [...element.canReview, res.data];
       }
     });
   }
@@ -404,7 +407,8 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            comment.like.push(res.data);
+            // comment.like.push(res.data);
+            comment.like = [...comment.like, res.data];
           }
         });
       }
@@ -416,7 +420,8 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            comment.reply.length !== 0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
+            // comment.reply.length !== 0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
+            comment.reply = [...comment.reply, res.data.replyComment];
           }
         });
       }
@@ -456,9 +461,11 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     this.resumeService.getMultiSearchBySkills(payload).subscribe((res) => {
         if (res) {
           this.resumes = res;
+          this._subList.loaderListAfterSearch.next({type : "0"});
           this.handleResumeData();
         }
       }, (err) => {
+        this._subList.loaderListAfterSearch.next({type : "0"});
     });
   }
 

@@ -27,5 +27,8 @@ export class SubscriberslistService {
   loaderList = new Subject();
   loaderList$ = this.loaderList.asObservable();
 
+  loaderListAfterSearch = new Subject();
+  loaderListAfterSearch$ = this.loaderListAfterSearch.asObservable();
+
   constructor() { }
 }

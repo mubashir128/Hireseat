@@ -101,6 +101,7 @@ export class SharedCandidateProfilesComponent
   recruiterReview: any;
   showCmts: any;
   myComment: any;
+  myCommentNote: any;
   replyToComment: any;
   editTo: any;
   editCommentSucription: Subscription;
@@ -189,6 +190,7 @@ export class SharedCandidateProfilesComponent
     //   });
 
     this.myComment = [];
+    this.myCommentNote = [];
     this.replyToComment = [];
     this.loggedUser = this.userService.getUserData();
 
@@ -268,10 +270,21 @@ export class SharedCandidateProfilesComponent
             this.skillText = value.searchSkillTerm;
             obj = {
               searchType: "skill",
-              searchSkills: this.skillText
+              searchSkills: this.skillText,
+              userRole : this.loggedUser.userRole
             };
           }
-          this.getSearchBySkills(obj);
+          this.resumes = [];
+          
+          if(this.loggedUser.userRole == 'candidate'){
+            //search for candidate
+            this._subList.loaderListAfterSearch.next({type : "11"});
+            this.getCandidateSearchBySkills(obj);
+          }else{
+            //search for recrutier and employer
+            this._subList.loaderListAfterSearch.next({type : "1"});
+            this.getSearchBySkills(obj);
+          }
       });
   }
 
@@ -292,6 +305,9 @@ export class SharedCandidateProfilesComponent
         break;
       case this._constants.addComment:
         this.addCommentToCommets(res);
+        break;
+      case this._constants.addNote:
+        this.addNoteToNoteSection(res);
         break;
       case this._constants.likeComment:
         this.addLikeToComment(res);
@@ -363,9 +379,10 @@ export class SharedCandidateProfilesComponent
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        console.log("--- element.canReview.length : ", element.canReview.length);
-        element.canReview.length !== 0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
-        console.log("+++ element.canReview.length : ", element.canReview.length);
+        // console.log("--- element.canReview.length : ", element.canReview.length);
+        // element.canReview.length !== 0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
+        // console.log("+++ element.canReview.length : ", element.canReview.length);
+        element.canReview = [...element.canReview, res.data];
       }
     });
   }
@@ -375,7 +392,8 @@ export class SharedCandidateProfilesComponent
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            comment.like.push(res.data);
+            // comment.like.push(res.data);
+            comment.like = [...comment.like, res.data];
           }
         });
       }
@@ -387,9 +405,10 @@ export class SharedCandidateProfilesComponent
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            console.log("--- comment.reply.length : ", comment.reply.length);
-            comment.reply.length !== 0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
-            console.log("--- comment.reply.length : ", comment.reply.length);
+            // console.log("--- comment.reply.length : ",comment.reply.length);
+            // comment.reply.length !== 0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
+            // console.log("--- comment.reply.length : ",comment.reply.length);
+            comment.reply = [...comment.reply, res.data.replyComment];
           }
         });
       }
@@ -397,6 +416,7 @@ export class SharedCandidateProfilesComponent
   }
 
   getProfiles() {
+    this._subList.loaderList.next({type : "1"});
     this._socket.sendMessage({
       type: this._constants.sharedProfileType,
       data: {
@@ -434,9 +454,23 @@ export class SharedCandidateProfilesComponent
     this.resumeService.getSearchBySkills(payload).subscribe((res) => {
         if (res) {
           this.resumes = res;
+          this._subList.loaderListAfterSearch.next({type : "0"});
           this.handleResumeData();
         }
       }, (err) => {
+        this._subList.loaderListAfterSearch.next({type : "0"});
+    });
+  }
+
+  getCandidateSearchBySkills(payload){
+    this.resumeService.getCandidateSearchBySkills(payload).subscribe((res) => {
+        if (res) {
+          this.resumes = res;
+          this._subList.loaderListAfterSearch.next({type : "00"});
+          this.handleResumeData();
+        }
+      }, (err) => {
+        this._subList.loaderListAfterSearch.next({type : "00"});
     });
   }
 
@@ -503,6 +537,42 @@ export class SharedCandidateProfilesComponent
           }
         );
     }
+  }
+
+  postMycmtNote(i, cmt, resume) {
+    if (this.myCommentNote[i] === "" || this.myCommentNote[i] === null || this.myCommentNote[i] === undefined) {
+      Materialize.toast("Comment box is empty!");
+    } else {
+      const payload = {
+        resumeId: resume._id,
+        review: cmt,
+        role: this.loggedUser.userRole,
+      };
+
+      this.resumeService.postMyNote(payload).subscribe((res) => {
+        if (res) {
+          this.addNoteToNoteSection(res.detailedCommentObj);
+
+          // if (this.loggedUser.userRole == "recruiter") {
+          //   Materialize.toast("You gained 100 recruiter karma points", 2000, "red");
+          // }else if (this.loggedUser.userRole == "employer"){
+          //   Materialize.toast("You just helped someone....and changed someones life...good job!", 2000, "red");
+          // }
+
+          this.myCommentNote[i] = "";
+        }
+      }, (err) => {
+        Materialize.toast("Unable to post!", 5000);
+      });
+    }
+  }
+
+  addNoteToNoteSection(res){
+    this.resumes.filter((element) => {
+      if (element._id === res.profileId) {
+        element.canNote = [...element.canNote, res.data];
+      }
+    });
   }
 
   likeThisCommet(cmt, resume) {
@@ -902,7 +972,7 @@ export class SharedCandidateProfilesComponent
                 data: {
                   type: userInfo.userRole,
                   payload: payload,
-                  subType: "shareVideoViaRecruiterEmail"
+                  subType: this._constants.shareVideoViaRecruiterEmail
                 },
               });
 
@@ -1415,13 +1485,13 @@ export class SharedCandidateProfilesComponent
         if(val.stm !== item.comments && val.stm !== item.comment2 && val.stm !== item.comment3){ 
           switch(index){
             case 0 : 
-              item.commentsResume1 = val.stm;
+              item.commentsResume1 = val.stm + " ...";
               break;
             case 1 : 
-              item.commentsResume2 = val.stm;
+              item.commentsResume2 = val.stm + " ...";
               break;
             case 2 : 
-              item.commentsResume3 = val.stm;
+              item.commentsResume3 = val.stm + " ...";
               break;
             default : 
               break;

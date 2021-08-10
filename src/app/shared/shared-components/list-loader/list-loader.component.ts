@@ -32,11 +32,11 @@ export class ListLoaderComponent implements OnInit, OnDestroy {
   }
 
   show(){
-    jQuery(".linear-background").css("display", "block");
+    jQuery(".eleAllPosition").css("display", "block");
   }
 
   hide(){
-    jQuery(".linear-background").css("display", "none");
+    jQuery(".eleAllPosition").css("display", "none");
   }
 
   ngOnDestroy(){
