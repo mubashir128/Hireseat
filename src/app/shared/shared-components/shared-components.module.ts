@@ -72,6 +72,7 @@ import { SerchBySkillsPipe } from '../../shared/pipes/serch-by-skills.pipe';
 import { SerchByFullNamePipe } from '../../shared/pipes/serch-by-full-name.pipe';
 import { SerchByJobTitlePipe } from '../../shared/pipes/serch-by-job-title.pipe';
 import { ListLoaderSearchComponent } from './list-loader-search/list-loader-search.component';
+import { TitleCasePipe } from "../pipes/title-case.pipe";
 
 @NgModule({
   imports: [
@@ -117,6 +118,7 @@ import { ListLoaderSearchComponent } from './list-loader-search/list-loader-sear
     SearchPipe,
     SearchByNamePipe,
     SearchByExperiencePipe,
+    TitleCasePipe,
     // end of pipes
 
     PdfViewerComponent,
@@ -191,6 +193,7 @@ import { ListLoaderSearchComponent } from './list-loader-search/list-loader-sear
 
     SearchByNamePipe,
     SearchByExperiencePipe,
+    TitleCasePipe,
     BiddingEventItemComponent,
     PdfViewerComponent,
     ResumeItemComponent,

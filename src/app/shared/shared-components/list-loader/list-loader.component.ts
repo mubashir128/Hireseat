@@ -23,11 +23,9 @@ export class ListLoaderComponent implements OnInit, OnDestroy {
   handleList(res){
     switch(res.type){
       case "1" : 
-        console.log("ListLoaderComponent : show");
         this.show();
         break;
       case "0" : 
-        console.log("ListLoaderComponent : hide");
         this.hide();
         break;
     }

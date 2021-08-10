@@ -122,6 +122,10 @@ button.shareBtn {
   color: red;
 }
 
+.PointsDivSingle22 i{
+  color: green !important;
+}
+
 .docSectionBtns .LinkedInBtn {
   /* min-width: 135px !important; */
 }
@@ -789,6 +793,10 @@ a.videoCloseBtn {
 .timstampDate {
   /* width: 100%; */
   float: left;
+  margin-right: 10px;
+}
+
+.timstampDate2 {
   margin-right: 10px;
 }
 

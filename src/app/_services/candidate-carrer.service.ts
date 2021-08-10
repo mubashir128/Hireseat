@@ -178,7 +178,7 @@ export class CandidateCarrerService {
     return {
       "java" : 8,
       "sql" : 8,
-      "vba product control" : 5,
+      "product control" : 5,
       "excel" : 5,
       "python" : 5,
       // "r" : 5,
