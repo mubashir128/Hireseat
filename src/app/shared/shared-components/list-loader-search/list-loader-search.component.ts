@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
-
+declare var $: any;
 @Component({
   selector: 'app-list-loader-search',
   templateUrl: './list-loader-search.component.html',
@@ -22,11 +22,18 @@ export class ListLoaderSearchComponent implements OnInit {
   handleList(res){
     switch(res.type){
       case "1" : 
-        console.log("ListLoaderSearchComponent : show");
         this.show();
+        $(".eleSearchPosition").css("margin-top", "675px");
         break;
       case "0" : 
-        console.log("ListLoaderSearchComponent : hide");
+        this.hide();
+        break;
+      case "11" : 
+        this.show();
+        $(".eleSearchPosition").css("margin-top", "225px");
+        break;
+      case "00" : 
+        $(".eleSearchPosition").css("margin-top", "675px");
         this.hide();
         break;
     }

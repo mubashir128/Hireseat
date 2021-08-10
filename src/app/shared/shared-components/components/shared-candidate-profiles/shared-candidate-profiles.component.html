@@ -1,35 +1,38 @@
-<ng-container *ngIf="loggedUser.userRole != 'candidate'">
+<ng-container>
   <div class="row" style="margin-top: 10px; margin-bottom: 5px; padding: 0 0px !important;">
     <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
   </div>
   <div class="hideAndSHoTab">
     <div class="sortIndustriesMain input-field col s12 m12 l12">
-      <i class="fa fa-industry" aria-hidden="true"></i>
-      <span class="resume-subtitle"> Sort by Industries </span>
-      <div *ngFor="let item of industriesAre; let i = index">
-        <div class="row col s3 m3 l3">
-          <div class="actionDiv">
-            <label class="CheckBoxcontainer">
-              <input
-                type="checkbox"
-                name="IT"
-                formControlName="item.name"
-                (change)="handleIndustries($event, item._id)"
-                [checked]="item.valueType"
-              />
-              <span class="checkmark"></span>
-              <span class="industrieName">
-                {{ item.name }}
-              </span>
-            </label>
+      
+      <div *ngIf="loggedUser.userRole != 'candidate'">
+        <i class="fa fa-industry" aria-hidden="true"></i>
+        <span class="resume-subtitle"> Sort by Industries </span>
+        <div *ngFor="let item of industriesAre; let i = index">
+          <div class="row col s3 m3 l3">
+            <div class="actionDiv">
+              <label class="CheckBoxcontainer">
+                <input
+                  type="checkbox"
+                  name="IT"
+                  formControlName="item.name"
+                  (change)="handleIndustries($event, item._id)"
+                  [checked]="item.valueType"
+                />
+                <span class="checkmark"></span>
+                <span class="industrieName">
+                  {{ item.name }}
+                </span>
+              </label>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row col s12 m12 l12">
-        <button class="sortIndustries" (click)="sortByIndustries()">Sort</button>
+        <div class="row col s12 m12 l12">
+          <button class="sortIndustries" (click)="sortByIndustries()">Sort</button>
+        </div>
       </div>
     
-      <div class="">
+      <div *ngIf="loggedUser.userRole != 'candidate'">
         <form [formGroup]="Search" novalidate style="width: 100%">
           <div class="row">
             <div class="skillInput" style="margin-top: 10px">
@@ -48,7 +51,9 @@
             </div>
           </div>
         </form>
-     
+      </div>
+      
+      <div *ngIf="loggedUser.userRole != 'candidate'">
         <form [formGroup]="searchJobTitleFrm" novalidate style="width: 100%">
           <div class="row">
             <div class="skillInput" style="margin-top: 10px">
@@ -63,29 +68,32 @@
               formControlName="searchJobTitleTerm"
               placeholder="Search here by Job Title..."
             />
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
 
-      <form [formGroup]="searchSkillsFrm" novalidate style="width: 100%">
-        <div class="row">
-          <div class="skillInput" style="margin-top: 10px">
-            <span class="note" style="float: left"
-              ><span style="color: #f58e8e">Note:</span> Search by Skills : <br>
-              <span style="font-size: 10px; color: red;">For multi search use comma (ex- abc , lmn) seperated values.</span>
-            </span>
+      <!-- this search for all users -->
+      <div>
+        <form [formGroup]="searchSkillsFrm" novalidate style="width: 100%">
+          <div class="row">
+            <div class="skillInput" style="margin-top: 10px">
+              <span class="note" style="float: left"
+                ><span style="color: #f58e8e">Note:</span> Search by Skills : <br>
+                <span style="font-size: 10px; color: red;">For multi search use comma (ex- abc , lmn) seperated values.</span>
+              </span>
+            </div>
+            <div class="inputDivMainN">
+              <input
+                type="text"
+                [(ngModel)]="searchSkillTerm"
+                formControlName="searchSkillTerm"
+                autocomplete="off"
+                placeholder="Search here by skills..."
+              />
+            </div>
           </div>
-          <div class="inputDivMainN">
-            <input
-              type="text"
-              [(ngModel)]="searchSkillTerm"
-              formControlName="searchSkillTerm"
-              autocomplete="off"
-              placeholder="Search here by skills..."
-            />
-          </div>
-        </div>
-      </form>
+        </form>
 
       </div>
     </div>
@@ -210,18 +218,18 @@
 
           <!-- resume data top three comments -->
           <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume1">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <h4> <i class="fas fa-check-square"></i> {{ resume?.commentsResume1 }}</h4>
+            <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
+              <h4> 1) <i class="fas fa-check-square"></i> {{ resume?.commentsResume1 | titleCase }}</h4>
             </div>
           </div>
           <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume2">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <h4> <i class="fas fa-check-square"></i> {{ resume?.commentsResume2 }}</h4>
+            <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
+              <h4> 2) <i class="fas fa-check-square"></i> {{ resume?.commentsResume2 | titleCase }}</h4>
             </div>
           </div>
           <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume3">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <h4> <i class="fas fa-check-square"></i> {{ resume?.commentsResume3 }}</h4>
+            <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
+              <h4> 3) <i class="fas fa-check-square"></i> {{ resume?.commentsResume3 | titleCase }}</h4>
             </div>
           </div>
 
@@ -632,6 +640,86 @@
           </ng-container>
         </div>
       </ng-container>
+
+    <div class="row" style="border-top: 1px solid #dddddd;">
+    </div>
+    <ng-container *ngIf="loggedUser.userRole === 'recruiter'">
+      <span class="comment">Recruiter Notes : </span>
+      
+      <ng-container>
+        <div class="post-cmt">
+          <textarea
+            [(ngModel)]="myCommentNote[i]"
+            placeholder="Enter your note"
+          >
+          </textarea>
+          <ng-container *ngIf="myCommentNote[i]">
+            <div class="btn-placement">
+              <div
+                class="btn-accept postCommentDiv"
+                (click)="postMycmtNote(i, myCommentNote[i], resume)"
+              >
+                <span>Post Note</span>
+                <img src="assets/img/paper-plane.png" alt="profile" />
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <div class="commentmainscroll">
+        <ng-container *ngIf="resume.canNote.length > 0">
+          <div *ngFor="let cmt of resume.canNote | reverse; let i = index">
+            <ng-container *ngIf="(loggedUser.userRole == 'recruiter' && !cmt?.isMultiShare)">
+              
+              <div class="singleListData">
+                <div class="cmt-box">
+                  <div class="recruitercommenthead">
+                    <div class="recruiternamedetails">
+                      <ng-container *ngIf="cmt?.recruiterId?.profileimage">
+                        <div class="candProfile recruiterprof">
+                          <img [src]="cmt?.recruiterId?.profileimage" alt="profile" />
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
+                        <div class="candProfile recruiterprof">
+                          <img
+                            src="assets/img/profile-user.png"
+                            alt="profile"
+                          />
+                        </div>
+                      </ng-container>
+
+                      <div class="recruiter-name">
+                        <span>{{ cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName}}</span>
+                        <span class="see-profile" *ngIf="cmt?.recruiterId?.userRole === 'recruiter'" (click)="openRecruiterModal(cmt?.recruiterId._id)">
+                          See profile
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="PointsDiv commonSingleInner CommentInner">
+                    <div class="PointsDivSingle PointsDivSingleN recruitercom divide">
+                      {{ cmt?.review }}
+                    </div>
+                    <ng-container>
+                      <div class="timstampDate2">
+                        <span class="notificationDateTime">
+                          {{ cmt?.timestamps | amTimeAgo }}
+                        </span>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
     </div>
   </div>
 </ng-container>

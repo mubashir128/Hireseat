@@ -36,6 +36,7 @@ export class ConstantsService {
   sharedProfileType = 5;
   getAllSharedProfiles = "getAllSharedProfiles";
   addComment = "addComment";
+  addNote = "addNote";
   likeComment = "likeComment";
   shareVideoViaRecruiterEmail = "shareVideoViaRecruiterEmail";
   editComment = "editComment";

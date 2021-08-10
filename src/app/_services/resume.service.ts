@@ -218,6 +218,16 @@ export class ResumeService {
       );
   }
 
+  getCandidateSearchBySkills(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/getCandidateSearchBySkills", payload)
+      .pipe(
+        map((result: any) => {
+          return result;
+        })
+      );
+  }
+
   getMultiSearchBySkills(payload) {
     return this.http
       .post<any>(this.baseurl + "api/getMultiSearchBySkills", payload)
@@ -226,6 +236,10 @@ export class ResumeService {
           return result;
         })
       );
+  }
+
+  postMyNote(payload) {
+    return this.http.post<any>(this.baseurl + "api/post-my-note", payload);
   }
 
   /**
