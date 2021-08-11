@@ -36,6 +36,7 @@ import { ConstantsService } from "src/app/_services/constants.service"
 import { Plugins } from '@capacitor/core';
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { CandidateCarrerService } from "src/app/_services/candidate-carrer.service";
+import { ReadResumeService } from "src/app/_services/read-resume.service";
 const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
@@ -159,7 +160,8 @@ export class SharedCandidateProfilesComponent
     private _subList: SubscriberslistService,
     private _constants: ConstantsService,
     private _bidEventService: BiddingEventService,
-    private _candidateCarrer : CandidateCarrerService
+    private _candidateCarrer : CandidateCarrerService,
+    private _readResume : ReadResumeService
   ) {
     this.resumes = [];
     
@@ -948,7 +950,7 @@ export class SharedCandidateProfilesComponent
     this.getArchivedVideoSubscription = this.videoCallingService
       .getArchivedVideo(archiveIdPayload)
       .subscribe(
-        (res) => {
+        async(res) => {
           if (res) {
             this.shareableVideoURL = res.url;
 
@@ -966,6 +968,9 @@ export class SharedCandidateProfilesComponent
                 comment: this.shareResume.comments,
                 candidateProfile: this.shareResume.resumeType ? false : true,
               };
+
+              // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
+              // console.log("finalStatementsArr : ",finalStatementsArr);
 
               let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
               this._socket.sendMessage({
@@ -1370,119 +1375,13 @@ export class SharedCandidateProfilesComponent
     });
   }
 
-  handleResumeData(){
-    this.resumes.forEach((item, index)=>{
-      let firstArray = [];
-      let resumeData = item.resumeDataIs.toLowerCase();
-      // console.log(resumeData);
-      this.skillText.split(",").forEach((values, index1)=>{
-        let globalString = "";
-        values = values.trim();
-        if(values === ""){
-          return ;
-        }
-
-        let sIndex = 0;
-        let i = 0;
-        while((sIndex = resumeData.indexOf(values.toLowerCase(), i + sIndex)) !== -1){
-          i = 1;
-          let startString = "";
-          for(let i = sIndex; i >= 0 && sIndex !== -1; i--){
-            if(resumeData.charAt(i) == '\n'){
-              startString = startString.substring(0, startString.length - 1)
-              break ;
-            }else{
-              startString = resumeData.charAt(i) + startString;
-            }
-          }
-          
-          let endString = "";
-          for(let i = sIndex; i <= resumeData.length - 1 && sIndex !== -1; i++){
-            if(resumeData.charAt(i) == '\n'){
-              break ;
-            }else{
-              endString = endString + resumeData.charAt(i);
-            }
-          }
-
-          globalString = startString +""+ endString;
-          if(globalString !== ""){
-            let obj = {
-              stm : globalString,
-              value : this.loopSkills[values.toLowerCase()] == undefined ? 0 : this.loopSkills[values.toLowerCase()]
-            };
-
-            this.skillText.split(",").forEach((key) => {
-              key = key.trim();
-              if((globalString.indexOf(key.toLowerCase()) !== -1) && (key.toLowerCase() !== values.toLowerCase()) && (key !== "")){
-                // obj.value = obj.value + (this.loopSkills[key] == undefined ? 0 : this.loopSkills[key]);
-                obj.value = obj.value + 15;
-              }
-
-              // if((globalString.indexOf(key.toLowerCase()) !== -1) && (key.toLowerCase() !== values.toLowerCase()) && !(this.loopSkills.includes(key.toLowerCase()))){
-              //   obj.value = obj.value + (this.loopSkills[values.toLowerCase()] == undefined ? 0 : this.loopSkills[values.toLowerCase()]);
-              // }
-
-            });
-
-            //don't push same statements
-            let temp = true;
-            firstArray.forEach((item, index)=>{
-              if(obj.stm == item.stm){
-                if(obj.value > item.value){
-                  item.value = obj.value;
-                }
-                temp = false;
-              }
-            });
-
-            if(temp){
-              firstArray.push(obj);
-            }
-
-          }
-
-        }
-      });
-
-      //sort array in descending order
-      firstArray.forEach((item, index)=>{
-        for(let i = index + 1; i < firstArray.length; i++){
-          if(firstArray[i].value > firstArray[index].value){
-            let temp = firstArray[index];
-            firstArray[index] = firstArray[i];
-            firstArray[i] = temp;
-          }
-        }
-      });
-
+  async handleResumeData(){
+    this.resumes.forEach(async (item, index)=>{
       let finalStatementsArr = [];
-
-      //remove a sentences from array that contains a above words
-      firstArray.forEach((item, index)=>{
-        let arr = item.stm.split(" ");
-        let temp = true;
-        this.loopExcludeWord.forEach((val, index1)=>{
-          if(arr.includes(val.toLowerCase())){
-            temp = false;
-            return ;
-          }
-        });
-
-        if(temp){
-          //if we delete element then index position creating a issue.
-          // firstArray.splice(index, 1);
-        }else{
-          //just push to new array.
-          finalStatementsArr.push(item);
-        }
-      });
-      // console.log("--- firstArray : ",firstArray);
-      // console.log("--- finalStatementsArr : ",finalStatementsArr);
+      finalStatementsArr = await this._readResume.readResume2(item, this.skillText);
 
       //combine first three statements.
       finalStatementsArr.forEach((val ,index)=>{
-
         if(val.stm !== item.comments && val.stm !== item.comment2 && val.stm !== item.comment3){ 
           switch(index){
             case 0 : 
@@ -1498,9 +1397,7 @@ export class SharedCandidateProfilesComponent
               break;
           }
         }
-
       });
-
     });
 
   }
