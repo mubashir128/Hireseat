@@ -75,12 +75,6 @@ export class FillFormComponent implements OnInit, OnDestroy {
   degreeArray = [];
   titleArray = [];
   companiesArray = [];
-
-  loopSkills;
-  loopIndustries;
-  loopAchivments;
-
-  loopExcludeWord;
   
   constructor(private formBuilder: FormBuilder, private resumeService: ResumeService, private candidateService: CandidateService, private _router: Router, private _userService: UserService, 
     private _candidateCarrer : CandidateCarrerService,
@@ -147,12 +141,6 @@ export class FillFormComponent implements OnInit, OnDestroy {
     this.degreeArray =this._candidateCarrer.getDegree();
     this.titleArray = this._candidateCarrer.getTitle();
     this.companiesArray =  this._candidateCarrer.getCompanies();
-    
-    this.loopSkills = this._candidateCarrer.getLoopSkills();
-    this.loopIndustries = this._candidateCarrer.getLoopIndustries();
-    this.loopAchivments = this._candidateCarrer.getLoopAchievement();
-
-    this.loopExcludeWord = this._candidateCarrer.getExcludeWords();
 
     this.setCandidateCareerValueFinder();
     this.getSkillsets();
