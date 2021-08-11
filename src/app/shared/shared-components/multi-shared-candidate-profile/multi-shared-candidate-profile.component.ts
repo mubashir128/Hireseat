@@ -897,6 +897,8 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
                 fullName: candidateName,
                 subject: subject,
                 comment: this.shareResume.comments,
+                comment2: this.shareResume.comment2,
+                comment3: this.shareResume.comment3,
                 candidateProfile: this.shareResume.resumeType ? false : true,
               };
 
