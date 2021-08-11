@@ -140,11 +140,6 @@ export class SharedCandidateProfilesComponent
   finalRecruitersAre = [];
   @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
 
-  loopSkills;
-  loopIndustries;
-  loopAchivments;
-  loopExcludeWord;
-
   skillText;
 
   constructor(
@@ -160,7 +155,6 @@ export class SharedCandidateProfilesComponent
     private _subList: SubscriberslistService,
     private _constants: ConstantsService,
     private _bidEventService: BiddingEventService,
-    private _candidateCarrer : CandidateCarrerService,
     private _readResume : ReadResumeService
   ) {
     this.resumes = [];
@@ -246,11 +240,6 @@ export class SharedCandidateProfilesComponent
       type: this._constants.sharedProfileType,
       callback: this.sharedProfileObserver,
     });
-
-    this.loopSkills = this._candidateCarrer.getLoopSkills();
-    this.loopIndustries = this._candidateCarrer.getLoopIndustries();
-    this.loopAchivments = this._candidateCarrer.getLoopAchievement();
-    this.loopExcludeWord = this._candidateCarrer.getExcludeWords();
 
     this.getTopRecruiterList();
     this.getIndustries();

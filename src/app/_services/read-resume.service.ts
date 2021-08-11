@@ -9,7 +9,6 @@ export class ReadResumeService {
   loopSkills;
   loopIndustries;
   loopAchivments;
-
   loopExcludeWord;
 
   constructor(private _candidateCarrer : CandidateCarrerService) {
