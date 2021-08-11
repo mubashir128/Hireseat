@@ -285,9 +285,8 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
     switch (res.subType) {
       case this._constants.getAllMultiSharedProfiles:
         this.resumes = res.data;
-        let rs = await this.getReverseUniqueResumeIds(res.result);
-        
         this._subList.loaderList.next({type : "0"});
+        let rs = await this.getReverseUniqueResumeIds(res.result);
         this.addShareFromUser(res);
         break;
       case this._constants.addComment:
