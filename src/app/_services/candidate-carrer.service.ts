@@ -327,7 +327,35 @@ export class CandidateCarrerService {
       "sale" : 10,
       "leader" : 15,
       "diversity" : 10,
-      "content" : 10
+      // "content" : 10,
+      "report" : 5,
+      "PR" : 20,
+      "public relations" : 20,
+      "writ" : 10,
+      "edit" : 10,
+      "advert" : 15,
+      "content" :	20,
+      "influencers" :	30,
+      "social platform" :	30,
+      "media relationships" :	30,
+      "senior executives" :	40,
+      "trend" :	20,
+      "relationships" :	15,
+      "senior business leaders" :	30,
+      "podcast" :	30,
+      "internal communication" : 20,
+      "electronification" : 15,
+      "campaign" : 20,
+      "employee engagement" : 15,
+      "M&A" : 20,
+      "change management" :	15,
+      "executive" :	20,
+      "senior" : 20,
+      "senior management" :	20,
+      "head of business" : 30,
+      "prospect" : 20,
+      "kyc" : 20,
+      "OFAC" : 20
     }
   }
 
@@ -372,7 +400,15 @@ export class CandidateCarrerService {
       "recommend" : 15,
       "sourc" : 10,
       "host" : 15,
-      "$" : 50
+      "reduce" : 15,
+      "save" : 15,
+      "serve" :	10,
+      "outperform" : 20,
+      "acquire" :	20,
+      "grow" : 30,
+      "retain" : 15,
+      "$" : 50,
+      "+" :	20
     }
   }
 
