@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from "@angular/core";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler, APP_INITIALIZER } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -42,6 +42,7 @@ import { VideoCallingService } from "./_services/video-calling.service";
 import { GlobalErrorHandler } from "./_errorHandler/global-error-handler";
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
+import { LoadBeforeInitializeService } from "./_services/load-before-initialize.service";
 
 // import { SearchByNamePipe } from '../search-by-name.pipe';
 // import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -248,8 +249,14 @@ import { AngularFireModule } from '@angular/fire';
       multi: true,
     },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    LoadBeforeInitializeService,
+    { provide: APP_INITIALIZER, useFactory: dataLoadBeforeInit, deps: [LoadBeforeInitializeService], multi: true }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
+
+export function dataLoadBeforeInit(provider: LoadBeforeInitializeService) {
+  return () => provider.load();
+}
