@@ -62,7 +62,7 @@ import { MomentModule } from 'ngx-moment';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { MenusComponent } from './components/menus/menus.component';
 import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-tab.component';
-import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-profile/multi-shared-candidate-profile.component';
+import { MultiSharedCandidateProfileComponent } from './components/multi-shared-candidate-profile/multi-shared-candidate-profile.component';
 import { ListLoaderComponent } from './list-loader/list-loader.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { ChatRecordComponent } from './chat-record/chat-record.component';
