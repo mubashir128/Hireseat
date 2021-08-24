@@ -62,16 +62,16 @@ import { MomentModule } from 'ngx-moment';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { MenusComponent } from './components/menus/menus.component';
 import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-tab.component';
-import { MultiSharedCandidateProfileComponent } from './multi-shared-candidate-profile/multi-shared-candidate-profile.component';
-import { ListLoaderComponent } from './list-loader/list-loader.component';
-import { UserChatComponent } from './user-chat/user-chat.component';
-import { ChatRecordComponent } from './chat-record/chat-record.component';
+import { MultiSharedCandidateProfileComponent } from './components/multi-shared-candidate-profile/multi-shared-candidate-profile.component';
+import { ListLoaderComponent } from './components/list-loader/list-loader.component';
+import { UserChatComponent } from './components/user-chat/user-chat.component';
+import { ChatRecordComponent } from './components/chat-record/chat-record.component';
 import { NoDataAvailableComponent } from './no-data-available/no-data-available.component';
 import { FillFormComponent } from './components/fill-form/fill-form.component';
 import { SerchBySkillsPipe } from '../../shared/pipes/serch-by-skills.pipe';
 import { SerchByFullNamePipe } from '../../shared/pipes/serch-by-full-name.pipe';
 import { SerchByJobTitlePipe } from '../../shared/pipes/serch-by-job-title.pipe';
-import { ListLoaderSearchComponent } from './list-loader-search/list-loader-search.component';
+import { ListLoaderSearchComponent } from './components/list-loader-search/list-loader-search.component';
 import { TitleCasePipe } from "../pipes/title-case.pipe";
 
 @NgModule({

@@ -803,6 +803,8 @@ export class SharedCandidateProfilesComponent
 
   // share process
   showShareModal(resume) {
+    this.cc = resume.candidateKey ? resume.candidateKey.email : resume.candidate_id ? resume.candidate_id.email : "";
+    this.bcc = this.loggedUser.email ? this.loggedUser.email : "";
     this.generateLink = true;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
@@ -906,7 +908,7 @@ export class SharedCandidateProfilesComponent
     }
   }
 
-  async share() {
+  async share(intruduce) {
 
     var EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -958,6 +960,9 @@ export class SharedCandidateProfilesComponent
                 comment2: this.shareResume.comment2,
                 comment3: this.shareResume.comment3,
                 candidateProfile: this.shareResume.resumeType ? false : true,
+                intruduce : intruduce, //only when hitting a introduce
+                senderName : this.loggedUser.fullName,
+                fileURL : this.shareResume.fileURL
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
