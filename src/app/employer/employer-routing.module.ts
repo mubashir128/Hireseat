@@ -17,8 +17,8 @@ import { SharedCandidateProfilesComponent } from "../shared/shared-components/co
 import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
 import { MenusComponent } from "../shared/shared-components/components/menus/menus.component";
 import { MultiSharedCandidateProfileComponent } from "../shared/shared-components/components/multi-shared-candidate-profile/multi-shared-candidate-profile.component";
-import { UserChatComponent } from "../shared/shared-components/user-chat/user-chat.component";
-import { ChatRecordComponent } from "../shared/shared-components/chat-record/chat-record.component";
+import { UserChatComponent } from "../shared/shared-components/components/user-chat/user-chat.component";
+import { ChatRecordComponent } from "../shared/shared-components/components/chat-record/chat-record.component";
 
 const routes: Routes = [
   {
