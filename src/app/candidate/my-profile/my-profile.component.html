@@ -320,7 +320,7 @@
               <textarea
                 id="candidate-name"
                 class="validate"
-                rows="4"
+                rows="5"
                 maxlength="250"
                 formControlName="skills"
               ></textarea>
@@ -389,6 +389,21 @@
                 formControlName="desiredRoles"
               />
             </div>
+
+            <div class="input-field col s6 m6 l6">
+              <div>
+                <span [ngClass]="editProfile.value.introduceYouToo ? 'resume-subtitle' : 'change'" class="resume-subtitle">
+                  I can Intro you to Companies/Teams
+                </span>
+              </div>
+              <input
+                id="candidate-introduce"
+                type="text"
+                class="validate"
+                formControlName="introduceYouToo"
+              />
+            </div>
+
             <!-- <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-map-marker" aria-hidden="true"></i>

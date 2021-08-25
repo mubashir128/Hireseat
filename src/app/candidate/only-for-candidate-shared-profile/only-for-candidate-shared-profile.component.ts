@@ -37,23 +37,24 @@ import { Plugins } from '@capacitor/core';
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { CandidateCarrerService } from "src/app/_services/candidate-carrer.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
+import { Router } from "@angular/router";
 const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
+
 @Component({
-  selector: "app-shared-candidate-profiles",
-  templateUrl: "./shared-candidate-profiles.component.html",
-  styleUrls: ["./shared-candidate-profiles.component.css"],
+  selector: 'app-only-for-candidate-shared-profile',
+  templateUrl: './only-for-candidate-shared-profile.component.html',
+  styleUrls: ['./only-for-candidate-shared-profile.component.css']
 })
-export class SharedCandidateProfilesComponent
-  implements OnInit, OnChanges, OnDestroy {
+export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges, OnDestroy {
+
   @ViewChild("playVideo") videojsPlay: ElementRef;
-  @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
 
   // observer
-  sharedProfileObserver = new Subject();
-  sharedProfileObserver$ = this.sharedProfileObserver.asObservable();
+  onlyForCandidateSharedProfileObserver = new Subject();
+  onlyForCandidateSharedProfileObserver$ = this.onlyForCandidateSharedProfileObserver.asObservable();
 
   player: videojs.Player;
   canComment = false;
@@ -80,12 +81,14 @@ export class SharedCandidateProfilesComponent
 
   Search: FormGroup;
   searchSkillsFrm: FormGroup;
+  CompaniesTeamsRolesFrm: FormGroup;
   searchJobTitleFrm: FormGroup;
 
   requestDatesForm: FormGroup;
   // pagination
   p = 1;
   searchTerm = "";
+  searchCTRTerm = "";
   resumes = [];
   resume: any;
   show: any;
@@ -155,7 +158,8 @@ export class SharedCandidateProfilesComponent
     private _subList: SubscriberslistService,
     private _constants: ConstantsService,
     private _bidEventService: BiddingEventService,
-    private _readResume : ReadResumeService
+    private _readResume : ReadResumeService,
+    private _router: Router,
   ) {
     this.resumes = [];
     
@@ -169,22 +173,15 @@ export class SharedCandidateProfilesComponent
       searchSkillTerm: [""],
     });
 
+    this.CompaniesTeamsRolesFrm = this.formBuilder.group({
+      tags: ["", Validators.required],
+      searchCTRTerm: [""],
+    });
+
     this.searchJobTitleFrm = this.formBuilder.group({
       tags: ["", Validators.required],
       searchJobTitleTerm: [""],
     });
-
-    // this.Search.get("searchTerm")
-    //   .valueChanges.pipe(debounceTime(800))
-    //   .subscribe((res) => {
-    //     if (res) {
-    //       let obj = {
-    //         searchType: "name",
-    //         searchTerm: res,
-    //       };
-    //       this.getAllSharedResumes(obj);
-    //     }
-    //   });
 
     this.myComment = [];
     this.myCommentNote = [];
@@ -235,21 +232,39 @@ export class SharedCandidateProfilesComponent
       searchTermByNameIs : []
     });
 
-    await this._socket.removeListener({ type: this._constants.sharedProfileType });
+    await this._socket.removeListener({ type: this._constants.onlyForCandidateSharedProfileType });
     this._socket.addListener({
-      type: this._constants.sharedProfileType,
-      callback: this.sharedProfileObserver,
+      type: this._constants.onlyForCandidateSharedProfileType,
+      callback: this.onlyForCandidateSharedProfileObserver,
     });
 
     this.getTopRecruiterList();
     this.getIndustries();
     this.getProfiles();
 
+    this.debounceSearchForCTR();
     this.debounceSearchForSkills();
 
-    this.sharedProfileObserver$.subscribe((res: any) => {
+    this.onlyForCandidateSharedProfileObserver$.subscribe((res: any) => {
       this.handleProfileData(res);
     });
+  }
+
+  debounceSearchForCTR(){
+    this.CompaniesTeamsRolesFrm.valueChanges
+      .pipe(
+        debounceTime(1500),
+        distinctUntilChanged()).subscribe((value) => {
+          let obj = {};
+          if(value.searchCTRTerm !== undefined ){
+            this.skillText = value.searchCTRTerm;
+            obj = {
+              searchType: "skill",
+              searchSkills: this.skillText,
+              userRole : this.loggedUser.userRole
+            };
+          }
+      });
   }
 
   debounceSearchForSkills(){
@@ -291,7 +306,7 @@ export class SharedCandidateProfilesComponent
 
   handleProfileData(res: any) {
     switch (res.subType) {
-      case this._constants.getAllSharedProfiles:
+      case this._constants.getAllOnlyForCandidateSharedProfileType:
         this.resumes = res.data;
         this._subList.loaderList.next({type : "0"});
         break;
@@ -327,7 +342,6 @@ export class SharedCandidateProfilesComponent
   async addCreatedLink(res) {
     this.generateLink = false;
     this.createdUrl = res.result.link;
-
     this.copyLink();
 
     let shareRet = await Share.share({
@@ -341,17 +355,6 @@ export class SharedCandidateProfilesComponent
   handleResponse(res) {
     if (res.message) {
       Materialize.toast(res.message, 3000, "green");
-      Materialize.toast("You gained 200 recruiter karma points", 4000, "blue");
-
-      let eventObj = {
-        pointer: "ratingPoints",
-        subType: "increse",
-        increseCount: this._constants.sharedPoints,
-      };
-      this._subList.recruiterPoints.next(eventObj);
-
-      eventObj.pointer = "sharePoints";
-      this._subList.recruiterPoints.next(eventObj);
     } else {
       Materialize.toast(res.error, 3000, "red");
     }
@@ -371,9 +374,6 @@ export class SharedCandidateProfilesComponent
   addCommentToCommets(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
-        // console.log("--- element.canReview.length : ", element.canReview.length);
-        // element.canReview.length !== 0 ? element.canReview.unshift(res.data) : element.canReview.push(res.data);
-        // console.log("+++ element.canReview.length : ", element.canReview.length);
         element.canReview = [...element.canReview, res.data];
       }
     });
@@ -384,7 +384,6 @@ export class SharedCandidateProfilesComponent
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            // comment.like.push(res.data);
             comment.like = [...comment.like, res.data];
           }
         });
@@ -397,9 +396,6 @@ export class SharedCandidateProfilesComponent
       if (element._id === res.profileId) {
         element.canReview.filter((comment) => {
           if (comment._id === res.data._id) {
-            // console.log("--- comment.reply.length : ",comment.reply.length);
-            // comment.reply.length !== 0 ? comment.reply.unshift(res.data.replyComment) : comment.reply.push(res.data.replyComment);
-            // console.log("--- comment.reply.length : ",comment.reply.length);
             comment.reply = [...comment.reply, res.data.replyComment];
           }
         });
@@ -410,9 +406,9 @@ export class SharedCandidateProfilesComponent
   getProfiles() {
     this._subList.loaderList.next({type : "1"});
     this._socket.sendMessage({
-      type: this._constants.sharedProfileType,
+      type: this._constants.onlyForCandidateSharedProfileType,
       data: {
-        subType: this._constants.getAllSharedProfiles,
+        subType: this._constants.getAllOnlyForCandidateSharedProfileType,
       },
     });
 
@@ -420,27 +416,6 @@ export class SharedCandidateProfilesComponent
       this.myProfile();
     }
   }
-
-  disabledDay(date) { }
-
-  // searchTermByName() {
-  //   fromEvent(this.searchByName.nativeElement, "keyup")
-  //     .pipe(
-  //       map((event) => event),
-  //       filter(Boolean),
-  //       debounceTime(800),
-  //       distinctUntilChanged(),
-  //       tap((text) => {
-  //         let obj = {
-  //           searchType: "name",
-  //           searchTerm: this.searchTerm,
-  //         };
-
-  //         this.getAllSharedResumes(obj);
-  //       })
-  //     )
-  //     .subscribe();
-  // }
 
   getSearchBySkills(payload){
     this.resumeService.getSearchBySkills(payload).subscribe((res) => {
@@ -544,13 +519,6 @@ export class SharedCandidateProfilesComponent
       this.resumeService.postMyNote(payload).subscribe((res) => {
         if (res) {
           this.addNoteToNoteSection(res.detailedCommentObj);
-
-          // if (this.loggedUser.userRole == "recruiter") {
-          //   Materialize.toast("You gained 100 recruiter karma points", 2000, "red");
-          // }else if (this.loggedUser.userRole == "employer"){
-          //   Materialize.toast("You just helped someone....and changed someones life...good job!", 2000, "red");
-          // }
-
           this.myCommentNote[i] = "";
         }
       }, (err) => {
@@ -718,9 +686,6 @@ export class SharedCandidateProfilesComponent
   }
 
   ngAfterViewInit() {
-    // server side search
-    // this.searchTermByName();
-
     // instantiate Video.js
     if (this.videoURL) {
       this.player = videojs(
@@ -861,21 +826,15 @@ export class SharedCandidateProfilesComponent
               comment: this.shareResume.comments,
               candidateProfile: this.shareResume.resumeType ? false : true,
             };
+
             this._socket.sendMessage({
-              type: this._constants.sharedProfileType,
+              type: this._constants.onlyForCandidateSharedProfileType,
               data: {
                 payload: payload,
                 subType: this._constants.generateLink
               },
             });
-            // navigator
-            //   .share({
-            //     title: document.title,
-            //     text: 'Hello World',
-            //     url: window.location.href
-            //   })
-            //   .then(() => console.log('Successful share! 🎉'))
-            //   .catch(err => console.error(err));
+
           }
 
         }
@@ -890,21 +849,15 @@ export class SharedCandidateProfilesComponent
         comment: this.shareResume.comments,
         candidateProfile: this.shareResume.resumeType ? false : true,
       };
+
       this._socket.sendMessage({
-        type: this._constants.sharedProfileType,
+        type: this._constants.onlyForCandidateSharedProfileType,
         data: {
           payload: payload,
           subType: this._constants.generateLink
         },
       });
-      // navigator
-      //   .share({
-      //     title: document.title,
-      //     text: 'Hello World',
-      //     url: window.location.href
-      //   })
-      //   .then(() => console.log('Successful share! 🎉'))
-      //   .catch(err => console.error(err));
+
     }
   }
 
@@ -962,7 +915,8 @@ export class SharedCandidateProfilesComponent
                 candidateProfile: this.shareResume.resumeType ? false : true,
                 intruduce : intruduce, //only when hitting a introduce
                 senderName : this.loggedUser.fullName,
-                fileURL : this.shareResume.fileURL
+                fileURL : this.shareResume.fileURL,
+                onlyCandidate : true
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
@@ -970,48 +924,13 @@ export class SharedCandidateProfilesComponent
 
               let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
               this._socket.sendMessage({
-                type: this._constants.sharedProfileType,
+                type: this._constants.onlyForCandidateSharedProfileType,
                 data: {
                   type: userInfo.userRole,
                   payload: payload,
                   subType: this._constants.shareVideoViaRecruiterEmail
                 },
               });
-
-              // this.shareVideoSubscription = this.shareVideoService
-              //   .shareVideoViaRecruiterEmail(payload)
-              //   .subscribe(
-              //     (res) => {
-              //       if (res) {
-              //         // console.log(res);
-              //         Materialize.toast(res.msg, 3000);
-              //         Materialize.toast(
-              //           "You gained 200 recruiter karma points",
-              //           4000,
-              //           "red"
-              //         );
-              //         jQuery("#shareEmailModal").modal("close");
-
-              //         let eventObj = {
-              //           pointer: "ratingPoints",
-              //           subType: "increse",
-              //           increseCount: this._constants.sharedPoints,
-              //         };
-              //         this._subList.recruiterPoints.next(eventObj);
-
-              //         eventObj.pointer = "sharePoints";
-              //         this._subList.recruiterPoints.next(eventObj);
-
-              //         this.spinner.hide();
-              //       }
-              //     },
-              //     (err) => {
-              //       // console.log(err);
-              //       Materialize.toast("unable to send an email!", 3000);
-              //       jQuery("#shareEmailModal").modal("close");
-              //       this.spinner.hide();
-              //     }
-              //   );
 
             } else {
               // console.log('no sharable video available');
@@ -1103,10 +1022,9 @@ export class SharedCandidateProfilesComponent
       }
     });
   }
-  //
+
   setCurrentTime(seconds, questionNumber) {
     this.questionNumber = questionNumber;
-    // console.log(this.questionNumber);
 
     try {
       this.videojsPlay.nativeElement.currentTime = seconds;
@@ -1178,11 +1096,7 @@ export class SharedCandidateProfilesComponent
     this.disableDay = this.daysArray.filter(
       (val) => !this.dayToBeAvailable.includes(val)
     );
-
-    // console.log(this.disableDay);
-    // this.spinner.show();
-    // this.openSelectDatesModal();
-    // this.confirmSelectDatesEvent();
+    
     this.reqCoachingFunction();
     this.closeRecruiterModal();
   }
@@ -1398,8 +1312,15 @@ export class SharedCandidateProfilesComponent
 
   }
 
+  goToUserChat(resume){
+    let id = resume.candidateKey ? resume.candidateKey._id : resume.candidate_id ? resume.candidate_id._id : "";
+    if(id !== ""){
+      this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", id]);
+    }
+  }
+
   ngOnDestroy() {
-    this._socket.removeListener({ type: this._constants.sharedProfileType });
-    this.sharedProfileObserver.unsubscribe();
+    this._socket.removeListener({ type: this._constants.onlyForCandidateSharedProfileType });
+    this.onlyForCandidateSharedProfileObserver.unsubscribe();
   }
 }

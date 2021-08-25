@@ -11,6 +11,7 @@ import { MyReviewedProfilesComponent } from './my-reviewed-profiles/my-reviewed-
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProfileItemsComponent } from './profile-items/profile-items.component';
+import { OnlyForCandidateSharedProfileComponent } from './only-for-candidate-shared-profile/only-for-candidate-shared-profile.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ProfileItemsComponent } from './profile-items/profile-items.component';
     CandidateHomeComponent,
     MyReviewedProfilesComponent,
     ViewProfileComponent,
-    ProfileItemsComponent
+    ProfileItemsComponent,
+    OnlyForCandidateSharedProfileComponent
   ],
   imports: [
     CommonModule,

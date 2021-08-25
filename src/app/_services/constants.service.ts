@@ -96,6 +96,8 @@ export class ConstantsService {
   userChatMessage;
   addNewChat;
   getAllChats;
+  onlyForCandidateSharedProfileType;
+  getAllOnlyForCandidateSharedProfileType
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -269,6 +271,8 @@ export class ConstantsService {
     this.mobileNotificationIncrementType = obj.mobileNotificationIncrementType;
     this.getMobileNotificationIncrementType = obj.getMobileNotificationIncrementType;
     this.addNote = obj.addNote;
+    this.onlyForCandidateSharedProfileType = obj.onlyForCandidateSharedProfileType;
+    this.getAllOnlyForCandidateSharedProfileType = obj.getAllOnlyForCandidateSharedProfileType;
   }
 
 }

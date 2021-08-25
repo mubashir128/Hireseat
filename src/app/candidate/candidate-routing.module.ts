@@ -9,6 +9,9 @@ import { SharedCandidateProfilesComponent } from "../shared/shared-components/co
 import { BiddingEventsListComponent } from "../bidding-events-list/bidding-events-list.component";
 import {MenusComponent} from "../shared/shared-components/components/menus/menus.component";
 import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
+import { OnlyForCandidateSharedProfileComponent } from "./only-for-candidate-shared-profile/only-for-candidate-shared-profile.component";
+import { UserChatComponent } from "../shared/shared-components/components/user-chat/user-chat.component";
+import { ChatRecordComponent } from "../shared/shared-components/components/chat-record/chat-record.component";
 
 const routes: Routes = [
   {
@@ -23,7 +26,10 @@ const routes: Routes = [
         path: "my-profile",
         component: MyProfileComponent,
       },
-
+      {
+        path: "all-only-candidate-shared-profile",
+        component: OnlyForCandidateSharedProfileComponent,
+      },
       {
         path: "my-reviewed-profiles",
         component: MyReviewedProfilesComponent,
@@ -48,6 +54,14 @@ const routes: Routes = [
         path: "notification",
         component: NotificationsComponent,
       },
+      {
+        path: "user-chat",
+        component: UserChatComponent,
+      },
+      {
+        path: "chat-record/:id",
+        component: ChatRecordComponent,
+      }
     ],
   },
 ];

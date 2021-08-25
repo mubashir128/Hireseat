@@ -69,6 +69,7 @@ import { ChatRecordComponent } from './components/chat-record/chat-record.compon
 import { NoDataAvailableComponent } from './no-data-available/no-data-available.component';
 import { SerchBySkillsPipe } from '../../shared/pipes/serch-by-skills.pipe';
 import { SerchByFullNamePipe } from '../../shared/pipes/serch-by-full-name.pipe';
+import { SearchByCTRPipe } from '../../shared/pipes/search-by-ctr.pipe';
 import { SerchByJobTitlePipe } from '../../shared/pipes/serch-by-job-title.pipe';
 import { ListLoaderSearchComponent } from './components/list-loader-search/list-loader-search.component';
 import { TitleCasePipe } from "../pipes/title-case.pipe";
@@ -169,6 +170,7 @@ import { TitleCasePipe } from "../pipes/title-case.pipe";
     NoDataAvailableComponent,
     SerchBySkillsPipe,
     SerchByFullNamePipe,
+    SearchByCTRPipe,
     SerchByJobTitlePipe
   ],
   exports: [
@@ -239,6 +241,7 @@ import { TitleCasePipe } from "../pipes/title-case.pipe";
     NoDataAvailableComponent,
     SerchBySkillsPipe,
     SerchByFullNamePipe,
+    SearchByCTRPipe,
     SerchByJobTitlePipe
   ],
 
