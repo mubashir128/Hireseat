@@ -32,7 +32,7 @@
   justify-content: unset;
   margin-bottom: 20px;
   transition: 1s;
-  height: auto;
+  /* height: auto; */
   background-color: #ffffff;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
     0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
@@ -41,7 +41,7 @@
   text-align: right;
   margin-bottom: 20px;
   padding: 0 0 20px;
-  border-bottom: 1px solid #e5e5e5;
+  /* border-bottom: 1px solid #e5e5e5; */
   display: flex;
   justify-content: space-between;
 }
@@ -85,6 +85,26 @@
 button.shareBtn {
   border: 1px solid #DD3215;
   background-color: #DD3215;
+}
+
+.chatBtn {
+  width: 48%;
+  border-radius: 7px;
+}
+
+.connectBtn {
+  width: 48%;
+  border-radius: 7px;
+}
+
+button.chatBtn{
+  border: 1px solid #33aaff;
+  background-color: #33aaff;
+}
+
+button.connectBtn{
+  border: 1px solid #1a1;
+  background-color: #1a1;
 }
 
 .shared-icon {
@@ -416,14 +436,7 @@ textarea.editComment:focus {
   padding-left: 40px !important;
   border-bottom: 1px solid #c2c2c2;
 }
-.inputCommReceiver {
-  height: 40px;
-  width: 107% !important;
-  border: none;
-  margin-bottom: 10px !important;
-  padding-left: 0px !important;
-  border-bottom: 1px solid #c2c2c2;
-}
+
 button.sendBtn {
   background-color: #039be5;
   color: #fff;
@@ -1007,6 +1020,16 @@ a.videoCloseBtn {
     display: block;
     border-radius: 5px;
   }
+  button.chatBtn {
+    width: 98%;
+    display: block;
+    border-radius: 5px;
+  }
+  button.connectBtn {
+    width: 98%;
+    display: block;
+    border-radius: 5px;
+  }
 }
 
 .hideAndSHoTab {
@@ -1078,4 +1101,9 @@ a.videoCloseBtn {
 .resumeIcon{
   color: #1AD9C5;
   font-size: 13px;
+}
+
+.introStyle{
+  border: 1px solid red !important;
+  background-color: red !important;
 }

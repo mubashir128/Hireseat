@@ -70,9 +70,11 @@ import { NoDataAvailableComponent } from './no-data-available/no-data-available.
 import { FillFormComponent } from './components/fill-form/fill-form.component';
 import { SerchBySkillsPipe } from '../../shared/pipes/serch-by-skills.pipe';
 import { SerchByFullNamePipe } from '../../shared/pipes/serch-by-full-name.pipe';
+import { SearchByCTRPipe } from '../../shared/pipes/search-by-ctr.pipe';
 import { SerchByJobTitlePipe } from '../../shared/pipes/serch-by-job-title.pipe';
 import { ListLoaderSearchComponent } from './components/list-loader-search/list-loader-search.component';
 import { TitleCasePipe } from "../pipes/title-case.pipe";
+import { FriendsConnectionsComponent } from './components/friends-connections/friends-connections.component';
 
 @NgModule({
   imports: [
@@ -171,7 +173,9 @@ import { TitleCasePipe } from "../pipes/title-case.pipe";
     FillFormComponent,
     SerchBySkillsPipe,
     SerchByFullNamePipe,
-    SerchByJobTitlePipe
+    SearchByCTRPipe,
+    SerchByJobTitlePipe,
+    FriendsConnectionsComponent
   ],
   exports: [
     FooterComponent,
@@ -241,6 +245,7 @@ import { TitleCasePipe } from "../pipes/title-case.pipe";
     NoDataAvailableComponent,
     SerchBySkillsPipe,
     SerchByFullNamePipe,
+    SearchByCTRPipe,
     SerchByJobTitlePipe
   ],
 

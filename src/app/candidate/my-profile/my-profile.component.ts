@@ -87,6 +87,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       linkedIn: [""],
       desiredRoles: [""],
       desiredCompanies: [""],
+      introduceYouToo: [""],
       // 1st
       referralJobTitle1: [""],
       referralEmail1: [""],
@@ -222,6 +223,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             jobTitle: res.jobTitle,
             location: res.location,
             desiredRoles: res.desiredRoles,
+            desiredCompanies: res.desiredCompanies,
+            introduceYouToo : res.introduceYouToo,
             Employers1: res.previousEmployers[0],
             Employers2: res.previousEmployers[1],
             skills: res.skills,

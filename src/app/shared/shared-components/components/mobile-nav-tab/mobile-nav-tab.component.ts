@@ -175,15 +175,15 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   forCandidateMobileTab(){
     //for mobile view
     this.tabs2.push(
-      new Tab2("/candidate/my-profile", "Profile", true, "fas fa-user")
-    );
-    this.tabs2.push(
       new Tab2(
         "/candidate/my-posted-profiles",
         "My Posted Profiles",
-        false,
-        "fas fa-user-friends"
+        true,
+        "fas fa-user"
       )
+    );
+    this.tabs2.push(
+      new Tab2("/candidate/all-only-candidate-shared-profile", "OnlyCandidateSharedProfile", false, "fas fa-user-friends")
     );
     this.tabs2.push(
       new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-search")

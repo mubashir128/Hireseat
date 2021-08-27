@@ -1,0 +1,266 @@
+.ListResume {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  float: left;
+  /* height: calc(100vh - 540px);
+              overflow: scroll; */
+}
+
+.singleList.employerResume {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px 30px;
+  display: block;
+  justify-content: unset;
+  margin-bottom: 20px;
+  transition: 1s;
+  /* height: auto; */
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Tablet css :STARTS */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .docSectionBtns button {
+    margin-bottom: 7px !important;
+  }
+
+  .singleList.employerResume {
+    padding: 20px !important;
+  }
+}
+/* Tablet css :ENDS */
+
+.pro {
+  width: 100%;
+  float: left;
+}
+
+.pro-3 {
+  width: 15%;
+  float: left;
+}
+
+.pro .candProfile {
+  width: 100px;
+  height: 100px;
+  background-color: #e7e7e7;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.pro .candProfile img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.pro-1 {
+  width: 55%;
+  float: left;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .CandidateDetails {
+    width: 100%;
+    display: block;
+  }
+
+  .candidate-name {
+    width: 100%;
+  }
+
+  .pro-1 {
+    width: 70% !important;
+  }
+
+  .pro-2 {
+    width: 100% !important;
+  }
+
+  .pro-3 {
+    width: 17%;
+  }
+
+  .candidate-name p {
+    font-size: 0.8rem;
+  }
+
+  .lates-s {
+    width: 100% !important;
+  }
+
+}
+
+.docSectionBtns {
+  text-align: right;
+  margin-bottom: 20px;
+  padding: 0 0 20px;
+  /* border-bottom: 1px solid #e5e5e5; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.docSectionBtns button {
+  font-size: 13px;
+  /* min-width: 100px; */
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.candidate-name {
+  width: calc(100% - 200px);
+  text-align: left;
+}
+
+.candidate-name span {
+  color: #33aaff;
+  font-size: 20px;
+  font-weight: 600;
+}
+.candidate-name p {
+  margin: 3px 0;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.candidate-name .industrieName {
+  font-size: 12px !important;
+  color: #8ca2c3 !important;
+}
+
+@media (max-width: 1440px) {
+  .pro-1 {
+    width: 43% !important;
+  }
+  
+  .pro-2 {
+    width: 100%;
+  }
+
+  .pro-3 {
+    width: 26%;
+  }
+
+  .pro .candProfile {
+    width: 52px;
+    height: 52px;
+  }
+
+  .candidate-name {
+    width: 100%;
+  }
+}
+
+.CandidateDetails .candProfile {
+  width: 100px;
+  height: 100px;
+  background-color: #e7e7e7;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+}
+.CandidateDetails .candProfile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.CandidateDetails {
+  display: flex;
+  align-items: center;
+}
+
+.pro-share{
+  width: 30%;
+  float: left;
+}
+
+.acceptBtn {
+  width: 48%;
+  border-radius: 7px;
+}
+
+button.acceptBtn{
+  border: 1px solid #1a1;
+  background-color: #1a1;
+}
+
+button.rejectBtn{
+  border: 1px solid red !important;
+  background-color: red !important;
+}
+
+.btnText {
+  color: #fff !important;
+}
+
+.btn-icon {
+  width: 20px;
+  margin-right: 3px;
+  color: #fff !important;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .pro-share {
+    width: 30% !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .pro-share {
+    width: 30% !important;
+  }
+}
+
+@media (max-width: 1440px) {
+  .pro-share {
+    width: 30% !important;
+  }
+
+  button.acceptBtn {
+    width: 98%;
+    display: block;
+    border-radius: 5px;
+  }
+
+}
+
+.interview-heading {
+  font-size: 20px;
+  color: #fff;
+}
+
+span.interview-heading {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.head-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  background-color: #0aafff;
+}
+
+.head-column {
+  float: left;
+  width: 100%;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.upDownIcon{
+  float: right;
+  margin-top: -25px;
+  margin-right: 10px;
+  color: white;
+}
+
+.styleHeader{
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding: 1px 0px !important;
+}
