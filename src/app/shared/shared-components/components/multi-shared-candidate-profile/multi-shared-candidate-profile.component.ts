@@ -86,7 +86,7 @@ export class MultiSharedCandidateProfileComponent implements OnInit, OnChanges, 
   requestDatesForm: FormGroup;
   // pagination
   p = 1;
-  searchTerm: any;
+  searchTerm = "";
   resumes = [];
   resume: any;
   show: any;

@@ -20,7 +20,7 @@ import { JobProfileListComponent } from "../employer/job-profile-list/job-profil
 import { EditJobProfileComponent } from "../employer/edit-job-profile/edit-job-profile.component";
 import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
 import { MenusComponent } from "../shared/shared-components/components/menus/menus.component";
-import { MultiSharedCandidateProfileComponent } from "../shared/shared-components/multi-shared-candidate-profile/multi-shared-candidate-profile.component";
+import { MultiSharedCandidateProfileComponent } from "../shared/shared-components/components/multi-shared-candidate-profile/multi-shared-candidate-profile.component";
 
 const routes: Routes = [
   {

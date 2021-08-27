@@ -1,116 +1,206 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import * as myGlobals from "../globalPath";
 @Injectable({
   providedIn: 'root'
 })
 export class ConstantsService {
 
-  ratingPoints = 1000;
-  sharedPoints = 200;
-  ReplyAdvicePoints = 25;
-  adviceLikedPoints = 50;
-  advicePoints = 100;
-  notificationLimit = 15;
+  ratingPoints;
+  sharedPoints;
+  ReplyAdvicePoints;
+  adviceLikedPoints;
+  advicePoints;
+  notificationLimit;
 
-  notificationType = 1;
-  getAllNotifications = "getAllNotifications";
-  newNotification = "newNotification";
-  decreaseNotificationCount = "decreaseNotificationCount";
+  notificationType;
+  getAllNotifications;
+  newNotification;
+  decreaseNotificationCount;
 
-  profileQuestionType = 3;
-  getAllQuestions = "getAllQuestions";
-  question = "question";
-  answer = "answer";
+  profileQuestionType;
+  getAllQuestions;
+  question;
+  answer;
 
-  recruiterDoughnutChartType = 6;
-  getDoughnutChartData = "getDoughnutChartData";
-  getAllRecruiterComment = "getAllRecruiterComment";
+  recruiterDoughnutChartType;
+  getDoughnutChartData;
+  getAllRecruiterComment;
 
-  recruiterLineChartType = 8;
-  getRecruiterLineChartData = "getRecruiterLineChartData";
+  recruiterLineChartType;
+  getRecruiterLineChartData;
 
-  recruiterPieChartType = 7;
-  getRecruiterPieChartData = "getRecruiterPieChartData";
+  recruiterPieChartType;
+  getRecruiterPieChartData;
 
-  sharedProfileType = 5;
-  getAllSharedProfiles = "getAllSharedProfiles";
-  addComment = "addComment";
-  addNote = "addNote";
-  likeComment = "likeComment";
-  shareVideoViaRecruiterEmail = "shareVideoViaRecruiterEmail";
-  editComment = "editComment";
-  deleteComment = "deleteComment";
-  replyComment = "replyComment";
+  sharedProfileType;
+  getAllSharedProfiles;
+  addComment;
+  addNote;
+  likeComment;
+  shareVideoViaRecruiterEmail;
+  editComment;
+  deleteComment;
+  replyComment;
 
-  barChartType = 4;
-  getAllBarChartData = "getAllBarChartData";
-  increaseRatingPoints = "increaseRatingPoints";
-  increaseHiredCount = "increaseHiredCount";
-  pushNewCreatedBid = "pushNewCreatedBid";
+  barChartType;
+  getAllBarChartData;
+  increaseRatingPoints;
+  increaseHiredCount;
+  pushNewCreatedBid;
 
-  askQuestionType = 2;
-  addQuestion = "addQuestion";
+  askQuestionType;
+  addQuestion;
 
-  private = "private";
-  public = "public";
-  all = "all";
+  private;
+  public;
+  all;
 
-  sharedCandidateProfileType = 10;
+  sharedCandidateProfileType;
 
-  sharedRecruiterProfileType = 9;
-  candidateJobQuestionType = 11;
+  sharedRecruiterProfileType;
+  candidateJobQuestionType;
 
-  askedQuestion = "askedQuestion";
-  postAnswer = "postAnswer";
-  replyAdvicePoints = "replyAdvicePoints";
-  comment = "comment";
-  reply = "reply";
-  like = "like";
-  askQuestion = "askQuestion";
-  profileQuestion = "profileQuestion";
-  profileAnswer = "profileAnswer";
-  shareCandidateProfile = "shareCandidateProfile";
-  id = "YW5hbmRQamFndGFwOTU5NTA3MTgyOA==";
-  employerKey = 2;
-  recruiterKey = 3;
-  ACTIVE = "ACTIVE";
-  SCHEDULED = "SCHEDULED";
-  recruiterComment = "recruiterComment";
+  askedQuestion;
+  postAnswer;
+  replyAdvicePoints;
+  comment;
+  reply;
+  like;
+  askQuestion;
+  profileQuestion;
+  profileAnswer;
+  shareCandidateProfile;
+  id;
+  employerKey;
+  recruiterKey;
+  ACTIVE;
+  SCHEDULED;
+  recruiterComment;
 
-  mobileNotificationIncrementType = 12;
-  getMobileNotificationIncrementType = "getMobileNotificationIncrementType";
+  mobileNotificationIncrementType;
+  getMobileNotificationIncrementType;
 
-  generateLink = "generateLink";
+  generateLink;
 
-  getAllMultiSharedProfiles = "getAllMultiSharedProfiles"
+  getAllMultiSharedProfiles;
 
-  multiSharedCandidateProfileCount = 13;
-  multiSharedCandidateProfileCountType = "multiSharedCandidateProfileCountType";
+  //check below
+  multiSharedCandidateProfileCount;
+  multiSharedCandidateProfileCountType;
 
-  userChatType = 14;
-  userChat = "userChat";
-  getAllUsers = "getAllUsers";
-  getOnlyUserChats = "getOnlyUserChats";
+  userChatType;
+  userChat;
+  getAllUsers;
+  getOnlyUserChats;
   
-  userChatMessageType = 15;
-  userChatMessage = "userChatMessage";
-  addNewChat = "addNewChat";
-  getAllChats = "getAllChats";
+  userChatMessageType;
+  userChatMessage;
+  addNewChat;
+  getAllChats;
+  onlyForCandidateSharedProfileType;
+  getAllOnlyForCandidateSharedProfileType;
+
+  asAAddFriend;
+  asARequested;
+  asAPending;
+  asAFriend;
+
+  // ratingPoints = 1000;
+  // sharedPoints = 200;
+  // ReplyAdvicePoints = 25;
+  // adviceLikedPoints = 50;
+  // advicePoints = 100;
+  // notificationLimit = 15;
+
+  // notificationType = 1;
+  // getAllNotifications = "getAllNotifications";
+  // newNotification = "newNotification";
+  // decreaseNotificationCount = "decreaseNotificationCount";
+
+  // profileQuestionType = 3;
+  // getAllQuestions = "getAllQuestions";
+  // question = "question";
+  // answer = "answer";
+
+  // recruiterDoughnutChartType = 6;
+  // getDoughnutChartData = "getDoughnutChartData";
+  // getAllRecruiterComment = "getAllRecruiterComment";
+
+  // recruiterLineChartType = 8;
+  // getRecruiterLineChartData = "getRecruiterLineChartData";
+
+  // recruiterPieChartType = 7;
+  // getRecruiterPieChartData = "getRecruiterPieChartData";
+
+  // sharedProfileType = 5;
+  // getAllSharedProfiles = "getAllSharedProfiles";
+  // addComment = "addComment";
+  // addNote = "addNote";
+  // likeComment = "likeComment";
+  // shareVideoViaRecruiterEmail = "shareVideoViaRecruiterEmail";
+  // editComment = "editComment";
+  // deleteComment = "deleteComment";
+  // replyComment = "replyComment";
+
+  // barChartType = 4;
+  // getAllBarChartData = "getAllBarChartData";
+  // increaseRatingPoints = "increaseRatingPoints";
+  // increaseHiredCount = "increaseHiredCount";
+  // pushNewCreatedBid = "pushNewCreatedBid";
+
+  // askQuestionType = 2;
+  // addQuestion = "addQuestion";
+
+  // private = "private";
+  // public = "public";
+  // all = "all";
+
+  // sharedCandidateProfileType = 10;
+
+  // sharedRecruiterProfileType = 9;
+  // candidateJobQuestionType = 11;
+
+  // askedQuestion = "askedQuestion";
+  // postAnswer = "postAnswer";
+  // replyAdvicePoints = "replyAdvicePoints";
+  // comment = "comment";
+  // reply = "reply";
+  // like = "like";
+  // askQuestion = "askQuestion";
+  // profileQuestion = "profileQuestion";
+  // profileAnswer = "profileAnswer";
+  // shareCandidateProfile = "shareCandidateProfile";
+  // id = "YW5hbmRQamFndGFwOTU5NTA3MTgyOA==";
+  // employerKey = 2;
+  // recruiterKey = 3;
+  // ACTIVE = "ACTIVE";
+  // SCHEDULED = "SCHEDULED";
+  // recruiterComment = "recruiterComment";
+
+  // mobileNotificationIncrementType = 12;
+  // getMobileNotificationIncrementType = "getMobileNotificationIncrementType";
+
+  // generateLink = "generateLink";
+
+  // getAllMultiSharedProfiles = "getAllMultiSharedProfiles"
+
+  // //check below
+  // multiSharedCandidateProfileCount = 13;
+  // multiSharedCandidateProfileCountType = "multiSharedCandidateProfileCountType";
+
+  // userChatType = 14;
+  // userChat = "userChat";
+  // getAllUsers = "getAllUsers";
+  // getOnlyUserChats = "getOnlyUserChats";
   
-  public baseurl: any;
-  constructor(private http: HttpClient) {
-    this.baseurl = myGlobals.baseUrl;
+  // userChatMessageType = 15;
+  // userChatMessage = "userChatMessage";
+  // addNewChat = "addNewChat";
+  // getAllChats = "getAllChats";
+
+  constructor() {
   }
-
-  async getAllConstants(){
-    // this.http.get<any>(this.baseurl + "api/getAllConstants").subscribe(res=>{
-    //   this.setVariables(res);
-    //   return true;
-    // });
-  }
   
-  setVariables(obj){
+  async setVariables(obj){
     this.getAllNotifications = obj.getAllNotifications;
     this.newNotification = obj.newNotification;
     this.addQuestion = obj.addQuestion;
@@ -171,6 +261,28 @@ export class ConstantsService {
     this.notificationLimit = obj.notificationLimit;
     this.generateLink = obj.generateLink;
     this.getAllMultiSharedProfiles = obj.getAllMultiSharedProfiles;
+    
+    //check below
+    this.multiSharedCandidateProfileCount = obj.multiSharedCandidateProfileCount;
+    this.multiSharedCandidateProfileCountType = obj.multiSharedCandidateProfileCountType;
+    this.userChatType = obj.userChatType;
+    this.userChat = obj.userChat;
+    this.getAllUsers = obj.getAllUsers;
+    this.getOnlyUserChats = obj.getOnlyUserChats;
+    this.userChatMessageType = obj.userChatMessageType;
+    this.userChatMessage = obj.userChatMessage;
+    this.addNewChat = obj.addNewChat;
+    this.getAllChats = obj.getAllChats;
+    this.mobileNotificationIncrementType = obj.mobileNotificationIncrementType;
+    this.getMobileNotificationIncrementType = obj.getMobileNotificationIncrementType;
+    this.addNote = obj.addNote;
+    this.onlyForCandidateSharedProfileType = obj.onlyForCandidateSharedProfileType;
+    this.getAllOnlyForCandidateSharedProfileType = obj.getAllOnlyForCandidateSharedProfileType;
+
+    this.asAAddFriend = obj.asAAddFriend;
+    this.asARequested = obj.asARequested;
+    this.asAPending = obj.asAPending;
+    this.asAFriend = obj.asAFriend;
   }
 
 }
