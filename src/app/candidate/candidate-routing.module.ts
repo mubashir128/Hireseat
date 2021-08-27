@@ -12,6 +12,7 @@ import { NotificationsComponent } from "../shared/shared-components/components/n
 import { OnlyForCandidateSharedProfileComponent } from "./only-for-candidate-shared-profile/only-for-candidate-shared-profile.component";
 import { UserChatComponent } from "../shared/shared-components/components/user-chat/user-chat.component";
 import { ChatRecordComponent } from "../shared/shared-components/components/chat-record/chat-record.component";
+import { FriendsConnectionsComponent } from "../shared/shared-components/components/friends-connections/friends-connections.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: "all-only-candidate-shared-profile",
         component: OnlyForCandidateSharedProfileComponent,
+      },
+      {
+        path: "friends-connections",
+        component: FriendsConnectionsComponent,
       },
       {
         path: "my-reviewed-profiles",

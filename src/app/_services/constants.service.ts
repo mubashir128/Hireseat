@@ -97,7 +97,12 @@ export class ConstantsService {
   addNewChat;
   getAllChats;
   onlyForCandidateSharedProfileType;
-  getAllOnlyForCandidateSharedProfileType
+  getAllOnlyForCandidateSharedProfileType;
+
+  asAAddFriend;
+  asARequested;
+  asAPending;
+  asAFriend;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -273,6 +278,11 @@ export class ConstantsService {
     this.addNote = obj.addNote;
     this.onlyForCandidateSharedProfileType = obj.onlyForCandidateSharedProfileType;
     this.getAllOnlyForCandidateSharedProfileType = obj.getAllOnlyForCandidateSharedProfileType;
+
+    this.asAAddFriend = obj.asAAddFriend;
+    this.asARequested = obj.asARequested;
+    this.asAPending = obj.asAPending;
+    this.asAFriend = obj.asAFriend;
   }
 
 }

@@ -162,5 +162,21 @@ export class CandidateService {
       })
     );
   }
+
+  connectWithUsers(payload) {
+    return this.http.post<any>(this.baseurl + "api/connectWithUsers", payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
   
+  getAllConnectedUsers(payload) {
+    return this.http.post<any>(this.baseurl + "api/getAllConnectedUsers", payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
 }

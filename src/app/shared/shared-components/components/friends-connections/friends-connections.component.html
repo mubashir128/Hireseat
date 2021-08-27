@@ -1,0 +1,138 @@
+<!-- for reqeusted friends slide -->
+<ng-container>
+  <div class="row styleHeader">
+    <div class="head-column" (click)="toggleRequestedAre()">
+      <div class="head-card">
+        <h6>
+          <span class="interview-heading">
+            Requested Friends Are : 
+          </span>
+        </h6>
+        <i [ngClass] = "reqeustClass" class="upDownIcon"></i>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="requestedFriendAre && showRequest">
+  <div class="ListResume">
+    <div class="singleList employerResume" *ngFor = "let requestedFriendAre of requestedFriendAre">
+      <div class="pro">
+        <div class="pro-3">
+            <ng-container *ngIf="!requestedFriendAre.recipient.profileimage">
+                <div class="candProfile">
+                <img src="assets/img/profile-user.png" alt="profile" />
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="requestedFriendAre.recipient.profileimage">
+                <div class="candProfile">
+                <img [src]="requestedFriendAre.recipient.profileimage" alt="profile"/>
+                </div>
+            </ng-container>
+
+            <div class="pro-1">
+                <div class="docSectionBtns lates-s">
+                    <div class="candidate-name">
+                        <div class="CandidateDetails">
+                            <div class="user-details">
+                                <span>
+                                  {{ requestedFriendAre.recipient.fullName }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="pro-share" style="margin-top: 10px;">
+          <div class="">
+            <button class="acceptBtn" (click)="acceptClick()">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-check btn-icon" aria-hidden="true"></i>
+                  <span class="btnText"> Accept </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+
+        <div class="pro-share" style="margin-top: 10px;">
+          <div class="">
+            <button class="acceptBtn rejectBtn" (click)="rejectClick()">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-times btn-icon" aria-hidden="true"></i>
+                  <span class="btnText"> Reject </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-container>
+
+<!-- for freinds slide -->
+<ng-container>
+  <div class="row styleHeader">
+    <div class="head-column" (click)="toggleFriendAre()">
+      <div class="head-card">
+        <h6>
+          <span class="interview-heading">
+            Connected Friends Are : 
+          </span>
+        </h6>
+        <i [ngClass] = "friendClass" class="upDownIcon"></i>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="friendsConnections && showFriends">
+  <div class="ListResume">
+    <div class="singleList employerResume" *ngFor = "let friendAre of friendsConnections">
+      <div class="pro">
+        <div class="pro-3">
+            <ng-container *ngIf="!friendAre.recipient.profileimage">
+                <div class="candProfile">
+                <img src="assets/img/profile-user.png" alt="profile" />
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="friendAre.recipient.profileimage">
+                <div class="candProfile">
+                <img [src]="friendAre.recipient.profileimage" alt="profile"/>
+                </div>
+            </ng-container>
+
+            <div class="pro-1">
+                <div class="docSectionBtns lates-s">
+                    <div class="candidate-name">
+                        <div class="CandidateDetails">
+                            <div class="user-details">
+                                <span>
+                                  {{ friendAre.recipient.fullName }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div>
+  <app-list-loader></app-list-loader>
+</div>
+
+<app-no-data-available *ngIf = "friendsConnections.length == 0"></app-no-data-available>

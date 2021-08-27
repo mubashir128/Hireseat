@@ -92,9 +92,19 @@ button.shareBtn {
   border-radius: 7px;
 }
 
+.connectBtn {
+  width: 48%;
+  border-radius: 7px;
+}
+
 button.chatBtn{
-  border: 1px solid green;
-  background-color: green;
+  border: 1px solid #33aaff;
+  background-color: #33aaff;
+}
+
+button.connectBtn{
+  border: 1px solid #1a1;
+  background-color: #1a1;
 }
 
 .shared-icon {
@@ -426,6 +436,7 @@ textarea.editComment:focus {
   padding-left: 40px !important;
   border-bottom: 1px solid #c2c2c2;
 }
+
 button.sendBtn {
   background-color: #039be5;
   color: #fff;
@@ -1014,6 +1025,11 @@ a.videoCloseBtn {
     display: block;
     border-radius: 5px;
   }
+  button.connectBtn {
+    width: 98%;
+    display: block;
+    border-radius: 5px;
+  }
 }
 
 .hideAndSHoTab {
@@ -1085,4 +1101,9 @@ a.videoCloseBtn {
 .resumeIcon{
   color: #1AD9C5;
   font-size: 13px;
+}
+
+.introStyle{
+  border: 1px solid red !important;
+  background-color: red !important;
 }

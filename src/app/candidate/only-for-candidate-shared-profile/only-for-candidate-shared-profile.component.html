@@ -58,7 +58,7 @@
           <div class="row">
             <div class="skillInput" style="margin-top: 10px">
               <span class="note" style="float: left"
-                ><span style="color: #f58e8e">Note:</span> Search by Companies/Teams/Roles : <br>
+                ><span style="color: #f58e8e">Note:</span> Search Introductions to Companies/Teams/Roles : <br>
                 <span style="font-size: 10px; color: red;">For multi search use comma (ex- abc , lmn) seperated values.</span>
               </span>
             </div>
@@ -68,7 +68,7 @@
                 [(ngModel)]="searchCTRTerm"
                 formControlName="searchCTRTerm"
                 autocomplete="off"
-                placeholder="Search here by Companies/Teams/Roles..."
+                placeholder="Search Introductions to Companies/Teams/Roles..."
               />
             </div>
           </div>
@@ -211,7 +211,7 @@
                         {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
                     </p>
                     <p *ngIf = "resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo">
-                      <label>I can Intro you to Companies/Teams :</label>
+                      <label>I can Intro you to Companies/Teams at :</label>
                         {{ resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo }}
                     </p>
 
@@ -237,7 +237,7 @@
 
         <div class="pro-share" style="margin-top: 10px;">
           <div class="">
-            <button class="chatBtn" (click)="goToUserChat(resume)">
+            <button class="chatBtn prjColor" (click)="goToUserChat(resume)">
               <a>
                 <div class="icon-name">
                   <i class="fa fa-share shared-icon" aria-hidden="true"></i>
@@ -248,6 +248,19 @@
           </div>
         </div>
         
+        <!-- <div class="pro-share" style="margin-top: 10px;">
+          <div class="">
+            <button class="connectBtn" (click)="connect(resume)">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                  <span class="shareText"> Connect </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div> -->
+
       </div>
 
       <!-- <ng-container *ngIf="resume?.comments">
@@ -774,6 +787,10 @@
   </div>
   <div class="emailTemp">
     <div class="form-group posRel">
+      <!-- <label>Receiver Name </label> -->
+      <input type="text" class="form-control inputCommReceiver" [(ngModel)]="recipientName" placeholder="Receiver Name"/>
+    </div>
+    <div class="form-group posRel">
       <!-- <p class="hideBtn"><a href="#">Hide CC / BCC</a></p> -->
       <label>To </label>
       <input
@@ -791,8 +808,8 @@
       <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
     </div>
     <div class="form-group textRight">
-      <button class="sendBtn spaceBet" (click)="share(false)">Send Email</button>
-      <button class="sendBtn spaceBet" *ngIf="loggedUser.userRole == 'candidate'" (click)="share(true)">Introduce</button>
+      <!-- <button class="sendBtn spaceBet" (click)="share(false)">Send Email</button> -->
+      <button class="sendBtn spaceBet introStyle" *ngIf="loggedUser.userRole == 'candidate'" (click)="share(true)">Introduce</button>
     </div>
   </div>
 </div>

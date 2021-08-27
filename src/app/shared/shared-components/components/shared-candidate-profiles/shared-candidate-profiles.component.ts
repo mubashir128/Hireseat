@@ -92,6 +92,7 @@ export class SharedCandidateProfilesComponent
   editTextIndex: any;
   loggedUser: any;
   recipientEmail: any;
+  recipientName = "";
   cc: any;
   bcc: any;
   shareableVideoURL: any;
@@ -962,7 +963,8 @@ export class SharedCandidateProfilesComponent
                 candidateProfile: this.shareResume.resumeType ? false : true,
                 intruduce : intruduce, //only when hitting a introduce
                 senderName : this.loggedUser.fullName,
-                fileURL : this.shareResume.fileURL
+                fileURL : this.shareResume.fileURL,
+                recipientName : this.recipientName
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);

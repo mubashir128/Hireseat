@@ -416,6 +416,14 @@ textarea.editComment:focus {
   padding-left: 40px !important;
   border-bottom: 1px solid #c2c2c2;
 }
+.inputCommReceiver {
+  height: 40px;
+  width: 107% !important;
+  border: none;
+  margin-bottom: 10px !important;
+  padding-left: 0px !important;
+  border-bottom: 1px solid #c2c2c2;
+}
 button.sendBtn {
   background-color: #039be5;
   color: #fff;

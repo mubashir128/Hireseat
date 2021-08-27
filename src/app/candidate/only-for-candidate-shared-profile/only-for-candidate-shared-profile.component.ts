@@ -95,6 +95,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   editTextIndex: any;
   loggedUser: any;
   recipientEmail: any;
+  recipientName = "";
   cc: any;
   bcc: any;
   shareableVideoURL: any;
@@ -916,6 +917,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
                 intruduce : intruduce, //only when hitting a introduce
                 senderName : this.loggedUser.fullName,
                 fileURL : this.shareResume.fileURL,
+                recipientName : this.recipientName,
                 onlyCandidate : true
               };
 
@@ -1317,6 +1319,21 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     if(id !== ""){
       this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", id]);
     }
+  }
+
+  connect(resume){
+    let id = resume.candidateKey ? resume.candidateKey._id : resume.candidate_id ? resume.candidate_id._id : "";
+    let payload = {
+      recipient : id
+    }
+    
+    this.candidateService.connectWithUsers(payload).subscribe((res) => {
+      Materialize.toast(res.message, 1000, "green");
+    }, (err) => {
+      console.log(err);
+      Materialize.toast("Something went wrong!", 1000);
+    });
+
   }
 
   ngOnDestroy() {
