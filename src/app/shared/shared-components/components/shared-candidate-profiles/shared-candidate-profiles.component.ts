@@ -91,7 +91,7 @@ export class SharedCandidateProfilesComponent
   show: any;
   editTextIndex: any;
   loggedUser: any;
-  recipientEmail: any;
+  recipientEmail= "";
   recipientName = "";
   cc: any;
   bcc: any;
@@ -142,6 +142,11 @@ export class SharedCandidateProfilesComponent
   @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
 
   skillText;
+
+  comment1 = "";
+  comment2 = "";
+  comment3 = "";
+  candidateNameIs = "";
 
   constructor(
     private resumeService: ResumeService,
@@ -918,7 +923,7 @@ export class SharedCandidateProfilesComponent
       return;
     }
 
-    jQuery("#shareEmailModal").modal("close");
+    jQuery("#emaiPreviewModal").modal("close");
     this.spinner.show();
 
     const candidateName = this.shareResume.resumeType
@@ -1398,6 +1403,21 @@ export class SharedCandidateProfilesComponent
       });
     });
 
+  }
+
+  introduceUser(){
+    if(this.recipientName == ""){
+      Materialize.toast("Please fill recipient name", 800, "res");
+    }else if(this.recipientEmail == ""){
+      Materialize.toast("Please fill email field", 800, "res");
+    }else{
+      this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+      this.comment1 = this.shareResume.comments;
+      this.comment2 = this.shareResume.comment2;
+      this.comment3 = this.shareResume.comment3;
+      jQuery("#shareEmailModal").modal("close");
+      jQuery("#emaiPreviewModal").modal("open");
+    }
   }
 
   ngOnDestroy() {

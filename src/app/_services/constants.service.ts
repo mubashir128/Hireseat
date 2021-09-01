@@ -104,6 +104,10 @@ export class ConstantsService {
   asAPending;
   asAFriend;
 
+  connectionFriendType;
+  addFriendRequest;
+  connectFriend;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -283,6 +287,10 @@ export class ConstantsService {
     this.asARequested = obj.asARequested;
     this.asAPending = obj.asAPending;
     this.asAFriend = obj.asAFriend;
+
+    this.connectionFriendType = obj.connectionFriendType;
+    this.addFriendRequest = obj.addFriendRequest;
+    this.connectFriend = obj.connectFriend;
   }
 
 }
