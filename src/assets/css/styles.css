@@ -1322,3 +1322,30 @@ body {
 .modal-overlay {
   z-index: 99 !important;
 }
+
+.animatePart{
+  animation: zoomIn 0.2s;
+}
+
+@keyframes zoomIn {
+  0%{
+    transform: scale(0.1);
+  }
+  25%{
+    transform: scale(0.25);
+  }
+  50%{
+    transform: scale(0.5);
+  }
+  75%{
+    transform: scale(0.75);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+.introStyle{
+  border: 1px solid red !important;
+  background-color: red !important;
+}

@@ -471,7 +471,6 @@ a.videoCloseBtn {
 .hideBtn a {
   color: #b2b2b2;
 }
-/* END share via email modal */
 
 /* recruiter details */
 .see-profile {
@@ -1103,7 +1102,42 @@ a.videoCloseBtn {
   font-size: 13px;
 }
 
-.introStyle{
-  border: 1px solid red !important;
-  background-color: red !important;
+#emaiPreviewModal{
+  padding: 20px;
+}
+
+input {
+  margin-bottom: 0px !important;
+}
+
+.email input::placeholder {
+  color:#000 !important;
+}
+
+.email input {
+  width: 25%;
+  margin-left: 10px;
+  border-bottom: 1px solid black;
+}
+
+.email p {
+  color:#717171;
+}
+
+.maar-none {
+  margin-left: 0px !important;
+}
+
+.skill input::placeholder {
+  color:#000 !important;
+}
+
+.skill  input {
+  width: 98%;
+  border-bottom: 1px solid black;
+}
+
+.ccBcc input{
+  width: 60%;
+  margin-left: 16px;
 }

@@ -32,33 +32,12 @@
         </div>
       </div> -->
     
-      <div *ngIf="loggedUser.userRole == 'candidate'">
-        <form [formGroup]="Search" novalidate style="width: 100%">
-          <div class="row">
-            <div class="skillInput" style="margin-top: 10px">
-              <span class="note" style="float: left"
-                ><span style="color: #f58e8e">Note:</span> Search by Name :
-              </span>
-            </div>
-            <div class="inputDivMainN">
-              <input
-                type="text"
-                [(ngModel)]="searchTerm"
-                formControlName="searchTerm"
-                placeholder="Search here..."
-                #searchByName
-              />
-            </div>
-          </div>
-        </form>
-      </div>
-      
       <div>
         <form [formGroup]="CompaniesTeamsRolesFrm" novalidate style="width: 100%">
           <div class="row">
             <div class="skillInput" style="margin-top: 10px">
               <span class="note" style="float: left"
-                ><span style="color: #f58e8e">Note:</span> Search Introductions to Companies/Teams/Roles : <br>
+                ><span style="color: black;"> Search Introductions to Companies/Teams/Roles : </span><br>
                 <span style="font-size: 10px; color: red;">For multi search use comma (ex- abc , lmn) seperated values.</span>
               </span>
             </div>
@@ -74,6 +53,27 @@
           </div>
         </form>
 
+      </div>
+
+      <div *ngIf="loggedUser.userRole == 'candidate'">
+        <form [formGroup]="Search" novalidate style="width: 100%">
+          <div class="row">
+            <div class="skillInput" style="margin-top: 10px">
+              <span class="note" style="float: left"
+                ><span style="color: black;"> Search by Name : </span>
+              </span>
+            </div>
+            <div class="inputDivMainN">
+              <input
+                type="text"
+                [(ngModel)]="searchTerm"
+                formControlName="searchTerm"
+                placeholder="Search here..."
+                #searchByName
+              />
+            </div>
+          </div>
+        </form>
       </div>
 
       <!-- <div *ngIf="loggedUser.userRole != 'candidate'">
@@ -125,7 +125,7 @@
 <ng-container *ngIf="resumes">
   <div class="ListResume">
     <div
-      class="singleList employerResume resumeSingleList"
+      class="singleList employerResume resumeSingleList animatePart"
       *ngFor="
         let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: 8, currentPage: p };
         let i = index
@@ -200,6 +200,12 @@
                     {{ resume?.candidateName || resume?.candidate_id?.fullName }}
                   </span>
                   <div class="other-details">
+                    <p *ngIf = "resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo">
+                      <label>I can Intro you to Companies/Teams at :</label>
+                        <label style="font-size: 14px; color: black;">
+                          {{ resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo }}
+                        </label>
+                    </p>
                     <p *ngIf = "resume?.jobTitle"><label>Job Title :</label> {{ resume?.jobTitle }}</p>
                     <p *ngIf = "resume?.location"><label>Location :</label> {{ resume?.location }}</p>
                     <p *ngIf = "resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles">
@@ -210,11 +216,6 @@
                       <label>Desired Companies :</label>
                         {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
                     </p>
-                    <p *ngIf = "resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo">
-                      <label>I can Intro you to Companies/Teams at :</label>
-                        {{ resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo }}
-                    </p>
-
                   </div>
                 </div>
               </div>
@@ -248,7 +249,7 @@
           </div>
         </div>
         
-        <!-- <div class="pro-share" style="margin-top: 10px;">
+        <div class="pro-share" style="margin-top: 10px;">
           <div class="">
             <button class="connectBtn" (click)="connect(resume)">
               <a>
@@ -259,7 +260,7 @@
               </a>
             </button>
           </div>
-        </div> -->
+        </div>
 
       </div>
 
@@ -809,7 +810,7 @@
     </div>
     <div class="form-group textRight">
       <!-- <button class="sendBtn spaceBet" (click)="share(false)">Send Email</button> -->
-      <button class="sendBtn spaceBet introStyle" *ngIf="loggedUser.userRole == 'candidate'" (click)="share(true)">Introduce</button>
+      <button class="sendBtn spaceBet introStyle" *ngIf="loggedUser.userRole == 'candidate'" (click)="introduceUser()">Email Preview</button>
     </div>
   </div>
 </div>
@@ -844,6 +845,43 @@
     </div>
 
   </form>
+</div>
+
+<div id="emaiPreviewModal" class="modal">
+  <div>
+    <span>Email Preview...</span>
+  </div>
+  <div class="ccBcc">
+    <ul>
+      <li><label for="">Receiver Name</label>  <input type="text" placeholder="receiver name..." [(ngModel)]="recipientName"> </li>
+      <li><label for="">To</label>  <input type="text" placeholder="to..." [(ngModel)]="recipientEmail"> </li>
+      <li><label for="">CC</label>  <input type="text" placeholder="cc..." [(ngModel)]="cc"> </li>
+      <li><label for="">BCC</label>  <input type="text" placeholder="bcc..." [(ngModel)]="bcc"> </li>
+   </ul>
+  </div>
+  <div class="email">
+    <p> <span>Hi<input type="text" placeholder="User..." [(ngModel)]="recipientName"></span> , </p>
+    <p>I just wanted to introduce you to <input type="text" placeholder="introduce..." [(ngModel)]="candidateNameIs" >, I think you can probably provide some great guidance and advice. The resume is attached and below are a few quick highlights.</p>
+  </div>
+  <div class="skill">
+    <ul>
+      <li><input type="text" placeholder="commect1..." [(ngModel)]="comment1"> </li>
+      <li><input type="text" placeholder="commect2..." [(ngModel)]="comment2"> </li>
+      <li><input type="text" placeholder="commect3..." [(ngModel)]="comment3"> </li>
+    </ul>
+  </div>
+  <div class="email">
+    <p>Thanks,</p>
+    <input type="text" placeholder="Sender..." class="maar-none" [(ngModel)]="loggedUser.fullName">
+    <p>Video link : </p>
+    <p>Attach resume : This email has attached a resume, please check.</p>
+  </div>
+
+  <div>
+    <div class="form-group textRight">
+      <button class="sendBtn spaceBet introStyle" *ngIf="loggedUser.userRole == 'candidate'" (click)="share(true)">Introduce</button>
+    </div>
+  </div>
 </div>
 
 <!-- modal to select dates -->

@@ -3,8 +3,7 @@
   padding: 0;
   width: 100%;
   float: left;
-  /* height: calc(100vh - 540px);
-              overflow: scroll; */
+  margin-bottom: 20px !important;
 }
 
 .singleList.employerResume {
@@ -15,7 +14,22 @@
   justify-content: unset;
   margin-bottom: 20px;
   transition: 1s;
-  /* height: auto; */
+  height: auto;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+.singleList22.employerResume22 {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px 30px;
+  display: block;
+  justify-content: unset;
+  margin-bottom: 20px;
+  transition: 1s;
+  height: auto;
+  position: absolute;
   background-color: #ffffff;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
     0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
@@ -30,6 +44,10 @@
   .singleList.employerResume {
     padding: 20px !important;
   }
+
+  .singleList22.employerResume22 {
+    padding: 20px !important;
+  }
 }
 /* Tablet css :ENDS */
 
@@ -39,7 +57,7 @@
 }
 
 .pro-3 {
-  width: 15%;
+  width: 100%;
   float: left;
 }
 
@@ -60,11 +78,15 @@
 }
 
 .pro-1 {
-  width: 55%;
+  width: 100%;
   float: left;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 767px) {
+  .pro-share {
+    width: 30% !important;
+  }
+
   .CandidateDetails {
     width: 100%;
     display: block;
@@ -72,18 +94,6 @@
 
   .candidate-name {
     width: 100%;
-  }
-
-  .pro-1 {
-    width: 70% !important;
-  }
-
-  .pro-2 {
-    width: 100% !important;
-  }
-
-  .pro-3 {
-    width: 17%;
   }
 
   .candidate-name p {
@@ -98,8 +108,8 @@
 
 .docSectionBtns {
   text-align: right;
-  margin-bottom: 20px;
-  padding: 0 0 20px;
+  /* margin-bottom: 20px; */
+  /* padding: 0 0 20px; */
   /* border-bottom: 1px solid #e5e5e5; */
   display: flex;
   justify-content: space-between;
@@ -134,18 +144,6 @@
 }
 
 @media (max-width: 1440px) {
-  .pro-1 {
-    width: 43% !important;
-  }
-  
-  .pro-2 {
-    width: 100%;
-  }
-
-  .pro-3 {
-    width: 26%;
-  }
-
   .pro .candProfile {
     width: 52px;
     height: 52px;
@@ -153,6 +151,18 @@
 
   .candidate-name {
     width: 100%;
+  }
+
+  button.shareBtn {
+    width: 98%;
+    display: block;
+    border-radius: 5px;
+  }
+
+  button.chatBtn {
+    width: 98%;
+    display: block;
+    border-radius: 5px;
   }
 }
 
@@ -189,7 +199,7 @@ button.acceptBtn{
   background-color: #1a1;
 }
 
-button.rejectBtn{
+button.cancelBtn{
   border: 1px solid red !important;
   background-color: red !important;
 }
@@ -202,12 +212,6 @@ button.rejectBtn{
   width: 20px;
   margin-right: 3px;
   color: #fff !important;
-}
-
-@media only screen and (min-width: 320px) and (max-width: 767px) {
-  .pro-share {
-    width: 30% !important;
-  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
@@ -229,38 +233,185 @@ button.rejectBtn{
 
 }
 
-.interview-heading {
-  font-size: 20px;
-  color: #fff;
-}
-
-span.interview-heading {
-  color: #ffffff;
-  font-size: 18px;
-}
-
-.head-card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 8px;
-  background-color: #0aafff;
-}
-
-.head-column {
-  float: left;
+.tabs {
   width: 100%;
-  padding: 0 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.tablink {
+  /* background-color: #33aaff;
+    color: #fff; */
+  background-color: #ffffff !important;
+  color: #33aaff !important;
+  border-bottom: 1px solid #33aaff !important;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  width: 50%;
+  z-index: 1;
+  height: 40px;
+  text-align: center;
+  padding-top: 8px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.tablink:hover {
+  background-color: #33aaff !important;
+  color: #ffffff !important;
+  box-shadow: 0px 3px 5px #00000047;
+}
+
+.tablinkActive {
+  background-color: #33aaff !important;
+  color: #ffffff !important;
+  box-shadow: 0px 3px 5px #00000047;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 667px) {
+  .tablink {height: 32px;font-size: 10px !important; width: 39%!important;}
+}
+
+.tabsAre{
+  margin-bottom: 10px;
+}
+
+.shareBtn {
+  width: 48%;
+  border-radius: 7px;
+}
+
+button.shareBtn {
+  border: 1px solid #DD3215;
+  background-color: #DD3215;
+}
+
+.chatBtn {
+  width: 48%;
+  border-radius: 7px;
+}
+
+button.chatBtn{
+  border: 1px solid #33aaff;
+  background-color: #33aaff;
+}
+
+.icon-name {
+  padding: 5px;
+}
+
+/* share via email modal */
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fafafa;
+  padding: 0;
+  max-height: 70%;
+  width: 35%;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 5px;
+  will-change: top, opacity;
+}
+
+button.sendBtn {
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin-top: 20px;
+}
+
+.spaceBetOn{
+  margin: 10px 15px 0px 10px;
+  /* margin-left: 10px;
+  margin-right: 15px; */
+}
+
+.textRight {
+  text-align: right;
+}
+
+.emailTemp {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: auto;
+  padding: 20px 40px;
+}
+
+.posRel {
+  position: relative;
+}
+.posRel label {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  font-size: 15px;
+  color: #b2b2b2;
+}
+
+.inputComm {
+  height: 40px;
+  width: 94% !important;
+  border: none;
+  margin-bottom: 10px !important;
+  padding-left: 40px !important;
+  border-bottom: 1px solid #c2c2c2;
+}
+
+.crossBtn {
+  color: black !important;
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
   cursor: pointer;
 }
 
-.upDownIcon{
-  float: right;
-  margin-top: -25px;
-  margin-right: 10px;
-  color: white;
+
+#emaiPreviewModal{
+  padding: 20px;
 }
 
-.styleHeader{
-  margin-top: 10px;
-  margin-bottom: 0px;
-  padding: 1px 0px !important;
+input {
+  margin-bottom: 0px !important;
+}
+
+.email input::placeholder {
+  color:#000 !important;
+}
+
+.email input {
+  width: 25%;
+  margin-left: 10px;
+  border-bottom: 1px solid black;
+}
+
+.email p {
+  color:#717171;
+}
+
+.maar-none {
+  margin-left: 0px !important;
+}
+
+.skill input::placeholder {
+  color:#000 !important;
+}
+
+.skill input {
+  width: 98%;
+  border-bottom: 1px solid black;
+}
+
+.ccBcc input{
+  width: 60%;
+  margin-left: 16px;
 }

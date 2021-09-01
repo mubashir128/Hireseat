@@ -179,4 +179,20 @@ export class CandidateService {
     );
   }
 
+  acceptFriendRequest(payload) {
+    return this.http.post<any>(this.baseurl + "api/acceptFriendRequest", payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  cancelFriendRequest(payload) {
+    return this.http.post<any>(this.baseurl + "api/cancelFriendRequest", payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
 }
