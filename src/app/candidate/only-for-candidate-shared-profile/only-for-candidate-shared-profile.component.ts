@@ -94,7 +94,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   show: any;
   editTextIndex: any;
   loggedUser: any;
-  recipientEmail: any;
+  recipientEmail = "";
   recipientName = "";
   cc: any;
   bcc: any;
@@ -145,6 +145,11 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   @ViewChild('searchInputTerm') searchInputTerm: ElementRef;
 
   skillText;
+
+  comment1 = "";
+  comment2 = "";
+  comment3 = "";
+  candidateNameIs = "";
 
   constructor(
     private resumeService: ResumeService,
@@ -871,7 +876,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       return;
     }
 
-    jQuery("#shareEmailModal").modal("close");
+    jQuery("#emaiPreviewModal").modal("close");
     this.spinner.show();
 
     const candidateName = this.shareResume.resumeType
@@ -1325,8 +1330,13 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     let id = resume.candidateKey ? resume.candidateKey._id : resume.candidate_id ? resume.candidate_id._id : "";
     let payload = {
       recipient : id
-    }
+    };
     
+    if(this.loggedUser._id == id){
+      Materialize.toast("It's your Profile, you can't connect yourself.", 1000, "red");
+      return ;
+    }
+
     this.candidateService.connectWithUsers(payload).subscribe((res) => {
       Materialize.toast(res.message, 1000, "green");
     }, (err) => {
@@ -1334,6 +1344,21 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       Materialize.toast("Something went wrong!", 1000);
     });
 
+  }
+
+  introduceUser(){
+    if(this.recipientName == ""){
+      Materialize.toast("Please fill recipient name", 800, "res");
+    }else if(this.recipientEmail == ""){
+      Materialize.toast("Please fill email field", 800, "res");
+    }else{
+      this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+      this.comment1 = this.shareResume.comments;
+      this.comment2 = this.shareResume.comment2;
+      this.comment3 = this.shareResume.comment3;
+      jQuery("#shareEmailModal").modal("close");
+      jQuery("#emaiPreviewModal").modal("open");
+    }
   }
 
   ngOnDestroy() {

@@ -1,48 +1,71 @@
+<div class="tabsAre">
+  <ul class="tabs">
+    <li class="tablink" id="switch0" [ngClass]="itemsIs === 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
+      Connections Reqeust
+    </li>
+    <li class="tablink" id="switch1" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
+      Connected Friends
+    </li>
+  </ul>
+</div>
+
 <!-- for reqeusted friends slide -->
-<ng-container>
-  <div class="row styleHeader">
-    <div class="head-column" (click)="toggleRequestedAre()">
-      <div class="head-card">
-        <h6>
-          <span class="interview-heading">
-            Requested Friends Are : 
-          </span>
-        </h6>
-        <i [ngClass] = "reqeustClass" class="upDownIcon"></i>
-      </div>
-    </div>
-  </div>
-</ng-container>
 <ng-container *ngIf="requestedFriendAre && showRequest">
   <div class="ListResume">
-    <div class="singleList employerResume" *ngFor = "let requestedFriendAre of requestedFriendAre">
+    <div class="singleList employerResume animatePart" *ngFor = "let requestedFriendAre of requestedFriendAre">
       <div class="pro">
         <div class="pro-3">
-            <ng-container *ngIf="!requestedFriendAre.recipient.profileimage">
+            <ng-container *ngIf="!requestedFriendAre.requester.profileimage">
                 <div class="candProfile">
                 <img src="assets/img/profile-user.png" alt="profile" />
                 </div>
             </ng-container>
 
-            <ng-container *ngIf="requestedFriendAre.recipient.profileimage">
+            <ng-container *ngIf="requestedFriendAre.requester.profileimage">
                 <div class="candProfile">
-                <img [src]="requestedFriendAre.recipient.profileimage" alt="profile"/>
+                <img [src]="requestedFriendAre.requester.profileimage" alt="profile"/>
                 </div>
             </ng-container>
 
             <div class="pro-1">
-                <div class="docSectionBtns lates-s">
-                    <div class="candidate-name">
-                        <div class="CandidateDetails">
-                            <div class="user-details">
-                                <span>
-                                  {{ requestedFriendAre.recipient.fullName }}
-                                </span>
-                            </div>
-                        </div>
+              <div class="docSectionBtns lates-s">
+                <div class="candidate-name">
+                  <div class="CandidateDetails">
+                    <div class="user-details">
+                      <span>
+                        {{ requestedFriendAre.requester.fullName }} 
+                      </span>
+
+                      <div class="other-details">
+                        <p *ngIf = "requestedFriendAre?.resumeId?.introduceYouToo">
+                          <label>I can Intro you to Companies/Teams at :</label>
+                            <label style="font-size: 14px; color: black;">
+                              {{ requestedFriendAre?.resumeId?.introduceYouToo}}
+                            </label>
+                        </p>
+                        <p *ngIf = "requestedFriendAre?.resumeId?.jobTitle"><label>Job Title :</label> {{ requestedFriendAre?.resumeId?.jobTitle }}</p>
+                        <p *ngIf = "requestedFriendAre?.resumeId?.location"><label>Location :</label> {{ requestedFriendAre?.resumeId?.location }}</p>
+                        <p *ngIf = "requestedFriendAre?.resumeId?.desiredRoles">
+                          <label>Desired Roles :</label>
+                            {{ requestedFriendAre?.resumeId?.desiredRoles }}
+                        </p>
+                        <p *ngIf = "requestedFriendAre?.resumeId?.desiredCompanies">
+                          <label>Desired Companies :</label>
+                            {{ requestedFriendAre?.resumeId?.desiredCompanies }}
+                        </p>
+                      </div>
+
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
+
+            <!-- <div class="pro-111">
+                  <label for="">
+                    would like to connect with you ?
+                  </label>
+                </div> -->
 
         </div>
       </div>
@@ -50,7 +73,7 @@
       <div class="row">
         <div class="pro-share" style="margin-top: 10px;">
           <div class="">
-            <button class="acceptBtn" (click)="acceptClick()">
+            <button class="acceptBtn" (click)="acceptClick(requestedFriendAre._id)">
               <a>
                 <div class="icon-name">
                   <i class="fa fa-check btn-icon" aria-hidden="true"></i>
@@ -63,11 +86,11 @@
 
         <div class="pro-share" style="margin-top: 10px;">
           <div class="">
-            <button class="acceptBtn rejectBtn" (click)="rejectClick()">
+            <button class="acceptBtn cancelBtn" (click)="cancelClick(requestedFriendAre._id)">
               <a>
                 <div class="icon-name">
                   <i class="fa fa-times btn-icon" aria-hidden="true"></i>
-                  <span class="btnText"> Reject </span>
+                  <span class="btnText"> Cancel </span>
                 </div>
               </a>
             </button>
@@ -77,62 +100,163 @@
 
     </div>
   </div>
+  <app-no-data-available *ngIf = "requestedFriendAre.length == 0"></app-no-data-available>
 </ng-container>
 
 <!-- for freinds slide -->
-<ng-container>
-  <div class="row styleHeader">
-    <div class="head-column" (click)="toggleFriendAre()">
-      <div class="head-card">
-        <h6>
-          <span class="interview-heading">
-            Connected Friends Are : 
-          </span>
-        </h6>
-        <i [ngClass] = "friendClass" class="upDownIcon"></i>
-      </div>
-    </div>
-  </div>
-</ng-container>
 <ng-container *ngIf="friendsConnections && showFriends">
   <div class="ListResume">
-    <div class="singleList employerResume" *ngFor = "let friendAre of friendsConnections">
+    <div class="singleList employerResume animatePart" *ngFor = "let friendsAre of friendsConnections">
       <div class="pro">
         <div class="pro-3">
-            <ng-container *ngIf="!friendAre.recipient.profileimage">
+            <ng-container *ngIf="!friendsAre.requester.profileimage">
                 <div class="candProfile">
                 <img src="assets/img/profile-user.png" alt="profile" />
                 </div>
             </ng-container>
 
-            <ng-container *ngIf="friendAre.recipient.profileimage">
+            <ng-container *ngIf="friendsAre.requester.profileimage">
                 <div class="candProfile">
-                <img [src]="friendAre.recipient.profileimage" alt="profile"/>
+                <img [src]="friendsAre.requester.profileimage" alt="profile"/>
                 </div>
             </ng-container>
 
             <div class="pro-1">
-                <div class="docSectionBtns lates-s">
-                    <div class="candidate-name">
-                        <div class="CandidateDetails">
-                            <div class="user-details">
-                                <span>
-                                  {{ friendAre.recipient.fullName }}
-                                </span>
-                            </div>
-                        </div>
+              <div class="docSectionBtns lates-s">
+                <div class="candidate-name">
+                  <div class="CandidateDetails">
+                    <div class="user-details">
+                      <span>
+                        {{ friendsAre.requester.fullName }} 
+                      </span>
+
+                      <div class="other-details">
+                        <p *ngIf = "friendsAre?.resumeId?.introduceYouToo">
+                          <label>I can Intro you to Companies/Teams at :</label>
+                            <label style="font-size: 14px; color: black;">
+                              {{ friendsAre?.resumeId?.introduceYouToo}}
+                            </label>
+                        </p>
+                        <p *ngIf = "friendsAre?.resumeId?.jobTitle"><label>Job Title :</label> {{ friendsAre?.resumeId?.jobTitle }}</p>
+                        <p *ngIf = "friendsAre?.resumeId?.location"><label>Location :</label> {{ friendsAre?.resumeId?.location }}</p>
+                        <p *ngIf = "friendsAre?.resumeId?.desiredRoles">
+                          <label>Desired Roles :</label>
+                            {{ friendsAre?.resumeId?.desiredRoles }}
+                        </p>
+                        <p *ngIf = "requestedFriendAre?.resumeId?.desiredCompanies">
+                          <label>Desired Companies :</label>
+                            {{ friendsAre?.resumeId?.desiredCompanies }}
+                        </p>
+                      </div>
+
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
 
         </div>
       </div>
+      
+      <div class="row">
+        <div class="pro-share" style="margin-top: 10px;">
+          <div class="">
+            <button class="acceptBtn" (click)="showShareModal(friendsAre.resumeId)">
+              <a>
+                <div class="icon-name">
+                  <span class="btnText"> Share </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+
+        <div class="pro-share" style="margin-top: 10px;">
+          <div class="">
+            <button class="acceptBtn cancelBtn" (click)="goToUserChat(friendsAre.resumeId)">
+              <a>
+                <div class="icon-name">
+                  <span class="btnText"> Chat </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+  <app-no-data-available *ngIf = "friendsConnections.length == 0"></app-no-data-available>
 </ng-container>
 
 <div>
   <app-list-loader></app-list-loader>
 </div>
 
-<app-no-data-available *ngIf = "friendsConnections.length == 0"></app-no-data-available>
+<div id="shareEmailModal" class="modal">
+  <i (click)="closeShareModal()" class="fa fa-times crossBtn" aria-hidden="true"></i>
+  <div class="form-group textRight">
+    <button class="sendBtn spaceBetOn" (click)="generateLinkForVideo()">Copy Link</button>
+  </div>
+  <div class="emailTemp">
+    <div class="form-group posRel">
+      <input type="text" class="form-control inputCommReceiver" [(ngModel)]="recipientName" placeholder="Receiver Name"/>
+    </div>
+    <div class="form-group posRel">
+      <label>To </label>
+      <input
+        type="text"
+        class="form-control inputComm"
+        [(ngModel)]="recipientEmail"
+      />
+    </div>
+    <div class="form-group posRel">
+      <label>CC </label>
+      <input type="text" class="form-control inputComm" [(ngModel)]="cc" />
+    </div>
+    <div class="form-group posRel">
+      <label>BCC </label>
+      <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
+    </div>
+    <div class="form-group textRight">
+      <button class="sendBtn spaceBet introStyle" *ngIf="loggedInUser.userRole == 'candidate'" (click)="introduceUser()">Email Preview</button>
+    </div>
+  </div>
+</div>
+
+<div id="emaiPreviewModal" class="modal">
+  <div>
+    <span>Email Preview...</span>
+  </div>
+  <div class="ccBcc">
+    <ul>
+      <li><label for="">Receiver Name</label>  <input type="text" placeholder="receiver name..." [(ngModel)]="recipientName"> </li>
+      <li><label for="">To</label>  <input type="text" placeholder="to..." [(ngModel)]="recipientEmail"> </li>
+      <li><label for="">CC</label>  <input type="text" placeholder="cc..." [(ngModel)]="cc"> </li>
+      <li><label for="">BCC</label>  <input type="text" placeholder="bcc..." [(ngModel)]="bcc"> </li>
+   </ul>
+  </div>
+  <div class="email">
+    <p> <span>Hi<input type="text" placeholder="User..." [(ngModel)]="recipientName"></span> , </p>
+    <p>I just wanted to introduce you to <input type="text" placeholder="introduce..." [(ngModel)]="candidateNameIs" >, I think you can probably provide some great guidance and advice. The resume is attached and below are a few quick highlights.</p>
+  </div>
+  <div class="skill">
+    <ul>
+      <li><input type="text" placeholder="commect1..." [(ngModel)]="comment1"> </li>
+      <li><input type="text" placeholder="commect2..." [(ngModel)]="comment2"> </li>
+      <li><input type="text" placeholder="commect3..." [(ngModel)]="comment3"> </li>
+    </ul>
+  </div>
+  <div class="email">
+    <p>Thanks,</p>
+    <input type="text" placeholder="Sender..." class="maar-none" [(ngModel)]="loggedInUser.fullName">
+    <p>Video link : </p>
+    <p>Attach resume : This email has attached a resume, please check.</p>
+  </div>
+
+  <div>
+    <div class="form-group textRight">
+      <button class="sendBtn spaceBet introStyle" *ngIf="loggedInUser.userRole == 'candidate'" (click)="share(true)">Introduce</button>
+    </div>
+  </div>
+</div>
