@@ -223,6 +223,7 @@ export class FriendsConnectionsComponent implements OnInit {
   showShareModal(resume) {
     this.cc = resume.candidate_id.email;
     this.bcc = this.loggedInUser.email ? this.loggedInUser.email : "";
+    this.cc = this.cc + ", " + this.bcc;
     this.generateLink = true;
     this.shareVideoService.setResume(resume);
     jQuery("#shareEmailModal").modal("open");

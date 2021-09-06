@@ -776,6 +776,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   showShareModal(resume) {
     this.cc = resume.candidateKey ? resume.candidateKey.email : resume.candidate_id ? resume.candidate_id.email : "";
     this.bcc = this.loggedUser.email ? this.loggedUser.email : "";
+    this.cc = this.cc + ", " + this.bcc;
     this.generateLink = true;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);

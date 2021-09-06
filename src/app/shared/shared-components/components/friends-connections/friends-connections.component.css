@@ -3,7 +3,7 @@
   padding: 0;
   width: 100%;
   float: left;
-  margin-bottom: 20px !important;
+  margin-bottom: 100px;
 }
 
 .singleList.employerResume {
@@ -377,7 +377,7 @@ button.sendBtn {
 
 
 #emaiPreviewModal{
-  padding: 20px;
+  padding: 30px;
 }
 
 input {
