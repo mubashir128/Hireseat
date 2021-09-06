@@ -5,33 +5,6 @@
   <div class="hideAndSHoTab">
     <div class="sortIndustriesMain input-field col s12 m12 l12">
       
-      <!-- <div *ngIf="loggedUser.userRole != 'candidate'">
-        <i class="fa fa-industry" aria-hidden="true"></i>
-        <span class="resume-subtitle"> Sort by Industries </span>
-        <div *ngFor="let item of industriesAre; let i = index">
-          <div class="row col s3 m3 l3">
-            <div class="actionDiv">
-              <label class="CheckBoxcontainer">
-                <input
-                  type="checkbox"
-                  name="IT"
-                  formControlName="item.name"
-                  (change)="handleIndustries($event, item._id)"
-                  [checked]="item.valueType"
-                />
-                <span class="checkmark"></span>
-                <span class="industrieName">
-                  {{ item.name }}
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="row col s12 m12 l12">
-          <button class="sortIndustries" (click)="sortByIndustries()">Sort</button>
-        </div>
-      </div> -->
-    
       <div>
         <form [formGroup]="CompaniesTeamsRolesFrm" novalidate style="width: 100%">
           <div class="row">
@@ -76,51 +49,17 @@
         </form>
       </div>
 
-      <!-- <div *ngIf="loggedUser.userRole != 'candidate'">
-        <form [formGroup]="searchJobTitleFrm" novalidate style="width: 100%">
-          <div class="row">
-            <div class="skillInput" style="margin-top: 10px">
-              <span class="note" style="float: left"
-              ><span style="color: #f58e8e">Note:</span> Search by Job Profile :
-            </span>
-          </div>
-          <div class="inputDivMainN">
-            <input
-              type="text"
-              [(ngModel)]="searchJobTitleTerm"
-              formControlName="searchJobTitleTerm"
-              placeholder="Search here by Job Title..."
-            />
-            </div>
-          </div>
-        </form>
-      </div> -->
-
-      <!-- <div>
-        <form [formGroup]="searchSkillsFrm" novalidate style="width: 100%">
-          <div class="row">
-            <div class="skillInput" style="margin-top: 10px">
-              <span class="note" style="float: left"
-                ><span style="color: #f58e8e">Note:</span> Search by Skills : <br>
-                <span style="font-size: 10px; color: red;">For multi search use comma (ex- abc , lmn) seperated values.</span>
-              </span>
-            </div>
-            <div class="inputDivMainN">
-              <input
-                type="text"
-                formControlName="searchSkillTerm"
-                autocomplete="off"
-                placeholder="Search here by skills..."
-              />
-            </div>
-          </div>
-        </form>
-
-      </div> -->
-
     </div>
   </div>
 </ng-container>
+
+<div>
+  <app-list-loader></app-list-loader>
+</div>
+
+<div>
+  <app-list-loader-search></app-list-loader-search>
+</div>
 
 <ng-container *ngIf="resumes">
   <div class="ListResume">
@@ -160,41 +99,11 @@
               />
             </div>
           </ng-container>
-          <!-- <div class="candProfile">
-            <img src="assets/img/profile-user.png" alt="profile" />
-          </div> -->
         </div>
         <div class="pro-1">
           <div class="docSectionBtns lates-s">
             <div class="candidate-name">
               <div class="CandidateDetails">
-                <!-- <ng-container
-                  *ngIf="
-                    resume?.candidate_id?.profileimage ||
-                    resume?.candidateKey?.profileimage
-                  "
-                >
-                  <div class="candProfile">
-                    <img
-                      [src]="
-                        resume?.candidate_id?.profileimage ||
-                        resume?.candidateKey?.profileimage
-                      "
-                      alt="profile"
-                    />
-                  </div>
-                </ng-container> -->
-
-                <!-- <ng-container
-                  *ngIf="
-                    !resume?.candidate_id?.profileimage &&
-                    !resume?.candidateKey?.profileimage
-                  "
-                >
-                  <div class="candProfile">
-                    <img src="assets/img/profile-user.png" alt="profile" />
-                  </div>
-                </ng-container> -->
                 <div class="user-details">
                   <span>
                     {{ resume?.candidateName || resume?.candidate_id?.fullName }}
@@ -215,6 +124,10 @@
                     <p *ngIf = "resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies">
                       <label>Desired Companies :</label>
                         {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
+                    </p>
+                    <p *ngIf = "resume?.introduceCount || resume?.candidateProfileKey?.introduceCount">
+                      <label>Introduced :</label>
+                        {{ resume?.introduceCount || resume?.candidateProfileKey?.introduceCount }}
                     </p>
                   </div>
                 </div>
@@ -264,520 +177,12 @@
 
       </div>
 
-      <!-- <ng-container *ngIf="resume?.comments">
-        <div class="singleListData">
-          <span class="summary">Candidate's Summary:</span>
-
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume1">
-            <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
-              <h4>
-                <span class="fa-stack resumeIcon">
-                  <span class="fa fa-square-o fa-stack-2x"></span>
-                  <strong class="fa-stack-1x">
-                    1
-                  </strong>
-                </span>
-                {{ resume?.commentsResume1 | titleCase }}</h4>
-            </div>
-          </div>
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume2">
-            <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
-              <h4> 
-                <span class="fa-stack resumeIcon">
-                  <span class="fa fa-square-o fa-stack-2x"></span>
-                  <strong class="fa-stack-1x">
-                    2
-                  </strong>
-                </span>
-                {{ resume?.commentsResume2 | titleCase }}</h4>
-            </div>
-          </div>
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume3">
-            <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
-              <h4>
-                <span class="fa-stack resumeIcon">
-                  <span class="fa fa-square-o fa-stack-2x"></span>
-                  <strong class="fa-stack-1x">
-                    3
-                  </strong>
-                </span>
-                {{ resume?.commentsResume3 | titleCase }}</h4>
-            </div>
-          </div>
-
-          <div class="PointsDiv commonSingleInner">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <h4> <i class="fas fa-check-square"></i> {{ resume?.comments }}</h4>
-            </div>
-          </div>
-
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.comment2">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <h4> <i class="fas fa-check-square"></i> {{ resume?.comment2 }}</h4>
-            </div>
-          </div>
-
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.comment3">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <h4> <i class="fas fa-check-square"></i> {{ resume?.comment3 }}</h4>
-            </div>
-          </div>
-
-        </div>
-      </ng-container> -->
-
-      <!-- a video  -->
-      <!-- <ng-container
-        *ngIf="resume?.interviewLinkedByRecruiter || resume?.recordedId"
-      >
-        <div
-          class="interviewvidBg"
-          [ngClass]="show === i ? 'play-block' : 'occupy'"
-        >
-          <div
-            class="playpauseBtn"
-            (click)="toggleAccordian(i, $event, resume)"
-          >
-            <i class="fa fa-play-circle" aria-hidden="true"></i>
-          </div>
-        </div>
-      </ng-container> -->
-      <!-- <ng-container *ngIf="show == i">
-
-        <div class="editResumeupperDiv" *ngIf="videoURL">
-          <div class="interviewVideoDiv stickyDiv">
-            <div class="leftSideQuetion" *ngIf="questionsByRecruiter">
-              <h2>Jump to below interview questions</h2>
-
-              <div class="interviewQue">
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 1 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp1, 1)"
-                  >
-                    {{ questionsByRecruiter?.question1 }}</a
-                  >
-                </h4>
-
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 2 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp2, 2)"
-                  >
-                    {{ questionsByRecruiter.question2 }}</a
-                  >
-                </h4>
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 3 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp3, 3)"
-                  >
-                    {{ questionsByRecruiter.question3 }}</a
-                  >
-                </h4>
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 4 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp4, 4)"
-                  >
-                    {{ questionsByRecruiter.question4 }}</a
-                  >
-                </h4>
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 5 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp5, 5)"
-                  >
-                    {{ questionsByRecruiter.question5 }}</a
-                  >
-                </h4>
-              </div>
-            </div>
-
-            <div
-              class="video-interview"
-              [ngClass]="
-                !questionsByRecruiter ? 'video-js-without-questions' : false
-              "
-            >
-              <video #playVideo class="video-js" controls>
-                <source [src]="this.videoURL" />
-              </video>
-            </div>
-          </div>
-        </div>
-      </ng-container> -->
-      <!-- end a video -->
-
-      <!-- <div class="otherProfileDetails">
-        <div class="skill-height">
-          <label>Skills :</label>
-          <button class="down-1" (click)="upDownSkills()" *ngIf = "resume.skills.split(',').length > 2"><i [ngClass]="skillsClass"></i></button>
-          <div class="industries onLimitedSkills" *ngIf = "!skillsShow">
-            <div *ngFor="let skills of resume.skills.split(','); index as i">
-              <span class="industrieName" *ngIf = "(i === 0 || i === 1) && skills !== '' ">
-                {{ skills }}
-              </span>
-            </div>
-          </div>
-          <div class="industries" *ngIf = "skillsShow">
-            <span class="industrieName" *ngFor="let skills of resume.skills.split(',')">
-              {{ skills }}
-            </span>
-          </div>
-          
-        </div>
-        <p>
-          <label>Industries :</label>
-          <span
-            class="industrieName"
-            *ngFor="let industries of resume.industries; index as i"
-            > {{ industries?.name }} <span style="color: #8CA2C3;" *ngIf = "i !== resume.industries.length-1">|</span> </span
-          >
-        </p>
-      </div> -->
-
-      <!-- <div class="pro-2">
-        <div class="cadidateResumeDiv set-one">
-          <button class="downloadResume">
-            <a
-              [attr.href]="transform(resume?.fileURL)"
-              target="_blank"
-              download
-            >
-              <i class="fa fa-download"></i>
-              Download Resume
-            </a>
-          </button>
-          <div class="smallBtns">
-            <button class="LinkedInBtn">
-              <a>
-                <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
-                  <span> <i class="fa fa-linkedin fa-fw"></i> LinkedIn </span>
-                </div>
-              </a>
-            </button>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <ng-container>
-        <span class="comment">Comments:</span>
-        <ng-container *ngIf="loggedUser.userRole !== 'candidate'">
-          <div class="post-cmt">
-            <textarea
-              [(ngModel)]="myComment[i]"
-              placeholder="Enter your review"
-            >
-            </textarea>
-            <ng-container *ngIf="myComment[i]">
-              <div class="btn-placement">
-                <div
-                  class="btn-accept postCommentDiv"
-                  (click)="postMycmt(i, myComment[i], resume)"
-                >
-                  <span>Post</span>
-                  <img src="assets/img/paper-plane.png" alt="profile" />
-                </div>
-              </div>
-            </ng-container>
-          </div>
-        </ng-container>
-        <div class="commentmainscroll">
-          <ng-container *ngIf="resume.canReview.length > 0">
-            <div *ngFor="let cmt of resume.canReview | reverse; let i = index">
-              <ng-container *ngIf="(cmt?.recruiterId?._id == loggedUser._id && !cmt?.isMultiShare) || (loggedUser.userRole == 'candidate')">
-              
-                <div class="singleListData">
-                  <div class="cmt-box">
-                    <div class="recruitercommenthead">
-                      <div class="recruiternamedetails">
-
-                        <ng-container *ngIf="cmt?.recruiterId?.profileimage">
-                          <div class="candProfile recruiterprof">
-                            <img
-                              [src]="cmt?.recruiterId?.profileimage"
-                              alt="profile"
-                            />
-                          </div>
-                        </ng-container>
-
-                        <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
-                          <div class="candProfile recruiterprof">
-                            <img
-                              src="assets/img/profile-user.png"
-                              alt="profile"
-                            />
-                          </div>
-                        </ng-container>
-
-                        <div class="recruiter-name">
-                          <span>{{
-                            cmt?.recruiterId?.fullName ||
-                              resume?.candidate_id?.fullName
-                          }}</span>
-                          <span
-                            class="see-profile"
-                            *ngIf="
-                              loggedUser.userRole === 'candidate' &&
-                              cmt?.recruiterId?.userRole === 'recruiter'
-                            "
-                            (click)="openRecruiterModal(cmt?.recruiterId._id)"
-                          >
-                            See profile
-                          </span>
-                        </div>
-                      </div>
-                      <div class="handle">
-                        <ng-container *ngIf="editTextIndex == cmt._id">
-                          <i class="fa fa-times" (click)="cancelEdit(cmt)"></i>
-                        </ng-container>
-                        <ng-container
-                          *ngIf="
-                            cmt?.recruiterId?._id === loggedUser._id &&
-                            editTextIndex !== cmt._id
-                          "
-                        >
-                          <div class="editcomment">
-                            <i
-                              class="fa fa-pencil"
-                              aria-hidden="true"
-                              (click)="edit(cmt)"
-                            ></i>
-                          </div>
-
-                        </ng-container>
-                      </div>
-                    </div>
-                    <div class="PointsDiv commonSingleInner CommentInner">
-                      <div
-                        class="PointsDivSingle PointsDivSingleN recruitercom divide"
-                      >
-                        <p *ngIf="editTextIndex !== cmt._id">
-                          {{ cmt?.review }}
-                        </p>
-
-                        <textarea
-                          class="editComment"
-                          *ngIf="editTextIndex == cmt._id"
-                          [value]="cmt?.review"
-                          [(ngModel)]="editTo"
-                        >
-                      {{ cmt?.review }}
-                      </textarea
-                        >
-                      </div>
-                      <div
-                        class="btn-placement postBtnDiv"
-                        *ngIf="
-                          cmt?.recruiterId?._id === loggedUser._id &&
-                          editTextIndex == cmt._id
-                        "
-                      >
-                        <div
-                          class="btn-accept postBtn"
-                          (click)="editComment(cmt, resume)"
-                        >
-                          Post
-                          <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                        </div>
-                      </div>
-                      <ng-container>
-                        <div class="timstampDate">
-                          <span class="notificationDateTime">
-                            {{ cmt?.timestamps | amTimeAgo }}
-                          </span>
-                        </div>
-                      </ng-container>
-                      <ng-container>
-                        <div class="like-section">
-                          <div class="at-end">
-                            <span
-                              *ngIf="loggedUser.userRole === 'candidate'"
-                              (click)="likeThisCommet(cmt, resume)"
-                              >Say thank you</span
-                            >
-                          </div>
-                          <div class="likes">
-                            <span class="shape"
-                              >Candidate Likes: {{ cmt?.like.length }}</span
-                            >
-                          </div>
-                        </div>
-                      </ng-container>
-                      <ng-container *ngIf="loggedUser.userRole === 'candidate'">
-                        <div class="post-cmt">
-                          <textarea
-                            [(ngModel)]="replyToComment[i]"
-                            placeholder="Reply to this review"
-                          >
-                          </textarea>
-                          <ng-container *ngIf="replyToComment[i]">
-                            <div class="btn-placement">
-                              <div
-                                class="btn-accept postCommentDiv"
-                                (click)="
-                                  replyToThisComment(
-                                    i,
-                                    replyToComment[i],
-                                    resume,
-                                    cmt._id
-                                  )
-                                "
-                              >
-                                <span>Post</span>
-                                <img
-                                  src="assets/img/paper-plane.png"
-                                  alt="profile"
-                                />
-                              </div>
-                            </div>
-                          </ng-container>
-                        </div>
-                      </ng-container>
-                      <ng-container *ngIf="cmt?.reply?.length > 0">
-                        <div class="replies">
-                          <span class="comment">Replies</span>
-
-                          <div class="reply" *ngFor="let reply of cmt.reply | reverse">
-                            <div class="profilepic">
-                              <ng-container
-                                *ngIf="reply?.user_id?.profileimage"
-                              >
-                                <div class="candProfile recruiterprof size">
-                                  <img
-                                    [src]="reply?.user_id?.profileimage"
-                                    alt="profile"
-                                  />
-                                </div>
-                              </ng-container>
-
-                              <ng-container
-                                *ngIf="!reply?.user_id?.profileimage"
-                              >
-                                <div class="candProfile recruiterprof size">
-                                  <img
-                                    src="assets/img/profile-user.png"
-                                    alt="profile"
-                                  />
-                                </div>
-                              </ng-container>
-                              <div class="replyer-name">
-                                <span>{{
-                                  reply?.user_id?.fullName ||
-                                    reply?.user_id?.fullName
-                                }}</span>
-                              </div>
-                            </div>
-                            <div class="replyComment">
-                              - {{ reply.replyComment }}
-                            </div>
-                          </div>
-                        </div>
-                      </ng-container>
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
-          </ng-container>
-        </div>
-      </ng-container> -->
-
-    <!-- <div class="row" style="border-top: 1px solid #dddddd;">
-    </div> -->
-
-    <!-- <ng-container *ngIf="loggedUser.userRole === 'recruiter'">
-      <span class="comment">Recruiter Notes : </span>
-      
-      <ng-container>
-        <div class="post-cmt">
-          <textarea
-            [(ngModel)]="myCommentNote[i]"
-            placeholder="Enter your note"
-          >
-          </textarea>
-          <ng-container *ngIf="myCommentNote[i]">
-            <div class="btn-placement">
-              <div
-                class="btn-accept postCommentDiv"
-                (click)="postMycmtNote(i, myCommentNote[i], resume)"
-              >
-                <span>Post Note</span>
-                <img src="assets/img/paper-plane.png" alt="profile" />
-              </div>
-            </div>
-          </ng-container>
-        </div>
-      </ng-container>
-
-      <div class="commentmainscroll">
-        <ng-container *ngIf="resume.canNote.length > 0">
-          <div *ngFor="let cmt of resume.canNote | reverse; let i = index">
-            <ng-container *ngIf="(loggedUser.userRole == 'recruiter' && !cmt?.isMultiShare)">
-              
-              <div class="singleListData">
-                <div class="cmt-box">
-                  <div class="recruitercommenthead">
-                    <div class="recruiternamedetails">
-                      <ng-container *ngIf="cmt?.recruiterId?.profileimage">
-                        <div class="candProfile recruiterprof">
-                          <img [src]="cmt?.recruiterId?.profileimage" alt="profile" />
-                        </div>
-                      </ng-container>
-
-                      <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
-                        <div class="candProfile recruiterprof">
-                          <img
-                            src="assets/img/profile-user.png"
-                            alt="profile"
-                          />
-                        </div>
-                      </ng-container>
-
-                      <div class="recruiter-name">
-                        <span>{{ cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName}}</span>
-                        <span class="see-profile" *ngIf="cmt?.recruiterId?.userRole === 'recruiter'" (click)="openRecruiterModal(cmt?.recruiterId._id)">
-                          See profile
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="PointsDiv commonSingleInner CommentInner">
-                    <div class="PointsDivSingle PointsDivSingleN recruitercom divide">
-                      {{ cmt?.review }}
-                    </div>
-                    <ng-container>
-                      <div class="timstampDate2">
-                        <span class="notificationDateTime">
-                          {{ cmt?.timestamps | amTimeAgo }}
-                        </span>
-                      </div>
-                    </ng-container>
-                  </div>
-                </div>
-              </div>
-
-            </ng-container>
-          </div>
-        </ng-container>
-      </div>
-    </ng-container> -->
-
     </div>
   </div>
 </ng-container>
 
 <div class="row" *ngIf="loggedUser.userRole != 'candidate' && resumes.length !== 0">
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
-</div>
-
-<div>
-  <app-list-loader></app-list-loader>
-</div>
-
-<div>
-  <app-list-loader-search></app-list-loader-search>
 </div>
 
 <div id="shareEmailModal" class="modal">
@@ -804,10 +209,10 @@
       <label>CC </label>
       <input type="text" class="form-control inputComm" [(ngModel)]="cc" />
     </div>
-    <div class="form-group posRel">
+    <!-- <div class="form-group posRel">
       <label>BCC </label>
       <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
-    </div>
+    </div> -->
     <div class="form-group textRight">
       <!-- <button class="sendBtn spaceBet" (click)="share(false)">Send Email</button> -->
       <button class="sendBtn spaceBet introStyle" *ngIf="loggedUser.userRole == 'candidate'" (click)="introduceUser()">Email Preview</button>
@@ -856,7 +261,7 @@
       <li><label for="">Receiver Name</label>  <input type="text" placeholder="receiver name..." [(ngModel)]="recipientName"> </li>
       <li><label for="">To</label>  <input type="text" placeholder="to..." [(ngModel)]="recipientEmail"> </li>
       <li><label for="">CC</label>  <input type="text" placeholder="cc..." [(ngModel)]="cc"> </li>
-      <li><label for="">BCC</label>  <input type="text" placeholder="bcc..." [(ngModel)]="bcc"> </li>
+      <!-- <li><label for="">BCC</label>  <input type="text" placeholder="bcc..." [(ngModel)]="bcc"> </li> -->
    </ul>
   </div>
   <div class="email">
@@ -1107,7 +512,7 @@
       </ng-container>
     </div>
   </div>
-  <!--  -->
+
 </div>
 
 <app-no-data-available *ngIf = "resumes.length == 0"></app-no-data-available>
