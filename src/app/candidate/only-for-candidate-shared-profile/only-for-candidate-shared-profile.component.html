@@ -1,6 +1,6 @@
 <ng-container>
   <div class="row" style="margin-top: 10px; margin-bottom: 5px; padding: 0 0px !important;">
-    <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
+    <app-filter-data (handleToggleSign)="handleToggleSign($event)" [item]="searchText"></app-filter-data>
   </div>
   <div class="hideAndSHoTab">
     <div class="sortIndustriesMain input-field col s12 m12 l12">

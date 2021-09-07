@@ -1033,7 +1033,7 @@ a.videoCloseBtn {
 }
 
 .hideAndSHoTab {
-  display: none;
+  display: block;
   margin-top: -10px;
 }
 

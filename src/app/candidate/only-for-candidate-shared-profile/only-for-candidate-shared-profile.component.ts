@@ -151,6 +151,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   comment3 = "";
   candidateNameIs = "";
 
+  searchText = "onlyCandidateSearch";
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -1241,7 +1243,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   handleToggleSign(obj) {
-    if (obj.searchTab) {
+    if (obj.searchTab || true) {
       jQuery(".hideAndSHoTab").css("display", "block");
     } else {
       jQuery(".hideAndSHoTab").css("display", "none");
