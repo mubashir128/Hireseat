@@ -225,8 +225,8 @@ export class FriendsConnectionsComponent implements OnInit {
     this.bcc = this.loggedInUser.email ? this.loggedInUser.email : "";
     this.cc = this.cc + ", " + this.bcc;
     this.generateLink = true;
-    this.shareVideoService.setResume(resume);
     jQuery("#shareEmailModal").modal("open");
+    this.shareVideoService.setResume(resume);
   }
 
   goToUserChat(resume){

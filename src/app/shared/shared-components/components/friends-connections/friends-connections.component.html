@@ -43,7 +43,7 @@
                       <div class="other-details">
                         <p *ngIf = "requestedFriendAre?.resumeId?.introduceYouToo">
                           <label>I can Intro you to Companies/Teams at :</label>
-                            <label style="font-size: 14px; color: black;">
+                            <label style="font-size: 14px; color: #cc530c;">
                               {{ requestedFriendAre?.resumeId?.introduceYouToo}}
                             </label>
                         </p>
@@ -58,8 +58,10 @@
                             {{ requestedFriendAre?.resumeId?.desiredCompanies }}
                         </p>
                         <p *ngIf = "requestedFriendAre?.resumeId?.introduceCount">
-                          <label>Introduced :</label>
-                            {{ requestedFriendAre?.resumeId?.introduceCount }}
+                          <label># of Introductions : </label>
+                            <label style="font-size: 14px; color: #cc530c;">
+                              {{ requestedFriendAre?.resumeId?.introduceCount }}
+                            </label>
                         </p>
                       </div>
 
