@@ -16,27 +16,33 @@ export class SearchByCTRPipe implements PipeTransform {
             break ;
           }
           if(user.candidateProfileKey){
-            if(user.candidateProfileKey.desiredRoles.toLowerCase().indexOf(strName) !== -1){
+            if(user.candidateProfileKey.desiredRoles?.toLowerCase().indexOf(strName) !== -1){
               usersAre.push(user);
               break ;
-            }else if(user.candidateProfileKey.desiredCompanies.toLowerCase().indexOf(strName) !== -1){
+            }else if(user.candidateProfileKey.desiredCompanies?.toLowerCase().indexOf(strName) !== -1){
               usersAre.push(user);
               break ;
-            }else if(user.candidateProfileKey.introduceYouToo.toLowerCase().indexOf(strName) !== -1){
+            }else if(user.candidateProfileKey.introduceYouToo?.toLowerCase().indexOf(strName) !== -1){
               usersAre.push(user);
               break ;
+            }else{
+              break;
             }
           }else if(user.candidateProfileKey == undefined){
-            if(user.desiredRoles.toLowerCase().indexOf(strName) !== -1){
+            if(user.desiredRoles?.toLowerCase().indexOf(strName) !== -1){
               usersAre.push(user);
               break ;
-            }else if(user.desiredCompanies.toLowerCase().indexOf(strName) !== -1){
+            }else if(user.desiredCompanies?.toLowerCase().indexOf(strName) !== -1){
               usersAre.push(user);
               break ;
-            }else if(user.introduceYouToo.toLowerCase().indexOf(strName) !== -1){
+            }else if(user.introduceYouToo?.toLowerCase().indexOf(strName) !== -1){
               usersAre.push(user);
               break ;
+            }else{
+              break;
             }
+          }else{
+            break;
           }
         }
       });
