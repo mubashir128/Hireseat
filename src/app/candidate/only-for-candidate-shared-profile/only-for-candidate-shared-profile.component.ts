@@ -85,10 +85,14 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   searchJobTitleFrm: FormGroup;
 
   requestDatesForm: FormGroup;
+
   // pagination
   p = 1;
+  itemsPerPage = 10;
+
   searchTerm = "";
   searchCTRTerm = "";
+
   resumes = [];
   resume: any;
   show: any;
@@ -150,6 +154,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   comment2 = "";
   comment3 = "";
   candidateNameIs = "";
+
+  searchText = "onlyCandidateSearch";
 
   constructor(
     private resumeService: ResumeService,
@@ -314,6 +320,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     switch (res.subType) {
       case this._constants.getAllOnlyForCandidateSharedProfileType:
         this.resumes = res.data;
+        this.addFriendConnectionToProfile(res);
         this._subList.loaderList.next({type : "0"});
         break;
       case this._constants.addComment:
@@ -343,6 +350,20 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       default:
         break;
     }
+  }
+
+  addFriendConnectionToProfile(res){
+    res.frdConnection.forEach((frd, index) => {
+      this.resumes.forEach((profile, index2) => {
+        if(profile.candidateKey?._id == frd.recipient._id || profile.candidate_id?._id == frd.recipient._id){
+          profile.addedAsAFriend = true;
+        }else if(profile.candidateKey?._id == frd.requester._id || profile.candidate_id?._id == frd.requester._id){
+          profile.addedAsAFriend = true;
+        }else{
+
+        }
+      });
+    });
   }
 
   async addCreatedLink(res) {
@@ -790,6 +811,10 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     jQuery("#shareToUsers").modal("close");
   }
 
+  shareInvisible(resume){
+    Materialize.toast("Not Connectioned", 1000, "red");
+  }
+
   copyLink() {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -904,7 +929,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
         async(res) => {
           if (res) {
             this.shareableVideoURL = res.url;
-
             this.spinner.hide();
             if (this.shareableVideoURL) {
               const payload = {
@@ -924,7 +948,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
                 senderName : this.loggedUser.fullName,
                 fileURL : this.shareResume.fileURL,
                 recipientName : this.recipientName,
-                onlyCandidate : true
+                onlyCandidate : true,
+                linkedIn : this.shareResume.linkedIn
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
@@ -1241,7 +1266,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   handleToggleSign(obj) {
-    if (obj.searchTab) {
+    if (obj.searchTab || true) {
       jQuery(".hideAndSHoTab").css("display", "block");
     } else {
       jQuery(".hideAndSHoTab").css("display", "none");
@@ -1345,6 +1370,11 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       Materialize.toast("Something went wrong!", 1000);
     });
 
+  }
+
+  connected(resume){
+    console.log("connected : ");
+    Materialize.toast("Already Connected !...", 1000, "green");
   }
 
   introduceUser(){

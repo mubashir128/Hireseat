@@ -186,6 +186,9 @@ export class NotificationsComponent implements OnInit {
       case "multiShareCandidateProfile" : 
         this.router.navigate(["/recruiter/multi-share-candidate-profile"]);
         break;
+      case "chatNotification" : 
+        this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", redirectId]);
+        break;
       default : 
         break;
     }
