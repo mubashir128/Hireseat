@@ -66,7 +66,7 @@
     <div
       class="singleList employerResume resumeSingleList animatePart"
       *ngFor="
-        let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: 8, currentPage: p };
+        let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: p };
         let i = index
       "
     >
@@ -111,7 +111,7 @@
                   <div class="other-details">
                     <p *ngIf = "resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo">
                       <label>I can Intro you to Companies/Teams at :</label>
-                        <label style="font-size: 14px; color: black;">
+                        <label style="font-size: 14px; color: #cc530c;">
                           {{ resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo }}
                         </label>
                     </p>
@@ -126,8 +126,10 @@
                         {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
                     </p>
                     <p *ngIf = "resume?.introduceCount || resume?.candidateProfileKey?.introduceCount">
-                      <label>Introduced :</label>
-                        {{ resume?.introduceCount || resume?.candidateProfileKey?.introduceCount }}
+                      <label># of Introductions : </label>
+                        <label style="font-size: 14px; color: #cc530c;">
+                          {{ resume?.introduceCount || resume?.candidateProfileKey?.introduceCount }}
+                        </label>
                     </p>
                   </div>
                 </div>
@@ -136,9 +138,22 @@
           </div>
         </div>
         
-        <div class="pro-share">
+        <div class="pro-share" *ngIf = "resume.addedAsAFriend">
           <div class="">
             <button class="shareBtn" (click)="showShareModal(resume)">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                  <span class="shareText"> Share </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+
+        <div class="pro-share" *ngIf = "!resume.addedAsAFriend">
+          <div class="">
+            <button class="shareBtn impBtnColor" (click)="shareInvisible(resume)">
               <a>
                 <div class="icon-name">
                   <i class="fa fa-share shared-icon" aria-hidden="true"></i>
@@ -162,7 +177,7 @@
           </div>
         </div>
         
-        <div class="pro-share" style="margin-top: 10px;">
+        <div class="pro-share" style="margin-top: 10px;" *ngIf = "!resume.addedAsAFriend">
           <div class="">
             <button class="connectBtn" (click)="connect(resume)">
               <a>
@@ -175,15 +190,28 @@
           </div>
         </div>
 
+        <div class="pro-share" style="margin-top: 10px;" *ngIf = "resume.addedAsAFriend">
+          <div class="">
+            <button class="connectBtn impBtnColor" (click)="connected(resume)">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                  <span class="shareText"> Connected </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+
       </div>
 
+    </div>
+    <div class="row" *ngIf="loggedUser.userRole == 'candidate' && resumes.length !== 0">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
 </ng-container>
 
-<div class="row" *ngIf="loggedUser.userRole != 'candidate' && resumes.length !== 0">
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-</div>
 
 <div id="shareEmailModal" class="modal">
   <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>

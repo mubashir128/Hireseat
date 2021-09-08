@@ -108,6 +108,11 @@ button.connectBtn{
   background-color: #1a1;
 }
 
+.impBtnColor {
+  border: 1px solid #44464a !important;
+  background-color: #44464a !important;
+}
+
 .shared-icon {
   width: 20px;
   margin-right: 3px;
