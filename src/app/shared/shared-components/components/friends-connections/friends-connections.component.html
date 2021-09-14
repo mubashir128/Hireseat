@@ -1,7 +1,7 @@
 <div class="tabsAre">
   <ul class="tabs">
     <li class="tablink" id="switch0" [ngClass]="itemsIs === 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
-      Connections Reqeust
+      Connections Request
     </li>
     <li class="tablink" id="switch1" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
       Connected Friends
@@ -13,7 +13,7 @@
   <app-list-loader></app-list-loader>
 </div>
 
-<!-- for reqeusted friends slide -->
+<!-- for requested friends slide -->
 <ng-container *ngIf="requestedFriendAre && showRequest">
   <div class="ListResume">
     <div class="singleList employerResume animatePart" *ngFor = "let requestedFriendAre of requestedFriendAre">
