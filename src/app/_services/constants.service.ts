@@ -108,6 +108,9 @@ export class ConstantsService {
   addFriendRequest;
   connectFriend;
 
+  timelineType;
+  getTimelinesType;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -291,6 +294,9 @@ export class ConstantsService {
     this.connectionFriendType = obj.connectionFriendType;
     this.addFriendRequest = obj.addFriendRequest;
     this.connectFriend = obj.connectFriend;
+
+    this.timelineType = obj.timelineType;
+    this.getTimelinesType = obj.getTimelinesType;
   }
 
 }
