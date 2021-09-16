@@ -279,6 +279,17 @@ export class UserService {
         })
       );
   }
+
+  updateGroupProfileImg(data: any) {
+    return this.http
+      .post<any>(this.baseurl + "api/updateGroupProfileImg/", data)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
   // functions
   numberWithCommas(x) {
     if (x != null) {

@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
@@ -36,6 +36,13 @@ export class UserChatComponent implements OnInit, OnChanges {
   groupName = "";
   addGrpMembers = [];
 
+  public updateProfileimg: FormGroup;
+  message: string;
+  filepath: File;
+  imagePath: any;
+  imgURL: any;
+  currentGroupId: string | Blob;
+
   constructor(private formBuilder: FormBuilder,
     private _socket: WebsocketService,
     private _constants : ConstantsService,
@@ -64,6 +71,10 @@ export class UserChatComponent implements OnInit, OnChanges {
 
     this.auctionFrm = this.formBuilder.group({
       searchTermByNameIs : []
+    });
+
+    this.updateProfileimg = this.formBuilder.group({
+      file: ["", Validators.compose([Validators.required])],
     });
 
     //add a observable for userChat
@@ -117,6 +128,10 @@ export class UserChatComponent implements OnInit, OnChanges {
             this.addGrpMembers = [];
             this.closeGroupModal();
             this.addPlusIconToAllMembers();
+            this.currentGroupId = res.data._id;
+            this.updateProfileImg();
+          }else{
+
           }
         }
         break;
@@ -243,6 +258,48 @@ export class UserChatComponent implements OnInit, OnChanges {
       jQuery("#remove_"+user._id).css("display","none");
       jQuery("#add_"+user._id).css("display","block");
     });
+  }
+
+  preview(files) {
+    if (files.length === 0) return;
+
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      Materialize.toast(this.message, 1000, "red");
+      return;
+    }
+    this.filepath = <File>files[0];
+
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+    };
+  }
+
+  updateProfileImg() {
+    if(this.filepath){
+      if (!this.imagePath) {
+        Materialize.toast(
+          "Please click on the plus Icon to upload a Picture !",
+          4000
+        );
+      } else {
+        let fddd = new FormData();
+        fddd.append("file", this.imagePath[0], this.imagePath[0].name);
+        fddd.append("id", this.currentGroupId);
+        this.userService.updateGroupProfileImg(fddd).subscribe(
+          (res) => {
+            Materialize.toast(res.message, 1000, "green");
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    }
   }
 
 }

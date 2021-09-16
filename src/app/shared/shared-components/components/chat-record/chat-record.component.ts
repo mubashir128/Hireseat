@@ -6,6 +6,8 @@ import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 
 declare var jQuery;
+declare var $: any;
+declare var Materialize;
 
 @Component({
   selector: 'app-chat-record',
