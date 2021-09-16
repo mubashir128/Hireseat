@@ -1,12 +1,24 @@
 <div class="">
 
   <div class="row">
-    <div class="col s6 m6 l6 textAlign" [ngClass] = "chgStyle ? 'frtClass' : 'secClass'" (click) = "changesType('1')">
+    <div class="col s4 m4 l4 textAlign" [ngClass] = "chgStyle == 1 ? 'frtClass' : 'secClass'" (click) = "changesType('1')">
       CHATS
     </div>
-    <div class="col s6 m6 l6 textAlign" [ngClass] = "!chgStyle ? 'frtClass' : 'secClass'" (click) = "changesType('2')">
+    <div class="col s4 m4 l4 textAlign" [ngClass] = "chgStyle == 3 ? 'frtClass' : 'secClass'" (click) = "changesType('3')">
+      GROUPS
+    </div>
+    <div class="col s4 m4 l4 textAlign" [ngClass] = "chgStyle == 2 ? 'frtClass' : 'secClass'" (click) = "changesType('2')">
       {{currentUserRole}}
     </div>
+  </div>
+
+  <div class="row" *ngIf = "chgStyle == 3">
+    <form [formGroup]="">
+      <div class="createGRP" (click) = "createGroup()">
+        Create Group
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </div>
+    </form>
   </div>
 
   <div class="row">
@@ -18,7 +30,7 @@
     </form>
   </div>
 
-  <div class="chat-list" *ngIf = "chgStyle">
+  <div class="chat-list" *ngIf = "chgStyle == 1">
     <ng-container *ngFor="let user of onlyChatUsers | inUserChatSearch : searchTermByName">
 
       <div class="chat-profile-item" *ngIf = "user.user1._id !== loggedInUser._id">
@@ -41,7 +53,7 @@
     <div class="divider"></div>
   </div>
 
-  <div class="chat-list" *ngIf = "!chgStyle">
+  <div class="chat-list" *ngIf = "chgStyle == 2">
     <ng-container *ngFor="let user of chatUsers | search : searchTermByName">
 
       <div class="chat-profile-item" *ngIf = "user._id !== loggedInUser._id">
@@ -56,8 +68,49 @@
     <div class="divider"></div>
   </div>
 
+  <div class="chat-list" *ngIf = "chgStyle == 3">
+    <ng-container *ngFor="let group of groupChatUsers | searchByOnlyFullName : searchTermByName">
+
+      <div class="chat-profile-item">
+        <div class="disF">
+          <img [src]="'assets/img/user.png'" class="uploadedImgUser">
+          <div class="chat-user-title" (click)="showUserData(group._id, true)"> {{ group.fullName }} </div>
+          <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
+        </div>
+      </div>
+
+    </ng-container>
+    <div class="divider"></div>
+  </div>
+
 </div>
 
 <div id="showImage" class="modal">
   <img [src]="imgVal" class="showImgUser"/>
+</div>
+
+<div id="createGroupModal" class="modal">
+  <div class="grpModal">
+    <i (click)="closeGroupModal()" style="float: right;" class="fa fa-times" aria-hidden="true"></i>
+    <span>Create Group : </span>
+    <div class="">
+      <input type="text" class="createGroupName" [(ngModel)]="groupName" placeholder="Group Name...">
+    </div>
+    <div class="member">
+      <span>Add Members : </span>
+      <ng-container *ngFor="let user of chatUsers">
+        <div class="chat-profile-item addUserUI" *ngIf = "user._id !== loggedInUser._id">
+          <div class="disF">
+            <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'" class="uploadedImgUser">
+            <div class="chat-user-title"> {{ user.fullName }} </div>
+            <i class="fa fa-plus VIconE" [id] = "'add_'+user._id" style="margin-right: 15px;" aria-hidden="true" (click) = "addMember(user._id)"></i>
+            <i class="fa fa-minus VIconE" [id] = "'remove_'+user._id" style="margin-right: 15px; display: none;" aria-hidden="true" (click) = "removeMember(user._id)"></i>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="form-group textRight">
+      <button class="createAndAddMemberClass" (click)="createAndAddGroup()">Create</button>
+    </div>
+  </div>
 </div>

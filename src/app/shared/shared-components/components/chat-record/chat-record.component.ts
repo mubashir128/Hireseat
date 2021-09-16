@@ -24,6 +24,9 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   userChatMessageObserver = new Subject();
   userChatMessageObserver$ = this.userChatMessageObserver.asObservable();
 
+  groupChat;
+  groupMessages;
+
   @ViewChild('chatDiv', { static: true }) private chatDiv: ElementRef;
   @ViewChild('inputDiv', { static: true }) private inputDiv: ElementRef;
 
@@ -32,7 +35,10 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     this.loggedInUser = this.userService.getUserData();
     this.route.params.subscribe(params => {
       this.receiverId = params.id;
-      this.handleUserData();
+      this.groupChat = this.route.snapshot.queryParams["groupChat"];
+      if(!this.groupChat){
+        this.handleUserData();
+      }
     });
   }
 
@@ -64,14 +70,27 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   }
 
   getAllChats() {
-    //call to get all chats.
-    this._socket.sendMessage({
-      type: this._constants.userChatMessageType,
-      data: {
-        subType: this._constants.getAllChats,
-        receiverId: this.receiverId
-      }
-    });
+    if(this.groupChat){
+      //call to get all group chats.
+      this._socket.sendMessage({
+        type: this._constants.userChatMessageType,
+        data: {
+          subType: this._constants.getAllGroupChats,
+          payload : {
+            groupId: this.receiverId
+          }
+        }
+      });
+    }else{
+      //call to get all chats.
+      this._socket.sendMessage({
+        type: this._constants.userChatMessageType,
+        data: {
+          subType: this._constants.getAllChats,
+          receiverId: this.receiverId
+        }
+      });
+    }
   }
 
   //handle all user chat message.
@@ -82,6 +101,12 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           this.userMessages = res.data;
         }
         break;
+      case this._constants.getAllGroupChats:
+        if (res.data) {
+          this.groupMessages = res.data;
+          this.user = this.groupMessages;
+        }
+        break;
       case this._constants.addNewChat:
         if (res.data) {
           if (res.data.message.senderId === this.receiverId || res.sameUser) {
@@ -89,7 +114,18 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
               res.data.message = [res.data.message];
               this.userMessages = res.data;
             } else {
-              this.userMessages.message.push(res.data.message);
+              this.userMessages.message = [...this.userMessages.message, res.data.message];
+            }
+          }
+        }
+        break;
+      case this._constants.addNewGroupChat:
+        if (res.data) {
+          if (res.data._id == this.receiverId || res.sameUser) {
+            if (this.groupMessages == undefined) {
+              this.groupMessages = res.data;
+            } else {
+              this.groupMessages.message = [...this.groupMessages.message, res.data.message[res.data.message.length - 1]];
             }
           }
         }
@@ -110,7 +146,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   }
 
   backToChat() {
-    this.router.navigate(["/" + this.loggedInUser.userRole + "/user-chat"]);
+    this.router.navigate(["/" + this.loggedInUser.userRole + "/user-chat"], { queryParams: { groupChatActive: this.groupChat ? 3 : 1 }});
   }
 
   sendChatMessage(text) {
@@ -120,19 +156,36 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
       return;
     }
 
-    let payload = {
-      receiverId: this.receiverId,
-      message: this.messageIs
-    };
+    if(!this.groupChat){
+      let payload = {
+        receiverId: this.receiverId,
+        message: this.messageIs
+      };
 
-    if (this.messageIs) {
-      this._socket.sendMessage({
-        type: this._constants.userChatMessageType,
-        data: {
-          subType: this._constants.addNewChat,
-          data: payload
-        },
-      });
+      if (this.messageIs) {
+        this._socket.sendMessage({
+          type: this._constants.userChatMessageType,
+          data: {
+            subType: this._constants.addNewChat,
+            data: payload
+          },
+        });
+      }
+    }else{
+      let payload = {
+        groupId: this.receiverId,
+        message: this.messageIs
+      };
+
+      if (this.messageIs) {
+        this._socket.sendMessage({
+          type: this._constants.userChatMessageType,
+          data: {
+            subType: this._constants.addNewGroupChat,
+            payload: payload
+          },
+        });
+      }
     }
 
     this.messageIs = "";

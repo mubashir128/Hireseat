@@ -321,6 +321,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       case this._constants.getAllOnlyForCandidateSharedProfileType:
         this.resumes = res.data;
         this.addFriendConnectionToProfile(res);
+        this.sortProfilesByConpanies();
         this._subList.loaderList.next({type : "0"});
         break;
       case this._constants.addComment:
@@ -350,6 +351,30 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       default:
         break;
     }
+  }
+
+  sortProfilesByConpanies(){
+    let introduceYouToo = this.myProfileContent ? this.myProfileContent.introduceYouToo?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.introduceYouToo?.trim().toLowerCase().split(",") : [];
+    this.resumes.forEach((profile, index) => {
+      let status = false;
+      introduceYouToo.forEach((intro, index2) => {
+        if(profile.candidateProfileKey){
+          if(profile.candidateProfileKey?.introduceYouToo?.toLowerCase().indexOf(intro) !== -1 && profile.candidateProfileKey?.introduceYouToo !== ""){
+            status = true;
+          }
+        }else if(profile.introduceYouToo){
+          if(profile.introduceYouToo?.toLowerCase().indexOf(intro) !== -1 && profile.introduceYouToo !== ""){
+            status = true;
+          }
+        }
+      });
+
+      if(status){
+        this.resumes = [profile, ...this.resumes];
+        this.resumes.splice(index + 1, 1);
+      }
+      
+    });
   }
 
   addFriendConnectionToProfile(res){
