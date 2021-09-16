@@ -33,7 +33,7 @@
   <div class="chat-list" *ngIf = "chgStyle == 1">
     <ng-container *ngFor="let user of onlyChatUsers | inUserChatSearch : searchTermByName">
 
-      <div class="chat-profile-item" *ngIf = "user.user1._id !== loggedInUser._id">
+      <div class="chat-profile-item animatePart" *ngIf = "user.user1._id !== loggedInUser._id">
         <div class="disF">
           <img [src]="(user.user1.profileimage !=='') ? user.user1.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user1.profileimage !== '' ? user.user1.profileimage : 0)" class="uploadedImgUser">
           <div class="chat-user-title" (click)="showUserData(user.user1._id)"> {{ user.user1.fullName }} </div>
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="chat-profile-item" *ngIf = "user.user2._id !== loggedInUser._id">
+      <div class="chat-profile-item animatePart" *ngIf = "user.user2._id !== loggedInUser._id">
         <div class="disF">
           <img [src]="(user.user2.profileimage !=='') ? user.user2.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user2.profileimage !== '' ? user.user2.profileimage : 0)" class="uploadedImgUser">
           <div class="chat-user-title" (click)="showUserData(user.user2._id)"> {{ user.user2.fullName }} </div>
@@ -56,7 +56,7 @@
   <div class="chat-list" *ngIf = "chgStyle == 2">
     <ng-container *ngFor="let user of chatUsers | search : searchTermByName">
 
-      <div class="chat-profile-item" *ngIf = "user._id !== loggedInUser._id">
+      <div class="chat-profile-item animatePart" *ngIf = "user._id !== loggedInUser._id">
         <div class="disF">
           <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.profileimage !== '' ? user.profileimage : 0)" class="uploadedImgUser">
           <div class="chat-user-title" (click)="showUserData(user._id)"> {{ user.fullName }} </div>
@@ -71,9 +71,9 @@
   <div class="chat-list" *ngIf = "chgStyle == 3">
     <ng-container *ngFor="let group of groupChatUsers | searchByOnlyFullName : searchTermByName">
 
-      <div class="chat-profile-item">
+      <div class="chat-profile-item animatePart">
         <div class="disF">
-          <img [src]="'assets/img/user.png'" class="uploadedImgUser">
+          <img [src]="(group.profileimage !=='') ? group.profileimage : 'assets/img/user.png'"  (click)="showImageModal(group.profileimage !== '' ? group.profileimage : 0)" class="uploadedImgUser">
           <div class="chat-user-title" (click)="showUserData(group._id, true)"> {{ group.fullName }} </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
         </div>
@@ -96,6 +96,40 @@
     <div class="">
       <input type="text" class="createGroupName" [(ngModel)]="groupName" placeholder="Group Name...">
     </div>
+
+    <div class="uploadProfilePictureClass">
+      <span>Upload Profile Picture : </span>
+      <form [formGroup]="updateProfileimg">
+        <div class="uploadProfileImgDiv">
+          <div class="uploadProfileImg">
+            <ng-container *ngIf="imgURL">
+              <img [src]="imgURL" alt="add img" />
+            </ng-container>
+    
+            <ng-container>
+              <div class="UploadImgDefault">
+                <img src="assets/img/profile-user.png" alt="add img" />
+              </div>
+            </ng-container>
+    
+            <div class="profileAdd">
+              <div class="profileAddInner">
+                <i class="fa fa-camera" aria-hidden="true"></i>
+                <p>ADD PROFILE PHOTO</p>
+              </div>
+            </div>
+            <input
+              #file
+              type="file"
+              accept="image/*"
+              formControlName="file"
+              (change)="preview(file.files)"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+
     <div class="member">
       <span>Add Members : </span>
       <ng-container *ngFor="let user of chatUsers">

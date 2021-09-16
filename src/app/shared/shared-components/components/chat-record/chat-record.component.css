@@ -290,3 +290,13 @@ a {
   .chat-height{max-height:270px;}
   .chat-box {max-height: 270px;}
 }
+
+.addMember {
+  font-size: 15px;
+}
+
+.fullNameClass {
+  width: 40%;
+  padding: 10px;
+  font-size: 12px
+}

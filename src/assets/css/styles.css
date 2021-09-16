@@ -1434,3 +1434,9 @@ body {
   margin-right: 10px;
   margin-top: 25px;
 }
+
+.elipsesClass {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
