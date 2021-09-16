@@ -111,6 +111,11 @@ export class ConstantsService {
   timelineType;
   getTimelinesType;
 
+  getGroupChatUsers;
+  createAndAddGroup;
+  getAllGroupChats;
+  addNewGroupChat;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -297,6 +302,11 @@ export class ConstantsService {
 
     this.timelineType = obj.timelineType;
     this.getTimelinesType = obj.getTimelinesType;
+    
+    this.getGroupChatUsers = obj.getGroupChatUsers;
+    this.createAndAddGroup = obj.createAndAddGroup;
+    this.getAllGroupChats = obj.getAllGroupChats;
+    this.addNewGroupChat = obj.addNewGroupChat;
   }
 
 }

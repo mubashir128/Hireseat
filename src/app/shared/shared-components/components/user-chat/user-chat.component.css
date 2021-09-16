@@ -78,7 +78,7 @@
   width: 10px;
   height: 10px;
   cursor: pointer;
-  color: #000;
+  color: #4E5857;
 }
 
 /*================================ mobile responsive css start  ===============================*/
@@ -147,4 +147,61 @@
   object-fit: cover;
   /* border-radius: 50% !important; */
   margin-bottom: -5px;
+}
+
+.createGRP{
+  font-size: 20px;
+  margin-right: 25px;
+  float: right;
+  color: #0AAFFF;
+}
+
+.grpModal {
+  padding: 25px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fafafa;
+  padding: 0;
+  max-height: 70%;
+  width: 35%;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 5px;
+  will-change: top, opacity;
+}
+
+.grpModal input{
+  padding-left: 5px;
+  font-size: 18px;
+}
+
+.grpModal span {
+  font-size: 20px;
+  font-family: 'gilroybold';
+}
+
+.grpModal .member span {
+  font-size: 18px;
+  font-family: 'gilroybold';
+}
+
+.member {
+  margin-top: 10px;
+  height: 375px !important;
+  overflow: auto;
+}
+
+.createAndAddMemberClass{
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin: 10px;
+  float: right;
 }

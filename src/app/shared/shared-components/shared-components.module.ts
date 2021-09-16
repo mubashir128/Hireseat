@@ -76,6 +76,7 @@ import { ListLoaderSearchComponent } from './components/list-loader-search/list-
 import { TitleCasePipe } from "../pipes/title-case.pipe";
 import { FriendsConnectionsComponent } from './components/friends-connections/friends-connections.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { SearchByOnlyFullNamePipe } from '../../shared/pipes/search-by-only-full-name.pipe';
 
 @NgModule({
   imports: [
@@ -177,7 +178,8 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     SearchByCTRPipe,
     SerchByJobTitlePipe,
     FriendsConnectionsComponent,
-    TimelineComponent
+    TimelineComponent,
+    SearchByOnlyFullNamePipe
   ],
   exports: [
     FooterComponent,
@@ -248,7 +250,8 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     SerchBySkillsPipe,
     SerchByFullNamePipe,
     SearchByCTRPipe,
-    SerchByJobTitlePipe
+    SerchByJobTitlePipe,
+    SearchByOnlyFullNamePipe
   ],
 
 })

@@ -230,7 +230,7 @@ export class FriendsConnectionsComponent implements OnInit {
   }
 
   goToUserChat(resume){
-    let id = resume.candidate_id;
+    let id = resume.candidate_id._id;
     if(id !== ""){
       this._router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", id]);
     }
