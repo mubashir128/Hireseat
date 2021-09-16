@@ -74,13 +74,6 @@
   width: 100%;
 }
 
-.VIconE {
-  width: 10px;
-  height: 10px;
-  cursor: pointer;
-  color: #000;
-}
-
 /*================================ mobile responsive css start  ===============================*/
 
 @media only screen and (min-width: 320px) and (max-width: 767px) {
@@ -133,9 +126,9 @@
   right: 0;
   background-color: #fafafa;
   padding: 0;
-  max-height: 70%;
+  max-height: 78%;
   width: 35%;
-  margin: 15% auto;
+  margin: 2% auto;
   overflow-y: auto;
   border-radius: 5px;
   will-change: top, opacity;
@@ -147,4 +140,132 @@
   object-fit: cover;
   /* border-radius: 50% !important; */
   margin-bottom: -5px;
+}
+
+.createGRP{
+  font-size: 20px;
+  margin-right: 25px;
+  float: right;
+  color: #0AAFFF;
+}
+
+.grpModal {
+  padding: 25px;
+}
+
+.grpModal input{
+  padding-left: 5px;
+  font-size: 18px;
+}
+
+.grpModal span {
+  font-size: 20px;
+  font-family: 'gilroybold';
+}
+
+.grpModal .member span {
+  font-size: 18px;
+  font-family: 'gilroybold';
+}
+
+.member {
+  margin-top: 10px;
+  height: 300px !important;
+  overflow: auto;
+}
+
+.createAndAddMemberClass{
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin: 10px;
+  float: right;
+}
+
+.uploadProfileImgDiv {
+  background-color: #ffffff;
+  padding: 15px;
+}
+
+.uploadProfileImg {
+  background-color: #f7f7f7;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+}
+
+.uploadProfileImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.UploadImgDefault {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.uploadProfileImg:hover .profileAdd {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.uploadProfileImg input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.profileAdd {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #18181842;
+  opacity: 0;
+  transition: 0.8s;
+  cursor: pointer;
+}
+
+.profileAdd i {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.profileAdd p {
+  font-size: 13px;
+  color: #ffffff;
+  margin-top: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.profileAddInner {
+  cursor: pointer;
+}
+
+.VIconE {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  color: #4E5857;
+}
+
+.uploadProfilePictureClass span{
+  font-size: 18px;
+  font-family: 'gilroybold';
 }

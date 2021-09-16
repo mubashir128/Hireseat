@@ -1,0 +1,45 @@
+<ng-container *ngIf="timelines">
+  <div class="ListResume">
+    <div class="timelineUI animatePart" *ngFor="let timeline of timelines">
+      <div class="pro">
+
+        <div class="pro-3">
+          <ng-container *ngIf="!timeline.fromId.profileimage">
+            <div class="candProfile">
+              <img src = "assets/img/profile-user.png" alt="profile" />
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="timeline.fromId.profileimage">
+            <div class="candProfile">
+              <img [src] = "timeline.fromId.profileimage" alt="profile" />
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="pro-4">
+          <span class="intoedClass">
+            {{timeline.fromId.fullName}} introed {{timeline.profileUserId.fullName}} .
+          </span>
+
+          <ng-container *ngIf="!timeline.profileUserId.profileimage">
+            <div class="candProfile11">
+              <img src = "assets/img/profile-user.png" alt="profile" />
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="timeline.profileUserId.profileimage">
+            <div class="candProfile11">
+              <img [src] = "timeline.profileUserId.profileimage" alt="profile" />
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="timelineTime notificaationDateTime">
+          {{timeline.updatedAt | amTimeAgo}}
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</ng-container>

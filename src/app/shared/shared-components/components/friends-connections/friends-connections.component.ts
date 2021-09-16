@@ -230,7 +230,7 @@ export class FriendsConnectionsComponent implements OnInit {
   }
 
   goToUserChat(resume){
-    let id = resume.candidate_id;
+    let id = resume.candidate_id._id;
     if(id !== ""){
       this._router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", id]);
     }
@@ -370,7 +370,9 @@ export class FriendsConnectionsComponent implements OnInit {
                 senderName : this.loggedInUser.fullName,
                 fileURL : this.shareResume.fileURL,
                 recipientName : this.recipientName,
-                onlyCandidate : true
+                onlyCandidate : true,
+                linkedIn : this.shareResume.linkedIn,
+                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
