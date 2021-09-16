@@ -18,7 +18,9 @@
         </div>
 
         <div class="pro-4">
-          {{timeline.fromId.fullName}} introed {{timeline.profileUserId.fullName}} .
+          <span class="intoedClass">
+            {{timeline.fromId.fullName}} introed {{timeline.profileUserId.fullName}} .
+          </span>
 
           <ng-container *ngIf="!timeline.profileUserId.profileimage">
             <div class="candProfile11">
