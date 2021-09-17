@@ -21,9 +21,9 @@
         <span>{{ user.fullName }}</span>
       </div>
 
-      <!-- <div class="col s2 m2 l2 addMember" *ngIf = "this.groupChat">
-        <i class="fa fa-ellipsis-v VIconE" style="color: red;" (click) = "setting()"></i>
-      </div> -->
+      <div class="col s2 m2 l2 addMember" *ngIf = "this.groupChat">
+        <i class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "setting()"></i> 
+      </div>
       
     </div>
   </div>
@@ -122,4 +122,43 @@
     [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'"
     class="showImgUser"
   />
+</div>
+
+<div id="showSettings" class="modal">
+  <div class="settingClass">
+    <i (click)="closeSettingModal()" style="float: right;" class="fa fa-times" aria-hidden="true"></i>
+    <ng-container *ngFor="let list of settingLists">
+      <div class="chat-profile-item addUserUI" (click) = "openListsModals(list.id)">
+        <div class="disF">
+          <div class="chat-user-title">
+            {{ list.name }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<div id="showMembers" class="modal">
+  <div class="membersClass">
+    <i (click)="closeMembersModal()" style="float: right;" class="fa fa-times" aria-hidden="true"></i>
+    <div class="member">
+      <span>Members : </span>
+      <div class="makeDiff">
+        <ng-container *ngFor="let member of groupMessages.members">
+          <div class="chat-profile-item addUserUI" *ngIf = "member.memberId._id !== loggedInUser._id">
+            <div class="disF">
+              <img [src]="(member.memberId.profileimage !=='') ? member.memberId.profileimage : 'assets/img/user.png'" class="uploadedImgUser">
+              <div class="chat-user-title"> {{ member.memberId.fullName }} </div>
+              <i class="fa fa-plus VIconE" [id] = "'add_'+member.memberId._id" style="margin-right: 15px; display: none;" aria-hidden="true" (click) = "addMember(member.memberId._id)"></i>
+              <i class="fa fa-minus VIconE" [id] = "'remove_'+member.memberId._id" style="margin-right: 15px;" aria-hidden="true" (click) = "removeMember(member.memberId._id)"></i>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-group textRight">
+      <button class="createAndAddMemberClass" (click)="updateMembers()">Update</button>
+    </div>
+  </div>
 </div>
