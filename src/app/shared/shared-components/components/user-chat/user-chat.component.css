@@ -169,9 +169,8 @@
 }
 
 .member {
-  margin-top: 10px;
-  height: 300px !important;
-  overflow: auto;
+  height: 300px !important; 
+	overflow: auto;
 }
 
 .createAndAddMemberClass{
@@ -236,7 +235,7 @@
   align-items: center;
   justify-content: center;
   background-color: #18181842;
-  opacity: 0;
+  opacity: 1;
   transition: 0.8s;
   cursor: pointer;
 }
@@ -268,4 +267,10 @@
 .uploadProfilePictureClass span{
   font-size: 18px;
   font-family: 'gilroybold';
+}
+
+.makeDiff {	
+  margin-top: 5px;
+  height: 265px !important;
+  overflow: auto;
 }
