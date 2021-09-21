@@ -32,6 +32,9 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   @ViewChild('chatDiv', { static: true }) private chatDiv: ElementRef;
   @ViewChild('inputDiv', { static: true }) private inputDiv: ElementRef;
 
+  settingLists = [];
+  addGrpMembers = [];
+  
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private _socket: WebsocketService, private _constants: ConstantsService) {
     // this.messageIs = '';
     this.loggedInUser = this.userService.getUserData();
@@ -42,6 +45,17 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
         this.handleUserData();
       }
     });
+
+    this.settingLists = [{
+      id : 1,
+      name : "Show Members"
+    },{
+      id : 2,
+      name : "Add Members"
+    },{
+      id : 3,
+      name : "Upload Profile Picture"
+    }];
   }
 
   async ngOnInit() {
@@ -107,6 +121,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
         if (res.data) {
           this.groupMessages = res.data;
           this.user = this.groupMessages;
+          this.insertGrpMembers();
         }
         break;
       case this._constants.addNewChat:
@@ -132,10 +147,26 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           }
         }
         break;
+      case this._constants.updateGroupMembers : 
+        if(res.data){
+          this.closeMembersModal();
+          this.groupMessages = res.data;
+          this.user = this.groupMessages;
+          this.addGrpMembers = [];
+          this.insertGrpMembers();
+        }
+        break;
       default:
         break;
     }
   }
+
+  insertGrpMembers(){
+    this.groupMessages.members.forEach((member) => {
+      this.addGrpMembers.push(member.memberId._id);
+    });
+  }
+
 
   handleUserData() {
     this.getCurrentUserDetails();
@@ -209,6 +240,86 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
   closeImageModal() {
     jQuery("#showImage").modal("close");
+  }
+
+  twoWayChatsetting(){
+    let userData = (this.userMessages.user1._id == this.loggedInUser._id) ? this.userMessages.user2 : this.userMessages.user1;
+    this.router.navigate(["/"+this.loggedInUser.userRole+"/user-chat"], { queryParams: { groupChatActive : 3, openCreateGroupModal : true, userData :  JSON.stringify(userData) }});
+  }
+
+  setting(){
+    this.openSettingModal();
+  }
+
+  openSettingModal() {
+    jQuery("#showSettings").modal("open");
+  }
+
+  closeSettingModal() {
+    jQuery("#showSettings").modal("close");
+  }
+
+  openListsModals(id){
+    this.closeSettingModal();
+    switch(id){
+      case 1 : 
+        this.openMembersModal();
+        break ;
+      case 2 : 
+        break ;
+      default : 
+        break ;
+    }
+  }
+
+  openMembersModal() {
+    jQuery("#showMembers").modal("open");
+  }
+
+  closeMembersModal() {
+    jQuery("#showMembers").modal("close");
+  }
+
+  updateMembers(){
+    let payload = {
+      groupId : this.receiverId,
+      members : this.addGrpMembers
+    }
+
+    this._socket.sendMessage({
+      type: this._constants.userChatMessageType,
+      data: {
+        subType: this._constants.updateGroupMembers,
+        payload: payload
+      },
+    });
+
+  }
+
+  addMember(id){
+    if(this.addGrpMembers.indexOf(id) == -1){
+      jQuery("#add_"+id).css("display","none");
+      jQuery("#remove_"+id).css("display","block");
+      this.addGrpMembers.push(id);
+    }else{
+      Materialize.toast("Already added...", 1000, "green");
+    }
+    console.log("this.addGrpMembers : ",this.addGrpMembers);
+  }
+
+  removeMember(id){
+    if(this.addGrpMembers.indexOf(id) !== -1){
+      jQuery("#remove_"+id).css("display","none");
+      jQuery("#add_"+id).css("display","block");
+      this.addGrpMembers.forEach((member, index) => {
+        if (member == ''+id) {
+          this.addGrpMembers.splice(index, 1);
+        }
+      });
+    }else{
+      Materialize.toast("Not added...", 1000, "red");
+    }
+    console.log("this.addGrpMembers : ",this.addGrpMembers);
   }
 
 }

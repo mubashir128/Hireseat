@@ -32,6 +32,7 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   public auctionFrm: FormGroup;
   searchTermByName;
+  searchTermByNameMember;
 
   groupName = "";
   addGrpMembers = [];
@@ -42,6 +43,9 @@ export class UserChatComponent implements OnInit, OnChanges {
   imagePath: any;
   imgURL: any;
   currentGroupId: string | Blob;
+
+  openCreateGroupModal;
+  userData;
 
   constructor(private formBuilder: FormBuilder,
     private _socket: WebsocketService,
@@ -62,6 +66,8 @@ export class UserChatComponent implements OnInit, OnChanges {
     this._route.params.subscribe(params => {
       this.chgStyle = this._route.snapshot.queryParams["groupChatActive"];
       this.chgStyle = this.chgStyle !== undefined ? this.chgStyle : 1;
+      this.openCreateGroupModal = this._route.snapshot.queryParams["openCreateGroupModal"];
+      this.userData = JSON.parse(this._route.snapshot.queryParams["userData"]);
     });
 
   }
@@ -93,10 +99,20 @@ export class UserChatComponent implements OnInit, OnChanges {
     this.getAllUsers();
     this.getGroupUsers();
 
+    this.openTwoWayChatCreateGroup();
   }
 
   ngOnChanges() {
     jQuery(".modal").modal();
+  }
+
+  openTwoWayChatCreateGroup(){
+    if(this.openCreateGroupModal){
+      this.createGroup(false);
+      this.groupName = this.userData.fullName + "_Group";
+      this.imgURL = this.userData.profileimage;
+      this.addMemberThroughDirect(this.userData._id);
+    }
   }
 
   getOnlyUserChats(){
@@ -194,7 +210,12 @@ export class UserChatComponent implements OnInit, OnChanges {
     jQuery("#createGroupModal").modal("close");
   }
 
-  createGroup(){
+  createGroup(status){
+    // if(status){
+    //   this.groupName = "";
+    //   this.imgURL = "";
+    //   this.addGrpMembers = [];
+    // }
     jQuery("#createGroupModal").modal("open");
   }
 
@@ -231,9 +252,21 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   addMember(id){
     if(this.addGrpMembers.indexOf(id) == -1){
-      jQuery("#add_"+id).css("display","none");
-      jQuery("#remove_"+id).css("display","block");
       this.addGrpMembers.push(id);
+    }else{
+      Materialize.toast("Already added...", 1000, "green");
+    }
+    jQuery("#add_"+id).css("display","none");
+    jQuery("#remove_"+id).css("display","block");
+  }
+
+  addMemberThroughDirect(id){
+    if(this.addGrpMembers.indexOf(id) == -1){
+      this.addGrpMembers = [id];
+      setTimeout(function(){
+        jQuery("#add_"+id).css("display","none");
+        jQuery("#remove_"+id).css("display","block");
+      }, 1000);
     }else{
       Materialize.toast("Already added...", 1000, "green");
     }
@@ -241,13 +274,13 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   removeMember(id){
     if(this.addGrpMembers.indexOf(id) !== -1){
-      jQuery("#remove_"+id).css("display","none");
-      jQuery("#add_"+id).css("display","block");
       this.addGrpMembers.forEach((member, index) => {
         if (member == ''+id) {
           this.addGrpMembers.splice(index, 1);
         }
       });
+      jQuery("#remove_"+id).css("display","none");
+      jQuery("#add_"+id).css("display","block");
     }else{
       Materialize.toast("Not added...", 1000, "red");
     }

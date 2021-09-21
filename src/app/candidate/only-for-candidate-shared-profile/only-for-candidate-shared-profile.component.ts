@@ -37,7 +37,7 @@ import { Plugins } from '@capacitor/core';
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { CandidateCarrerService } from "src/app/_services/candidate-carrer.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
@@ -157,6 +157,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
   searchText = "onlyCandidateSearch";
 
+  requstedProfileId;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -172,6 +174,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     private _bidEventService: BiddingEventService,
     private _readResume : ReadResumeService,
     private _router: Router,
+    private _route: ActivatedRoute
   ) {
     this.resumes = [];
     
@@ -229,6 +232,11 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       date3: new FormControl(null, Validators.compose([Validators.required])),
       time3: new FormControl(null, Validators.compose([Validators.required])),
     });
+
+    this._route.params.subscribe(params => {
+      this.requstedProfileId = this._route.snapshot.queryParams["profileId"];
+    });
+
   }
 
   ngOnChanges() {

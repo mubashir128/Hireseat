@@ -116,6 +116,11 @@ export class ConstantsService {
   getAllGroupChats;
   addNewGroupChat;
 
+  updateGroupMembers;
+
+  connectionRequest;
+  actualTimeline;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -307,6 +312,11 @@ export class ConstantsService {
     this.createAndAddGroup = obj.createAndAddGroup;
     this.getAllGroupChats = obj.getAllGroupChats;
     this.addNewGroupChat = obj.addNewGroupChat;
+
+    this.updateGroupMembers = obj.updateGroupMembers;
+
+    this.connectionRequest = obj.connectionRequest;
+    this.actualTimeline = obj.actualTimeline;
   }
 
 }
