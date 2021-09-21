@@ -18,8 +18,12 @@
         </div>
 
         <div class="pro-4">
-          <span class="intoedClass">
-            {{timeline.fromId.fullName}} introed {{timeline.profileUserId.fullName}} .
+          <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline">
+            {{timeline.fromId.fullName}} intro'd {{timeline.profileUserId.fullName}}.
+          </span>
+
+          <span class="intoedClass" *ngIf = "timeline.status == _constants.connectionRequest">
+            {{timeline.fromId.fullName}} Connected to {{timeline.profileUserId.fullName}}.
           </span>
 
           <ng-container *ngIf="!timeline.profileUserId.profileimage">
@@ -38,7 +42,65 @@
         <div class="timelineTime notificaationDateTime">
           {{timeline.updatedAt | amTimeAgo}}
         </div>
-        
+
+      </div>
+      
+      <div class="row introSection" *ngIf = "timeline.status == _constants.actualTimeline">
+        <span style="font-size: 17px;">Introduce You : </span>
+        <div class="row" style="text-align: center;">
+          <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;">
+            <span style="color: red;">
+              {{timeline.fromId.fullName}} :
+            </span>
+            <span>
+              {{timeline.candidateFromId.introduceYouToo}}
+            </span>
+          </div>
+
+          <div class="col s6 m6 l6" style="text-align: left;">
+            <span style="color: red;">
+              {{timeline.profileUserId.fullName}} :
+            </span>
+            <span>
+              {{timeline.candidateProfileUserId.introduceYouToo}}
+            </span>
+          </div>
+        </div>
+
+        <!-- asda -->
+        <div class="row" style="text-align: center; margin-top: -20px;">
+
+          <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;">
+            <div class="pro-share" style="margin-top: 10px;">
+              <div class="">
+                <button class="connectBtn" (click)="introProfile(timeline.candidateFromId._id)">
+                  <a>
+                    <div class="icon-name">
+                      <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                      <span class="shareText"> Intro </span>
+                    </div>
+                  </a>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s6 m6 l6" style="text-align: left;">
+            <div class="pro-share" style="margin-top: 10px;">
+              <div class="">
+                <button class="connectBtn" (click)="introProfile(timeline.candidateProfileUserId._id)">
+                  <a>
+                    <div class="icon-name">
+                      <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                      <span class="shareText"> Intro </span>
+                    </div>
+                  </a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

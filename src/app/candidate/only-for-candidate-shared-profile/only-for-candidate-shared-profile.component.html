@@ -109,8 +109,12 @@
                     {{ resume?.candidateName || resume?.candidate_id?.fullName }}
                   </span>
                   <div class="other-details">
-                    <p *ngIf = "resume?.jobTitle"><label>Job Title :</label> {{ resume?.jobTitle }}</p>
+                    <p *ngIf = "resume?.jobTitle">
+                      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                      <label>Job Title :</label> {{ resume?.jobTitle }}
+                    </p>
                     <p *ngIf = "resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles">
+                      <i class="fas fa-binoculars" aria-hidden="true"></i>
                       <label>Desired Roles :</label>
                         {{ resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles }}
                     </p>

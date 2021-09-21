@@ -17,7 +17,6 @@
 .pro {
   width: 100%;
   float: left;
-  border-bottom: 1px solid #708381;
   /* margin-top: 10px; */
   padding: 10px;
 }
@@ -80,4 +79,33 @@
   font-family: 'gilroybold';
   font-size: 15px;
   position: absolute;
+}
+
+.introSection {
+  border-bottom: 1px solid #708381;
+  text-align: center;
+}
+
+.pro-share{
+  width: 100%;
+  float: left;
+  margin-top: 10px;
+}
+
+.connectBtn {
+  width: 100%;
+  border-radius: 7px;
+}
+
+.connectBtn i{
+  color: #fff !important;
+}
+
+button.connectBtn{
+  border: 1px solid #1a1;
+  background-color: #1a1;
+}
+
+.shareText {
+  color: #fff !important;
 }
