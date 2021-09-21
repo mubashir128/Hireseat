@@ -1,5 +1,5 @@
 .timelineUI {
-    
+  border-bottom: 1px solid #708381;
 }
 
 .ListResume {
@@ -17,7 +17,6 @@
 .pro {
   width: 100%;
   float: left;
-  /* margin-top: 10px; */
   padding: 10px;
 }
 
@@ -82,7 +81,7 @@
 }
 
 .introSection {
-  border-bottom: 1px solid #708381;
+  margin: auto;
   text-align: center;
 }
 
