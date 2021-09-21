@@ -14,7 +14,7 @@
 
   <div class="row" *ngIf = "chgStyle == 3">
     <form [formGroup]="">
-      <div class="createGRP" (click) = "createGroup()">
+      <div class="createGRP" (click) = "createGroup(true)">
         Create Group
         <i class="fa fa-plus" aria-hidden="true"></i>
       </div>
@@ -132,8 +132,14 @@
 
     <div class="member">
       <span>Add Members : </span>
+      <div class="row">
+        <div class="searchDiv memberSearchDiv">
+          <input type="text" class="searchRecruiter" [(ngModel)]="searchTermByNameMember" placeholder="Search...">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </div>
+      </div>
       <div class="makeDiff">
-        <ng-container *ngFor="let user of chatUsers">
+        <ng-container *ngFor="let user of chatUsers | search : searchTermByNameMember">
           <div class="chat-profile-item addUserUI" *ngIf = "user._id !== loggedInUser._id">
             <div class="disF">
               <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'" class="uploadedImgUser">

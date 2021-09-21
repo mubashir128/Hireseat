@@ -169,8 +169,7 @@
 }
 
 .member {
-  height: 300px !important; 
-	overflow: auto;
+  height: 300px !important;
 }
 
 .createAndAddMemberClass{
@@ -185,13 +184,13 @@
 
 .uploadProfileImgDiv {
   background-color: #ffffff;
-  padding: 15px;
+  padding: 5px;
 }
 
 .uploadProfileImg {
   background-color: #f7f7f7;
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   overflow: hidden;
   margin: 0 auto;
@@ -246,7 +245,7 @@
 }
 
 .profileAdd p {
-  font-size: 13px;
+  font-size: 10px;
   color: #ffffff;
   margin-top: 4px;
   text-align: center;
@@ -271,6 +270,12 @@
 
 .makeDiff {	
   margin-top: 5px;
-  height: 265px !important;
+  height: 210px !important;
   overflow: auto;
+}
+
+.memberSearchDiv {
+  width: 90% !important;
+  margin : 5px 0px 0px 15px !important;
+  position: relative;
 }

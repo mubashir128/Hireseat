@@ -242,8 +242,12 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     jQuery("#showImage").modal("close");
   }
 
+  twoWayChatsetting(){
+    let userData = (this.userMessages.user1._id == this.loggedInUser._id) ? this.userMessages.user2 : this.userMessages.user1;
+    this.router.navigate(["/"+this.loggedInUser.userRole+"/user-chat"], { queryParams: { groupChatActive : 3, openCreateGroupModal : true, userData :  JSON.stringify(userData) }});
+  }
+
   setting(){
-    console.log("setting() : ");
     this.openSettingModal();
   }
 
