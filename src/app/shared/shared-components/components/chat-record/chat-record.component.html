@@ -21,8 +21,12 @@
         <span>{{ user.fullName }}</span>
       </div>
 
-      <div class="col s2 m2 l2 addMember" *ngIf = "this.groupChat">
-        <i class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "setting()"></i> 
+      <div class="col s2 m2 l2 addMember" *ngIf = "!groupChat">
+        <i class="fa fa-plus" style="color: black;" aria-hidden="true" (click) = "twoWayChatsetting()"></i>
+      </div>
+
+      <div class="col s2 m2 l2 addMember" *ngIf = "groupChat">
+        <i class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "setting()"></i>
       </div>
       
     </div>
@@ -30,7 +34,7 @@
 
   <div #chatDiv class="container chat-height">
     <!-- user chat -->
-    <div class="chat-box" *ngIf = "!this.groupChat">
+    <div class="chat-box" *ngIf = "!groupChat">
       <ng-container *ngFor="let msg of userMessages.message">
         <!-- user1 as a sender -->
         <div
@@ -81,7 +85,7 @@
     </div>
 
     <!-- group chat -->
-    <div class="chat-box" *ngIf = "this.groupChat">
+    <div class="chat-box" *ngIf = "groupChat">
       <ng-container *ngFor="let msg of groupMessages.message">
           
         <div class="message-box" [ngClass] = "msg.senderId._id === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'">
@@ -160,5 +164,41 @@
     <div class="form-group textRight">
       <button class="createAndAddMemberClass" (click)="updateMembers()">Update</button>
     </div>
+  </div>
+</div>
+
+<!-- update profile image -->
+<div id="updateNewImage" class="modal">
+  <div class="uploadProfilePictureClass">
+    <span>Upload Profile Picture : </span>
+    <form [formGroup]="updateProfileimg">
+      <div class="uploadProfileImgDiv">
+        <div class="uploadProfileImg">
+          <ng-container *ngIf="imgURL">
+            <img [src]="imgURL" alt="add img" />
+          </ng-container>
+  
+          <ng-container>
+            <div class="UploadImgDefault">
+              <img src="assets/img/profile-user.png" alt="add img" />
+            </div>
+          </ng-container>
+  
+          <div class="profileAdd">
+            <div class="profileAddInner">
+              <i class="fa fa-camera" aria-hidden="true"></i>
+              <p>ADD PROFILE PHOTO</p>
+            </div>
+          </div>
+          <input
+            #file
+            type="file"
+            accept="image/*"
+            formControlName="file"
+            (change)="preview(file.files)"
+          />
+        </div>
+      </div>
+    </form>
   </div>
 </div>
