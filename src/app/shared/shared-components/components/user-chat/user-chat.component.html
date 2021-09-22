@@ -51,6 +51,7 @@
 
     </ng-container>
     <div class="divider"></div>
+    <app-no-data-available *ngIf = "onlyChatUsers.length == 0"></app-no-data-available>
   </div>
 
   <div class="chat-list" *ngIf = "chgStyle == 2">
@@ -66,6 +67,7 @@
 
     </ng-container>
     <div class="divider"></div>
+    <app-no-data-available *ngIf = "chatUsers.length == 0"></app-no-data-available>
   </div>
 
   <div class="chat-list" *ngIf = "chgStyle == 3">
@@ -81,6 +83,7 @@
 
     </ng-container>
     <div class="divider"></div>
+    <app-no-data-available *ngIf = "groupChatUsers.length == 0"></app-no-data-available>
   </div>
 
 </div>
