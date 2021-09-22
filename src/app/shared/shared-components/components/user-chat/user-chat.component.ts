@@ -157,7 +157,7 @@ export class UserChatComponent implements OnInit, OnChanges {
   }
 
   getAllUsers(){
-    //call to get all emoployers.
+    //call to get all users.
     this._socket.sendMessage({
       type: this._constants.userChatType,
       data: {
