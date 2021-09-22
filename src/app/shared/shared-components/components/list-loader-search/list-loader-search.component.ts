@@ -36,6 +36,14 @@ export class ListLoaderSearchComponent implements OnInit {
         $(".eleSearchPosition").css("margin-top", "675px");
         this.hide();
         break;
+      case "222" : 
+        this.show();
+        $(".eleSearchPosition").css("margin-top", "0px");
+        break;
+      case "000" : 
+        $(".eleSearchPosition").css("margin-top", "0px");
+        this.hide();
+        break;
     }
   }
 

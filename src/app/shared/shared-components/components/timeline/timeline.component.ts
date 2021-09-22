@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
+import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 
@@ -24,7 +25,8 @@ export class TimelineComponent implements OnInit {
     private _constants: ConstantsService,
     private _socket: WebsocketService,
     private _router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private _subList: SubscriberslistService
   ) {
     this.loggedUser = this.userService.getUserData();
   }
@@ -44,6 +46,7 @@ export class TimelineComponent implements OnInit {
   }
 
   getAllTimelines(){
+    this._subList.loaderListAfterSearch.next({type : "222"});
     this._socket.sendMessage({
       type: this._constants.timelineType,
       data: {
@@ -58,6 +61,7 @@ export class TimelineComponent implements OnInit {
         if(res.data){
           this.timelines = res.data.reverse();
         }
+        this._subList.loaderListAfterSearch.next({type : "000"});
         break ;
       default : 
         break ;

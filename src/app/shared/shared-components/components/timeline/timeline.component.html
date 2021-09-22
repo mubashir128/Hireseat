@@ -1,3 +1,8 @@
+
+<div>
+  <app-list-loader-search></app-list-loader-search>
+</div>
+
 <ng-container *ngIf="timelines">
   <div class="ListResume">
     <div class="timelineUI animatePart" *ngFor="let timeline of timelines">
@@ -105,5 +110,6 @@
         </div>
       </div>
     </div>
+    <app-no-data-available *ngIf = "timelines.length == 0"></app-no-data-available>
   </div>
 </ng-container>
