@@ -136,6 +136,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           this.insertSettingList();
           this.insertGrpMembers();
           this.getAllUsers();
+          this.imgURL = this.groupMessages.profileimage;
         }
         break;
       case this._constants.addNewChat:
