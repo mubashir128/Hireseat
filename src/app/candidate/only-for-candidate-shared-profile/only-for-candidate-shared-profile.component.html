@@ -110,15 +110,14 @@
                   </span>
                   <div class="other-details">
                     <p *ngIf = "resume?.jobTitle">
-                      <i class="fa fa-file-text-o" aria-hidden="true"></i>
                       <label>Job Title :</label> {{ resume?.jobTitle }}
                     </p>
                     <p *ngIf = "resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles">
-                      <i class="fas fa-binoculars" aria-hidden="true"></i>
                       <label>Desired Roles :</label>
                         {{ resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles }}
                     </p>
                     <p *ngIf = "resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo">
+                      <i class="fa fa-file-text-o" aria-hidden="true"></i>
                       <label>I can Intro you to Companies/Teams at :</label>
                         <label style="font-size: 14px; color: #cc530c;">
                           {{ resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo }}
@@ -126,6 +125,7 @@
                     </p>
                     <p *ngIf = "resume?.location"><label>Location :</label> {{ resume?.location }}</p>
                     <p *ngIf = "resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies">
+                      <i class="fas fa-binoculars" aria-hidden="true"></i>
                       <label>Desired Companies :</label>
                         {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
                     </p>

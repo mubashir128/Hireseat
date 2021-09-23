@@ -140,7 +140,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
         break;
       case this._constants.addNewChat:
         if (res.data) {
-          if (res.data.message.senderId === this.receiverId || res.sameUser) {
+          if (res.data.user1._id === this.receiverId || res.data.user2._id === this.receiverId) {
             if (this.userMessages === undefined) {
               res.data.message = [res.data.message];
               this.userMessages = res.data;
@@ -220,7 +220,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
       name : "Show Members"
     },{
       id : 2,
-      status : (this.loggedInUser._id == this.user.createdBy._id),
+      status : (this.loggedInUser._id == this.user.createdBy?._id),
       name : "Add Members"
     },{
       id : 3,

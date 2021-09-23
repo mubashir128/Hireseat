@@ -143,7 +143,7 @@
   </div>
 </div>
 
-<div id="showMembers" class="modal">
+<div id="showMembers" class="modal" *ngIf = "groupChat">
   <div class="membersClass">
     <i (click)="closeMembersModal()" style="float: right;" class="fa fa-times" aria-hidden="true"></i>
     <div class="member">
@@ -208,7 +208,7 @@
   </div>
 </div>
 
-<div id="addMember" class="modal">
+<div id="addMember" class="modal" *ngIf = "groupChat">
   <div class="membersClass">
     <i (click)="closeAddMemberModal()" style="float: right;" class="fa fa-times" aria-hidden="true"></i>
     <div class="member">

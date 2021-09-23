@@ -120,6 +120,8 @@ export class ConstantsService {
 
   connectionRequest;
   actualTimeline;
+  
+  connectedAsFriend;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -317,6 +319,8 @@ export class ConstantsService {
 
     this.connectionRequest = obj.connectionRequest;
     this.actualTimeline = obj.actualTimeline;
+
+    this.connectedAsFriend = obj.connectedAsFriend;
   }
 
 }
