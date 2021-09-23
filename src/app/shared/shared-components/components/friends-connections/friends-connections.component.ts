@@ -222,7 +222,8 @@ export class FriendsConnectionsComponent implements OnInit {
   }
 
   // share process
-  showShareModal(resume) {
+  showShareModal(_id, resumeId, resumeId2) {
+    let resume = (_id !== this.loggedInUser._id) ? resumeId : resumeId2;
     this.cc = resume.candidate_id.email;
     this.bcc = this.loggedInUser.email ? this.loggedInUser.email : "";
     this.cc = this.cc + ", " + this.bcc;
@@ -231,7 +232,8 @@ export class FriendsConnectionsComponent implements OnInit {
     this.shareVideoService.setResume(resume);
   }
 
-  goToUserChat(resume){
+  goToUserChat(_id, resumeId, resumeId2){
+    let resume = (_id !== this.loggedInUser._id) ? resumeId : resumeId2;
     let id = resume.candidate_id._id;
     if(id !== ""){
       this._router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", id]);
