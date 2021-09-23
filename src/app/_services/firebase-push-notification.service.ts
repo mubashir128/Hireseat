@@ -24,6 +24,7 @@ export class FirebasePushNotificationService {
   }
   
   initiate(){
+    this.loggedInUser = this._userService.getUser();
     //for web.
     this.requestPermission();
   }

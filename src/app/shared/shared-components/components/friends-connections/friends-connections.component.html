@@ -230,7 +230,7 @@
       <div class="row">
         <div class="pro-share" style="margin-top: 10px;">
           <div class="">
-            <button class="acceptBtn" (click)="showShareModal(friendsAre.resumeId)">
+            <button class="acceptBtn" (click)="showShareModal(friendsAre.requester._id !== loggedInUser._id ? friendsAre.resumeId : friendsAre.resumeId2)">
               <a>
                 <div class="icon-name">
                   <span class="btnText"> Share </span>
@@ -242,7 +242,7 @@
 
         <div class="pro-share" style="margin-top: 10px;">
           <div class="">
-            <button class="acceptBtn cancelBtn" (click)="goToUserChat(friendsAre.resumeId)">
+            <button class="acceptBtn cancelBtn" (click)="goToUserChat(friendsAre.requester._id !== loggedInUser._id ? friendsAre.resumeId : friendsAre.resumeId2)">
               <a>
                 <div class="icon-name">
                   <span class="btnText"> Chat </span>
