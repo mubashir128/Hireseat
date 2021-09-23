@@ -235,6 +235,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
     this._route.params.subscribe(params => {
       this.requstedProfileId = this._route.snapshot.queryParams["profileId"];
+      this.searchTerm = this._route.snapshot.queryParams["fullName"];
     });
 
   }
@@ -750,7 +751,10 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     //scroll to perticular profile based on value
     if(this.requstedProfileId){
       setTimeout(()=>{
-        document.getElementById("onlyCan_"+this.requstedProfileId).scrollIntoView();
+        let targetEle = document.getElementById("onlyCan_"+this.requstedProfileId);
+        // targetEle.style.top = '50px';
+        // targetEle.style.bottom = '50px';
+        targetEle.scrollIntoView({behavior: 'smooth', block: 'start'});
       }, 500);
     }
 

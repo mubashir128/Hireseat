@@ -74,7 +74,7 @@
             <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;">
               <div class="pro-share" style="margin-top: 10px;">
                 <div class="">
-                  <button class="connectBtn" (click)="introProfile(timeline.candidateFromId._id)">
+                  <button class="connectBtn" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                     <a>
                       <div class="icon-name">
                         <i class="fa fa-share shared-icon" aria-hidden="true"></i>
@@ -89,7 +89,7 @@
             <div class="col s6 m6 l6" style="text-align: left;">
               <div class="pro-share" style="margin-top: 10px;">
                 <div class="">
-                  <button class="connectBtn" (click)="introProfile(timeline.candidateProfileUserId._id)">
+                  <button class="connectBtn" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
                     <a>
                       <div class="icon-name">
                         <i class="fa fa-share shared-icon" aria-hidden="true"></i>
