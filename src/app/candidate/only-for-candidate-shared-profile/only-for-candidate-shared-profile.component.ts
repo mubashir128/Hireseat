@@ -235,6 +235,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
     this._route.params.subscribe(params => {
       this.requstedProfileId = this._route.snapshot.queryParams["profileId"];
+      this.searchTerm = this._route.snapshot.queryParams["fullName"];
     });
 
   }
@@ -746,6 +747,17 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   ngAfterViewInit() {
+
+    //scroll to perticular profile based on value
+    if(this.requstedProfileId){
+      setTimeout(()=>{
+        let targetEle = document.getElementById("onlyCan_"+this.requstedProfileId);
+        // targetEle.style.top = '50px';
+        // targetEle.style.bottom = '50px';
+        targetEle.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }, 500);
+    }
+
     // instantiate Video.js
     if (this.videoURL) {
       this.player = videojs(

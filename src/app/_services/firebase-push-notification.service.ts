@@ -29,6 +29,7 @@ export class FirebasePushNotificationService {
 	}
 
   initiate() {
+    this.loggedInUser = this._userService.getUser();
     //for ios.
     this.requestIosDevicePermission();
   }
@@ -115,6 +116,9 @@ export class FirebasePushNotificationService {
         break;
       case "forum" : 
         this._router.navigate(["/forum"]);
+        break;
+      case "chatNotification" : 
+        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2}});
         break;
       default : 
         break;

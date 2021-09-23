@@ -1,3 +1,8 @@
+
+<div>
+  <app-list-loader-search></app-list-loader-search>
+</div>
+
 <ng-container *ngIf="timelines">
   <div class="ListResume">
     <div class="timelineUI animatePart" *ngFor="let timeline of timelines">
@@ -39,15 +44,10 @@
               </div>
             </ng-container>
           </div>
-
-          <div class="timelineTime notificaationDateTime">
-            {{timeline.updatedAt | amTimeAgo}}
-          </div>
-
         </div>
         
         <div class="row introSection" *ngIf = "timeline.status == _constants.actualTimeline">
-          <span style="font-size: 17px;">Introduce You : </span>
+          <span style="font-size: 17px;">Request Introductions : </span>
           <div class="row" style="text-align: center;">
             <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;">
               <span style="color: red;">
@@ -74,7 +74,7 @@
             <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;">
               <div class="pro-share" style="margin-top: 10px;">
                 <div class="">
-                  <button class="connectBtn" (click)="introProfile(timeline.candidateFromId._id)">
+                  <button class="connectBtn" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                     <a>
                       <div class="icon-name">
                         <i class="fa fa-share shared-icon" aria-hidden="true"></i>
@@ -89,7 +89,7 @@
             <div class="col s6 m6 l6" style="text-align: left;">
               <div class="pro-share" style="margin-top: 10px;">
                 <div class="">
-                  <button class="connectBtn" (click)="introProfile(timeline.candidateProfileUserId._id)">
+                  <button class="connectBtn" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
                     <a>
                       <div class="icon-name">
                         <i class="fa fa-share shared-icon" aria-hidden="true"></i>
@@ -103,7 +103,11 @@
           </div>
 
         </div>
+        <div class="timelineTime notificaationDateTime">
+          {{timeline.updatedAt | amTimeAgo}}
+        </div>
       </div>
     </div>
+    <app-no-data-available *ngIf = "timelines.length == 0"></app-no-data-available>
   </div>
 </ng-container>

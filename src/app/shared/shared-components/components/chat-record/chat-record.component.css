@@ -405,3 +405,86 @@ a {
   cursor: pointer;
   color: #4E5857;
 }
+
+.uploadProfilePictureClass {
+  padding: 10px;
+}
+
+.uploadProfilePictureClass span{
+  font-size: 18px;
+  font-family: 'gilroybold';
+}
+
+.uploadProfileImgDiv {
+  background-color: #F7F2F2;
+  padding: 10px;
+}
+
+.uploadProfileImg {
+  background-color: #f7f7f7;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+}
+
+.uploadProfileImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.UploadImgDefault {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.uploadProfileImg:hover .profileAdd {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.uploadProfileImg input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.profileAdd {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #18181842;
+  opacity: 1;
+  transition: 0.8s;
+  cursor: pointer;
+}
+
+.profileAdd i {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.profileAdd p {
+  font-size: 10px;
+  color: #ffffff;
+  margin-top: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.profileAddInner {
+  cursor: pointer;
+}

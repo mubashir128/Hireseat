@@ -96,6 +96,8 @@ export class FriendsConnectionsComponent implements OnInit {
         break;
       case this._constants.shareVideoViaRecruiterEmail:
         this.handleResponse(res.result);
+      case this._constants.connectedAsFriend:
+        this.friendsConnections = [res.data, ...this.friendsConnections]
         break;
       default:
         break;
