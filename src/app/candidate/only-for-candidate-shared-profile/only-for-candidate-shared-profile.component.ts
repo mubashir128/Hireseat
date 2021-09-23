@@ -746,6 +746,14 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   ngAfterViewInit() {
+
+    //scroll to perticular profile based on value
+    if(this.requstedProfileId){
+      setTimeout(()=>{
+        document.getElementById("onlyCan_"+this.requstedProfileId).scrollIntoView();
+      }, 500);
+    }
+
     // instantiate Video.js
     if (this.videoURL) {
       this.player = videojs(

@@ -65,14 +65,15 @@
 }
 
 .timelineTime {
-  float: left;
-  margin-top : 5px !important;
+  float: right;
+  margin-top: 0px;
+  margin-bottom: 10px;
   font-size: 12px !important;
 }
 
 .intoedClass {
   width: 58%;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: 'gilroybold';

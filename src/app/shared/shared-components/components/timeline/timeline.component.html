@@ -44,15 +44,10 @@
               </div>
             </ng-container>
           </div>
-
-          <div class="timelineTime notificaationDateTime">
-            {{timeline.updatedAt | amTimeAgo}}
-          </div>
-
         </div>
         
         <div class="row introSection" *ngIf = "timeline.status == _constants.actualTimeline">
-          <span style="font-size: 17px;">Introduce You : </span>
+          <span style="font-size: 17px;">Request Introductions : </span>
           <div class="row" style="text-align: center;">
             <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;">
               <span style="color: red;">
@@ -107,6 +102,9 @@
             </div>
           </div>
 
+        </div>
+        <div class="timelineTime notificaationDateTime">
+          {{timeline.updatedAt | amTimeAgo}}
         </div>
       </div>
     </div>

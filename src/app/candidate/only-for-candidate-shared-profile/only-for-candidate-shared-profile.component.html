@@ -64,6 +64,7 @@
 <ng-container *ngIf="resumes">
   <div class="ListResume">
     <div
+      [id] = "'onlyCan_'+resume._id"
       class="singleList employerResume resumeSingleList animatePart"
       *ngFor="
         let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: p };
