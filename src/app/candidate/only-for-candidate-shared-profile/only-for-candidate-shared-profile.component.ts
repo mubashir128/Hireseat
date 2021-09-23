@@ -235,7 +235,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
     this._route.params.subscribe(params => {
       this.requstedProfileId = this._route.snapshot.queryParams["profileId"];
-      this.searchTerm = this._route.snapshot.queryParams["fullName"];
+      this.searchTerm = this._route.snapshot.queryParams["fullName"] !== undefined ? this._route.snapshot.queryParams["fullName"] : "";
     });
 
   }
