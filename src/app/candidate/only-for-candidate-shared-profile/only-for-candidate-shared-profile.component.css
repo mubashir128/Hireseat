@@ -1148,3 +1148,8 @@ input {
   width: 60%;
   margin-left: 16px;
 }
+
+.other-details i {
+  color: red;
+  margin-right: 5px;
+}
