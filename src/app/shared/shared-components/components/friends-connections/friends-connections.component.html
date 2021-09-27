@@ -260,9 +260,6 @@
 
 <div id="shareEmailModal" class="modal">
   <i (click)="closeShareModal()" class="fa fa-times crossBtn" aria-hidden="true"></i>
-  <div class="form-group textRight">
-    <button class="sendBtn spaceBetOn" (click)="generateLinkForVideo()">Copy Link</button>
-  </div>
   <div class="emailTemp">
     <div class="form-group posRel">
       <input type="text" class="form-control inputCommReceiver" [(ngModel)]="recipientName" placeholder="Receiver Name"/>
@@ -284,6 +281,7 @@
       <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
     </div> -->
     <div class="form-group textRight">
+      <button class="sendBtn spaceBetOn" (click)="generateLinkForVideo()">Copy Link</button>
       <button class="sendBtn spaceBet introStyle" *ngIf="loggedInUser.userRole == 'candidate'" (click)="introduceUser()">Email Preview</button>
     </div>
   </div>
