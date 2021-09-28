@@ -115,7 +115,7 @@
                         {{ resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles }}
                     </p>
                     <p *ngIf = "resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo">
-                      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                      <i class="fas fa-star" aria-hidden="true"></i>
                       <label>I can Intro you to Companies/Teams at :</label>
                         <label style="font-size: 14px; color: #cc530c;">
                           {{ resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo }}
@@ -125,7 +125,9 @@
                     <p *ngIf = "resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies">
                       <i class="fas fa-binoculars" aria-hidden="true"></i>
                       <label>Desired Companies :</label>
-                        {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
+                        <label style="font-size: 14px; color: #54A4F0;">
+                          {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
+                        </label>
                     </p>
                     <p *ngIf = "resume?.introduceCount || resume?.candidateProfileKey?.introduceCount">
                       <label># of Introductions : </label>
