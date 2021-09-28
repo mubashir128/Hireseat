@@ -47,6 +47,8 @@ export class UserChatComponent implements OnInit, OnChanges {
   openCreateGroupModal;
   userData;
 
+  showAddedUserAre = [];
+
   constructor(private formBuilder: FormBuilder,
     private _socket: WebsocketService,
     private _constants : ConstantsService,
@@ -111,7 +113,7 @@ export class UserChatComponent implements OnInit, OnChanges {
       this.createGroup(false);
       this.groupName = this.userData.fullName + "_Group";
       this.imgURL = this.userData.profileimage;
-      this.addMemberThroughDirect(this.userData._id);
+      this.addMemberThroughDirect(this.userData);
     }
   }
 
@@ -250,9 +252,12 @@ export class UserChatComponent implements OnInit, OnChanges {
     }
   }
 
-  addMember(id){
+  addMember(user){
+    let id = user._id;
     if(this.addGrpMembers.indexOf(id) == -1){
       this.addGrpMembers.push(id);
+      this.showAddedUserAre.push(user);
+      Materialize.toast("Added...", 700, "green");
     }else{
       Materialize.toast("Already added...", 1000, "green");
     }
@@ -260,9 +265,11 @@ export class UserChatComponent implements OnInit, OnChanges {
     jQuery("#remove_"+id).css("display","block");
   }
 
-  addMemberThroughDirect(id){
+  addMemberThroughDirect(user){
+    let id = user._id;
     if(this.addGrpMembers.indexOf(id) == -1){
       this.addGrpMembers = [id];
+      this.showAddedUserAre = [user];
       setTimeout(function(){
         jQuery("#add_"+id).css("display","none");
         jQuery("#remove_"+id).css("display","block");
@@ -272,11 +279,18 @@ export class UserChatComponent implements OnInit, OnChanges {
     }
   }
 
-  removeMember(id){
+  removeMember(user){
+    let id = user._id;
     if(this.addGrpMembers.indexOf(id) !== -1){
       this.addGrpMembers.forEach((member, index) => {
         if (member == ''+id) {
           this.addGrpMembers.splice(index, 1);
+          Materialize.toast("Removed...", 700, "red");
+        }
+      });
+      this.showAddedUserAre.forEach((member, index) => {
+        if (member._id == ''+id) {
+          this.showAddedUserAre.splice(index, 1);
         }
       });
       jQuery("#remove_"+id).css("display","none");

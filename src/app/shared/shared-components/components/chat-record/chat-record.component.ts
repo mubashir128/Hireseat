@@ -30,6 +30,8 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   groupChat;
   groupMessages;
 
+  groupUserAre = "";
+
   @ViewChild('chatDiv', { static: true }) private chatDiv: ElementRef;
   @ViewChild('inputDiv', { static: true }) private inputDiv: ElementRef;
 
@@ -136,7 +138,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           this.insertSettingList();
           this.insertGrpMembers();
           this.getAllUsers();
-          this.imgURL = this.groupMessages.profileimage;
+          this.setProfilePicture();
         }
         break;
       case this._constants.addNewChat:
@@ -184,6 +186,10 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     }
   }
 
+  setProfilePicture(){
+    this.imgURL = this.groupMessages.profileimage;
+  }
+
   addAllNewMembers(){
     this.allUpdateGrpMembers.forEach((ele, index) => {
       let temp = true;
@@ -211,7 +217,9 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   insertGrpMembers(){
     this.groupMessages.members.forEach((member) => {
       this.addGrpMembers.push(member.memberId._id);
+      this.groupUserAre += member.memberId.fullName + ", " ;
     });
+    console.log("this.groupMessages : ",this.groupMessages);
   }
 
   insertSettingList(){

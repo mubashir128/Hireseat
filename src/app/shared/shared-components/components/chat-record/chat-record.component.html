@@ -28,7 +28,13 @@
       <div class="col s2 m2 l2 addMember" *ngIf = "groupChat">
         <i class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "setting()"></i>
       </div>
-      
+    </div>
+    <div class="" *ngIf = "groupChat">
+      <marquee>
+        <p class="userNameCssIs">
+          {{groupUserAre}}
+        </p>
+      </marquee>
     </div>
   </div>
 
