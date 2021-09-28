@@ -488,3 +488,16 @@ a {
 .profileAddInner {
   cursor: pointer;
 }
+
+.userNameCssIs {
+  /* white-space: nowrap; */
+  width: 100%;
+  /* overflow: hidden;
+  text-overflow: ellipsis; */
+  margin: auto;
+}
+
+.marquee {
+  background: red;
+  white-space: nowrap;
+}

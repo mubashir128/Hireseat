@@ -133,6 +133,32 @@
       </form>
     </div>
 
+    <div class="" *ngIf = "showAddedUserAre.length">
+      <span>Added Members : </span>
+      <div class="row" class = "addedMemberCssAre">
+        <ng-container *ngFor="let addedUser of showAddedUserAre">
+          <div class="uploadProfileImgDivAdded">
+            <div class="uploadProfileImgAdded">
+              <ng-container *ngIf="!addedUser.profileimage">
+                <div class="UploadImgDefault">
+                  <img src="assets/img/profile-user.png" alt="add img" />
+                </div>
+              </ng-container>
+              <ng-container *ngIf="addedUser.profileimage">
+                <img [src]="addedUser.profileimage" alt="add img" />
+              </ng-container>
+            </div>
+            <span class="deleteIcon" (click) = "removeMember(addedUser)">
+              <i class="fa fa-times"></i>
+            </span>
+            <p class="userNameCss">
+              {{addedUser.fullName}}
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
     <div class="member">
       <span>Add Members : </span>
       <div class="row">
@@ -147,8 +173,8 @@
             <div class="disF">
               <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'" class="uploadedImgUser">
               <div class="chat-user-title"> {{ user.fullName }} </div>
-              <i class="fa fa-plus VIconE" [id] = "'add_'+user._id" style="margin-right: 15px;" aria-hidden="true" (click) = "addMember(user._id)"></i>
-              <i class="fa fa-minus VIconE" [id] = "'remove_'+user._id" style="margin-right: 15px; display: none;" aria-hidden="true" (click) = "removeMember(user._id)"></i>
+              <i class="fa fa-plus VIconE" [id] = "'add_'+user._id" style="margin-right: 15px;" aria-hidden="true" (click) = "addMember(user)"></i>
+              <i class="fa fa-minus VIconE" [id] = "'remove_'+user._id" style="margin-right: 15px; display: none;" aria-hidden="true" (click) = "removeMember(user)"></i>
             </div>
           </div>
         </ng-container>
