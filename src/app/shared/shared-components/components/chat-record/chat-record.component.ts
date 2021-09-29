@@ -219,7 +219,6 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
       this.addGrpMembers.push(member.memberId._id);
       this.groupUserAre += member.memberId.fullName + ", " ;
     });
-    console.log("this.groupMessages : ",this.groupMessages);
   }
 
   insertSettingList(){
