@@ -91,7 +91,7 @@
     </div>
 
     <!-- group chat -->
-    <div class="chat-box" *ngIf = "groupChat">
+    <div class="chat-box" style="margin-bottom: 30px;" *ngIf = "groupChat">
       <ng-container *ngFor="let msg of groupMessages.message">
           
         <div class="message-box" [ngClass] = "msg.senderId._id === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'">
