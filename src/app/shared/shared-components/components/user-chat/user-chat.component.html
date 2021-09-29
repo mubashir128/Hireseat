@@ -133,11 +133,11 @@
       </form>
     </div>
 
-    <div class="" *ngIf = "showAddedUserAre.length">
+    <div class="animatePart" *ngIf = "showAddedUserAre.length">
       <span>Added Members : </span>
       <div class="row" class = "addedMemberCssAre">
         <ng-container *ngFor="let addedUser of showAddedUserAre">
-          <div class="uploadProfileImgDivAdded">
+          <div class="uploadProfileImgDivAdded animatePart">
             <div class="uploadProfileImgAdded">
               <ng-container *ngIf="!addedUser.profileimage">
                 <div class="UploadImgDefault">

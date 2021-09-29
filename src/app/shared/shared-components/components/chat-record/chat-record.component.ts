@@ -60,7 +60,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     this.loggedInUser = this.userService.getUserData();
     this.route.params.subscribe(params => {
       this.receiverId = params.id;
-      this.groupChat = this.route.snapshot.queryParams["groupChat"];
+      this.groupChat = this.route.snapshot.queryParams["groupChat"] == 'true' ? true : false;
       if(!this.groupChat){
         this.handleUserData();
       }
@@ -219,7 +219,6 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
       this.addGrpMembers.push(member.memberId._id);
       this.groupUserAre += member.memberId.fullName + ", " ;
     });
-    console.log("this.groupMessages : ",this.groupMessages);
   }
 
   insertSettingList(){
