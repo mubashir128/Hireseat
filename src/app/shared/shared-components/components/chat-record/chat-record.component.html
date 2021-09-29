@@ -40,7 +40,7 @@
 
   <div #chatDiv class="container chat-height">
     <!-- user chat -->
-    <div class="chat-box" *ngIf = "!groupChat">
+    <div class="chat-box" style="margin-bottom: 20px;" *ngIf = "!groupChat">
       <ng-container *ngFor="let msg of userMessages.message">
         <!-- user1 as a sender -->
         <div

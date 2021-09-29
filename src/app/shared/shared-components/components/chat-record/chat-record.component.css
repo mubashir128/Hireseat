@@ -242,6 +242,10 @@ a {
   margin-bottom: -5px;
 }
 
+.chat-height{
+  margin-bottom: 150px;
+}
+
 @media(max-width:640px) {
   .right-chat { bottom: 69px !important; position: fixed; z-index: 9999999999;}
   .chat-box {max-height: 100px;}
