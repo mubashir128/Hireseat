@@ -39,11 +39,6 @@ a {
   display: inline-block;
 }
 
-.chat-box {
-  /* height: 505px; */
-  max-height: 510px;
-}
-
 .right-chat {
   height: 92px;
   /* padding: 0 20px; */
@@ -87,6 +82,7 @@ a {
   padding: 0 20px;
   color: #a1a1a1;
   overflow: auto;
+  max-height: 510px;
   /* background-image: url('../../../../assets/img/ask-recruter.png');
   height: 100%;
   background-position: center;
