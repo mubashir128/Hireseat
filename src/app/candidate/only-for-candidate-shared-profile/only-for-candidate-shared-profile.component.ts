@@ -360,7 +360,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     let introduceYouToo = this.myProfileContent ? this.myProfileContent.introduceYouToo?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.introduceYouToo?.trim().toLowerCase().split(",") : [];
     this.resumes.forEach((profile, index) => {
       let status = false;
-      this.clients.push(profile.candidateKey ? profile.candidateKey : profile.candidate_id ? profile.candidate_id : []);
+      this.clients.push(profile.candidateKey ? profile.candidateKey : profile.candidate_id ? profile.candidate_id : {});
       introduceYouToo.forEach((intro, index2) => {
         if(profile.candidateProfileKey){
           if(profile.candidateProfileKey?.introduceYouToo?.toLowerCase().indexOf(intro) !== -1 && profile.candidateProfileKey?.introduceYouToo !== ""){
