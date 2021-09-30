@@ -980,6 +980,14 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
             this.shareableVideoURL = res.url;
             this.spinner.hide();
             if (this.shareableVideoURL) {
+              let systemUserId;
+              this.resumes.forEach((prof, index)=>{
+                if(prof.candidate_id && (prof.candidate_id.fullName == this.recipientName) && (prof.candidate_id.email == this.recipientEmail)){
+                  systemUserId = prof.candidate_id._id;
+                }else if(prof.candidateKey && (prof.candidateKey.fullName == this.recipientName) && (prof.candidateKey.email == this.recipientEmail)){
+                  systemUserId = prof.candidateKey._id;
+                }
+              });
               const payload = {
                 recruiterId: this.loggedUser._id,
                 resumeId: this.shareResume._id,
@@ -999,7 +1007,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
                 recipientName : this.recipientName,
                 onlyCandidate : true,
                 linkedIn : this.shareResume.linkedIn,
-                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id
+                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
+                systemUserId : systemUserId
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
