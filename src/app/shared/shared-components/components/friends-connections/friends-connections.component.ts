@@ -50,6 +50,9 @@ export class FriendsConnectionsComponent implements OnInit {
   comment2 = "";
   comment3 = "";
   candidateNameIs = "";
+
+  flag = false;
+  clients = [];
   
   constructor(
     private _userService: UserService,
@@ -160,6 +163,7 @@ export class FriendsConnectionsComponent implements OnInit {
     data.forEach((friend, index) => {
       if(friend.status === this._constants.asAFriend){
         this.friendsConnections = [friend, ...this.friendsConnections];
+        this.clients.push(friend.recipient?._id !== this.loggedInUser._id ? friend.recipient : friend.requester);
       }else if(friend.recipient._id == this.loggedInUser._id && friend.status === this._constants.asARequested){
         this.requestedFriendAre = [friend, ...this.requestedFriendAre];
       }
@@ -228,6 +232,7 @@ export class FriendsConnectionsComponent implements OnInit {
     this.bcc = this.loggedInUser.email ? this.loggedInUser.email : "";
     this.cc = this.cc + ", " + this.bcc;
     this.generateLink = true;
+    this.flag = false;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -409,6 +414,24 @@ export class FriendsConnectionsComponent implements OnInit {
         }
       );
     // got url
+  }
+
+  searchClient(term: string){
+    if(term == ""){
+      this.flag = false;
+    }else{
+      this.flag = true;
+    }
+  }
+
+  onselectClient(clientObj) {
+    if (clientObj) {
+      this.flag = false;
+      this.recipientName = clientObj.fullName;
+      this.recipientEmail = clientObj.email;
+    }else{
+      return false;
+    }
   }
 
   //unscubscribe the subscribed variables.
