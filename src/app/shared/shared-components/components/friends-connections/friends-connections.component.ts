@@ -99,8 +99,9 @@ export class FriendsConnectionsComponent implements OnInit {
         break;
       case this._constants.shareVideoViaRecruiterEmail:
         this.handleResponse(res.result);
+        break;
       case this._constants.connectedAsFriend:
-        this.friendsConnections = [res.data, ...this.friendsConnections]
+        this.friendsConnections = [res.data, ...this.friendsConnections];
         break;
       default:
         break;
@@ -362,6 +363,14 @@ export class FriendsConnectionsComponent implements OnInit {
 
             this.spinner.hide();
             if (this.shareableVideoURL) {
+              let systemUserId;
+              this.friendsConnections.forEach((prof, index)=>{
+                if(prof.recipient && (prof.recipient.fullName == this.recipientName) && (prof.recipient.email == this.recipientEmail)){
+                  systemUserId = prof.recipient._id;
+                }else if(prof.requester && (prof.requester.fullName == this.recipientName) && (prof.requester.email == this.recipientEmail)){
+                  systemUserId = prof.requester._id;
+                }
+              });
               const payload = {
                 recruiterId: this.loggedInUser._id,
                 resumeId: this.shareResume._id,
@@ -381,7 +390,8 @@ export class FriendsConnectionsComponent implements OnInit {
                 recipientName : this.recipientName,
                 onlyCandidate : true,
                 linkedIn : this.shareResume.linkedIn,
-                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id
+                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
+                systemUserId : systemUserId
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);

@@ -24,13 +24,23 @@
           </div>
 
           <div class="pro-4">
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline">
+            <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && !timeline.systemUserId">
               {{timeline.fromId.fullName}} intro'd {{timeline.profileUserId.fullName}}.
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.connectionRequest">
               {{timeline.fromId.fullName}} Connected to {{timeline.profileUserId.fullName}}.
             </span>
+
+            <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && timeline.systemUserId">
+              {{timeline.fromId.fullName}} intro'd {{timeline.profileUserId.fullName}} with {{timeline.systemUserId.fullName}} .
+            </span>
+
+            <ng-container *ngIf="timeline.systemUserId?.profileimage">
+              <div class="candProfile11">
+                <img [src] = "timeline.systemUserId?.profileimage" alt="profile" />
+              </div>
+            </ng-container>
 
             <ng-container *ngIf="!timeline.profileUserId.profileimage">
               <div class="candProfile11">
@@ -90,6 +100,34 @@
               <div class="pro-share" style="margin-top: 10px;">
                 <div class="">
                   <button class="connectBtn" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
+                    <a>
+                      <div class="icon-name">
+                        <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                        <span class="shareText"> Intro </span>
+                      </div>
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="text-align: center;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
+            <div class="" style="width: 50%; margin-left: auto; margin-right: auto;">
+              <span style="color: red;">
+                {{timeline.systemUserId.fullName}} :
+              </span>
+              <span>
+                {{timeline.candidateSystemUserId.introduceYouToo}}
+              </span>
+            </div>
+          </div>
+
+          <div class="row" style="text-align: center; margin-top: -20px;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
+            <div class="" style="width: 50%; margin-right: auto; margin-left: auto;">
+              <div class="pro-share" style="margin-top: 10px;">
+                <div class="">
+                  <button class="connectBtn" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
                     <a>
                       <div class="icon-name">
                         <i class="fa fa-share shared-icon" aria-hidden="true"></i>
