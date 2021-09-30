@@ -157,6 +157,9 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
   searchText = "onlyCandidateSearch";
 
+  flag = false;
+  clients = [];
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -357,6 +360,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     let introduceYouToo = this.myProfileContent ? this.myProfileContent.introduceYouToo?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.introduceYouToo?.trim().toLowerCase().split(",") : [];
     this.resumes.forEach((profile, index) => {
       let status = false;
+      this.clients.push(profile.candidateKey ? profile.candidateKey : profile.candidate_id ? profile.candidate_id : []);
       introduceYouToo.forEach((intro, index2) => {
         if(profile.candidateProfileKey){
           if(profile.candidateProfileKey?.introduceYouToo?.toLowerCase().indexOf(intro) !== -1 && profile.candidateProfileKey?.introduceYouToo !== ""){
@@ -824,6 +828,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     this.bcc = this.loggedUser.email ? this.loggedUser.email : "";
     this.cc = this.cc + ", " + this.bcc;
     this.generateLink = true;
+    this.flag = false;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -1414,6 +1419,24 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       this.comment3 = this.shareResume.comment3;
       jQuery("#shareEmailModal").modal("close");
       jQuery("#emaiPreviewModal").modal("open");
+    }
+  }
+
+  searchClient(term: string){
+    if(term == ""){
+      this.flag = false;
+    }else{
+      this.flag = true;
+    }
+  }
+
+  onselectClient(clientObj) {
+    if (clientObj) {
+      this.flag = false;
+      this.recipientName = clientObj.fullName;
+      this.recipientEmail = clientObj.email;
+    }else{
+      return false;
     }
   }
 

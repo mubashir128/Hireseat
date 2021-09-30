@@ -1153,3 +1153,13 @@ input {
   color: red;
   margin-right: 5px;
 }
+
+.search-result {
+  overflow: auto;
+  width: 100%;
+  position: absolute;
+  max-height: 120px;
+  background-color: white;
+  z-index: 1;
+  border: 1px solid black;
+}
