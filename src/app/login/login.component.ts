@@ -68,12 +68,13 @@ export class LoginComponent implements OnInit {
     this.status = null;
     var res = this.login.value;
     this.login = new FormGroup({
-      email: new FormControl(res.email, [
+      email: new FormControl(res.email.toLowerCase(), [
         Validators.required,
         Validators.email,
       ]),
       password: new FormControl(res.password, [Validators.required]),
     });
+    res = this.login.value;
     if (this.login.valid) {
       this._AuthService.login(res).subscribe(
         (data) => {
