@@ -222,7 +222,7 @@
   <div class="emailTemp">
     <div class="form-group posRel">
       <!-- <label>Receiver Name </label> -->
-      <input type="text" class="form-control inputCommReceiver" (keyup)="searchClient(recipientName)" [(ngModel)]="recipientName" placeholder="Receiver Name"/>
+      <input type="text" class="form-control inputCommReceiver" (keyup)="searchClient(recipientName)" (focusout)="closeClients($event)" [(ngModel)]="recipientName" placeholder="Receiver Name"/>
       <div class="search-result" *ngIf="flag">
         <ul>
           <li style="height: 35px; background-color: #D4D9DF; color: white;" *ngFor="let client of clients | searchByOnlyFullName : recipientName">

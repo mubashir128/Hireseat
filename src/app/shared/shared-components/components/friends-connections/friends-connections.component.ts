@@ -429,6 +429,12 @@ export class FriendsConnectionsComponent implements OnInit {
     }
   }
 
+  closeClients($event){
+    setTimeout(()=>{
+      this.flag = false;
+    }, 300);
+  }
+
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
     this.connectFriendObserver.unsubscribe();

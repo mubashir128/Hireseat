@@ -1440,6 +1440,12 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     }
   }
 
+  closeClients($event){
+    setTimeout(()=>{
+      this.flag = false;
+    }, 300);
+  }
+
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.onlyForCandidateSharedProfileType });
     this.onlyForCandidateSharedProfileObserver.unsubscribe();
