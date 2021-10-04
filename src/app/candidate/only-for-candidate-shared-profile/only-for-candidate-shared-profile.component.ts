@@ -357,17 +357,19 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   sortProfilesByConpanies(){
-    let introduceYouToo = this.myProfileContent ? this.myProfileContent.introduceYouToo?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.introduceYouToo?.trim().toLowerCase().split(",") : [];
+    // let introduceYouToo = this.myProfileContent ? this.myProfileContent.introduceYouToo?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.introduceYouToo?.trim().toLowerCase().split(",") : [];
+    let desiredCompanies = this.myProfileContent ? this.myProfileContent.desiredCompanies?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.desiredCompanies?.trim().toLowerCase().split(",") : [];
     this.resumes.forEach((profile, index) => {
       let status = false;
       this.clients.push(profile.candidateKey ? profile.candidateKey : profile.candidate_id ? profile.candidate_id : {});
-      introduceYouToo.forEach((intro, index2) => {
+      // introduceYouToo.forEach((intro, index2) => {
+      desiredCompanies.forEach((intro, index2) => {
         if(profile.candidateProfileKey){
-          if(profile.candidateProfileKey?.introduceYouToo?.toLowerCase().indexOf(intro) !== -1 && profile.candidateProfileKey?.introduceYouToo !== ""){
+          if(profile.candidateProfileKey?.desiredCompanies?.toLowerCase().indexOf(intro) !== -1 && profile.candidateProfileKey?.desiredCompanies !== ""){
             status = true;
           }
-        }else if(profile.introduceYouToo){
-          if(profile.introduceYouToo?.toLowerCase().indexOf(intro) !== -1 && profile.introduceYouToo !== ""){
+        }else if(profile.desiredCompanies){
+          if(profile.desiredCompanies?.toLowerCase().indexOf(intro) !== -1 && profile.desiredCompanies !== ""){
             status = true;
           }
         }

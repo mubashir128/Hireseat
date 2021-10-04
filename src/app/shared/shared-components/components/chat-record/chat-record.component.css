@@ -497,3 +497,10 @@ a {
   background: red;
   white-space: nowrap;
 }
+
+.groupNoMore {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+}
