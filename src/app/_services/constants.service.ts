@@ -120,6 +120,9 @@ export class ConstantsService {
   deleteGroupChat;
   deleteGroupChatNoteMessage;
 
+  generalEmailIntro;
+  offerEmailIntro;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -315,6 +318,9 @@ export class ConstantsService {
     this.leftGroupChat = obj.leftGroupChat;
     this.deleteGroupChat = obj.deleteGroupChat;
     this.deleteGroupChatNoteMessage = obj.deleteGroupChatNoteMessage;
+
+    this.generalEmailIntro = obj.generalEmailIntro;
+    this.offerEmailIntro = obj.offerEmailIntro;
   }
 
 }

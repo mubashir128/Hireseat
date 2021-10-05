@@ -38,6 +38,8 @@ import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { CandidateCarrerService } from "src/app/_services/candidate-carrer.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { Router } from "@angular/router";
+import * as myGlobals from "../../globalPath";
+
 const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
@@ -154,11 +156,15 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   comment2 = "";
   comment3 = "";
   candidateNameIs = "";
+  senderName = "";
+  companies = "";
 
   searchText = "onlyCandidateSearch";
 
   flag = false;
   clients = [];
+
+  linedIn = "";
 
   constructor(
     private resumeService: ResumeService,
@@ -1405,7 +1411,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   connected(resume){
-    console.log("connected : ");
     Materialize.toast("Already Connected !...", 1000, "green");
   }
 
@@ -1446,6 +1451,85 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     setTimeout(()=>{
       this.flag = false;
     }, 300);
+  }
+
+  generalEmailIntro(){
+    if(this.recipientName == ""){
+      Materialize.toast("Please fill recipient name", 800, "res");
+    }else if(this.recipientEmail == ""){
+      Materialize.toast("Please fill email field", 800, "res");
+    }else{
+      this.senderName = this.loggedUser.fullName;
+      this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+      this.linedIn = this.shareResume.linkedIn;
+      jQuery("#shareEmailModal").modal("close");
+      jQuery("#generalEmaiPreviewModal").modal("open");
+    }
+  }
+
+  generalEmailIntroSend(){
+    let payload = {
+      recipientEmail : this.recipientEmail,
+      fullName : this.candidateNameIs,
+      senderName : this.senderName,
+      recipientName : this.recipientName,
+      cc: this.cc,
+      bcc: this.bcc,
+      linkedIn : this.linedIn,
+      emailType : this._constants.generalEmailIntro
+    };
+    
+    this.spinner.show();
+    this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
+      (res) => {
+        if (res.msg) {
+          Materialize.toast(res.msg, 3000, "green");
+        } else {
+          Materialize.toast(res.err, 3000, "red");
+        }
+        jQuery("#generalEmaiPreviewModal").modal("close");
+        this.spinner.hide();
+    }, (err) => {
+      Materialize.toast(err.err, 3000, "red");
+    });
+  }
+
+  offerEmailIntro(){
+    this.senderName = this.loggedUser.fullName;
+    this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    this.recipientName = this.candidateNameIs;
+    this.recipientEmail = this.shareResume.resumeType ? this.shareResume.email : this.shareResume.candidate_id.email;
+    this.linedIn = this.shareResume.linkedIn;
+    jQuery("#shareEmailModal").modal("close");
+    jQuery("#offerEmailIntroModal").modal("open");
+  }
+
+  offerEmailIntroSend(){
+    let payload = {
+      recipientEmail : this.recipientEmail,
+      fullName : this.candidateNameIs,
+      cc : "",
+      senderName : this.loggedUser.fullName,
+      recipientName : this.recipientName,
+      linkedIn : this.linedIn,
+      companies : this.companies,
+      emailType : this._constants.offerEmailIntro,
+      chatLink : myGlobals.chatRedirectUrl + this.loggedUser.userRole + "/chat-record/" + this.loggedUser._id
+    };
+
+    this.spinner.show();
+    this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
+      (res) => {
+        if (res.msg) {
+          Materialize.toast(res.msg, 3000, "green");
+        } else {
+          Materialize.toast(res.err, 3000, "red");
+        }
+        jQuery("#offerEmailIntroModal").modal("close");
+        this.spinner.hide();
+    }, (err) => {
+      Materialize.toast(err.err, 3000, "red");
+    });
   }
 
   ngOnDestroy() {

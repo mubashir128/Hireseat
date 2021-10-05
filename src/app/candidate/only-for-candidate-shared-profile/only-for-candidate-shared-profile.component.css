@@ -1103,7 +1103,7 @@ a.videoCloseBtn {
   font-size: 13px;
 }
 
-#emaiPreviewModal{
+#emaiPreviewModal, #generalEmaiPreviewModal, #offerEmailIntroModal{
   padding: 20px;
 }
 

@@ -55,4 +55,14 @@ export class ShareVideoService {
       );
   }
 
+  sendCandidateMailToUsers(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/sendCandidateMailToUsers", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
 }
