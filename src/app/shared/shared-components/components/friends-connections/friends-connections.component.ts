@@ -50,6 +50,9 @@ export class FriendsConnectionsComponent implements OnInit {
   comment2 = "";
   comment3 = "";
   candidateNameIs = "";
+
+  flag = false;
+  clients = [];
   
   constructor(
     private _userService: UserService,
@@ -96,8 +99,9 @@ export class FriendsConnectionsComponent implements OnInit {
         break;
       case this._constants.shareVideoViaRecruiterEmail:
         this.handleResponse(res.result);
+        break;
       case this._constants.connectedAsFriend:
-        this.friendsConnections = [res.data, ...this.friendsConnections]
+        this.friendsConnections = [res.data, ...this.friendsConnections];
         break;
       default:
         break;
@@ -160,6 +164,7 @@ export class FriendsConnectionsComponent implements OnInit {
     data.forEach((friend, index) => {
       if(friend.status === this._constants.asAFriend){
         this.friendsConnections = [friend, ...this.friendsConnections];
+        this.clients.push(friend.recipient?._id !== this.loggedInUser._id ? friend.recipient : friend.requester);
       }else if(friend.recipient._id == this.loggedInUser._id && friend.status === this._constants.asARequested){
         this.requestedFriendAre = [friend, ...this.requestedFriendAre];
       }
@@ -228,6 +233,7 @@ export class FriendsConnectionsComponent implements OnInit {
     this.bcc = this.loggedInUser.email ? this.loggedInUser.email : "";
     this.cc = this.cc + ", " + this.bcc;
     this.generateLink = true;
+    this.flag = false;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -357,6 +363,14 @@ export class FriendsConnectionsComponent implements OnInit {
 
             this.spinner.hide();
             if (this.shareableVideoURL) {
+              let systemUserId;
+              this.friendsConnections.forEach((prof, index)=>{
+                if(prof.recipient && (prof.recipient.fullName == this.recipientName) && (prof.recipient.email == this.recipientEmail)){
+                  systemUserId = prof.recipient._id;
+                }else if(prof.requester && (prof.requester.fullName == this.recipientName) && (prof.requester.email == this.recipientEmail)){
+                  systemUserId = prof.requester._id;
+                }
+              });
               const payload = {
                 recruiterId: this.loggedInUser._id,
                 resumeId: this.shareResume._id,
@@ -376,7 +390,8 @@ export class FriendsConnectionsComponent implements OnInit {
                 recipientName : this.recipientName,
                 onlyCandidate : true,
                 linkedIn : this.shareResume.linkedIn,
-                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id
+                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
+                systemUserId : systemUserId
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
@@ -409,6 +424,30 @@ export class FriendsConnectionsComponent implements OnInit {
         }
       );
     // got url
+  }
+
+  searchClient(term: string){
+    if(term == ""){
+      this.flag = false;
+    }else{
+      this.flag = true;
+    }
+  }
+
+  onselectClient(clientObj) {
+    if (clientObj) {
+      this.flag = false;
+      this.recipientName = clientObj.fullName;
+      this.recipientEmail = clientObj.email;
+    }else{
+      return false;
+    }
+  }
+
+  closeClients($event){
+    setTimeout(()=>{
+      this.flag = false;
+    }, 300);
   }
 
   //unscubscribe the subscribed variables.

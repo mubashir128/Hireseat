@@ -122,6 +122,13 @@ export class ConstantsService {
   actualTimeline;
   
   connectedAsFriend;
+  deleteUserChat;
+  leftGroupChat;
+  deleteGroupChat;
+  deleteGroupChatNoteMessage;
+
+  generalEmailIntro;
+  offerEmailIntro;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -321,6 +328,13 @@ export class ConstantsService {
     this.actualTimeline = obj.actualTimeline;
 
     this.connectedAsFriend = obj.connectedAsFriend;
+    this.deleteUserChat = obj.deleteUserChat;
+    this.leftGroupChat = obj.leftGroupChat;
+    this.deleteGroupChat = obj.deleteGroupChat;
+    this.deleteGroupChatNoteMessage = obj.deleteGroupChatNoteMessage;
+
+    this.generalEmailIntro = obj.generalEmailIntro;
+    this.offerEmailIntro = obj.offerEmailIntro;
   }
 
 }

@@ -21,7 +21,7 @@
     <input type="text" id="searchText" [(ngModel)]="searchTerm" placeholder="Search here..." #searchInputTerm>
   </div>
 
-  <div>
+  <div style="margin-bottom: 50px;">
     <ul id="bidding-event-list" style="margin-top:8px;">
       <li *ngFor="
           let user of userList | paginate: { itemsPerPage: itemsPerPageAre, currentPage: p }

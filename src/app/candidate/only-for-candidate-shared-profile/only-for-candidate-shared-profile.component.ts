@@ -38,6 +38,8 @@ import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { CandidateCarrerService } from "src/app/_services/candidate-carrer.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import * as myGlobals from "../../globalPath";
+
 const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
@@ -154,10 +156,16 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   comment2 = "";
   comment3 = "";
   candidateNameIs = "";
+  senderName = "";
+  companies = "";
 
   searchText = "onlyCandidateSearch";
 
   requstedProfileId;
+  flag = false;
+  clients = [];
+
+  linedIn = "";
 
   constructor(
     private resumeService: ResumeService,
@@ -363,16 +371,19 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   sortProfilesByConpanies(){
-    let introduceYouToo = this.myProfileContent ? this.myProfileContent.introduceYouToo?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.introduceYouToo?.trim().toLowerCase().split(",") : [];
+    // let introduceYouToo = this.myProfileContent ? this.myProfileContent.introduceYouToo?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.introduceYouToo?.trim().toLowerCase().split(",") : [];
+    let desiredCompanies = this.myProfileContent ? this.myProfileContent.desiredCompanies?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.desiredCompanies?.trim().toLowerCase().split(",") : [];
     this.resumes.forEach((profile, index) => {
       let status = false;
-      introduceYouToo.forEach((intro, index2) => {
+      this.clients.push(profile.candidateKey ? profile.candidateKey : profile.candidate_id ? profile.candidate_id : {});
+      // introduceYouToo.forEach((intro, index2) => {
+      desiredCompanies.forEach((intro, index2) => {
         if(profile.candidateProfileKey){
-          if(profile.candidateProfileKey?.introduceYouToo?.toLowerCase().indexOf(intro) !== -1 && profile.candidateProfileKey?.introduceYouToo !== ""){
+          if(profile.candidateProfileKey?.desiredCompanies?.toLowerCase().indexOf(intro) !== -1 && profile.candidateProfileKey?.desiredCompanies !== ""){
             status = true;
           }
-        }else if(profile.introduceYouToo){
-          if(profile.introduceYouToo?.toLowerCase().indexOf(intro) !== -1 && profile.introduceYouToo !== ""){
+        }else if(profile.desiredCompanies){
+          if(profile.desiredCompanies?.toLowerCase().indexOf(intro) !== -1 && profile.desiredCompanies !== ""){
             status = true;
           }
         }
@@ -844,6 +855,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     this.bcc = this.loggedUser.email ? this.loggedUser.email : "";
     this.cc = this.cc + ", " + this.bcc;
     this.generateLink = true;
+    this.flag = false;
     jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
   }
@@ -976,6 +988,14 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
             this.shareableVideoURL = res.url;
             this.spinner.hide();
             if (this.shareableVideoURL) {
+              let systemUserId;
+              this.resumes.forEach((prof, index)=>{
+                if(prof.candidate_id && (prof.candidate_id.fullName == this.recipientName) && (prof.candidate_id.email == this.recipientEmail)){
+                  systemUserId = prof.candidate_id._id;
+                }else if(prof.candidateKey && (prof.candidateKey.fullName == this.recipientName) && (prof.candidateKey.email == this.recipientEmail)){
+                  systemUserId = prof.candidateKey._id;
+                }
+              });
               const payload = {
                 recruiterId: this.loggedUser._id,
                 resumeId: this.shareResume._id,
@@ -995,7 +1015,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
                 recipientName : this.recipientName,
                 onlyCandidate : true,
                 linkedIn : this.shareResume.linkedIn,
-                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id
+                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
+                systemUserId : systemUserId
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
@@ -1419,7 +1440,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   connected(resume){
-    console.log("connected : ");
     Materialize.toast("Already Connected !...", 1000, "green");
   }
 
@@ -1436,6 +1456,109 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       jQuery("#shareEmailModal").modal("close");
       jQuery("#emaiPreviewModal").modal("open");
     }
+  }
+
+  searchClient(term: string){
+    if(term == ""){
+      this.flag = false;
+    }else{
+      this.flag = true;
+    }
+  }
+
+  onselectClient(clientObj) {
+    if (clientObj) {
+      this.flag = false;
+      this.recipientName = clientObj.fullName;
+      this.recipientEmail = clientObj.email;
+    }else{
+      return false;
+    }
+  }
+
+  closeClients($event){
+    setTimeout(()=>{
+      this.flag = false;
+    }, 300);
+  }
+
+  generalEmailIntro(){
+    if(this.recipientName == ""){
+      Materialize.toast("Please fill recipient name", 800, "res");
+    }else if(this.recipientEmail == ""){
+      Materialize.toast("Please fill email field", 800, "res");
+    }else{
+      this.senderName = this.loggedUser.fullName;
+      this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+      this.linedIn = this.shareResume.linkedIn;
+      jQuery("#shareEmailModal").modal("close");
+      jQuery("#generalEmaiPreviewModal").modal("open");
+    }
+  }
+
+  generalEmailIntroSend(){
+    let payload = {
+      recipientEmail : this.recipientEmail,
+      fullName : this.candidateNameIs,
+      senderName : this.senderName,
+      recipientName : this.recipientName,
+      cc: this.cc,
+      bcc: this.bcc,
+      linkedIn : this.linedIn,
+      emailType : this._constants.generalEmailIntro
+    };
+    
+    this.spinner.show();
+    this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
+      (res) => {
+        if (res.msg) {
+          Materialize.toast(res.msg, 3000, "green");
+        } else {
+          Materialize.toast(res.err, 3000, "red");
+        }
+        jQuery("#generalEmaiPreviewModal").modal("close");
+        this.spinner.hide();
+    }, (err) => {
+      Materialize.toast(err.err, 3000, "red");
+    });
+  }
+
+  offerEmailIntro(){
+    this.senderName = this.loggedUser.fullName;
+    this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    this.recipientName = this.candidateNameIs;
+    this.recipientEmail = this.shareResume.resumeType ? this.shareResume.email : this.shareResume.candidate_id.email;
+    this.linedIn = this.shareResume.linkedIn;
+    jQuery("#shareEmailModal").modal("close");
+    jQuery("#offerEmailIntroModal").modal("open");
+  }
+
+  offerEmailIntroSend(){
+    let payload = {
+      recipientEmail : this.recipientEmail,
+      fullName : this.candidateNameIs,
+      cc : "",
+      senderName : this.loggedUser.fullName,
+      recipientName : this.recipientName,
+      linkedIn : this.linedIn,
+      companies : this.companies,
+      emailType : this._constants.offerEmailIntro,
+      chatLink : myGlobals.chatRedirectUrl + this.loggedUser.userRole + "/chat-record/" + this.loggedUser._id
+    };
+
+    this.spinner.show();
+    this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
+      (res) => {
+        if (res.msg) {
+          Materialize.toast(res.msg, 3000, "green");
+        } else {
+          Materialize.toast(res.err, 3000, "red");
+        }
+        jQuery("#offerEmailIntroModal").modal("close");
+        this.spinner.hide();
+    }, (err) => {
+      Materialize.toast(err.err, 3000, "red");
+    });
   }
 
   ngOnDestroy() {
