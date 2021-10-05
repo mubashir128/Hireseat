@@ -23,6 +23,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   messageIs: any;
 
   userMessages: any;
+  userChatId;
 
   userChatMessageObserver = new Subject();
   userChatMessageObserver$ = this.userChatMessageObserver.asObservable();
@@ -48,6 +49,8 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
   allNewMembers = [];
   addNewGrpMembers = [];
+
+  groupIsMore = true;
   
   constructor(private route: ActivatedRoute, 
     private router: Router, 
@@ -129,16 +132,18 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
       case this._constants.getAllChats:
         if (res.data) {
           this.userMessages = res.data;
+          this.userChatId = this.userMessages._id;
+          this.insertTwoWayChatSettingList();
         }
         break;
       case this._constants.getAllGroupChats:
         if (res.data) {
           this.groupMessages = res.data;
           this.user = this.groupMessages;
-          this.insertSettingList();
+          this.insertGroupSettingList();
           this.insertGrpMembers();
           this.getAllUsers();
-          this.setProfilePicture();
+          this.setGroupProfilePicture();
         }
         break;
       case this._constants.addNewChat:
@@ -181,12 +186,38 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
         this.allUpdateGrpMembers = res.data;
         this.addAllNewMembers();
         break;
+      case this._constants.deleteUserChat:
+        if(res.data){
+          Materialize.toast("Chat deleted sucessfully...", 700, "green");
+          this.backToChat();
+        }
+        break;
+      case this._constants.leftGroupChat:
+        if(res.data){
+          Materialize.toast("Lefted from group sucessfully...", 700, "green");
+          this.backToChat();
+        }
+        break;
+      case this._constants.deleteGroupChat:
+        if(res.data){
+          Materialize.toast("Permantly deleted group...", 700, "green");
+          this.backToChat();
+        }
+        break;
+      case this._constants.deleteGroupChatNoteMessage:
+        if(res.data){
+          Materialize.toast("This group is no more available...", 700, "red");
+          // this.backToChat();
+          this.groupIsMore = false;
+          jQuery(".right-chat").css("display","none");
+        }
+        break;
       default:
         break;
     }
   }
 
-  setProfilePicture(){
+  setGroupProfilePicture(){
     this.imgURL = this.groupMessages.profileimage;
   }
 
@@ -221,7 +252,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     });
   }
 
-  insertSettingList(){
+  insertGroupSettingList(){
     this.settingLists = [{
       id : 1,
       status : true,
@@ -234,6 +265,26 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
       id : 3,
       status : true,
       name : "Upload Profile Picture"
+    },{
+      id : 4,
+      status : (this.loggedInUser._id == this.user.createdBy?._id),
+      name : "Delete Group Chat Permanantly"
+    },{
+      id : 5,
+      status : true,
+      name : "Left Group Chat"
+    }];
+  }
+
+  insertTwoWayChatSettingList(){
+    this.settingLists = [{
+      id : 11,
+      status : true,
+      name : "Create Group"
+    },{
+      id : 22,
+      status : true,
+      name : "Delete Chat"
     }];
   }
 
@@ -312,8 +363,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   }
 
   twoWayChatsetting(){
-    let userData = (this.userMessages.user1._id == this.loggedInUser._id) ? this.userMessages.user2 : this.userMessages.user1;
-    this.router.navigate(["/"+this.loggedInUser.userRole+"/user-chat"], { queryParams: { groupChatActive : 3, openCreateGroupModal : true, userData :  JSON.stringify(userData) }});
+    this.openSettingModal();
   }
 
   setting(){
@@ -339,10 +389,70 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
         break ;
       case 3 : 
         this.openUpdateProfilePictureModal();
+        break;
+      case 4 : 
+        //Delete Group Chat Permanantly
+        this.deleteGroupChat();;
+        break;
+      case 5 : 
+        // Left Group Chat
+        this.leftGroupChat();
+        break;
+      case 11 : 
+        this.gotoCreateGroup();
         break ;
+      case 22 : 
+        this.deleteUserChat();
+        break
       default : 
         break ;
     }
+  }
+
+  leftGroupChat(){
+    let payload = {
+      receiverId: this.receiverId,
+    }
+
+    this._socket.sendMessage({
+      type: this._constants.userChatMessageType,
+      data: {
+        subType: this._constants.leftGroupChat,
+        payload : payload
+      },
+    });
+  }
+
+  deleteGroupChat(){
+    let payload = {
+      receiverId: this.receiverId,
+    }
+
+    this._socket.sendMessage({
+      type: this._constants.userChatMessageType,
+      data: {
+        subType: this._constants.deleteGroupChat,
+        payload : payload
+      },
+    });
+  }
+
+  deleteUserChat(){
+    let payload = {
+      userChatId: this.userChatId,
+    }
+    this._socket.sendMessage({
+      type: this._constants.userChatMessageType,
+      data: {
+        subType: this._constants.deleteUserChat,
+        payload : payload
+      },
+    });
+  }
+
+  gotoCreateGroup(){
+    let userData = (this.userMessages.user1._id == this.loggedInUser._id) ? this.userMessages.user2 : this.userMessages.user1;
+    this.router.navigate(["/"+this.loggedInUser.userRole+"/user-chat"], { queryParams: { groupChatActive : 3, openCreateGroupModal : true, userData :  JSON.stringify(userData) }});
   }
 
   openMembersModal() {

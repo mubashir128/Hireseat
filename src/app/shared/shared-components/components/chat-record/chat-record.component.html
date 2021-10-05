@@ -22,10 +22,10 @@
       </div>
 
       <div class="col s2 m2 l2 addMember" *ngIf = "!groupChat">
-        <i class="fa fa-plus" style="color: black;" aria-hidden="true" (click) = "twoWayChatsetting()"></i>
+        <i class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "twoWayChatsetting()"></i>
       </div>
 
-      <div class="col s2 m2 l2 addMember" *ngIf = "groupChat">
+      <div class="col s2 m2 l2 addMember" *ngIf = "groupChat && groupIsMore">
         <i class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "setting()"></i>
       </div>
     </div>
@@ -125,6 +125,11 @@
       <a (click)="sendChatMessage(messageIs)" class="send">Send</a>
     </div>
   </div>
+
+  <div class="groupNoMore" *ngIf = "!groupIsMore">
+    This group is not more...
+  </div>
+
 </ng-container>
 
 <div id="showImage" class="modal">
@@ -153,7 +158,7 @@
   <div class="membersClass" *ngIf = "groupChat">
     <i (click)="closeMembersModal()" style="float: right;" class="fa fa-times" aria-hidden="true"></i>
     <div class="member">
-      <span>Members : </span>
+      <span>Members : ( CreateBy : {{ groupMessages.createdBy._id == loggedInUser._id ? 'You' : groupMessages.createdBy.fullName}} )</span>
       <div class="makeDiff">
         <ng-container *ngFor="let member of groupMessages.members">
           <div class="chat-profile-item addUserUI" *ngIf = "member.memberId._id !== loggedInUser._id">

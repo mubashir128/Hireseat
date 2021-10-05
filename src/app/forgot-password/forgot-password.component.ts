@@ -17,23 +17,23 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.forgotPassfrm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required,Validators.email])]      
-      });
+      email: ['', Validators.compose([Validators.required,Validators.email])]
+    });
   }
 
   get f() { return this.forgotPassfrm.controls; }
 
-  onSubmit(){    
+  onSubmit(){
     if(this.forgotPassfrm.valid){
-      this.userService.forgotPassword(this.forgotPassfrm.value.email).subscribe((data:any)=>{        
+      this.userService.forgotPassword(this.forgotPassfrm.value.email.toLowerCase()).subscribe((data:any)=>{
         if(data.result == "email id not present"){
           Materialize.toast('Email id is not Register',1000,'rounded');
-        }else if(data.result == "present"){  
+        }else if(data.result == "present"){
           this.isLinkSend=true;
         }
       },(error)=>{
         console.log(error);
-      })
+      });
     }
   }
 }
