@@ -369,9 +369,8 @@ button.sendBtn {
   cursor: pointer;
 }
 
-
-#emaiPreviewModal{
-  padding: 30px;
+#emaiPreviewModal, #generalEmaiPreviewModal, #offerEmailIntroModal{
+  padding: 20px;
 }
 
 input {

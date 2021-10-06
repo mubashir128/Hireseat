@@ -10,6 +10,8 @@ import { VideoCallingService } from 'src/app/_services/video-calling.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Plugins } from '@capacitor/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as myGlobals from "../../../../globalPath";
+
 const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
@@ -50,9 +52,13 @@ export class FriendsConnectionsComponent implements OnInit {
   comment2 = "";
   comment3 = "";
   candidateNameIs = "";
+  senderName = "";
+  companies = "";
 
   flag;
   clients = [];
+
+  linedIn = "";
   
   constructor(
     private _userService: UserService,
@@ -433,6 +439,85 @@ export class FriendsConnectionsComponent implements OnInit {
     setTimeout(()=>{
       this.flag = false;
     }, 300);
+  }
+
+  generalEmailIntro(){
+    if(this.recipientName == ""){
+      Materialize.toast("Please fill recipient name", 800, "res");
+    }else if(this.recipientEmail == ""){
+      Materialize.toast("Please fill email field", 800, "res");
+    }else{
+      this.senderName = this.loggedInUser.fullName;
+      this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+      this.linedIn = this.shareResume.linkedIn;
+      jQuery("#shareEmailModal").modal("close");
+      jQuery("#generalEmaiPreviewModal").modal("open");
+    }
+  }
+
+  generalEmailIntroSend(){
+    let payload = {
+      recipientEmail : this.recipientEmail,
+      fullName : this.candidateNameIs,
+      senderName : this.senderName,
+      recipientName : this.recipientName,
+      cc: this.cc,
+      bcc: this.bcc,
+      linkedIn : this.linedIn,
+      emailType : this._constants.generalEmailIntro
+    };
+    
+    this.spinner.show();
+    this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
+      (res) => {
+        if (res.msg) {
+          Materialize.toast(res.msg, 3000, "green");
+        } else {
+          Materialize.toast(res.err, 3000, "red");
+        }
+        jQuery("#generalEmaiPreviewModal").modal("close");
+        this.spinner.hide();
+    }, (err) => {
+      Materialize.toast(err.err, 3000, "red");
+    });
+  }
+
+  offerEmailIntro(){
+    this.senderName = this.loggedInUser.fullName;
+    this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    this.recipientName = this.candidateNameIs;
+    this.recipientEmail = this.shareResume.resumeType ? this.shareResume.email : this.shareResume.candidate_id.email;
+    this.linedIn = this.shareResume.linkedIn;
+    jQuery("#shareEmailModal").modal("close");
+    jQuery("#offerEmailIntroModal").modal("open");
+  }
+
+  offerEmailIntroSend(){
+    let payload = {
+      recipientEmail : this.recipientEmail,
+      fullName : this.candidateNameIs,
+      cc : "",
+      senderName : this.loggedInUser .fullName,
+      recipientName : this.recipientName,
+      linkedIn : this.linedIn,
+      companies : this.companies,
+      emailType : this._constants.offerEmailIntro,
+      chatLink : myGlobals.chatRedirectUrl + this.loggedInUser.userRole + "/chat-record/" + this.loggedInUser._id
+    };
+
+    this.spinner.show();
+    this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
+      (res) => {
+        if (res.msg) {
+          Materialize.toast(res.msg, 3000, "green");
+        } else {
+          Materialize.toast(res.err, 3000, "red");
+        }
+        jQuery("#offerEmailIntroModal").modal("close");
+        this.spinner.hide();
+    }, (err) => {
+      Materialize.toast(err.err, 3000, "red");
+    });
   }
 
   //unscubscribe the subscribed variables.
