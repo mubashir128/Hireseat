@@ -292,9 +292,20 @@
         <button class="sendBtn spaceBetOn" (click)="generateLinkForVideo()">Copy Link</button>
       </div>
       <div class="" style="width: 45%; float: left;">
-        <button class="sendBtn spaceBet introStyle" *ngIf="loggedInUser.userRole == 'candidate'" (click)="introduceUser()">Email Preview</button>
+        <button class="sendBtn spaceBet introStyle" (click)="introduceUser()">Email Preview</button>
       </div>
     </div>
+
+    <div class="row form-group">
+      <!-- <button class="sendBtn spaceBet" (click)="share(false)">Send Email</button> -->
+      <div class="" style="width: 55%; float: left;">
+        <button class="sendBtn" (click)="generalEmailIntro()">General Email Intro</button>
+      </div>
+      <div class="" style="width: 45%; float: left;">
+        <button class="sendBtn spaceBet introStyle" (click)="offerEmailIntro()">Offer Email Intro</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -330,7 +341,56 @@
 
   <div>
     <div class="form-group textRight">
-      <button class="sendBtn spaceBet introStyle" *ngIf="loggedInUser.userRole == 'candidate'" (click)="share(true)">Introduce</button>
+      <button class="sendBtn spaceBet introStyle" (click)="share(true)">Introduce</button>
+    </div>
+  </div>
+</div>
+
+<div id="generalEmaiPreviewModal" class="modal">
+  <div>
+    <span>Email Preview...</span>
+  </div>
+  <div class="ccBcc">
+    <ul>
+      <li><label for="">Receiver Name</label>  <input type="text" placeholder="receiver name..." [(ngModel)]="recipientName"> </li>
+      <li><label for="">To</label>  <input type="text" placeholder="to..." [(ngModel)]="recipientEmail"> </li>
+      <li><label for="">CC</label>  <input type="text" placeholder="cc..." [(ngModel)]="cc"> </li>
+      <!-- <li><label for="">BCC</label>  <input type="text" placeholder="bcc..." [(ngModel)]="bcc"> </li> -->
+   </ul>
+  </div>
+  <div class="email">
+    <p> <span>Hi<input type="text" placeholder="User..." [(ngModel)]="recipientName"></span> , </p>
+    <p>I just wanted to introduce you to <input type="text" placeholder="introduce..." [(ngModel)]="candidateNameIs" >, I think there are a lot of opportunities and synergies that the two of you may find mutually beneficial. I will let the both of you take it from here but I just wanted to make the connection.</p>
+  </div>
+  <div class="email">
+    <p>Thanks,</p>
+    <input type="text" placeholder="Sender..." class="maar-none" [(ngModel)]="senderName">
+    <p>LinkedIn link : <input type="text" style="width: 60% !important;" placeholder="linked in link..." [(ngModel)]="linedIn" ></p>
+  </div>
+
+  <div>
+    <div class="form-group textRight">
+      <button class="sendBtn spaceBet introStyle" (click)="generalEmailIntroSend()">Introduce</button>
+    </div>
+  </div>
+</div>
+
+<div id="offerEmailIntroModal" class="modal">
+  <div>
+    <span>Email Preview...</span>
+  </div>
+  <div class="email">
+    <p> <span>Hi<input type="text" placeholder="User..." [(ngModel)]="recipientName"></span> , </p>
+    <p>{{senderName}} as offered to intro you to a contact at <input type="text" placeholder="companies..." [(ngModel)]="companies" ></p>
+  </div>
+  <div class="email">
+    <p>Thanks,</p>
+    <input type="text" placeholder="Sender..." class="maar-none" [(ngModel)]="senderName">
+  </div>
+
+  <div>
+    <div class="form-group textRight">
+      <button class="sendBtn spaceBet introStyle" (click)="offerEmailIntroSend()">Introduce</button>
     </div>
   </div>
 </div>
