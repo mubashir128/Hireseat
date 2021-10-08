@@ -272,7 +272,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     },{
       id : 5,
       status : true,
-      name : "Left Group Chat"
+      name : "Leave Group Chat"
     }];
   }
 

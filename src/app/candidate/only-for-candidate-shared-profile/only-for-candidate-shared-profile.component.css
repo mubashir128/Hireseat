@@ -1148,3 +1148,40 @@ input {
   font-size: 15px;
   margin-right: 5px;
 }
+
+.eductionn-tab {
+  display: block;
+}
+
+.eduction-blue {
+  background:#00b0f0;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  width:45%;
+  float: left;
+  margin-right: 15px;
+  height: 113px;
+}
+
+.eduction-blue h6 {
+  font-size: 16px;
+  color:#fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.padd-40 {
+  padding-top: 40px !important;
+}
+
+.padd-30 {
+  padding-top: 30px !important;
+}
+
+.eduPage {
+  margin-bottom: 100px;
+}
+
+.autoClass {
+  padding: 0px !important;
+}
