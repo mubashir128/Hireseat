@@ -287,22 +287,24 @@
       <label>BCC </label>
       <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
     </div> -->
-    <div class="row form-group textRight">
-      <div class="" style="width: 55%; float: left;">
-        <button class="sendBtn spaceBetOn" (click)="generateLinkForVideo()">Copy Link</button>
-      </div>
-      <div class="" style="width: 45%; float: left;">
-        <button class="sendBtn spaceBet introStyle" (click)="introduceUser()">Email Preview</button>
+    <div class="row form-group autoClass">
+      <div class="" style="float: right;">
+        <button class="sendBtn introStyle" (click)="offerEmailIntro()">Offer Intro</button>
       </div>
     </div>
 
-    <div class="row form-group">
-      <!-- <button class="sendBtn spaceBet" (click)="share(false)">Send Email</button> -->
+    <div class="row form-group autoClass" style="margin-top: -25px;">
       <div class="" style="width: 55%; float: left;">
-        <button class="sendBtn" (click)="generalEmailIntro()">General Email Intro</button>
+        <button class="sendBtn" (click)="generalEmailIntro()">General Referral Intro</button>
       </div>
-      <div class="" style="width: 45%; float: left;">
-        <button class="sendBtn spaceBet introStyle" (click)="offerEmailIntro()">Offer Email Intro</button>
+      <div class="" style="width: 45%; float: left; border-left: 2px solid white;">
+        <button class="sendBtn" (click)="introduceUser()">Career Referral Intro</button>
+      </div>
+    </div>
+
+    <div class="row form-group autoClass" style="margin-top: -25px;">
+      <div class="" style="float: right;">
+        <button class="sendBtn" (click)="generateLinkForVideo()">Copy Link Intro</button>
       </div>
     </div>
 
