@@ -166,6 +166,9 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
   linedIn = "";
 
+  showResult = false;
+  searchIndustry = "";
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -431,8 +434,14 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
       if (res) {
         this.industriesAre = res.industries;
+        this.industriesAre = [{_id : 1121, name : "All"}, ...this.industriesAre];
       }
     });
+  }
+
+  industryClick(type){
+    this.searchIndustry = type.trim().toLowerCase();
+    this.showResult = true;
   }
 
   addCommentToCommets(res) {
@@ -805,7 +814,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
         (res) => {
           if (res) {
             this.resumes = res;
-            console.log(this.resumes);
           }
         },
         (err) => { }
@@ -1530,6 +1538,10 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     }, (err) => {
       Materialize.toast(err.err, 3000, "red");
     });
+  }
+
+  goBack(){
+    this.showResult = false;
   }
 
   ngOnDestroy() {

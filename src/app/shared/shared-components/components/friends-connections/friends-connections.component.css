@@ -408,3 +408,7 @@ input {
   width: 60%;
   margin-left: 16px;
 }
+
+.autoClass {
+  padding: 0px !important;
+}
