@@ -247,6 +247,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     this._route.params.subscribe(params => {
       this.requstedProfileId = this._route.snapshot.queryParams["profileId"];
       this.searchTerm = this._route.snapshot.queryParams["fullName"] !== undefined ? this._route.snapshot.queryParams["fullName"] : "";
+      this.searchIndustry = "all";
+      this.showResult = true;
     });
 
   }
@@ -1505,6 +1507,15 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   generalEmailIntroSend(){
+    let systemUserId;
+    this.resumes.forEach((prof, index)=>{
+      if(prof.candidate_id && (prof.candidate_id.fullName == this.recipientName) && (prof.candidate_id.email == this.recipientEmail)){
+        systemUserId = prof.candidate_id._id;
+      }else if(prof.candidateKey && (prof.candidateKey.fullName == this.recipientName) && (prof.candidateKey.email == this.recipientEmail)){
+        systemUserId = prof.candidateKey._id;
+      }
+    });
+
     let payload = {
       recipientEmail : this.recipientEmail,
       fullName : this.candidateNameIs,
@@ -1513,7 +1524,11 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       cc: this.cc,
       bcc: this.bcc,
       linkedIn : this.linedIn,
-      emailType : this._constants.generalEmailIntro
+      emailType : this._constants.generalEmailIntro,
+      profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
+      systemUserId : systemUserId,
+      recruiterId: this.loggedUser._id,
+      resumeId: this.shareResume._id
     };
     
     this.spinner.show();
@@ -1528,6 +1543,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
         this.spinner.hide();
     }, (err) => {
       Materialize.toast(err.err, 3000, "red");
+      this.spinner.hide();
     });
   }
 
@@ -1566,6 +1582,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
         this.spinner.hide();
     }, (err) => {
       Materialize.toast(err.err, 3000, "red");
+      this.spinner.hide();
     });
   }
 

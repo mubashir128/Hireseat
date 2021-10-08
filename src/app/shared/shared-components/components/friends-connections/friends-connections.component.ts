@@ -471,6 +471,15 @@ export class FriendsConnectionsComponent implements OnInit {
   }
 
   generalEmailIntroSend(){
+    let systemUserId;
+    this.friendsConnections.forEach((prof, index)=>{
+      if(prof.recipient.fullName == this.recipientName && prof.recipient.email == this.recipientEmail){
+        systemUserId = prof.recipient._id;
+      }else if(prof.requester.fullName == this.recipientName && prof.requester.email == this.recipientEmail){
+        systemUserId = prof.requester._id;
+      }
+    });
+
     let payload = {
       recipientEmail : this.recipientEmail,
       fullName : this.candidateNameIs,
@@ -479,7 +488,11 @@ export class FriendsConnectionsComponent implements OnInit {
       cc: this.cc,
       bcc: this.bcc,
       linkedIn : this.linedIn,
-      emailType : this._constants.generalEmailIntro
+      emailType : this._constants.generalEmailIntro,
+      profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
+      systemUserId : systemUserId,
+      recruiterId: this.loggedInUser._id,
+      resumeId: this.shareResume._id
     };
     
     this.spinner.show();
@@ -494,6 +507,7 @@ export class FriendsConnectionsComponent implements OnInit {
         this.spinner.hide();
     }, (err) => {
       Materialize.toast(err.err, 3000, "red");
+      this.spinner.hide();
     });
   }
 
@@ -532,6 +546,7 @@ export class FriendsConnectionsComponent implements OnInit {
         this.spinner.hide();
     }, (err) => {
       Materialize.toast(err.err, 3000, "red");
+      this.spinner.hide();
     });
   }
 

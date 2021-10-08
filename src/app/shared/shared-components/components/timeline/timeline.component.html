@@ -11,13 +11,13 @@
 
           <div class="pro-3">
             <ng-container *ngIf="!timeline.fromId.profileimage">
-              <div class="candProfile">
+              <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                 <img src = "assets/img/profile-user.png" alt="profile" />
               </div>
             </ng-container>
 
             <ng-container *ngIf="timeline.fromId.profileimage">
-              <div class="candProfile">
+              <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                 <img [src] = "timeline.fromId.profileimage" alt="profile" />
               </div>
             </ng-container>
@@ -37,19 +37,19 @@
             </span>
 
             <ng-container *ngIf="timeline.systemUserId?.profileimage">
-              <div class="candProfile11">
+              <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
                 <img [src] = "timeline.systemUserId?.profileimage" alt="profile" />
               </div>
             </ng-container>
 
             <ng-container *ngIf="!timeline.profileUserId.profileimage">
-              <div class="candProfile11">
+              <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
                 <img src = "assets/img/profile-user.png" alt="profile" />
               </div>
             </ng-container>
 
             <ng-container *ngIf="timeline.profileUserId.profileimage">
-              <div class="candProfile11">
+              <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
                 <img [src] = "timeline.profileUserId.profileimage" alt="profile" />
               </div>
             </ng-container>
