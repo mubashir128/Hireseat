@@ -131,9 +131,9 @@ export class SAUserListComponent implements OnInit {
       (response) => {
         if (response) {
           if (response.userInfo.userRole == "employer") {
-            this.router.navigate(["employer/dashboard"]);
+            this.router.navigate(["employer/share-candidate-profile"]);
           } else if (response.userInfo.userRole == "recruiter") {
-            this.router.navigate(["recruiter/dashboard"]);
+            this.router.navigate(["recruiter/share-candidate-profile"]);
           } else if (response.userInfo.userRole == "admin") {
             this.router.navigate(["user-list"]);
           } else if (response.userInfo.userRole == "super-admin") {
@@ -141,7 +141,7 @@ export class SAUserListComponent implements OnInit {
           } else if (response.userInfo.userRole == "enterprise") {
             this.router.navigate(["enterprise/user-list"]);
           } else if (response.userInfo.userRole == "candidate") {
-            this.router.navigate(["candidate/my-profile"]);
+            this.router.navigate(["candidate/my-posted-profiles"]);
           }
         } else {
           Materialize.toast("Enter valid details", 1000, "rounded");

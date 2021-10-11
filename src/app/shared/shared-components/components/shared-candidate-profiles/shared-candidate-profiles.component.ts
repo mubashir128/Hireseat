@@ -37,6 +37,7 @@ import { Plugins } from '@capacitor/core';
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { CandidateCarrerService } from "src/app/_services/candidate-carrer.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
+import { Router } from "@angular/router";
 const { Share } = Plugins;
 declare var jQuery;
 declare var $: any;
@@ -161,7 +162,8 @@ export class SharedCandidateProfilesComponent
     private _subList: SubscriberslistService,
     private _constants: ConstantsService,
     private _bidEventService: BiddingEventService,
-    private _readResume : ReadResumeService
+    private _readResume : ReadResumeService,
+    private _router: Router,
   ) {
     this.resumes = [];
     
@@ -1418,6 +1420,10 @@ export class SharedCandidateProfilesComponent
       jQuery("#shareEmailModal").modal("close");
       jQuery("#emaiPreviewModal").modal("open");
     }
+  }
+
+  editUserProfile(){
+    this._router.navigate(["/"+this.loggedUser.userRole+"/my-profile"]);
   }
 
   ngOnDestroy() {

@@ -93,9 +93,11 @@ export class MenusComponent implements OnInit {
   }
   
   candidateMenuTabs(){
-    this.tabs2.push(new Tab2("/candidate/my-profile", "Profile", true, "fas fa-user"));
+    this.tabs2.push(new Tab2("/candidate/my-posted-profiles", "My Posted Profiles", true, "fas fa-user"));
+
+    // this.tabs2.push(new Tab2("/candidate/my-profile", "Profile", true, "fas fa-user"));
     this.tabs2.push(new Tab2("/candidate/friends-connections", "My Connections", true, "fas fa-user"));
-    this.tabs2.push(new Tab2("/candidate/user-chat", "Candidate Chat", false, "fas fa-comment"));
+    
     this.tabs2.push(new Tab2("/candidate/fill-form", "Career Value Finder", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters", false, "fas fa-user-alt"));

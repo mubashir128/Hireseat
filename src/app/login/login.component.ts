@@ -35,9 +35,9 @@ export class LoginComponent implements OnInit {
     this.chkLoggedInUser = this.userService.getUserData();
     if (this.chkLoggedInUser != "no") {
       if (this.chkLoggedInUser.userRole == "employer") {
-        this.router.navigate(["employer/dashboard"]);
+        this.router.navigate(["employer/share-candidate-profile"]);
       } else if (this.chkLoggedInUser.userRole == "recruiter") {
-        this.router.navigate(["recruiter/dashboard"]);
+        this.router.navigate(["recruiter/share-candidate-profile"]);
       } else if (this.chkLoggedInUser.userRole == "admin") {
         this.router.navigate(["/user-list"]);
       } else if (this.chkLoggedInUser.userRole == "super-admin") {
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       } else if (this.chkLoggedInUser.userRole == "enterprise") {
         this.router.navigate(["enterprise/user-list"]);
       }else if (this.chkLoggedInUser.userRole == "candidate") {
-        this.router.navigate(["candidate/my-profile"]);
+        this.router.navigate(["candidate/my-posted-profiles"]);
       }
     }
   }
@@ -81,12 +81,12 @@ export class LoginComponent implements OnInit {
           if (data == "success") {
             this.userData = this.userService.getUserData();
             if (this.userData.userRole == "employer") {
-              this.router.navigate(["employer/dashboard"]);
+              this.router.navigate(["employer/share-candidate-profile"]);
             } else if (this.userData.userRole == "recruiter") {
               // if (this.returnUrl) {
               //   this.router.navigate([this.returnUrl]);
               // } else {
-              this.router.navigate(["recruiter/dashboard"]);
+              this.router.navigate(["recruiter/share-candidate-profile"]);
               // }
             } else if (this.userData.userRole == "admin") {
               this.router.navigate(["user-list"]);
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
             } else if (this.userData.userRole == "enterprise") {
               this.router.navigate(["enterprise/user-list"]);
             } else if (this.userData.userRole == "candidate") {
-              this.router.navigate(["candidate/my-profile"]);
+              this.router.navigate(["candidate/my-posted-profiles"]);
             }
           } else if (data == "wrongpass") {
             this.status = "wrongpass";

@@ -139,7 +139,7 @@
                     </p>
                     <p *ngIf = "resume?.introduceCount || resume?.candidateProfileKey?.introduceCount">
                       <label># of Introductions : </label>
-                        <label style="font-size: 14px; color: #cc530c;">
+                        <label class="backStyle">
                           {{ resume?.introduceCount || resume?.candidateProfileKey?.introduceCount }}
                         </label>
                     </p>
@@ -263,7 +263,7 @@
       <div class="" style="width: 55%; float: left;">
         <button class="sendBtn" (click)="generalEmailIntro()">General Referral</button>
       </div>
-      <div class="" style="width: 45%; float: left; border-left: 2px solid white;">
+      <div class="" style="width: 45%; float: left;">
         <button class="sendBtn" (click)="introduceUser()">Career Referral</button>
       </div>
     </div>
