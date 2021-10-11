@@ -3,15 +3,11 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import * as myGlobals from "../globalPath";
 import { UserService } from "./user.service";
-declare var Materialize: any;
-import {
-  Plugins,
-  PushNotification,
-  PushNotificationToken,
-  PushNotificationActionPerformed,
-} from "@capacitor/core";
 import { Router } from "@angular/router";
-const { PushNotifications } = Plugins;
+import { PushNotifications, Token, ActionPerformed, PushNotificationSchema, } from "@capacitor/push-notifications";
+
+declare var Materialize: any;
+
 @Injectable({
   providedIn: "root",
 })
@@ -39,10 +35,10 @@ export class FirebasePushNotificationService {
       return;
     }
 
-    PushNotifications.requestPermission()
+    PushNotifications.requestPermissions()
       .then((result) => {
-        // Materialize.toast("result.granted :  " + result.granted, 2000, "blue");
-        if (result.granted) {
+        // Materialize.toast("result.receive :  " + result.receive, 2000, "blue");
+        if (result.receive === "granted") {
           // Register with Apple / Google to receive push via APNS/FCM
           PushNotifications.register();
         } else {
@@ -56,7 +52,7 @@ export class FirebasePushNotificationService {
     // On success, we should be able to receive notifications
     PushNotifications.addListener(
       "registration",
-      (token: PushNotificationToken) => {
+      (token: Token) => {
         // Materialize.toast("token :  " + token, 2000, "blue");
         this.token = token.value;
         let payload = {
@@ -75,13 +71,13 @@ export class FirebasePushNotificationService {
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener(
       "pushNotificationReceived",
-      (notification: PushNotification) => {}
+      (notification: PushNotificationSchema) => {}
     );
 
     // Method called when tapping on a notification
     PushNotifications.addListener(
       "pushNotificationActionPerformed",
-      (notification: PushNotificationActionPerformed) => {
+      (notification: ActionPerformed) => {
         this.handleData(notification);
       }
     );
