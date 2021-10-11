@@ -295,16 +295,16 @@
 
     <div class="row form-group autoClass" style="margin-top: -25px;">
       <div class="" style="width: 55%; float: left;">
-        <button class="sendBtn" (click)="generalEmailIntro()">General Referral Intro</button>
+        <button class="sendBtn" (click)="generalEmailIntro()">General Referral</button>
       </div>
       <div class="" style="width: 45%; float: left; border-left: 2px solid white;">
-        <button class="sendBtn" (click)="introduceUser()">Career Referral Intro</button>
+        <button class="sendBtn" (click)="introduceUser()">Career Referral</button>
       </div>
     </div>
 
     <div class="row form-group autoClass" style="margin-top: -25px;">
       <div class="" style="float: right;">
-        <button class="sendBtn" (click)="generateLinkForVideo()">Copy Link Intro</button>
+        <button class="sendBtn" (click)="generateLinkForVideo()">Copy Profile Link</button>
       </div>
     </div>
 
@@ -383,7 +383,7 @@
   </div>
   <div class="email">
     <p> <span>Hi<input type="text" placeholder="User..." [(ngModel)]="recipientName"></span> , </p>
-    <p>{{senderName}} as offered to intro you to a contact at <input type="text" placeholder="companies..." [(ngModel)]="companies" ></p>
+    <p>{{senderName}} has offered to intro you to a contact at <input type="text" placeholder="companies..." [(ngModel)]="companies" ></p>
   </div>
   <div class="email">
     <p>Thanks,</p>
