@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       } else if (this.chkLoggedInUser.userRole == "enterprise") {
         this.router.navigate(["enterprise/user-list"]);
       }else if (this.chkLoggedInUser.userRole == "candidate") {
-        this.router.navigate(["candidate/my-profile"]);
+        this.router.navigate(["candidate/my-posted-profiles"]);
       }
     }
   }
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
             } else if (this.userData.userRole == "enterprise") {
               this.router.navigate(["enterprise/user-list"]);
             } else if (this.userData.userRole == "candidate") {
-              this.router.navigate(["candidate/my-profile"]);
+              this.router.navigate(["candidate/my-posted-profiles"]);
             }
           } else if (data == "wrongpass") {
             this.status = "wrongpass";

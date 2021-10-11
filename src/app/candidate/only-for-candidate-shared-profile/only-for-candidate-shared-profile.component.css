@@ -1103,7 +1103,7 @@ a.videoCloseBtn {
   font-size: 13px;
 }
 
-#emaiPreviewModal, #generalEmaiPreviewModal, #offerEmailIntroModal{
+#emaiPreviewModal, #generalEmaiPreviewModal, #offerEmailIntroModal, #askOfferAndChat{
   padding: 20px;
 }
 
@@ -1184,4 +1184,8 @@ input {
 
 .autoClass {
   padding: 0px !important;
+}
+
+#askOfferAndChat span {
+  font-size: 18px;
 }

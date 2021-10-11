@@ -207,6 +207,16 @@
               </a>
             </button>
           </div>
+          <div class="" style="margin-top: 10px;" *ngIf="loggedUser.userRole == 'candidate'">
+            <button class="shareBtn" (click)="editUserProfile()">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                  <span class="shareText"> Edit Profile </span>
+                </div>
+              </a>
+            </button>
+          </div>
         </div>
         
       </div>

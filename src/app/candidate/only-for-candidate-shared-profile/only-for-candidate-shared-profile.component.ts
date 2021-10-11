@@ -170,6 +170,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   showResult = false;
   searchIndustry = "";
 
+  introsAt = "";
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -247,8 +249,10 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     this._route.params.subscribe(params => {
       this.requstedProfileId = this._route.snapshot.queryParams["profileId"];
       this.searchTerm = this._route.snapshot.queryParams["fullName"] !== undefined ? this._route.snapshot.queryParams["fullName"] : "";
-      this.searchIndustry = "all";
-      this.showResult = true;
+      if(this.searchTerm){
+        this.searchIndustry = "all";
+        this.showResult = true;
+      }
     });
 
   }
@@ -1423,10 +1427,23 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   goToUserChat(resume){
-    let id = resume.candidateKey ? resume.candidateKey._id : resume.candidate_id ? resume.candidate_id._id : "";
-    if(id !== ""){
+    this.shareVideoService.setResume(resume);
+    this.introsAt = this.shareResume.introduceYouToo;
+    jQuery("#askOfferAndChat").modal("open");
+  }
+
+  redirectToUserChat(){
+    let id = this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id ? this.shareResume.candidate_id._id : "";
+    if(id !== "" && id !== this.loggedUser._id){
       this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", id]);
+    }else{
+      Materialize.toast("It's your Profile, you can't chat to yourself.", 1000, "red");
     }
+  }
+
+  offerEmailIntroPopup(){
+    jQuery("#askOfferAndChat").modal("close");
+    this.offerEmailIntro();
   }
 
   connect(resume){

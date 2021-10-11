@@ -66,6 +66,15 @@
               <span>
                 {{timeline.candidateFromId.introduceYouToo}}
               </span>
+
+              <div class="row" style="margin-right : 10px" *ngIf = "timeline.candidateFromId?.introduceCount">
+                <span style="color: red;">
+                  <label># of Introductions : </label>
+                  <label class="backStyle">
+                    {{ timeline.candidateFromId?.introduceCount}}
+                  </label>
+                </span>
+              </div>
             </div>
 
             <div class="col s6 m6 l6" style="text-align: left;">
@@ -75,6 +84,15 @@
               <span>
                 {{timeline.candidateProfileUserId.introduceYouToo}}
               </span>
+              
+              <div class="row" style="margin-left : 10px" *ngIf = "timeline.candidateProfileUserId?.introduceCount">
+                <span style="color: red;">
+                  <label># of Introductions : </label>
+                  <label class="backStyle">
+                    {{ timeline.candidateProfileUserId?.introduceCount}}
+                  </label>
+                </span>
+              </div>
             </div>
           </div>
 
@@ -120,6 +138,15 @@
               <span>
                 {{timeline.candidateSystemUserId.introduceYouToo}}
               </span>
+
+              <div class="row" *ngIf = "timeline.candidateSystemUserId?.introduceCount">
+                <span style="color: red;">
+                  <label># of Introductions : </label>
+                  <label class="backStyle">
+                    {{ timeline.candidateSystemUserId?.introduceCount}}
+                  </label>
+                </span>
+              </div>
             </div>
           </div>
 
