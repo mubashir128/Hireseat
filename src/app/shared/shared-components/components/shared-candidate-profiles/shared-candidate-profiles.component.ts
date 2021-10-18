@@ -301,6 +301,9 @@ export class SharedCandidateProfilesComponent
       case this._constants.getAllSharedProfiles:
         this.resumes = res.data;
         this._subList.loaderList.next({type : "0"});
+        if(this.loggedUser.userRole == 'candidate' && this.resumes.length == 0){
+          this.editUserProfile();
+        }
         break;
       case this._constants.addComment:
         this.addCommentToCommets(res);
