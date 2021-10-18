@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "58JL46J3ZP.com.hireseat.app",
+                "paths": ["*"]
+            }
+        ]
+    }
+}
