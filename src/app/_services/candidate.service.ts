@@ -213,4 +213,12 @@ export class CandidateService {
     );
   }
 
+  sayThxLetter(payload) {
+    return this.http.post<any>(this.baseurl + "api/sayThxLetter", payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
 }

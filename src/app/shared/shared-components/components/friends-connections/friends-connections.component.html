@@ -251,6 +251,19 @@
             </button>
           </div>
         </div>
+
+        <div class="pro-share" style="margin-top: 10px;">
+          <div class="">
+            <button class="acceptBtn cancelBtn" (click)="thxLetter(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
+              <a>
+                <div class="icon-name">
+                  <span class="btnText"> Letter </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -393,6 +406,23 @@
   <div>
     <div class="form-group textRight">
       <button class="sendBtn spaceBet introStyle" (click)="offerEmailIntroSend()">Introduce</button>
+    </div>
+  </div>
+</div>
+
+<div id="thxLetterModal" class="modal">
+  <div class="email">
+    <p> <span>Dear {{thxFullName}} </span> , </p>
+    <p>Thank you for meeting with me. I wanted you to know I really appreciate all the help you provided. I know you are extremely busy and I am grateful for the time you took out of your day for me.</p>
+    <p>Please let me know how I can help you in the future by offering introductions, my network, expertise or feedback. </p>
+  </div>
+  <div class="email">
+    <p>Thanks.</p>
+  </div>
+
+  <div>
+    <div class="form-group textRight">
+      <button class="sendBtn spaceBet introStyle" (click)="thxLetterSend()">Say Thanks</button>
     </div>
   </div>
 </div>
