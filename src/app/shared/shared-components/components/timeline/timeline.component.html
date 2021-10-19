@@ -36,6 +36,10 @@
               {{timeline.fromId.fullName}} intro'd {{timeline.profileUserId.fullName}} with {{timeline.systemUserId.fullName}} .
             </span>
 
+            <span class="intoedClass" *ngIf = "timeline.status == _constants.sayThanks">
+              {{timeline.fromId.fullName}} said thanks to {{timeline.profileUserId.fullName}}.
+            </span>
+
             <ng-container *ngIf="timeline.systemUserId?.profileimage">
               <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
                 <img [src] = "timeline.systemUserId?.profileimage" alt="profile" />

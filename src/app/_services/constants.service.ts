@@ -130,6 +130,8 @@ export class ConstantsService {
   generalEmailIntro;
   offerEmailIntro;
 
+  sayThanks;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -335,6 +337,8 @@ export class ConstantsService {
 
     this.generalEmailIntro = obj.generalEmailIntro;
     this.offerEmailIntro = obj.offerEmailIntro;
+
+    this.sayThanks = obj.sayThanks;
   }
 
 }
