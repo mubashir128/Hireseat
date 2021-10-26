@@ -1462,3 +1462,23 @@ body {
   padding: 3px;
   top: 8px;
 }
+
+.dotOnline {
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 25px;
+  margin-left: -15px;
+}
+
+.dotOffline {
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 25px;
+  margin-left: -15px;
+}

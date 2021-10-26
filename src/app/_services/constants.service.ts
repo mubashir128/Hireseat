@@ -132,6 +132,10 @@ export class ConstantsService {
 
   sayThanks;
 
+  userIsOnline;
+  userIsOffline;
+  getUserActiveStatus;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -339,6 +343,10 @@ export class ConstantsService {
     this.offerEmailIntro = obj.offerEmailIntro;
 
     this.sayThanks = obj.sayThanks;
+
+    this.userIsOnline = obj.userIsOnline;
+    this.userIsOffline = obj.userIsOffline;
+    this.getUserActiveStatus = obj.getUserActiveStatus;
   }
 
 }

@@ -36,16 +36,18 @@
       <div class="chat-profile-item animatePart" *ngIf = "user.user1._id !== loggedInUser._id">
         <div class="disF">
           <img [src]="(user.user1.profileimage !=='') ? user.user1.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user1.profileimage !== '' ? user.user1.profileimage : 0)" class="uploadedImgUser">
+          <span [ngClass]="user.user1.online ? 'dotOnline' : 'dotOffline'" [id] = "'online_'+user.user1._id"></span>
           <div class="chat-user-title" (click)="showUserData(user.user1._id)"> {{ user.user1.fullName }} </div>
-          <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
+          <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i>
         </div>
       </div>
 
       <div class="chat-profile-item animatePart" *ngIf = "user.user2._id !== loggedInUser._id">
         <div class="disF">
           <img [src]="(user.user2.profileimage !=='') ? user.user2.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user2.profileimage !== '' ? user.user2.profileimage : 0)" class="uploadedImgUser">
+          <span [ngClass]="user.user2.online ? 'dotOnline' : 'dotOffline'" [id] = "'online_' + user.user2._id"></span>
           <div class="chat-user-title" (click)="showUserData(user.user2._id)"> {{ user.user2.fullName }} </div>
-          <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
+          <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i>
         </div>
       </div>
 

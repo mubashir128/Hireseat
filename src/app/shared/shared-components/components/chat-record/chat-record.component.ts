@@ -123,6 +123,16 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           receiverId: this.receiverId
         }
       });
+
+      //get user online status
+      this._socket.sendMessage({
+        type: this._constants.userChatMessageType,
+        data: {
+          subType: this._constants.getUserActiveStatus,
+          receiverId: this.receiverId
+        }
+      });
+
     }
   }
 
@@ -211,6 +221,19 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           this.groupIsMore = false;
           jQuery(".right-chat").css("display","none");
         }
+        break;
+      case this._constants.getUserActiveStatus : 
+        if(res.online){
+          setTimeout(()=>{
+            jQuery('#online_'+res.userId).css("background-color", "green");
+          }, 70);
+        }
+        break;
+      case this._constants.userIsOnline:
+        jQuery('#online_'+res.userId).css("background-color", "green");
+        break;
+      case this._constants.userIsOffline:
+        jQuery('#online_'+res.userId).css("background-color", "red");
         break;
       default:
         break;
