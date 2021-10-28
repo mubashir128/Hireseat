@@ -268,12 +268,16 @@ export class FriendsConnectionsComponent implements OnInit {
       thxFullName : this.thxFullName,
       fullname : this.loggedInUser.fullName
     };
-    
+
+    this.spinner.show();
     this._candidateService.sayThxLetter(payload).subscribe((res) => {
       if (res) {
         Materialize.toast("Say thx successfully", 1000, "green");
         jQuery("#thxLetterModal").modal("close");
       }
+      this.spinner.hide();
+    }, (err)=>{
+      this.spinner.hide();
     });
   }
 

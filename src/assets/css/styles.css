@@ -1451,16 +1451,8 @@ body {
   border: 1px solid black;
 }
 
-.backStyle {
-  background: #ff0000 !important;
-  width: 25px !important;
-  height: 25px !important;
-  border-radius: 25%;
-  color: #fff;
-  /* position: absolute; */
-  font-size: 12px;
-  padding: 3px;
-  top: 8px;
+.btmSpace {
+  margin-bottom: 0px;
 }
 
 .dotOnline {
