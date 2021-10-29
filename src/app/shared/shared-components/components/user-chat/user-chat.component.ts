@@ -149,9 +149,14 @@ export class UserChatComponent implements OnInit, OnChanges {
             this.currentGroupId = res.data._id;
             this.updateProfileImg();
           }else{
-
           }
         }
+        break;
+      case this._constants.userIsOnline:
+        jQuery('#online_'+res.userId).css("background-color", "green");
+        break;
+      case this._constants.userIsOffline:
+        jQuery('#online_'+res.userId).css("background-color", "red");
         break;
       default : 
         break;

@@ -369,7 +369,7 @@ button.sendBtn {
   cursor: pointer;
 }
 
-#emaiPreviewModal, #generalEmaiPreviewModal, #offerEmailIntroModal{
+#emaiPreviewModal, #generalEmaiPreviewModal, #offerEmailIntroModal, #thxLetterModal {
   padding: 20px;
 }
 

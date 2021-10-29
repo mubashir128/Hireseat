@@ -59,6 +59,9 @@ export class FriendsConnectionsComponent implements OnInit {
   clients = [];
 
   linedIn = "";
+
+  thxFullName = "";
+  thxFullObj;
   
   constructor(
     private _userService: UserService,
@@ -250,6 +253,32 @@ export class FriendsConnectionsComponent implements OnInit {
     if(id !== ""){
       this._router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", id]);
     }
+  }
+
+  thxLetter(_id, resumeId, resumeId2){
+    this.thxFullObj = (_id !== this.loggedInUser._id) ? resumeId : resumeId2;
+    this.thxFullName = this.thxFullObj.candidate_id.fullName;
+    jQuery("#thxLetterModal").modal("open");
+  }
+
+  thxLetterSend(){
+    let payload = {
+      toId : this.thxFullObj.candidate_id._id,
+      toEmailId : "atulpisal.ap@gmail.com",
+      thxFullName : this.thxFullName,
+      fullname : this.loggedInUser.fullName
+    };
+
+    this.spinner.show();
+    this._candidateService.sayThxLetter(payload).subscribe((res) => {
+      if (res) {
+        Materialize.toast("Say thx successfully", 1000, "green");
+        jQuery("#thxLetterModal").modal("close");
+      }
+      this.spinner.hide();
+    }, (err)=>{
+      this.spinner.hide();
+    });
   }
 
   closeShareModal() {

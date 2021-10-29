@@ -195,6 +195,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
               // this.resume.fileURL = data.result;
               this.fileUploaded = 2;
               Materialize.toast("Resume Uploaded Successfully !", 1000);
+              this.submit();
             } else {
               Materialize.toast("Something Went Wrong !", 1000);
             }

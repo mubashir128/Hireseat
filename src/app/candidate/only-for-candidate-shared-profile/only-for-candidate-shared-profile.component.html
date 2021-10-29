@@ -12,14 +12,22 @@
       
       <div>
         <form [formGroup]="CompaniesTeamsRolesFrm" novalidate style="width: 100%">
-          <div class="row">
+          <div class="row" class="btmSpace">
             <div class="skillInput" style="margin-top: 10px">
               <span class="note" style="float: left"
-                ><span style="color: black;"> Search Introductions to Companies/Teams/Roles : </span><br>
+                ><span style="color: black; font-size: 14px;"> Search Introductions to Companies/Teams/Roles: </span><br>
                 <span style="font-size: 10px; color: red;">For multi search use comma (ex- abc , lmn) seperated values.</span>
               </span>
             </div>
-            <div class="inputDivMainN">
+
+            <div class="row" class="btmSpace">
+              <div class="searchDiv">
+                <input type="text" class="searchRecruiter" autocomplete="off" formControlName="searchCTRTerm" [(ngModel)]="searchCTRTerm" placeholder="Ex: Barclays, Amazon, ABC...">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <!-- <div class="inputDivMainN">
               <input
                 type="text"
                 [(ngModel)]="searchCTRTerm"
@@ -27,7 +35,7 @@
                 autocomplete="off"
                 placeholder="Search Introductions to Companies/Teams/Roles..."
               />
-            </div>
+            </div> -->
           </div>
         </form>
 
@@ -35,13 +43,21 @@
 
       <div *ngIf="loggedUser.userRole == 'candidate'">
         <form [formGroup]="Search" novalidate style="width: 100%">
-          <div class="row">
+          <div class="row" class="btmSpace">
             <div class="skillInput" style="margin-top: 10px">
               <span class="note" style="float: left"
-                ><span style="color: black;"> Search by Name : </span>
+                ><span style="color: black; font-size: 14px;"> Search by Name : </span>
               </span>
             </div>
-            <div class="inputDivMainN">
+
+            <div class="row" class="btmSpace">
+              <div class="searchDiv">
+                <input type="text" class="searchRecruiter" autocomplete="off" formControlName="searchTerm" [(ngModel)]="searchTerm" placeholder="Ex: Sujith Papali..." #searchByName>
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <!-- <div class="inputDivMainN">
               <input
                 type="text"
                 [(ngModel)]="searchTerm"
@@ -49,7 +65,7 @@
                 placeholder="Search here..."
                 #searchByName
               />
-            </div>
+            </div> -->
           </div>
         </form>
       </div>
@@ -105,6 +121,7 @@
               />
             </div>
           </ng-container>
+
         </div>
         <div class="pro-1">
           <div class="docSectionBtns lates-s">
@@ -112,6 +129,7 @@
               <div class="CandidateDetails">
                 <div class="user-details">
                   <span>
+                    <span [ngClass]="(resume?.candidateKey?.online || resume?.candidate_id?.online) ? 'dotOnline' : 'dotOffline'" style="margin-left : -28px !important;"></span>
                     {{ resume?.candidateName || resume?.candidate_id?.fullName }}
                   </span>
                   <div class="other-details">

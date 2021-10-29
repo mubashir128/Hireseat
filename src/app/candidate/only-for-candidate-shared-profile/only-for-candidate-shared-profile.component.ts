@@ -374,9 +374,26 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       case this._constants.generateLink:
         this.addCreatedLink(res);
         break;
+      case this._constants.userIsOnline:
+        this.changesOnlineStatus(res, true);
+        break;
+      case this._constants.userIsOffline:
+        this.changesOnlineStatus(res, false);
+        break;
+  
       default:
         break;
     }
+  }
+
+  changesOnlineStatus(res, status){
+    this.resumes.forEach((profile, index) => {
+      if(profile.candidateKey && profile.candidateKey._id == res.userId){
+        profile.candidateKey.online = status;
+      }else if(profile.candidate_id && profile.candidate_id._id == res.userId){
+        profile.candidate_id.online = status;
+      }
+    });
   }
 
   sortProfilesByConpanies(){

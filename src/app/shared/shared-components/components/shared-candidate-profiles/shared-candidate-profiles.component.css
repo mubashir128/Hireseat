@@ -88,6 +88,11 @@ button.shareBtn {
   background-color: #DD3215;
 }
 
+button.shareBtn2 {
+  border: 1px solid #00aaff;
+  background-color: #00aaff;
+}
+
 .shared-icon {
   width: 20px;
   margin-right: 3px;
@@ -868,6 +873,12 @@ a.videoCloseBtn {
   width: 48%;
   border-radius: 7px;
 }
+
+.shareBtn2 {
+  width: 48%;
+  border-radius: 7px;
+}
+
 .post-cmt textarea {
   border: solid 1px #999999;
 }
@@ -1004,6 +1015,12 @@ a.videoCloseBtn {
     border-radius: 5px;
   }
   button.shareBtn {
+    width: 98%;
+    display: block;
+    border-radius: 5px;
+  }
+
+  button.shareBtn2 {
     width: 98%;
     display: block;
     border-radius: 5px;
