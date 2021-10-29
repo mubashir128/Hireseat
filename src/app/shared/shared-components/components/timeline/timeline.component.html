@@ -40,23 +40,23 @@
               {{timeline.fromId.fullName}} said thanks to {{timeline.profileUserId.fullName}}.
             </span>
 
-            <ng-container *ngIf="timeline.systemUserId?.profileimage">
-              <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
-                <img [src] = "timeline.systemUserId?.profileimage" alt="profile" />
-              </div>
-            </ng-container>
+            <span class="intoedClass" *ngIf = "timeline.status == _constants.publicProfile">
+              {{timeline.fromId.fullName}} just joined the HireSeat Network. Welcome {{timeline.fromId.fullName}}.
+            </span>
 
-            <ng-container *ngIf="!timeline.profileUserId.profileimage">
-              <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
-                <img src = "assets/img/profile-user.png" alt="profile" />
-              </div>
-            </ng-container>
+            <div class="">
+              <ng-container *ngIf="timeline.systemUserId">
+                <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
+                  <img [src] = "timeline.systemUserId?.profileimage ? timeline.systemUserId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
+                </div>
+              </ng-container>
 
-            <ng-container *ngIf="timeline.profileUserId.profileimage">
-              <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
-                <img [src] = "timeline.profileUserId.profileimage" alt="profile" />
-              </div>
-            </ng-container>
+              <ng-container *ngIf="timeline.profileUserId">
+                <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
+                  <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                </div>
+              </ng-container>
+            </div>
           </div>
         </div>
         

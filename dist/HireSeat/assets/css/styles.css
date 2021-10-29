@@ -1322,3 +1322,155 @@ body {
 .modal-overlay {
   z-index: 99 !important;
 }
+
+/* animation start css  */
+.slidein {
+  /* for chrome and safari*/
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-name: slidein;
+
+  /*for firefox*/
+  -moz-animation-duration: 0.5s;
+  -moz-animation-name: slidein;
+
+    /* for opera*/
+  -o-animation-duration: 0.5s;
+  -o-animation-name: slidein;
+
+    /* Standard syntax*/
+  animation-duration: 0.5s;
+  animation-name: slidein;
+}
+
+@-webkit-keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@-moz-keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+@-o-keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+/* animation end  */
+.animatePart{
+  animation: zoomIn 0.2s;
+}
+
+@keyframes zoomIn {
+  0%{
+    transform: scale(0.1);
+  }
+  25%{
+    transform: scale(0.25);
+  }
+  50%{
+    transform: scale(0.5);
+  }
+  75%{
+    transform: scale(0.75);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+.introStyle{
+  border: 1px solid red !important;
+  background-color: red !important;
+}
+
+/* .notificaationDateTime{
+  float: right;
+  font-size: 10px;
+  font-weight: initial;
+  font-family: 'Roboto';
+  font-style: oblique;
+  margin-right: 10px;
+  margin-top: 25px;
+} */
+
+.notificaationDateTime{
+  float: right;
+  font-size: 10px;
+  font-weight: initial;
+  font-family: Roboto;
+  font-style: revert;
+  margin-right: 10px;
+  margin-top: 25px;
+}
+
+.elipsesClass {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result {
+  overflow: auto;
+  width: 100%;
+  position: absolute;
+  max-height: 120px;
+  background-color: white;
+  z-index: 1;
+  border: 1px solid black;
+}
+
+.btmSpace {
+  margin-bottom: 0px;
+}
+
+.dotOnline {
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 25px;
+  margin-left: -15px;
+}
+
+.dotOffline {
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 25px;
+  margin-left: -15px;
+}
