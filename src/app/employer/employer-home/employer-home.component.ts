@@ -106,6 +106,9 @@ export class EmployerHomeComponent implements OnInit {
     else this.buttonName = "Show";
   }
   logoutSA() {
+    let user = this.userService.getUser();
+    this._AuthService.handleLogoutSessionLog(user.userInfo._id, user.token);
+    
     this.supperAdmin
       .unSecureLogin({ email: localStorage.getItem("super-admin-email") })
       .subscribe(

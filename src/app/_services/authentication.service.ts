@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import {  Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import * as myGlobals from '../globalPath';
 import { map } from 'rxjs/operators';
+import { WebsocketService } from "../_services/websocket.service";
+import { UserService } from './user.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,9 +13,14 @@ export class AuthenticationService {
   public baseurl: any;
   url: string;
   currentUrl: string;
-  constructor(private http: HttpClient,private router: Router,private route:ActivatedRoute) { 
+  loggedInUser;
+
+  constructor(private http: HttpClient,private router: Router,private route:ActivatedRoute, 
+    private _socket: WebsocketService, 
+    private userService: UserService
+  ) { 
     this.baseurl = myGlobals.baseUrl;
-    
+    this.loggedInUser = this.userService.getUser();
   }  
 
   login(info:any) {
@@ -56,8 +64,45 @@ logout() {
   })
    
   }
+
   logoutWithoutNavigate(){
     localStorage.removeItem('currentUser');
     /* localStorage.clear(); */
   }
+
+  async handleLoginSessionLog(){
+    let timeInterval = setInterval(()=>{
+      if(!this._socket.socketClose){
+        clearInterval(timeInterval);
+        this.loggedInUser = this.userService.getUser();
+        let info = {
+          token : this.loggedInUser.token
+        };
+        this.manageLoginSessionLogs(info).subscribe((data) => {
+        });
+      }
+    }, 500);
+  }
+
+  async handleLogoutSessionLog(userId, token){
+    let info = {
+      token : token,
+      userId : userId
+    };
+    this.manageLogoutSessionLogs(info).subscribe((data) => {
+    });
+  }
+
+  manageLoginSessionLogs(info){
+    return this.http.post<any>(this.baseurl+'api/manageLoginSessionLogs',info).pipe(map((res:any) => {
+      return res;
+    }));
+  }
+
+  manageLogoutSessionLogs(info){
+    return this.http.post<any>(this.baseurl+'api/manageLogoutSessionLogs',info).pipe(map((res:any) => {
+      return res;
+    }));
+  }
+
 }
