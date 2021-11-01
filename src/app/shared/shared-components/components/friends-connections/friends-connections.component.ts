@@ -260,9 +260,10 @@ export class FriendsConnectionsComponent implements OnInit {
   thxLetterSend(){
     let payload = {
       toId : this.thxFullObj.candidate_id._id,
-      toEmailId : "atulpisal.ap@gmail.com",
+      toEmailId : this.thxFullObj.candidate_id.email,
       thxFullName : this.thxFullName,
-      fullname : this.loggedInUser.fullName
+      fullname : this.loggedInUser.fullName,
+      fromEmail : this.loggedInUser.email
     };
 
     this.spinner.show();
