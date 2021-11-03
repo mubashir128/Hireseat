@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserService } from "../_services/user.service";
 import { AuthenticationService } from "../_services/authentication.service";
+
 declare var jQuery: any;
 declare var Materialize: any;
 @Component({
@@ -97,6 +98,7 @@ export class LoginComponent implements OnInit {
             } else if (this.userData.userRole == "candidate") {
               this.router.navigate(["candidate/my-posted-profiles"]);
             }
+            
           } else if (data == "wrongpass") {
             this.status = "wrongpass";
             Materialize.toast("Enter valid Password", 1000, "rounded");
