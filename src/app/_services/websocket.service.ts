@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import * as io from "socket.io-client";
 import * as myGlobals from "../globalPath";
 import { FirebasePushNotificationService } from "src/app/_services/firebase-push-notification.service";
+import { AuthenticationService } from "src/app/_services/authentication.service";
+import { UserService } from "./user.service";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +13,12 @@ export class WebsocketService {
   listeners = [];
   socketUrl: any;
   socketClose = true;
-  constructor(private _firebasePushNotificationService : FirebasePushNotificationService) {
+  user;
+
+  constructor(private _firebasePushNotificationService : FirebasePushNotificationService, 
+    private _userAuth: AuthenticationService, 
+    private userService: UserService
+  ) {
     this.socketUrl = myGlobals.socketUrl;
   }
 
@@ -48,6 +55,8 @@ export class WebsocketService {
     // console.log("connection opend : ", obj);
     //for firebasePushNotification open connection.
     this._firebasePushNotificationService.initiate();
+    this.user = this.userService.getUser();
+    this._userAuth.handleLoginSessionLog();
   }
 
   sendMessage(obj: any) {
@@ -71,6 +80,7 @@ export class WebsocketService {
     //  console.log("connection closed : ",obj);
     //for firebasePushNotification close connection.
     this._firebasePushNotificationService.closeFirebasePushNotification();
+    this._userAuth.handleLogoutSessionLog(this.user.userInfo._id, this.user.token);
   }
 
   socketClosed() {

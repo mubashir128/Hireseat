@@ -98,9 +98,7 @@ export class LoginComponent implements OnInit {
             } else if (this.userData.userRole == "candidate") {
               this.router.navigate(["candidate/my-posted-profiles"]);
             }
-
-            this._AuthService.handleLoginSessionLog();
-
+            
           } else if (data == "wrongpass") {
             this.status = "wrongpass";
             Materialize.toast("Enter valid Password", 1000, "rounded");

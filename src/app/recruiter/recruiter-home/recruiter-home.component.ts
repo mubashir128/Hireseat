@@ -99,9 +99,6 @@ export class RecruiterHomeComponent implements OnInit {
   }
 
   logoutSA() {
-    let user = this.userService.getUser();
-    this._AuthService.handleLogoutSessionLog(user.userInfo._id, user.token);
-    
     // logout super admin
     this.supperAdmin
       .unSecureLogin({ email: localStorage.getItem("super-admin-email") })

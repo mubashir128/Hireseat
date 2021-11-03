@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import {  Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import * as myGlobals from '../globalPath';
 import { map } from 'rxjs/operators';
-import { WebsocketService } from "../_services/websocket.service";
 import { UserService } from './user.service';
 
 @Injectable({
@@ -16,9 +15,8 @@ export class AuthenticationService {
   loggedInUser;
 
   constructor(private http: HttpClient,private router: Router,private route:ActivatedRoute, 
-    private _socket: WebsocketService, 
     private userService: UserService
-  ) { 
+  ) {
     this.baseurl = myGlobals.baseUrl;
     this.loggedInUser = this.userService.getUser();
   }  
@@ -71,17 +69,12 @@ logout() {
   }
 
   async handleLoginSessionLog(){
-    let timeInterval = setInterval(()=>{
-      if(!this._socket.socketClose){
-        clearInterval(timeInterval);
-        this.loggedInUser = this.userService.getUser();
-        let info = {
-          token : this.loggedInUser.token
-        };
-        this.manageLoginSessionLogs(info).subscribe((data) => {
-        });
-      }
-    }, 500);
+    this.loggedInUser = this.userService.getUser();
+    let info = {
+      token : this.loggedInUser.token
+    };
+    this.manageLoginSessionLogs(info).subscribe((data) => {
+    });
   }
 
   async handleLogoutSessionLog(userId, token){
