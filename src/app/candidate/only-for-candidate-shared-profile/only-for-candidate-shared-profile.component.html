@@ -167,7 +167,7 @@
         
         <div class="pro-share" style="margin-top: 10px;" *ngIf = "!resume.addedAsAFriend">
           <div class="">
-            <button class="connectBtn" (click)="connect(resume)">
+            <button class="connectBtn" (click)="connectWithOffers(resume)">
               <a>
                 <div class="icon-name">
                   <i class="fa fa-share shared-icon" aria-hidden="true"></i>
@@ -435,6 +435,25 @@
     </div>
     <div class="" style="width: 45%; float: left; border-left: 2px solid white;">
       <button class="sendBtn" (click)="redirectToUserChat()">No thank you</button>
+    </div>
+  </div>
+
+</div>
+
+<div id="askOfferAndConnect" class="modal">
+  <div>
+    <span>Offer Intro</span>
+  </div>
+  <div class="email">
+    <p>Would you like to offer an introduction to -------- to one of your connections ? ------------- would like intros to ------- Members are more likely to accept connections when you offer intros. </p>
+  </div>
+
+  <div class="row form-group autoClass" style="margin: auto;">
+    <div class="" style="width: 55%; float: left;">
+      <button class="sendBtn" (click)="conenctWithIntro()">Connect with Intro</button>
+    </div>
+    <div class="" style="width: 45%; float: left; border-left: 2px solid white;">
+      <button class="sendBtn" (click)="connect()">Connect</button>
     </div>
   </div>
 

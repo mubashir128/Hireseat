@@ -1430,8 +1430,19 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     this.offerEmailIntro();
   }
 
-  connect(resume){
-    let id = resume.candidateKey ? resume.candidateKey._id : resume.candidate_id ? resume.candidate_id._id : "";
+  connectWithOffers(resume){
+    this.shareVideoService.setResume(resume);
+    jQuery("#askOfferAndConnect").modal("open");
+  }
+
+  conenctWithIntro(){
+    jQuery("#askOfferAndConnect").modal("close");
+    this.goToUserChat(this.shareResume);
+    this.connect();
+  }
+
+  connect(){
+    let id = this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id ? this.shareResume.candidate_id._id : "";
     let payload = {
       recipient : id
     };
