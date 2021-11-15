@@ -296,4 +296,29 @@ export class UserService {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   }
+
+  getBeforeMyProfileWalkthrough(){
+    return localStorage.getItem("beforeMyProfileWalkthrough");
+  }
+
+  setBeforeMyProfileWalkthrough(){
+    localStorage.setItem("beforeMyProfileWalkthrough", "true");
+  }
+
+  removeBeforeMyProfileWalkthrough(){
+    localStorage.removeItem("beforeMyProfileWalkthrough");
+  }
+
+  getOnlyCandidateWalkthrough(){
+    return localStorage.getItem("onlyCandidateWalkthrough");
+  }
+
+  setOnlyCandidateWalkthroughWalkthrough(){
+    localStorage.setItem("onlyCandidateWalkthrough", "true");
+  }
+
+  removeOnlyCandidateWalkthroughWalkthrough(){
+    localStorage.removeItem("onlyCandidateWalkthrough");
+  }
+
 }

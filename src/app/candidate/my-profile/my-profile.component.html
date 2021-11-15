@@ -83,7 +83,7 @@
             </label>
           </div>
         </div>
-        <button type="submit" class="waves-effect waves-light btn">Save</button>
+        <button type="submit" class="waves-effect waves-light btn" joyrideStep="firstStep" title="My Profile" text="Add your resume">Save</button>
       </div>
       <div style="width: 100%; margin-bottom: 0px">
         <!-- <div class="UlpoadVideoCandi">
@@ -183,6 +183,7 @@
                 rows="4"
                 maxlength="250"
                 formControlName="comments"
+                joyrideStep="secondStep" title="My Profile" text="AddQuickly highlight 3 reasons why a hiring manager should hire or you want to highlight to recruiters. Our algo pulled out 3 lines from your resume as a starting point your resume"
               ></textarea>
               <textarea
                 rows="4"
@@ -367,6 +368,7 @@
                 type="text"
                 class="validate"
                 formControlName="desiredCompanies"
+                joyrideStep="thirdStep" title="My Profile" text="List the companies you are interested in making connections at"
               />
             </div>
             <div class="input-field col s6 m6 l6">
@@ -401,6 +403,7 @@
                 type="text"
                 class="validate"
                 formControlName="introduceYouToo"
+                joyrideStep="fourthStep" title="My Profile" text="List the companies you introduce other members to"
               />
             </div>
 
@@ -485,6 +488,7 @@
                 type="text"
                 class="validate"
                 formControlName="locationPref"
+                joyrideStep="fifthStep" title="The Network" text="Save and make your profile visible to members, recruiters and hiring managers" (onDone) = "onDone()"
               />
             </div>
             <!--  -->

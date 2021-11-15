@@ -19,6 +19,7 @@ import { UserService } from "src/app/_services/user.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { CandidateCarrerService } from "src/app/_services/candidate-carrer.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
+import { JoyrideService } from "ngx-joyride";
 
 @Component({
   selector: "app-my-profile",
@@ -63,7 +64,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private spinner: NgxSpinnerService,
     private _candidateCarrer : CandidateCarrerService,
-    private _readResume : ReadResumeService
+    private _readResume : ReadResumeService,
+    private readonly joyrideService: JoyrideService
   ) {}
 
   ngOnInit() {
@@ -115,6 +117,30 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     this.loopIndustries = this._candidateCarrer.getLoopIndustries();
 
     this.getProfile();
+
+    this.tourStart();
+  }
+
+  tourStart(){
+    let loginCount = JSON.parse(localStorage.getItem("currentUser")).userInfo.loginCount;
+    let beforeMyProfileWalkthrough = JSON.parse(this.userService.getBeforeMyProfileWalkthrough());
+    if(loginCount !== 1 || beforeMyProfileWalkthrough){
+      return ;
+    }
+
+    this.joyrideService.startTour({ steps: ['firstStep', 'secondStep', 'thirdStep', 'fourthStep', 'fifthStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
+        /*Do something*/
+      }, (err) => {
+        /*handle error*/
+        this.onDone();
+      }, () => {
+        /*Tour is finished here, do something*/
+        this.onDone();
+      });
+  }
+
+  onDone(){
+    this.userService.setBeforeMyProfileWalkthrough();
   }
 
   getIndustries() {
@@ -436,6 +462,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     if (this.getProfileSubscription) this.getProfileSubscription.unsubscribe();
     if (this.uploadResumeSubscription)
       this.uploadResumeSubscription.unsubscribe();
+
+    this.onDone();
+    this.joyrideService.closeTour();
   }
 
   handleIndustries($event, _id) {
