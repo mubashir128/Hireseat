@@ -43,6 +43,7 @@ import { GlobalErrorHandler } from "./_errorHandler/global-error-handler";
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 import { LoadBeforeInitializeService } from "./_services/load-before-initialize.service";
+import { JoyrideModule } from "ngx-joyride";
 
 // import { SearchByNamePipe } from '../search-by-name.pipe';
 // import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -134,6 +135,7 @@ import { LoadBeforeInitializeService } from "./_services/load-before-initialize.
     ReactiveFormsModule,
     NgxSpinnerModule,
     NgxPaginationModule,
+    JoyrideModule.forRoot(),
     NgxMaskModule.forRoot(),
     Angular2CsvModule,
     NgxTwitterTimelineModule,

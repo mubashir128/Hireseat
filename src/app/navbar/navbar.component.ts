@@ -189,6 +189,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.loggedInUser.userRole == "candidate"){
     }
     this.authService.logout();
+    setTimeout(()=>{
+      this.userService.removeBeforeMyProfileWalkthrough();
+      this.userService.removeOnlyCandidateWalkthroughWalkthrough();
+    }, 300);
     this.isAdmin = false;
     this.isLoggedIn = false;
     this._socket.socketClosed();

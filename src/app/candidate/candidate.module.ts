@@ -12,6 +12,7 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProfileItemsComponent } from './profile-items/profile-items.component';
 import { OnlyForCandidateSharedProfileComponent } from './only-for-candidate-shared-profile/only-for-candidate-shared-profile.component';
+import { JoyrideModule } from "ngx-joyride";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { OnlyForCandidateSharedProfileComponent } from './only-for-candidate-sha
     ReactiveFormsModule,
     FormsModule,
     SharedComponentsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    JoyrideModule
   ]
 })
 export class CandidateModule { }

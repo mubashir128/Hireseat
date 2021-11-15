@@ -39,6 +39,7 @@ import { CandidateCarrerService } from "src/app/_services/candidate-carrer.servi
 import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import * as myGlobals from "../../globalPath";
+import { JoyrideService } from "ngx-joyride";
 
 const { Share } = Plugins;
 declare var jQuery;
@@ -172,6 +173,9 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
   introsAt = "";
 
+  askAndConnectName = "";
+  askAndConnectDesiredCompanies = "";
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -187,7 +191,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     private _bidEventService: BiddingEventService,
     private _readResume : ReadResumeService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private readonly joyrideService: JoyrideService
   ) {
     this.resumes = [];
     
@@ -286,6 +291,29 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     this.onlyForCandidateSharedProfileObserver$.subscribe((res: any) => {
       this.handleProfileData(res);
     });
+  }
+
+  tourStart(){
+    let loginCount = this.loggedUser.loginCount;
+    let beforeMyProfileWalkthrough = JSON.parse(this.userService.getOnlyCandidateWalkthrough());
+    console.log("loginCount : ",loginCount);
+    console.log("beforeMyProfileWalkthrough : ",beforeMyProfileWalkthrough);
+    if(loginCount !== 1 || beforeMyProfileWalkthrough){
+      return ;
+    }
+    this.joyrideService.startTour({ steps: ['firstStep', 'secondStep', 'thirdStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
+        /*Do something*/
+      }, (err) => {
+        /*handle error*/
+        this.onDone();
+      }, () => {
+        /*Tour is finished here, do something*/
+        this.onDone();
+      });
+  }
+
+  onDone(){
+    this.userService.setOnlyCandidateWalkthroughWalkthrough();
   }
 
   debounceSearchForCTR(){
@@ -473,6 +501,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   industryClick(type){
     this.searchIndustry = type.trim().toLowerCase();
     this.showResult = true;
+    this.tourStart();
   }
 
   addCommentToCommets(res) {
@@ -1463,8 +1492,21 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     this.offerEmailIntro();
   }
 
-  connect(resume){
-    let id = resume.candidateKey ? resume.candidateKey._id : resume.candidate_id ? resume.candidate_id._id : "";
+  connectWithOffers(resume){
+    this.shareVideoService.setResume(resume);
+    this.askAndConnectName = this.shareResume.candidateKey ? this.shareResume.candidateKey.fullName : this.shareResume.candidate_id ? this.shareResume.candidate_id.fullName : "";
+    this.askAndConnectDesiredCompanies = this.shareResume.desiredCompanies;
+    jQuery("#askOfferAndConnect").modal("open");
+  }
+
+  conenctWithIntro(){
+    jQuery("#askOfferAndConnect").modal("close");
+    this.goToUserChat(this.shareResume);
+    this.connect();
+  }
+
+  connect(){
+    let id = this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id ? this.shareResume.candidate_id._id : "";
     let payload = {
       recipient : id
     };
@@ -1627,5 +1669,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.onlyForCandidateSharedProfileType });
     this.onlyForCandidateSharedProfileObserver.unsubscribe();
+    this.onDone();
   }
 }
