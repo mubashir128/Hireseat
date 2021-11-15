@@ -59,13 +59,10 @@ export class HomeComponent implements OnInit {
     //   this.isLoggedIn = true;
     //   this.btnName = "Enter";
     // }
-
     this.router.navigate(["/login"]);
-
   }
 
   ngOnInit() {
-  //   // scroll to top
   //   $(document).ready(function () {
   //     $("html, body").animate(
   //       {
@@ -98,7 +95,6 @@ export class HomeComponent implements OnInit {
 
   //       this.article = res.data;
   //       this.spinner.hide();
-        
   //     },
   //     (error) => {
   //       console.log(error);
@@ -144,9 +140,7 @@ export class HomeComponent implements OnInit {
   // }
 
   // scrollToNextSlide() {
-  //   //console.log('scrollToNextSlide');
-  //   let scrollTo: any = jQuery("#slide-2");
-  //   jQuery("html,body").animate({ scrollTop: scrollTo.offset().top });
+  //   this.router.navigate(["/login"]);
   // }
 
   // createNewAccount(role) {
