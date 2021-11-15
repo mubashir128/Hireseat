@@ -112,6 +112,10 @@ export class CandidateHomeComponent implements OnInit {
         (response) => {
           if (response) {
             localStorage.removeItem("super-admin-email");
+            setTimeout(()=>{
+              this.userService.removeBeforeMyProfileWalkthrough();
+              this.userService.removeOnlyCandidateWalkthroughWalkthrough();
+            }, 300);
             this._socket.socketClosed();
             this.router.navigate(["super-admin/user-list"]);
           }
