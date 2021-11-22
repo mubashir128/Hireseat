@@ -1485,3 +1485,13 @@ body {
   padding: 3px; 
   top: 8px;
 }
+
+.joyride-step__container {
+  width: 150px;
+}
+
+.joyride-step__body {
+  height: 100px;
+  width: 100%;
+  overflow: auto;
+}

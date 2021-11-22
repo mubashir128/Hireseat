@@ -118,7 +118,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     this.getProfile();
 
-    this.tourStart();
+    setTimeout(()=>{
+      this.tourStart();
+    }, 500);
   }
 
   tourStart(){
@@ -128,7 +130,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       return ;
     }
 
-    this.joyrideService.startTour({ steps: ['firstStep', 'secondStep', 'thirdStep', 'fourthStep', 'fifthStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
+    this.joyrideService.startTour({ steps: ['firstStep','secondFirstStep', 'secondStep', 'thirdStep', 'fourthStep', 'fifthStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
         /*Do something*/
       }, (err) => {
         /*handle error*/
