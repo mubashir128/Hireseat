@@ -97,6 +97,7 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters", false, "fas fa-user-alt"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
 
+    this.tabs2.push(new Tab2("/Help", "Help", false, "fas fa-info"));
     
     this.tabs2.push(new Tab2("/candidate/my-profile", "Profile", true, "fas fa-user"));
     this.tabs2.push(new Tab2("/candidate/user-chat", "Candidate Chat", false, "fas fa-comment"));
@@ -139,6 +140,10 @@ export class MenusComponent implements OnInit {
   SelectItem2(item, text) {
     if(text === 'Logout'){
       this.authService.logout();
+    }else if(text == 'Help'){
+      this.userService.removeBeforeMyProfileWalkthrough();
+      this.userService.removeOnlyCandidateWalkthroughWalkthrough();
+      this.router.navigate([this.loggedInUser.userRole+'/my-profile']);
     }else{
       this.router.navigate([item]);
     }

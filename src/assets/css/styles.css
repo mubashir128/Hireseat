@@ -1395,7 +1395,7 @@ body {
 }
 
 .joyride-step__body {
-  height: 80px;
+  height: 100px;
   width: 100%;
   overflow: auto;
 }
