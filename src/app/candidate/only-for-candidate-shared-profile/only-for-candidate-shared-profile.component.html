@@ -21,7 +21,7 @@
             </div>
 
             <div class="row" class="btmSpace">
-              <div class="searchDiv">
+              <div class="searchDiv" joyrideStep="firstStep" title="The Network" text="Search for members who can make intros to your top companies." stepPosition = "bottom">
                 <input type="text" class="searchRecruiter" autocomplete="off" formControlName="searchCTRTerm" [(ngModel)]="searchCTRTerm" placeholder="Ex: Barclays, Amazon, ABC...">
                 <i class="fa fa-search" aria-hidden="true"></i>
               </div>
@@ -43,7 +43,7 @@
 
       <div *ngIf="loggedUser.userRole == 'candidate'">
         <form [formGroup]="Search" novalidate style="width: 100%">
-          <div class="row" class="btmSpace" joyrideStep="firstStep" title="The Network" text="Search for members who can make intros to your top companies.">
+          <div class="row" class="btmSpace">
             <div class="skillInput" style="margin-top: 10px">
               <span class="note" style="float: left"
                 ><span style="color: black; font-size: 14px;"> Search by Name : </span>
@@ -147,7 +147,7 @@
                     <p *ngIf = "resume?.location"><label>Location :</label> {{ resume?.location }}</p>
                     <p *ngIf = "resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies">
                       <i class="fas fa-binoculars" aria-hidden="true"></i>
-                      <label>Desired Companies :</label>
+                      <label joyrideStep="secondStep" title="The Network" text="See which companies members want intros to." stepPosition = "bottom">Desired Companies :</label>
                         <label style="font-size: 14px; color: #54A4F0;">
                           {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
                         </label>
@@ -167,7 +167,7 @@
         
         <div class="pro-share" style="margin-top: 10px;" *ngIf = "!resume.addedAsAFriend">
           <div class="">
-            <button class="connectBtn" (click)="connectWithOffers(resume)" joyrideStep="thirdStep" title="Connect" text="Start a real connection by offering an introduction with your connection request.">
+            <button class="connectBtn" (click)="connectWithOffers(resume)" joyrideStep="thirdStep" title="Connect" text="Start a real connection by offering an introduction with your connection request." stepPosition = "bottom">
               <a>
                 <div class="icon-name">
                   <i class="fa fa-share shared-icon" aria-hidden="true"></i>
@@ -180,7 +180,7 @@
 
         <div class="pro-share" style="margin-top: 10px;" *ngIf = "resume.addedAsAFriend">
           <div class="">
-            <button class="connectBtn impBtnColor" (click)="connected(resume)" joyrideStep="secondStep" title="The Network" text="See which companies members want intros to.">
+            <button class="connectBtn impBtnColor" (click)="connected(resume)">
               <a>
                 <div class="icon-name">
                   <i class="fa fa-share shared-icon" aria-hidden="true"></i>

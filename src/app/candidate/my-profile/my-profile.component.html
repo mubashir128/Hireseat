@@ -78,12 +78,12 @@
               formControlName="shareProfile"
               (change)="checkRequiredField($event)"
             />
-            <label class="my-profile" for="post"
+            <label class="my-profile" for="post" joyrideStep="firstStep" title="My Profile" text="Make your profile visible to members, recruiters and hiring managers." stepPosition = "bottom"
               >Make my profile public (only recruiters will see you your resume)
             </label>
           </div>
         </div>
-        <button type="submit" class="waves-effect waves-light btn" joyrideStep="firstStep" title="My Profile" text="Add your resume">Save</button>
+        <button type="submit" class="waves-effect waves-light btn">Save</button>
       </div>
       <div style="width: 100%; margin-bottom: 0px">
         <!-- <div class="UlpoadVideoCandi">
@@ -113,7 +113,7 @@
               *ngIf="fileUploaded === 0"
               style="display: table"
             >
-              <div class="uploadBtn" style="display: table-cell">
+              <div class="uploadBtn" style="display: table-cell" joyrideStep="secondFirstStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
                 <span>Upload Resume</span>
                 <input type="file" (change)="fileChange($event)" />
               </div>
@@ -136,7 +136,7 @@
             <div
               class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text changeResumeBtn"
             >
-              <div class="uploadBtn" style="display: table-cell">
+              <div class="uploadBtn" style="display: table-cell" joyrideStep="secondFirstStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
                 <span>Change Resume</span>
                 <input class="chInput" type="file" (change)="fileChange($event)" />
               </div>
@@ -179,22 +179,23 @@
                   </span>
                 </span>
               </div>
-              <textarea
-                rows="4"
-                maxlength="250"
-                formControlName="comments"
-                joyrideStep="secondStep" title="My Profile" text="AddQuickly highlight 3 reasons why a hiring manager should hire or you want to highlight to recruiters. Our algo pulled out 3 lines from your resume as a starting point your resume"
-              ></textarea>
-              <textarea
-                rows="4"
-                maxlength="250"
-                formControlName="comment2"
-              ></textarea>
-              <textarea
-                rows="4"
-                maxlength="250"
-                formControlName="comment3"
-              ></textarea>
+              <div joyrideStep="secondStep" title="My Profile" text="AddQuickly highlight 3 reasons why a hiring manager should hire or you want to highlight to recruiters. Our algo pulled out 3 lines from your resume as a starting point your resume" stepPosition = "bottom">
+                <textarea
+                  rows="4"
+                  maxlength="250"
+                  formControlName="comments"
+                ></textarea>
+                <textarea
+                  rows="4"
+                  maxlength="250"
+                  formControlName="comment2"
+                ></textarea>
+                <textarea
+                  rows="4"
+                  maxlength="250"
+                  formControlName="comment3"
+                ></textarea>
+              </div>
             </div>
 
             <div class="input-field col s12 m12 l12">
@@ -368,7 +369,7 @@
                 type="text"
                 class="validate"
                 formControlName="desiredCompanies"
-                joyrideStep="thirdStep" title="My Profile" text="List the companies you are interested in making connections at"
+                joyrideStep="thirdStep" title="My Profile" text="List the companies you are interested in making connections at" stepPosition = "bottom"
               />
             </div>
             <div class="input-field col s6 m6 l6">
@@ -403,7 +404,7 @@
                 type="text"
                 class="validate"
                 formControlName="introduceYouToo"
-                joyrideStep="fourthStep" title="My Profile" text="List the companies you introduce other members to"
+                joyrideStep="fourthStep" title="My Profile" text="List the companies you introduce other members to" stepPosition = "bottom"
               />
             </div>
 
@@ -488,7 +489,6 @@
                 type="text"
                 class="validate"
                 formControlName="locationPref"
-                joyrideStep="fifthStep" title="The Network" text="Save and make your profile visible to members, recruiters and hiring managers" (onDone) = "onDone()"
               />
             </div>
             <!--  -->
@@ -610,7 +610,7 @@
       <div class="divider"></div>
       <div class="row center-align marB0" style="padding: 15px">
         <!-- <a class="waves-effect waves-light btn-flat" (click)="goBack()">Cancel</a> -->
-        <button type="submit" class="waves-effect waves-light btn">Save</button>
+        <button type="submit" class="waves-effect waves-light btn" joyrideStep="fifthStep" title="My Profile" text="Save your profile." (onDone) = "onDone()" stepPosition = "bottom" stepPosition = "top">Save</button>
       </div>
     </form>
   </div>
