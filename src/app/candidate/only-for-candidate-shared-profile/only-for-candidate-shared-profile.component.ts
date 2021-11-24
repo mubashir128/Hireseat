@@ -296,8 +296,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   tourStart(){
     let loginCount = this.loggedUser.loginCount;
     let beforeMyProfileWalkthrough = JSON.parse(this.userService.getOnlyCandidateWalkthrough());
-    console.log("loginCount : ",loginCount);
-    console.log("beforeMyProfileWalkthrough : ",beforeMyProfileWalkthrough);
     if(loginCount !== 1 || beforeMyProfileWalkthrough){
       return ;
     }
@@ -501,7 +499,9 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   industryClick(type){
     this.searchIndustry = type.trim().toLowerCase();
     this.showResult = true;
-    this.tourStart();
+    setTimeout(()=>{
+      this.tourStart();
+    }, 500);
   }
 
   addCommentToCommets(res) {
