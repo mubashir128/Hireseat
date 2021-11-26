@@ -9,7 +9,6 @@
   position: absolute;
   top: 40%;
   left: 36%;
-  /* left: 40%; */
   transform: translate(-50%, -50%);
 }
 .BoldText {
@@ -37,13 +36,7 @@
   align-items: center;
   justify-content: space-around;
 }
-/*========================== sec section css =================*/
-/* .ProveBestInner {
-    padding: 170px 120px ;
-} */
-.secHeadingDiv {
-  /* height: 150px; */
-}
+
 .width50 {
   width: 50%;
   float: left;
@@ -66,9 +59,6 @@
   margin: 30px 0;
 }
 .proveHead {
-  /* display: flex;
-    align-items: flex-end;
-    margin: 0 0 -6px; */
   display: flex;
   align-items: flex-end;
   margin: 0 0 -0.5555vw;
@@ -90,7 +80,6 @@
 .proveText p {
   font-family: "gilroyregular";
   color: #fff;
-  /* font-size: 16px; */
   font-size: 17px;
   line-height: 1.5;
 }
@@ -181,9 +170,6 @@ a {
   padding: 0 20px 0 100px;
 }
 .seatBack {
-  /* background-color: #0964d9;
-    padding: 0 40px 0 90px;
-    margin: -2px 0 0 0; */
   background-color: #0964d9;
   padding: 0 40px 0 90px;
   margin: 0px 0 0 0;
@@ -209,10 +195,7 @@ a {
   width: 100%;
   display: flex;
   align-items: center;
-  /* padding: 50px 0;
-    padding: 50px 0 6px; */
 }
-/*============================== 3 section css =============================*/
 .boxDiv {
   max-height: 970px;
   overflow-y: auto;
@@ -266,21 +249,12 @@ a {
   display: block;
   height: 100%;
 }
-/* .ArticleDiv p :nth-child(even){
-    display: block;
-    color: green;
-
-} */
 .odd {
   display: none;
 }
 .even p {
   display: none;
 }
-/* .ArticleDiv p :nth-child(odd){
-    display: none;
-    color: #0964d9;
-    } */
 .ArticleDiv h5 {
   color: #1c2d41;
   font-size: 20px;
@@ -325,28 +299,22 @@ a {
   margin: 0px 0 0;
 }
 
-/* scrollbar css */
-
 .boxDiv::-webkit-scrollbar {
   width: 5px;
 }
 
-/* Track */
 .boxDiv::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
-/* Handle */
 .boxDiv::-webkit-scrollbar-thumb {
   background: #0aafff;
   border-radius: 10px;
 }
 
-/* Handle on hover */
 .boxDiv::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-/* ========================== recruter section 5th start =============================*/
 .recruterMain {
   width: 100%;
   float: left;
@@ -446,8 +414,6 @@ a {
   margin: 7px 0 0 !important;
 }
 .postimage {
-  /* max-width: 400px;
-    min-width: 400px; */
   width: 100%;
   padding: 0 0px;
   max-height: 210px;
@@ -465,8 +431,6 @@ a {
   display: flex;
   flex-wrap: wrap;
 }
-/* ========================== recruter section 5th end =============================== */
-/*=============================== footer css ========================*/
 .footerSection {
   width: 100%;
   float: left;
@@ -532,8 +496,6 @@ a {
   font-size: 16px !important;
   display: none;
 }
-/*=============================== footer css end ========================*/
-/*================================ i-pad responsive css start  ===============================*/
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   .bestRecruitment {
@@ -543,9 +505,6 @@ a {
     font-size: 29px;
   }
   .bestRecruitmentText {
-    /* top: 50%;
-    left: 40%;
-    width: 60%; */
     top: 50%;
     left: 35%;
     width: 50%;
@@ -578,9 +537,6 @@ a {
   }
   .proveTextimg img {
     margin-bottom: 0;
-  }
-  .secHeadingDiv {
-    /* height: 90px; */
   }
   .newBtnTextB {
     display: block;
@@ -623,16 +579,11 @@ a {
   }
 }
 
-/* mobile responsive */
-
 @media only screen and (min-width: 320px) and (max-width: 767px) {
   .bestRecruitment {
     min-height: 500px;
   }
   .bestRecruitmentText {
-    /* top: 50%;
-        left: 43%;
-        width: 60%; */
     top: 50%;
     left: 40%;
     width: 55%;
