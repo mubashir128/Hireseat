@@ -1,4 +1,4 @@
-.sectionBGimg {
+/* .sectionBGimg {
   width: 100%;
   height: auto;
 }
@@ -291,7 +291,6 @@ a {
 .articleDivInner1 {
   display: flex;
   align-items: flex-end;
-  /* margin: 0 0 -6px; */
   margin: 0 0 -0.455vw;
   width: 100%;
 }
@@ -710,4 +709,4 @@ a {
     font-size: 29px;
   }
   
-}
+} */
