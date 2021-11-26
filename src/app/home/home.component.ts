@@ -59,7 +59,9 @@ export class HomeComponent implements OnInit {
     //   this.isLoggedIn = true;
     //   this.btnName = "Enter";
     // }
-    this.router.navigate(["/login"]);
+
+    this.router.navigate(["/mobileHome"]);
+
   }
 
   ngOnInit() {

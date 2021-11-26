@@ -1,0 +1,57 @@
+.ghost h2 { color: #d26f50; font-size: 39px;font-weight: 500;}
+.bg { background-color: #f3f2ec;}
+.icon { padding:50px 0px 50px 0px; padding: 20px;}
+.ghost { padding:30px 0px 30px 0px; }
+.ghost h2 { margin-bottom: 30px;}
+.icon img  { width: 60px; height: 60px; margin-bottom: 0px; color: #fff !important;}
+.icon h4  { margin-bottom: 30px;}
+.icon h4 a { color: #fff; list-style: none; text-decoration: none; margin-bottom: 30px;}
+.tour a {  background-color: #d26f50; color: #fff;  padding: 10px 40px;  text-transform: uppercase; font-size: 14px; border-radius: 30px;  margin-top: 50px;}
+.tour h6 { color: #b4b3ac; color: 14px; text-transform: uppercase; padding-top: 90px; font-weight: bold;}
+.tour h6::before {  width: 30px;  background-color: #b4b3ac; height: 1px; position: absolute; content: ""; left: 120px; margin-top: 6px; }  
+.tour h2 { color: #d26f50;  padding: 50px 0px 50px 0px; font-weight: 300;  font-size: 48px;}
+.tour {margin-top: 50px;}
+.tour a:hover {background-color: #3e8e41}
+
+.sectionBGimg {
+  width: 100%;
+  height: auto;
+}
+
+.bestRecruitment {
+  position: relative;
+}
+.bestRecruitmentText {
+  position: absolute;
+  top: 45%;
+  left: 36%;
+  /* left: 40%; */
+  transform: translate(-50%, -50%);
+}
+
+.bestRecruitmentText {
+  position: absolute;
+  top: 40%;
+  left: 36%;
+  /* left: 40%; */
+  transform: translate(-50%, -50%);
+}
+.BoldText {
+  /* margin: 5px 0 40px; */
+  font-size: 15px;
+  font-family: "gilroybold";
+}
+
+.bestRecruitmentText h3 {
+  font-size: 28px;
+  color: #1c2d41;
+}
+
+.ThinTextHeading {
+  margin: 0px 0 20px;
+  font-family: "gilroyregular";
+}
+
+.fontStyle {
+    font-size: 45px;
+}

@@ -13,6 +13,7 @@ const appRoutes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
 
   { path: "home", loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
+  { path: "mobileHome", loadChildren: () => import('./mobile-home/mobile-home.module').then(m => m.MobileHomeModule) },
   {
     path: "video-call/:id",
     loadChildren: () => import('./video-call/video-call.module').then(m => m.VideoCallModule)

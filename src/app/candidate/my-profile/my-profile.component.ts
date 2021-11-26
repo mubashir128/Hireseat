@@ -21,6 +21,7 @@ import { CandidateCarrerService } from "src/app/_services/candidate-carrer.servi
 import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { JoyrideService } from "ngx-joyride";
 
+
 @Component({
   selector: "app-my-profile",
   templateUrl: "./my-profile.component.html",
