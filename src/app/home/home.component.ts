@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
     //   this.btnName = "Enter";
     // }
 
-    this.router.navigate(["/login"]);
+    this.router.navigate(["/mobileHome"]);
 
   }
 

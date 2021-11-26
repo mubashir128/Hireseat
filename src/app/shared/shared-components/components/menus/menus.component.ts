@@ -106,7 +106,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/candidate/fill-form", "Career Value Finder", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters", false, "fas fa-user-alt"));
-    this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
+    // this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
+    this.tabs2.push(new Tab2("/mobileHome", "Home", true, "fas fa-home"));
 
     if(!this.supperAdmin.checkSuperAdminEmail()){
       // this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
