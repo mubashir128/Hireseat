@@ -1,3 +1,4 @@
+<div joyrideStep="firstStep" title="Welcome" text="Let's start by learning about you and what you can offer companies." stepPosition = "bottom"></div>
 <div class="Addprofilepic">
   <form [formGroup]="updateProfileimg">
     <div class="uploadProfileImgDiv">
@@ -67,7 +68,7 @@
             Record Interview
           </div>
         </div>
-        <div class="post">
+        <!-- <div class="post">
           <div>
             <input
               type="checkbox"
@@ -82,7 +83,7 @@
               >Make my profile public (only recruiters will see you your resume)
             </label>
           </div>
-        </div>
+        </div> -->
         <button type="submit" class="waves-effect waves-light btn">Save</button>
       </div>
       <div style="width: 100%; margin-bottom: 0px">
@@ -113,7 +114,7 @@
               *ngIf="fileUploaded === 0"
               style="display: table"
             >
-              <div class="uploadBtn" style="display: table-cell" joyrideStep="secondFirstStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
+              <div class="uploadBtn" style="display: table-cell" joyrideStep="secondStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
                 <span>Upload Resume</span>
                 <input type="file" (change)="fileChange($event)" />
               </div>
@@ -136,15 +137,41 @@
             <div
               class="file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text changeResumeBtn"
             >
-              <div class="uploadBtn" style="display: table-cell" joyrideStep="secondFirstStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
+              <div class="uploadBtn" style="display: table-cell" joyrideStep="secondStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
                 <span>Change Resume</span>
                 <input class="chInput" type="file" (change)="fileChange($event)" />
               </div>
             </div>
           </ng-container>
-          <div class="btn-accept placement" (click)="seeExampleModal()">
-            <span>Example</span>
+        </div>
+
+        <div class="row input-field col s12 m12 l12">
+          <div>
+            <i class="fa fa-archive" aria-hidden="true"></i>
+            <span
+              [ngClass]="
+                editProfile.value.skills ? 'resume-subtitle' : 'change'
+              "
+              class="resume-subtitle"
+            >
+            Skills and Industry Experience
+            </span>
           </div>
+
+          <textarea
+            style="height: 100px;"
+            id="candidate-name"
+            class="validate"
+            rows="5"
+            maxlength="250"
+            formControlName="skills"
+            joyrideStep="thirdStep" title="Skills and Industry Knowledge" text="We pulled out some of your relevant skills and knowledge from your resume." stepPosition = "bottom"
+          ></textarea>
+          
+          <span class="note">
+            <span style="color: #f58e8e">Note</span> : Enter Comma-separated
+            values
+          </span>
         </div>
 
         <!-- <span>Re-Upload Resume</span>
@@ -179,7 +206,7 @@
                   </span>
                 </span>
               </div>
-              <div joyrideStep="secondStep" title="My Profile" text="AddQuickly highlight 3 reasons why a hiring manager should hire or you want to highlight to recruiters. Our algo pulled out 3 lines from your resume as a starting point your resume" stepPosition = "bottom">
+              <div joyrideStep="forthStep" title="My Profile" text="AddQuickly highlight 3 reasons why a hiring manager should hire or you want to highlight to recruiters. Our algo pulled out 3 lines from your resume as a starting point your resume" stepPosition = "bottom">
                 <textarea
                   rows="4"
                   maxlength="250"
@@ -195,6 +222,19 @@
                   maxlength="250"
                   formControlName="comment3"
                 ></textarea>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12 m12 l12">
+                <div class="btn-accept placement" (click)="seeExampleModal()" joyrideStep="fifthStep" title="Example" text="Here is an example of a candidate summary.">
+                  <span>Example</span>
+                </div>
+              </div>
+              <div class="input-field col s12 m12 l12">
+                <div class="btn-accept placement" (click)="seeSuggestions()" joyrideStep="sixthStep" title="Suggestion" text="Use this button to use our algo to pull suggestions from your resume">
+                  <span>Suggestions</span>
+                </div>
               </div>
             </div>
 
@@ -308,38 +348,6 @@
 
             <div class="input-field col s6 m6 l6">
               <div>
-                <i class="fa fa-archive" aria-hidden="true"></i>
-                <span
-                  [ngClass]="
-                    editProfile.value.skills ? 'resume-subtitle' : 'change'
-                  "
-                  class="resume-subtitle"
-                >
-                Skills and Industry Experience
-                </span>
-              </div>
-
-              <textarea
-                id="candidate-name"
-                class="validate"
-                rows="5"
-                maxlength="250"
-                formControlName="skills"
-              ></textarea>
-
-              <!-- <input
-                id="candidate-name"
-                type="text"
-                class="validate"
-                formControlName="skills"
-              /> -->
-              <span class="note">
-                <span style="color: #f58e8e">Note</span> : Enter Comma-separated
-                values
-              </span>
-            </div>
-            <div class="input-field col s6 m6 l6">
-              <div>
                 <i class="fa fa-linkedin-square" aria-hidden="true"></i>
                 <span
                   [ngClass]="
@@ -369,7 +377,7 @@
                 type="text"
                 class="validate"
                 formControlName="desiredCompanies"
-                joyrideStep="thirdStep" title="My Profile" text="List the companies you are interested in making connections at" stepPosition = "bottom"
+                joyrideStep="seventhStep" title="My Profile" text="List the companies you are interested in making connections at" stepPosition = "bottom"
               />
             </div>
             <div class="input-field col s6 m6 l6">
@@ -404,7 +412,7 @@
                 type="text"
                 class="validate"
                 formControlName="introduceYouToo"
-                joyrideStep="fourthStep" title="My Profile" text="List the companies you introduce other members to" stepPosition = "bottom"
+                joyrideStep="eightStep" title="My Profile" text="List the companies you introduce other members to" stepPosition = "bottom"
               />
             </div>
 
@@ -607,10 +615,28 @@
           </div>
         </div>
       </div>
+
+      <div class="post" style="padding: 10px !important;">
+        <div>
+          <input
+            type="checkbox"
+            id="post"
+            name="post"
+            [value]="editProfile.value.shareProfile"
+            [(ngModel)]="editProfile.value.shareProfile"
+            formControlName="shareProfile"
+            (change)="checkRequiredField($event)"
+          />
+          <label class="my-profile" for="post" joyrideStep="ninthStep" title="My Profile" text="Make your profile visible to members, recruiters and hiring managers." stepPosition = "bottom"
+            >Make my profile public (only recruiters will see you your resume)
+          </label>
+        </div>
+      </div>
+
       <div class="divider"></div>
       <div class="row center-align marB0" style="padding: 15px">
         <!-- <a class="waves-effect waves-light btn-flat" (click)="goBack()">Cancel</a> -->
-        <button type="submit" class="waves-effect waves-light btn" joyrideStep="fifthStep" title="My Profile" text="Save your profile." (onDone) = "onDone()" stepPosition = "bottom" stepPosition = "top">Save</button>
+        <button type="submit" class="waves-effect waves-light btn" joyrideStep="tenthStep" title="My Profile" text="Save your profile." (onDone) = "onDone()" stepPosition = "bottom" stepPosition = "top">Save</button>
       </div>
     </form>
   </div>
