@@ -131,7 +131,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       return ;
     }
 
-    this.joyrideService.startTour({ steps: ['firstStep','secondFirstStep', 'secondStep', 'thirdStep', 'fourthStep', 'fifthStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
+    this.joyrideService.startTour({ steps: ['firstStep','secondStep','thirdStep' , 'forthStep', 'fifthStep', 'sixthStep', 'seventhStep', 'eightStep', 'ninthStep', 'tenthStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
         /*Do something*/
       }, (err) => {
         /*handle error*/
@@ -306,11 +306,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       );
   }
 
-  async handleResumeData(resumeData){
-    
+  async seeSuggestions(){
+    let resumeData = this.candidateProfile;
     let finalStatementsArr = [];
     finalStatementsArr = await this._readResume.readResume(resumeData);
-
     //combine first three statements into three boxes if they are empty.
     finalStatementsArr.forEach((val ,index)=>{
       switch(index){
@@ -339,11 +338,14 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           break;
       }
     });
+  }
 
+  async handleResumeData(resumeData){  
     //update Skills and Industry Experience using skills.
     Object.entries(this.loopSkills).forEach((values, index) => {
       let skillsAre = this.editProfile.value["skills"].toLowerCase();
-      if(resumeData.indexOf(values[0].toLowerCase()) !== -1){
+      if(resumeData.resumeDataIs.toLowerCase().indexOf(values[0].toLowerCase()) !== -1){
+        
         if(skillsAre.indexOf(values[0].toLowerCase()) == -1){
           this.editProfile.patchValue({
             skills : skillsAre + ", "+ values[0].toLowerCase()
@@ -355,7 +357,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     //update Skills and Industry Experience using industries.
     Object.entries(this.loopIndustries).forEach((values, index) => {
       let skillsAre = this.editProfile.value["skills"].toLowerCase();
-      if(resumeData.indexOf(values[0].toLowerCase()) !== -1){
+      if(resumeData.resumeDataIs.toLowerCase().indexOf(values[0].toLowerCase()) !== -1){
         if(skillsAre.indexOf(values[0].toLowerCase()) == -1){
           this.editProfile.patchValue({
             skills : skillsAre + ", "+ values[0].toLowerCase()
@@ -403,6 +405,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         (res) => {
           if (res) {
             Materialize.toast(res.msg, 1000);
+            this.candidateProfile = res.data;
             //here for resume data reading and patching.
             // if(res.data.resumeDataIs !== undefined && (this.editProfile.controls['comments'].value == "" || this.editProfile.controls['comment2'].value == "" || this.editProfile.controls['comment3'].value == "")){
             if(res.data.resumeDataIs !== undefined){
@@ -535,4 +538,32 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         );
     }
   }
+
+  previewProfile(){
+    const payload = {
+      recipientEmail: "spapali@hireseat.com",
+      cc: this.editProfile.get("email").value,
+      bcc: "",
+      fullName: this.editProfile.get("fullName").value,
+      subject: "subject",
+      comment: this.editProfile.get("comments").value,
+      comment2: this.editProfile.get("comment2").value,
+      comment3: this.editProfile.get("comment3").value,
+      senderName : "contact@hireseat",
+      fileURL : this.editProfile.get("fileURL").value,
+      recipientName : "Sujith",
+      linkedIn : this.editProfile.get("linkedIn").value
+    };
+
+    this.candidateService.sharePreviewEmail(payload).subscribe((res) => {
+      if(res){
+        Materialize.toast(res.msg, 1000);
+        console.log("res : ",res);
+      }
+    }, (err) => {
+      Materialize.toast("Something Went Wrong !", 1000);
+    });
+
+  }
+
 }
