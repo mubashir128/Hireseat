@@ -51,6 +51,16 @@ export class CandidateService {
       );
   }
 
+  sharePreviewEmail(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/sharePreviewEmail", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
   // auth : candidate
   getAllPostRecruiters() {
     return this.http.get<any>(this.baseurl + "api/getPostedRecruiters").pipe(

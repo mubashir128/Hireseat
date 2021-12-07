@@ -636,7 +636,12 @@
       <div class="divider"></div>
       <div class="row center-align marB0" style="padding: 15px">
         <!-- <a class="waves-effect waves-light btn-flat" (click)="goBack()">Cancel</a> -->
-        <button type="submit" class="waves-effect waves-light btn" joyrideStep="tenthStep" title="My Profile" text="Save your profile." (onDone) = "onDone()" stepPosition = "bottom" stepPosition = "top">Save</button>
+        <div class="btn-accept placement" (click)="previewProfile()">
+          <span>Preview</span>
+        </div>
+        <div class="col">
+          <button type="submit" class="waves-effect waves-light btn" joyrideStep="tenthStep" title="My Profile" text="Save your profile." (onDone) = "onDone()" stepPosition = "bottom" stepPosition = "top">Save</button>
+        </div>
       </div>
     </form>
   </div>

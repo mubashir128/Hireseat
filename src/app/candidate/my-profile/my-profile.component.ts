@@ -537,4 +537,32 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         );
     }
   }
+
+  previewProfile(){
+    const payload = {
+      recipientEmail: "spapali@hireseat.com",
+      cc: this.editProfile.get("email").value,
+      bcc: "",
+      fullName: this.editProfile.get("fullName").value,
+      subject: "subject",
+      comment: this.editProfile.get("comments").value,
+      comment2: this.editProfile.get("comment2").value,
+      comment3: this.editProfile.get("comment3").value,
+      senderName : "contact@hireseat",
+      fileURL : this.editProfile.get("fileURL").value,
+      recipientName : "Sujith",
+      linkedIn : this.editProfile.get("linkedIn").value
+    };
+
+    this.candidateService.sharePreviewEmail(payload).subscribe((res) => {
+      if(res){
+        Materialize.toast(res.msg, 1000);
+        console.log("res : ",res);
+      }
+    }, (err) => {
+      Materialize.toast("Something Went Wrong !", 1000);
+    });
+
+  }
+
 }
