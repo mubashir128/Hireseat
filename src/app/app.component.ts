@@ -15,7 +15,7 @@ export class AppComponent {
   initializeApp() {
     App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
       this.zone.run(() => {
-        const slug = event.url.split(".com").pop();
+        const slug = event.url.split("hireseat.com").pop();
         if (slug) {
           this._router.navigateByUrl(slug);
         }
