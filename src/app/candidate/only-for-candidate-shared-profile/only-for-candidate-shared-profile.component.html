@@ -164,36 +164,10 @@
             </div>
           </div>
         </div>
-        
-        <div class="pro-share" style="margin-top: 10px;" *ngIf = "!resume.addedAsAFriend">
-          <div class="">
-            <button class="connectBtn" (click)="connectWithOffers(resume)" joyrideStep="thirdStep" title="Connect" text="Start a real connection by offering an introduction with your connection request." stepPosition = "bottom">
-              <a>
-                <div class="icon-name">
-                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                  <span class="shareText"> Connect </span>
-                </div>
-              </a>
-            </button>
-          </div>
-        </div>
-
-        <div class="pro-share" style="margin-top: 10px;" *ngIf = "resume.addedAsAFriend">
-          <div class="">
-            <button class="connectBtn impBtnColor" (click)="connected(resume)">
-              <a>
-                <div class="icon-name">
-                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                  <span class="shareText"> Request Intro </span>
-                </div>
-              </a>
-            </button>
-          </div>
-        </div>
 
         <div class="pro-share" *ngIf = "resume.addedAsAFriend">
           <div class="">
-            <button class="shareBtn" (click)="showShareModal(resume)">
+            <button class="shareBtn" (click)="showShareModal(resume, false)">
               <a>
                 <div class="icon-name">
                   <i class="fa fa-share shared-icon" aria-hidden="true"></i>
@@ -211,6 +185,32 @@
                 <div class="icon-name">
                   <i class="fa fa-share shared-icon" aria-hidden="true"></i>
                   <span class="shareText"> Offer Intro </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+
+        <div class="pro-share" style="margin-top: 10px;" *ngIf = "!resume.addedAsAFriend">
+          <div class="">
+            <button class="connectBtn" (click)="connectWithOffers(resume)" joyrideStep="thirdStep" title="Connect" text="Start a real connection by offering an introduction with your connection request." stepPosition = "bottom">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                  <span class="shareText"> Connect </span>
+                </div>
+              </a>
+            </button>
+          </div>
+        </div>
+
+        <div class="pro-share" style="margin-top: 10px;" *ngIf = "resume.addedAsAFriend">
+          <div class="">
+            <button class="connectBtn impBtnColor" (click)="showShareModal(resume, true)">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                  <span class="shareText"> Offer Referral </span>
                 </div>
               </a>
             </button>
@@ -268,13 +268,13 @@
       <input type="text" class="form-control inputComm" [(ngModel)]="cc" />
     </div>
     
-    <div class="row form-group autoClass">
+    <div class="row form-group autoClass" *ngIf = "!hideBlueBtn">
       <div class="" style="float: right;">
         <button class="sendBtn introStyle" (click)="offerEmailIntro()">Offer Intro</button>
       </div>
     </div>
 
-    <div class="row form-group autoClass" style="margin-top: -25px;">
+    <div class="row form-group autoClass" *ngIf = "hideBlueBtn">
       <div class="" style="width: 55%; float: left;">
         <button class="sendBtn" (click)="generalEmailIntro()">General Referral</button>
       </div>
@@ -283,7 +283,7 @@
       </div>
     </div>
 
-    <div class="row form-group autoClass" style="margin-top: -25px;">
+    <div class="row form-group autoClass" style="margin-top: -25px;" *ngIf = "hideBlueBtn">
       <div class="" style="float: right;">
         <button class="sendBtn" (click)="generateLinkForVideo()">Copy Profile Link</button>
       </div>
