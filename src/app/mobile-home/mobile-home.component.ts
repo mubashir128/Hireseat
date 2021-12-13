@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { App } from '@capacitor/app';
+declare var jQuery:any;
 
 @Component({
   selector: 'app-mobile-home',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mobile-home.component.css']
 })
 export class MobileHomeComponent implements OnInit {
+  appInfo;
+  currVersion = '1.0.0';
 
   constructor() { }
 
-  ngOnInit(): void {
+  async ngOnInit(){
+    this.appInfo = await App.getInfo();
+    console.log("appInfo : ", this.appInfo);
   }
 
 }
