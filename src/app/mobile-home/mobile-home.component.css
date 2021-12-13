@@ -55,3 +55,9 @@
 .fontStyle {
     font-size: 45px;
 }
+
+.versionClass{
+  background-color: #0a111a;
+  text-align: center;
+  margin: auto !important;
+}

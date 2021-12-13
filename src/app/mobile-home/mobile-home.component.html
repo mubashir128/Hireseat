@@ -72,6 +72,20 @@
 
 <app-footer></app-footer>
 <app-navbar></app-navbar>
-<div class="row">
-    Hireseat
+
+<div class="row versionClass">
+    <a>Current Version available on store : </a>
+    <span style="color: #039be5;">
+        {{currVersion}} .
+        <a style="border-bottom: 1px solid blue;" (click)="iosPlayStore()" *ngIf  = "currAndroidAppVersion !== currVersion">Upgrade</a>
+    </span>
+</div>
+<div class="row versionClass" style="margin-bottom: 30px !important; padding: 20px !important;">
+    <span style="color: #039be5;">
+        Hireseat
+    </span>
+</div>
+
+<div class="row" style="margin-bottom: 100px !important;">
+    @
 </div>

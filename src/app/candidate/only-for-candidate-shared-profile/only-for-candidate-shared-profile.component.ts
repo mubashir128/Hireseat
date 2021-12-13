@@ -176,6 +176,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   askAndConnectName = "";
   askAndConnectDesiredCompanies = "";
 
+  hideBlueBtn : boolean;
+
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -910,7 +912,10 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   // share process
-  showShareModal(resume) {
+  showShareModal(resume, flag) {
+    this.hideBlueBtn = flag;
+    this.recipientName = "";
+    this.recipientEmail = "";
     this.cc = resume.candidateKey ? resume.candidateKey.email : resume.candidate_id ? resume.candidate_id.email : "";
     this.bcc = this.loggedUser.email ? this.loggedUser.email : "";
     this.cc = this.cc + ", " + this.bcc;
