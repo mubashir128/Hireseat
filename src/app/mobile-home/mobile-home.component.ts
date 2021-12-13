@@ -15,7 +15,7 @@ export class MobileHomeComponent implements OnInit {
 
   async ngOnInit(){
     this.appInfo = await App.getInfo();
-    console.log("appInfo : ", this.appInfo);
+    this.currVersion = this.appInfo ? this.appInfo.version : this.currVersion;
   }
 
 }
