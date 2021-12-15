@@ -32,7 +32,7 @@
               (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2)"
               [routerLink]=""
               routerLinkActive="notification-content"
-              [innerHtml]="truncateHTML(notify.notification.message)"
+              [innerHtml]="truncateHTML(notify.notification.message, notify.senderName)"
               [ngStyle] = "{'color' : notify.isRead ? '#0AAFFF' : '#1c2d41'}"
               >{{ notify.notification.message }}
             </a>
@@ -75,17 +75,37 @@
         >
         <ul>
           <li *ngFor="let notify of notificationAre">
-            <a
-              (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2)"
-              [routerLink]=""
-              routerLinkActive="notification-content"
-              [innerHtml]="truncateHTML(notify.notification.message)"
-              >{{ notify.notification.message }}
-            </a>
-            <span>
-              <i class="fas fa-trash-alt"></i><br>
-              {{notify.updatedAt | amTimeAgo}}
-            </span>
+            <div class="row" style="margin: auto; margin-top: 10px;">
+              <div class="col s2 l2 m2">
+                <div *ngIf = "!notify.showCreatedLogo" class="big-badge">
+                  <img src="{{ notify.icon }}" (error)="changeLogo(notify)" class="iconStyle" style="max-width: 100%" />
+                </div>
+                <div *ngIf = "notify.showCreatedLogo" class="big-badge">
+                  {{ (notify.senderName ? notify.senderName : notify.notification.message) | uppercase | slice: 0 : 1 }}
+                </div>
+              </div>
+              <div class="col s10 l10 m10" style="margin-left: -20px;">
+                <a
+                  (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2)"
+                  [routerLink]=""
+                  routerLinkActive="notification-content"
+                  [innerHtml]="truncateHTML(notify.notification.message, notify.senderName)"
+                  id = "text_{{notify._id}}"
+                  >{{ notify.notification.message }}
+                </a>
+              </div>
+              <div c lang="col s2 m2 l2">
+                <i class="fa fa-ellipsis-h" style="font-size : 20px; margin-left : -10px;" (click) = "exapndText(notify)"></i>
+              </div>
+            </div>
+            <div class="row" style="margin: 8px 0px 8px 0px;">
+              <div class="col s1 l1 m1 deleteNdateClass">
+                <i class="fas fa-trash-alt" style="margin-left: -10px;"></i><br>
+              </div>
+              <div class="col s4 l4 m4 deleteNdateClass">
+                {{notify.updatedAt | amTimeAgo}}
+              </div>
+            </div>
           </li>
         </ul>
       </div>

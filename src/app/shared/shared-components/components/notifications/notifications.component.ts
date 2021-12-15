@@ -5,6 +5,7 @@ import { ConstantsService } from 'src/app/_services/constants.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
+declare var jQuery;
 
 @Component({
   selector: 'app-notifications',
@@ -75,16 +76,30 @@ export class NotificationsComponent implements OnInit {
   }
 
   //reduce the notification length.
-  truncateHTML(text): string {
-    let charlimit = 40;
+  truncateHTML(text, name): string {
+    return this.getText(text, name);
+  }
+
+  getText(text, name){
+    let charlimit = 60;
     if (!text || text.length <= charlimit) {
-      return text;
+      return name + " : " + text;
     }
 
     let without_html = text.replace(/<(?:.|\n)*?>/gm, "");
     let trim_space = without_html.trim().replace(/&nbsp;/g, "");
-    let shortened = trim_space.substring(0, charlimit) + "...";
-    return shortened;
+    let shortened = trim_space.substring(0, charlimit) + " .";
+    return name + " : " + shortened;
+  }
+
+  exapndText(notify){
+    if(notify.expanded){
+      jQuery("#text_"+notify._id).html(this.getText(notify.notification.message, notify.senderName));
+      notify.expanded = false;
+    }else{
+      jQuery("#text_"+notify._id).html(notify.senderName + " : " + notify.notification.message);
+      notify.expanded = true;
+    }
   }
 
   //handle notifications of user.
@@ -231,6 +246,10 @@ export class NotificationsComponent implements OnInit {
         clear : true,
       },
     });
+  }
+
+  changeLogo(notify){
+    notify.showCreatedLogo = true;
   }
 
   //unscubscribe the subscribed variables.
