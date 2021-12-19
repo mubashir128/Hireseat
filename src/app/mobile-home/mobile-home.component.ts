@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { App } from '@capacitor/app';
 import { ConstantsService } from '../_services/constants.service';
+import { UserService } from "../_services/user.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
 declare var jQuery:any;
 
@@ -14,7 +16,18 @@ export class MobileHomeComponent implements OnInit {
   currVersion = '1.0.0';
   currIosAppVersion;
 
-  constructor(private _constants : ConstantsService){
+  loggedInUser : any;
+  btnName = "Login";
+
+  constructor(private _userservice: UserService, private router: Router) {
+    this.loggedInUser = this._userservice.getUserData();
+    if (this.loggedInUser != "no") {
+      this.btnName = "Enter";
+    }
+  }
+
+  goToLogin() {
+    this.router.navigate(["/login"]);
   }
 
   async ngOnInit(){
