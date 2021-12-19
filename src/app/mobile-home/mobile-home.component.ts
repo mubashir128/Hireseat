@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { App } from '@capacitor/app';
-import { ConstantsService } from '../_services/constants.service';
 import { UserService } from "../_services/user.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { ConstantsService } from '../_services/constants.service';
 
 declare var jQuery:any;
 
@@ -19,7 +19,7 @@ export class MobileHomeComponent implements OnInit {
   loggedInUser : any;
   btnName = "Login";
 
-  constructor(private _userservice: UserService, private router: Router) {
+  constructor(private _userservice: UserService, private router: Router, private _constants : ConstantsService) {
     this.loggedInUser = this._userservice.getUserData();
     if (this.loggedInUser != "no") {
       this.btnName = "Enter";
