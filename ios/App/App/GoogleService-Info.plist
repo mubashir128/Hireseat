@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>861355719085-qkp3qskj1fb2bb68uismhpb297hoo3hm.apps.googleusercontent.com</string>
+	<string>287936048712-sfbqsr0kke0dtqrpag93l3ahmgco793e.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.861355719085-qkp3qskj1fb2bb68uismhpb297hoo3hm</string>
+	<string>com.googleusercontent.apps.287936048712-sfbqsr0kke0dtqrpag93l3ahmgco793e</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA7gd65XG-k3fsHbLV6BYRfLsZ_RWqugg4</string>
+	<string>AIzaSyAtY6NOPTAjK4WplFUaPAPCF8vEN4TE5PQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>861355719085</string>
+	<string>287936048712</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.hireseat.app</string>
 	<key>PROJECT_ID</key>
-	<string>bluerecruting</string>
+	<string>hireseat</string>
 	<key>STORAGE_BUCKET</key>
-	<string>bluerecruting.appspot.com</string>
+	<string>hireseat.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:861355719085:ios:7339e45e991e166d944924</string>
-	<key>DATABASE_URL</key>
-	<string>https://bluerecruting.firebaseio.com</string>
+	<string>1:287936048712:ios:a3b57f642163463640f27d</string>
 </dict>
 </plist>
