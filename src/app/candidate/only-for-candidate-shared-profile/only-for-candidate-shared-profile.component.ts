@@ -297,19 +297,26 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
   tourStart(){
     let loginCount = this.loggedUser.loginCount;
-    let beforeMyProfileWalkthrough = JSON.parse(this.userService.getOnlyCandidateWalkthrough());
-    if(loginCount !== 1 && beforeMyProfileWalkthrough){
-      return ;
+    let beforeOnlyCandidateWalkthrough = JSON.parse(this.userService.getOnlyCandidateWalkthrough());
+    if(loginCount == 1){
+      if(!beforeOnlyCandidateWalkthrough){
+        this.joyRide();
+      }
+    }else if(!beforeOnlyCandidateWalkthrough){
+      this.joyRide();
     }
+  }
+
+  joyRide(){
     this.joyrideService.startTour({ steps: ['firstStep', 'secondStep', 'thirdStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
-        /*Do something*/
-      }, (err) => {
-        /*handle error*/
-        this.onDone();
-      }, () => {
-        /*Tour is finished here, do something*/
-        this.onDone();
-      });
+      /*Do something*/
+    }, (err) => {
+      /*handle error*/
+      this.onDone();
+    }, () => {
+      /*Tour is finished here, do something*/
+      this.onDone();
+    });
   }
 
   onDone(){

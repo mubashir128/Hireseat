@@ -127,19 +127,25 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   tourStart(){
     let loginCount = JSON.parse(localStorage.getItem("currentUser")).userInfo.loginCount;
     let beforeMyProfileWalkthrough = JSON.parse(this.userService.getBeforeMyProfileWalkthrough());
-    if(loginCount !== 1 && beforeMyProfileWalkthrough !== null ){
-      return ;
+    if(loginCount == 1){
+      if(!beforeMyProfileWalkthrough){
+        this.joyRide();
+      }
+    }else if(!beforeMyProfileWalkthrough){
+      this.joyRide();
     }
+  }
 
+  joyRide(){
     this.joyrideService.startTour({ steps: ['firstStep','secondStep','thirdStep' , 'forthStep', 'fifthStep', 'sixthStep', 'seventhStep', 'eightStep', 'ninthStep', 'tenthStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
-        /*Do something*/
-      }, (err) => {
-        /*handle error*/
-        this.onDone();
-      }, () => {
-        /*Tour is finished here, do something*/
-        this.onDone();
-      });
+      /*Do something*/
+    }, (err) => {
+      /*handle error*/
+      this.onDone();
+    }, () => {
+      /*Tour is finished here, do something*/
+      this.onDone();
+    });
   }
 
   onDone(){
