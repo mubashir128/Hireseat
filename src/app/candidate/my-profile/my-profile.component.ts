@@ -127,7 +127,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   tourStart(){
     let loginCount = JSON.parse(localStorage.getItem("currentUser")).userInfo.loginCount;
     let beforeMyProfileWalkthrough = JSON.parse(this.userService.getBeforeMyProfileWalkthrough());
-    if(loginCount !== 1 || beforeMyProfileWalkthrough){
+    if(loginCount !== 1 && beforeMyProfileWalkthrough !== null ){
       return ;
     }
 
