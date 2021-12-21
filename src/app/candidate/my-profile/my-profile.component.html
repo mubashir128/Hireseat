@@ -116,7 +116,7 @@
             >
               <div class="uploadBtn" style="display: table-cell" joyrideStep="secondStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
                 <span>Upload Resume</span>
-                <input type="file" (change)="fileChange($event)" />
+                <input type="file" accept=".pdf, .docx" (change)="fileChange($event)" />
               </div>
             </div>
 
@@ -143,6 +143,9 @@
               </div>
             </div>
           </ng-container>
+        </div>
+        <div class="row" style="color: red; margin: auto; font-size: 12px; padding: 10px 20px 0 20px;">
+          Please upload resume in PDF or .DOCX format.
         </div>
 
         <div class="row input-field col s12 m12 l12">
