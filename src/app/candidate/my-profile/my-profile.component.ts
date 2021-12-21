@@ -127,19 +127,25 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   tourStart(){
     let loginCount = JSON.parse(localStorage.getItem("currentUser")).userInfo.loginCount;
     let beforeMyProfileWalkthrough = JSON.parse(this.userService.getBeforeMyProfileWalkthrough());
-    if(loginCount !== 1 || beforeMyProfileWalkthrough){
-      return ;
+    if(loginCount == 1){
+      if(!beforeMyProfileWalkthrough){
+        this.joyRide();
+      }
+    }else if(!beforeMyProfileWalkthrough){
+      this.joyRide();
     }
+  }
 
+  joyRide(){
     this.joyrideService.startTour({ steps: ['firstStep','secondStep','thirdStep' , 'forthStep', 'fifthStep', 'sixthStep', 'seventhStep', 'eightStep', 'ninthStep', 'tenthStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
-        /*Do something*/
-      }, (err) => {
-        /*handle error*/
-        this.onDone();
-      }, () => {
-        /*Tour is finished here, do something*/
-        this.onDone();
-      });
+      /*Do something*/
+    }, (err) => {
+      /*handle error*/
+      this.onDone();
+    }, () => {
+      /*Tour is finished here, do something*/
+      this.onDone();
+    });
   }
 
   onDone(){
@@ -210,32 +216,36 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
   fileChange(event) {
     if (event.target.files) {
-      this.fileUploaded = 0;
-      let fileList: FileList = event.target.files;
-      let file: File = fileList[0];
-      var fdata = new FormData();
-      fdata.append("image", file);
-      this.uploadResumeSubscription = this.resumeService
-        .uploadResume(fdata)
-        .subscribe(
-          (data: any) => {
-            if (data.result) {
-              this.downloadURL = data.result;
-              // this.resume.fileURL = data.result;
-              this.fileUploaded = 2;
-              Materialize.toast("Resume Uploaded Successfully !", 1000);
-              this.submit();
-            } else {
-              Materialize.toast("Something Went Wrong !", 1000);
+      if(event.target.files[0].name.endsWith(".pdf") || event.target.files[0].name.endsWith(".docx")){
+        this.fileUploaded = 0;
+        let fileList: FileList = event.target.files;
+        let file: File = fileList[0];
+        var fdata = new FormData();
+        fdata.append("image", file);
+        this.uploadResumeSubscription = this.resumeService
+          .uploadResume(fdata)
+          .subscribe(
+            (data: any) => {
+              if (data.result) {
+                this.downloadURL = data.result;
+                // this.resume.fileURL = data.result;
+                this.fileUploaded = 2;
+                Materialize.toast("Resume Uploaded Successfully !", 1000);
+                this.submit();
+              } else {
+                Materialize.toast("Something Went Wrong !", 1000);
+              }
+            },
+            (error) => {
+              console.log(error);
+              if (error) {
+                Materialize.toast("Something Went Wrong !", 1000);
+              }
             }
-          },
-          (error) => {
-            console.log(error);
-            if (error) {
-              Materialize.toast("Something Went Wrong !", 1000);
-            }
-          }
-        );
+          );
+      }else{
+        Materialize.toast("Only allow .PDF and .DOCX extension files", 1500, 'red');
+      }
     }
   }
   getProfile() {

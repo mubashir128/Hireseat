@@ -297,19 +297,26 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
   tourStart(){
     let loginCount = this.loggedUser.loginCount;
-    let beforeMyProfileWalkthrough = JSON.parse(this.userService.getOnlyCandidateWalkthrough());
-    if(loginCount !== 1 || beforeMyProfileWalkthrough){
-      return ;
+    let beforeOnlyCandidateWalkthrough = JSON.parse(this.userService.getOnlyCandidateWalkthrough());
+    if(loginCount == 1){
+      if(!beforeOnlyCandidateWalkthrough){
+        this.joyRide();
+      }
+    }else if(!beforeOnlyCandidateWalkthrough){
+      this.joyRide();
     }
+  }
+
+  joyRide(){
     this.joyrideService.startTour({ steps: ['firstStep', 'secondStep', 'thirdStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
-        /*Do something*/
-      }, (err) => {
-        /*handle error*/
-        this.onDone();
-      }, () => {
-        /*Tour is finished here, do something*/
-        this.onDone();
-      });
+      /*Do something*/
+    }, (err) => {
+      /*handle error*/
+      this.onDone();
+    }, () => {
+      /*Tour is finished here, do something*/
+      this.onDone();
+    });
   }
 
   onDone(){
@@ -1638,11 +1645,20 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     jQuery("#offerEmailIntroModal").modal("open");
   }
 
+  offerEmailIntro2(){
+    this.senderName = this.loggedUser.fullName;
+    this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    this.recipientName = this.candidateNameIs;
+    this.linedIn = this.shareResume.linkedIn;
+    jQuery("#shareEmailModal").modal("close");
+    jQuery("#offerEmailIntroModal").modal("open");
+  }
+
   offerEmailIntroSend(){
     let payload = {
       recipientEmail : this.recipientEmail,
       fullName : this.candidateNameIs,
-      cc : "",
+      cc : this.cc,
       senderName : this.loggedUser.fullName,
       recipientName : this.recipientName,
       linkedIn : this.linedIn,
