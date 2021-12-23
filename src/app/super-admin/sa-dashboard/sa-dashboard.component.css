@@ -21,8 +21,8 @@ nav ul a{
     padding: 8px;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) { */
     .disNone {
         display: none;
     }
-}
+/* } */
