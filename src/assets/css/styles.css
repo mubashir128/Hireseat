@@ -222,7 +222,7 @@ ul.resumeList li {
     z-index: 99 !important;
   }
   #sidenav-overlay {
-    z-index: 99999 !important;
+    /* z-index: 99999 !important; */
   }
   .side-nav {
     z-index: 999999 !important;
@@ -277,7 +277,7 @@ ul.resumeList li {
     margin-bottom: 40px;
   }
   .button-collapse {
-    display: none;
+    /* display: none; */
   }
   .cadidateDetails p {
     padding-left: 5px !important;

@@ -20,3 +20,9 @@ nav ul a{
     font-weight: 700;
     padding: 8px;
 }
+
+@media (max-width: 768px) {
+    .disNone {
+        display: none;
+    }
+}
