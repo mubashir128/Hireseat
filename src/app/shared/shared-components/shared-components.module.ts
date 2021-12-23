@@ -78,6 +78,9 @@ import { FriendsConnectionsComponent } from './components/friends-connections/fr
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { SearchByOnlyFullNamePipe } from '../../shared/pipes/search-by-only-full-name.pipe';
 import { SortByIndustiresPipe } from '../../shared/pipes/sort-by-industires.pipe';
+import { DiaplogOfferIntroEmailComponent } from './components/diaplog-offer-intro-email/diaplog-offer-intro-email.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogIntroduceComponent } from './components/dialog-introduce/dialog-introduce.component';
 
 @NgModule({
   imports: [
@@ -101,8 +104,8 @@ import { SortByIndustiresPipe } from '../../shared/pipes/sort-by-industires.pipe
     NgbModalModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    MomentModule
-
+    MomentModule,
+    MatDialogModule
   ],
   declarations: [
     FooterComponent,
@@ -181,7 +184,9 @@ import { SortByIndustiresPipe } from '../../shared/pipes/sort-by-industires.pipe
     FriendsConnectionsComponent,
     TimelineComponent,
     SearchByOnlyFullNamePipe,
-    SortByIndustiresPipe
+    SortByIndustiresPipe,
+    DiaplogOfferIntroEmailComponent,
+    DialogIntroduceComponent
   ],
   exports: [
     FooterComponent,
@@ -254,7 +259,8 @@ import { SortByIndustiresPipe } from '../../shared/pipes/sort-by-industires.pipe
     SearchByCTRPipe,
     SerchByJobTitlePipe,
     SearchByOnlyFullNamePipe,
-    SortByIndustiresPipe
+    SortByIndustiresPipe,
+    MatDialogModule
   ],
 
 })

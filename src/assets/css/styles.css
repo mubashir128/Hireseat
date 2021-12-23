@@ -1495,3 +1495,9 @@ body {
   width: 100%;
   overflow: auto;
 }
+
+.mat-dialog-container {
+  height: auto !important;
+  background-color: #fff !important;
+  padding: 25px !important;
+}
