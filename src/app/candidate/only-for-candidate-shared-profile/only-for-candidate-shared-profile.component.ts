@@ -40,6 +40,9 @@ import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import * as myGlobals from "../../globalPath";
 import { JoyrideService } from "ngx-joyride";
+import { MatDialog } from "@angular/material/dialog";
+import { DiaplogOfferIntroEmailComponent } from "src/app/shared/shared-components/components/diaplog-offer-intro-email/diaplog-offer-intro-email.component";
+import { DialogIntroduceComponent } from "src/app/shared/shared-components/components/dialog-introduce/dialog-introduce.component";
 
 const { Share } = Plugins;
 declare var jQuery;
@@ -194,7 +197,8 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     private _readResume : ReadResumeService,
     private _router: Router,
     private _route: ActivatedRoute,
-    private readonly joyrideService: JoyrideService
+    private readonly joyrideService: JoyrideService,
+    public dialog: MatDialog
   ) {
     this.resumes = [];
     
@@ -918,8 +922,91 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     window.open(url, "_blank");
   }
 
+  showShareModal2(resume, flag) {
+    this.hideBlueBtn = flag;
+    this.shareVideoService.setResume(resume);
+    const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent,{
+      data: {
+        dialogType : "OfferIntro",
+        dialogTitle : "Offer Intro",
+        clients : this.clients,
+        hideBlueBtn : this.hideBlueBtn
+      }
+    });
+
+    dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
+      if(result){
+        this.emailPreview(result);
+      }
+    });
+  }
+
+  emailPreview(result){
+    this.senderName = this.loggedUser.fullName;
+    this.recipientName = result.recipientName;
+    const dialogIntroduceRef = this.dialog.open(DialogIntroduceComponent,{
+      data: {
+        dialogType : "OfferIntro",
+        dialogTitle : "Email Preview...",
+        senderName : this.senderName,
+        recipientName : this.recipientName
+      }
+    });
+
+    dialogIntroduceRef.afterClosed().subscribe(result2 => {
+      if(result){
+        this.emailSend(result, result2);
+      }
+    });
+  }
+
+  emailSend(result, result2){
+    let payload = {
+      recipientEmail : result.recipientEmail,
+      fullName : result.recipientName,
+      cc : result.cc,
+      senderName : result2.senderName,
+      recipientName : result.recipientName,
+      linkedIn : this.linedIn,
+      companies : result2.companies,
+      emailType : this._constants.offerEmailIntro,
+      chatLink : myGlobals.chatRedirectUrl + this.loggedUser.userRole + "/chat-record/" + this.loggedUser._id
+    };
+    
+    this.spinner.show();
+    this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
+      (res) => {
+        if (res.msg) {
+          Materialize.toast(res.msg, 3000, "green");
+        } else {
+          Materialize.toast(res.err, 3000, "red");
+        }
+        this.spinner.hide();
+    }, (err) => {
+      Materialize.toast(err.err, 3000, "red");
+    });
+  }
+
   // share process
   showShareModal(resume, flag) {
+
+    // this.hideBlueBtn = flag;
+    // this.shareVideoService.setResume(resume);
+    // const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent,{
+    //   data: {
+    //     dialogType : "OfferReferral",
+    //     dialogTitle : "Offer Referral",
+    //     clients : this.clients,
+    //     hideBlueBtn : this.hideBlueBtn
+    //   }
+    // });
+
+    // dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
+    //   if(result){
+    //   }
+    // });
+    // return ;
+
     this.hideBlueBtn = flag;
     this.recipientName = "";
     this.recipientEmail = "";
