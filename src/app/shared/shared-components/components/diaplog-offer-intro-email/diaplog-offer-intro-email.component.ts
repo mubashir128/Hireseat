@@ -16,19 +16,18 @@ export class DiaplogOfferIntroEmailComponent implements OnInit {
   clients : any;
   hideBlueBtn: boolean;
 
-  dialogType: String;
-  dialogTitle: String;
+  dialogType: string;
+  dialogTitle: string;
 
   cc: any;
   bcc: any;
-  recipientEmail: String;
-  recipientName: String;
+  recipientEmail: string;
+  recipientName: string;
 
-  senderName: String;
-  candidateNameIs: String;
+  senderName: string;
+  candidateNameIs: string;
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: DiaplogOfferIntroEmailComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DiaplogOfferIntroEmailComponent>){
-    console.log("data : ",this.data);
     if(data){
       this.clients = this.data.clients;
       this.hideBlueBtn = this.data.hideBlueBtn;

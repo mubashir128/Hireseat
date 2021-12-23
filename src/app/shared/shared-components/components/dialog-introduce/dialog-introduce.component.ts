@@ -8,15 +8,14 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class DialogIntroduceComponent implements OnInit {
 
-  dialogType: String;
-  dialogTitle: String;
+  dialogType: string;
+  dialogTitle: string;
 
-  companies: String;
-  senderName: String;
-  recipientName: String;
+  companies: string;
+  senderName: string;
+  recipientName: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogIntroduceComponent, public dialogRef: MatDialogRef<DialogIntroduceComponent>){
-    console.log("data : ",this.data);
     if(data){
       this.dialogType = this.data.dialogType;
       this.dialogTitle = this.data.dialogTitle;
