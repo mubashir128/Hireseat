@@ -1,21 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { AbstractDialogComponent } from '../abstract-dialog.component';
 
 @Component({
   selector: 'app-dialog-introduce',
   templateUrl: './dialog-introduce.component.html',
   styleUrls: ['./dialog-introduce.component.css']
 })
-export class DialogIntroduceComponent implements OnInit {
-
-  dialogType: string;
-  dialogTitle: string;
-
+export class DialogIntroduceComponent extends AbstractDialogComponent implements OnInit {
+  
   companies: string;
   senderName: string;
   recipientName: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogIntroduceComponent, public dialogRef: MatDialogRef<DialogIntroduceComponent>){
+    super(dialogRef);
     if(data){
       this.dialogType = this.data.dialogType;
       this.dialogTitle = this.data.dialogTitle;

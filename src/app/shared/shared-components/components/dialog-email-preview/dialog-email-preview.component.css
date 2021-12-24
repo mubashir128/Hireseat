@@ -1,0 +1,36 @@
+.ccBcc input{
+  width: 60%;
+  margin-left: 16px;
+}
+
+.email input::placeholder {
+  color:#000 !important;
+}
+
+.email input {
+  width: 25%;
+  margin-left: 10px;
+  border-bottom: 1px solid black;
+}
+
+.email p {
+  color:#717171;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.setCss {
+  height: 450px;
+}
+
+button.sendBtn {
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
