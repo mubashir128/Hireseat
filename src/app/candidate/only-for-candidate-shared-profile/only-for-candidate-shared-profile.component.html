@@ -242,59 +242,6 @@
   </div>
 </ng-container>
 
-
-<div id="shareEmailModal" class="modal">
-  <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
-  <div class="emailTemp">
-    <div class="form-group posRel">
-      <!-- <label>Receiver Name </label> -->
-      <input type="text" class="form-control inputCommReceiver" (keyup)="searchClient(recipientName)" (focusout)="closeClients($event)" [(ngModel)]="recipientName" placeholder="Receiver Name"/>
-      <div class="search-result" *ngIf="flag">
-        <ul>
-          <li style="height: 35px; background-color: #D4D9DF; color: white;" *ngFor="let client of clients | searchByOnlyFullName : recipientName">
-            <a style="margin-left: 5px" (click)="onselectClient(client)">{{client.fullName}}</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="form-group posRel">
-      <!-- <p class="hideBtn"><a href="#">Hide CC / BCC</a></p> -->
-      <label>To </label>
-      <input
-        type="text"
-        class="form-control inputComm"
-        [(ngModel)]="recipientEmail"
-      />
-    </div>
-    <div class="form-group posRel">
-      <label>CC </label>
-      <input type="text" class="form-control inputComm" [(ngModel)]="cc" />
-    </div>
-    
-    <div class="row form-group autoClass" *ngIf = "!hideBlueBtn">
-      <div class="" style="float: right;">
-        <button class="sendBtn introStyle" (click)="offerEmailIntro2()">Offer Intro</button>
-      </div>
-    </div>
-
-    <div class="row form-group autoClass" *ngIf = "hideBlueBtn">
-      <div class="" style="width: 55%; float: left;">
-        <button class="sendBtn" (click)="generalEmailIntro()">General Referral</button>
-      </div>
-      <div class="" style="width: 45%; float: left;">
-        <button class="sendBtn" (click)="introduceUser()">Career Referral</button>
-      </div>
-    </div>
-
-    <div class="row form-group autoClass" style="margin-top: -25px;" *ngIf = "hideBlueBtn">
-      <div class="" style="float: right;">
-        <button class="sendBtn" (click)="generateLinkForVideo()">Copy Profile Link</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <div id="shareToUsers" class="modal">
   <form [formGroup]="auctionFrm">
     <i (click)="closeShareToUserModal()" class="fa fa-times" aria-hidden="true"></i>
