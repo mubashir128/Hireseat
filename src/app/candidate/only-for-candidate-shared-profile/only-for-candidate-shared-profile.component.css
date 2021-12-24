@@ -416,32 +416,6 @@ textarea.editComment:focus {
   border-radius: 5px;
   will-change: top, opacity;
 }
-.emailTemp {
-  /* width: 100%; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: auto;
-  padding: 20px 40px;
-}
-.posRel {
-  position: relative;
-}
-.posRel label {
-  position: absolute;
-  left: 0;
-  top: 12px;
-  font-size: 15px;
-  color: #b2b2b2;
-}
-.inputComm {
-  height: 40px;
-  width: 94% !important;
-  border: none;
-  margin-bottom: 10px !important;
-  padding-left: 40px !important;
-  border-bottom: 1px solid #c2c2c2;
-}
 
 button.sendBtn {
   background-color: #039be5;
@@ -1103,7 +1077,7 @@ a.videoCloseBtn {
   font-size: 13px;
 }
 
-#emaiPreviewModal, #generalEmaiPreviewModal, #offerEmailIntroModal, #askOfferAndChat, #askOfferAndConnect{
+#askOfferAndConnect{
   padding: 20px;
 }
 
@@ -1111,36 +1085,8 @@ input {
   margin-bottom: 0px !important;
 }
 
-.email input::placeholder {
-  color:#000 !important;
-}
-
-.email input {
-  width: 25%;
-  margin-left: 10px;
-  border-bottom: 1px solid black;
-}
-
-.email p {
-  color:#717171;
-}
-
 .maar-none {
   margin-left: 0px !important;
-}
-
-.skill input::placeholder {
-  color:#000 !important;
-}
-
-.skill  input {
-  width: 98%;
-  border-bottom: 1px solid black;
-}
-
-.ccBcc input{
-  width: 60%;
-  margin-left: 16px;
 }
 
 .other-details i {
@@ -1179,12 +1125,4 @@ input {
 
 .eduPage {
   margin-bottom: 100px;
-}
-
-.autoClass {
-  padding: 0px !important;
-}
-
-#askOfferAndChat span {
-  font-size: 18px;
 }

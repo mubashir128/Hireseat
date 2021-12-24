@@ -1405,3 +1405,19 @@ body {
   background-color: #fff !important;
   padding: 25px !important;
 }
+
+.titleClass label{
+  font-size: 15px;
+}
+
+.fa-times {
+  color: black !important;
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.removeMargin{
+  margin: auto !important;
+}

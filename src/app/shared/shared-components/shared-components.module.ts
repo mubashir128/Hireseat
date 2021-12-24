@@ -79,6 +79,11 @@ import { SortByIndustiresPipe } from '../../shared/pipes/sort-by-industires.pipe
 import { DiaplogOfferIntroEmailComponent } from './components/diaplog-offer-intro-email/diaplog-offer-intro-email.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogIntroduceComponent } from './components/dialog-introduce/dialog-introduce.component';
+import { DialogEmailPreviewComponent } from './components/dialog-email-preview/dialog-email-preview.component';
+import { DialogEmailPreview2Component } from './components/dialog-email-preview2/dialog-email-preview2.component';
+import { DialogOfferIntroChatComponent } from './components/dialog-offer-intro-chat/dialog-offer-intro-chat.component';
+import { DialogConnectOfferIntroComponent } from './components/dialog-connect-offer-intro/dialog-connect-offer-intro.component';
+import { CloseScreenComponent } from './components/close-screen/close-screen.component';
 
 @NgModule({
   imports: [
@@ -182,7 +187,12 @@ import { DialogIntroduceComponent } from './components/dialog-introduce/dialog-i
     SearchByOnlyFullNamePipe,
     SortByIndustiresPipe,
     DiaplogOfferIntroEmailComponent,
-    DialogIntroduceComponent
+    DialogIntroduceComponent,
+    DialogEmailPreviewComponent,
+    DialogEmailPreview2Component,
+    DialogOfferIntroChatComponent,
+    DialogConnectOfferIntroComponent,
+    CloseScreenComponent
   ],
   exports: [
     FooterComponent,
@@ -256,7 +266,8 @@ import { DialogIntroduceComponent } from './components/dialog-introduce/dialog-i
     SerchByJobTitlePipe,
     SearchByOnlyFullNamePipe,
     SortByIndustiresPipe,
-    MatDialogModule
+    MatDialogModule,
+    CloseScreenComponent
   ],
 
 })
