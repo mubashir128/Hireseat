@@ -166,8 +166,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   showResult = false;
   searchIndustry = "";
 
-  introsAt = "";
-
   constructor(
     private resumeService: ResumeService,
     private sanitizer: DomSanitizer,
@@ -1516,12 +1514,13 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
   goToUserChat(resume){
     this.shareVideoService.setResume(resume);
-    this.introsAt = this.shareResume.introduceYouToo;
+    let introsAt = this.shareResume.introduceYouToo;
 
     const dialogOfferEmailChatRef = this.dialog.open(DialogOfferIntroChatComponent,{
       data: {
         dialogType : "OfferIntro...",
-        dialogTitle : "Offer Intro..."
+        dialogTitle : "Offer Intro...",
+        introsAt : introsAt
       }
     });
 
