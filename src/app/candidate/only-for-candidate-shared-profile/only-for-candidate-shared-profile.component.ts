@@ -482,8 +482,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     } else {
       Materialize.toast(res.error, 3000, "red");
     }
-
-    jQuery("#shareEmailModal").modal("close");
     this.spinner.hide();
   }
 
