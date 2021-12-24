@@ -1134,9 +1134,9 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
             if (this.shareableVideoURL) {
               let systemUserId;
               this.resumes.forEach((prof, index)=>{
-                if(prof.candidate_id && (prof.candidate_id.fullName == this.recipientName) && (prof.candidate_id.email == this.recipientEmail)){
+                if(prof.candidate_id && (prof.candidate_id.fullName == result.recipientName) && (prof.candidate_id.email == result.recipientEmail)){
                   systemUserId = prof.candidate_id._id;
-                }else if(prof.candidateKey && (prof.candidateKey.fullName == this.recipientName) && (prof.candidateKey.email == this.recipientEmail)){
+                }else if(prof.candidateKey && (prof.candidateKey.fullName == result.recipientName) && (prof.candidateKey.email == result.recipientEmail)){
                   systemUserId = prof.candidateKey._id;
                 }
               });
