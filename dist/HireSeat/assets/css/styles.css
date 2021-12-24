@@ -1322,3 +1322,102 @@ body {
 .modal-overlay {
   z-index: 99 !important;
 }
+
+.animatePart{
+  animation: zoomIn 0.2s;
+}
+
+@keyframes zoomIn {
+  0%{
+    transform: scale(0.1);
+  }
+  25%{
+    transform: scale(0.25);
+  }
+  50%{
+    transform: scale(0.5);
+  }
+  75%{
+    transform: scale(0.75);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+.introStyle{
+  border: 1px solid red !important;
+  background-color: red !important;
+}
+
+.elipsesClass {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result {
+  overflow: auto;
+  width: 100%;
+  position: absolute;
+  max-height: 120px;
+  background-color: white;
+  z-index: 1;
+  border: 1px solid black;
+}
+
+.btmSpace {
+  margin-bottom: 0px;
+}
+
+.dotOnline {
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 25px;
+  margin-left: -15px;
+}
+
+.dotOffline {
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 25px;
+  margin-left: -15px;
+}
+
+.joyride-step__container {
+  width: 150px;
+}
+
+.joyride-step__body {
+  height: 100px;
+  width: 100%;
+  overflow: auto;
+}
+
+.mat-dialog-container {
+  height: auto !important;
+  background-color: #fff !important;
+  padding: 25px !important;
+}
+
+.titleClass label{
+  font-size: 15px;
+}
+
+.fa-times {
+  color: black !important;
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.removeMargin{
+  margin: auto !important;
+}
