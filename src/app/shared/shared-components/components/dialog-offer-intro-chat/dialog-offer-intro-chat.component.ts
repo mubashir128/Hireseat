@@ -8,10 +8,15 @@ import { AbstractDialogComponent } from '../abstract-dialog.component';
   styleUrls: ['./dialog-offer-intro-chat.component.css']
 })
 export class DialogOfferIntroChatComponent extends AbstractDialogComponent implements OnInit {
-  
+
+  introsAt: string;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogOfferIntroChatComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogOfferIntroChatComponent>){
     super(dialogRef);
     if(data){
+
+      this.introsAt = this.data.introsAt;
+
       this.dialogType = this.data.dialogType;
       this.dialogTitle = this.data.dialogTitle;
     }
