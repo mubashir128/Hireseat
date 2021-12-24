@@ -1,0 +1,20 @@
+<div id="askOfferAndChat">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <div class="titleClass">
+        <label for="">{{dialogTitle}}</label>
+    </div>
+    <div class="email">
+        <p>Would you like to offer an intro of one of your contacts? This person is interested in intros at {{introsAt}}</p>
+        <br>
+        <p>Contacts are more likely to connect and share their networks if you offer yours. </p>
+    </div>
+
+    <div class="row form-group autoClass" style="margin: auto;">
+        <div class="" style="width: 55%; float: left;">
+            <button class="sendBtn" (click)="offerEmailIntroPopup()">Offer Intro</button>
+        </div>
+        <div class="" style="width: 45%; float: left; border-left: 2px solid white;">
+            <button class="sendBtn" (click)="redirectToUserChat()">No thank you</button>
+        </div>
+    </div>
+</div>

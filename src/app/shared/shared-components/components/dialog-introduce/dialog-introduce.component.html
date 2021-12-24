@@ -1,6 +1,7 @@
-<div>
-  <div>
-    <span>{{dialogTitle}}</span>
+<div id="offerEmailIntroModal">
+  <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+  <div class="titleClass">
+      <label for="">{{dialogTitle}}</label>
   </div>
   <div class="email">
     <p> <span>Hi<input type="text" placeholder="User..." [(ngModel)]="recipientName"></span> , </p>

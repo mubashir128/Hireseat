@@ -1,0 +1,29 @@
+<div class="setCss" id="generalEmaiPreviewModal">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <div class="titleClass">
+        <label for="">{{dialogTitle}}</label>
+    </div>
+    <div class="ccBcc">
+        <ul>
+        <li><label for="">Receiver Name</label>  <input type="text" placeholder="receiver name..." [(ngModel)]="recipientName"> </li>
+        <li><label for="">To</label>  <input type="text" placeholder="to..." [(ngModel)]="recipientEmail"> </li>
+        <li><label for="">CC</label>  <input type="text" placeholder="cc..." [(ngModel)]="cc"> </li>
+        <!-- <li><label for="">BCC</label>  <input type="text" placeholder="bcc..." [(ngModel)]="bcc"> </li> -->
+    </ul>
+    </div>
+    <div class="email">
+        <p> <span>Hi<input type="text" placeholder="User..." [(ngModel)]="recipientName"></span> , </p>
+        <p>I just wanted to introduce you to <input type="text" placeholder="introduce..." [(ngModel)]="candidateNameIs" >, I think there are a lot of opportunities and synergies that the two of you may find mutually beneficial. I will let the both of you take it from here but I just wanted to make the connection.</p>
+    </div>
+    <div class="email">
+        <p>Thanks,</p>
+        <input type="text" placeholder="Sender..." class="maar-none" [(ngModel)]="senderName">
+        <p>LinkedIn link : <input type="text" style="width: 60% !important;" placeholder="linked in link..." [(ngModel)]="linedIn" ></p>
+    </div>
+
+    <div>
+        <div class="form-group textRight">
+        <button class="sendBtn spaceBet introStyle" (click)="generalEmailIntroSend()">Introduce</button>
+        </div>
+    </div>
+</div>
