@@ -24,17 +24,13 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
   candidateNameIs: string;
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: DiaplogOfferIntroEmailComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DiaplogOfferIntroEmailComponent>){
-    super(dialogRef);
+    super(data, dialogRef);
     if(data){
-      
       this.cc = this.data.cc;
       this.bcc = this.data.bcc;
 
       this.clients = this.data.clients;
       this.hideBlueBtn = this.data.hideBlueBtn;
-      
-      this.dialogType = this.data.dialogType;
-      this.dialogTitle = this.data.dialogTitle;
     }
   }
 

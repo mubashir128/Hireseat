@@ -12,13 +12,9 @@ export class DialogOfferIntroChatComponent extends AbstractDialogComponent imple
   introsAt: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogOfferIntroChatComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogOfferIntroChatComponent>){
-    super(dialogRef);
+    super(data, dialogRef);
     if(data){
-
       this.introsAt = this.data.introsAt;
-
-      this.dialogType = this.data.dialogType;
-      this.dialogTitle = this.data.dialogTitle;
     }
   }
 

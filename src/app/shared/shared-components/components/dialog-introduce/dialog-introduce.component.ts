@@ -14,11 +14,8 @@ export class DialogIntroduceComponent extends AbstractDialogComponent implements
   recipientName: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogIntroduceComponent, public dialogRef: MatDialogRef<DialogIntroduceComponent>){
-    super(dialogRef);
+    super(data, dialogRef);
     if(data){
-      this.dialogType = this.data.dialogType;
-      this.dialogTitle = this.data.dialogTitle;
-
       this.senderName = this.data.senderName;
       this.recipientName = this.data.recipientName;
     }
