@@ -13,13 +13,10 @@ export class DialogConnectOfferIntroComponent extends AbstractDialogComponent im
   askAndConnectDesiredCompanies: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogConnectOfferIntroComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogConnectOfferIntroComponent>){
-    super(dialogRef);
+    super(data, dialogRef);
     if(data){
       this.askAndConnectName = this.data.askAndConnectName;
       this.askAndConnectDesiredCompanies = this.data.askAndConnectDesiredCompanies;
-
-      this.dialogType = this.data.dialogType;
-      this.dialogTitle = this.data.dialogTitle;
     }
   }
 

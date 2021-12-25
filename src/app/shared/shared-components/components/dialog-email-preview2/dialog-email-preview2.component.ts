@@ -23,7 +23,7 @@ export class DialogEmailPreview2Component extends AbstractDialogComponent implem
   comment3: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogEmailPreview2Component, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogEmailPreview2Component>){
-    super(dialogRef);
+    super(data, dialogRef);
     if(data){
       this.cc = this.data.cc;
       this.bcc = this.data.bcc;
@@ -37,9 +37,6 @@ export class DialogEmailPreview2Component extends AbstractDialogComponent implem
       this.comment1 = this.data.comment1;
       this.comment2 = this.data.comment2;
       this.comment3 = this.data.comment3;
-
-      this.dialogType = this.data.dialogType;
-      this.dialogTitle = this.data.dialogTitle;
     }
   }
 
