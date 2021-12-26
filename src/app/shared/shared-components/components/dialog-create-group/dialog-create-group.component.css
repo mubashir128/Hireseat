@@ -1,0 +1,256 @@
+.setCss {
+  height: 500px;
+  overflow: auto;
+}
+
+.grpModal {
+  padding: 25px;
+}
+
+.grpModal input{
+  padding-left: 5px;
+  font-size: 18px;
+}
+
+.grpModal span {
+  font-size: 15px;
+  font-family: 'gilroybold';
+}
+
+.grpModal .member span {
+  font-size: 18px;
+  font-family: 'gilroybold';
+}
+
+.uploadProfilePictureClass span{
+  font-size: 18px;
+  font-family: 'gilroybold';
+}
+
+.uploadProfileImgDiv {
+  background-color: #ffffff;
+  padding: 5px;
+}
+
+.uploadProfileImg {
+  background-color: #f7f7f7;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+}
+
+.uploadProfileImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.uploadProfileImgDivAdded {
+  background-color: #F3F5F7;
+  /* padding: 5px; */
+  float: left;
+  margin-left: 10px;
+}
+
+.uploadProfileImgAdded {
+  background-color: #f7f7f7;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  float: left;
+  border: 1px solid #7C7E80;
+}
+
+.uploadProfileImgAdded img {
+  width: 100%;
+  height: 100%;
+}
+
+.UploadImgDefault {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.uploadProfileImg:hover .profileAdd {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.uploadProfileImg input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.profileAdd {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #18181842;
+  opacity: 1;
+  transition: 0.8s;
+  cursor: pointer;
+}
+
+.profileAdd i {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.profileAdd p {
+  font-size: 10px;
+  color: #ffffff;
+  margin-top: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.profileAddInner {
+  cursor: pointer;
+}
+
+.addedMemberCssAre {
+  display: flex;
+  overflow-x: overlay;
+  margin: auto;
+  background-color: #F3F5F7;
+}
+
+.addedMemberCssAre::-webkit-scrollbar {
+  height: 4px;              /* height of horizontal scrollbar ← You're missing this */
+  width: 4px;               /* width of vertical scrollbar */
+  border: 1px solid #d5d5d5;
+}
+
+.deleteIcon {
+  background: white !important;
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 50%;
+  color: #fff;
+  /* position: absolute; */
+  padding: 3px;
+  top: 8px;
+  font-size: 15px !important;
+}
+
+.userNameCss {
+  width: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grpModal .member span {
+  font-size: 18px;
+  font-family: 'gilroybold';
+}
+
+.member {
+  height: 300px !important;
+  margin-top: 5px;
+}
+
+.memberSearchDiv {
+  width: 90% !important;
+  margin : 5px 0px 0px 15px !important;
+  position: relative;
+}
+
+.makeDiff {	
+  margin-top: 5px;
+  height: 210px !important;
+  overflow: auto;
+}
+
+.chat-profile-item {
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e0e0;
+  padding:10px;
+}
+
+.disF {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/*================================ mobile responsive css start  ===============================*/
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .chat-user-title {
+    width: 250px;
+    padding: 0 15px !important;
+  }
+  .disF {
+    padding: 0 !important;
+  }
+  .VIconE {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .chat-user-title {
+    width: 350px;
+    padding: 0 15px !important;
+  }
+}
+
+.uploadedImgUser {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50% !important;
+}
+
+.chat-user-title {
+  font-size: 20px;
+  color: #114488;
+  font-weight: 700;
+  padding-left: 15px;
+  width: 570px;
+  padding: 0 25px;
+  cursor: pointer;
+}
+
+.VIconE {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  color: #4E5857;
+}
+
+.createAndAddMemberClass{
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin: 10px;
+  float: right;
+}

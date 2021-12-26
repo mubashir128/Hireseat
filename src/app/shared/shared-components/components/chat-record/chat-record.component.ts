@@ -1,10 +1,12 @@
 import { AfterViewChecked, Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
+import { DialogImagePreviewComponent } from '../dialog-image-preview/dialog-image-preview.component';
 
 declare var jQuery;
 declare var $: any;
@@ -57,7 +59,8 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     private userService: UserService, 
     private _socket: WebsocketService, 
     private _constants: ConstantsService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    public dialog: MatDialog
   ) {
     // this.messageIs = '';
     this.loggedInUser = this.userService.getUserData();
@@ -376,13 +379,19 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   }
 
   showImageModal(showValue) {
-    if (showValue) {
-      jQuery("#showImage").modal("open");
-    }
-  }
 
-  closeImageModal() {
-    jQuery("#showImage").modal("close");
+    const dialogIntroduceRef = this.dialog.open(DialogImagePreviewComponent,{
+      data: {
+        dialogType : "imagePreview",
+        dialogTitle : "Image Preview...",
+        imgUrl : showValue
+      }
+    });
+
+    dialogIntroduceRef.afterClosed().subscribe(result => {
+      if(result){
+      }
+    });
   }
 
   twoWayChatsetting(){

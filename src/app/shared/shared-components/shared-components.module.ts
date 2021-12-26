@@ -86,6 +86,8 @@ import { DialogEmailPreview2Component } from './components/dialog-email-preview2
 import { DialogOfferIntroChatComponent } from './components/dialog-offer-intro-chat/dialog-offer-intro-chat.component';
 import { DialogConnectOfferIntroComponent } from './components/dialog-connect-offer-intro/dialog-connect-offer-intro.component';
 import { CloseScreenComponent } from './components/close-screen/close-screen.component';
+import { DialogImagePreviewComponent } from './components/dialog-image-preview/dialog-image-preview.component';
+import { DialogCreateGroupComponent } from './components/dialog-create-group/dialog-create-group.component';
 
 @NgModule({
   imports: [
@@ -196,7 +198,9 @@ import { CloseScreenComponent } from './components/close-screen/close-screen.com
     DialogEmailPreview2Component,
     DialogOfferIntroChatComponent,
     DialogConnectOfferIntroComponent,
-    CloseScreenComponent
+    CloseScreenComponent,
+    DialogImagePreviewComponent,
+    DialogCreateGroupComponent
   ],
   exports: [
     FooterComponent,
@@ -271,7 +275,8 @@ import { CloseScreenComponent } from './components/close-screen/close-screen.com
     SearchByOnlyFullNamePipe,
     SortByIndustiresPipe,
     MatDialogModule,
-    CloseScreenComponent
+    CloseScreenComponent,
+    DialogImagePreviewComponent
   ],
 
 })
