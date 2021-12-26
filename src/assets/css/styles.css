@@ -1421,3 +1421,7 @@ body {
 .removeMargin{
   margin: auto !important;
 }
+
+.removeMargin i{
+  margin: auto !important;
+}

@@ -13,7 +13,7 @@
           [src]="
             user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'
           "
-          (click)="showImageModal(user.profileimage !== '' ? true : false)"
+          (click)="showImageModal(user.profileimage)"
           class="uploadedImgUser"
         />
       </div>
@@ -131,13 +131,6 @@
   </div>
 
 </ng-container>
-
-<div id="showImage" class="modal">
-  <img
-    [src]="user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'"
-    class="showImgUser"
-  />
-</div>
 
 <div id="showSettings" class="modal">
   <div class="settingClass">

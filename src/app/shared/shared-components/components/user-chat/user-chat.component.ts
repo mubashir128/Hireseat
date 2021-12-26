@@ -1,10 +1,13 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
+import { DialogCreateGroupComponent } from '../dialog-create-group/dialog-create-group.component';
+import { DialogImagePreviewComponent } from '../dialog-image-preview/dialog-image-preview.component';
 
 declare var jQuery
 declare var $: any;
@@ -32,12 +35,10 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   public auctionFrm: FormGroup;
   searchTermByName;
-  searchTermByNameMember;
 
   groupName = "";
   addGrpMembers = [];
 
-  public updateProfileimg: FormGroup;
   message: string;
   filepath: File;
   imagePath: any;
@@ -54,7 +55,8 @@ export class UserChatComponent implements OnInit, OnChanges {
     private _constants : ConstantsService,
     private router: Router,
     private userService: UserService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    public dialog: MatDialog
   ){
     this.loggedInUser = this.userService.getUserData();
     if(this.loggedInUser.userRole == "employer"){
@@ -79,10 +81,6 @@ export class UserChatComponent implements OnInit, OnChanges {
 
     this.auctionFrm = this.formBuilder.group({
       searchTermByNameIs : []
-    });
-
-    this.updateProfileimg = this.formBuilder.group({
-      file: ["", Validators.compose([Validators.required])],
     });
 
     //add a observable for userChat
@@ -110,10 +108,10 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   openTwoWayChatCreateGroup(){
     if(this.openCreateGroupModal){
-      this.createGroup(false);
       this.groupName = this.userData.fullName + "_Group";
       this.imgURL = this.userData.profileimage;
       this.addMemberThroughDirect(this.userData);
+      this.createGroup();
     }
   }
 
@@ -144,7 +142,6 @@ export class UserChatComponent implements OnInit, OnChanges {
           this.groupChatUsers = [res.data, ...this.groupChatUsers];
           if(res.sameUser){
             this.addGrpMembers = [];
-            this.closeGroupModal();
             this.addPlusIconToAllMembers();
             this.currentGroupId = res.data._id;
             this.updateProfileImg();
@@ -198,43 +195,57 @@ export class UserChatComponent implements OnInit, OnChanges {
   }
 
   showImageModal(showValue) {
-    if(showValue !== 0){
-      this.imgVal = showValue;
-      jQuery("#showImage").modal("open");
-    }
+    const dialogImagePreviewRef = this.dialog.open(DialogImagePreviewComponent,{
+      data: {
+        dialogType : "imagePreview",
+        dialogTitle : "Image Preview...",
+        imgUrl : showValue
+      }
+    });
+
+    dialogImagePreviewRef.afterClosed().subscribe(result => {
+      if(result){
+      }
+    });
   }
 
-  closeImageModal() {
-    jQuery("#showImage").modal("close");
+  createGroup(){
+
+    const dialogCreateGroupRef = this.dialog.open(DialogCreateGroupComponent,{
+      data: {
+        dialogType : "creatGroup",
+        dialogTitle : "Create Group...",
+        chatUsers : this.chatUsers,
+        loggedInUser: this.loggedInUser,
+        showAddedUserAre : this.showAddedUserAre,
+        addGrpMembers : this.addGrpMembers,
+        groupName : this.groupName,
+        imgURL : this.imgURL
+      }
+    });
+
+    dialogCreateGroupRef.afterClosed().subscribe(result => {
+      if(result){
+        this.createAndAddGroup(result);
+      }
+    });
   }
 
-  closeGroupModal(){
-    jQuery("#createGroupModal").modal("close");
-  }
-
-  createGroup(status){
-    // if(status){
-    //   this.groupName = "";
-    //   this.imgURL = "";
-    //   this.addGrpMembers = [];
-    // }
-    jQuery("#createGroupModal").modal("open");
-  }
-
-  createAndAddGroup(){
-    if(this.groupName !== ""){
-
+  createAndAddGroup(result){
+    this.imagePath = result.imagePath;
+    this.filepath = result.filepath;
+    if(result.groupName !== ""){
       let status = true;
       this.groupChatUsers.forEach((grp, index) => {
-        if(grp.fullName.toLowerCase() == this.groupName.toLowerCase()){
+        if(grp.fullName.toLowerCase() == result.groupName.toLowerCase()){
           status = false;
         }
       });
 
       if(status){
         let payload = {
-          groupName : this.groupName,
-          members : [this.loggedInUser._id, ...this.addGrpMembers]
+          groupName : result.groupName,
+          members : [this.loggedInUser._id, ...result.addGrpMembers]
         };
         
         this._socket.sendMessage({
@@ -252,19 +263,6 @@ export class UserChatComponent implements OnInit, OnChanges {
     }
   }
 
-  addMember(user){
-    let id = user._id;
-    if(this.addGrpMembers.indexOf(id) == -1){
-      this.addGrpMembers.push(id);
-      this.showAddedUserAre.push(user);
-      Materialize.toast("Added...", 700, "green");
-    }else{
-      Materialize.toast("Already added...", 1000, "green");
-    }
-    jQuery("#add_"+id).css("display","none");
-    jQuery("#remove_"+id).css("display","block");
-  }
-
   addMemberThroughDirect(user){
     let id = user._id;
     if(this.addGrpMembers.indexOf(id) == -1){
@@ -279,51 +277,11 @@ export class UserChatComponent implements OnInit, OnChanges {
     }
   }
 
-  removeMember(user){
-    let id = user._id;
-    if(this.addGrpMembers.indexOf(id) !== -1){
-      this.addGrpMembers.forEach((member, index) => {
-        if (member == ''+id) {
-          this.addGrpMembers.splice(index, 1);
-          Materialize.toast("Removed...", 700, "red");
-        }
-      });
-      this.showAddedUserAre.forEach((member, index) => {
-        if (member._id == ''+id) {
-          this.showAddedUserAre.splice(index, 1);
-        }
-      });
-      jQuery("#remove_"+id).css("display","none");
-      jQuery("#add_"+id).css("display","block");
-    }else{
-      Materialize.toast("Not added...", 1000, "red");
-    }
-  }
-
   addPlusIconToAllMembers(){
     this.chatUsers.forEach((user, index) => {
       jQuery("#remove_"+user._id).css("display","none");
       jQuery("#add_"+user._id).css("display","block");
     });
-  }
-
-  preview(files) {
-    if (files.length === 0) return;
-
-    var mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      Materialize.toast(this.message, 1000, "red");
-      return;
-    }
-    this.filepath = <File>files[0];
-
-    var reader = new FileReader();
-    this.imagePath = files;
-    reader.readAsDataURL(files[0]);
-    reader.onload = (_event) => {
-      this.imgURL = reader.result;
-    };
   }
 
   updateProfileImg() {
@@ -341,8 +299,8 @@ export class UserChatComponent implements OnInit, OnChanges {
           (res) => {
             Materialize.toast(res.message, 1000, "green");
           },
-          (error) => {
-            console.log(error);
+          (err) => {
+            console.log(err);
           }
         );
       }

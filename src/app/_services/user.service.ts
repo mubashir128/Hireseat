@@ -321,4 +321,13 @@ export class UserService {
     localStorage.removeItem("onlyCandidateWalkthrough");
   }
 
+  getAllRelatedUsers(payload){
+    return this.http
+      .post<any>(this.baseurl + "api/getAllRelatedUsers/", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
 }
