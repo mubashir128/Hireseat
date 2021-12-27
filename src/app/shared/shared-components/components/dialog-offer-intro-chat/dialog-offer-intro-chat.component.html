@@ -1,8 +1,6 @@
 <div id="askOfferAndChat">
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
-    <div class="titleClass">
-        <label for="">{{dialogTitle}}</label>
-    </div>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
     <div class="email">
         <p>Would you like to offer an intro of one of your contacts? This person is interested in intros at {{introsAt}}</p>
         <br>

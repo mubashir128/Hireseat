@@ -479,7 +479,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     const dialogUploadPictureRef = this.dialog.open(DialogUploadPictureComponent,{
       data: {
         dialogType : "uploadProfilePicture",
-        dialogTitle : "Upload Profile Picture...",
+        dialogTitle : "Picture...",
         imgURL : this.imgURL,
       }
     });

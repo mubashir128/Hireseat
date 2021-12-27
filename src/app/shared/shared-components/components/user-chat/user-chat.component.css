@@ -28,10 +28,6 @@
   border-radius: 30px;
 }
 
-.chat-profile-item:hover {
-  /* background-color: #03a9f4; */
-}
-
 .chat-profile-item {
   -moz-transition: all 0.1s ease-in;
   -o-transition: all 0.1s ease-in;
@@ -53,10 +49,6 @@
   width: 570px;
   padding: 0 25px;
   cursor: pointer;
-}
-
-.chat-profile-item:hover .chat-user-title {
-  /* color: white; */
 }
 
 .divider {

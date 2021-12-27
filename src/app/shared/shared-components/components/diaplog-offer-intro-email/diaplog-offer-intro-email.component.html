@@ -1,9 +1,7 @@
 <div class="emailTemp" id="shareEmailModal">
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
     <div>
-        <div class="titleClass">
-            <label for="">{{dialogTitle}}</label>
-        </div>
         <div class="">
             <div class="form-group posRel">
                 <!-- <label>Receiver Name </label> -->

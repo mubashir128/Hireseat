@@ -1407,7 +1407,8 @@ body {
 }
 
 .titleClass label{
-  font-size: 15px;
+  font-size: 18px;
+  font-family: 'gilroybold';
 }
 
 .fa-times {
