@@ -22,7 +22,7 @@
       </div>
 
       <div class="col s2 m2 l2 addMember" *ngIf = "!groupChat">
-        <i class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "twoWayChatsetting()"></i>
+        <i class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "setting()"></i>
       </div>
 
       <div class="col s2 m2 l2 addMember" *ngIf = "groupChat && groupIsMore">
@@ -131,109 +131,3 @@
   </div>
 
 </ng-container>
-
-<div id="showSettings" class="modal">
-  <div class="settingClass">
-    <i (click)="closeSettingModal()" style="float: right;" class="fa fa-times" aria-hidden="true"></i>
-    <ng-container *ngFor="let list of settingLists">
-      <div class="chat-profile-item addUserUI" (click) = "openListsModals(list.id)" *ngIf = "list.status">
-        <div class="disF">
-          <div class="chat-user-title">
-            {{ list.name }}
-          </div>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-</div>
-
-<div id="showMembers" class="modal">
-  <div class="membersClass" *ngIf = "groupChat">
-    <i (click)="closeMembersModal()" style="float: right;" class="fa fa-times" aria-hidden="true"></i>
-    <div class="member">
-      <span>Members : ( CreateBy : {{ groupMessages.createdBy._id == loggedInUser._id ? 'You' : groupMessages.createdBy.fullName}} )</span>
-      <div class="makeDiff">
-        <ng-container *ngFor="let member of groupMessages.members">
-          <div class="chat-profile-item addUserUI" *ngIf = "member.memberId._id !== loggedInUser._id">
-            <div class="disF">
-              <img [src]="(member.memberId.profileimage !=='') ? member.memberId.profileimage : 'assets/img/user.png'" class="uploadedImgUser">
-              <div class="chat-user-title"> {{ member.memberId.fullName }} </div>
-              <ng-container *ngIf = "this.loggedInUser._id == this.user.createdBy._id">
-                <i class="fa fa-plus VIconE" [id] = "'add_'+member.memberId._id" style="margin-right: 15px; display: none;" aria-hidden="true" (click) = "addMember(member.memberId._id)"></i>
-                <i class="fa fa-minus VIconE" [id] = "'remove_'+member.memberId._id" style="margin-right: 15px;" aria-hidden="true" (click) = "removeMember(member.memberId._id)"></i>
-              </ng-container>
-            </div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-    <div class="form-group textRight"  *ngIf = "this.loggedInUser._id == this.user.createdBy._id">
-      <button class="createAndAddMemberClass" (click)="updateMembers()">Update</button>
-    </div>
-  </div>
-</div>
-
-<!-- update profile image -->
-<div id="updateNewImage" class="modal">
-  <div class="uploadProfilePictureClass">
-    <span>Upload Profile Picture : </span>
-    <form [formGroup]="updateProfileimg">
-      <div class="uploadProfileImgDiv">
-        <div class="uploadProfileImg">
-          <ng-container *ngIf="imgURL">
-            <img [src]="imgURL" alt="add img" />
-          </ng-container>
-  
-          <ng-container>
-            <div class="UploadImgDefault">
-              <img src="assets/img/profile-user.png" alt="add img" />
-            </div>
-          </ng-container>
-  
-          <div class="profileAdd">
-            <div class="profileAddInner">
-              <i class="fa fa-camera" aria-hidden="true"></i>
-              <p>ADD PROFILE PHOTO</p>
-            </div>
-          </div>
-          <input
-            #file
-            type="file"
-            accept="image/*"
-            formControlName="file"
-            (change)="preview(file.files)"
-          />
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="form-group textRight">
-    <button class="createAndAddMemberClass" (click)="updateProfilePicture()">Update</button>
-  </div>
-</div>
-
-<div id="addMember" class="modal">
-  <div class="membersClass" *ngIf = "groupChat">
-    <i (click)="closeAddMemberModal()" style="float: right;" class="fa fa-times" aria-hidden="true"></i>
-    <div class="member">
-      <span>Add Members : </span>
-      <div class="makeDiff">
-        <ng-container *ngFor="let member of updateGrpMembers">
-          <div class="chat-profile-item addUserUI" *ngIf = "member._id !== loggedInUser._id">
-            <div class="disF">
-              <img [src]="(member.profileimage !=='') ? member.profileimage : 'assets/img/user.png'" class="uploadedImgUser">
-              <div class="chat-user-title"> {{ member.fullName }} </div>
-              <ng-container>
-                <i class="fa fa-plus VIconE" [id] = "'addNewGroup_'+member._id" style="margin-right: 15px;" aria-hidden="true" (click) = "addNewGroupMember(member._id)"></i>
-                <i class="fa fa-minus VIconE" [id] = "'removeNewGroup_'+member._id" style="margin-right: 15px; display: none;" aria-hidden="true" (click) = "removeNewGroupMember(member._id)"></i>
-              </ng-container>
-            </div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-    <div class="form-group textRight">
-      <button class="createAndAddMemberClass" (click)="addMoreGroupMembers()">Update</button>
-    </div>
-  </div>
-</div>

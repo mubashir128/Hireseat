@@ -86,6 +86,10 @@ import { DialogConnectOfferIntroComponent } from './components/dialog-connect-of
 import { CloseScreenComponent } from './components/close-screen/close-screen.component';
 import { DialogImagePreviewComponent } from './components/dialog-image-preview/dialog-image-preview.component';
 import { DialogCreateGroupComponent } from './components/dialog-create-group/dialog-create-group.component';
+import { DialogSettingComponent } from './components/dialog-setting/dialog-setting.component';
+import { DialogGroupMembersComponent } from './components/dialog-group-members/dialog-group-members.component';
+import { DialogAddMembersComponent } from './components/dialog-add-members/dialog-add-members.component';
+import { DialogUploadPictureComponent } from './components/dialog-upload-picture/dialog-upload-picture.component';
 
 @NgModule({
   imports: [
@@ -196,7 +200,11 @@ import { DialogCreateGroupComponent } from './components/dialog-create-group/dia
     DialogConnectOfferIntroComponent,
     CloseScreenComponent,
     DialogImagePreviewComponent,
-    DialogCreateGroupComponent
+    DialogCreateGroupComponent,
+    DialogSettingComponent,
+    DialogGroupMembersComponent,
+    DialogAddMembersComponent,
+    DialogUploadPictureComponent
   ],
   exports: [
     FooterComponent,

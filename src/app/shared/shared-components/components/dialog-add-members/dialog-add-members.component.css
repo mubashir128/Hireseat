@@ -1,0 +1,106 @@
+.membersClass {
+  padding: 10px;
+}
+
+.membersClass .member span {
+  font-size: 18px;
+  font-family: 'gilroybold';
+}
+
+.member {
+  margin-top: 10px;
+}
+
+.makeDiff {
+  margin-top: 5px;
+  max-height: 350px !important;
+  overflow: auto;
+}
+
+.chat-profile-item:hover {
+  background-color: #03a9f4;
+}
+
+.chat-profile-item {
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e0e0;
+  padding:10px;
+}
+
+.chat-profile-item:hover .chat-user-title {
+  color: white;
+}
+
+.uploadedImgUser {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50% !important;
+}
+
+.chat-user-title {
+  font-size: 20px;
+  color: #114488;
+  font-weight: 700;
+  padding-left: 15px;
+  width: 570px;
+  padding: 0 25px;
+  cursor: pointer;
+}
+
+/*================================ mobile responsive css start  ===============================*/
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .chat-user-title {
+    width: 250px;
+    padding: 0 15px !important;
+  }
+
+  .disF {
+    padding: 0 !important;
+  }
+
+  .VIconE {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .chat-user-title {
+    width: 350px;
+    padding: 0 15px !important;
+  }
+}
+
+.VIconE {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  color: #4E5857;
+}
+
+.createAndAddMemberClass{
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin: 10px;
+  float: right;
+}
+
+.disF {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  cursor: pointer;
+  width: 100%;
+}

@@ -77,9 +77,9 @@
                             <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'"
                                 class="uploadedImgUser">
                             <div class="chat-user-title"> {{ user.fullName }} </div>
-                            <i class="fa fa-plus VIconE" [id]="'add_'+user._id" style="margin-right: 15px;"
+                            <i class="fa fa-plus VIconE" [id]="'add_' + user._id" style="margin-right: 15px;"
                                 aria-hidden="true" (click)="addMember(user)"></i>
-                            <i class="fa fa-minus VIconE" [id]="'remove_'+user._id"
+                            <i class="fa fa-minus VIconE" [id]="'remove_' + user._id"
                                 style="margin-right: 15px; display: none;" aria-hidden="true"
                                 (click)="removeMember(user)"></i>
                         </div>
