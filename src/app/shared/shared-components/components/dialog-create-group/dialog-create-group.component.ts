@@ -126,4 +126,8 @@ export class DialogCreateGroupComponent extends AbstractDialogComponent implemen
     };
   }
 
+  getImage(obj){
+    obj.showCreatedLogo = true;
+  }
+  
 }

@@ -10,15 +10,22 @@ import { AbstractDialogComponent } from '../abstract-dialog.component';
 export class DialogImagePreviewComponent extends AbstractDialogComponent implements OnInit {
 
   imgUrl: string;
+  fullName: string;
+  showCreatedLogo: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogImagePreviewComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogImagePreviewComponent>){
     super(data, dialogRef);
     if(this.data){
-      this.imgUrl = (this.data.imgUrl !== "") ? this.data.imgUrl : "assets/img/user.png";
+      this.imgUrl = this.data.imgUrl;
+      this.fullName = this.data.fullName;
     }
   }
 
   ngOnInit(): void {
+  }
+
+  getImage(){
+    this.showCreatedLogo = true;
   }
 
 }

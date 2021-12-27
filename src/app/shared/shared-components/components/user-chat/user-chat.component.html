@@ -35,7 +35,12 @@
 
       <div class="chat-profile-item animatePart" *ngIf = "user.user1._id !== loggedInUser._id">
         <div class="disF">
-          <img [src]="(user.user1.profileimage !=='') ? user.user1.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user1.profileimage !== '' ? user.user1.profileimage : '')" class="uploadedImgUser">
+          <div *ngIf = "!user.user1.showCreatedLogo">
+            <img [src]="user.user1.profileimage" (error)="getImage(user.user1)" (click)="showImageModal(user.user1)" class="uploadedImgUser">
+          </div>
+          <div *ngIf = "user.user1.showCreatedLogo" class="big-badge extrabig-badge" (click)="showImageModal(user.user1)">
+            {{ user.user1.fullName | uppercase | slice: 0 : 1 }}
+          </div>
           <div class="chat-user-title" (click)="showUserData(user.user1._id)"> {{ user.user1.fullName }} </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i>
         </div>
@@ -43,7 +48,12 @@
 
       <div class="chat-profile-item animatePart" *ngIf = "user.user2._id !== loggedInUser._id">
         <div class="disF">
-          <img [src]="(user.user2.profileimage !=='') ? user.user2.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.user2.profileimage !== '' ? user.user2.profileimage : '')" class="uploadedImgUser">
+          <div *ngIf = "!user.user2.showCreatedLogo">
+            <img [src]="user.user2.profileimage" (error)="getImage(user.user2)" (click)="showImageModal(user.user2)" class="uploadedImgUser">
+          </div>
+          <div *ngIf = "user.user2.showCreatedLogo" class="big-badge extrabig-badge" (click)="showImageModal(user.user2)">
+            {{ user.user2.fullName | uppercase | slice: 0 : 1 }}
+          </div>
           <div class="chat-user-title" (click)="showUserData(user.user2._id)"> {{ user.user2.fullName }} </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
         </div>
@@ -59,7 +69,12 @@
 
       <div class="chat-profile-item animatePart" *ngIf = "user._id !== loggedInUser._id">
         <div class="disF">
-          <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'" (click)="showImageModal(user.profileimage !== '' ? user.profileimage : '')" class="uploadedImgUser">
+          <div *ngIf = "!user.showCreatedLogo">
+            <img [src]="user.profileimage" (error)="getImage(user)" (click)="showImageModal(user)" class="uploadedImgUser">
+          </div>
+          <div *ngIf = "user.showCreatedLogo" class="big-badge extrabig-badge" (click)="showImageModal(user)">
+            {{ user.fullName | uppercase | slice: 0 : 1 }}
+          </div>
           <div class="chat-user-title" (click)="showUserData(user._id)"> {{ user.fullName }} </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
         </div>
@@ -75,7 +90,12 @@
 
       <div class="chat-profile-item animatePart">
         <div class="disF">
-          <img [src]="(group.profileimage !=='') ? group.profileimage : 'assets/img/user.png'"  (click)="showImageModal(group.profileimage !== '' ? group.profileimage : '')" class="uploadedImgUser">
+          <div *ngIf = "!group.showCreatedLogo">
+            <img [src]="group.profileimage" (error)="getImage(group)" (click)="showImageModal(group)" class="uploadedImgUser">
+          </div>
+          <div *ngIf = "group.showCreatedLogo" class="big-badge extrabig-badge" (click)="showImageModal(group)">
+            {{ group.fullName | uppercase | slice: 0 : 1 }}
+          </div>
           <div class="chat-user-title" (click)="showUserData(group._id, true)"> {{ group.fullName }} </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
         </div>

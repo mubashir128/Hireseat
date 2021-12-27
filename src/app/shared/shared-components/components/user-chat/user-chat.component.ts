@@ -142,7 +142,6 @@ export class UserChatComponent implements OnInit, OnChanges {
           this.groupChatUsers = [res.data, ...this.groupChatUsers];
           if(res.sameUser){
             this.addGrpMembers = [];
-            this.addPlusIconToAllMembers();
             this.currentGroupId = res.data._id;
             this.updateProfileImg();
           }else{
@@ -199,7 +198,8 @@ export class UserChatComponent implements OnInit, OnChanges {
       data: {
         dialogType : "imagePreview",
         dialogTitle : "Image Preview...",
-        imgUrl : showValue
+        imgUrl : showValue.profileimage,
+        fullName : showValue.fullName
       }
     });
 
@@ -210,7 +210,6 @@ export class UserChatComponent implements OnInit, OnChanges {
   }
 
   createGroup(){
-
     const dialogCreateGroupRef = this.dialog.open(DialogCreateGroupComponent,{
       data: {
         dialogType : "creatGroup",
@@ -277,13 +276,6 @@ export class UserChatComponent implements OnInit, OnChanges {
     }
   }
 
-  addPlusIconToAllMembers(){
-    this.chatUsers.forEach((user, index) => {
-      jQuery("#remove_"+user._id).css("display","none");
-      jQuery("#add_"+user._id).css("display","block");
-    });
-  }
-
   updateProfileImg() {
     if(this.filepath){
       if (!this.imagePath) {
@@ -305,6 +297,10 @@ export class UserChatComponent implements OnInit, OnChanges {
         );
       }
     }
+  }
+
+  getImage(obj){
+    obj.showCreatedLogo = true;
   }
 
 }

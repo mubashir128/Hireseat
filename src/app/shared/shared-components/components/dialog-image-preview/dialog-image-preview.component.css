@@ -4,3 +4,10 @@
   object-fit: cover;
   margin-bottom: -5px;
 }
+
+.extrabig-badge-big {
+  margin-left: 0px !important;
+  width: 100px !important;
+  height: 100px !important;
+  font-size: 40px;
+}

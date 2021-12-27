@@ -1,6 +1,9 @@
 <div>
   <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
-  <div id="showImage">
-    <img [src]="imgUrl" class="showImgUser"/>
+  <div id="showImage" *ngIf = "!showCreatedLogo">
+    <img [src]="imgUrl" (error)="getImage()" class="showImgUser"/>
+  </div>
+  <div *ngIf = "showCreatedLogo" class="big-badge extrabig-badge-big">
+    {{ fullName | uppercase | slice: 0 : 1 }}
   </div>
 </div>
