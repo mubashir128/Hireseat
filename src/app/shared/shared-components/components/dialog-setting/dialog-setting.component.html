@@ -1,0 +1,17 @@
+<div id="showSettings">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <div class="titleClass">
+        <label for="">{{dialogTitle}}</label>
+    </div>
+  <div class="settingClass">
+    <ng-container *ngFor="let list of settingLists">
+      <div class="chat-profile-item addUserUI" (click) = "openListsModals(list.id)" *ngIf = "list.status">
+        <div class="disF">
+          <div class="chat-user-title">
+            {{ list.name }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

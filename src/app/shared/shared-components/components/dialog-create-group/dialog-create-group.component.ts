@@ -33,7 +33,8 @@ export class DialogCreateGroupComponent extends AbstractDialogComponent implemen
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogCreateGroupComponent, public dialog: MatDialog, 
     public dialogRef: MatDialogRef<DialogCreateGroupComponent>, 
-    public _userService : UserService, private formBuilder: FormBuilder){
+    public _userService : UserService, 
+    private formBuilder: FormBuilder){
       super(data, dialogRef);
       if(this.data){
         this.loggedInUser = this.data.loggedInUser;
@@ -66,8 +67,8 @@ export class DialogCreateGroupComponent extends AbstractDialogComponent implemen
     }else{
       Materialize.toast("Already added...", 1000, "red");
     }
-    jQuery("#add_"+id).css("display","none");
-    jQuery("#remove_"+id).css("display","block");
+    jQuery("#add_" + id).css("display","none");
+    jQuery("#remove_" + id).css("display","block");
   }
 
   removeMember(user){
@@ -84,8 +85,8 @@ export class DialogCreateGroupComponent extends AbstractDialogComponent implemen
           this.showAddedUserAre.splice(index, 1);
         }
       });
-      jQuery("#remove_"+id).css("display","none");
-      jQuery("#add_"+id).css("display","block");
+      jQuery("#remove_" + id).css("display","none");
+      jQuery("#add_" + id).css("display","block");
     }else{
       Materialize.toast("Not added...", 1000, "red");
     }
