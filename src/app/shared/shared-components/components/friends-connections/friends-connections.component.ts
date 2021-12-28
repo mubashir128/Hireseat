@@ -445,9 +445,9 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
             if (this.shareableVideoURL) {
               let systemUserId;
               this.friendsConnections.forEach((prof, index)=>{
-                if(prof.recipient && (prof.recipient.fullName == this.recipientName) && (prof.recipient.email == this.recipientEmail)){
+                if(prof.recipient && (prof.recipient.fullName == result.recipientName) && (prof.recipient.email == result.recipientEmail)){
                   systemUserId = prof.recipient._id;
-                }else if(prof.requester && (prof.requester.fullName == this.recipientName) && (prof.requester.email == this.recipientEmail)){
+                }else if(prof.requester && (prof.requester.fullName == result.recipientName) && (prof.requester.email == result.recipientEmail)){
                   systemUserId = prof.requester._id;
                 }
               });
