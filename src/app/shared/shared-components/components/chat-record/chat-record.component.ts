@@ -1,13 +1,18 @@
 import { AfterViewChecked, Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
+import { DialogAddMembersComponent } from '../dialog-add-members/dialog-add-members.component';
+import { DialogGroupMembersComponent } from '../dialog-group-members/dialog-group-members.component';
+import { DialogImagePreviewComponent } from '../dialog-image-preview/dialog-image-preview.component';
+import { DialogSettingComponent } from '../dialog-setting/dialog-setting.component';
+import { DialogUploadPictureComponent } from '../dialog-upload-picture/dialog-upload-picture.component';
 
 declare var jQuery;
-declare var $: any;
 declare var Materialize;
 
 @Component({
@@ -40,11 +45,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   addGrpMembers = [];
   updateGrpMembers = [];
   allUpdateGrpMembers = [];
-
-  public updateProfileimg: FormGroup;
-  message: string;
-  filepath: File;
-  imagePath: any;
+  
   imgURL: any;
 
   allNewMembers = [];
@@ -57,7 +58,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     private userService: UserService, 
     private _socket: WebsocketService, 
     private _constants: ConstantsService,
-    private _formBuilder: FormBuilder
+    public dialog: MatDialog
   ) {
     // this.messageIs = '';
     this.loggedInUser = this.userService.getUserData();
@@ -73,10 +74,6 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
   async ngOnInit() {
     jQuery(".modal").modal();
-
-    this.updateProfileimg = this._formBuilder.group({
-      file: ["", Validators.compose([Validators.required])],
-    });
 
     //add a observable for userChat
     await this._socket.removeListener({ type: this._constants.userChatMessageType });
@@ -181,8 +178,6 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
         break;
       case this._constants.updateGroupMembers : 
         if(res.data){
-          this.closeMembersModal();
-          this.closeAddMemberModal();
           this.groupMessages = res.data;
           this.user = this.groupMessages;
           this.addGrpMembers = [];
@@ -376,33 +371,38 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   }
 
   showImageModal(showValue) {
-    if (showValue) {
-      jQuery("#showImage").modal("open");
-    }
-  }
+    const dialogIntroduceRef = this.dialog.open(DialogImagePreviewComponent,{
+      data: {
+        dialogType : "imagePreview",
+        dialogTitle : "Image Preview...",
+        imgUrl : showValue,
+        fullName : showValue.fullName
+      }
+    });
 
-  closeImageModal() {
-    jQuery("#showImage").modal("close");
-  }
-
-  twoWayChatsetting(){
-    this.openSettingModal();
+    dialogIntroduceRef.afterClosed().subscribe(result => {
+      if(result){
+      }
+    });
   }
 
   setting(){
-    this.openSettingModal();
-  }
+    const dialogSettingRef = this.dialog.open(DialogSettingComponent,{
+      data: {
+        dialogType : "setting",
+        dialogTitle : "Setting...",
+        settingLists : this.settingLists
+      }
+    });
 
-  openSettingModal() {
-    jQuery("#showSettings").modal("open");
-  }
-
-  closeSettingModal() {
-    jQuery("#showSettings").modal("close");
+    dialogSettingRef.afterClosed().subscribe(result => {
+      if(result){
+        this.openListsModals(result.id);
+      }
+    });
   }
 
   openListsModals(id){
-    this.closeSettingModal();
     switch(id){
       case 1 : 
         this.openMembersModal();
@@ -479,33 +479,64 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   }
 
   openMembersModal() {
-    jQuery("#showMembers").modal("open");
-  }
+    const dialogGroupMembersRef = this.dialog.open(DialogGroupMembersComponent,{
+      data: {
+        dialogType : "groupMembers",
+        dialogTitle : "Group Members...",
+        groupMessages : this.groupMessages,
+        groupChat : this.groupChat,
+        loggedInUser : this.loggedInUser,
+        user : this.user,
+        addGrpMembers : this.addGrpMembers
+      }
+    });
 
-  closeMembersModal() {
-    jQuery("#showMembers").modal("close");
+    dialogGroupMembersRef.afterClosed().subscribe(result => {
+      if(result){
+        this.updateMembers(result);
+      }
+    });
   }
 
   openUpdateProfilePictureModal() {
-    jQuery("#updateNewImage").modal("open");
-  }
+    const dialogUploadPictureRef = this.dialog.open(DialogUploadPictureComponent,{
+      data: {
+        dialogType : "uploadProfilePicture",
+        dialogTitle : "Picture...",
+        imgURL : this.imgURL,
+      }
+    });
 
-  closeUpdateProfilePictureModal() {
-    jQuery("#updateNewImage").modal("close");
+    dialogUploadPictureRef.afterClosed().subscribe(result => {
+      if(result){
+        this.updateProfilePicture(result);
+      }
+    });
   }
 
   openAddMemberModal() {
-    jQuery("#addMember").modal("open");
+    const dialogAddGroupMembersRef = this.dialog.open(DialogAddMembersComponent,{
+      data: {
+        dialogType : "addGroupMembers",
+        dialogTitle : "Add Group Members...",
+        groupChat : this.groupChat,
+        loggedInUser : this.loggedInUser,
+        addNewGrpMembers : this.addNewGrpMembers,
+        updateGrpMembers : this.updateGrpMembers
+      }
+    });
+
+    dialogAddGroupMembersRef.afterClosed().subscribe(result => {
+      if(result){
+        this.addMoreGroupMembers(result);
+      }
+    });
   }
 
-  closeAddMemberModal() {
-    jQuery("#addMember").modal("close");
-  }
-
-  updateMembers(){
+  updateMembers(result){
     let payload = {
       groupId : this.receiverId,
-      members : this.addGrpMembers
+      members : result.addGrpMembers
     };
 
     this._socket.sendMessage({
@@ -518,7 +549,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
   }
 
-  addMoreGroupMembers(){
+  addMoreGroupMembers(result){
     let previousMembers = [];
     this.user.members.forEach((item) => {
       previousMembers.push(item.memberId._id);
@@ -526,7 +557,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
     let payload = {
       groupId : this.receiverId,
-      members : [...previousMembers, ...this.addNewGrpMembers]
+      members : [...previousMembers, ...result.addNewGrpMembers]
     };
 
     this._socket.sendMessage({
@@ -534,96 +565,26 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
       data: {
         subType: this._constants.updateGroupMembers,
         payload: payload
-      },
+      }
     });
   }
 
-  addMember(id){
-    if(this.addGrpMembers.indexOf(id) == -1){
-      jQuery("#add_"+id).css("display","none");
-      jQuery("#remove_"+id).css("display","block");
-      this.addGrpMembers.push(id);
-    }else{
-      Materialize.toast("Already added...", 1000, "green");
-    }
-  }
-
-  removeMember(id){
-    if(this.addGrpMembers.indexOf(id) !== -1){
-      jQuery("#remove_"+id).css("display","none");
-      jQuery("#add_"+id).css("display","block");
-      this.addGrpMembers.forEach((member, index) => {
-        if (member == ''+id) {
-          this.addGrpMembers.splice(index, 1);
-        }
-      });
-    }else{
-      Materialize.toast("Not added...", 1000, "red");
-    }
-  }
-
-  addNewGroupMember(id){
-    if(this.addNewGrpMembers.indexOf(id) == -1){
-      jQuery("#addNewGroup_"+id).css("display","none");
-      jQuery("#removeNewGroup_"+id).css("display","block");
-      this.addNewGrpMembers.push(id);
-    }else{
-      Materialize.toast("Already added...", 1000, "green");
-    }
-  }
-
-  removeNewGroupMember(id){
-    if(this.addNewGrpMembers.indexOf(id) !== -1){
-      jQuery("#removeNewGroup_"+id).css("display","none");
-      jQuery("#addNewGroup_"+id).css("display","block");
-      this.addNewGrpMembers.forEach((member, index) => {
-        if (member == ''+id) {
-          this.addNewGrpMembers.splice(index, 1);
-        }
-      });
-    }else{
-      Materialize.toast("Not added...", 1000, "red");
-    }
-  }
-
-
-  preview(files) {
-    if (files.length === 0) return;
-
-    var mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      Materialize.toast(this.message, 1000, "red");
-      return;
-    }
-    this.filepath = <File>files[0];
-
-    var reader = new FileReader();
-    this.imagePath = files;
-    reader.readAsDataURL(files[0]);
-    reader.onload = (_event) => {
-      this.imgURL = reader.result;
-    };
-  }
-
-  updateProfilePicture(){
-    if(this.filepath){
-      if (!this.imagePath) {
+  updateProfilePicture(result){
+    if(result.filepath){
+      if (!result.imagePath) {
         Materialize.toast(
           "Please click on the plus Icon to upload a Picture !",
           4000
         );
       } else {
         let fddd = new FormData();
-        fddd.append("file", this.imagePath[0], this.imagePath[0].name);
+        fddd.append("file", result.imagePath[0], result.imagePath[0].name);
         fddd.append("id", this.receiverId);
         this.userService.updateGroupProfileImg(fddd).subscribe(
           (res) => {
             this.user.profileimage = res.data.profileimage;
-            this.closeUpdateProfilePictureModal();
             Materialize.toast(res.message, 1000, "green");
-          },
-          (error) => {
+          }, (error) => {
             console.log(error);
           }
         );
@@ -631,4 +592,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     }
   }
 
+  getImage(obj){
+    obj.showCreatedLogo = true;
+  }
 }

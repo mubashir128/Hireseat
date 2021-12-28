@@ -1,9 +1,7 @@
 <div class="emailTemp" id="shareEmailModal">
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
     <div>
-        <div class="titleClass">
-            <label for="">{{dialogTitle}}</label>
-        </div>
         <div class="">
             <div class="form-group posRel">
                 <!-- <label>Receiver Name </label> -->
@@ -30,13 +28,13 @@
                 <input type="text" class="form-control inputComm" [(ngModel)]="cc" />
             </div>
             
-            <div class="row form-group autoClass" *ngIf = "!hideBlueBtn">
+            <div class="row form-group autoClass" *ngIf = "!hideBlueBtn || showCombine">
                 <div class="" style="float: right;">
                     <button class="sendBtn introStyle" (click)="closeOfferEmailDialog()">Offer Intro</button>
                 </div>
             </div>
 
-            <div class="row form-group autoClass" *ngIf = "hideBlueBtn">
+            <div class="row form-group autoClass" *ngIf = "hideBlueBtn || showCombine">
                 <div class="" style="width: 55%; float: left;">
                     <button class="sendBtn" (click)="generalEmailIntro()">General Referral</button>
                 </div>
@@ -45,7 +43,7 @@
                 </div>
             </div>
 
-            <div class="row form-group autoClass" style="margin-top: -25px;" *ngIf = "hideBlueBtn">
+            <div class="row form-group autoClass" style="margin-top: -25px;" *ngIf = "hideBlueBtn || showCombine">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="generateLinkForVideo()">Copy Profile Link</button>
                 </div>

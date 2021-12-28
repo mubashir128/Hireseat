@@ -1,0 +1,38 @@
+<div id="showMembers">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
+    <div class="membersClass" *ngIf="groupChat">
+        <!-- <form [formGroup]="updateGroupMembers"> -->
+            <div class="member">
+                <span>Members : ( CreateBy : {{ groupMessages.createdBy._id == loggedInUser._id ? 'You' :
+                    groupMessages.createdBy.fullName}} )</span>
+                <div class="makeDiff">
+                    <ng-container *ngFor="let member of groupMessages.members">
+                        <div class="chat-profile-item addUserUI" *ngIf="member.memberId._id !== loggedInUser._id">
+                            <div class="disF">
+                                <div *ngIf = "!member.memberId.showCreatedLogo">
+                                    <img [src]="member.memberId.profileimage" (error)="getImage(member.memberId)" class="uploadedImgUser">
+                                </div>
+                                <div *ngIf = "member.memberId.showCreatedLogo" class="big-badge extrabig-badge-change">
+                                    {{ member.memberId.fullName | uppercase | slice: 0 : 1 }}
+                                </div>
+                                <div class="chat-user-title"> {{ member.memberId.fullName }} </div>
+                                <ng-container *ngIf="this.loggedInUser._id == this.user.createdBy._id">
+                                    <i class="fa fa-plus VIconE" [id]="'add_'+member.memberId._id"
+                                        style="margin-right: 15px; display: none;" aria-hidden="true"
+                                        (click)="addMember(member.memberId._id)"></i>
+                                    <i class="fa fa-minus VIconE" [id]="'remove_'+member.memberId._id"
+                                        style="margin-right: 15px;" aria-hidden="true"
+                                        (click)="removeMember(member.memberId._id)"></i>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="form-group textRight" *ngIf="this.loggedInUser._id == this.user.createdBy._id">
+                <button class="createAndAddMemberClass" (click)="updateMembers()">Update</button>
+            </div>
+        <!-- </form> -->
+    </div>
+</div>

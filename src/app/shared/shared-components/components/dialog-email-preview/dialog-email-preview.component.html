@@ -1,8 +1,6 @@
 <div class="setCss" id="generalEmaiPreviewModal">
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
-    <div class="titleClass">
-        <label for="">{{dialogTitle}}</label>
-    </div>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
     <div class="ccBcc">
         <ul>
         <li><label for="">Receiver Name</label>  <input type="text" placeholder="receiver name..." [(ngModel)]="recipientName"> </li>

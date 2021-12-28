@@ -37,9 +37,9 @@ export class CandidateNavbarComponent implements OnInit {
     this.tabs1.push(
       new Tab("/candidate/my-reviewed-profiles", "My Reviewed Profiles", false)
     );
-    this.tabs1.push(
-      new Tab("/candidate/interview-room", "Interview Room", false)
-    );
+    // this.tabs1.push(
+    //   new Tab("/candidate/interview-room", "Interview Room", false)
+    // );
     this.tabs1.push(
       new Tab("/candidate/my-posted-profiles", "My Posted Profiles", false)
     );

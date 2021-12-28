@@ -86,6 +86,14 @@ import { DialogEmailPreview2Component } from './components/dialog-email-preview2
 import { DialogOfferIntroChatComponent } from './components/dialog-offer-intro-chat/dialog-offer-intro-chat.component';
 import { DialogConnectOfferIntroComponent } from './components/dialog-connect-offer-intro/dialog-connect-offer-intro.component';
 import { CloseScreenComponent } from './components/close-screen/close-screen.component';
+import { DialogImagePreviewComponent } from './components/dialog-image-preview/dialog-image-preview.component';
+import { DialogCreateGroupComponent } from './components/dialog-create-group/dialog-create-group.component';
+import { DialogSettingComponent } from './components/dialog-setting/dialog-setting.component';
+import { DialogGroupMembersComponent } from './components/dialog-group-members/dialog-group-members.component';
+import { DialogAddMembersComponent } from './components/dialog-add-members/dialog-add-members.component';
+import { DialogUploadPictureComponent } from './components/dialog-upload-picture/dialog-upload-picture.component';
+import { DialogTitleComponent } from './components/dialog-title/dialog-title.component';
+import { DialogThanksLaterComponent } from './components/dialog-thanks-later/dialog-thanks-later.component';
 
 @NgModule({
   imports: [
@@ -196,7 +204,15 @@ import { CloseScreenComponent } from './components/close-screen/close-screen.com
     DialogEmailPreview2Component,
     DialogOfferIntroChatComponent,
     DialogConnectOfferIntroComponent,
-    CloseScreenComponent
+    CloseScreenComponent,
+    DialogImagePreviewComponent,
+    DialogCreateGroupComponent,
+    DialogSettingComponent,
+    DialogGroupMembersComponent,
+    DialogAddMembersComponent,
+    DialogUploadPictureComponent,
+    DialogTitleComponent,
+    DialogThanksLaterComponent
   ],
   exports: [
     FooterComponent,
@@ -271,7 +287,8 @@ import { CloseScreenComponent } from './components/close-screen/close-screen.com
     SearchByOnlyFullNamePipe,
     SortByIndustiresPipe,
     MatDialogModule,
-    CloseScreenComponent
+    CloseScreenComponent,
+    DialogImagePreviewComponent
   ],
 
 })

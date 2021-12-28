@@ -1,0 +1,39 @@
+<div id="updateNewImage">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
+  <div class="uploadProfilePictureClass">
+    <span>Upload Profile Picture : </span>
+    <form [formGroup]="updateProfileimg">
+      <div class="uploadProfileImgDiv">
+        <div class="uploadProfileImg">
+          <ng-container *ngIf="imgURL">
+            <img [src]="imgURL" alt="add img" />
+          </ng-container>
+  
+          <ng-container>
+            <div class="UploadImgDefault">
+              <img src="assets/img/profile-user.png" alt="add img" />
+            </div>
+          </ng-container>
+  
+          <div class="profileAdd">
+            <div class="profileAddInner">
+              <i class="fa fa-camera" aria-hidden="true"></i>
+              <p>ADD PROFILE PHOTO</p>
+            </div>
+          </div>
+          <input
+            #file
+            type="file"
+            accept="image/*"
+            formControlName="file"
+            (change)="preview(file.files)"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="form-group textRight">
+    <button class="createAndAddMemberClass" (click)="updateProfilePicture()">Update</button>
+  </div>
+</div>

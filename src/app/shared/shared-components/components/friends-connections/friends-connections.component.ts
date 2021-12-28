@@ -11,6 +11,9 @@ import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Plugins } from '@capacitor/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as myGlobals from "../../../../globalPath";
+import { DialogEmailPreviewComponent } from "src/app/shared/shared-components/components/dialog-email-preview/dialog-email-preview.component";
+import { AbstractSharedComponent } from 'src/app/abstract-classes/abstract-shared.component';
+import { MatDialog } from '@angular/material/dialog';
 
 const { Share } = Plugins;
 declare var jQuery;
@@ -22,7 +25,7 @@ declare var Materialize;
   templateUrl: './friends-connections.component.html',
   styleUrls: ['./friends-connections.component.css']
 })
-export class FriendsConnectionsComponent implements OnInit {
+export class FriendsConnectionsComponent extends AbstractSharedComponent implements OnInit {
 
   requestedFriendAre =  [];
   friendsConnections = [];
@@ -72,8 +75,10 @@ export class FriendsConnectionsComponent implements OnInit {
     private _router: Router,
     private shareVideoService: ShareVideoService,
     private videoCallingService: VideoCallingService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog
   ){
+    super(dialog);
     this.loggedInUser = this._userService.getUserData();
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
       this.shareResume = res;
@@ -142,8 +147,6 @@ export class FriendsConnectionsComponent implements OnInit {
     document.body.removeChild(selBox);
 
     Materialize.toast("Link copied to clipboard", 1000);
-
-    this.closeShareModal();
   }
 
   handleResponse(res) {
@@ -152,8 +155,6 @@ export class FriendsConnectionsComponent implements OnInit {
     } else {
       Materialize.toast(res.error, 3000, "red");
     }
-
-    jQuery("#shareEmailModal").modal("close");
     this.spinner.hide();
   }
 
@@ -235,16 +236,65 @@ export class FriendsConnectionsComponent implements OnInit {
     }
   }
 
+  emailPreview(result){
+    let senderName = this.loggedInUser.fullName;
+    let recipientName = result.recipientName;
+    let payload = {
+      dialogType : "OfferIntro",
+      dialogTitle : "Email Preview...",
+      senderName : senderName,
+      recipientName : recipientName,
+      recipientEmail : result.recipientEmail,
+      cc : result.cc
+    }
+    this.emailPreviewSuper(payload, this);
+  }
+
+  emailSend(result, result2){
+    let payload = {
+      recipientEmail : result.recipientEmail,
+      fullName : result.recipientName,
+      cc : result.cc,
+      senderName : result2.senderName,
+      recipientName : result.recipientName,
+      linkedIn : this.linedIn,
+      companies : result2.companies,
+      emailType : this._constants.offerEmailIntro,
+      chatLink : myGlobals.chatRedirectUrl + this.loggedInUser.userRole + "/chat-record/" + this.loggedInUser._id
+    };
+    
+    this.spinner.show();
+    this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
+      (res) => {
+        if (res.msg) {
+          Materialize.toast(res.msg, 3000, "green");
+        } else {
+          Materialize.toast(res.err, 3000, "red");
+        }
+        this.spinner.hide();
+    }, (err) => {
+      Materialize.toast(err.err, 3000, "red");
+    });
+  }
+
   // share process
   showShareModal(_id, resumeId, resumeId2) {
-    let resume = (_id !== this.loggedInUser._id) ? resumeId : resumeId2;
-    this.cc = resume.candidate_id.email;
-    this.bcc = this.loggedInUser.email ? this.loggedInUser.email : "";
-    this.cc = this.cc + ", " + this.bcc;
+    let hideBlueBtn = true;
     this.generateLink = true;
-    this.flag = false;
-    jQuery("#shareEmailModal").modal("open");
+    let resume = (_id !== this.loggedInUser._id) ? resumeId : resumeId2;
     this.shareVideoService.setResume(resume);
+    let cc = resume.candidate_id.email;
+    let bcc = this.loggedInUser.email ? this.loggedInUser.email : "";
+    cc = cc + ", " + bcc;
+    let payload = {
+      dialogType : "OfferReferral",
+      dialogTitle : "Offer Referral",
+      cc : cc,
+      bcc : bcc,
+      clients : this.clients,
+      hideBlueBtn : hideBlueBtn
+    }
+    this.showShareModalSuper(payload, this);
   }
 
   goToUserChat(_id, resumeId, resumeId2){
@@ -257,11 +307,17 @@ export class FriendsConnectionsComponent implements OnInit {
 
   thxLetter(_id, resumeId, resumeId2){
     this.thxFullObj = (_id !== this.loggedInUser._id) ? resumeId : resumeId2;
-    this.thxFullName = this.thxFullObj.candidate_id.fullName;
-    jQuery("#thxLetterModal").modal("open");
+    let thxFullName = this.thxFullObj.candidate_id.fullName;
+  
+    let payload = {
+      dialogType : "ThanksLetter",
+      dialogTitle : "Thanks Letter",
+      thxFullName : thxFullName
+    }
+    this.thxLetterSuper(payload, this);
   }
 
-  thxLetterSend(){
+  thxLetterSend(result){
     let payload = {
       toId : this.thxFullObj.candidate_id._id,
       toEmailId : this.thxFullObj.candidate_id.email,
@@ -274,7 +330,6 @@ export class FriendsConnectionsComponent implements OnInit {
     this._candidateService.sayThxLetter(payload).subscribe((res) => {
       if (res) {
         Materialize.toast("Say thx successfully", 1000, "green");
-        jQuery("#thxLetterModal").modal("close");
       }
       this.spinner.hide();
     }, (err)=>{
@@ -282,13 +337,8 @@ export class FriendsConnectionsComponent implements OnInit {
     });
   }
 
-  closeShareModal() {
-    jQuery("#shareEmailModal").modal("close");
-  }
-
   async generateLinkForVideo() {
     let payload = {};
-
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
     let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
 
@@ -347,31 +397,39 @@ export class FriendsConnectionsComponent implements OnInit {
     }
   }
   
-  introduceUser(){
-    if(this.recipientName == ""){
-      Materialize.toast("Please fill recipient name", 800, "res");
-    }else if(this.recipientEmail == ""){
-      Materialize.toast("Please fill email field", 800, "res");
-    }else{
-      this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
-      this.comment1 = this.shareResume.comments;
-      this.comment2 = this.shareResume.comment2;
-      this.comment3 = this.shareResume.comment3;
-      jQuery("#shareEmailModal").modal("close");
-      jQuery("#emaiPreviewModal").modal("open");
+  introduceUser(result){
+    let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    let comment1 = this.shareResume.comments;
+    let comment2 = this.shareResume.comment2;
+    let comment3 = this.shareResume.comment3;
+    let senderName = this.loggedInUser.fullName;
+
+    let payload = {
+      dialogType : "EmailPreview...",
+      dialogTitle : "Email Preview...",
+      cc : result.cc,
+      bcc : result.bcc,
+      recipientName : result.recipientName,
+      recipientEmail : result.recipientEmail,
+      senderName : senderName,
+      candidateNameIs : candidateNameIs,
+      comment1 : comment1,
+      comment2 : comment2,
+      comment3 : comment3
     }
+
+    this.introduceUserSuper(payload, this);
   }
 
-  async share(intruduce) {
+  async share(result) {
 
     var EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    if (!EMAIL_REGEXP.test(this.recipientEmail)) {
+    if (!EMAIL_REGEXP.test(result.recipientEmail)) {
       Materialize.toast("Invalid email", 800);
       return;
     }
 
-    jQuery("#emaiPreviewModal").modal("close");
     this.spinner.show();
 
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
@@ -410,24 +468,22 @@ export class FriendsConnectionsComponent implements OnInit {
               const payload = {
                 recruiterId: this.loggedInUser._id,
                 resumeId: this.shareResume._id,
-                recipientEmail: this.recipientEmail,
-                cc: this.cc,
-                bcc: this.bcc,
+                recipientEmail: result.recipientEmail,
+                cc: result.cc,
+                bcc: result.bcc,
                 videoUrl: this.shareableVideoURL,
                 fullName: candidateName,
                 subject: subject,
-                comment: this.shareResume.comments,
-                comment2: this.shareResume.comment2,
-                comment3: this.shareResume.comment3,
+                comment: result.comments,
+                comment2: result.comment2,
+                comment3: result.comment3,
                 candidateProfile: this.shareResume.resumeType ? false : true,
-                intruduce : intruduce, //only when hitting a introduce
-                senderName : this.loggedInUser.fullName,
+                intruduce : true, //only when hitting a introduce
+                senderName : result.fullName,
                 fileURL : this.shareResume.fileURL,
-                recipientName : this.recipientName,
+                recipientName : result.recipientName,
                 onlyCandidate : true,
-                linkedIn : this.shareResume.linkedIn,
-                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
-                systemUserId : systemUserId
+                linkedIn : this.shareResume.linkedIn
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
@@ -442,19 +498,14 @@ export class FriendsConnectionsComponent implements OnInit {
                   subType: this._constants.shareVideoViaRecruiterEmail
                 },
               });
-
             } else {
-              // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 3000);
               this.spinner.hide();
             }
           } else {
             this.spinner.hide();
           }
-        },
-        (err) => {
-          console.log("none responses");
-
+        }, (err) => {
           this.spinner.hide();
           return false;
         }
@@ -462,67 +513,34 @@ export class FriendsConnectionsComponent implements OnInit {
     // got url
   }
 
-  searchClient(term: string){
-    if(term == ""){
-      this.flag = false;
-    }else{
-      this.flag = true;
-    }
-  }
-
-  onselectClient(clientObj) {
-    if (clientObj) {
-      this.flag = false;
-      this.recipientName = clientObj.fullName;
-      this.recipientEmail = clientObj.email;
-    }else{
-      return false;
-    }
-  }
-
-  closeClients($event){
-    setTimeout(()=>{
-      this.flag = false;
-    }, 300);
-  }
-
-  generalEmailIntro(){
-    if(this.recipientName == ""){
-      Materialize.toast("Please fill recipient name", 800, "res");
-    }else if(this.recipientEmail == ""){
-      Materialize.toast("Please fill email field", 800, "res");
-    }else{
-      this.senderName = this.loggedInUser.fullName;
-      this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
-      this.linedIn = this.shareResume.linkedIn;
-      jQuery("#shareEmailModal").modal("close");
-      jQuery("#generalEmaiPreviewModal").modal("open");
-    }
-  }
-
-  generalEmailIntroSend(){
-    let systemUserId;
-    this.friendsConnections.forEach((prof, index)=>{
-      if(prof.recipient.fullName == this.recipientName && prof.recipient.email == this.recipientEmail){
-        systemUserId = prof.recipient._id;
-      }else if(prof.requester.fullName == this.recipientName && prof.requester.email == this.recipientEmail){
-        systemUserId = prof.requester._id;
-      }
-    });
-
+  generalEmailIntro(result){
+    let senderName = this.loggedInUser.fullName;
+    let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    let linedIn = this.shareResume.linkedIn;
     let payload = {
-      recipientEmail : this.recipientEmail,
-      fullName : this.candidateNameIs,
-      senderName : this.senderName,
-      recipientName : this.recipientName,
-      cc: this.cc,
-      bcc: this.bcc,
-      linkedIn : this.linedIn,
-      emailType : this._constants.generalEmailIntro,
-      profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
-      systemUserId : systemUserId,
-      recruiterId: this.loggedInUser._id,
-      resumeId: this.shareResume._id
+      dialogType : "EmailPreview...",
+      dialogTitle : "Email Preview...",
+      cc : result.cc,
+      bcc : result.bcc,
+      recipientName : result.recipientName,
+      recipientEmail : result.recipientEmail,
+      senderName : senderName,
+      candidateNameIs : candidateNameIs,
+      linedIn : linedIn
+    }
+    this.generalEmailIntroSuper(payload, this);
+  }
+
+  generalEmailIntroSend(result){
+    let payload = {
+      recipientEmail : result.recipientEmail,
+      fullName : result.candidateNameIs,
+      senderName : result.senderName,
+      recipientName : result.recipientName,
+      cc: result.cc,
+      bcc: result.bcc,
+      linkedIn : result.linedIn,
+      emailType : this._constants.generalEmailIntro
     };
     
     this.spinner.show();
@@ -533,22 +551,11 @@ export class FriendsConnectionsComponent implements OnInit {
         } else {
           Materialize.toast(res.err, 3000, "red");
         }
-        jQuery("#generalEmaiPreviewModal").modal("close");
         this.spinner.hide();
     }, (err) => {
       Materialize.toast(err.err, 3000, "red");
       this.spinner.hide();
     });
-  }
-
-  offerEmailIntro(){
-    this.senderName = this.loggedInUser.fullName;
-    this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
-    this.recipientName = this.candidateNameIs;
-    this.recipientEmail = this.shareResume.resumeType ? this.shareResume.email : this.shareResume.candidate_id.email;
-    this.linedIn = this.shareResume.linkedIn;
-    jQuery("#shareEmailModal").modal("close");
-    jQuery("#offerEmailIntroModal").modal("open");
   }
 
   offerEmailIntroSend(){

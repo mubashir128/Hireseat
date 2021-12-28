@@ -21,7 +21,7 @@ export class DialogEmailPreviewComponent extends AbstractDialogComponent impleme
   candidateNameIs: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogEmailPreviewComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogEmailPreviewComponent>){
-    super(dialogRef);
+    super(data, dialogRef);
     if(data){
       this.cc = this.data.cc;
       this.bcc = this.data.bcc;
@@ -33,10 +33,6 @@ export class DialogEmailPreviewComponent extends AbstractDialogComponent impleme
       this.senderName = this.data.senderName;
 
       this.candidateNameIs = this.data.candidateNameIs;
-
-      this.dialogType = this.data.dialogType;
-      this.dialogTitle = this.data.dialogTitle;
-
     }
   }
 

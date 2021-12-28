@@ -31,12 +31,12 @@ export class EmployerNavbarComponent implements OnInit {
       new EmployerTab(1, "Dashboard", "/employer/dashboard", true),
       new EmployerTab(2, "Job Profiles", "/employer/job-profile-list", false),
       new EmployerTab(3, "Job Postings", "/employer/bidding-event-list", false),
-      new EmployerTab(
-        4,
-        "Video Interview Room",
-        "/employer/video-interview-room",
-        false
-      ),
+      // new EmployerTab(
+      //   4,
+      //   "Video Interview Room",
+      //   "/employer/video-interview-room",
+      //   false
+      // ),
       new EmployerTab(5, "My Candidates", "/employer/mycandidates", false),
       new EmployerTab(
         6,
