@@ -11,7 +11,7 @@ export abstract class AbstractSharedComponent{
   constructor(public dialog: MatDialog) {
   }
 
-  showShareModalSuper(payload, THIS){
+  showShareModalSuper(payload, callback){
     const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent,{
       data: {
         dialogType : payload.dialogType,
@@ -20,39 +20,18 @@ export abstract class AbstractSharedComponent{
         bcc : payload.bcc,
         clients : payload.clients,
         hideBlueBtn : payload.hideBlueBtn,
-        showCombine : (THIS instanceof FriendsConnectionsComponent) ? true : false
+        showCombine : payload.showCombine
       }
     });
 
     dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
       if(result){
-        switch(result.type){
-          case "copyProfileLink" : 
-            if(result.process){
-              THIS.generateLinkForVideo();
-            }
-            break;
-          case "careerReferral" : 
-            if(result.process){
-              THIS.introduceUser(result);
-            }
-            break;
-          case "generalReferral" : 
-            if(result.process){
-              THIS.generalEmailIntro(result);
-            }
-            break;
-          case "OfferIntro" : 
-            if(result.process){
-              THIS.emailPreview(result);
-            }
-            break;
-        }
+        callback(result);
       }
     });
   }
 
-  generalEmailIntroSuper(payload, THIS){
+  generalEmailIntroSuper(payload, callback){
     const dialogEmailPreviewRef = this.dialog.open(DialogEmailPreviewComponent ,{
       data: {
         dialogType : payload.dialogType,
@@ -69,12 +48,12 @@ export abstract class AbstractSharedComponent{
 
     dialogEmailPreviewRef.afterClosed().subscribe(result => {
       if(result){
-        THIS.generalEmailIntroSend(result);
+        callback(result);
       }
     });
   }
 
-  introduceUserSuper(payload, THIS){
+  introduceUserSuper(payload, callback){
     const dialogEmailPreview2Ref = this.dialog.open(DialogEmailPreview2Component,{
       data: {
         dialogType : payload.dialogType,
@@ -93,12 +72,12 @@ export abstract class AbstractSharedComponent{
 
     dialogEmailPreview2Ref.afterClosed().subscribe(result => {
       if(result){
-        THIS.share(result);
+        callback(result);
       }
     });
   }
 
-  emailPreviewSuper(payload, THIS){
+  emailPreviewSuper(payload, callback){
     const dialogIntroduceRef = this.dialog.open(DialogIntroduceComponent,{
       data: {
         dialogType : payload.dialogType,
@@ -110,12 +89,12 @@ export abstract class AbstractSharedComponent{
 
     dialogIntroduceRef.afterClosed().subscribe(result => {
       if(result){
-        THIS.emailSend(payload, result);
+        callback(payload, result);
       }
     });
   }
 
-  thxLetterSuper(payload, THIS){
+  thxLetterSuper(payload, callback){
     const dialogThanksLaterRef = this.dialog.open(DialogThanksLaterComponent,{
       data: {
         dialogType : payload.dialogType,
@@ -126,7 +105,7 @@ export abstract class AbstractSharedComponent{
 
     dialogThanksLaterRef.afterClosed().subscribe(result => {
       if(result){
-        THIS.thxLetterSend(payload, result);
+        callback(result);
       }
     });
   }
