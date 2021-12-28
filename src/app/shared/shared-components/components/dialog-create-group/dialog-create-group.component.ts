@@ -56,6 +56,14 @@ export class DialogCreateGroupComponent extends AbstractDialogComponent implemen
     });
 
     this.getAllUsers();
+    this.setMember();
+  }
+
+  setMember(){
+    this.showAddedUserAre.forEach((member)=>{
+      jQuery("#add_" + member._id).css("display","none");
+      jQuery("#remove_" + member._id).css("display","block");
+    });
   }
 
   addMember(user){
@@ -93,6 +101,11 @@ export class DialogCreateGroupComponent extends AbstractDialogComponent implemen
   }
 
   createAndAddGroup(){
+    if(this.groupName.trim() == ""){
+      Materialize.toast("Please enter group name...", 1000, "red");
+      return ;
+    }
+    
     this.dialogRef.close({
       groupName : this.groupName,
       addGrpMembers : this.addGrpMembers,

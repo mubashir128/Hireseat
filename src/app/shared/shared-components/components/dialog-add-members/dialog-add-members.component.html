@@ -9,8 +9,12 @@
                     <ng-container *ngFor="let member of updateGrpMembers">
                         <div class="chat-profile-item addUserUI" *ngIf="member._id !== loggedInUser._id">
                             <div class="disF">
-                                <img [src]="(member.profileimage !=='') ? member.profileimage : 'assets/img/user.png'"
-                                    class="uploadedImgUser">
+                                <div *ngIf = "!member.showCreatedLogo">
+                                    <img [src]="member.profileimage" (error)="getImage(member)" class="uploadedImgUser">
+                                </div>
+                                <div *ngIf = "member.showCreatedLogo" class="big-badge extrabig-badge-change">
+                                    {{ member.fullName | uppercase | slice: 0 : 1 }}
+                                </div>
                                 <div class="chat-user-title"> {{ member.fullName }} </div>
                                 <ng-container>
                                     <i class="fa fa-plus VIconE" [id]="'addNewGroup_' + member._id"

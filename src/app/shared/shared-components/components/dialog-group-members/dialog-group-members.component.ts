@@ -72,4 +72,7 @@ export class DialogGroupMembersComponent extends AbstractDialogComponent impleme
     });
   }
 
+  getImage(obj){
+    obj.showCreatedLogo = true;
+  }
 }
