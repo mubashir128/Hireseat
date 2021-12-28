@@ -47,6 +47,7 @@ import { DialogEmailPreviewComponent } from "src/app/shared/shared-components/co
 import { DialogEmailPreview2Component } from "src/app/shared/shared-components/components/dialog-email-preview2/dialog-email-preview2.component";
 import { DialogOfferIntroChatComponent } from "src/app/shared/shared-components/components/dialog-offer-intro-chat/dialog-offer-intro-chat.component";
 import { DialogConnectOfferIntroComponent } from "src/app/shared/shared-components/components/dialog-connect-offer-intro/dialog-connect-offer-intro.component";
+import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-shared.component";
 
 const { Share } = Plugins;
 declare var jQuery;
@@ -58,7 +59,7 @@ declare var Materialize;
   templateUrl: './only-for-candidate-shared-profile.component.html',
   styleUrls: ['./only-for-candidate-shared-profile.component.css']
 })
-export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges, OnDestroy {
+export class OnlyForCandidateSharedProfileComponent extends AbstractSharedComponent implements OnInit, OnChanges, OnDestroy {
 
   @ViewChild("playVideo") videojsPlay: ElementRef;
 
@@ -184,6 +185,7 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     private readonly joyrideService: JoyrideService,
     public dialog: MatDialog
   ) {
+    super(dialog);
     this.resumes = [];
     
     this.Search = this.formBuilder.group({
@@ -878,42 +880,30 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     window.open(url, "_blank");
   }
 
-  showShareModal2(resume, flag) {
-    let hideBlueBtn = flag;
+  showShareModal2(resume) {
+    let hideBlueBtn = false;
     this.shareVideoService.setResume(resume);
-    const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent,{
-      data: {
-        dialogType : "OfferIntro",
-        dialogTitle : "Offer Intro",
-        clients : this.clients,
-        hideBlueBtn : hideBlueBtn
-      }
-    });
-
-    dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
-      if(result){
-        this.emailPreview(result);
-      }
-    });
+    let payload = {
+      dialogType : "OfferIntro",
+      dialogTitle : "Offer Intro",
+      clients : this.clients,
+      hideBlueBtn : hideBlueBtn
+    }
+    this.showShareModalSuper(payload, this);
   }
 
   emailPreview(result){
     let senderName = this.loggedUser.fullName;
     let recipientName = result.recipientName;
-    const dialogIntroduceRef = this.dialog.open(DialogIntroduceComponent,{
-      data: {
-        dialogType : "OfferIntro",
-        dialogTitle : "Email Preview...",
-        senderName : senderName,
-        recipientName :recipientName
-      }
-    });
-
-    dialogIntroduceRef.afterClosed().subscribe(result2 => {
-      if(result2){
-        this.emailSend(result, result2);
-      }
-    });
+    let payload = {
+      dialogType : "OfferIntro",
+      dialogTitle : "Email Preview...",
+      senderName : senderName,
+      recipientName :recipientName,
+      recipientEmail : result.recipientEmail,
+      cc : result.cc
+    }
+    this.emailPreviewSuper(payload, this);
   }
 
   emailSend(result, result2){
@@ -944,46 +934,22 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
   }
 
   // share process
-  showShareModal(resume, flag) {
-
-    let hideBlueBtn = flag;
+  showShareModal(resume) {
+    let hideBlueBtn = true;
     this.generateLink = true;
     this.shareVideoService.setResume(resume);
     let cc = resume.candidateKey ? resume.candidateKey.email : resume.candidate_id ? resume.candidate_id.email : "";
     let bcc = this.loggedUser.email ? this.loggedUser.email : "";
     cc = cc + ", " + bcc;
-    const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent,{
-      data: {
-        dialogType : "OfferReferral",
-        dialogTitle : "Offer Referral",
-        cc : cc,
-        bcc : bcc,
-        clients : this.clients,
-        hideBlueBtn : hideBlueBtn
-      }
-    });
-
-    dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
-      if(result){
-        switch(result.type){
-          case "copyProfileLink" : 
-            if(result.process){
-              this.generateLinkForVideo();
-            }
-            break;
-          case "careerReferral" : 
-            if(result.process){
-              this.introduceUser(result);
-            }
-            break;
-          case "generalReferral" : 
-            if(result.process){
-              this.generalEmailIntro(result);
-            }
-            break;
-        }
-      }
-    });
+    let payload = {
+      dialogType : "OfferReferral",
+      dialogTitle : "Offer Referral",
+      cc : cc,
+      bcc : bcc,
+      clients : this.clients,
+      hideBlueBtn : hideBlueBtn
+    }
+    this.showShareModalSuper(payload, this);
   }
 
   closeShareToUserModal() {
@@ -1012,7 +978,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
 
   async generateLinkForVideo() {
     let payload = {};
-
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
     let userInfo = JSON.parse(localStorage.getItem("currentUser")).userInfo;
 
@@ -1078,8 +1043,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
       Materialize.toast("Invalid email", 800);
       return;
     }
-
-    jQuery("#emaiPreviewModal").modal("close");
     
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
     const subject ="Hireseat" + " - " + this.loggedUser.companyName + " - " + this.shareResume.jobTitle + " - " + candidateName + " Profile.";
@@ -1132,19 +1095,14 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
                   subType: this._constants.shareVideoViaRecruiterEmail
                 },
               });
-
             } else {
-              // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 3000);
               this.spinner.hide();
             }
           } else {
             this.spinner.hide();
           }
-        },
-        (err) => {
-          console.log("none responses");
-
+        }, (err) => {
           this.spinner.hide();
           return false;
         }
@@ -1619,8 +1577,29 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
     let comment3 = this.shareResume.comment3;
     let senderName = this.loggedUser.fullName;
 
-    const dialogEmailPreview2Ref = this.dialog.open(DialogEmailPreview2Component,{
-      data: {
+    let payload = {
+      dialogType : "EmailPreview...",
+      dialogTitle : "Email Preview...",
+      cc : result.cc,
+      bcc : result.bcc,
+      recipientName : result.recipientName,
+      recipientEmail : result.recipientEmail,
+      senderName : senderName,
+      candidateNameIs : candidateNameIs,
+      comment1 : comment1,
+      comment2 : comment2,
+      comment3 : comment3
+    }
+
+    this.introduceUserSuper(payload, this);
+  }
+
+  generalEmailIntro(result){
+      let senderName = this.loggedUser.fullName;
+      let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+      let linedIn = this.shareResume.linkedIn;
+
+      let payload = {
         dialogType : "EmailPreview...",
         dialogTitle : "Email Preview...",
         cc : result.cc,
@@ -1629,43 +1608,9 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
         recipientEmail : result.recipientEmail,
         senderName : senderName,
         candidateNameIs : candidateNameIs,
-        comment1 : comment1,
-        comment2 : comment2,
-        comment3 : comment3
+        linedIn : linedIn
       }
-    });
-
-    dialogEmailPreview2Ref.afterClosed().subscribe(result => {
-      if(result){
-        this.share(result);
-      }
-    });
-
-  }
-
-  generalEmailIntro(result){
-      let senderName = this.loggedUser.fullName;
-      let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
-      let linedIn = this.shareResume.linkedIn;
-      const dialogEmailPreviewRef = this.dialog.open(DialogEmailPreviewComponent,{
-        data: {
-          dialogType : "EmailPreview...",
-          dialogTitle : "Email Preview...",
-          cc : result.cc,
-          bcc : result.bcc,
-          recipientName : result.recipientName,
-          recipientEmail : result.recipientEmail,
-          senderName : senderName,
-          candidateNameIs : candidateNameIs,
-          linedIn : linedIn
-        }
-      });
-  
-      dialogEmailPreviewRef.afterClosed().subscribe(result => {
-        if(result){
-          this.generalEmailIntroSend(result);
-        }
-      });
+      this.generalEmailIntroSuper(payload, this);
   }
 
   generalEmailIntroSend(result){
@@ -1688,7 +1633,6 @@ export class OnlyForCandidateSharedProfileComponent implements OnInit, OnChanges
         } else {
           Materialize.toast(res.err, 3000, "red");
         }
-        jQuery("#generalEmaiPreviewModal").modal("close");
         this.spinner.hide();
     }, (err) => {
       Materialize.toast(err.err, 3000, "red");

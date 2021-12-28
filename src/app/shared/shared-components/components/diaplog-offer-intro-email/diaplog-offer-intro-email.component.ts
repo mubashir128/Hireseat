@@ -22,6 +22,8 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
 
   senderName: string;
   candidateNameIs: string;
+
+  showCombine: boolean;
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: DiaplogOfferIntroEmailComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DiaplogOfferIntroEmailComponent>){
     super(data, dialogRef);
@@ -31,6 +33,8 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
 
       this.clients = this.data.clients;
       this.hideBlueBtn = this.data.hideBlueBtn;
+
+      this.showCombine = this.data.showCombine;
     }
   }
 
@@ -68,6 +72,8 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
     }
     
     this.dialogRef.close({
+      type : "OfferIntro",
+      process : true,
       cc : this.cc,
       bcc : this.bcc,
       recipientName : this.recipientName,
