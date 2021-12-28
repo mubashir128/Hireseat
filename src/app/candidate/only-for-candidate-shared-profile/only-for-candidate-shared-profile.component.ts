@@ -889,7 +889,32 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       clients : this.clients,
       hideBlueBtn : hideBlueBtn
     }
-    this.showShareModalSuper(payload, this);
+    this.showShareModalSuper(payload, this.showShareModalSuperCallback);
+  }
+
+  showShareModalSuperCallback(result){
+    switch(result.type){
+      case "copyProfileLink" : 
+        if(result.process){
+          this.generateLinkForVideo();
+        }
+        break;
+      case "careerReferral" : 
+        if(result.process){
+          this.introduceUser(result);
+        }
+        break;
+      case "generalReferral" : 
+        if(result.process){
+          this.generalEmailIntro(result);
+        }
+        break;
+      case "OfferIntro" : 
+        if(result.process){
+          this.emailPreview(result);
+        }
+        break;
+    }
   }
 
   emailPreview(result){
@@ -903,7 +928,11 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       recipientEmail : result.recipientEmail,
       cc : result.cc
     }
-    this.emailPreviewSuper(payload, this);
+    this.emailPreviewSuper(payload, this.emailPreviewSuperCallback);
+  }
+
+  emailPreviewSuperCallback(payload, result){
+    this.emailSend(payload, result);
   }
 
   emailSend(result, result2){
@@ -949,7 +978,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       clients : this.clients,
       hideBlueBtn : hideBlueBtn
     }
-    this.showShareModalSuper(payload, this);
+    this.showShareModalSuper(payload, this.showShareModalSuperCallback);
   }
 
   closeShareToUserModal() {
@@ -1591,7 +1620,11 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       comment3 : comment3
     }
 
-    this.introduceUserSuper(payload, this);
+    this.introduceUserSuper(payload, this.introduceUserSuperCallback);
+  }
+
+  introduceUserSuperCallback(result){
+    this.share(result);
   }
 
   generalEmailIntro(result){
@@ -1610,7 +1643,11 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
         candidateNameIs : candidateNameIs,
         linedIn : linedIn
       }
-      this.generalEmailIntroSuper(payload, this);
+      this.generalEmailIntroSuper(payload, this.generalEmailIntroSuperCallback);
+  }
+
+  generalEmailIntroSuperCallback(result){
+    this.generalEmailIntroSend(result);
   }
 
   generalEmailIntroSend(result){
