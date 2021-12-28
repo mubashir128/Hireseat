@@ -40,30 +40,16 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
   itemsIs = 0;
 
-  cc: any;
-  bcc: any;
-
   generateLink = true;
 
   createdUrl = "";
   shareResume: any;
   shareableVideoURL: any;
-  recipientEmail = "";
-  recipientName = "";
 
-  comment1 = "";
-  comment2 = "";
-  comment3 = "";
-  candidateNameIs = "";
-  senderName = "";
-  companies = "";
-
-  flag = false;
   clients = [];
 
   linedIn = "";
 
-  thxFullName = "";
   thxFullObj;
   
   constructor(
@@ -321,7 +307,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     let payload = {
       toId : this.thxFullObj.candidate_id._id,
       toEmailId : this.thxFullObj.candidate_id.email,
-      thxFullName : this.thxFullName,
+      thxFullName : result.thxFullName,
       fullname : this.loggedInUser.fullName,
       fromEmail : this.loggedInUser.email
     };
@@ -459,9 +445,9 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
             if (this.shareableVideoURL) {
               let systemUserId;
               this.friendsConnections.forEach((prof, index)=>{
-                if(prof.recipient && (prof.recipient.fullName == this.recipientName) && (prof.recipient.email == this.recipientEmail)){
+                if(prof.recipient && (prof.recipient.fullName == result.recipientName) && (prof.recipient.email == result.recipientEmail)){
                   systemUserId = prof.recipient._id;
-                }else if(prof.requester && (prof.requester.fullName == this.recipientName) && (prof.requester.email == this.recipientEmail)){
+                }else if(prof.requester && (prof.requester.fullName == result.recipientName) && (prof.requester.email == result.recipientEmail)){
                   systemUserId = prof.requester._id;
                 }
               });
@@ -551,35 +537,6 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         } else {
           Materialize.toast(res.err, 3000, "red");
         }
-        this.spinner.hide();
-    }, (err) => {
-      Materialize.toast(err.err, 3000, "red");
-      this.spinner.hide();
-    });
-  }
-
-  offerEmailIntroSend(){
-    let payload = {
-      recipientEmail : this.recipientEmail,
-      fullName : this.candidateNameIs,
-      cc : "",
-      senderName : this.loggedInUser .fullName,
-      recipientName : this.recipientName,
-      linkedIn : this.linedIn,
-      companies : this.companies,
-      emailType : this._constants.offerEmailIntro,
-      chatLink : myGlobals.chatRedirectUrl + this.loggedInUser.userRole + "/chat-record/" + this.loggedInUser._id
-    };
-
-    this.spinner.show();
-    this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
-      (res) => {
-        if (res.msg) {
-          Materialize.toast(res.msg, 3000, "green");
-        } else {
-          Materialize.toast(res.err, 3000, "red");
-        }
-        jQuery("#offerEmailIntroModal").modal("close");
         this.spinner.hide();
     }, (err) => {
       Materialize.toast(err.err, 3000, "red");
