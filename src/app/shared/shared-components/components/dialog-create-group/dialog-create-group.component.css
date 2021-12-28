@@ -254,3 +254,12 @@
   margin: 10px;
   float: right;
 }
+
+.extrabig-badge-extra {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.extrabig-badge-extra-add {
+  width: 100% !important;
+}

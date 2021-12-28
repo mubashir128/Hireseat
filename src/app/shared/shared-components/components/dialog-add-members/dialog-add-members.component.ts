@@ -69,4 +69,8 @@ export class DialogAddMembersComponent extends AbstractDialogComponent implement
     });
   }
 
+  getImage(obj){
+    obj.showCreatedLogo = true;
+  }
+  
 }

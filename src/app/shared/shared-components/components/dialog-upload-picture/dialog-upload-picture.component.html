@@ -1,8 +1,6 @@
 <div id="updateNewImage">
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
-    <div class="titleClass">
-        <label for="">{{dialogTitle}}</label>
-    </div>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
   <div class="uploadProfilePictureClass">
     <span>Upload Profile Picture : </span>
     <form [formGroup]="updateProfileimg">

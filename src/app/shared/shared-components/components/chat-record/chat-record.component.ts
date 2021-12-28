@@ -371,12 +371,12 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   }
 
   showImageModal(showValue) {
-
     const dialogIntroduceRef = this.dialog.open(DialogImagePreviewComponent,{
       data: {
         dialogType : "imagePreview",
         dialogTitle : "Image Preview...",
-        imgUrl : showValue
+        imgUrl : showValue,
+        fullName : showValue.fullName
       }
     });
 
@@ -502,7 +502,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     const dialogUploadPictureRef = this.dialog.open(DialogUploadPictureComponent,{
       data: {
         dialogType : "uploadProfilePicture",
-        dialogTitle : "Upload Profile Picture...",
+        dialogTitle : "Picture...",
         imgURL : this.imgURL,
       }
     });
@@ -592,4 +592,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     }
   }
 
+  getImage(obj){
+    obj.showCreatedLogo = true;
+  }
 }

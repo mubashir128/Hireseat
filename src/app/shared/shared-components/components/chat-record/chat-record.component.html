@@ -9,16 +9,12 @@
         />
       </div>
       <div class="col s2 m2 l2 spaceLeft">
-        <img
-          [src]="
-            user.profileimage !== '' ? user.profileimage : 'assets/img/user.png'
-          "
-          (click)="showImageModal(user.profileimage)"
-          class="uploadedImgUser"
-        />
-
-        <span [ngClass]="user.online ? 'dotOnline' : 'dotOffline'" [id] = "'online_' + user._id" *ngIf = "!groupChat"></span>
-
+        <div *ngIf = "!user.showCreatedLogo">
+          <img [src]="user.profileimage" (error)="getImage(user)" (click)="showImageModal(user)" class="uploadedImgUser"/>
+        </div>
+        <div *ngIf = "user.showCreatedLogo" class="big-badge extrabig-badge"  style="background: radial-gradient(black, transparent) !important;" (click)="showImageModal(user)">
+          {{ user.fullName | uppercase | slice: 0 : 1 }}
+        </div>
       </div>
       <div class="col s6 m6 l6 spaceLeft fullNameClass elipsesClass">
         <span>{{ user.fullName }}</span>

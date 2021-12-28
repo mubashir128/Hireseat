@@ -1,8 +1,6 @@
 <div id="createGroupModal">
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
-    <div class="titleClass">
-        <label for="">{{dialogTitle}}</label>
-    </div>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
     <div class="grpModal setCss">
         <span>Group Name : </span>
         <div class="">
@@ -42,14 +40,12 @@
                 <ng-container *ngFor="let addedUser of showAddedUserAre">
                     <div class="uploadProfileImgDivAdded animatePart">
                         <div class="uploadProfileImgAdded">
-                            <ng-container *ngIf="!addedUser.profileimage">
-                                <div class="UploadImgDefault">
-                                    <img src="assets/img/profile-user.png" alt="add img" />
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="addedUser.profileimage">
-                                <img [src]="addedUser.profileimage" alt="add img" />
-                            </ng-container>
+                            <div *ngIf = "!addedUser.showCreatedLogo">
+                                <img [src]="addedUser.profileimage"  (error)="getImage(addedUser)" class="uploadedImgUser">
+                            </div>
+                            <div *ngIf = "addedUser.showCreatedLogo" class="big-badge extrabig-badge extrabig-badge-extra">
+                                {{ addedUser.fullName | uppercase | slice: 0 : 1 }}
+                            </div>
                         </div>
                         <span class="deleteIcon" (click)="removeMember(addedUser)">
                             <i class="fa fa-times"></i>
@@ -74,8 +70,12 @@
                 <ng-container *ngFor="let user of chatUsers | search : searchTermByNameMember">
                     <div class="chat-profile-item addUserUI" *ngIf="user._id !== loggedInUser._id">
                         <div class="disF">
-                            <img [src]="(user.profileimage !=='') ? user.profileimage : 'assets/img/user.png'"
-                                class="uploadedImgUser">
+                            <div *ngIf = "!user.showCreatedLogo">
+                                <img [src]="user.profileimage"  (error)="getImage(user)" class="uploadedImgUser">
+                            </div>
+                            <div *ngIf = "user.showCreatedLogo" class="big-badge extrabig-badge extrabig-badge-extra-add">
+                                {{ user.fullName | uppercase | slice: 0 : 1 }}
+                              </div>
                             <div class="chat-user-title"> {{ user.fullName }} </div>
                             <i class="fa fa-plus VIconE" [id]="'add_' + user._id" style="margin-right: 15px;"
                                 aria-hidden="true" (click)="addMember(user)"></i>

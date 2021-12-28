@@ -1503,7 +1503,8 @@ body {
 }
 
 .titleClass label{
-  font-size: 15px;
+  font-size: 18px;
+  font-family: 'gilroybold';
 }
 
 .fa-times {
@@ -1520,4 +1521,29 @@ body {
 
 .removeMargin i{
   margin: auto !important;
+}
+
+.big-badge {
+  width:25px;
+  height:25px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color:#FFF;
+  border-radius: 50%;
+  font-size: 12px;
+  float: left;
+  background: #33aaff;
+  margin-left: auto !important;
+}
+
+.extrabig-badge {
+  margin-left: 0px !important;
+  width: 45px !important;
+  height: 45px !important;
+}
+
+.extrabig-badge-change{
+  width: 50px !important;
+  height: 35px !important;
 }

@@ -61,7 +61,12 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
     }, 300);
   }
 
-  closeOfferEmailDialog(){
+  async closeOfferEmailDialog(){
+    let result = await this.checkFields();
+    if(!result){
+      return ;
+    }
+    
     this.dialogRef.close({
       cc : this.cc,
       bcc : this.bcc,
@@ -77,38 +82,45 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
     });
   }
 
-  generalEmailIntro(){
-    if(this.recipientName == ""){
-      Materialize.toast("Please fill recipient name", 800, "res");
-    }else if(this.recipientEmail == ""){
-      Materialize.toast("Please fill email field", 800, "res");
-    }else{
-      this.dialogRef.close({
-        type : "generalReferral",
-        process : true,
-        cc : this.cc,
-        bcc : this.bcc,
-        recipientName : this.recipientName,
-        recipientEmail : this.recipientEmail
-      });
+  async generalEmailIntro(){
+    let result = await this.checkFields();
+    if(!result){
+      return ;
     }
+
+    this.dialogRef.close({
+      type : "generalReferral",
+      process : true,
+      cc : this.cc,
+      bcc : this.bcc,
+      recipientName : this.recipientName,
+      recipientEmail : this.recipientEmail
+    });
   }
 
-  introduceUser(){
-    if(this.recipientName == ""){
-      Materialize.toast("Please fill recipient name", 800, "res");
-    }else if(this.recipientEmail == ""){
-      Materialize.toast("Please fill email field", 800, "res");
-    }else{
-      this.dialogRef.close({
-        type : "careerReferral",
-        process : true,
-        cc : this.cc,
-        bcc : this.bcc,
-        recipientName : this.recipientName,
-        recipientEmail : this.recipientEmail
-      });
+  async introduceUser(){
+    let result = await this.checkFields();
+    if(!result){
+      return ;
     }
+
+    this.dialogRef.close({
+      type : "careerReferral",
+      process : true,
+      cc : this.cc,
+      bcc : this.bcc,
+      recipientName : this.recipientName,
+      recipientEmail : this.recipientEmail
+    });
+  }
+
+  checkFields(){
+    let result = true;
+    if(this.recipientName == "" || this.recipientName == undefined || this.cc == "" || this.cc == undefined){
+      Materialize.toast("Please fill all fields...", 1000, "red");
+      result = false;
+    }
+    return result;
   }
 
 }

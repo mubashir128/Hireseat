@@ -1,8 +1,6 @@
 <div class="" id="askOfferAndConnect">
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
-    <div class="titleClass">
-        <label for="">{{dialogTitle}}</label>
-    </div>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
     <div class="email">
         <p>Would you like to offer an introduction to {{askAndConnectName}} to one of your connections ?
             {{askAndConnectName}} would like intros to {{askAndConnectDesiredCompanies}}. Members are more likely to accept
