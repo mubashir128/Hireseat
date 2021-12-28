@@ -93,6 +93,7 @@ import { DialogGroupMembersComponent } from './components/dialog-group-members/d
 import { DialogAddMembersComponent } from './components/dialog-add-members/dialog-add-members.component';
 import { DialogUploadPictureComponent } from './components/dialog-upload-picture/dialog-upload-picture.component';
 import { DialogTitleComponent } from './components/dialog-title/dialog-title.component';
+import { DialogThanksLaterComponent } from './components/dialog-thanks-later/dialog-thanks-later.component';
 
 @NgModule({
   imports: [
@@ -210,7 +211,8 @@ import { DialogTitleComponent } from './components/dialog-title/dialog-title.com
     DialogGroupMembersComponent,
     DialogAddMembersComponent,
     DialogUploadPictureComponent,
-    DialogTitleComponent
+    DialogTitleComponent,
+    DialogThanksLaterComponent
   ],
   exports: [
     FooterComponent,
