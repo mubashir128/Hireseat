@@ -104,7 +104,7 @@
     <div
       class="singleList employerResume resumeSingleList"
       *ngFor="
-        let resume of resumes | serchByFullName : searchTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: 8, currentPage: p };
+        let resume of resumes | serchByFullName : searchTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: p };
         let i = index
       "
     >
