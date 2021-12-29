@@ -117,7 +117,7 @@
 <ng-container *ngIf="friendsConnections && showFriends">
   <div class="ListResume">
     <div class="singleList employerResume animatePart" *ngFor = "let friendsAre of friendsConnections">
-      <div class="pro" *ngIf = "friendsAre.recipient._id == loggedInUser._id">
+      <div class="pro" *ngIf = "friendsAre.recipient._id == loggedUser._id">
         <div class="pro-3">
             <ng-container *ngIf="!friendsAre.requester.profileimage">
               <div class="candProfile">
@@ -172,7 +172,7 @@
         </div>
       </div>
       
-      <div class="pro" *ngIf = "friendsAre.requester._id == loggedInUser._id">
+      <div class="pro" *ngIf = "friendsAre.requester._id == loggedUser._id">
         <div class="pro-3">
             <ng-container *ngIf="!friendsAre.recipient.profileimage">
               <div class="candProfile">

@@ -11,13 +11,16 @@ import { WebsocketService } from 'src/app/_services/websocket.service';
 import { Plugins } from '@capacitor/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as myGlobals from "../../../../globalPath";
-import { DialogEmailPreviewComponent } from "src/app/shared/shared-components/components/dialog-email-preview/dialog-email-preview.component";
 import { AbstractSharedComponent } from 'src/app/abstract-classes/abstract-shared.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder } from '@angular/forms';
+import { BiddingEventService } from 'src/app/_services/bidding-event.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ReadResumeService } from 'src/app/_services/read-resume.service';
+import { ResumeService } from 'src/app/_services/resume.service';
 
 const { Share } = Plugins;
 declare var jQuery;
-declare var $: any;
 declare var Materialize;
 
 @Component({
@@ -36,39 +39,30 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   connectFriendObserver = new Subject();
   connectFriendObserver$ = this.connectFriendObserver.asObservable();
 
-  loggedInUser: any;
+  loggedUser: any;
 
   itemsIs = 0;
-
-  generateLink = true;
-
-  createdUrl = "";
-  shareResume: any;
-  shareableVideoURL: any;
-
-  clients = [];
-
-  linedIn = "";
 
   thxFullObj;
   
   constructor(
-    private _userService: UserService,
-    private _candidateService: CandidateService,
-    private _subList: SubscriberslistService,
+    protected _userService: UserService,
+    protected _candidateService: CandidateService,
+    protected _subList: SubscriberslistService,
     private _constants: ConstantsService,
     private _socket: WebsocketService,
     private _router: Router,
-    private shareVideoService: ShareVideoService,
-    private videoCallingService: VideoCallingService,
+    protected shareVideoService: ShareVideoService,
+    protected videoCallingService: VideoCallingService,
     private spinner: NgxSpinnerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    protected formBuilder: FormBuilder,
+    protected _bidEventService: BiddingEventService,
+    protected _sanitizer: DomSanitizer,
+    protected _readResume : ReadResumeService,
+    protected _resumeService: ResumeService
   ){
-    super(dialog);
-    this.loggedInUser = this._userService.getUserData();
-    shareVideoService._sharableResumeRecruiter.subscribe((res) => {
-      this.shareResume = res;
-    });
+    super(dialog, shareVideoService, _userService, formBuilder, _bidEventService,_sanitizer, _candidateService, _readResume, _resumeService, _subList, spinner, videoCallingService);
   }
 
   async ngOnInit(){
@@ -157,8 +151,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     data.forEach((friend, index) => {
       if(friend.status === this._constants.asAFriend){
         this.friendsConnections = [friend, ...this.friendsConnections];
-        this.clients.push(friend.recipient?._id !== this.loggedInUser._id ? friend.recipient : friend.requester);
-      }else if(friend.recipient._id == this.loggedInUser._id && friend.status === this._constants.asARequested){
+        this.clients.push(friend.recipient?._id !== this.loggedUser._id ? friend.recipient : friend.requester);
+      }else if(friend.recipient._id == this.loggedUser._id && friend.status === this._constants.asARequested){
         this.requestedFriendAre = [friend, ...this.requestedFriendAre];
       }
     });
@@ -220,7 +214,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   }
 
   emailPreview(result){
-    let senderName = this.loggedInUser.fullName;
+    let senderName = this.loggedUser.fullName;
     let recipientName = result.recipientName;
     let payload = {
       dialogType : "OfferIntro",
@@ -247,7 +241,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
       linkedIn : this.linedIn,
       companies : result2.companies,
       emailType : this._constants.offerEmailIntro,
-      chatLink : myGlobals.chatRedirectUrl + this.loggedInUser.userRole + "/chat-record/" + this.loggedInUser._id
+      chatLink : myGlobals.chatRedirectUrl + this.loggedUser.userRole + "/chat-record/" + this.loggedUser._id
     };
     
     this.spinner.show();
@@ -268,10 +262,10 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   showShareModal(_id, resumeId, resumeId2) {
     let hideBlueBtn = true;
     this.generateLink = true;
-    let resume = (_id !== this.loggedInUser._id) ? resumeId : resumeId2;
+    let resume = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
     this.shareVideoService.setResume(resume);
     let cc = resume.candidate_id.email;
-    let bcc = this.loggedInUser.email ? this.loggedInUser.email : "";
+    let bcc = this.loggedUser.email ? this.loggedUser.email : "";
     cc = cc + ", " + bcc;
     let payload = {
       dialogType : "OfferReferral",
@@ -311,15 +305,15 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   }  
 
   goToUserChat(_id, resumeId, resumeId2){
-    let resume = (_id !== this.loggedInUser._id) ? resumeId : resumeId2;
+    let resume = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
     let id = resume.candidate_id._id;
     if(id !== ""){
-      this._router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", id]);
+      this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", id]);
     }
   }
 
   thxLetter(_id, resumeId, resumeId2){
-    this.thxFullObj = (_id !== this.loggedInUser._id) ? resumeId : resumeId2;
+    this.thxFullObj = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
     let thxFullName = this.thxFullObj.candidate_id.fullName;
   
     let payload = {
@@ -339,8 +333,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
       toId : this.thxFullObj.candidate_id._id,
       toEmailId : this.thxFullObj.candidate_id.email,
       thxFullName : result.thxFullName,
-      fullname : this.loggedInUser.fullName,
-      fromEmail : this.loggedInUser.email
+      fullname : this.loggedUser.fullName,
+      fromEmail : this.loggedUser.email
     };
 
     this.spinner.show();
@@ -372,7 +366,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
           if (this.shareableVideoURL) {
             payload = {
-              recruiterId: this.loggedInUser._id,
+              recruiterId: this.loggedUser._id,
               resumeId: this.shareResume._id,
               videoUrl: this.shareableVideoURL,
               fullName: candidateName,
@@ -395,7 +389,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     } else {
       console.log('no archive link available ');
       payload = {
-        recruiterId: this.loggedInUser._id,
+        recruiterId: this.loggedUser._id,
         resumeId: this.shareResume._id,
         fullName: candidateName,
         videoUrl: '',
@@ -419,7 +413,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     let comment1 = this.shareResume.comments;
     let comment2 = this.shareResume.comment2;
     let comment3 = this.shareResume.comment3;
-    let senderName = this.loggedInUser.fullName;
+    let senderName = this.loggedUser.fullName;
 
     let payload = {
       dialogType : "EmailPreview...",
@@ -457,7 +451,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     const subject =
       "Hireseat" +
       " - " +
-      this.loggedInUser.companyName +
+      this.loggedUser.companyName +
       " - " +
       this.shareResume.jobTitle +
       " - " +
@@ -479,7 +473,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
             this.spinner.hide();
             if (this.shareableVideoURL) {
               const payload = {
-                recruiterId: this.loggedInUser._id,
+                recruiterId: this.loggedUser._id,
                 resumeId: this.shareResume._id,
                 recipientEmail: result.recipientEmail,
                 cc: result.cc,
@@ -527,7 +521,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   }
 
   generalEmailIntro(result){
-    let senderName = this.loggedInUser.fullName;
+    let senderName = this.loggedUser.fullName;
     let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
     let linedIn = this.shareResume.linkedIn;
     let payload = {
