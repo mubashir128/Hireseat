@@ -12,7 +12,7 @@
         <div *ngIf = "!user.showCreatedLogo">
           <img [src]="user.profileimage" (error)="getImage(user)" (click)="showImageModal(user)" class="uploadedImgUser"/>
         </div>
-        <div *ngIf = "user.showCreatedLogo" class="big-badge extrabig-badge"  style="background: radial-gradient(black, transparent) !important;" (click)="showImageModal(user)">
+        <div *ngIf = "user.showCreatedLogo" class="big-badge extrabig-badge"  style="background: radial-gradient(black, transparent) !important; border: 1px solid gainsboro;" (click)="showImageModal(user)">
           {{ user.fullName | uppercase | slice: 0 : 1 }}
         </div>
       </div>

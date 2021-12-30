@@ -396,48 +396,7 @@ textarea.editComment:focus {
   border-radius: 5px;
   will-change: top, opacity;
 }
-.emailTemp {
-  /* width: 100%; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: auto;
-  padding: 20px 40px;
-}
-.posRel {
-  position: relative;
-}
-.posRel label {
-  position: absolute;
-  left: 0;
-  top: 12px;
-  font-size: 15px;
-  color: #b2b2b2;
-}
-.inputComm {
-  height: 40px;
-  width: 94% !important;
-  border: none;
-  margin-bottom: 10px !important;
-  padding-left: 40px !important;
-  border-bottom: 1px solid #c2c2c2;
-}
-.inputCommReceiver {
-  height: 40px;
-  width: 107% !important;
-  border: none;
-  margin-bottom: 10px !important;
-  padding-left: 0px !important;
-  border-bottom: 1px solid #c2c2c2;
-}
-button.sendBtn {
-  background-color: #039be5;
-  color: #fff;
-  border: 1px solid #039be5;
-  padding: 10px 20px;
-  border-radius: 3px;
-  margin-top: 20px;
-}
+
 .textRight {
   text-align: right;
 }
@@ -585,13 +544,6 @@ a.videoCloseBtn {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-}
-
-.uploadedImgUser {
-  width: 35px;
-  height: 35px;
-  object-fit: cover;
-  border-radius: 50% !important;
 }
 
 .divide {
@@ -1032,61 +984,11 @@ a.videoCloseBtn {
   margin-top: -10px;
 }
 
-.spaceBet{
-  margin-left: 10px;
-}
-
-.spaceBetOn{
-  margin: 10px 15px 0px 10px;
-  /* margin-left: 10px;
-  margin-right: 15px; */
-}
-
 .title{
   font-size:24px;
   /* color:#114488; */
   color: #0aafff;
   font-weight:700;
-}
-
-.spaceBottom, .searchDiv, .searchDiv i{
-  padding: 10px;
-}
-
-.searchData {
-  position: relative;
-  border: 1px solid #33aaff;
-  width: 93%;
-  max-height: 500px;
-  margin-left: 15px;
-  margin-top: 5px;
-  overflow-y: auto;
-  /* margin-bottom: 10px; */
-}
-
-.searchData::-webkit-scrollbar {
-  width: 8px;
-  border-radius: 30px;
-}
-
-.searchData::-webkit-scrollbar-thumb {
-  width: 12px;
-  background-color: #A8A2A0;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-}
-
-.searchData::-webkit-scrollbar-track {
-  background: #fff;
-  border-radius: 30px;
-}
-
-.shareToUserClass{
-  background-color: #039be5;
-  color: #fff;
-  border: 1px solid #039be5;
-  padding: 10px 20px;
-  border-radius: 3px;
-  margin: 10px;
 }
 
 .otherProfileDetails{
@@ -1098,42 +1000,6 @@ a.videoCloseBtn {
   font-size: 13px;
 }
 
-#emaiPreviewModal{
-  padding: 20px;
-}
-
 input {
   margin-bottom: 0px !important;
-}
-
-.email input::placeholder {
-  color:#000 !important;
-}
-
-.email input {
-  width: 25%;
-  margin-left: 10px;
-  border-bottom: 1px solid black;
-}
-
-.email p {
-  color:#717171;
-}
-
-.maar-none {
-  margin-left: 0px !important;
-}
-
-.skill input::placeholder {
-  color:#000 !important;
-}
-
-.skill  input {
-  width: 98%;
-  border-bottom: 1px solid black; 
-}
-
-.ccBcc input{
-  width: 60%;
-  margin-left: 16px;
 }

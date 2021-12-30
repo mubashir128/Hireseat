@@ -3,6 +3,11 @@
     <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
     <div>
         <div class="">
+            <div class="row form-group autoClass" *ngIf = "getBtns('Share on HireSeat')">
+                <div class="" style="float: right;">
+                    <button class="sendBtn" *ngIf="loggedUser.userRole == 'recruiter' || loggedUser.userRole == 'employer'" (click)="showShareTouserModal()">Share on HireSeat</button>
+                </div>
+            </div>
             <div class="form-group posRel">
                 <!-- <label>Receiver Name </label> -->
                 <input type="text" class="form-control inputCommReceiver" (keyup)="searchClient(recipientName)" (focusout)="closeClients($event)" [(ngModel)]="recipientName" placeholder="Receiver Name"/>
@@ -27,23 +32,28 @@
                 <label>CC </label>
                 <input type="text" class="form-control inputComm" [(ngModel)]="cc" />
             </div>
+
+            <div class="form-group posRel">
+                <label>BCC </label>
+                <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
+            </div>
             
-            <div class="row form-group autoClass" *ngIf = "!hideBlueBtn || showCombine">
+            <div class="row form-group autoClass" *ngIf = "getBtns('Offer Intro')">
                 <div class="" style="float: right;">
-                    <button class="sendBtn introStyle" (click)="closeOfferEmailDialog()">Offer Intro</button>
+                    <button class="sendBtn" (click)="closeOfferEmailDialog()">Offer Intro</button>
                 </div>
             </div>
 
-            <div class="row form-group autoClass" *ngIf = "hideBlueBtn || showCombine">
-                <div class="" style="width: 55%; float: left;">
+            <div class="row form-group autoClass">
+                <div class="" style="width: 55%; float: left;" *ngIf = "getBtns('General Referral')">
                     <button class="sendBtn" (click)="generalEmailIntro()">General Referral</button>
                 </div>
-                <div class="" style="width: 45%; float: left; border-left: 2px solid white;">
+                <div class="" style="width: 45%; float: right !important; border-left: 2px solid white;" *ngIf = "getBtns('Career Referral')">
                     <button class="sendBtn" (click)="introduceUser()">Career Referral</button>
                 </div>
             </div>
 
-            <div class="row form-group autoClass" style="margin-top: -25px;" *ngIf = "hideBlueBtn || showCombine">
+            <div class="row form-group autoClass" style="margin-top: -25px;" *ngIf = "getBtns('Copy Profile Link')">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="generateLinkForVideo()">Copy Profile Link</button>
                 </div>

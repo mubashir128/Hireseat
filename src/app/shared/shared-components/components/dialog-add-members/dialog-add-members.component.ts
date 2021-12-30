@@ -25,7 +25,6 @@ export class DialogAddMembersComponent extends AbstractDialogComponent implement
     public dialogRef: MatDialogRef<DialogAddMembersComponent>, 
     private formBuilder: FormBuilder){
       super(data, dialogRef);
-      console.log(this.data);
       if(this.data){
         this.loggedInUser = this.data.loggedInUser;
         this.groupChat = this.data.groupChat;
@@ -68,9 +67,4 @@ export class DialogAddMembersComponent extends AbstractDialogComponent implement
       addNewGrpMembers : this.addNewGrpMembers
     });
   }
-
-  getImage(obj){
-    obj.showCreatedLogo = true;
-  }
-  
 }

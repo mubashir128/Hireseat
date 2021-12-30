@@ -189,13 +189,58 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     this.videoSet();
   }
 
+  showShareTouserModal(){
+    this.finalRecruitersAre = [];
+    let payload = {
+      dialogType : "shareToUsers",
+      dialogTitle : "Share to Users",
+      topRecruiters : this.topRecruiters,
+      loggedUser : this.loggedUser,
+      finalRecruitersAre : this.finalRecruitersAre
+    };
+    this.showShareTouserModalSuper(payload, this.showShareTouserModalSuperCallback);
+  }
+
+  showShareTouserModalSuperCallback(result, THIS){
+    THIS.shareToUsers(result);
+  }
+
   // share process
   showShareModal(resume) {
-    this.cc = resume.candidateKey ? resume.candidateKey.email : resume.candidate_id ? resume.candidate_id.email : "";
-    this.bcc = this.loggedUser.email ? this.loggedUser.email : "";
+    let cc = resume.candidateKey ? resume.candidateKey.email : resume.candidate_id ? resume.candidate_id.email : "";
+    let bcc = this.loggedUser.email ? this.loggedUser.email : "";
     this.generateLink = true;
-    jQuery("#shareEmailModal").modal("open");
     this.shareVideoService.setResume(resume);
+    
+    let payload = {
+      dialogType : "",
+      dialogTitle : "",
+      cc : cc,
+      bcc : bcc,
+      loggedUser : this.loggedUser,
+      btns : ["Share on HireSeat", "Career Referral", "Copy Profile Link"]
+    }
+    this.showShareCandidateModalSuper(payload, this.showShareCandidateModalSuperCallback);
+
+    // jQuery("#shareEmailModal").modal("open");
+  }
+
+  showShareCandidateModalSuperCallback(result, THIS){
+    switch(result.type){
+      case "copyProfileLink" : 
+        if(result.process){
+          THIS.generateLinkForVideo();
+        }
+        break;
+      case "careerReferral" : 
+        if(result.process){
+          THIS.introduceUser22(result);
+        }
+        break;
+      case "shareOnHireseat" : 
+        THIS.showShareTouserModal();
+        break;
+    }
   }
 
   async generateLinkForVideo() {
@@ -252,11 +297,11 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     }
   }
 
-  async share(intruduce) {
+  async share(result) {
 
     var EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    if (!EMAIL_REGEXP.test(this.recipientEmail)) {
+    if (!EMAIL_REGEXP.test(result.recipientEmail)) {
       Materialize.toast("Invalid email", 800);
       return;
     }
@@ -294,20 +339,20 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
               const payload = {
                 recruiterId: this.loggedUser._id,
                 resumeId: this.shareResume._id,
-                recipientEmail: this.recipientEmail,
-                cc: this.cc,
-                bcc: this.bcc,
+                recipientEmail: result.recipientEmail,
+                cc: result.cc,
+                bcc: result.bcc,
                 videoUrl: this.shareableVideoURL,
                 fullName: candidateName,
                 subject: subject,
-                comment: this.shareResume.comments,
-                comment2: this.shareResume.comment2,
-                comment3: this.shareResume.comment3,
+                comment: result.comments,
+                comment2: result.comment2,
+                comment3: result.comment3,
                 candidateProfile: this.shareResume.resumeType ? false : true,
-                intruduce : intruduce, //only when hitting a introduce
-                senderName : this.loggedUser.fullName,
+                intruduce : false, //only when hitting a introduce
+                senderName : result.fullName,
                 fileURL : this.shareResume.fileURL,
-                recipientName : this.recipientName
+                recipientName : result.recipientName
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
@@ -383,19 +428,31 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     }
   }
 
-  introduceUser(){
-    if(this.recipientName == ""){
-      Materialize.toast("Please fill recipient name", 800, "res");
-    }else if(this.recipientEmail == ""){
-      Materialize.toast("Please fill email field", 800, "res");
-    }else{
-      this.candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
-      this.comment1 = this.shareResume.comments;
-      this.comment2 = this.shareResume.comment2;
-      this.comment3 = this.shareResume.comment3;
-      jQuery("#shareEmailModal").modal("close");
-      jQuery("#emaiPreviewModal").modal("open");
+  introduceUser22(result){
+    let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    let comment1 = this.shareResume.comments;
+    let comment2 = this.shareResume.comment2;
+    let comment3 = this.shareResume.comment3;
+    let senderName = this.loggedUser.fullName;
+    let payload = {
+      dialogType : "EmailPreview...",
+      dialogTitle : "Email Preview...",
+      cc : result.cc,
+      bcc : result.bcc,
+      recipientName : result.recipientName,
+      recipientEmail : result.recipientEmail,
+      senderName : senderName,
+      candidateNameIs : candidateNameIs,
+      comment1 : comment1,
+      comment2 : comment2,
+      comment3 : comment3
     }
+
+    this.introduceUserSuper(payload, this.introduceUserSuperCallback);
+  }
+
+  introduceUserSuperCallback(result, THIS){
+    THIS.share(result);
   }
 
   editUserProfile(){

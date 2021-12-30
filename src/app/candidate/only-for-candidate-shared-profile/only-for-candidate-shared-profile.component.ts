@@ -297,37 +297,37 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   }
 
   showShareModal2(resume) {
-    let hideBlueBtn = false;
     this.shareVideoService.setResume(resume);
     let payload = {
       dialogType : "OfferIntro",
       dialogTitle : "Offer Intro",
       clients : this.clients,
-      hideBlueBtn : hideBlueBtn
+      loggedUser : this.loggedUser,
+      btns : ["Offer Intro"]
     }
     this.showShareModalSuper(payload, this.showShareModalSuperCallback);
   }
 
-  showShareModalSuperCallback(result){
+  showShareModalSuperCallback(result, THIS){
     switch(result.type){
       case "copyProfileLink" : 
         if(result.process){
-          this.generateLinkForVideo();
+          THIS.generateLinkForVideo();
         }
         break;
       case "careerReferral" : 
         if(result.process){
-          this.introduceUser(result);
+          THIS.introduceUser(result);
         }
         break;
       case "generalReferral" : 
         if(result.process){
-          this.generalEmailIntro(result);
+          THIS.generalEmailIntro(result);
         }
         break;
       case "OfferIntro" : 
         if(result.process){
-          this.emailPreview(result);
+          THIS.emailPreview(result);
         }
         break;
     }
@@ -347,8 +347,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     this.emailPreviewSuper(payload, this.emailPreviewSuperCallback);
   }
 
-  emailPreviewSuperCallback(payload, result){
-    this.emailSend(payload, result);
+  emailPreviewSuperCallback(payload, result, THIS){
+    THIS.emailSend(payload, result);
   }
 
   emailSend(result, result2){
@@ -380,7 +380,6 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   // share process
   showShareModal(resume) {
-    let hideBlueBtn = true;
     this.generateLink = true;
     this.shareVideoService.setResume(resume);
     let cc = resume.candidateKey ? resume.candidateKey.email : resume.candidate_id ? resume.candidate_id.email : "";
@@ -392,7 +391,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       cc : cc,
       bcc : bcc,
       clients : this.clients,
-      hideBlueBtn : hideBlueBtn
+      loggedUser : this.loggedUser,
+      btns : ["General Referral", "Career Referral", "Copy Profile Link"]
     }
     this.showShareModalSuper(payload, this.showShareModalSuperCallback);
   }
@@ -675,8 +675,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     this.introduceUserSuper(payload, this.introduceUserSuperCallback);
   }
 
-  introduceUserSuperCallback(result){
-    this.share(result);
+  introduceUserSuperCallback(result, THIS){
+    THIS.share(result);
   }
 
   generalEmailIntro(result){
@@ -698,8 +698,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       this.generalEmailIntroSuper(payload, this.generalEmailIntroSuperCallback);
   }
 
-  generalEmailIntroSuperCallback(result){
-    this.generalEmailIntroSend(result);
+  generalEmailIntroSuperCallback(result, THIS){
+    THIS.generalEmailIntroSend(result);
   }
 
   generalEmailIntroSend(result){

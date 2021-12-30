@@ -94,6 +94,7 @@ import { DialogAddMembersComponent } from './components/dialog-add-members/dialo
 import { DialogUploadPictureComponent } from './components/dialog-upload-picture/dialog-upload-picture.component';
 import { DialogTitleComponent } from './components/dialog-title/dialog-title.component';
 import { DialogThanksLaterComponent } from './components/dialog-thanks-later/dialog-thanks-later.component';
+import { DialogShareToUsersComponent } from './components/dialog-share-to-users/dialog-share-to-users.component';
 
 @NgModule({
   imports: [
@@ -212,7 +213,8 @@ import { DialogThanksLaterComponent } from './components/dialog-thanks-later/dia
     DialogAddMembersComponent,
     DialogUploadPictureComponent,
     DialogTitleComponent,
-    DialogThanksLaterComponent
+    DialogThanksLaterComponent,
+    DialogShareToUsersComponent
   ],
   exports: [
     FooterComponent,

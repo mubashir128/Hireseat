@@ -1,6 +1,9 @@
 <div id="createGroupModal">
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
     <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
+    <div class="row form-group textRight">
+        <button class="createAndAddMemberClass" (click)="createAndAddGroup()">Create</button>
+    </div>
     <div class="grpModal setCss">
         <span>Group Name : </span>
         <div class="">
@@ -86,9 +89,6 @@
                     </div>
                 </ng-container>
             </div>
-        </div>
-        <div class="form-group textRight">
-            <button class="createAndAddMemberClass" (click)="createAndAddGroup()">Create</button>
         </div>
     </div>
 </div>
