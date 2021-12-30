@@ -227,8 +227,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     this.emailPreviewSuper(payload, this.emailPreviewSuperCallback);
   }
 
-  emailPreviewSuperCallback(payload, result){
-    this.emailSend(payload, result);
+  emailPreviewSuperCallback(payload, result, THIS){
+    THIS.emailSend(payload, result);
   }
 
   emailSend(result, result2){
@@ -260,7 +260,6 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
   // share process
   showShareModal(_id, resumeId, resumeId2) {
-    let hideBlueBtn = true;
     this.generateLink = true;
     let resume = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
     this.shareVideoService.setResume(resume);
@@ -273,32 +272,32 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
       cc : cc,
       bcc : bcc,
       clients : this.clients,
-      hideBlueBtn : hideBlueBtn,
-      showCombine : true
+      loggedUser : this.loggedUser,
+      btns : ["Offer Intro", "General Referral", "Career Referral", "Copy Profile Link"]
     }
     this.showShareModalSuper(payload, this.showShareModalSuperCallback);
   }
 
-  showShareModalSuperCallback(result){
+  showShareModalSuperCallback(result, THIS){
     switch(result.type){
       case "copyProfileLink" : 
         if(result.process){
-          this.generateLinkForVideo();
+          THIS.generateLinkForVideo();
         }
         break;
       case "careerReferral" : 
         if(result.process){
-          this.introduceUser(result);
+          THIS.introduceUser(result);
         }
         break;
       case "generalReferral" : 
         if(result.process){
-          this.generalEmailIntro(result);
+          THIS.generalEmailIntro(result);
         }
         break;
       case "OfferIntro" : 
         if(result.process){
-          this.emailPreview(result);
+          THIS.emailPreview(result);
         }
         break;
     }
@@ -324,8 +323,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     this.thxLetterSuper(payload, this.thxLetterSuperCallback);
   }
 
-  thxLetterSuperCallback(result){
-    this.thxLetterSend(result);
+  thxLetterSuperCallback(result, THIS){
+    THIS.thxLetterSend(result);
   }
 
   thxLetterSend(result){
@@ -432,8 +431,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     this.introduceUserSuper(payload, this.introduceUserSuperCallback);
   }
 
-  introduceUserSuperCallback(result){
-    this.share(result);
+  introduceUserSuperCallback(result, THIS){
+    THIS.share(result);
   }
 
   async share(result) {
@@ -538,8 +537,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     this.generalEmailIntroSuper(payload, this.generalEmailIntroSuperCallback);
   }
 
-  generalEmailIntroSuperCallback(result){
-    this.generalEmailIntroSend(result);
+  generalEmailIntroSuperCallback(result, THIS){
+    THIS.generalEmailIntroSend(result);
   }
 
   generalEmailIntroSend(result){

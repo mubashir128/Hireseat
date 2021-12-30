@@ -14,4 +14,8 @@ export abstract class AbstractDialogComponent{
   closeScreen(event){
     this.dialogRef.close(false);
   }
+
+  getImage(obj){
+    obj.showCreatedLogo = true;
+  }
 }

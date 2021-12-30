@@ -26,6 +26,7 @@ import {
   tap,
 } from "rxjs/operators";
 import { Plugins } from '@capacitor/core';
+import { DialogShareToUsersComponent } from "../shared/shared-components/components/dialog-share-to-users/dialog-share-to-users.component";
 
 const { Share } = Plugins;
 declare var jQuery;
@@ -349,18 +350,6 @@ export abstract class AbstractSharedComponent{
     this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
   }
 
-  handleTopSelected($event,type){
-    if($event.target.checked){
-      this.finalRecruitersAre.push($event.target.name);
-    }else{
-      this.finalRecruitersAre.map((item, index)=>{
-        if(item === $event.target.name){
-          this.finalRecruitersAre.splice(index, 1);
-        }
-      });
-    }
-  }
-
   handleIndustries($event, _id) {
     let selectIndex = 0;
     this.industriesAre.forEach((item, index) => {
@@ -631,16 +620,14 @@ export abstract class AbstractSharedComponent{
       );
   }
 
-  shareToUsers() {
-    jQuery("#shareToUsers").modal("close");
-
-    if (this.finalRecruitersAre.length === 0) {
+  shareToUsers(result) {
+    if (result.finalRecruitersAre.length === 0) {
       return;
     }
 
     let payload = {
       sharedFrom: this.loggedUser._id,
-      sharedTo: this.finalRecruitersAre,
+      sharedTo: result.finalRecruitersAre,
       resumeId: this.shareResume._id,
       candidateProfile: this.shareResume.resumeType ? false : true,
     }
@@ -835,14 +822,6 @@ export abstract class AbstractSharedComponent{
       );
   }
 
-  closeShareModal() {
-    jQuery("#shareEmailModal").modal("close");
-  }
-
-  closeShareToUserModal() {
-    jQuery("#shareToUsers").modal("close");
-  }
-
   async addCreatedLink(res) {
     this.generateLink = false;
     this.createdUrl = res.result.link;
@@ -870,8 +849,6 @@ export abstract class AbstractSharedComponent{
     document.body.removeChild(selBox);
 
     Materialize.toast("Link copied to clipboard", 1000);
-
-    this.closeShareModal();
   }
 
   // END share process
@@ -918,14 +895,14 @@ export abstract class AbstractSharedComponent{
         cc : payload.cc,
         bcc : payload.bcc,
         clients : payload.clients,
-        hideBlueBtn : payload.hideBlueBtn,
-        showCombine : payload.showCombine
+        loggedUser : payload.loggedUser,
+        btns : payload.btns
       }
     });
 
     dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
       if(result){
-        callback(result);
+        callback(result, this);
       }
     });
   }
@@ -1001,10 +978,22 @@ export abstract class AbstractSharedComponent{
     this.closeRecruiterModal();
   }
 
-  showShareTouserModal() {
-    this.closeShareModal();
-    this.finalRecruitersAre = [];
-    jQuery("#shareToUsers").modal("open");
+  showShareTouserModalSuper(payload, callback) {
+    const dialogShareToUsersRef = this.dialog.open(DialogShareToUsersComponent ,{
+      data: {
+        dialogType : payload.dialogType,
+        dialogTitle : payload.dialogTitle,
+        loggedUser : payload.loggedUser,
+        topRecruiters : payload.topRecruiters,
+        finalRecruitersAre : payload.finalRecruitersAre
+      }
+    });
+
+    dialogShareToUsersRef.afterClosed().subscribe(result => {
+      if(result){
+        callback(result, this);
+      }
+    });
   }
   
   generalEmailIntroSuper(payload, callback){
@@ -1024,7 +1013,7 @@ export abstract class AbstractSharedComponent{
 
     dialogEmailPreviewRef.afterClosed().subscribe(result => {
       if(result){
-        callback(result);
+        callback(result, this);
       }
     });
   }
@@ -1048,7 +1037,7 @@ export abstract class AbstractSharedComponent{
 
     dialogEmailPreview2Ref.afterClosed().subscribe(result => {
       if(result){
-        callback(result);
+        callback(result, this);
       }
     });
   }
@@ -1065,7 +1054,7 @@ export abstract class AbstractSharedComponent{
 
     dialogIntroduceRef.afterClosed().subscribe(result => {
       if(result){
-        callback(payload, result);
+        callback(payload, result, this);
       }
     });
   }
@@ -1081,7 +1070,26 @@ export abstract class AbstractSharedComponent{
 
     dialogThanksLaterRef.afterClosed().subscribe(result => {
       if(result){
-        callback(result);
+        callback(result, this);
+      }
+    });
+  }
+
+  showShareCandidateModalSuper(payload, callback){
+    const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent,{
+      data: {
+        dialogType : payload.dialogType,
+        dialogTitle : payload.dialogTitle,
+        cc : payload.cc,
+        bcc : payload.bcc,
+        loggedUser : payload.loggedUser,
+        btns : payload.btns
+      }
+    });
+
+    dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
+      if(result){
+        callback(result, this);
       }
     });
   }
