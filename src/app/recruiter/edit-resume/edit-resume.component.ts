@@ -319,16 +319,20 @@ export class EditResumeComponent
         }
       );
   }
+
+  setCurrentTimeEvent(obj){
+    this.setCurrentTime(obj.seconds , obj.questionNumber);
+  }
+
   setCurrentTime(seconds, questionNumber) {
     this.questionNumber = questionNumber;
-    // console.log(this.questionNumber);
-
     try {
       this.videojsPlay.nativeElement.currentTime = seconds;
     } catch (e) {
       console.log(e);
     }
   }
+  
   questionsPopUp() {
     this.questionConfirmPopup();
   }

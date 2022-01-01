@@ -420,6 +420,10 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     }
   }
 
+  setCurrentTimeEvent(obj){
+    this.setCurrentTime(obj.seconds , obj.questionNumber);
+  }
+
   introduceUser22(result){
     let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
     let comment1 = this.shareResume.comments;

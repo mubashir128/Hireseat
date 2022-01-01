@@ -169,8 +169,8 @@ export abstract class AbstractSharedComponent{
     });
 
     this.myComment = [];
-    this.myCommentNote = [];
     this.replyToComment = [];
+    this.myCommentNote = [];
 
     this.QuestionsGroup = this._formBuilder.group({
       question1: new FormControl(null, [Validators.max(100)]),

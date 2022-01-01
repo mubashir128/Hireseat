@@ -97,7 +97,8 @@ import { DialogThanksLaterComponent } from './components/dialog-thanks-later/dia
 import { DialogShareToUsersComponent } from './components/dialog-share-to-users/dialog-share-to-users.component';
 import { CandidateSummaryComponent } from './components/candidate-summary/candidate-summary.component';
 import { SkillsAndIndustriesComponent } from './components/skills-and-industries/skills-and-industries.component';
-import { ProfileButtonsComponent } from './components/profile-buttons/profile-buttons.component';
+import { InterviewQuestionsComponent } from './components/interview-questions/interview-questions.component';
+import { ProfileButtonsComponent } from "./components/profile-buttons/profile-buttons.component";
 
 @NgModule({
   imports: [
@@ -220,7 +221,9 @@ import { ProfileButtonsComponent } from './components/profile-buttons/profile-bu
     DialogShareToUsersComponent,
     CandidateSummaryComponent,
     SkillsAndIndustriesComponent,
-    ProfileButtonsComponent
+    ProfileButtonsComponent,
+    InterviewQuestionsComponent,
+
   ],
   exports: [
     FooterComponent,
@@ -299,7 +302,8 @@ import { ProfileButtonsComponent } from './components/profile-buttons/profile-bu
     DialogImagePreviewComponent,
     CandidateSummaryComponent,
     SkillsAndIndustriesComponent,
-    ProfileButtonsComponent
+    ProfileButtonsComponent,
+    InterviewQuestionsComponent
   ],
 
 })

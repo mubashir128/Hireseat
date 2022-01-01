@@ -58,7 +58,7 @@ export class MultiSharedCandidateProfileComponent extends AbstractSharedComponen
     private _constants: ConstantsService,
     protected _bidEventService: BiddingEventService,
     protected _readResume : ReadResumeService,
-    public dialog: MatDialog
+    protected dialog: MatDialog
   ) {
     super(dialog, shareVideoService, userService, formBuilder, _bidEventService, _sanitizer, candidateService, _readResume, resumeService, _subList, spinner, videoCallingService);
 
@@ -458,6 +458,10 @@ export class MultiSharedCandidateProfileComponent extends AbstractSharedComponen
     } else {
       jQuery(".hideAndSHoTab").css("display", "none");
     }
+  }
+
+  setCurrentTimeEvent(obj){
+    this.setCurrentTime(obj.seconds , obj.questionNumber);
   }
 
   ngOnDestroy() {
