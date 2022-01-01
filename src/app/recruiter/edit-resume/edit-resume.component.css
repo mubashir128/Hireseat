@@ -99,13 +99,7 @@
   height: 100% !important;
   display: table;
 }
-.editResumeupperDiv {
-  width: 100%;
-  height: 220px;
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-}
+
 .resumePriviewDiv {
   /* width: 50%;
   vertical-align: middle;
@@ -563,77 +557,12 @@ nav ul a {
   margin-left: 10px;
   margin-top: 20px;
 }
-/* Video Part Div */
-/* New CSS */
-.interviewVideoDiv {
-  width: 100%;
-  float: left;
-  height: 100%;
-  text-align: center;
-  /* z-index: 99; */
-  display: flex;
-  justify-content: flex-end;
-}
-/* .stickyDiv{
-  position: sticky;
-  top: 0;
-  background-color: #999999;
-} */
+
 iframe.interviewVideo {
   width: 100%;
   height: 100%;
 }
-/* video js */
-.video-js {
-  width: 100%;
-  height: 100%;
-  outline: none;
-}
-.video-interview {
-  width: 60%;
-  height: 100%;
-}
-.video-js-without-questions {
-  width: 100% !important;
-  height: 100% !important;
-}
-/* end video js */
-.leftSideQuetion {
-  width: 40%;
-  padding: 15px;
-  /* background-color: #ffffff; */
-  background-color: #000;
-  /* border-radius: 5px;z */
-  box-shadow: 0px 0px 10px #ccc;
-}
-.leftSideQuetion h2 {
-  font-size: 15px;
-  text-align: left;
-  color: #33aaff;
-  margin: 0 0 5px;
-}
-.interviewQue h4 {
-  margin: 15px 0;
-  font-size: 14px;
-  text-align: left;
-}
-.interviewQue h4 a {
-  /* color: #449132; */
-  color: #ffffff;
-  cursor: pointer;
-}
-.interviewQue h4 a:hover {
-  font-weight: bold;
-  color: #33aaff;
-}
-.interview-bold {
-  font-weight: lighter !important;
-  color: #33aaff !important;
-}
-.interviewQue {
-  height: 130px;
-  overflow-y: auto;
-}
+
 .disF {
   display: flex;
   justify-content: space-between;
