@@ -45,6 +45,7 @@ export abstract class AbstractSharedComponent{
   shareableVideoURL: any;
 
   @ViewChild("playVideo") videojsPlay: ElementRef;
+  @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
 
   // subscription
   getVideoURLSubscription: Subscription;
@@ -62,12 +63,11 @@ export abstract class AbstractSharedComponent{
   // subject
   refresh: Subject<any> = new Subject();
 
+  // form group
   Search: FormGroup;
   searchSkillsFrm: FormGroup;
   searchJobTitleFrm: FormGroup;
   requestDatesForm: FormGroup;
-
-  // form group
   QuestionsGroup: FormGroup;
 
   // pagination
@@ -113,9 +113,6 @@ export abstract class AbstractSharedComponent{
   industriesAre = [];
   industries = [];
 
-  skillsClass = "fas fa-long-arrow-alt-down";
-  skillsShow = false;
-
   topRecruiters = [];
   allTopRecruiters = [];
   searchTermByNameIs;
@@ -126,9 +123,16 @@ export abstract class AbstractSharedComponent{
 
   skillText;
 
-  player: videojs .Player;
+  player: videojs.Player;
   canComment = false;
   public today = new Date();
+
+  recipientName: any;
+  recipientEmail: any;
+  cc: any;
+  bcc: any;
+
+  isMultiShare: boolean = false;
 
   constructor(protected dialog: MatDialog, 
     protected _shareVideoService: ShareVideoService, 
@@ -293,7 +297,6 @@ export abstract class AbstractSharedComponent{
 
   setCurrentTime(seconds, questionNumber) {
     this.questionNumber = questionNumber;
-
     try {
       this.videojsPlay.nativeElement.currentTime = seconds;
     } catch (e) {
@@ -343,11 +346,6 @@ export abstract class AbstractSharedComponent{
     this._candidateService.getSortByIndustries({ industries: this.industries }).subscribe((data: any) => {
       this.resumes = data;
     });
-  }
-
-  upDownSkills() {
-    this.skillsShow = this.skillsShow ? false : true;
-    this.skillsClass = this.skillsShow ? "fas fa-long-arrow-alt-up" : "fas fa-long-arrow-alt-down";
   }
 
   handleIndustries($event, _id) {
@@ -630,6 +628,7 @@ export abstract class AbstractSharedComponent{
       sharedTo: result.finalRecruitersAre,
       resumeId: this.shareResume._id,
       candidateProfile: this.shareResume.resumeType ? false : true,
+      isMultiShare : this.isMultiShare
     }
 
     this.shareWithRecruiterSubscription = this._candidateService.shareWithUsers(payload).subscribe((res) => {
@@ -679,6 +678,7 @@ export abstract class AbstractSharedComponent{
         resumeId: resume._id,
         review: cmt,
         role: this.loggedUser.userRole,
+        isMultiShare : this.isMultiShare
       };
 
       this.postCommentSubscription = this._resumeService
@@ -808,6 +808,7 @@ export abstract class AbstractSharedComponent{
       cmtId: cmtId,
       candidateProfile: candidateProfile,
       replyComment: comment,
+      isMultiShare : this.isMultiShare
     };
 
     this.replyTocommentSubscription = this._resumeService
@@ -908,7 +909,6 @@ export abstract class AbstractSharedComponent{
   }
 
   reqCoachingFunction() {
-    // console.log("requesting********** coaching", this.myProfileContent);
     this.payload = {
       recipientEmail: "contact@hireseat.com",
       candidateFullName: this.loggedUser.fullName,
@@ -918,8 +918,6 @@ export abstract class AbstractSharedComponent{
         this.loggedUser.fullName + " " + "Candidate request for coaching",
     };
     if (this.myProfileContent) {
-      // console.log("approaching coach");
-
       this.requestCoachingSubscription = this._candidateService
         .reqCoaching(this.payload)
         .subscribe(
@@ -946,15 +944,9 @@ export abstract class AbstractSharedComponent{
    * @param recruiter open ups a modal for accepting dates from candidate
    */
   onReqCoaching(recruiter) {
-    console.log("calling req", this.loggedUser);
-
     this.availableTime = [];
-    // this.selectedRecruiter = recruiter;
-
-    // contact@hireseat.com
     this.payload = {
       recipientEmail: "contact@hireseat.com",
-
       candidateFullName: this.loggedUser.fullName,
       candidatePhoneNo: this.loggedUser.phoneNo,
       recruiterFullName: recruiter.fullName,
@@ -1082,8 +1074,8 @@ export abstract class AbstractSharedComponent{
         dialogTitle : payload.dialogTitle,
         cc : payload.cc,
         bcc : payload.bcc,
-        loggedUser : payload.loggedUser,
-        btns : payload.btns
+        btns : payload.btns,
+        loggedUser : payload.loggedUser
       }
     });
 

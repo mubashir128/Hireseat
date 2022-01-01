@@ -2,8 +2,6 @@ import {
   Component,
   OnInit,
   OnChanges,
-  ViewChild,
-  ElementRef,
   OnDestroy,
 } from "@angular/core";
 import {
@@ -34,17 +32,10 @@ declare var Materialize;
   styleUrls: ["./shared-candidate-profiles.component.css"],
 })
 export class SharedCandidateProfilesComponent extends AbstractSharedComponent implements OnInit, OnChanges, OnDestroy {
-  
-  @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
 
   // observer
   sharedProfileObserver = new Subject();
   sharedProfileObserver$ = this.sharedProfileObserver.asObservable();
-
-  recipientEmail= "";
-  recipientName = "";
-  cc: any;
-  bcc: any;
 
   comment1 = "";
   comment2 = "";
@@ -208,16 +199,15 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     this.shareVideoService.setResume(resume);
     
     let payload = {
-      dialogType : "",
-      dialogTitle : "",
+      dialogType : "Share",
+      dialogTitle : "Share",
       cc : cc,
       bcc : bcc,
+      clients : [],
       loggedUser : this.loggedUser,
       btns : ["Share on HireSeat", "Career Referral", "Copy Profile Link"]
     }
     this.showShareCandidateModalSuper(payload, this.showShareCandidateModalSuperCallback);
-
-    // jQuery("#shareEmailModal").modal("open");
   }
 
   showShareCandidateModalSuperCallback(result, THIS){
@@ -233,7 +223,9 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
         }
         break;
       case "shareOnHireseat" : 
-        THIS.showShareTouserModal();
+        if(result.process){
+          THIS.showShareTouserModal();
+        }
         break;
     }
   }

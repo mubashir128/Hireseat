@@ -6,7 +6,7 @@
         <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'employer'">Select Employers</div>
     </div>
     <div class="searchDiv">
-        <input type="text" class="searchRecruiter" formControlName="searchTermByNameIs" [(ngModel)]="searchTermByNameIs" placeholder="Search..." #searchInputTerm>
+        <input type="text" class="searchRecruiter" [(ngModel)]="searchTermByNameIs" placeholder="Search..." #searchInputTerm>
         <i class="fa fa-search" aria-hidden="true"></i>
     </div>
 

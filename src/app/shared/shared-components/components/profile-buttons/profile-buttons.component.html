@@ -1,0 +1,23 @@
+<div class="pro-2">
+    <div class="cadidateResumeDiv set-one">
+      <button class="downloadResume">
+        <a
+          [attr.href]="transform(resume?.fileURL)"
+          target="_blank"
+          download
+        >
+          <i class="fa fa-download"></i>
+          Download Resume
+        </a>
+      </button>
+      <div class="smallBtns">
+        <button class="LinkedInBtn">
+          <a>
+            <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
+              <span> <i class="fa fa-linkedin fa-fw"></i> LinkedIn </span>
+            </div>
+          </a>
+        </button>
+      </div>
+    </div>
+</div>

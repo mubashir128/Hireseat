@@ -93,6 +93,9 @@ import { DialogUploadPictureComponent } from './components/dialog-upload-picture
 import { DialogTitleComponent } from './components/dialog-title/dialog-title.component';
 import { DialogThanksLaterComponent } from './components/dialog-thanks-later/dialog-thanks-later.component';
 import { DialogShareToUsersComponent } from './components/dialog-share-to-users/dialog-share-to-users.component';
+import { CandidateSummaryComponent } from './components/candidate-summary/candidate-summary.component';
+import { SkillsAndIndustriesComponent } from './components/skills-and-industries/skills-and-industries.component';
+import { ProfileButtonsComponent } from './components/profile-buttons/profile-buttons.component';
 
 @NgModule({
   imports: [
@@ -210,7 +213,10 @@ import { DialogShareToUsersComponent } from './components/dialog-share-to-users/
     DialogUploadPictureComponent,
     DialogTitleComponent,
     DialogThanksLaterComponent,
-    DialogShareToUsersComponent
+    DialogShareToUsersComponent,
+    CandidateSummaryComponent,
+    SkillsAndIndustriesComponent,
+    ProfileButtonsComponent
   ],
   exports: [
     FooterComponent,
@@ -286,7 +292,10 @@ import { DialogShareToUsersComponent } from './components/dialog-share-to-users/
     SortByIndustiresPipe,
     MatDialogModule,
     CloseScreenComponent,
-    DialogImagePreviewComponent
+    DialogImagePreviewComponent,
+    CandidateSummaryComponent,
+    SkillsAndIndustriesComponent,
+    ProfileButtonsComponent
   ],
 
 })

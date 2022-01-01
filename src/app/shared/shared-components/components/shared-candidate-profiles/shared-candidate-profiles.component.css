@@ -50,16 +50,6 @@
   width: calc(100% - 200px);
   text-align: left;
 }
-.cadidateResumeDiv {
-  /* display: flex;
-    justify-content: center;
-    align-items: center; */
-  min-width: 185px;
-}
-
-.smallBtns {
-  margin: 7px 0px 7px 0px;
-}
 
 .candidate-name span {
   color: #33aaff;
@@ -77,12 +67,7 @@
   border-radius: 5px;
   padding: 5px 10px;
 }
-.downloadResume {
-  border: 2px solid #39aaff;
-  background-color: transparent;
-  color: #39aaff;
-  width: 100%;
-}
+
 button.shareBtn {
   border: 1px solid #DD3215;
   background-color: #DD3215;
@@ -123,33 +108,10 @@ button.shareBtn {
   color: red;
 }
 
-.PointsDivSingle22 i{
-  color: green !important;
-}
-
-.docSectionBtns .LinkedInBtn {
-  /* min-width: 135px !important; */
-}
-
-.LinkedInBtn {
-  background-color: #0288d1;
-  border: 1px solid #0e76a8;
-}
-.LinkedInBtn a,
-.LinkedInBtn a i {
-  color: #ffffff;
-}
-.LinkedInBtn .icon-name {
-  display: flex;
-}
-
 /* Tablet css :STARTS */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   .docSectionBtns button {
     margin-bottom: 7px !important;
-  }
-  .LinkedInBtn {
-    min-width: 100% !important;
   }
   .singleList.employerResume {
     padding: 20px !important;
@@ -334,11 +296,7 @@ button.shareBtn {
 .occupy {
   height: 220px;
 }
-.summary {
-  font-size: 16px;
-  font-weight: 600;
-  color: #635858;
-}
+
 .comment {
   font-size: 14px;
   font-weight: 600;
@@ -738,18 +696,6 @@ a.videoCloseBtn {
   border: none;
   margin: 30px auto 0;
 }
-.industries {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0px 0 20px;
-}
-.industries span {
-  background-color: #f0f0f0;
-  padding: 6px 20px;
-  border-radius: 5px;
-  margin: 5px 5px;
-  font-size: 14px;
-}
 
 .timstampDate {
   /* width: 100%; */
@@ -783,10 +729,6 @@ a.videoCloseBtn {
   float: left;
 }
 
-.pro-2 {
-  width: 100%;
-  float: left;
-}
 .pro-3 {
   width: 15%;
   float: left;
@@ -794,9 +736,7 @@ a.videoCloseBtn {
 .icon-name {
   padding: 5px;
 }
-.downloadResume {
-  padding: 5px;
-}
+
 .pro .candProfile {
   width: 100px;
   height: 100px;
@@ -812,36 +752,13 @@ a.videoCloseBtn {
   -o-object-fit: cover;
   object-fit: cover;
 }
-.LinkedInBtn {
-  width: 100%;
-  border-radius: 7px;
-}
+
 .shareBtn {
   width: 48%;
   border-radius: 7px;
 }
 .post-cmt textarea {
   border: solid 1px #999999;
-}
-
-.down-1 {
-  background: #0288d1;
-  color: #fff;
-  padding: 5px;
-  width: 20%;
-  border: none;
-  margin-left: 6px;
-  margin-bottom: 5px;
-  border-radius: 7px;
-}
-
-.onLimitedSkills {
-  margin-top: 6px;
-}
-
-.LinkedInBtn span {
-  text-align: center;
-  margin: 0 auto;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 767px) {
@@ -860,9 +777,7 @@ a.videoCloseBtn {
   .lates-s {
     width: 100% !important;
   }
-  .set-one {
-    width: 100% !important;
-  }
+  
   .CandidateDetails {
     width: 100%;
     display: block;
@@ -876,9 +791,7 @@ a.videoCloseBtn {
   .pro-share {
     width: 30% !important;
   }
-  .pro-2 {
-    width: 100% !important;
-  }
+  
   .commonSingleInner {
     width: 100% !important;
   }
@@ -922,9 +835,7 @@ a.videoCloseBtn {
   .pro-share {
     width: 30% !important;
   }
-  .pro-2 {
-    width: 100% !important;
-  }
+  
   .pro-3 {
     width: 100% !important;
   }
@@ -936,9 +847,7 @@ a.videoCloseBtn {
   .pro-share {
     width: 30% !important;
   }
-  .pro-2 {
-    width: 100%;
-  }
+  
   .pro-3 {
     width: 26%;
   }
@@ -949,12 +858,7 @@ a.videoCloseBtn {
   .candidate-name {
     width: 100%;
   }
-  .LinkedInBtn {
-    width: 100%;
-    display: block;
-    margin-right: 1%;
-    border-radius: 5px;
-  }
+  
   button.shareBtn {
     width: 98%;
     display: block;
@@ -972,15 +876,6 @@ a.videoCloseBtn {
   /* color:#114488; */
   color: #0aafff;
   font-weight:700;
-}
-
-.otherProfileDetails{
-  margin-top: 10px;
-}
-
-.resumeIcon{
-  color: #1AD9C5;
-  font-size: 13px;
 }
 
 input {

@@ -1,0 +1,60 @@
+<div class="singleListData">
+    <span class="summary">{{title}}</span>
+
+    <!-- resume data top three comments -->
+    <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume1">
+      <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
+        <h4>
+          <span class="fa-stack resumeIcon">
+            <span class="fa fa-square-o fa-stack-2x"></span>
+            <strong class="fa-stack-1x">
+              1
+            </strong>
+          </span>
+          {{ resume?.commentsResume1 | titleCase }}</h4>
+      </div>
+    </div>
+    <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume2">
+      <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
+        <h4> 
+          <span class="fa-stack resumeIcon">
+            <span class="fa fa-square-o fa-stack-2x"></span>
+            <strong class="fa-stack-1x">
+              2
+            </strong>
+          </span>
+          {{ resume?.commentsResume2 | titleCase }}</h4>
+      </div>
+    </div>
+    <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume3">
+      <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
+        <h4>
+          <span class="fa-stack resumeIcon">
+            <span class="fa fa-square-o fa-stack-2x"></span>
+            <strong class="fa-stack-1x">
+              3
+            </strong>
+          </span>
+          {{ resume?.commentsResume3 | titleCase }}</h4>
+      </div>
+    </div>
+
+    <div class="PointsDiv commonSingleInner">
+      <div class="PointsDivSingle PointsDivSingleN">
+        <h4> <i class="fas fa-check-square"></i> {{ resume?.comments }}</h4>
+      </div>
+    </div>
+
+    <div class="PointsDiv commonSingleInner" *ngIf = "resume?.comment2">
+      <div class="PointsDivSingle PointsDivSingleN">
+        <h4> <i class="fas fa-check-square"></i> {{ resume?.comment2 }}</h4>
+      </div>
+    </div>
+
+    <div class="PointsDiv commonSingleInner" *ngIf = "resume?.comment3">
+      <div class="PointsDivSingle PointsDivSingleN">
+        <h4> <i class="fas fa-check-square"></i> {{ resume?.comment3 }}</h4>
+      </div>
+    </div>
+
+  </div>
