@@ -1,0 +1,27 @@
+<div class="otherProfileDetails">
+    <div class="skill-height">
+      <label>{{title}} :</label>
+      <button class="down-1" (click)="upDownSkills()" *ngIf = "resume.skills.split(',').length > 2"><i [ngClass]="skillsClass"></i></button>
+      <div class="industries onLimitedSkills" *ngIf = "!skillsShow">
+        <div *ngFor="let skills of resume.skills.split(','); index as i">
+          <span class="industrieName" *ngIf = "(i === 0 || i === 1) && skills !== '' ">
+            {{ skills }}
+          </span>
+        </div>
+      </div>
+      <div class="industries" *ngIf = "skillsShow">
+        <span class="industrieName" *ngFor="let skills of resume.skills.split(',')">
+          {{ skills }}
+        </span>
+      </div>
+      
+    </div>
+    <p>
+      <label>Industries :</label>
+      <span
+        class="industrieName"
+        *ngFor="let industries of resume.industries; index as i"
+        > {{ industries?.name }} <span style="color: #8CA2C3;" *ngIf = "i !== resume.industries.length-1">|</span> </span
+      >
+    </p>
+</div>

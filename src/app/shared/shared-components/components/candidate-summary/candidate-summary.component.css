@@ -1,0 +1,57 @@
+.summary {
+  font-size: 16px;
+  font-weight: 600;
+  color: #635858;
+}
+
+.PointsDiv.commonSingleInner.CommentInner {
+  padding-left: 55px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .commonSingleInner {
+      width: 100% !important;
+    }
+
+    .PointsDiv.commonSingleInner.CommentInner {
+      padding-left: 0px;
+      width: 100%;
+      float: none;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .commonSingleInner {
+      width: 100%;
+    }
+    .PointsDivSingle h4 {
+      margin: 0 !important;
+    }
+}
+
+.PointsDivSingle {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  position: relative;
+}
+.PointsDivSingle h4 {
+  margin: 0 20px;
+  font-size: 16px;
+  color: #635858;
+  /* word-wrap: break-word; */
+  white-space: pre-line;
+}
+
+.PointsDivSingle i{
+  color: red;
+}
+
+.PointsDivSingle22 i{
+  color: green !important;
+}
+
+.resumeIcon{
+  color: #1AD9C5;
+  font-size: 13px;
+}
