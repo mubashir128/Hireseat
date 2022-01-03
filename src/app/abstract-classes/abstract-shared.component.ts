@@ -1085,4 +1085,8 @@ export abstract class AbstractSharedComponent{
       }
     });
   }
+
+  getImage(obj){
+    obj.showCreatedLogo = true;
+  }
 }
