@@ -107,70 +107,21 @@
         let i = index
       "
     >
-      <!-- | shareProfileSearch: searchTerm -->
       <div class="pro">
         <div class="pro-3">
-          <ng-container
-            *ngIf="
-              !resume?.candidate_id?.profileimage &&
-              !resume?.candidateKey?.profileimage
-            "
-          >
-            <div class="candProfile">
-              <img src="assets/img/profile-user.png" alt="profile" />
+          <div class="candProfile" *ngIf = "!resume.showCreatedLogo">
+            <div *ngIf = "resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage">
+              <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
             </div>
-          </ng-container>
-          <ng-container
-            *ngIf="
-              resume?.candidate_id?.profileimage ||
-              resume?.candidateKey?.profileimage
-            "
-          >
-            <div class="candProfile">
-              <img
-                [src]="
-                  resume?.candidate_id?.profileimage ||
-                  resume?.candidateKey?.profileimage
-                "
-                alt="profile"
-              />
-            </div>
-          </ng-container>
-          <!-- <div class="candProfile">
-            <img src="assets/img/profile-user.png" alt="profile" />
-          </div> -->
+          </div>
+          <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge">
+            {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+          </div>
         </div>
         <div class="pro-1">
           <div class="docSectionBtns lates-s">
             <div class="candidate-name">
               <div class="CandidateDetails">
-                <!-- <ng-container
-                  *ngIf="
-                    resume?.candidate_id?.profileimage ||
-                    resume?.candidateKey?.profileimage
-                  "
-                >
-                  <div class="candProfile">
-                    <img
-                      [src]="
-                        resume?.candidate_id?.profileimage ||
-                        resume?.candidateKey?.profileimage
-                      "
-                      alt="profile"
-                    />
-                  </div>
-                </ng-container> -->
-
-                <!-- <ng-container
-                  *ngIf="
-                    !resume?.candidate_id?.profileimage &&
-                    !resume?.candidateKey?.profileimage
-                  "
-                >
-                  <div class="candProfile">
-                    <img src="assets/img/profile-user.png" alt="profile" />
-                  </div>
-                </ng-container> -->
                 <div class="user-details">
                   <span>
                     {{
