@@ -6,11 +6,6 @@ import {
   FormControl,
 } from "@angular/forms";
 import { ResumeService } from "src/app/_services/resume.service";
-
-declare var jQuery: any;
-import * as $ from "jquery";
-declare var Materialize: any;
-import videojs from "video.js";
 import { CandidateService } from "src/app/_services/candidate.service";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
@@ -20,6 +15,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { CandidateCarrerService } from "src/app/_services/candidate-carrer.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { JoyrideService } from "ngx-joyride";
+import { DialogProfileExampleComponent } from "src/app/shared/shared-components/components/dialog-profile-example/dialog-profile-example.component";
+import { MatDialog } from "@angular/material/dialog";
+
+declare var Materialize: any;
 
 
 @Component({
@@ -66,7 +65,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private _candidateCarrer : CandidateCarrerService,
     private _readResume : ReadResumeService,
-    private readonly joyrideService: JoyrideService
+    private readonly joyrideService: JoyrideService,
+    protected dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -465,11 +465,16 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   seeExampleModal() {
-    jQuery("#seeExample").modal("open");
-  }
 
-  closeExampleModal() {
-    jQuery("#seeExample").modal("close");
+    const dialogProfileExampleRef = this.dialog.open(DialogProfileExampleComponent,{
+      data: {
+        dialogType : "Example",
+        dialogTitle : "Example"
+      }
+    });
+
+    dialogProfileExampleRef.afterClosed().subscribe(result => {
+    });
   }
 
   ngOnDestroy() {

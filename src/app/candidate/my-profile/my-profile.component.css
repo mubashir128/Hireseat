@@ -213,33 +213,6 @@
   color: #ffffff;
 }
 
-/*modal*/
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  background-color: transparent !important;
-  top: 0;
-  width: 100%; /* Full width */
-  height: auto; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-.modal-content.addQuetion {
-  padding: 20px 0;
-  background-color: #ffffff !important;
-  width: 100%;
-  /* overflow: scroll; */
-}
 /* The Close Button */
 .close {
   color: #aaaaaa;
@@ -287,24 +260,6 @@ nav ul a {
 .hide-on-med-and-down li .borderBA {
   color: #0aafff !important;
   position: relative;
-}
-
-/* popup design start */
-.modalBodyPop li {
-  list-style: circle !important;
-  font-size: 15px;
-  color: #000;
-}
-
-.modalBodyPop h5 {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.modalBodyPop {
-  border-top: 1px solid #ddd;
-  padding: 0 30px;
-  margin-bottom: 30px;
 }
 
 .questionDiv {
@@ -368,22 +323,9 @@ nav ul a {
   margin: 5px 0 25px;
   position: relative;
 }
-.text-right {
-  text-align: right;
-}
+
 .marT20 {
   margin-top: 20px;
-}
-.modal.forumPopMain {
-  display: none;
-  position: fixed;
-  /* max-height: unset; */
-  /* max-height: 410px; */
-  box-shadow: none !important;
-  /* width: 100%; */
-  max-width: 600px;
-  overflow: unset;
-  height: 100%;
 }
 
 .textFeildDivQ textarea {
@@ -396,10 +338,7 @@ nav ul a {
   box-sizing: inherit !important;
   min-height: 80px;
 }
-.forumPopMain .slide-heading {
-  margin: 0;
-  padding: 10px 30px;
-}
+
 .askQ {
   text-align: center;
 }
@@ -421,21 +360,7 @@ nav ul a {
   bottom: -22px;
   font-weight: bold;
 }
-.slide-heading {
-  font-size: 32px;
-  color: #114488;
-  font-weight: 700;
-  margin: 0px 0px 10px 0px;
-}
-.videoModalMain a.videoCloseBtn {
-  position: absolute;
-  top: -30px;
-  color: #fff !important;
-  z-index: 99999999;
-  right: 0;
-  font-size: 20px !important;
-  cursor: pointer;
-}
+
 /* popup end */
 /* Button */
 .button-a {
@@ -525,9 +450,7 @@ nav ul a {
   padding: 15px;
 }
 /* ADD QUESTION POPUP */
-.slide-heading.blueHeadng {
-  color: #03a9f4;
-}
+
 .noBord {
   border: 0;
   margin: 0;
@@ -830,29 +753,6 @@ iframe.interviewVideo {
 }
 .change {
   color: red;
-}
-.example-popup {
-  display: none;
-  position: fixed;
-  /* max-height: unset; */
-  /* max-height: 410px; */
-  box-shadow: none !important;
-  /* width: 100%; */
-  overflow: unset;
-  height: 100%;
-}
-.example-popup .slide-heading {
-  margin: 0;
-  padding: 10px 30px;
-}
-.videoModalMain a.close-btn {
-  position: absolute;
-  top: -30px;
-  color: #fff !important;
-  z-index: 99999999;
-  right: 190px !important;
-  font-size: 20px !important;
-  cursor: pointer;
 }
 
 .CheckBoxcontainer {

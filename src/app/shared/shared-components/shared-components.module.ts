@@ -99,6 +99,7 @@ import { CandidateSummaryComponent } from './components/candidate-summary/candid
 import { SkillsAndIndustriesComponent } from './components/skills-and-industries/skills-and-industries.component';
 import { InterviewQuestionsComponent } from './components/interview-questions/interview-questions.component';
 import { ProfileButtonsComponent } from "./components/profile-buttons/profile-buttons.component";
+import { DialogProfileExampleComponent } from './components/dialog-profile-example/dialog-profile-example.component';
 
 @NgModule({
   imports: [
@@ -223,6 +224,7 @@ import { ProfileButtonsComponent } from "./components/profile-buttons/profile-bu
     SkillsAndIndustriesComponent,
     ProfileButtonsComponent,
     InterviewQuestionsComponent,
+    DialogProfileExampleComponent,
 
   ],
   exports: [

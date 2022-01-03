@@ -1,0 +1,14 @@
+<div id="seeExample" class="setCss">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
+    <div class="modal-content">
+        <div class="modalBodyPop">
+            <img [src]="imgUrl" alt="" />
+        </div>
+        <div class="confirm">
+            <div class="btn-reject" (click)="closeExampleModal()">
+                Close
+            </div>
+        </div>
+    </div>
+</div>
