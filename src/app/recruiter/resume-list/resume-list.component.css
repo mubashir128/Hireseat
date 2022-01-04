@@ -1,38 +1,7 @@
 .row .col.l6 {
   margin-bottom: 10px;
 }
-.modal .modal-content {
-  padding: 30px;
-  text-align: center;
-}
-.modal {
-  display: none;
-  position: fixed;
-  left: 0;
-  right: 0;
-  background-color: #fafafa;
-  padding: 0;
-  max-height: 70%;
-  width: 30%;
-  /* width: 22%; */
-  margin: auto;
-  overflow-y: auto;
-  border-radius: 5px;
-  will-change: top, opacity;
-}
-.bluePopHead{
-  font-size: 27px;
-  color: #44606d;
-}
-.modal .modal-footer {
-  border-radius: 0 0 2px 2px;
-  background-color: #fafafa;
-  padding: 4px 29px;
-  height: 56px;
-  /* width: 76%; */
-  width: 100%;
-  /* text-align: right; */
-}
+
 ul.resumeList {
   width: 100%;
   float: left;
@@ -50,15 +19,7 @@ ul.resumeList {
   font-size: 17px;
   color: #5e5e5e;
 }
-.textCenter{
-  text-align: center;
-}
-.noBtn {
-  border: 2px solid #03a9f4;
-  background-color: #fff !important;
-  color: #03a9f4;
-  font-weight: 600;
-}
+
 .posrelDiv {
   position: relative;
   background-color: #fff;

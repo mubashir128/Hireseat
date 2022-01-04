@@ -5,10 +5,12 @@ export abstract class AbstractDialogComponent{
   
   dialogType: string;
   dialogTitle: string;
+  dialogText: string;
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: AbstractDialogComponent, public dialogRef: MatDialogRef<AbstractDialogComponent>) {
     this.dialogType = this.data.dialogType;
     this.dialogTitle = this.data.dialogTitle;
+    this.dialogText = this.data.dialogText;
   }
  
   closeScreen(event){
