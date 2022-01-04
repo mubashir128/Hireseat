@@ -75,9 +75,7 @@
       <div class="pro">
         <div class="pro-3">
           <div class="candProfile" *ngIf = "!resume.showCreatedLogo">
-            <div *ngIf = "resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage">
-              <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
-            </div>
+            <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
           </div>
           <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge">
             {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}

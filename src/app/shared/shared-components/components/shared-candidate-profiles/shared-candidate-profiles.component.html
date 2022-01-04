@@ -110,9 +110,7 @@
       <div class="pro">
         <div class="pro-3">
           <div class="candProfile" *ngIf = "!resume.showCreatedLogo">
-            <div *ngIf = "resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage">
-              <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
-            </div>
+            <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
           </div>
           <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge">
             {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
@@ -254,28 +252,15 @@
                   <div class="cmt-box">
                     <div class="recruitercommenthead">
                       <div class="recruiternamedetails">
-                        <!--  -->
 
-                        <ng-container *ngIf="cmt?.recruiterId?.profileimage">
-                          <div class="candProfile recruiterprof">
-                            <img
-                              [src]="cmt?.recruiterId?.profileimage"
-                              alt="profile"
-                            />
-                          </div>
-                        </ng-container>
+                        <div class="candProfile recruiterprof" *ngIf = "!cmt.showCreatedLogo">
+                          <img [src]="cmt?.recruiterId?.profileimage" (error)="getImage(cmt)" class="uploadedImgUser">
+                        </div>
+                        <div *ngIf = "cmt.showCreatedLogo" class="big-badge extrabig-badge-cmt">
+                          {{ (cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+                        </div>
 
-                        <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
-                          <div class="candProfile recruiterprof">
-                            <img
-                              src="assets/img/profile-user.png"
-                              alt="profile"
-                            />
-                          </div>
-                        </ng-container>
-                        <!--  -->
-
-                        <div class="recruiter-name">
+                        <div class="recruiter-name recruiter-name-space">
                           <span>{{
                             cmt?.recruiterId?.fullName ||
                               resume?.candidate_id?.fullName
@@ -419,27 +404,14 @@
 
                           <div class="reply" *ngFor="let reply of cmt.reply | reverse">
                             <div class="profilepic">
-                              <ng-container
-                                *ngIf="reply?.user_id?.profileimage"
-                              >
-                                <div class="candProfile recruiterprof size">
-                                  <img
-                                    [src]="reply?.user_id?.profileimage"
-                                    alt="profile"
-                                  />
-                                </div>
-                              </ng-container>
 
-                              <ng-container
-                                *ngIf="!reply?.user_id?.profileimage"
-                              >
-                                <div class="candProfile recruiterprof size">
-                                  <img
-                                    src="assets/img/profile-user.png"
-                                    alt="profile"
-                                  />
-                                </div>
-                              </ng-container>
+                              <div class="candProfile recruiterprof size" *ngIf = "!reply.showCreatedLogo">
+                                <img [src]="reply?.user_id?.profileimage" (error)="getImage(reply)" class="uploadedImgUser">
+                              </div>
+                              <div *ngIf = "reply.showCreatedLogo" class="big-badge extrabig-badge-rply">
+                                {{ reply?.user_id?.fullName | uppercase | slice: 0 : 1 }}
+                              </div>
+
                               <div class="replyer-name">
                                 <span>{{
                                   reply?.user_id?.fullName ||
@@ -497,22 +469,15 @@
                 <div class="cmt-box">
                   <div class="recruitercommenthead">
                     <div class="recruiternamedetails">
-                      <ng-container *ngIf="cmt?.recruiterId?.profileimage">
-                        <div class="candProfile recruiterprof">
-                          <img [src]="cmt?.recruiterId?.profileimage" alt="profile" />
-                        </div>
-                      </ng-container>
 
-                      <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
-                        <div class="candProfile recruiterprof">
-                          <img
-                            src="assets/img/profile-user.png"
-                            alt="profile"
-                          />
-                        </div>
-                      </ng-container>
+                      <div class="candProfile recruiterprof" *ngIf = "!cmt.showCreatedLogo">
+                        <img [src]="cmt?.recruiterId?.profileimage" (error)="getImage(cmt)" class="uploadedImgUser">
+                      </div>
+                      <div *ngIf = "cmt.showCreatedLogo" class="big-badge extrabig-badge-cmt">
+                        {{ (cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+                      </div>
 
-                      <div class="recruiter-name">
+                      <div class="recruiter-name recruiter-name-space">
                         <span>{{ cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName}}</span>
                         <span class="see-profile" *ngIf="cmt?.recruiterId?.userRole === 'recruiter'" (click)="openRecruiterModal(cmt?.recruiterId._id)">
                           See profile

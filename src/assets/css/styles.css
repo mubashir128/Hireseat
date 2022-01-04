@@ -1547,3 +1547,17 @@ body {
   width: 50px !important;
   height: 35px !important;
 }
+
+.extrabig-badge-cmt {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.recruiter-name-space {
+  margin-left: 5px !important;
+}
+
+.extrabig-badge-rply {
+  width: 30px !important;
+  height: 30px !important;
+}
