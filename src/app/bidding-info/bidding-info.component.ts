@@ -31,11 +31,13 @@ import { VideoCallingService } from '../_services/video-calling.service';
 import videojs from 'video.js';
 import { ShareVideoService } from '../_services/share-video.service';
 import { Subscription } from 'rxjs';
-import { materialize } from 'rxjs/operators';
+import { DiaplogOfferIntroEmailComponent } from '../shared/shared-components/components/diaplog-offer-intro-email/diaplog-offer-intro-email.component';
+import { MatDialog } from '@angular/material/dialog';
 
 declare var jQuery;
 declare var $: any;
 declare var Materialize;
+
 @Component({
   selector: 'app-bidding-info',
   templateUrl: './bidding-info.component.html',
@@ -123,7 +125,8 @@ export class BiddingInfoComponent
     private sanitizer: DomSanitizer,
     private videoCallingService: VideoCallingService,
     private elementRef: ElementRef,
-    private shareVideService: ShareVideoService
+    private shareVideService: ShareVideoService,
+    protected _dialog: MatDialog
   ) {
     this.loggedUser = this.userService.getUserData();
     this.bidFrm = this.formBuilder.group({
@@ -640,17 +643,39 @@ export class BiddingInfoComponent
       console.log(e);
     }
   }
+
   // share process
   showShareModal(resume, biddingEvent) {
-    jQuery('#shareEmailPopUp').modal('open');
-    console.log(resume, '**********************', biddingEvent);
     this.shareResume = resume;
     this.shareBiddingEvent = biddingEvent;
     const archiveIdPayload = {
       archivedId: resume.resumeKey.interviewLinkedByRecruiter,
     };
     this.ArcivedVideoUrl(archiveIdPayload);
+
+    let cc = "";
+    let bcc = "";
+    let recipientEmail = "";
+
+    const dialogOfferIntroEmailRef = this._dialog.open(DiaplogOfferIntroEmailComponent,{
+      data: {
+        dialogType : "OfferIntro",
+        dialogTitle : "Offer Intro",
+        recipientEmail : recipientEmail,
+        cc : cc,
+        bcc : bcc,
+        btns : ["SEND"],
+        loggedUser : this.loggedUser
+      }
+    });
+
+    dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
+      if(result){
+        this.share(this.shareResume, this.shareBiddingEvent, result);
+      }
+    });
   }
+
   ArcivedVideoUrl(archiveId) {
     this.getArchivedVideoSubscription = this.videoCallingService
       .getArchivedVideo(archiveId)
@@ -658,7 +683,6 @@ export class BiddingInfoComponent
         (res) => {
           if (res) {
             this.shareableVideoURL = res.url;
-            // console.log(this.shareableVideoURL);
             this.spinner.hide();
           } else {
             this.spinner.hide();
@@ -669,14 +693,8 @@ export class BiddingInfoComponent
         }
       );
   }
-  closeShareModal() {
-    jQuery('#shareEmailPopUp').modal('close');
-  }
-  async sendVideo() {
-    await this.share(this.shareResume, this.shareBiddingEvent);
-    jQuery('#shareEmailPopUp').modal('close');
-  }
-  share = async (resume, biddingEvent) => {
+
+  share = async (resume, biddingEvent, result) => {
     const subject =
       'Hireseat' +
       ' - ' +
@@ -686,15 +704,14 @@ export class BiddingInfoComponent
       ' - ' +
       resume.resumeKey.candidateName +
       ' Profile.';
-    // console.log(subject, this.loggedUser);
 
     if (this.shareableVideoURL) {
       const payload = {
         employerId: this.loggedUser._id,
         bidId: resume._id,
-        recipientEmail: this.recipientEmail,
-        cc: this.cc,
-        bcc: this.bcc,
+        recipientEmail: result.recipientEmail,
+        cc: result.cc,
+        bcc: result.bcc,
         videoUrl: this.shareableVideoURL,
         fullName: resume.resumeKey.candidateName,
         subject: subject,
@@ -706,26 +723,24 @@ export class BiddingInfoComponent
       };
       this.shareVideoSubscription = await this.shareVideService
         .shareVideoViaEmail(payload)
-        .subscribe(
-          (res) => {
+        .subscribe((res) => {
             if (res) {
-              // console.log(res);
               Materialize.toast('Email sent!', 3000);
             }
-          },
-          (err) => {
-            console.log(err);
+          }, (err) => {
             Materialize.toast('unable to send an email!', 3000);
           }
         );
     }
   };
   // END share process
+
   numberWithCommas(x) {
     if (x != null) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
   }
+  
   ngOnDestroy(): void {
     // destroy player
     if (this.player) {

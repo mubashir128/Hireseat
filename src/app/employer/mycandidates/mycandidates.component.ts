@@ -85,12 +85,10 @@ export class MycandidatesComponent implements OnInit {
         this.spinner.hide();
       });
   }
-  getEmployerAddedResumes() {
-    console.log('getEmployerAddedResumes');
 
+  getEmployerAddedResumes() {
     this.spinner.show();
     this.resumeService.getEmployerAddedResumes().subscribe((data: IResume[]) => {
-      // console.log(data.resumes);
       const resumes = data['resumes'];
       if (resumes.length > 0) {
         resumes.forEach(ele => {
@@ -103,7 +101,6 @@ export class MycandidatesComponent implements OnInit {
       }
     }, err => {
       console.log(err);
-
     });
   }
 
@@ -122,7 +119,6 @@ export class MycandidatesComponent implements OnInit {
   }
 
   editResume(resume: Resume) {
-    // console.log(resume);
     this.selectedResume = resume;
     this.mode = 1;
   }
@@ -193,11 +189,11 @@ export class MycandidatesComponent implements OnInit {
     this.searchResume(this.selectedResumeIs.candidateName);
     this.toggleSearch = false;
   }
-  searchtext(event) {
-    // console.log(event.target.value);
 
+  searchtext(event) {
     this.searchResume(event.target.value);
   }
+  
   onfocus(e) {
     jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
   }

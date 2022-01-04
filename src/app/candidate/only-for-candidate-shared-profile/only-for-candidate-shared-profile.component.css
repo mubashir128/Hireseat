@@ -410,13 +410,7 @@ a.videoCloseBtn {
   font-size: 20px !important;
   cursor: pointer;
 }
-.fa-times {
-  color: black !important;
-  float: right;
-  margin-right: 10px;
-  margin-top: 10px;
-  cursor: pointer;
-}
+
 .hideBtn {
   position: absolute;
   right: 0;

@@ -58,6 +58,13 @@
                     <button class="sendBtn" (click)="generateLinkForVideo()">Copy Profile Link</button>
                 </div>
             </div>
+
+            <div class="row form-group autoClass" *ngIf = "getBtns('SEND')">
+                <div class="" style="float: right;">
+                    <button class="sendBtn" (click)="share()">SEND</button>
+                </div>
+            </div>
+
         </div>
     </div>
   </div>
