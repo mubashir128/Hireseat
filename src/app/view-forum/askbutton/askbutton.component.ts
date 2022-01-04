@@ -100,7 +100,6 @@ export class AskbuttonComponent implements OnInit {
 
     this._Userservice.userverification(email).subscribe(
       res => {
-        // console.log(res)
       },
       err => { console.log(err) }
     );
@@ -111,14 +110,12 @@ export class AskbuttonComponent implements OnInit {
       return;
     }
     this.verifyEmailData = (this.verifyEmail.value);
-    //console.log(this.verifyEmailData.emailVerify)
     const email = this.verifyEmailData;
 
     this._Userservice.sendEmail(email).subscribe(
       res => {
         if (res.status = 'success') {
           this.msgForPopup = res.message;
-          //console.log(res)
           if (res.data) {
             this.verfStatus = res.data.isVerified;
             localStorage.setItem('askQuestionUser', JSON.stringify(res.data))
