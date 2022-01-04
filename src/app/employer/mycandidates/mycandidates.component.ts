@@ -4,10 +4,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Resume, IResume } from '../../models/resume';
 import { ResumeService } from '../../_services/resume.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { isEmpty } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DialogDeleteComponent } from 'src/app/shared/shared-components/components/dialog-delete/dialog-delete.component';
+import { MatDialog } from '@angular/material/dialog';
+
 declare var Materialize: any;
 declare var jQuery: any;
+
 @Component({
   selector: 'app-mycandidates',
   templateUrl: './mycandidates.component.html',
@@ -40,8 +43,8 @@ export class MycandidatesComponent implements OnInit {
     private resumeService: ResumeService,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
-
+    private formBuilder: FormBuilder,
+    protected _dialog: MatDialog
   ) {
     this.resumes = [];
     jQuery('.modal').modal();
@@ -124,8 +127,20 @@ export class MycandidatesComponent implements OnInit {
   }
 
   confirmAction(resume: Resume) {
-    jQuery('#DeleteConfirm').modal('open');
     this.selectedResumeDelete = resume;
+    const dialogDeleteRef = this._dialog.open(DialogDeleteComponent,{
+      data: {
+        dialogType : "ConfirmDeleteAction",
+        dialogTitle : "Confirm Delete Action",
+        dialogText : "Are want to sure delete this resume ?"
+      }
+    });
+
+    dialogDeleteRef.afterClosed().subscribe(result => {
+      if(result && result.process){
+        this.confirmedDeleteResume();
+      }
+    });
   }
 
   confirmedDeleteResume() {
@@ -141,17 +156,13 @@ export class MycandidatesComponent implements OnInit {
           Materialize.toast('Something Went Wrong !', 1000);
         }
         this.confirmDel = false;
-        jQuery('#DeleteConfirm').modal('close');
       }, (error) => {
         this.spinner.hide();
-        console.log(error);
         Materialize.toast('Something Went Wrong!', 1000);
         this.confirmDel = false;
-        jQuery('#DeleteConfirm').modal('close');
       });
     } else {
       this.confirmDel = false;
-      jQuery('#DeleteConfirm').modal('close');
     }
   }
 

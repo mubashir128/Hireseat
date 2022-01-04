@@ -100,6 +100,7 @@ import { SkillsAndIndustriesComponent } from './components/skills-and-industries
 import { InterviewQuestionsComponent } from './components/interview-questions/interview-questions.component';
 import { ProfileButtonsComponent } from "./components/profile-buttons/profile-buttons.component";
 import { DialogProfileExampleComponent } from './components/dialog-profile-example/dialog-profile-example.component';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 
 @NgModule({
   imports: [
@@ -225,6 +226,7 @@ import { DialogProfileExampleComponent } from './components/dialog-profile-examp
     ProfileButtonsComponent,
     InterviewQuestionsComponent,
     DialogProfileExampleComponent,
+    DialogDeleteComponent,
 
   ],
   exports: [
