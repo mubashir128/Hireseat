@@ -133,7 +133,7 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
 
   checkFields(){
     let result = true;
-    if(this.recipientName == "" || this.recipientName == undefined || this.cc == "" || this.cc == undefined){
+    if(this.recipientName == "" || this.recipientName == undefined || this.recipientEmail == "" || this.recipientEmail == undefined){
       Materialize.toast("Please fill all fields...", 1000, "red");
       result = false;
     }
@@ -150,4 +150,21 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
       type : "shareOnHireseat"
     });
   }
+
+  async share(){
+    let result = await this.checkFields();
+    if(!result){
+      return ;
+    }
+
+    this.dialogRef.close({
+      type : "SEND",
+      process : true,
+      cc : this.cc,
+      bcc : this.bcc,
+      recipientName : this.recipientName,
+      recipientEmail : this.recipientEmail
+    });
+  }
+
 }

@@ -278,25 +278,3 @@
     </div>
   </div>
 </div>
-
-<div id="shareEmailPopUp" class="modal">
-  <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
-  <div class="emailTemp">
-    <div class="form-group posRel">
-      <!-- <p class="hideBtn"><a href="#">Hide CC / BCC</a></p> -->
-      <label>To </label>
-      <input type="text" class="form-control inputComm" [(ngModel)]="recipientEmail">
-    </div>
-    <div class="form-group posRel">
-      <label>CC </label>
-      <input type="text" class="form-control inputComm" [(ngModel)]="cc">
-    </div>
-    <div class="form-group posRel">
-      <label>BCC </label>
-      <input type="text" class="form-control inputComm" [(ngModel)]="bcc">
-    </div>
-    <div class="form-group textRight">
-      <button class="sendBtn" (click)="sendVideo()">SEND</button>
-    </div>
-  </div>
-</div>
