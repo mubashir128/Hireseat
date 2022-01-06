@@ -94,6 +94,13 @@ import { DialogAddMembersComponent } from './components/dialog-add-members/dialo
 import { DialogUploadPictureComponent } from './components/dialog-upload-picture/dialog-upload-picture.component';
 import { DialogTitleComponent } from './components/dialog-title/dialog-title.component';
 import { DialogThanksLaterComponent } from './components/dialog-thanks-later/dialog-thanks-later.component';
+import { DialogShareToUsersComponent } from './components/dialog-share-to-users/dialog-share-to-users.component';
+import { CandidateSummaryComponent } from './components/candidate-summary/candidate-summary.component';
+import { SkillsAndIndustriesComponent } from './components/skills-and-industries/skills-and-industries.component';
+import { InterviewQuestionsComponent } from './components/interview-questions/interview-questions.component';
+import { ProfileButtonsComponent } from "./components/profile-buttons/profile-buttons.component";
+import { DialogProfileExampleComponent } from './components/dialog-profile-example/dialog-profile-example.component';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 
 @NgModule({
   imports: [
@@ -212,7 +219,15 @@ import { DialogThanksLaterComponent } from './components/dialog-thanks-later/dia
     DialogAddMembersComponent,
     DialogUploadPictureComponent,
     DialogTitleComponent,
-    DialogThanksLaterComponent
+    DialogThanksLaterComponent,
+    DialogShareToUsersComponent,
+    CandidateSummaryComponent,
+    SkillsAndIndustriesComponent,
+    ProfileButtonsComponent,
+    InterviewQuestionsComponent,
+    DialogProfileExampleComponent,
+    DialogDeleteComponent,
+
   ],
   exports: [
     FooterComponent,
@@ -288,7 +303,11 @@ import { DialogThanksLaterComponent } from './components/dialog-thanks-later/dia
     SortByIndustiresPipe,
     MatDialogModule,
     CloseScreenComponent,
-    DialogImagePreviewComponent
+    DialogImagePreviewComponent,
+    CandidateSummaryComponent,
+    SkillsAndIndustriesComponent,
+    ProfileButtonsComponent,
+    InterviewQuestionsComponent
   ],
 
 })

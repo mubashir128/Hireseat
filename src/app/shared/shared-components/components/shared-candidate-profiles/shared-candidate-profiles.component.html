@@ -4,7 +4,6 @@
   </div>
   <div class="hideAndSHoTab">
     <div class="sortIndustriesMain input-field col s12 m12 l12">
-      
       <div *ngIf="loggedUser.userRole != 'candidate'">
         <i class="fa fa-industry" aria-hidden="true"></i>
         <span class="resume-subtitle"> Sort by Industries </span>
@@ -104,74 +103,23 @@
     <div
       class="singleList employerResume resumeSingleList"
       *ngFor="
-        let resume of resumes | serchByFullName : searchTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: 8, currentPage: p };
+        let resume of resumes | serchByFullName : searchTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: p };
         let i = index
       "
     >
-      <!-- | shareProfileSearch: searchTerm -->
       <div class="pro">
         <div class="pro-3">
-          <ng-container
-            *ngIf="
-              !resume?.candidate_id?.profileimage &&
-              !resume?.candidateKey?.profileimage
-            "
-          >
-            <div class="candProfile">
-              <img src="assets/img/profile-user.png" alt="profile" />
-            </div>
-          </ng-container>
-          <ng-container
-            *ngIf="
-              resume?.candidate_id?.profileimage ||
-              resume?.candidateKey?.profileimage
-            "
-          >
-            <div class="candProfile">
-              <img
-                [src]="
-                  resume?.candidate_id?.profileimage ||
-                  resume?.candidateKey?.profileimage
-                "
-                alt="profile"
-              />
-            </div>
-          </ng-container>
-          <!-- <div class="candProfile">
-            <img src="assets/img/profile-user.png" alt="profile" />
-          </div> -->
+          <div class="candProfile" *ngIf = "!resume.showCreatedLogo">
+            <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
+          </div>
+          <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge">
+            {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+          </div>
         </div>
         <div class="pro-1">
           <div class="docSectionBtns lates-s">
             <div class="candidate-name">
               <div class="CandidateDetails">
-                <!-- <ng-container
-                  *ngIf="
-                    resume?.candidate_id?.profileimage ||
-                    resume?.candidateKey?.profileimage
-                  "
-                >
-                  <div class="candProfile">
-                    <img
-                      [src]="
-                        resume?.candidate_id?.profileimage ||
-                        resume?.candidateKey?.profileimage
-                      "
-                      alt="profile"
-                    />
-                  </div>
-                </ng-container> -->
-
-                <!-- <ng-container
-                  *ngIf="
-                    !resume?.candidate_id?.profileimage &&
-                    !resume?.candidateKey?.profileimage
-                  "
-                >
-                  <div class="candProfile">
-                    <img src="assets/img/profile-user.png" alt="profile" />
-                  </div>
-                </ng-container> -->
                 <div class="user-details">
                   <span>
                     {{
@@ -222,66 +170,7 @@
       </div>
 
       <ng-container *ngIf="resume?.comments">
-        <div class="singleListData">
-          <span class="summary">Candidate's Summary:</span>
-
-          <!-- resume data top three comments -->
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume1">
-            <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
-              <h4>
-                <span class="fa-stack resumeIcon">
-                  <span class="fa fa-square-o fa-stack-2x"></span>
-                  <strong class="fa-stack-1x">
-                    1
-                  </strong>
-                </span>
-                {{ resume?.commentsResume1 | titleCase }}</h4>
-            </div>
-          </div>
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume2">
-            <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
-              <h4> 
-                <span class="fa-stack resumeIcon">
-                  <span class="fa fa-square-o fa-stack-2x"></span>
-                  <strong class="fa-stack-1x">
-                    2
-                  </strong>
-                </span>
-                {{ resume?.commentsResume2 | titleCase }}</h4>
-            </div>
-          </div>
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.commentsResume3">
-            <div class="PointsDivSingle PointsDivSingle22 PointsDivSingleN">
-              <h4>
-                <span class="fa-stack resumeIcon">
-                  <span class="fa fa-square-o fa-stack-2x"></span>
-                  <strong class="fa-stack-1x">
-                    3
-                  </strong>
-                </span>
-                {{ resume?.commentsResume3 | titleCase }}</h4>
-            </div>
-          </div>
-
-          <div class="PointsDiv commonSingleInner">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <h4> <i class="fas fa-check-square"></i> {{ resume?.comments }}</h4>
-            </div>
-          </div>
-
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.comment2">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <h4> <i class="fas fa-check-square"></i> {{ resume?.comment2 }}</h4>
-            </div>
-          </div>
-
-          <div class="PointsDiv commonSingleInner" *ngIf = "resume?.comment3">
-            <div class="PointsDivSingle PointsDivSingleN">
-              <h4> <i class="fas fa-check-square"></i> {{ resume?.comment3 }}</h4>
-            </div>
-          </div>
-
-        </div>
+        <app-candidate-summary [(resume)] = "resumes[i]"></app-candidate-summary>
       </ng-container>
 
       <!-- a video  -->
@@ -304,127 +193,27 @@
           </div>
         </div>
       </ng-container>
+
       <ng-container *ngIf="show == i">
-        <!--  -->
-
-        <div class="editResumeupperDiv" *ngIf="videoURL">
-          <div class="interviewVideoDiv stickyDiv">
-            <div class="leftSideQuetion" *ngIf="questionsByRecruiter">
-              <h2>Jump to below interview questions</h2>
-
-              <div class="interviewQue">
-                <!-- <div class="QuestionInner"> -->
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 1 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp1, 1)"
-                  >
-                    {{ questionsByRecruiter?.question1 }}</a
-                  >
-                </h4>
-
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 2 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp2, 2)"
-                  >
-                    {{ questionsByRecruiter.question2 }}</a
-                  >
-                </h4>
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 3 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp3, 3)"
-                  >
-                    {{ questionsByRecruiter.question3 }}</a
-                  >
-                </h4>
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 4 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp4, 4)"
-                  >
-                    {{ questionsByRecruiter.question4 }}</a
-                  >
-                </h4>
-                <h4>
-                  <a
-                    [ngClass]="questionNumber === 5 ? 'interview-bold' : false"
-                    (click)="setCurrentTime(questionsByRecruiter.timeStamp5, 5)"
-                  >
-                    {{ questionsByRecruiter.question5 }}</a
-                  >
-                </h4>
-              </div>
-            </div>
-            <!-- video js -->
-            <div
-              class="video-interview"
-              [ngClass]="
-                !questionsByRecruiter ? 'video-js-without-questions' : false
-              "
-            >
-              <video #playVideo class="video-js" controls>
-                <source [src]="this.videoURL" />
-              </video>
-            </div>
-          </div>
-        </div>
-        <!--  -->
+        <app-interview-questions 
+          (setCurrentTimeEM) = "setCurrentTimeEvent($event)" 
+          [(videoURL)] = "videoURL" 
+          [(questionsByRecruiter)] = "questionsByRecruiter" 
+        ></app-interview-questions>
       </ng-container>
       <!-- end a video -->
 
-      <div class="otherProfileDetails">
-        <div class="skill-height">
-          <label>Skills :</label>
-          <button class="down-1" (click)="upDownSkills()" *ngIf = "resume.skills.split(',').length > 2"><i [ngClass]="skillsClass"></i></button>
-          <div class="industries onLimitedSkills" *ngIf = "!skillsShow">
-            <div *ngFor="let skills of resume.skills.split(','); index as i">
-              <span class="industrieName" *ngIf = "(i === 0 || i === 1) && skills !== '' ">
-                {{ skills }}
-              </span>
-            </div>
-          </div>
-          <div class="industries" *ngIf = "skillsShow">
-            <span class="industrieName" *ngFor="let skills of resume.skills.split(',')">
-              {{ skills }}
-            </span>
-          </div>
-          
-        </div>
-        <p>
-          <label>Industries :</label>
-          <span
-            class="industrieName"
-            *ngFor="let industries of resume.industries; index as i"
-            > {{ industries?.name }} <span style="color: #8CA2C3;" *ngIf = "i !== resume.industries.length-1">|</span> </span
-          >
-        </p>
-      </div>
+      <ng-container>
+        <app-skills-and-industries [(resume)] = "resumes[i]"></app-skills-and-industries>
+      </ng-container>
 
-      <div class="pro-2">
-        <div class="cadidateResumeDiv set-one">
-          <button class="downloadResume">
-            <a
-              [attr.href]="transform(resume?.fileURL)"
-              target="_blank"
-              download
-            >
-              <i class="fa fa-download"></i>
-              Download Resume
-            </a>
-          </button>
-          <div class="smallBtns">
-            <button class="LinkedInBtn">
-              <a>
-                <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
-                  <span> <i class="fa fa-linkedin fa-fw"></i> LinkedIn </span>
-                </div>
-              </a>
-            </button>
-          </div>
-        </div>
-      </div>
+      <ng-container>
+        <app-profile-buttons 
+          [(resume)] = "resumes[i]" 
+          (onDownloadEM) = "transform($event)" 
+          (onLinkedInEM) = "onLinkedIn($event)"
+        ></app-profile-buttons>
+      </ng-container>
 
       <ng-container>
         <span class="comment">Comments:</span>
@@ -463,28 +252,15 @@
                   <div class="cmt-box">
                     <div class="recruitercommenthead">
                       <div class="recruiternamedetails">
-                        <!--  -->
 
-                        <ng-container *ngIf="cmt?.recruiterId?.profileimage">
-                          <div class="candProfile recruiterprof">
-                            <img
-                              [src]="cmt?.recruiterId?.profileimage"
-                              alt="profile"
-                            />
-                          </div>
-                        </ng-container>
+                        <div class="candProfile recruiterprof" *ngIf = "!cmt.showCreatedLogo">
+                          <img [src]="cmt?.recruiterId?.profileimage" (error)="getImage(cmt)" class="uploadedImgUser">
+                        </div>
+                        <div *ngIf = "cmt.showCreatedLogo" class="big-badge extrabig-badge-cmt">
+                          {{ (cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+                        </div>
 
-                        <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
-                          <div class="candProfile recruiterprof">
-                            <img
-                              src="assets/img/profile-user.png"
-                              alt="profile"
-                            />
-                          </div>
-                        </ng-container>
-                        <!--  -->
-
-                        <div class="recruiter-name">
+                        <div class="recruiter-name recruiter-name-space">
                           <span>{{
                             cmt?.recruiterId?.fullName ||
                               resume?.candidate_id?.fullName
@@ -628,27 +404,14 @@
 
                           <div class="reply" *ngFor="let reply of cmt.reply | reverse">
                             <div class="profilepic">
-                              <ng-container
-                                *ngIf="reply?.user_id?.profileimage"
-                              >
-                                <div class="candProfile recruiterprof size">
-                                  <img
-                                    [src]="reply?.user_id?.profileimage"
-                                    alt="profile"
-                                  />
-                                </div>
-                              </ng-container>
 
-                              <ng-container
-                                *ngIf="!reply?.user_id?.profileimage"
-                              >
-                                <div class="candProfile recruiterprof size">
-                                  <img
-                                    src="assets/img/profile-user.png"
-                                    alt="profile"
-                                  />
-                                </div>
-                              </ng-container>
+                              <div class="candProfile recruiterprof size" *ngIf = "!reply.showCreatedLogo">
+                                <img [src]="reply?.user_id?.profileimage" (error)="getImage(reply)" class="uploadedImgUser">
+                              </div>
+                              <div *ngIf = "reply.showCreatedLogo" class="big-badge extrabig-badge-rply">
+                                {{ reply?.user_id?.fullName | uppercase | slice: 0 : 1 }}
+                              </div>
+
                               <div class="replyer-name">
                                 <span>{{
                                   reply?.user_id?.fullName ||
@@ -706,22 +469,15 @@
                 <div class="cmt-box">
                   <div class="recruitercommenthead">
                     <div class="recruiternamedetails">
-                      <ng-container *ngIf="cmt?.recruiterId?.profileimage">
-                        <div class="candProfile recruiterprof">
-                          <img [src]="cmt?.recruiterId?.profileimage" alt="profile" />
-                        </div>
-                      </ng-container>
 
-                      <ng-container *ngIf="!cmt?.recruiterId?.profileimage">
-                        <div class="candProfile recruiterprof">
-                          <img
-                            src="assets/img/profile-user.png"
-                            alt="profile"
-                          />
-                        </div>
-                      </ng-container>
+                      <div class="candProfile recruiterprof" *ngIf = "!cmt.showCreatedLogo">
+                        <img [src]="cmt?.recruiterId?.profileimage" (error)="getImage(cmt)" class="uploadedImgUser">
+                      </div>
+                      <div *ngIf = "cmt.showCreatedLogo" class="big-badge extrabig-badge-cmt">
+                        {{ (cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+                      </div>
 
-                      <div class="recruiter-name">
+                      <div class="recruiter-name recruiter-name-space">
                         <span>{{ cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName}}</span>
                         <span class="see-profile" *ngIf="cmt?.recruiterId?.userRole === 'recruiter'" (click)="openRecruiterModal(cmt?.recruiterId._id)">
                           See profile
@@ -764,110 +520,6 @@
 
 <div>
   <app-list-loader-search></app-list-loader-search>
-</div>
-
-<div id="shareEmailModal" class="modal">
-  <i (click)="closeShareModal()" class="fa fa-times" aria-hidden="true"></i>
-  <div class="form-group textRight">
-    <button class="sendBtn spaceBetOn" *ngIf="loggedUser.userRole == 'recruiter' || loggedUser.userRole == 'employer'" (click)="showShareTouserModal()">Share on HireSeat</button>
-    <button class="sendBtn spaceBetOn" (click)="generateLinkForVideo()">Copy Link</button>
-  </div>
-  <div class="emailTemp">
-    <div class="form-group posRel">
-      <!-- <label>Receiver Name </label> -->
-      <input type="text" class="form-control inputCommReceiver" [(ngModel)]="recipientName" placeholder="Receiver Name"/>
-    </div>
-    <div class="form-group posRel">
-      <!-- <p class="hideBtn"><a href="#">Hide CC / BCC</a></p> -->
-      <label>To </label>
-      <input
-        type="text"
-        class="form-control inputComm"
-        [(ngModel)]="recipientEmail"
-      />
-    </div>
-    <div class="form-group posRel">
-      <label>CC </label>
-      <input type="text" class="form-control inputComm" [(ngModel)]="cc" />
-    </div>
-    <div class="form-group posRel">
-      <label>BCC </label>
-      <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
-    </div>
-    <div class="form-group textRight">
-      <button class="sendBtn spaceBet" (click)="share(false)">Send Email</button>
-      <button class="sendBtn spaceBet introStyle" *ngIf="loggedUser.userRole == 'employer'" (click)="introduceUser()">Email Preview</button>
-    </div>
-  </div>
-</div>
-
-<div id="shareToUsers" class="modal">
-  <form [formGroup]="auctionFrm">
-    <i (click)="closeShareToUserModal()" class="fa fa-times" aria-hidden="true"></i>
-    <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'recruiter'">Select Recruiters</div>
-    <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'employer'">Select Employers</div>
-    <div class="searchDiv">
-      <input type="text" class="searchRecruiter" formControlName="searchTermByNameIs" [(ngModel)]="searchTermByNameIs" placeholder="Search..." #searchInputTerm>
-      <i class="fa fa-search" aria-hidden="true"></i>
-    </div>
-
-    <div class="searchData">
-      <div *ngFor="let item of topRecruiters">
-        <div class="recruitrList" *ngIf = "loggedUser._id !== item._id">
-            <img [src]="item.profileimage !== '' ? item.profileimage : '../../../assets/img/user.png'" class="uploadedImgUser" />
-            <h4 style="margin-left: -40px;">{{ item.fullName }}</h4>
-            <div class="actionDiv">
-              <label class="CheckBoxcontainer">
-                <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event,'search')" [checked]="item.isChecked">
-                <span class="checkmark"></span>
-              </label>
-            </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group textRight">
-      <button class="shareToUserClass" (click)="shareToUsers()">Share</button>
-    </div>
-
-  </form>
-</div>
-
-<div id="emaiPreviewModal" class="modal">
-  <div>
-    <span>Email Preview...</span>
-  </div>
-  <div class="ccBcc">
-    <ul>
-      <li><label for="">Receiver Name</label>  <input type="text" placeholder="receiver name..." [(ngModel)]="recipientName"> </li>
-      <li><label for="">To</label>  <input type="text" placeholder="to..." [(ngModel)]="recipientEmail"> </li>
-      <li><label for="">CC</label>  <input type="text" placeholder="cc..." [(ngModel)]="cc"> </li>
-      <li><label for="">BCC</label>  <input type="text" placeholder="bcc..." [(ngModel)]="bcc"> </li>
-   </ul>
-  </div>
-  <div class="email">
-    <p> <span>Hi<input type="text" placeholder="User..." [(ngModel)]="recipientName"></span> , </p>
-    <p>I just wanted to introduce you to <input type="text" placeholder="introduce..." [(ngModel)]="candidateNameIs" >, I think you can probably provide some great guidance and advice. The resume is attached and below are a few quick highlights.</p>
-  </div>
-  <div class="skill">
-    <ul>
-      <li><input type="text" placeholder="commect1..." [(ngModel)]="comment1"> </li>
-      <li><input type="text" placeholder="commect2..." [(ngModel)]="comment2"> </li>
-      <li><input type="text" placeholder="commect3..." [(ngModel)]="comment3"> </li>
-    </ul>
-  </div>
-  <div class="email">
-    <p>Thanks,</p>
-    <input type="text" placeholder="Sender..." class="maar-none" [(ngModel)]="loggedUser.fullName">
-    <p>Video link : </p>
-    <p>Attach resume : This email has attached a resume, please check.</p>
-  </div>
-
-  <div>
-    <div class="form-group textRight">
-      <button class="sendBtn spaceBet introStyle" *ngIf="loggedUser.userRole == 'employer'" (click)="share(true)">Introduce</button>
-    </div>
-  </div>
 </div>
 
 <!-- modal to select dates -->

@@ -1,0 +1,127 @@
+.spaceBottom, .searchDiv, .searchDiv i{
+  padding: 10px;
+}
+
+.title{
+  font-size:24px;
+  color: #0aafff;
+  font-weight:700;
+}
+
+.searchData {
+  position: relative;
+  border: 1px solid #33aaff;
+  width: 93%;
+  max-height: 500px;
+  margin-left: 15px;
+  margin-top: 5px;
+  overflow-y: auto;
+  /* margin-bottom: 10px; */
+}
+
+.searchData::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 30px;
+}
+
+.searchData::-webkit-scrollbar-thumb {
+  width: 12px;
+  background-color: #A8A2A0;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+}
+
+.searchData::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 30px;
+}
+
+.uploadedImgUser {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50% !important;
+}
+
+.CheckBoxcontainer {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 25px;
+  pointer-events: fill;
+  top: -10px;
+}
+
+/* Hide the browser's default checkbox */
+.CheckBoxcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  margin-top: 13px;
+  background-color: #eee;
+  border: 1px solid #2196f3;
+}
+
+/* On mouse-over, add a grey background color */
+.CheckBoxcontainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.CheckBoxcontainer input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.CheckBoxcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.CheckBoxcontainer .checkmark:after {
+  left: 6px;
+  top: 0px;
+  width: 7px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 2px 3px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.textRight {
+  text-align: right;
+}
+
+.shareToUserClass{
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin: 10px;
+}

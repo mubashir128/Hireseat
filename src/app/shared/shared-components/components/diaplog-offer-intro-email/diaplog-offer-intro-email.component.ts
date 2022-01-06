@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialog} from '@angular/material/dialog';
 import { AbstractDialogComponent } from '../abstract-dialog.component';
+
 declare var Materialize;
 
 @Component({
@@ -24,6 +25,10 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
   candidateNameIs: string;
 
   showCombine: boolean;
+
+  loggedUser: any;
+
+  btns: string[];
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: DiaplogOfferIntroEmailComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DiaplogOfferIntroEmailComponent>){
     super(data, dialogRef);
@@ -34,11 +39,17 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
       this.clients = this.data.clients;
       this.hideBlueBtn = this.data.hideBlueBtn;
 
-      this.showCombine = this.data.showCombine;
+      this.loggedUser = this.data.loggedUser;
+
+      this.btns = this.data.btns;
     }
   }
 
   ngOnInit(): void {
+  }
+
+  getBtns(btnName){
+    return this.btns.includes(btnName) ? true : false;
   }
 
   searchClient(term: string){
@@ -122,11 +133,38 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
 
   checkFields(){
     let result = true;
-    if(this.recipientName == "" || this.recipientName == undefined || this.cc == "" || this.cc == undefined){
+    if(this.recipientName == "" || this.recipientName == undefined || this.recipientEmail == "" || this.recipientEmail == undefined){
       Materialize.toast("Please fill all fields...", 1000, "red");
       result = false;
     }
     return result;
+  }
+
+  async showShareTouserModal() {
+    let result = await this.checkFields();
+    if(!result){
+      return ;
+    }
+
+    this.dialogRef.close({
+      type : "shareOnHireseat"
+    });
+  }
+
+  async share(){
+    let result = await this.checkFields();
+    if(!result){
+      return ;
+    }
+
+    this.dialogRef.close({
+      type : "SEND",
+      process : true,
+      cc : this.cc,
+      bcc : this.bcc,
+      recipientName : this.recipientName,
+      recipientEmail : this.recipientEmail
+    });
   }
 
 }

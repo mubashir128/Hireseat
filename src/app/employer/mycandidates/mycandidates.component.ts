@@ -4,10 +4,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Resume, IResume } from '../../models/resume';
 import { ResumeService } from '../../_services/resume.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { isEmpty } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DialogDeleteComponent } from 'src/app/shared/shared-components/components/dialog-delete/dialog-delete.component';
+import { MatDialog } from '@angular/material/dialog';
+
 declare var Materialize: any;
 declare var jQuery: any;
+
 @Component({
   selector: 'app-mycandidates',
   templateUrl: './mycandidates.component.html',
@@ -40,8 +43,8 @@ export class MycandidatesComponent implements OnInit {
     private resumeService: ResumeService,
     private spinner: NgxSpinnerService,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
-
+    private formBuilder: FormBuilder,
+    protected _dialog: MatDialog
   ) {
     this.resumes = [];
     jQuery('.modal').modal();
@@ -85,12 +88,10 @@ export class MycandidatesComponent implements OnInit {
         this.spinner.hide();
       });
   }
-  getEmployerAddedResumes() {
-    console.log('getEmployerAddedResumes');
 
+  getEmployerAddedResumes() {
     this.spinner.show();
     this.resumeService.getEmployerAddedResumes().subscribe((data: IResume[]) => {
-      // console.log(data.resumes);
       const resumes = data['resumes'];
       if (resumes.length > 0) {
         resumes.forEach(ele => {
@@ -103,7 +104,6 @@ export class MycandidatesComponent implements OnInit {
       }
     }, err => {
       console.log(err);
-
     });
   }
 
@@ -122,14 +122,25 @@ export class MycandidatesComponent implements OnInit {
   }
 
   editResume(resume: Resume) {
-    // console.log(resume);
     this.selectedResume = resume;
     this.mode = 1;
   }
 
   confirmAction(resume: Resume) {
-    jQuery('#DeleteConfirm').modal('open');
     this.selectedResumeDelete = resume;
+    const dialogDeleteRef = this._dialog.open(DialogDeleteComponent,{
+      data: {
+        dialogType : "ConfirmDeleteAction",
+        dialogTitle : "Confirm Delete Action",
+        dialogText : "Are want to sure delete this resume ?"
+      }
+    });
+
+    dialogDeleteRef.afterClosed().subscribe(result => {
+      if(result && result.process){
+        this.confirmedDeleteResume();
+      }
+    });
   }
 
   confirmedDeleteResume() {
@@ -145,17 +156,13 @@ export class MycandidatesComponent implements OnInit {
           Materialize.toast('Something Went Wrong !', 1000);
         }
         this.confirmDel = false;
-        jQuery('#DeleteConfirm').modal('close');
       }, (error) => {
         this.spinner.hide();
-        console.log(error);
         Materialize.toast('Something Went Wrong!', 1000);
         this.confirmDel = false;
-        jQuery('#DeleteConfirm').modal('close');
       });
     } else {
       this.confirmDel = false;
-      jQuery('#DeleteConfirm').modal('close');
     }
   }
 
@@ -193,11 +200,11 @@ export class MycandidatesComponent implements OnInit {
     this.searchResume(this.selectedResumeIs.candidateName);
     this.toggleSearch = false;
   }
-  searchtext(event) {
-    // console.log(event.target.value);
 
+  searchtext(event) {
     this.searchResume(event.target.value);
   }
+  
   onfocus(e) {
     jQuery("#dropdown_jobProfile_resume").addClass("dropdown-toggle");
   }

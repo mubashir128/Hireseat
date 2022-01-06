@@ -1,0 +1,36 @@
+<div id="shareToUsers">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
+    <div>
+        <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'recruiter'">Select Recruiters</div>
+        <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'employer'">Select Employers</div>
+    </div>
+    <div class="searchDiv">
+        <input type="text" class="searchRecruiter" [(ngModel)]="searchTermByNameIs" placeholder="Search..." #searchInputTerm>
+        <i class="fa fa-search" aria-hidden="true"></i>
+    </div>
+
+    <div class="searchData">
+        <div *ngFor="let item of topRecruiters">
+        <div class="recruitrList" *ngIf = "loggedUser._id !== item._id">
+            <div *ngIf = "!item.showCreatedLogo">
+                <img [src]="item.profileimage" (error)="getImage(item)" class="uploadedImgUser" />
+            </div>
+            <div *ngIf = "item.showCreatedLogo" class="big-badge extrabig-badge">
+                {{ item.fullName | uppercase | slice: 0 : 1 }}
+              </div>
+            <h4>{{ item.fullName }}</h4>
+            <div class="actionDiv">
+                <label class="CheckBoxcontainer">
+                <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event,'search')" [checked]="item.isChecked">
+                <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="form-group textRight">
+        <button class="shareToUserClass" (click)="shareToUsers()">Share</button>
+    </div>
+</div>

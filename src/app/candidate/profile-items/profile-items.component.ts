@@ -18,13 +18,13 @@ import { Subscription } from "rxjs";
 import { UserService } from "src/app/_services/user.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ShareVideoService } from "src/app/_services/share-video.service";
-import { materialize } from "rxjs/operators";
-
-
+import { DiaplogOfferIntroEmailComponent } from "src/app/shared/shared-components/components/diaplog-offer-intro-email/diaplog-offer-intro-email.component";
+import { MatDialog } from "@angular/material/dialog";
 
 declare var jQuery;
-declare var $: any;
+
 declare var Materialize;
+
 @Component({
   selector: 'app-profile-items',
   templateUrl: './profile-items.component.html',
@@ -53,18 +53,16 @@ export class ProfileItemsComponent implements OnInit {
     private videoCallingService: VideoCallingService,
     private userService: UserService,
     private spinner: NgxSpinnerService,
-    private shareVideoService: ShareVideoService
+    private shareVideoService: ShareVideoService,
+    protected _dialog: MatDialog
   ) {
     this.loggedUser = this.userService.getUserData();
-    // console.log(this.loggedUser);
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
-      // console.log('subscribeed', res);
       this.shareResume = res;
     });
   }
 
   ngOnInit() {
-
     this.skillSet = this.resume.skills.split(",");
     jQuery(".card").mouseenter(function (e) {
       if (jQuery(this).find("> .card-reveal").length) {
@@ -251,27 +249,43 @@ export class ProfileItemsComponent implements OnInit {
 
   // modal
   emailConfirmPopup() {
-    // // console.log("emailConfirmPopup");
-
     jQuery("#emailConfirmPop").modal("open");
     setTimeout(() => {
       this.closeEmailConfirmpopup();
     }, 1500);
   }
-  closeEmailConfirmpopup() {
-    // // console.log("closing");
 
+  closeEmailConfirmpopup() {
     jQuery("#emailConfirmPop").modal("close");
   }
-
   // end modal
 
   // share process
   showShareModal(resume) {
-    // console.log(resume, "**********************");
-    jQuery("#shareEmailPopUp").modal("open");
+    let cc = "";
+    let bcc = "";
+    let recipientEmail = "";
     this.shareVideoService.setResume(resume);
+
+    const dialogOfferIntroEmailRef = this._dialog.open(DiaplogOfferIntroEmailComponent,{
+      data: {
+        dialogType : "OfferIntro",
+        dialogTitle : "Offer Intro",
+        recipientEmail : recipientEmail,
+        cc : cc,
+        bcc : bcc,
+        btns : ["SEND"],
+        loggedUser : this.loggedUser
+      }
+    });
+
+    dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
+      if(result){
+        this.share(result);
+      }
+    });
   }
+
   ArcivedVideoUrl(archiveId) {
     this.getArchivedVideoSubscription = this.videoCallingService
       .getArchivedVideo(archiveId)
@@ -287,25 +301,14 @@ export class ProfileItemsComponent implements OnInit {
             return false;
 
           }
-        },
-        (err) => {
-
+        }, (err) => {
           this.spinner.hide();
           return false;
-
         }
       );
   }
-  closeShareModal() {
-    jQuery("#shareEmailPopUp").modal("close");
-  }
-  sendVideo() {
-    // this.share(this.shareResume);
-    // jQuery("#shareEmailPopUp").modal("close");
-  }
-  async share(resume) {
-    // console.log('sharing the resume', this.recipientEmail, this.cc, this.bcc);
-    jQuery("#shareEmailPopUp").modal("close");
+
+  async share(result) {
     this.spinner.show();
     const subject =
       "Hireseat" +
@@ -316,10 +319,11 @@ export class ProfileItemsComponent implements OnInit {
       " - " +
       this.shareResume.candidateName +
       " Profile.";
-    // console.log(subject, '&&&&&&&&&&&&&&&&&&&************', this.shareResume);
+
     const archiveIdPayload = {
       archivedId: this.shareResume.interviewLinkedByRecruiter,
     };
+    
     // getting url
     this.getArchivedVideoSubscription = this.videoCallingService
       .getArchivedVideo(archiveIdPayload)
@@ -327,15 +331,13 @@ export class ProfileItemsComponent implements OnInit {
         (res) => {
           if (res) {
             this.shareableVideoURL = res.url;
-            // console.log(this.shareableVideoURL);
-            this.spinner.hide();
             if (this.shareableVideoURL) {
               const payload = {
                 recruiterId: this.loggedUser._id,
                 resumeId: this.shareResume._id,
-                recipientEmail: this.recipientEmail,
-                cc: this.cc,
-                bcc: this.bcc,
+                recipientEmail: result.recipientEmail,
+                cc: result.cc,
+                bcc: result.bcc,
                 videoUrl: this.shareableVideoURL,
                 fullName: this.shareResume.candidateName,
                 subject: subject,
@@ -343,43 +345,28 @@ export class ProfileItemsComponent implements OnInit {
               };
               this.shareVideoSubscription = this.shareVideoService
                 .shareVideoViaRecruiterEmail(payload)
-                .subscribe(
-                  (res) => {
+                .subscribe((res) => {
                     if (res) {
-                      // console.log(res);
                       Materialize.toast(res.msg, 3000);
-                      jQuery("#shareEmailPopUp").modal("close");
                       this.spinner.hide();
-
                     }
-                  },
-                  (err) => {
-                    // console.log(err);
+                  }, (err) => {
                     Materialize.toast("unable to send an email!", 4000);
-                    jQuery("#shareEmailPopUp").modal("close");
                     this.spinner.hide();
-
                   }
                 );
             } else {
-              // console.log('no sharable video available');
               Materialize.toast("no sharable video available", 4000);
               this.spinner.hide();
-
             }
           } else {
             this.spinner.hide();
           }
-        },
-        (err) => {
+        }, (err) => {
           this.spinner.hide();
           return false;
-
         }
       );
-    // got url
-
-
   }
   // END share process
 

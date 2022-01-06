@@ -138,9 +138,4 @@ export class DialogCreateGroupComponent extends AbstractDialogComponent implemen
       this.imgURL = reader.result;
     };
   }
-
-  getImage(obj){
-    obj.showCreatedLogo = true;
-  }
-  
 }

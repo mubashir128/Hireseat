@@ -71,8 +71,4 @@ export class DialogGroupMembersComponent extends AbstractDialogComponent impleme
       addGrpMembers : this.addGrpMembers
     });
   }
-
-  getImage(obj){
-    obj.showCreatedLogo = true;
-  }
 }

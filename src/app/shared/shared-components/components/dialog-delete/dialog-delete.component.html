@@ -1,0 +1,16 @@
+<div id="DeleteConfirm">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <div class="modal-content">
+        <span class="bluePopHead">{{dialogTitle}}</span>
+        <p class="bodyPara">{{dialogText}}</p>
+        <div class="modal-footer marT10">
+            <div class="textCenter">
+                <button (click)="confirmedDeleteResume(true)" class="waves-effect waves-light btn">
+                    Yes</button>&nbsp;&nbsp;
+                <button (click)="confirmedDeleteResume(false)" class="modal-close waves-effect waves-light btn noBtn">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

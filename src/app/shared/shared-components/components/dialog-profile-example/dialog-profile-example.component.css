@@ -1,0 +1,54 @@
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.modalBodyPop {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.modalBodyPop {
+  border-top: 1px solid #ddd;
+  padding: 0 30px;
+  margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .modalBodyPop img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .modalBodyPop img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .modalBodyPop img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .setCss {
+    width: 100% !important;
+    height: 500px !important;
+  }
+
+  .modal-content {
+    width: 100% !important;
+    height: 90% !important;
+  }
+
+  .modalBodyPop {
+    width: 100% !important;
+    height: 90% !important;
+  }
+}

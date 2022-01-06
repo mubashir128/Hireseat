@@ -26,16 +26,6 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
               </div>
             </div>
-
-            <!-- <div class="inputDivMainN">
-              <input
-                type="text"
-                [(ngModel)]="searchCTRTerm"
-                formControlName="searchCTRTerm"
-                autocomplete="off"
-                placeholder="Search Introductions to Companies/Teams/Roles..."
-              />
-            </div> -->
           </div>
         </form>
 
@@ -56,16 +46,6 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
               </div>
             </div>
-
-            <!-- <div class="inputDivMainN">
-              <input
-                type="text"
-                [(ngModel)]="searchTerm"
-                formControlName="searchTerm"
-                placeholder="Search here..."
-                #searchByName
-              />
-            </div> -->
           </div>
         </form>
       </div>
@@ -92,36 +72,14 @@
         let i = index
       "
     >
-      <!-- | shareProfileSearch: searchTerm -->
       <div class="pro">
         <div class="pro-3">
-          <ng-container
-            *ngIf="
-              !resume?.candidate_id?.profileimage &&
-              !resume?.candidateKey?.profileimage
-            "
-          >
-            <div class="candProfile">
-              <img src="assets/img/profile-user.png" alt="profile" />
-            </div>
-          </ng-container>
-          <ng-container
-            *ngIf="
-              resume?.candidate_id?.profileimage ||
-              resume?.candidateKey?.profileimage
-            "
-          >
-            <div class="candProfile">
-              <img
-                [src]="
-                  resume?.candidate_id?.profileimage ||
-                  resume?.candidateKey?.profileimage
-                "
-                alt="profile"
-              />
-            </div>
-          </ng-container>
-
+          <div class="candProfile" *ngIf = "!resume.showCreatedLogo">
+            <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
+          </div>
+          <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge">
+            {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+          </div>
         </div>
         <div class="pro-1">
           <div class="docSectionBtns lates-s">
@@ -241,38 +199,6 @@
     </div>
   </div>
 </ng-container>
-
-<div id="shareToUsers" class="modal">
-  <form [formGroup]="auctionFrm">
-    <i (click)="closeShareToUserModal()" class="fa fa-times" aria-hidden="true"></i>
-    <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'recruiter'">Select Recruiters</div>
-    <div class="title spaceBottom" *ngIf="loggedUser.userRole == 'employer'">Select Employers</div>
-    <div class="searchDiv">
-      <input type="text" class="searchRecruiter" formControlName="searchTermByNameIs" [(ngModel)]="searchTermByNameIs" placeholder="Search..." #searchInputTerm>
-      <i class="fa fa-search" aria-hidden="true"></i>
-    </div>
-
-    <div class="searchData">
-      <div *ngFor="let item of topRecruiters">
-        <div class="recruitrList" *ngIf = "loggedUser._id !== item._id">
-            <img [src]="item.profileimage !== '' ? item.profileimage : '../../../assets/img/user.png'" class="uploadedImgUser" />
-            <h4 style="margin-left: -40px;">{{ item.fullName }}</h4>
-            <div class="actionDiv">
-              <label class="CheckBoxcontainer">
-                <input type="checkbox" name="{{item._id}}" (change)="handleTopSelected($event,'search')" [checked]="item.isChecked">
-                <span class="checkmark"></span>
-              </label>
-            </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group textRight">
-      <button class="shareToUserClass" (click)="shareToUsers()">Share</button>
-    </div>
-
-  </form>
-</div>
 
 <div class="row eduPage animatePart" *ngIf = "!showResult">
   <ng-container *ngFor = "let industry of industriesAre">

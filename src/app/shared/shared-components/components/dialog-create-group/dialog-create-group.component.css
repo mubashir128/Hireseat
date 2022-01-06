@@ -1,10 +1,14 @@
 .setCss {
-  height: 500px;
+  height: 450px;
   overflow: auto;
 }
 
+.textRight {
+  margin: auto !important;
+}
+
 .grpModal {
-  padding: 25px;
+  padding: 10px;
 }
 
 .grpModal input{
@@ -249,9 +253,9 @@
   background-color: #039be5;
   color: #fff;
   border: 1px solid #039be5;
-  padding: 10px 20px;
+  padding: 5px 15px;
   border-radius: 3px;
-  margin: 10px;
+  margin-bottom: 10px;
   float: right;
 }
 
