@@ -42,6 +42,8 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   comment3 = "";
   candidateNameIs = "";
 
+  
+
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
