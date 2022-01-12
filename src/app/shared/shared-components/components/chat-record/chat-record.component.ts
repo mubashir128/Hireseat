@@ -352,7 +352,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
       data: {
         dialogType : "imagePreview",
         dialogTitle : "Image Preview...",
-        imgUrl : showValue,
+        imgUrl : showValue.profileimage,
         fullName : showValue.fullName
       }
     });
