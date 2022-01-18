@@ -5,6 +5,7 @@ import { Tab2 } from 'src/app/recruiter/models/tab2';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SuperAdminService } from 'src/app/_services/super-admin.service';
 import { UserService } from 'src/app/_services/user.service';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-menus',
@@ -20,6 +21,9 @@ export class MenusComponent implements OnInit {
   isAdmin: boolean = false;
   isSuperAdmin: boolean = false;
   isEnterprise: boolean = false;
+
+  appInfo;
+  currVersion = '1.0.0';
 
   constructor(private userService: UserService, private authService:AuthenticationService, public supperAdmin: SuperAdminService, private router: Router) {
     this.tabs2 = [];
@@ -47,7 +51,9 @@ export class MenusComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  async ngOnInit(){
+    this.appInfo = await App.getInfo();
+    this.currVersion = this.appInfo ? this.appInfo.version : this.currVersion;
   }
 
   employerMenuTabs(){
@@ -61,6 +67,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/employer/video-interview-room", "Video Interview Room", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/employer/mycandidates", "My Candidiate", false, "fas fa-plus"));
     this.tabs2.push(new Tab2("/employer/profile", "Profile", false, "fas fa-plus"));
+
+    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
 
     if(!this.supperAdmin.checkSuperAdminEmail()){
       this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
@@ -87,6 +95,8 @@ export class MenusComponent implements OnInit {
     // this.tabs2.push(new Tab2("/recruiter/calendar", "Calendar", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/recruiter/profile", "Profile", false, "fas fa-plus"));
 
+    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
+
     if(!this.supperAdmin.checkSuperAdminEmail()){
       this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
     }
@@ -111,7 +121,6 @@ export class MenusComponent implements OnInit {
 
     if(!this.supperAdmin.checkSuperAdminEmail()){
       // this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
-      this.tabs2.push(new Tab2("/home", "Version 11:11:1111", false, "fas fa-plus"));
     }
     
     // this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
@@ -119,6 +128,8 @@ export class MenusComponent implements OnInit {
     // this.tabs2.push(new Tab2("/candidate/interview-room", "Interview Room", false, "fas fa-question"));
 
     this.tabs2.push(new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-search"));
+
+    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
   }
 
   superAdminMenuTab(){
@@ -128,6 +139,8 @@ export class MenusComponent implements OnInit {
 
     this.tabs2.push(new Tab2("/super-admin/user-list", "Super Admin Dashboard", false, "fas fa-plus"));
     this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
+
+    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
   }
 
   adminMenuTab(){

@@ -83,38 +83,13 @@
   font-weight: bold;
   font-size: 14px;
 }
-.answerHead {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 20px 0 0;
-}
-.questionDivText .answerHead p {
-  color: #aaa;
-  font-size: 14px;
-  margin: 0;
-}
-.profileImg {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #ddd;
-  margin-right: 20px;
-}
-.answerHead h4 {
-  margin: 0;
-  font-size: 15px;
-  font-weight: bold;
-  color: #666;
-}
+
 .questionDivText p {
   color: #000;
   font-size: 15px;
   margin: 10px 0 10px;
 }
-.forumAnswersBlock .questionDivText {
-  padding: 15px 15px;
-}
+
 .questionDivTextReply {
   display: none;
   margin: 20px 0;
@@ -318,3 +293,70 @@ button.serchBtn .fa {
 }
 
 /* i-pad css  responsive start */
+
+.questionDivTextAnswer {
+  display: none;
+}
+
+.answerDiv {
+  margin: 5px;
+  margin-left: 20px;
+}
+
+.pro-3 {
+  width: 15%;
+  float: left;
+}
+
+.pro .candProfile {
+  width: 20px;
+  height: 20px;
+  background-color: #e7e7e7;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 5px;
+  float: left;
+}
+
+.pro .candProfile img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.extrabig-badge-answer {
+  margin-left: 0px !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 5px !important;
+}
+
+.addScrollForAnswerDiv {
+  max-height: 250px;
+  overflow: auto;
+  position: relative;
+  border-radius: 5px;
+}
+
+.loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  display: none;
+  -webkit-animation: spin .5s linear infinite; /* Safari */
+  animation: spin .5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
