@@ -23,9 +23,7 @@ export class ViewForumComponent implements OnInit, OnDestroy {
   public searchText : string;
 
   p=1;
-  p2=1;
-  createdAt;
-  createdAtAnswer;
+  createdAt
   itemsAre = [1];
   itemsAnswerAre = [1];
   itemsPerPage=10;
@@ -56,6 +54,9 @@ export class ViewForumComponent implements OnInit, OnDestroy {
 
   questionObserver = new Subject();
   questionObserver$ = this.questionObserver.asObservable();
+
+  answerData = [];
+  answerQueData = [];
 
   constructor(private _forum:ForumService,private formBuilder: FormBuilder,private userService:UserService,
     private router:Router,
@@ -148,7 +149,7 @@ export class ViewForumComponent implements OnInit, OnDestroy {
 
   getLimitedQuestions(obj){
     this._forum.getLimitedQuestions(obj).subscribe(res=>{
-      this.paginatorMove=true;
+      this.paginatorMove=true
       this.loadDataFromStorage();
         if(res.length !== 0){
           this.questData=[...this.questData, ...res];
@@ -164,7 +165,6 @@ export class ViewForumComponent implements OnInit, OnDestroy {
     this._forum.getAnswerData(obj).subscribe(res=>{
         if(res.length!==0){
           this.getAnswerData=[...this.getAnswerData, ...res];
-          this.createdAtAnswer=res[res.length-1].createdAt;
         }
       },err=>{
         console.log(err);
@@ -188,13 +188,15 @@ export class ViewForumComponent implements OnInit, OnDestroy {
   closeanswerPopup(){
     jQuery('#answermsdPop').modal('close');
   }
+
   showAnsDiv(id){
-    let answerDiv=jQuery(".questionDivTextReply#"+id);
-    if(answerDiv.css("display") === 'none'){
+    let answerDiv = jQuery("#questionDivTextReplyId_"+id);
+    if(answerDiv.css("display") == "block"){
+      answerDiv.css("display","none");
+    }else{
+      jQuery(".questionDivTextReply").css("display","none");
       answerDiv.css("display","block");
-      return;
     }
-    answerDiv.css("display","none");
   }
 
   textChanges(data){
@@ -253,6 +255,13 @@ var dateTime = date1+' '+time1;
     let answerD={ans:ans.answerPost,quesUserId:id,answerBy:this.curerntUserId,answerByName:this.curerntUserName,answercount:answercount}
     
     this._forum.addAnserData(answerD).subscribe(res=>{
+        if(res.data){
+          console.log(res.data);
+          this.getAnswerData = [res.data, ...this.getAnswerData];
+          if(jQuery("#answerQue_"+res.data.questionByUserId._id).css("display") == "block"){
+            this.answerQueData = [res.data, ...this.answerQueData];
+          }
+        }
         this.msgForPopup=res.message;
         this.answerPopup();
         jQuery("#"+id).css("display","none");
@@ -290,17 +299,51 @@ var dateTime = date1+' '+time1;
      });
    }
 
-  handleAnswerPaginator($event){
-    this.p2 = $event;
-    if(this.itemsAnswerAre.includes($event)){
+  getAnswers(obj){
+    this.answerData =  [];
+    
+    if(jQuery("#answer_"+obj._id).css("display") == "block"){
+      jQuery("#answer_"+obj._id).css("display","none");
       return ;
     }
-    this.itemsAnswerAre.push($event);
-    let answerObj={
-      limit : this.itemsPerAnswerPage,
-      createdAt : this.createdAtAnswer
-    };
-    this.getQuestionsAndAnswers(answerObj);
+    jQuery(".questionDivTextAnswer").css("display","none");
+
+    this.getAnswerData.forEach(answer => {
+      if(answer.questionByUserId._id == obj._id){
+        this.answerData.push(answer);
+      }
+    });
+    jQuery("#loader_"+obj._id).css("display","block");
+    setTimeout(()=>{
+      jQuery("#answer_"+obj._id).css("display","block");
+      jQuery("#loader_"+obj._id).css("display","none");
+    }, 500);
+  }
+
+  getAnswersQue(obj){
+    this.answerQueData =  [];
+    console.log("obj._id : ",obj._id);
+    if(jQuery("#answerQue_"+obj._id).css("display") == "block"){
+      jQuery("#answerQue_"+obj._id).css("display","none");
+      return ;
+    }
+    jQuery(".questionDivTextAnswer").css("display","none");
+
+    this.getAnswerData.forEach(answerAre => {
+      if(answerAre.questionByUserId._id == obj._id && answerAre.answerByUserId?._id === this.loggedInUser._id){
+        this.answerQueData = [...this.answerQueData, answerAre];
+      }
+    });
+    
+    jQuery("#loaderQue_"+obj._id).css("display","block");
+    setTimeout(()=>{
+      jQuery("#answerQue_"+obj._id).css("display","block");
+      jQuery("#loaderQue_"+obj._id).css("display","none");
+    }, 500);
+  }
+
+  getImage(obj){
+    obj.showCreatedLogo = true;
   }
 
   ngOnDestroy() {

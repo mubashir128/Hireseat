@@ -23,9 +23,10 @@
         </div>
         <div class="forumPageInner">
           <!--only Question start-->
-          <div *ngIf="askusersData">
+          <div *ngIf="!isLoggedIn">
             <div *ngFor="let data of questData | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
-              <div *ngIf="data.questionById == askusersData._id && !isLoggedIn"
+              <!-- <div *ngIf="data.questionById == askusersData._id && !isLoggedIn" -->
+              <div
                 class="forumQustionBlock forumQustionCommonBlock">
                 <form [formGroup]="postAnsw">
                   <div class="headDiv">
@@ -34,10 +35,32 @@
                   <div class="questionDivText">
                     <h4>{{ data.question }}</h4>
                   </div>
+
+                  <div>
+                    <span (click) = "getAnswers(data)" style="cursor: pointer; color: #33AAFF; margin-left: 5px;">Answers : Click here to see...</span>
+                    <div class="loader" [id] = "'loader_' + data._id"></div>
+                    <div class="addScrollForAnswerDiv questionDivTextAnswer" [id] = "'answer_' + data._id">
+                      <div class="answerDiv" *ngFor = "let answerIs of answerData">
+                        <div class="pro">
+                          <div class="candProfile" *ngIf = "!answerIs.showCreatedLogo">
+                            <img [src]="answerIs.answerByUserId?.profileimage" (error)="getImage(answerIs)" class="uploadedImgUser">
+                          </div>
+                          <div *ngIf = "answerIs.showCreatedLogo" class="big-badge extrabig-badge-answer">
+                            {{ answerIs.answerByUserId?.fullName | uppercase | slice: 0 : 1 }}
+                          </div>
+                          {{answerIs.answerByUserId?.fullName}}
+                        </div>
+                        <div style="margin-left: 20px;">
+                          - {{ answerIs.answer }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </form>
               </div>
             </div>
-            <div *ngIf="!isLoggedIn">
+            <div>
               <pagination-controls (pageChange)="handlePaginator($event)"></pagination-controls>
             </div>
           </div>
@@ -60,7 +83,7 @@
                     <h4>{{data.question}}</h4>
                     <button class="answer" (click)="showAnsDiv(data._id)"><i class="fa fa-reply"
                         aria-hidden="true"></i> Answer</button>
-                    <div class="questionDivTextReply" [id]="data._id">
+                    <div class="questionDivTextReply" [id]="'questionDivTextReplyId_'+data._id">
                       <textarea placeholder="Write Your Answer here.." formControlName="answerPost"
                         id="answerspost" (keyup)="handleAnswerPost($event)"></textarea>
                       <div *ngIf="postAnswer.hasError('','answerPost') && postAnswer.get('answerPost').touched">
@@ -69,44 +92,33 @@
                         (click)="postAns(postAnswer.value,data._id,data.answersCount)"> post </button>
                     </div>
 
+                    <div style="margin-top: 10px;">
+                      <span (click) = "getAnswersQue(data)" style="cursor: pointer; color: #33AAFF; margin-left: 5px;">Answers By you : Click here to see...</span>
+                      <div class="loader" [id] = "'loaderQue_' + data._id"></div>
+                      <div class="addScrollForAnswerDiv questionDivTextAnswer" [id] = "'answerQue_' + data._id">
+                        <div class="answerDiv" *ngFor = "let answerIsIs of answerQueData">
+                          <div class="pro">
+                            <div class="candProfile" *ngIf = "!answerIsIs.showCreatedLogo">
+                              <img [src]="answerIsIs.answerByUserId?.profileimage" (error)="getImage(answerIsIs)" class="uploadedImgUser">
+                            </div>
+                            <div *ngIf = "answerIsIs.showCreatedLogo" class="big-badge extrabig-badge-answer">
+                              {{ answerIsIs.answerByUserId?.fullName | uppercase | slice: 0 : 1 }}
+                            </div>
+                            {{answerIsIs.answerByUserId?.fullName}}
+                          </div>
+                          <div style="margin-left: 20px;">
+                            - {{ answerIsIs.answer }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </form>
               </li>
             </ul>
             <pagination-controls id="paginator1" (pageChange)="handlePaginator($event)"></pagination-controls>
           </div>
-
-          <div class="forumAnswersBlock forumQustionCommonBlock" *ngFor="
-              let data of getAnswerData | searchFilter: { answer: searchText } | paginate: {id : 'paginator2', itemsPerPage: itemsPerAnswerPage, currentPage: p2 } ">
-            <div class="questionDivText">
-              <h4>
-                <a [routerLink]="[
-                    '/question-details/',
-                    data.questionByUserId._id
-                  ]">{{ data.questionByUserId.question }}</a>
-              </h4>
-              <div>
-                <span>{{ data.questionByUserId.answersCount }} Answers</span>
-              </div>
-              <div class="answerHead">
-                <img *ngIf="data.answerByUserId.profileimage; else recriuterImg"
-                  src="{{ data.answerByUserId.profileimage }}" class="profileImg" />
-                <ng-template #recriuterImg>
-                  <img src="assets/img/user.png" class="profileImg" />
-                </ng-template>
-                <div class="queHeadtext">
-                  <!-- <h4 *ngIf="!data.answerByName;else ansPerName">Anonymous user</h4> -->
-
-                  <h4>{{ data.answerByUserId.fullName }}</h4>
-                  <p>Answered {{ callback(data.createdAt) }} ago</p>
-                  <!--</ng-template> -->
-                </div>
-              </div>
-              <p>{{ data.answer }}</p>
-              <!-- <button (click)="show = !show">{{ show ? 'Show less': 'Show More' }}</button> -->
-            </div>
-          </div>
-          <pagination-controls id="paginator2" (pageChange)="handleAnswerPaginator($event)"></pagination-controls>
         </div>
       </div>
       <div class="stickyDiv">
