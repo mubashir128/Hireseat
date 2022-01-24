@@ -221,42 +221,46 @@ export class ViewForumComponent implements OnInit, OnDestroy {
       console.log(err);
     });
   }
+
   callback(time){
-    // console.log(time)
     var str = time; 
-  var res = str.slice(0,19);
-  var ress=res.replace('T',' ');
+    var res = str.slice(0,19);
+    var ress=res.replace('T',' ');
 
-  var today = new Date();
-var date1 = today.getUTCFullYear()+'-'+(today.getUTCMonth()+1)+'-'+today.getUTCDate();
-var time1= today.getUTCHours() + ":" + today.getUTCMinutes() + ":" + today.getUTCSeconds();
-var dateTime = date1+' '+time1;
+    var today = new Date();
+    var date1 = today.getUTCFullYear()+'-'+(today.getUTCMonth()+1)+'-'+today.getUTCDate();
+    var time1= today.getUTCHours() + ":" + today.getUTCMinutes() + ":" + today.getUTCSeconds();
+    var dateTime = date1+' '+time1;
 
-  let endDate:any = new Date(ress);
-  let purchaseDate:any = new Date(dateTime);
-  let diffMs = (purchaseDate - endDate); // milliseconds
-  let diffDays = Math.floor(diffMs / 86400000); // days
-  let diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
-  let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
-  if(diffDays > 0 && diffHrs < 24 && diffMins < 60   ){ //10 160 24
-    return diffDays + " days";
-  }else if(diffDays < 1 && diffHrs > 0   ){
-    return diffHrs + " hours ";
-  }else if(diffDays < 1 && diffHrs < 24 && diffMins < 60 ){
-    return diffMins + " minutes "
-  }
-  // return diffDays + " days, " + diffHrs + " hours, " + diffMins + " minutes";
-     
+    let endDate:any = new Date(ress);
+    let purchaseDate:any = new Date(dateTime);
+    let diffMs = (purchaseDate - endDate); // milliseconds
+    let diffDays = Math.floor(diffMs / 86400000); // days
+    let diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+    let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+    if(diffDays > 0 && diffHrs < 24 && diffMins < 60   ){ //10 160 24
+      return diffDays + " days";
+    }else if(diffDays < 1 && diffHrs > 0   ){
+      return diffHrs + " hours ";
+    }else if(diffDays < 1 && diffHrs < 24 && diffMins < 60 ){
+      return diffMins + " minutes "
+    }
+    // return diffDays + " days, " + diffHrs + " hours, " + diffMins + " minutes";
   }
   
   //add answer to question by 
   postAns(ans,id,answercount){
     
-    let answerD={ans:ans.answerPost,quesUserId:id,answerBy:this.curerntUserId,answerByName:this.curerntUserName,answercount:answercount}
+    let answerD={
+      ans:ans.answerPost,
+      quesUserId:id,
+      answerBy:this.curerntUserId,
+      answerByName:this.curerntUserName,
+      answercount:answercount
+    }
     
     this._forum.addAnserData(answerD).subscribe(res=>{
         if(res.data){
-          console.log(res.data);
           this.getAnswerData = [res.data, ...this.getAnswerData];
           if(jQuery("#answerQue_"+res.data.questionByUserId._id).css("display") == "block"){
             this.answerQueData = [res.data, ...this.answerQueData];
@@ -268,10 +272,9 @@ var dateTime = date1+' '+time1;
         setTimeout(()=>{
           this.closeanswerPopup();
         },2000);
-      },err=>{
+      }, err => {
         console.log(err);
-      }
-    );
+      });
    }
 
    handleAnswerPost($event){
@@ -320,9 +323,20 @@ var dateTime = date1+' '+time1;
     }, 500);
   }
 
+  getSingleAnswer(obj){
+    let temp = true;
+    let ans = "";
+    this.getAnswerData.forEach(answer => {
+      if(answer.questionByUserId._id == obj._id && temp){
+        temp = false;
+        ans = answer.answer;
+      }
+    });
+    return ans !=="" ? ans : "Yet not answerd...";
+  }
+
   getAnswersQue(obj){
     this.answerQueData =  [];
-    console.log("obj._id : ",obj._id);
     if(jQuery("#answerQue_"+obj._id).css("display") == "block"){
       jQuery("#answerQue_"+obj._id).css("display","none");
       return ;

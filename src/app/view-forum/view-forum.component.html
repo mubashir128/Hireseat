@@ -37,7 +37,15 @@
                   </div>
 
                   <div>
-                    <span (click) = "getAnswers(data)" style="cursor: pointer; color: #33AAFF; margin-left: 5px;">Answers : Click here to see...</span>
+
+                    <div>
+                      <span style="cursor: pointer; color: #33AAFF; margin-left: 5px;">Answer : </span>
+                      <div class="answerDiv">
+                        - {{getSingleAnswer(data)}}
+                      </div>
+                    </div>
+
+                    <span (click) = "getAnswers(data)" style="cursor: pointer; color: #33AAFF; margin-left: 5px;">Click here to see more answers...</span>
                     <div class="loader" [id] = "'loader_' + data._id"></div>
                     <div class="addScrollForAnswerDiv questionDivTextAnswer" [id] = "'answer_' + data._id">
                       <div class="answerDiv" *ngFor = "let answerIs of answerData">
@@ -92,8 +100,17 @@
                         (click)="postAns(postAnswer.value,data._id,data.answersCount)"> post </button>
                     </div>
 
-                    <div style="margin-top: 10px;">
-                      <span (click) = "getAnswersQue(data)" style="cursor: pointer; color: #33AAFF; margin-left: 5px;">Answers By you : Click here to see...</span>
+                    
+                    <div>
+
+                      <div>
+                        <span style="cursor: pointer; color: #33AAFF; margin-left: 5px;">Answer : </span>
+                        <div class="answerDiv">
+                          - {{getSingleAnswer(data)}}
+                        </div>
+                      </div>
+
+                      <span (click) = "getAnswersQue(data)" style="cursor: pointer; color: #33AAFF; margin-left: 5px;">Click here to see more answers...</span>
                       <div class="loader" [id] = "'loaderQue_' + data._id"></div>
                       <div class="addScrollForAnswerDiv questionDivTextAnswer" [id] = "'answerQue_' + data._id">
                         <div class="answerDiv" *ngFor = "let answerIsIs of answerQueData">
