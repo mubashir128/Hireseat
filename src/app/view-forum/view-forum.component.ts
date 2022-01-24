@@ -323,11 +323,14 @@ export class ViewForumComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  getSingleAnswer(obj){
+  getSingleAnswer(obj, condition){
     let temp = true;
     let ans = "";
     this.getAnswerData.forEach(answer => {
-      if(answer.questionByUserId._id == obj._id && temp){
+      if(condition && answer.questionByUserId._id == obj._id && answer.answerByUserId?._id === this.loggedInUser._id  && temp){
+        temp = false;
+        ans = answer.answer;
+      }else if(!condition && answer.questionByUserId._id == obj._id && temp){
         temp = false;
         ans = answer.answer;
       }
