@@ -141,7 +141,7 @@ export class SAUserListComponent implements OnInit {
           } else if (response.userInfo.userRole == "enterprise") {
             this.router.navigate(["enterprise/user-list"]);
           } else if (response.userInfo.userRole == "candidate") {
-            this.router.navigate(["candidate/my-posted-profiles"]);
+            this.router.navigate(["candidate/timeline"]);
           }
         } else {
           Materialize.toast("Enter valid details", 1000, "rounded");
