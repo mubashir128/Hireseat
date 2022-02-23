@@ -488,7 +488,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
                 videoUrl: this.shareableVideoURL,
                 fullName: candidateName,
                 subject: subject,
-                comment: result.comments,
+                comment: result.comment1,
                 comment2: result.comment2,
                 comment3: result.comment3,
                 candidateProfile: this.shareResume.resumeType ? false : true,
