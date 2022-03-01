@@ -176,7 +176,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     //for mobile view
     
     this.tabs2.push(
-      new Tab2("/candidate/timeline", "Timelines", false, "fas fa-history")
+      new Tab2("/candidate/timeline", "Timelines", false, "fas fa-home")
     );
 
     this.tabs2.push(
