@@ -149,6 +149,10 @@
     height: 52px;
   }
 
+  .candProfile22 {
+    width: 15px;
+    height: 15px;
+  }
   .candidate-name {
     width: 100%;
   }
@@ -316,4 +320,21 @@ button.chatBtn{
 
 input {
   margin-bottom: 0px !important;
+}
+
+.labelStyle{
+  color: darkblue;
+  font-size: 15px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.sideCss {
+  margin-left: 10px;
+}
+
+.candProfile22 {
+  float: left;
+  margin-top : 3px;
+  width: 15px !important;
+  height: 15px !important;
 }

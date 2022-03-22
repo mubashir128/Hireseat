@@ -81,7 +81,8 @@
                   <img src="{{ notify.icon }}" (error)="changeLogo(notify)" class="iconStyle" style="max-width: 100%" />
                 </div>
                 <div *ngIf = "notify.showCreatedLogo" class="big-badge">
-                  {{ (notify.senderName ? notify.senderName : notify.notification.message) | uppercase | slice: 0 : 1 }}
+                  <!-- {{ (notify.senderName ? notify.senderName : notify.notification.message) | uppercase | slice: 0 : 1 }} -->
+                  {{ "A" | uppercase | slice: 0 : 1 }}
                 </div>
               </div>
               <div class="col s10 l10 m10" style="margin-left: -20px;">
