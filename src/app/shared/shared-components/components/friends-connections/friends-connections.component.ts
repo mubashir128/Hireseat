@@ -32,6 +32,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
   requestedFriendAre =  [];
   friendsConnections = [];
+  companiesUsresAre = [];
 
   showRequest = true;
   showFriends = false;
@@ -151,6 +152,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     data.forEach((friend, index) => {
       if(friend.status === this._constants.asAFriend){
         this.friendsConnections = [friend, ...this.friendsConnections];
+        this.getUserWithRespectCompanies(friend);
         this.clients.push(friend.recipient?._id !== this.loggedUser._id ? friend.recipient : friend.requester);
       }else if(friend.recipient._id == this.loggedUser._id && friend.status === this._constants.asARequested){
         this.requestedFriendAre = [friend, ...this.requestedFriendAre];
@@ -158,17 +160,63 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     });
   }
 
-  acceptClick(id){
+  getUserWithRespectCompanies(friend){
+    let obj; // for resume data
+    let obj2; //for user data
+    if(friend.recipient._id == this.loggedUser._id){
+      obj = friend.resumeId;
+      obj2 = friend.requester;
+    }else if(friend.requester._id == this.loggedUser._id){
+      obj = friend.resumeId2;
+      obj2 = friend.recipient;
+    }
+
+    obj.introduceYouToo?.split(",").forEach((company)=>{
+      let str = company.toUpperCase().trim();
+      let temp = this.companiesUsresAre.filter((com)=>{
+        if(com.companyName === str){
+          return true;
+        }
+      });
+
+      //if temp lenght 0 then company not exists in array so insert into companiesUsresAre array
+      if(temp.length == 0 && str !== ""){
+        this.companiesUsresAre.push({companyName : str, users : [{user : obj2, resume : obj}]});
+      }else{
+        this.companiesUsresAre.forEach((item)=>{
+          if(item.companyName == str){
+            item.users.push({user : obj2, resume : obj});
+          }
+        });
+      }
+    });
+  }
+
+  gotoUser(userId){
+    this.switchPage(1);
+    setTimeout(()=>{
+      var scrollPos =  jQuery("#mention_"+userId).offset().top - 25;
+      jQuery(window).scrollTop(scrollPos);
+      jQuery("#mention_"+userId).parent().css("border","1px solid red");
+    }, 500);
+  }
+
+  acceptClick(userObj){
     let payload = {
-      id : id
+      id : userObj._id
     };
 
     this._candidateService.acceptFriendRequest(payload).subscribe((res) => {
       this.removeRequestFromFriendRequest(res.data);
       this.addFriendToFriendConnection(res.data);
+      this.getUserWithRespectCompanies(userObj);
     }, (err) => {
       console.log(err);
     });
+  }
+
+  changeLogo(notify){
+    notify.showCreatedLogo = true;
   }
 
   removeRequestFromFriendRequest(res){

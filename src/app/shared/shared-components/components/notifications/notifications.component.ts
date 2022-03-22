@@ -81,6 +81,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   getText(text, name){
+    name = (name == undefined) ? "Anonymous user" : name;
     let charlimit = 60;
     if (!text || text.length <= charlimit) {
       return name + " : " + text;

@@ -1,9 +1,10 @@
 
-<ng-container *ngIf = "showResult">
-  <div (click) = "goBack()" style="font-size: 15px; color: #33aaff;">
+<!-- <ng-container *ngIf = "showResult"> -->
+<ng-container>
+  <!-- <div (click) = "goBack()" style="font-size: 15px; color: #33aaff;">
     <i class="fas fa-long-arrow-alt-left"></i>
     <span style="margin-left: 5px;">Back</span>
-  </div>
+  </div> -->
   <div class="row animatePart" style="margin-top: 10px; margin-bottom: 5px; padding: 0 0px !important;">
     <app-filter-data (handleToggleSign)="handleToggleSign($event)" [item]="searchText"></app-filter-data>
   </div>
@@ -62,7 +63,109 @@
   <app-list-loader-search></app-list-loader-search>
 </div>
 
-<ng-container *ngIf="resumes && showResult">
+
+<ng-container *ngIf="resumes">
+  <div class="ListResume">
+    <div class="" *ngFor="let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | sortByIndustires : searchIndustry | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index">
+      <div class="areaDiv">
+        <div class="container-fluid mar">
+          <div class="container">
+            <div class="row marginAuto" style="padding: 0px !important;">
+              <div class="candProfileNew" *ngIf = "!resume.showCreatedLogo" style="float: left;">
+                <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
+              </div>
+              <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge extrabig-badge22">
+                {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+              </div>
+
+              <!-- <div class="col-xs-3 col-md-3" style="float: left; width: auto;">
+                <img src="assets/img/user.png" class="img-responsive">
+              </div> -->
+              <div class="col-xs-9 col-md-9 first">
+                <span [ngClass]="(resume?.candidateKey?.online || resume?.candidate_id?.online) ? 'dotOnline' : 'dotOffline'"></span>
+                <span style="margin-left: 5px;">{{ resume?.candidateName || resume?.candidate_id?.fullName }}</span>
+                <!-- <span>First & Last Name</span> -->
+              </div>
+            </div>
+            <div class="row marginAuto marOther">
+              <div *ngIf = "resume?.introduceCount || resume?.candidateProfileKey?.introduceCount">
+                <label># of Introductions : </label>
+                  <label style="font-size: 14px; color: #cc530c;">
+                    {{ resume?.introduceCount || resume?.candidateProfileKey?.introduceCount }}
+                  </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+          <div class="container bor">
+            <div class="row other-details marginAuto">
+              <p *ngIf = "resume?.jobTitle"><label>Job Title :</label> {{ resume?.jobTitle }}</p>
+              <p *ngIf = "resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles">
+                <label>Desired Roles :</label>
+                  {{ resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles }}
+              </p>
+              <p *ngIf = "resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <label>I can Intro you to Companies/Teams at :</label>
+                  <label style="font-size: 14px; color: #cc530c;">
+                    {{ resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo }}
+                  </label>
+              </p>
+              <p *ngIf = "resume?.location"><label>Location :</label> {{ resume?.location }}</p>
+              <p *ngIf = "resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies">
+                <i class="fas fa-binoculars" aria-hidden="true"></i>
+                <label joyrideStep="secondStep" title="The Network" text="See which companies members want intros to." stepPosition = "bottom">Desired Companies :</label>
+                  <label style="font-size: 14px; color: #54A4F0;">
+                    {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
+                  </label>
+              </p>
+            </div>
+
+            <!-- <div class="row list">
+              <div class="col-sm-2">
+                <a href="#"><img src="assets/img/user.png" class="img-responsive"></a>
+              </div>
+              <div class="col-sm-2">
+                <a href="#"><img src="assets/img/user.png" class="img-responsive"></a>
+              </div>
+              <div class="col-sm-2">
+                <a href="#"> <img src="assets/img/user.png" class="img-responsive"></a>
+              </div>
+            </div> -->
+
+          </div>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <div class="container-fluid"  *ngIf = "!resume.addedAsAFriend">
+            <div class="container">
+              <div class="row cont">
+                <button (click)="connectWithOffers(resume)">connect</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid" style="margin-top: 10px;" *ngIf = "resume.addedAsAFriend">
+            <div class="container">
+              <div class="row cont">
+                <button (click)="showShareModal2(resume)">Offer Intro</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="loggedUser.userRole == 'candidate' && resumes.length !== 0">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</ng-container>
+
+<!-- <ng-container *ngIf="resumes && showResult"> -->
+<!-- <ng-container *ngIf="resumes">
   <div class="ListResume">
     <div
       class="singleList employerResume resumeSingleList animatePart"
@@ -195,9 +298,9 @@
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
-</ng-container>
+</ng-container> -->
 
-<div class="row eduPage animatePart" *ngIf = "!showResult">
+<!-- <div class="row eduPage animatePart" *ngIf = "!showResult">
   <ng-container *ngFor = "let industry of industriesAre">
     <div class="eductionn-tab" (click) = "industryClick(industry.name)">
         <div class="eduction-blue">
@@ -205,6 +308,6 @@
         </div>
     </div>
   </ng-container>
-</div>
+</div> -->
 
 <app-no-data-available *ngIf = "resumes.length == 0"></app-no-data-available>

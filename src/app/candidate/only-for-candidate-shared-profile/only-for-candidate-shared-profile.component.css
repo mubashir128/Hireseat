@@ -903,7 +903,7 @@ a.videoCloseBtn {
 }
 
 .hideAndSHoTab {
-  display: block;
+  display: none;
   margin-top: -10px;
 }
 
@@ -979,4 +979,67 @@ input {
 
 .eduPage {
   margin-bottom: 100px;
+}
+
+.mar { margin-top: 5%;}
+.work { text-align: center; font-size: 18px;}
+.work H4 { margin-top: 10%;}
+.list  li { float: left; text-decoration: none; list-style: none; }
+.bor { border:solid 1px #03aaff; margin-top: 5%; margin-bottom: 5%;}
+.list { text-align: center; margin: 0 auto; padding: 10px; margin-top: 30px; margin-bottom: 30px;}
+.img-1 { text-align: center; margin: 0 auto;}
+.cont button { border: solid 1px #4472c4;padding: 10px; border-radius: 5px; background: transparent; text-transform: uppercase; font-size: 15px;font-weight: 500; color: #4472c4; width: 40%;}
+.img-1 { padding: 20px;}
+.list img { text-align: center; margin: 0 auto;}
+.cont {  text-align: center; margin: 0 auto;}
+@media(max-width:360px) {
+  .cont button { width: 80%;}
+}
+
+.first{
+  float: left;
+  margin-top: 10px;
+}
+
+.first{
+  font-size: 20px;
+  margin-left: 25px;
+}
+
+.areaDiv{
+  /* border: 1px solid #33aaff; */
+  border-radius: 50px;
+  margin-bottom: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%) !important;
+  border: 1px solid #ddd;
+}
+
+.candProfileNew {
+  width: 65px;
+  height: 65px;
+  background-color: #e7e7e7;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.candProfileNew img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.marginAuto{
+  margin: auto;
+}
+
+.extrabig-badge22 {
+  width: 65px !important;
+  height: 65px !important;
+}
+
+.marOther{
+  margin-left: 55px;
+  margin-top: -15px;
 }

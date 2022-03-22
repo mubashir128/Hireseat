@@ -529,7 +529,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   // request recruiter process end
 
   handleToggleSign(obj) {
-    if (obj.searchTab || true) {
+    if (obj.searchTab) {
       jQuery(".hideAndSHoTab").css("display", "block");
     } else {
       jQuery(".hideAndSHoTab").css("display", "none");
