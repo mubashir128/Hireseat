@@ -558,8 +558,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
             break;
           case "offerIntro" : 
             if(result.process){
-              this.offerEmailIntro();
-              
+              this.offerEmailIntro(); 
             }
             break;
         }
