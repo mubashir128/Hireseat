@@ -999,12 +999,9 @@ input {
 
 .first{
   float: left;
-  margin-top: 10px;
-}
-
-.first{
+  margin-top: 15px;
   font-size: 20px;
-  margin-left: 25px;
+  margin-left: 10px;
 }
 
 .areaDiv{
