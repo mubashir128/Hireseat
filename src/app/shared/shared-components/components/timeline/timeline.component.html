@@ -10,38 +10,38 @@
         <div class="pro">
 
           <div class="pro-3">
-            <ng-container *ngIf="!timeline.fromId.profileimage">
+            <ng-container *ngIf="!timeline.fromId?.profileimage">
               <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                 <img src = "assets/img/profile-user.png" alt="profile" />
               </div>
             </ng-container>
 
-            <ng-container *ngIf="timeline.fromId.profileimage">
+            <ng-container *ngIf="timeline.fromId?.profileimage">
               <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
-                <img [src] = "timeline.fromId.profileimage" alt="profile" />
+                <img [src] = "timeline.fromId?.profileimage" alt="profile" />
               </div>
             </ng-container>
           </div>
 
           <div class="pro-4">
             <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && !timeline.systemUserId">
-              {{timeline.fromId.fullName}} intro'd {{timeline.profileUserId.fullName}}.
+              {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}}.
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.connectionRequest">
-              {{timeline.fromId.fullName}} Connected to {{timeline.profileUserId.fullName}}.
+              {{timeline.fromId?.fullName}} Connected to {{timeline.profileUserId?.fullName}}.
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && timeline.systemUserId">
-              {{timeline.fromId.fullName}} intro'd {{timeline.profileUserId.fullName}} with {{timeline.systemUserId.fullName}} .
+              {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}} with {{timeline.systemUserId.fullName}} .
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.sayThanks">
-              {{timeline.fromId.fullName}} said thanks to {{timeline.profileUserId.fullName}}.
+              {{timeline.fromId?.fullName}} said thanks to {{timeline.profileUserId?.fullName}}.
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.publicProfile">
-              {{timeline.fromId.fullName}} just joined the HireSeat Network. Welcome {{timeline.fromId.fullName}}.
+              {{timeline.fromId?.fullName}} just joined the HireSeat Network. Welcome {{timeline.fromId?.fullName}}.
             </span>
 
             <div class="">
@@ -53,7 +53,7 @@
 
               <ng-container *ngIf="timeline.profileUserId">
                 <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
-                  <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                  <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId?.profileimage : 'assets/img/profile-user.png' " alt="profile" />
                 </div>
               </ng-container>
             </div>
@@ -65,7 +65,7 @@
           <div class="row" style="text-align: center;">
             <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;">
               <span style="color: red;">
-                {{timeline.fromId.fullName}} :
+                {{timeline.fromId?.fullName}} :
               </span>
               <span>
                 {{timeline.candidateFromId.introduceYouToo}}
@@ -83,7 +83,7 @@
 
             <div class="col s6 m6 l6" style="text-align: left;">
               <span style="color: red;">
-                {{timeline.profileUserId.fullName}} :
+                {{timeline.profileUserId?.fullName}} :
               </span>
               <span>
                 {{timeline.candidateProfileUserId.introduceYouToo}}

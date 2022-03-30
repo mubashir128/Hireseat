@@ -5,6 +5,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { ResumeService } from '../_services/resume.service';
 import { UserService } from '../_services/user.service';
 import { CandidateService } from '../_services/candidate.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 declare var Materialize: any;
 
@@ -41,12 +42,15 @@ export class MobileRegisterComponent implements OnInit {
   localRole = "candidate";
   userRoleData = 0;
   currentUserId;
+  
+  fileURL: string;
 
   constructor(private _router: Router, 
     private _formBuilder: FormBuilder,
     private _resumeService: ResumeService,
     private _userService: UserService,
-    private _candidateService: CandidateService
+    private _candidateService: CandidateService,
+    private _spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -118,15 +122,7 @@ export class MobileRegisterComponent implements OnInit {
     }
   }
 
-  formSubmit(stepper){
-    if (this.localRole == "employer") {
-      this.userRoleData = 2;
-    } else if (this.localRole == "recruiter") {
-      this.userRoleData = 3;
-    } else if (this.localRole == "candidate") {
-      this.userRoleData = 4;
-    }
-
+  saveData(stepper: MatStepper){
     let payload = {
       email: this.email,
       password: this.password,
@@ -137,22 +133,46 @@ export class MobileRegisterComponent implements OnInit {
       desiredCompanies: this.desiredCompanies,
       desiredConnector: this.desiredConnector,
       userRole: this.localRole,
-      role: this.userRoleData
+      role: this.userRoleData,
+      fileURL: this.fileURL
     }
+
     this._userService.registerMobileCandidate(payload).subscribe((data) => {
       if(data){
         this.currentUserId = data.currentUserId;
-        if(this.fileUploaded){
-          this._candidateService.uploadCanResume(this.fdata).subscribe((res) => {
-            console.log(res);
-          });
-        }
+        this._spinner.hide();
         this.goForward(stepper);
       }
       
     }, (err) => {
+      this._spinner.hide();
       Materialize.toast("Email is already exists or Something went wrong.", 1000, "red");
     });
+  }
+
+  formSubmit(stepper){
+    if (this.localRole == "employer") {
+      this.userRoleData = 2;
+    } else if (this.localRole == "recruiter") {
+      this.userRoleData = 3;
+    } else if (this.localRole == "candidate") {
+      this.userRoleData = 4;
+    }
+
+    this._spinner.show();
+    if(this.fileUploaded){
+      this._candidateService.uploadCanResume(this.fdata).subscribe((res) => {
+        console.log(res);
+        if(res){
+          this.fileURL = res.result;
+          this.saveData(stepper);
+        }
+      });
+    }else{
+      this.saveData(stepper);
+    }
+
+    
   }
 
   goToLogin(){

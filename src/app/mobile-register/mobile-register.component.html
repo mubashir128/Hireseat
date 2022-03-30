@@ -11,8 +11,8 @@
                         <img class="marTop20" src="assets/img/navbar-logo.png" alt="no img" />
                     </div>
                     <div class="login_middle">
-                        <div><input type="text" formControlName="email" placeholder="E-mails I'd" [(ngModel)]="email" required></div>
-                        <div><input type="password" formControlName="password" placeholder="password" [(ngModel)]="password" required></div>
+                        <div><input type="text" autocomplete="off" formControlName="email" placeholder="E-mails I'd" [(ngModel)]="email" required></div>
+                        <div><input type="password" autocomplete="off" formControlName="password" placeholder="password" [(ngModel)]="password" required></div>
                         <div><button class="btn" (click)="goForward(stepper)">SIGN UP</button></div>
 
                     </div>
