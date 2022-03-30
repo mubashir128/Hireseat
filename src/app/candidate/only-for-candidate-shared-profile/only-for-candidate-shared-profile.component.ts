@@ -580,7 +580,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   connectWithOffers(resume){
     this.shareVideoService.setResume(resume);
     let askAndConnectName = this.shareResume.candidateKey ? this.shareResume.candidateKey.fullName : this.shareResume.candidate_id ? this.shareResume.candidate_id.fullName : "";
-    let askAndConnectDesiredCompanies = this.shareResume.desiredCompanies;
+    let askAndConnectDesiredCompanies = this.shareResume.introduceYouToo;
 
     const dialogConnectOfferIntroRef = this.dialog.open(DialogConnectOfferIntroComponent,{
       data: {
