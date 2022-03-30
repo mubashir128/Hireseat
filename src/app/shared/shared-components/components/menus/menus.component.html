@@ -1,23 +1,16 @@
 <div class="menu">
   <ul *ngFor="let tab of tabs2">
     <li (click)="SelectItem2(tab.id, tab.displayText)">
-      <a
-        [ngClass]="{ active: tab.selected === true }"
-        ><i [ngClass]="tab.addedClass"></i>{{ tab.displayText }}</a
-      >
+      <a [ngClass]="{ active: tab.selected === true }">
+        <i [ngClass]="tab.addedClass" style="width: 40px; text-align: left;">
+          <span class="badge" *ngIf="notificationLength > 0 && (tab.displayText === 'Notification')">
+            <div style="margin-top: 6px; font-size: 10px;">
+              {{ notificationLength }}
+            </div>
+          </span>
+        </i>
+        {{ tab.displayText }}
+      </a>
     </li>
   </ul>
 </div>
-<!-- <div class="menu">
-    <h4>Menus</h4>
-    <ul>
-        <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-        <li><a href="#"><i class="fas fa-network-wired"></i>Ask a Recruiter </a></li>
-        <li><a href="#"><i class="fas fa-plus"></i>Candidate</a></li>
-        <li><a href="#"><i class="fab fa-blogger-b"></i>Blog</a></li>
-        <li><a href="#"><i class="fas fa-user-alt"></i> My Reviews Profiles</a></li>
-        <li><a href="#"><i class="fas fa-shopping-bag"></i> Interview Room</a></li>
-        <li><a href="#"><i class="fas fa-male"></i>My Posted Profiles</a></li>
-
-    </ul>
-</div> -->

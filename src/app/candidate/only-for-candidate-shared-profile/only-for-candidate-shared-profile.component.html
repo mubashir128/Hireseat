@@ -88,9 +88,9 @@
               </div>
             </div>
             <div class="row marginAuto marOther">
-              <div *ngIf = "resume?.introduceCount || resume?.candidateProfileKey?.introduceCount">
-                <label># of Introductions : </label>
-                  <label style="font-size: 14px; color: #cc530c;">
+              <div style="border-radius: 10px; background-color: red; width: 60%;" *ngIf = "resume?.introduceCount || resume?.candidateProfileKey?.introduceCount">
+                <label style="margin-left: 5px; color: black;"># of Introductions : </label>
+                  <label style="font-size: 12px; color: black;">
                     {{ resume?.introduceCount || resume?.candidateProfileKey?.introduceCount }}
                   </label>
               </div>

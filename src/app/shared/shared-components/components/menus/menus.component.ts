@@ -6,6 +6,10 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { SuperAdminService } from 'src/app/_services/super-admin.service';
 import { UserService } from 'src/app/_services/user.service';
 import { App } from '@capacitor/app';
+import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
+import { WebsocketService } from 'src/app/_services/websocket.service';
+import { ConstantsService } from 'src/app/_services/constants.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-menus',
@@ -25,7 +29,19 @@ export class MenusComponent implements OnInit {
   appInfo;
   currVersion = '1.0.0';
 
-  constructor(private userService: UserService, private authService:AuthenticationService, public supperAdmin: SuperAdminService, private router: Router) {
+  notificationLength = 0;
+
+  mobileNotificationIncrementObserver = new Subject();
+  mobileNotificationIncrementObserver$ = this.mobileNotificationIncrementObserver.asObservable();
+
+  constructor(private userService: UserService, 
+    private authService:AuthenticationService, 
+    public supperAdmin: SuperAdminService, 
+    private router: Router,
+    private _subList : SubscriberslistService,
+    private _socket: WebsocketService,
+    private _constants : ConstantsService
+  ) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != "no") {
@@ -52,8 +68,38 @@ export class MenusComponent implements OnInit {
   }
 
   async ngOnInit(){
+    this.getNotificationCount();
+
+    //add a observable for notificaton
+    await this._socket.removeListener({ type: this._constants.mobileNotificationIncrementType });
+    this._socket.addListener({
+      type: this._constants.mobileNotificationIncrementType,
+      callback: this.mobileNotificationIncrementObserver,
+    });
+
+    //when any activity of notification is happened, then this observable is called.
+    this.mobileNotificationIncrementObserver$.subscribe((res: any) => {
+      this.handleNotificationData(res);
+    });
     this.appInfo = await App.getInfo();
     this.currVersion = this.appInfo ? this.appInfo.version : this.currVersion;
+  }
+
+  //handle notifications of user.
+  handleNotificationData(res: any) {
+    switch (res.subType) {
+      case this._constants.getMobileNotificationIncrementType:
+        this.notificationLength += 1;
+        break;
+      default:
+        break;
+    }
+  }
+
+  getNotificationCount(){
+    this.userService.getUserNotificationCunt(this.userService.getUserData().userRole).subscribe((res: any) => {
+      this.notificationLength = res.count;
+    });
   }
 
   employerMenuTabs(){
@@ -111,7 +157,10 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/candidate/my-profile", "Profile", true, "fas fa-user"));
     this.tabs2.push(new Tab2("/candidate/user-chat", "Candidate Chat", false, "fas fa-comment"));
     
-    this.tabs2.push(new Tab2("/candidate/friends-connections", "My Connections", true, "fas fa-user"));
+    this.tabs2.push(
+      new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
+    );
+    // this.tabs2.push(new Tab2("/candidate/friends-connections", "My Connections", true, "fas fa-user"));
     
     this.tabs2.push(new Tab2("/candidate/fill-form", "Career Value Finder", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-shopping-bag"));
@@ -178,6 +227,12 @@ export class MenusComponent implements OnInit {
     // });
 
 
+  }
+
+  ngOnDestroy(){
+    if(this.mobileNotificationIncrementObserver){
+      this.mobileNotificationIncrementObserver.unsubscribe();
+    }
   }
 
 }
