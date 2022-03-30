@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { ResumeService } from '../_services/resume.service';
 import { UserService } from '../_services/user.service';
 import { CandidateService } from '../_services/candidate.service';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -45,16 +44,16 @@ export class MobileRegisterComponent implements OnInit {
   
   fileURL: string;
 
+  @ViewChild('fileInput') fileInput : ElementRef;
+
   constructor(private _router: Router, 
     private _formBuilder: FormBuilder,
-    private _resumeService: ResumeService,
     private _userService: UserService,
     private _candidateService: CandidateService,
     private _spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
-    console.log("he it's mi mobile register : ");
     this.firstFormGroup = this._formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -71,6 +70,19 @@ export class MobileRegisterComponent implements OnInit {
     });
     this.fourFormGroup = this._formBuilder.group({
       verifyCode: ['', Validators.required]
+    });
+  }
+
+  signUp(stepper: MatStepper){
+    let payload = {
+      email : this.email
+    }
+    this._userService.checkEmailMobileCandidate(payload).subscribe((data) => {
+      if(data.status){
+        this.goForward(stepper);
+      }
+    }, (err)=>{
+      Materialize.toast("Email already exists.", 1000, "red");
     });
   }
 
@@ -106,6 +118,10 @@ export class MobileRegisterComponent implements OnInit {
     }, (err) => {
       Materialize.toast("Verification code is wrong.", 1000, "red");
     });
+  }
+
+  openFile(){
+    this.fileInput.nativeElement.click();
   }
 
   fileChange(event) {
@@ -162,7 +178,6 @@ export class MobileRegisterComponent implements OnInit {
     this._spinner.show();
     if(this.fileUploaded){
       this._candidateService.uploadCanResume(this.fdata).subscribe((res) => {
-        console.log(res);
         if(res){
           this.fileURL = res.result;
           this.saveData(stepper);

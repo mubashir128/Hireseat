@@ -83,6 +83,14 @@ export class UserService {
     );
   }
 
+  checkEmailMobileCandidate(info: any) {
+    return this.http.post<any>(this.baseurl + "api/checkEmailMobileCandidate", info).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   registerCandidate(info: any) {
     return this.http
       .post<any>(this.baseurl + "api/registerCandidate", info)
