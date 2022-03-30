@@ -43,6 +43,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./register/register.module').then(m => m.RegisterModule)
   },
   {
+    path: "mobileRegister",
+    loadChildren: () => import('./mobile-register/mobile-register.module').then(m => m.MobileRegisterModule)
+  },
+  {
     path: "login",
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },

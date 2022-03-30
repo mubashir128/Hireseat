@@ -136,7 +136,11 @@ export class LoginComponent implements OnInit {
 
   createNewAccount(role) {
     localStorage.setItem("Role", role);
-    this.router.navigate(["/register"]);
+    if(role == "candidate"){
+      this.router.navigate(["/mobileRegister"]);
+    }else{
+      this.router.navigate(["/register"]);
+    }
   }
 
   redirectToForgotPassword() {

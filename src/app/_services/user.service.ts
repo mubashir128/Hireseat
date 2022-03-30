@@ -66,6 +66,23 @@ export class UserService {
       })
     );
   }
+
+  registerMobileCandidate(info: any) {
+    return this.http.post<any>(this.baseurl + "api/registerMobileCandidate", info).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  verifyMobileCandidate(info: any) {
+    return this.http.post<any>(this.baseurl + "api/verifyMobileCandidate", info).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   registerCandidate(info: any) {
     return this.http
       .post<any>(this.baseurl + "api/registerCandidate", info)
