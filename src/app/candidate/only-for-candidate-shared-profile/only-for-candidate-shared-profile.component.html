@@ -67,7 +67,7 @@
 <ng-container *ngIf="resumes">
   <div class="ListResume">
     <div class="" *ngFor="let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | sortByIndustires : searchIndustry | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index">
-      <div class="areaDiv">
+      <div class="areaDiv" [id] = "'profile_' + resume._id">
         <div class="container-fluid mar">
           <div class="container">
             <div class="row marginAuto" style="padding: 0px !important;">

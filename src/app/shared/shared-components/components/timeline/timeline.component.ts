@@ -59,9 +59,7 @@ export class TimelineComponent implements OnInit {
     switch (res.subType) {
       case this._constants.getTimelinesType:
         if(res.data){
-          let reve = res.data.reverse();
-          this.timelines = reve;
-          console.log("res : ",reve);
+          this.timelines = res.data.reverse();
         }
         this._subList.loaderListAfterSearch.next({type : "000"});
         break ;
@@ -71,8 +69,8 @@ export class TimelineComponent implements OnInit {
   }
 
   introProfile(timeline, prop1, prop2){
-    let profileId = timeline[prop1]._id;
-    let fullName = timeline[prop2].fullName;
+    let profileId = timeline[prop1]?._id;
+    let fullName = timeline[prop2]?.fullName;
     this._router.navigate(["/"+this.loggedUser.userRole+"/all-only-candidate-shared-profile"], {queryParams : {profileId : profileId, fullName : fullName}});
   }
 

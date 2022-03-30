@@ -53,7 +53,7 @@
 
               <ng-container *ngIf="timeline.profileUserId">
                 <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
-                  <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId?.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                  <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
                 </div>
               </ng-container>
             </div>
@@ -68,7 +68,7 @@
                 {{timeline.fromId?.fullName}} :
               </span>
               <span>
-                {{timeline.candidateFromId.introduceYouToo}}
+                {{timeline.candidateFromId?.introduceYouToo}}
               </span>
 
               <div class="row" style="margin-right : 10px" *ngIf = "timeline.candidateFromId?.introduceCount">
@@ -86,7 +86,7 @@
                 {{timeline.profileUserId?.fullName}} :
               </span>
               <span>
-                {{timeline.candidateProfileUserId.introduceYouToo}}
+                {{timeline.candidateProfileUserId?.introduceYouToo}}
               </span>
               
               <div class="row" style="margin-left : 10px" *ngIf = "timeline.candidateProfileUserId?.introduceCount">
@@ -137,10 +137,10 @@
           <div class="row" style="text-align: center;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
             <div class="" style="width: 50%; margin-left: auto; margin-right: auto;">
               <span style="color: red;">
-                {{timeline.systemUserId.fullName}} :
+                {{timeline.systemUserId?.fullName}} :
               </span>
               <span>
-                {{timeline.candidateSystemUserId.introduceYouToo}}
+                {{timeline.candidateSystemUserId?.introduceYouToo}}
               </span>
 
               <div class="row" *ngIf = "timeline.candidateSystemUserId?.introduceCount">

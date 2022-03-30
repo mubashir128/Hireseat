@@ -548,7 +548,9 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
                 fileURL : this.shareResume.fileURL,
                 recipientName : result.recipientName,
                 onlyCandidate : true,
-                linkedIn : this.shareResume.linkedIn
+                linkedIn : this.shareResume.linkedIn,
+                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
+                systemUserId : systemUserId
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
