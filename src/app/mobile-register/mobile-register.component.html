@@ -1,0 +1,157 @@
+<div style="margin-top: 10px;">
+    <mat-horizontal-stepper #stepper [linear]="isLinear">
+
+        <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+                <div class="container contSt">
+                    <div class="login_top">
+                        <div style="text-align: center;">
+                            <h2>A place to give your Networking a booster Shot</h2>
+                        </div>
+                        <img class="marTop20" src="assets/img/navbar-logo.png" alt="no img" />
+                    </div>
+                    <div class="login_middle">
+                        <div class="width100"><input type="text" autocomplete="off" formControlName="email" placeholder="E-mails I'd*" [(ngModel)]="email" required></div>
+                        <div class="width100"><input type="password" autocomplete="off" formControlName="password" placeholder="password*" [(ngModel)]="password" required></div>
+                        <div class="width100">
+                            <button class="btn" style="margin-top: -15px;" (click)="signUp(stepper)">
+                                SIGN UP
+                                <i class="fa" style="color: aliceblue;" [ngClass]="{'fa-spin fa-spinner': loading}"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="login_footer">
+                        <div>
+                            <h2>Already Have an Account</h2>
+                        </div>
+                        <div><button class="btn" (click)="goToLogin()">LOGIN</button></div>
+                        <div class="mar_5">
+                        <h2 style="cursor: pointer;"><a [routerLink] = "['/Forgot-Password']" >Forgot Password ?</a></h2>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+                <div class="container contSt">
+                    <div class="signup_top">
+                        <div class="log" style="text-align: center">
+                            <img class="marTop20" src="assets/img/navbar-logo.png" alt="" />
+                        </div>
+                        <div class="login_middle">
+                            <div class="width100"><input autocomplete="off" formControlName="firstName" matInput [(ngModel)]="firstName" placeholder="First Name*"
+                                    required></div>
+                            <div class="width100"><input autocomplete="off" formControlName="lastName" matInput [(ngModel)]="lastName" placeholder="Last Name*"
+                                    required></div>
+                            <div class="width100"><input autocomplete="off" formControlName="linkedIn" matInput [(ngModel)]="linkedIn" placeholder="linked In">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="signup_middle">
+                        <h2>Enter Upto 3 Roles</h2>
+                        <div class="signup_middle_content">
+                            <div>
+                                <div class="example-form width100">
+                                    <input autocomplete="off" formControlName="desiredRoles" matInput [(ngModel)]="desiredRoles" placeholder="Ex. Developer"
+                                        required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="signup_footer">
+                        <div>
+                            <div><button class="btn" (click)="goForward(stepper)">CONTINUE</button></div>
+                            <div><button class="btn marTop10" (click)="goBack(stepper)">BACK</button></div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup">
+            <form [formGroup]="thirdFormGroup">
+                <div class="container contSt">
+                    <div class="top">
+                        <div class="top_top">
+                            <label for="img">
+                                <mat-icon (click) = "openFile()">cloud_upload</mat-icon>
+                                <input type="file" accept=".pdf, .docx" formControlName="file"
+                                    (change)="fileChange($event)" #fileInput/>
+                            </label>
+                            <h1>Upload Your Resume (.pdf,.docx,docs,doc)</h1>
+                        </div>
+                        <div class="top_bottom">
+                            <span>{{this.imagePath}}</span>
+                        </div>
+                    </div>
+                    <div class="middle">
+                        <div>
+                            <h2>Enter Upto 5 Designed Companies</h2>
+                            <div class="signup_middle_content">
+                                <div>
+                                    <div class="example-form width100">
+                                        <input autocomplete="off" formControlName="desiredCompanies" matInput [(ngModel)]="desiredCompanies"
+                                            placeholder="abc etc*" required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mar20">
+                            <h2>Enter atleast 3 Connector Companies</h2>
+                            <div class="signup_middle_content">
+                                <div>
+                                    <div class="example-form width100">
+                                        <input autocomplete="off" formControlName="desiredConnector" matInput [(ngModel)]="desiredConnector"
+                                            placeholder="xyz etc*" required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="signup_footer">
+                        <div>
+                            <div><button class="btn" (click)="sendVerifyCode(stepper)">SEND VERIFICATION CODE</button></div>
+                            <div><button class="btn marTop10" (click)="goBack(stepper)">BACK</button></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="fourFormGroup">
+            <form [formGroup]="fourFormGroup">
+                <div class="container contSt">
+                    <div class="top">
+                        <h2 style="text-align: center">
+                            Please check Your Email for the verification code
+                        </h2>
+                    </div>
+                    <div class="middle">
+                        <div class="mar-5">
+                            <h2>Enter your 6 Digit verification code here</h2>
+                        </div>
+                        <div>
+                            <div class="example-form width100">
+                                <input autocomplete="off" formControlName="verifyCode" matInput [(ngModel)]="verifyCode"
+                                    placeholder="Verification code*" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div>
+                            <button class="btn" (click)="verifyCodeSubmit()">
+                                Verify And Connect
+                                <i class="fa" style="color: aliceblue;" [ngClass]="{'fa-spin fa-spinner': loading}"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </mat-step>
+
+    </mat-horizontal-stepper>
+</div>

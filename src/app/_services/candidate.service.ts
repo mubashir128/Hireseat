@@ -136,6 +136,16 @@ export class CandidateService {
         })
       );
   }
+
+  uploadCanResume(fData) {
+    return this.http
+      .post<any>(this.baseurl + "api/uploadCanResume", fData)
+      .pipe(
+        map((result: any) => {
+          return result;
+        })
+      );
+  }
   
   getPostedRecruiter(payload) {
     return this.http

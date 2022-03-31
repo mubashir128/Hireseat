@@ -28,13 +28,10 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   notificationLength = 0;
   multiSharedCandidateProfileCount = 0;
 
-  mobileNotificationIncrementObserver = new Subject();
-  mobileNotificationIncrementObserver$ = this.mobileNotificationIncrementObserver.asObservable();
-
   multiSharedCandidateProfileCountObserver = new Subject();
   multiSharedCandidateProfileCountObserver$ = this.multiSharedCandidateProfileCountObserver.asObservable();
 
-  constructor(private userService: UserService, private router: Router, private _subList : SubscriberslistService, private _socket: WebsocketService, private _constants : ConstantsService) {
+  constructor(private userService: UserService, private router: Router, private _socket: WebsocketService, private _constants : ConstantsService) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
     if(this.loggedInUser != "no"){
@@ -64,26 +61,10 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   async ngOnInit(){
     if(this.loggedInUser != "no" && !this.isSuperAdmin){
-      this.getNotificationCount();
       this.getMultiSharedCandidateProfileCount();
     }
 
     this.SelectItem2(this.router.url);
-    this._subList.decreaseNotificationCountObj$.subscribe((res : any)=>{
-      this.notificationLength = res.notificationLength;
-    });
-
-    //add a observable for notificaton
-    await this._socket.removeListener({ type: this._constants.mobileNotificationIncrementType });
-    this._socket.addListener({
-      type: this._constants.mobileNotificationIncrementType,
-      callback: this.mobileNotificationIncrementObserver,
-    });
-
-    //when any activity of notification is happened, then this observable is called.
-    this.mobileNotificationIncrementObserver$.subscribe((res: any) => {
-      this.handleNotificationData(res);
-    });
 
     //add a observable for multiSharedCandidateProfileCount
     await this._socket.removeListener({ type: this._constants.multiSharedCandidateProfileCount });
@@ -99,17 +80,6 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   }
 
-  //handle notifications of user.
-  handleNotificationData(res: any) {
-    switch (res.subType) {
-      case this._constants.getMobileNotificationIncrementType:
-        this.notificationLength += 1;
-        break;
-      default:
-        break;
-    }
-  }
-
   handleMultiSharedCandidateProfileCountData(res){
     switch (res.subType) {
       case this._constants.multiSharedCandidateProfileCountType:
@@ -118,12 +88,6 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-  }
-
-  getNotificationCount(){
-    this.userService.getUserNotificationCunt(this.userService.getUserData().userRole).subscribe((res: any) => {
-      this.notificationLength = res.count;
-    });
   }
 
   getMultiSharedCandidateProfileCount(){
@@ -183,13 +147,15 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
       new Tab2("/candidate/all-only-candidate-shared-profile", "OnlyCandidateSharedProfile", false, "fas fa-user-friends")
     );
 
+    this.tabs2.push(new Tab2("/candidate/friends-connections", "My Connections", true, "fas fa-user"));
+
     this.tabs2.push(
       new Tab2("/candidate/user-chat", "Candidate Chat", false, "fas fa-comment")
     );
 
-    this.tabs2.push(
-      new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
-    );
+    // this.tabs2.push(
+    //   new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
+    // );
 
     this.tabs2.push(
       new Tab2("/candidate/menus", "Menu", false, "fas fa-bars")
@@ -243,9 +209,6 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    if(this.mobileNotificationIncrementObserver){
-      this.mobileNotificationIncrementObserver.unsubscribe();
-    }
   }
 
 }

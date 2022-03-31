@@ -539,16 +539,18 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
                 videoUrl: this.shareableVideoURL,
                 fullName: candidateName,
                 subject: subject,
-                comment: result.comments,
+                comment: result.comment1,
                 comment2: result.comment2,
                 comment3: result.comment3,
                 candidateProfile: this.shareResume.resumeType ? false : true,
                 intruduce : true, //only when hitting a introduce
-                senderName : result.fullName,
+                senderName : result.senderName,
                 fileURL : this.shareResume.fileURL,
                 recipientName : result.recipientName,
                 onlyCandidate : true,
-                linkedIn : this.shareResume.linkedIn
+                linkedIn : this.shareResume.linkedIn,
+                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
+                systemUserId : systemUserId
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);

@@ -59,6 +59,9 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   showResult = false;
   searchIndustry = "";
 
+  throughRoute: boolean = false;
+  throughProfileId;
+
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -93,6 +96,12 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   async ngOnInit() {
     this.setModel();
+
+    this._route.queryParams.subscribe(params => {
+      this.throughProfileId = params['profileId'];
+      this.searchTerm = params['fullName'] ? params['fullName'] : "";
+      this.throughRoute = true;
+    });
 
     await this._socket.removeListener({ type: this._constants.onlyForCandidateSharedProfileType });
     this._socket.addListener({
@@ -161,6 +170,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     switch (res.subType) {
       case this._constants.getAllOnlyForCandidateSharedProfileType:
         this.resumes = res.data;
+        this.scrollAndBorder();
         this.addFriendConnectionToProfile(res);
         this.sortProfilesByConpanies();
         this._subList.loaderList.next({type : "0"});
@@ -198,6 +208,17 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   
       default:
         break;
+    }
+  }
+
+  scrollAndBorder(){
+    if(this.throughRoute){
+      this.handleToggleSign({searchTab :  true});
+      setTimeout(()=>{
+        var scrollPos =  jQuery("#profile_"+this.throughProfileId).offset().top;
+        jQuery(window).scrollTop(scrollPos);
+        jQuery("#profile_"+this.throughProfileId).css("border","1px solid red");
+      }, 1000);
     }
   }
 
@@ -574,8 +595,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
             break;
           case "offerIntro" : 
             if(result.process){
-              this.offerEmailIntro();
-              
+              this.offerEmailIntro(); 
             }
             break;
         }
@@ -596,7 +616,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   connectWithOffers(resume){
     this.shareVideoService.setResume(resume);
     let askAndConnectName = this.shareResume.candidateKey ? this.shareResume.candidateKey.fullName : this.shareResume.candidate_id ? this.shareResume.candidate_id.fullName : "";
-    let askAndConnectDesiredCompanies = this.shareResume.desiredCompanies;
+    let askAndConnectDesiredCompanies = this.shareResume.introduceYouToo;
 
     const dialogConnectOfferIntroRef = this.dialog.open(DialogConnectOfferIntroComponent,{
       data: {
