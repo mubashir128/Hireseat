@@ -44,6 +44,8 @@ export class MobileRegisterComponent implements OnInit {
   
   fileURL: string;
 
+  loading: boolean = false;
+
   @ViewChild('fileInput') fileInput : ElementRef;
 
   constructor(private _router: Router, 
@@ -77,12 +79,17 @@ export class MobileRegisterComponent implements OnInit {
     let payload = {
       email : this.email
     }
+    this.loading = true;
     this._userService.checkEmailMobileCandidate(payload).subscribe((data) => {
+      this.loading = false;
       if(data.status){
         this.goForward(stepper);
+      }else{
+        Materialize.toast("Something went wrong.", 1000, "red");  
       }
     }, (err)=>{
       Materialize.toast("Email already exists.", 1000, "red");
+      this.loading = false;
     });
   }
 

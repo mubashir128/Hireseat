@@ -13,7 +13,12 @@
                     <div class="login_middle">
                         <div class="width100"><input type="text" autocomplete="off" formControlName="email" placeholder="E-mails I'd*" [(ngModel)]="email" required></div>
                         <div class="width100"><input type="password" autocomplete="off" formControlName="password" placeholder="password*" [(ngModel)]="password" required></div>
-                        <div class="width100"><button class="btn" style="margin-top: -15px;" (click)="signUp(stepper)">SIGN UP</button></div>
+                        <div class="width100">
+                            <button class="btn" style="margin-top: -15px;" (click)="signUp(stepper)">
+                                SIGN UP
+                                <i class="fa" style="color: aliceblue;" [ngClass]="{'fa-spin fa-spinner': loading}"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="login_footer">
                         <div>
@@ -21,7 +26,7 @@
                         </div>
                         <div><button class="btn" (click)="goToLogin()">LOGIN</button></div>
                         <div class="mar_5">
-                            <h2 style="cursor: pointer;"><a href="">Forgot Password ?</a></h2>
+                        <h2 style="cursor: pointer;"><a [routerLink] = "['/Forgot-Password']" >Forgot Password ?</a></h2>
                         </div>
                     </div>
                 </div>

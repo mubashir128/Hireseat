@@ -44,13 +44,6 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 import { LoadBeforeInitializeService } from "./_services/load-before-initialize.service";
 import { JoyrideModule } from "ngx-joyride";
-import { MobileRegisterComponent } from './mobile-register/mobile-register.component';
-
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
 
 // import { SearchByNamePipe } from '../search-by-name.pipe';
 // import { SearchByExperiencePipe } from '../search-by-experience.pipe';
@@ -148,11 +141,6 @@ import {MatIconModule} from '@angular/material/icon';
     NgxTwitterTimelineModule,
     Ng2CompleterModule,
     SelectDropDownModule,
-    MatStepperModule,
-    MatInputModule,
-    MatButtonModule,
-    MatListModule,
-    MatIconModule,
     ServiceWorkerModule.register("/ngsw-worker.js", {
       enabled: environment.production,
     }),
@@ -221,7 +209,6 @@ import {MatIconModule} from '@angular/material/icon';
 
     // EditTagComponent,
     RecruiterComponent,
-    MobileRegisterComponent,
 
     // inArrayPipe,
     // SortPipe,
