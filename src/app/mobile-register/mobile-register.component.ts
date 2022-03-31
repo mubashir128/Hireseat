@@ -112,17 +112,20 @@ export class MobileRegisterComponent implements OnInit {
       return ;
     }
 
+    this.loading = true;
     let payload = {
       email: this.email,
       currentUserId: this.currentUserId,
       verifyCode : this.verifyCode
     }
     this._userService.verifyMobileCandidate(payload).subscribe((data) => {
+      this.loading = false;
       if(data){
         Materialize.toast("You have been successfully verified", 1000, "green");
         this.goToLogin();
       }
     }, (err) => {
+      this.loading = false;
       Materialize.toast("Verification code is wrong.", 1000, "red");
     });
   }

@@ -142,7 +142,12 @@
                         </div>
                     </div>
                     <div class="footer">
-                        <div><button class="btn" (click)="verifyCodeSubmit()"> Verify And Connect</button></div>
+                        <div>
+                            <button class="btn" (click)="verifyCodeSubmit()">
+                                Verify And Connect
+                                <i class="fa" style="color: aliceblue;" [ngClass]="{'fa-spin fa-spinner': loading}"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>
