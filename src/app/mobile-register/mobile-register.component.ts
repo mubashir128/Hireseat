@@ -46,6 +46,8 @@ export class MobileRegisterComponent implements OnInit {
 
   loading: boolean = false;
 
+  isEditable = true;
+
   @ViewChild('fileInput') fileInput : ElementRef;
 
   constructor(private _router: Router, 
@@ -167,6 +169,7 @@ export class MobileRegisterComponent implements OnInit {
       if(data){
         this.currentUserId = data.currentUserId;
         this._spinner.hide();
+        this.isEditable = false;
         this.goForward(stepper);
       }
       

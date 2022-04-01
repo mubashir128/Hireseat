@@ -1,8 +1,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   gap: 30px;
+  height: 560px;
   /* padding: 30px; */
 }
 .login_top {
