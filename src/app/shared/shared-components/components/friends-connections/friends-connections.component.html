@@ -111,7 +111,7 @@
         </div>
         
         <div class="row">
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn" (click)="acceptClick(requestedFriendIs)">
                 <a>
@@ -124,12 +124,12 @@
             </div>
           </div>
 
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn cancelBtn" (click)="cancelClick(requestedFriendIs._id)">
                 <a>
                   <div class="icon-name">
-                    <i class="fa fa-times btn-icon" style="float: left; margin-top: 4px;" aria-hidden="true"></i>
+                    <i class="fa fa-times btn-icon" style="margin: auto !important; float: none !important;" aria-hidden="true"></i>
                     <span class="btnText"> Cancel </span>
                   </div>
                 </a>
@@ -259,7 +259,7 @@
         </div>
 
         <div class="row">
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn" (click)="showShareModal(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
@@ -271,7 +271,7 @@
             </div>
           </div>
 
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn cancelBtn" (click)="goToUserChat(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
@@ -283,7 +283,7 @@
             </div>
           </div>
 
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share pro-share-width marTop">
             <div class="">
               <button class="acceptBtn cancelBtn" (click)="thxLetter(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
