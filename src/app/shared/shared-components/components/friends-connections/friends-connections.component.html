@@ -25,18 +25,15 @@
           <span>- Users who can introduce you to above company : </span>
           <div class="sideCss" *ngFor = "let userList of companiesAre.users; index as indexValue">
             <div class="row" (click) = "gotoUser(userList.user._id)" style="margin: auto;">
-              <ng-container *ngIf="!userList.user.profileimage">
-                <div class="candProfile candProfile22">
-                  <img src="assets/img/profile-user.png" alt="profile" />
-                </div>
-              </ng-container>
 
-              <ng-container *ngIf="userList.user.profileimage">
-                  <div class="candProfile candProfile22">
-                    <img [src]="userList.user.profileimage" alt="profile"/>
-                  </div>
-              </ng-container>
-              <div style="float: left; margin-left: -10px;">
+              <div *ngIf = "!userList.user.showCreatedLogo" class="big-badge candProfile22">
+                <img src="{{ userList.user.profileimage }}" (error)="changeLogo(userList.user)" class="iconStyle" style="max-width: 100%" />
+              </div>
+              <div *ngIf = "userList.user.showCreatedLogo" class="big-badge candProfile22">
+                {{ userList.user.fullName | uppercase | slice: 0 : 1 }}
+              </div>
+
+              <div style="margin-left: 22px !important;">
                 {{userList.user.fullName}}
               </div>
             </div>
@@ -56,26 +53,29 @@
       <div class="singleList employerResume animatePart" *ngFor = "let requestedFriendIs of requestedFriendAre">
         <div class="pro">
           <div class="pro-3">
-              <ng-container *ngIf="!requestedFriendIs.requester.profileimage">
-                  <div class="candProfile">
-                    <img src="assets/img/profile-user.png" alt="profile" />
-                  </div>
-              </ng-container>
-
-              <ng-container *ngIf="requestedFriendIs.requester.profileimage">
-                  <div class="candProfile">
-                    <img [src]="requestedFriendIs.requester.profileimage" alt="profile"/>
-                  </div>
-              </ng-container>
 
               <div class="pro-1">
                 <div class="docSectionBtns lates-s">
                   <div class="candidate-name">
                     <div class="CandidateDetails">
                       <div class="user-details">
-                        <span>
-                          {{ requestedFriendIs.requester.fullName }}
-                        </span>
+
+                        <div class="row" style="margin: auto;">
+                          <div class="col s3 m3 l3">
+                            <div *ngIf = "!requestedFriendIs.requester.showCreatedLogo" class="big-badge big-badge-wid">
+                              <img src="{{ requestedFriendIs.requester.profileimage }}" (error)="changeLogo(requestedFriendIs.requester)" class="iconStyle" style="max-width: 100%" />
+                            </div>
+                            <div *ngIf = "requestedFriendIs.requester.showCreatedLogo" class="big-badge big-badge-wid">
+                              {{ requestedFriendIs.requester.fullName | uppercase | slice: 0 : 1 }}
+                            </div>
+                          </div>
+
+                          <div class="col s9 m9 l9 marTop">
+                            <span>
+                              {{ requestedFriendIs.requester.fullName }}
+                            </span>
+                          </div>
+                        </div>
 
                         <div class="other-details">
                           <p *ngIf = "requestedFriendIs?.resumeId?.introduceYouToo">
@@ -111,7 +111,7 @@
         </div>
         
         <div class="row">
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn" (click)="acceptClick(requestedFriendIs)">
                 <a>
@@ -124,12 +124,12 @@
             </div>
           </div>
 
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn cancelBtn" (click)="cancelClick(requestedFriendIs._id)">
                 <a>
                   <div class="icon-name">
-                    <i class="fa fa-times btn-icon" style="float: left; margin-top: 4px;" aria-hidden="true"></i>
+                    <i class="fa fa-times btn-icon" style="margin: auto !important; float: none !important;" aria-hidden="true"></i>
                     <span class="btnText"> Cancel </span>
                   </div>
                 </a>
@@ -150,26 +150,29 @@
       <div class="singleList employerResume animatePart" *ngFor = "let friendsAre of friendsConnections">
         <div class="pro" [id] = "'mention_' + friendsAre.requester._id" *ngIf = "friendsAre.recipient._id == loggedUser._id">
           <div class="pro-3">
-              <ng-container *ngIf="!friendsAre.requester.profileimage">
-                <div class="candProfile">
-                  <img src="assets/img/profile-user.png" alt="profile" />
-                </div>
-              </ng-container>
-
-              <ng-container *ngIf="friendsAre.requester.profileimage">
-                <div class="candProfile">
-                  <img [src]="friendsAre.requester.profileimage" alt="profile"/>
-                </div>
-              </ng-container>
 
               <div class="pro-1">
                 <div class="docSectionBtns lates-s">
                   <div class="candidate-name">
                     <div class="CandidateDetails">
                       <div class="user-details">
-                        <span>
-                          {{ friendsAre.requester.fullName }} 
-                        </span>
+
+                        <div class="row" style="margin: auto;">
+                          <div class="col s3 m3 l3">
+                            <div *ngIf = "!friendsAre.requester.showCreatedLogo" class="big-badge big-badge-wid">
+                              <img src="{{ friendsAre.requester.profileimage }}" (error)="changeLogo(friendsAre.requester)" class="iconStyle" style="max-width: 100%" />
+                            </div>
+                            <div *ngIf = "friendsAre.requester.showCreatedLogo" class="big-badge big-badge-wid">
+                              {{ friendsAre.requester.fullName | uppercase | slice: 0 : 1 }}
+                            </div>
+                          </div>
+
+                          <div class="col s9 m9 l9 marTop">
+                            <span>
+                              {{ friendsAre.requester.fullName }}
+                            </span>
+                          </div>
+                        </div>
 
                         <div class="other-details">
                           <p *ngIf = "friendsAre?.resumeId?.introduceYouToo">
@@ -205,26 +208,29 @@
         
         <div class="pro" [id] = "'mention_' + friendsAre.recipient._id" *ngIf = "friendsAre.requester._id == loggedUser._id">
           <div class="pro-3">
-              <ng-container *ngIf="!friendsAre.recipient.profileimage">
-                <div class="candProfile">
-                  <img src="assets/img/profile-user.png" alt="profile" />
-                </div>
-              </ng-container>
-
-              <ng-container *ngIf="friendsAre.recipient.profileimage">
-                <div class="candProfile">
-                  <img [src]="friendsAre.recipient.profileimage" alt="profile"/>
-                </div>
-              </ng-container>
 
               <div class="pro-1">
                 <div class="docSectionBtns lates-s">
                   <div class="candidate-name">
                     <div class="CandidateDetails">
                       <div class="user-details">
-                        <span>
-                          {{ friendsAre.recipient.fullName }} 
-                        </span>
+
+                        <div class="row" style="margin: auto;">
+                          <div class="col s3 m3 l3">
+                            <div *ngIf = "!friendsAre.recipient.showCreatedLogo" class="big-badge big-badge-wid">
+                              <img src="{{ friendsAre.recipient.profileimage }}" (error)="changeLogo(friendsAre.recipient)" class="iconStyle" style="max-width: 100%" />
+                            </div>
+                            <div *ngIf = "friendsAre.recipient.showCreatedLogo" class="big-badge big-badge-wid">
+                              {{ friendsAre.recipient.fullName | uppercase | slice: 0 : 1 }}
+                            </div>
+                          </div>
+
+                          <div class="col s9 m9 l9 marTop">
+                            <span>
+                              {{ friendsAre.recipient.fullName }}
+                            </span>
+                          </div>
+                        </div>
 
                         <div class="other-details">
                           <p *ngIf = "friendsAre?.resumeId2?.introduceYouToo">
@@ -259,7 +265,7 @@
         </div>
 
         <div class="row">
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn" (click)="showShareModal(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
@@ -271,7 +277,7 @@
             </div>
           </div>
 
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn cancelBtn" (click)="goToUserChat(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
@@ -283,7 +289,7 @@
             </div>
           </div>
 
-          <div class="pro-share" style="margin-top: 10px;">
+          <div class="pro-share pro-share-width marTop">
             <div class="">
               <button class="acceptBtn cancelBtn" (click)="thxLetter(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
