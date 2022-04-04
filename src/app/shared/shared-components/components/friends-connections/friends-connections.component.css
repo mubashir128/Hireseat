@@ -61,22 +61,6 @@
   float: left;
 }
 
-.pro .candProfile {
-  width: 100px;
-  height: 100px;
-  background-color: #e7e7e7;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 15px;
-}
-
-.pro .candProfile img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-}
-
 .pro-1 {
   width: 100%;
   float: left;
@@ -144,11 +128,6 @@
 }
 
 @media (max-width: 1440px) {
-  .pro .candProfile {
-    width: 52px;
-    height: 52px;
-  }
-
   .candProfile22 {
     width: 15px;
     height: 15px;
@@ -170,19 +149,6 @@
   }
 }
 
-.CandidateDetails .candProfile {
-  width: 100px;
-  height: 100px;
-  background-color: #e7e7e7;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 15px;
-}
-.CandidateDetails .candProfile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 .CandidateDetails {
   display: flex;
   align-items: center;
@@ -345,4 +311,13 @@ input {
 
 .pro-share-width {
   width: 100% !important;
+}
+
+.big-badge-wid{
+  width : 52px !important;
+  height : 52px !important;
+}
+
+.user-details {
+  width: 100%;
 }
