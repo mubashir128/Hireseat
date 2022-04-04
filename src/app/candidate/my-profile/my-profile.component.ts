@@ -110,7 +110,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       gender: [""],
       totalWorkExpMonths: [""],
       locationPref: [""],
-      shareProfile: [false],
+      // shareProfile: [false],
       fileURL: [""],
     });
 
@@ -284,7 +284,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             totalWorkExpYrs: res.totalWorkExpYrs,
             totalWorkExpMonths: res.totalWorkExpMonths,
             locationPref: res.locationPref,
-            shareProfile: res.shareProfile,
+            // shareProfile: res.shareProfile,
             fileURL: res.fileURL,
           });
           // console.log('file ', res.fileURL.length);
@@ -520,7 +520,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         controls["desiredRoles"].value == ""
       ) {
         event.preventDefault();
-        controls["shareProfile"].setValue(false);
+        // controls["shareProfile"].setValue(false);
         Materialize.toast("fill required field", 1000);
       }
       // for (const formControl in controls){
