@@ -1,7 +1,7 @@
-<div style="margin-top: 10px;">
-    <mat-horizontal-stepper #stepper [linear]="isLinear">
+<div>
+    <mat-horizontal-stepper #stepper [linear]="isLinear" (selectionChange)="selectionChange($event, stepper)">
 
-        <mat-step [stepControl]="firstFormGroup">
+        <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
             <form [formGroup]="firstFormGroup">
                 <div class="container contSt">
                     <div class="login_top">
@@ -11,7 +11,7 @@
                         <img class="marTop20" src="assets/img/navbar-logo.png" alt="no img" />
                     </div>
                     <div class="login_middle">
-                        <div class="width100"><input type="text" autocomplete="off" formControlName="email" placeholder="E-mails I'd*" [(ngModel)]="email" required></div>
+                        <div class="width100"><input type="text" autocomplete="off" formControlName="email" placeholder="email ID*" [(ngModel)]="email" required></div>
                         <div class="width100"><input type="password" autocomplete="off" formControlName="password" placeholder="password*" [(ngModel)]="password" required></div>
                         <div class="width100">
                             <button class="btn" style="margin-top: -15px;" (click)="signUp(stepper)">
@@ -34,7 +34,7 @@
             </form>
         </mat-step>
 
-        <mat-step [stepControl]="secondFormGroup">
+        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
             <form [formGroup]="secondFormGroup">
                 <div class="container contSt">
                     <div class="signup_top">
@@ -72,7 +72,7 @@
             </form>
         </mat-step>
 
-        <mat-step [stepControl]="thirdFormGroup">
+        <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable">
             <form [formGroup]="thirdFormGroup">
                 <div class="container contSt">
                     <div class="top">
@@ -90,7 +90,7 @@
                     </div>
                     <div class="middle">
                         <div>
-                            <h2>Enter Upto 5 Designed Companies</h2>
+                            <h2>Enter Upto 5 Desired Companies</h2>
                             <div class="signup_middle_content">
                                 <div>
                                     <div class="example-form width100">
@@ -122,9 +122,12 @@
             </form>
         </mat-step>
 
-        <mat-step [stepControl]="fourFormGroup">
+        <mat-step [stepControl]="fourFormGroup" [editable]="isEditable">
             <form [formGroup]="fourFormGroup">
                 <div class="container contSt">
+                    <div class="login_top" style="margin-top: 0px !important;">
+                        <img class="marTop20" src="assets/img/navbar-logo.png" alt="no img" />
+                    </div>
                     <div class="top">
                         <h2 style="text-align: center">
                             Please check Your Email for the verification code

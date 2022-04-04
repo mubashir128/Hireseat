@@ -3,7 +3,7 @@
 
 /* @import "../../../node_modules/@danielmoncada/angular-datetime-picker/assets/style/picker.min.css"; */
 
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 html {
   font-family: "gilroymedium";
@@ -1562,4 +1562,13 @@ body {
 .extrabig-badge-rply {
   width: 30px !important;
   height: 30px !important;
+}
+
+.mat-stepper-vertical, .mat-stepper-horizontal {
+  
+}
+
+.mat-horizontal-stepper-header { 
+  pointer-events: none !important;
+  margin-left: 9px;
 }
