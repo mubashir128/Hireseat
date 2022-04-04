@@ -1,5 +1,5 @@
 <div>
-    <mat-horizontal-stepper #stepper [linear]="isLinear">
+    <mat-horizontal-stepper #stepper [linear]="isLinear" (selectionChange)="selectionChange($event, stepper)">
 
         <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
             <form [formGroup]="firstFormGroup">

@@ -1567,3 +1567,8 @@ body {
 .mat-stepper-vertical, .mat-stepper-horizontal {
   
 }
+
+.mat-horizontal-stepper-header { 
+  pointer-events: none !important;
+  margin-left: 9px;
+}

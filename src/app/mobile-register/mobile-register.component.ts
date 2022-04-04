@@ -77,6 +77,11 @@ export class MobileRegisterComponent implements OnInit {
     });
   }
 
+  selectionChange(event, stepper){
+    if(event.selectedIndex == 1){
+    }
+  }
+
   signUp(stepper: MatStepper){
     let payload = {
       email : this.email
