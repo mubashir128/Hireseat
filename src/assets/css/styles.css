@@ -1490,12 +1490,13 @@ body {
 
 .joyride-step__container {
   width: 150px;
+  height: 100% !important;
 }
 
 .joyride-step__body {
-  height: 100px;
+  /* height: 100px; */
   width: 100%;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 .mat-dialog-container {

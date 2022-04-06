@@ -54,11 +54,15 @@ export class HomeComponent implements OnInit {
   ) {
     // window.addEventListener("scroll", this.scroll, true);
 
-    // this.loggedInUser = this._Userservice.getUserData();
-    // if (this.loggedInUser != "no") {
-    //   this.isLoggedIn = true;
-    //   this.btnName = "Enter";
-    // }
+    this.loggedInUser = this._Userservice.getUserData();
+    if (this.loggedInUser != "no") {
+      this.isLoggedIn = true;
+      this.btnName = "Enter";
+      if(this.loggedInUser.userRole == "candidate"){
+        this.router.navigate(["/candidate/timeline"]);
+        return ;
+      }
+    }
 
     this.router.navigate(["/mobileHome"]);
 
