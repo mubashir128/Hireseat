@@ -114,7 +114,7 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/employer/mycandidates", "My Candidiate", false, "fas fa-plus"));
     this.tabs2.push(new Tab2("/employer/profile", "Profile", false, "fas fa-plus"));
 
-    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
+    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion + " - click to upgrade", false, "fas fa-plus"));
 
     if(!this.supperAdmin.checkSuperAdminEmail()){
       this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
@@ -141,7 +141,7 @@ export class MenusComponent implements OnInit {
     // this.tabs2.push(new Tab2("/recruiter/calendar", "Calendar", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/recruiter/profile", "Profile", false, "fas fa-plus"));
 
-    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
+    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion + " - click to upgrade", false, "fas fa-plus"));
 
     if(!this.supperAdmin.checkSuperAdminEmail()){
       this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
@@ -178,7 +178,7 @@ export class MenusComponent implements OnInit {
     // this.tabs2.push(new Tab2("/candidate/my-reviewed-profiles", "My Reviews Profiles", false, "fas fa-shopping-bag"));
     // this.tabs2.push(new Tab2("/candidate/interview-room", "Interview Room", false, "fas fa-question"));
 
-    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
+    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion + " - click to upgrade", false, "fas fa-plus"));
   }
 
   superAdminMenuTab(){
@@ -189,7 +189,7 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/super-admin/user-list", "Super Admin Dashboard", false, "fas fa-plus"));
     this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
 
-    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
+    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion + " - click to upgrade", false, "fas fa-plus"));
   }
 
   adminMenuTab(){
@@ -214,6 +214,8 @@ export class MenusComponent implements OnInit {
       this.userService.removeBeforeMyProfileWalkthrough();
       this.userService.removeOnlyCandidateWalkthroughWalkthrough();
       this.router.navigate([this.loggedInUser.userRole+'/my-profile']);
+    }else if(text = "Version - "){
+      window.open("https://apps.apple.com/us/app/hireseat/id1558475792", "_blank");
     }else{
       this.router.navigate([item]);
     }
