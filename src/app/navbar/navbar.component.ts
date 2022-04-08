@@ -44,6 +44,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   userProfile: any;
 
+  showMobileTabs : boolean = true;
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -119,6 +121,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     //increse a points of user.
     this.userService.candidateProfileObservable$.subscribe((res: any) => {
       this.handleCandidateProfile(res);
+    });
+
+    this._subList.mobileMenuTabSub$.subscribe((res : any)=>{
+      this.showMobileTabs = res.show;
     });
 
     if (this.loggedInUser.userRole == "employer") {
