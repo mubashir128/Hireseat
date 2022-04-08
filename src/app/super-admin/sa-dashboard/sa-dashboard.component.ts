@@ -14,6 +14,7 @@ export class SADashboardComponent implements OnInit {
 
   ngOnInit() {
   }
+
   logout(){
     this.authService.logout();
   }

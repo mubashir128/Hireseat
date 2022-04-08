@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
+import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { DialogCreateGroupComponent } from '../dialog-create-group/dialog-create-group.component';
@@ -56,7 +57,8 @@ export class UserChatComponent implements OnInit, OnChanges {
     private router: Router,
     private userService: UserService,
     private _route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _subList : SubscriberslistService
   ){
     this.loggedInUser = this.userService.getUserData();
     if(this.loggedInUser.userRole == "employer"){
@@ -78,6 +80,8 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   async ngOnInit() {
     jQuery(".modal").modal();
+
+    this._subList.mobileMenuTabSub.next({show : true});
 
     this.auctionFrm = this.formBuilder.group({
       searchTermByNameIs : []

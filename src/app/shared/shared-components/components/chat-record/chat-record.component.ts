@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
+import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { DialogAddMembersComponent } from '../dialog-add-members/dialog-add-members.component';
@@ -58,7 +59,8 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     private userService: UserService, 
     private _socket: WebsocketService, 
     private _constants: ConstantsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _subList : SubscriberslistService
   ) {
     // this.messageIs = '';
     this.loggedInUser = this.userService.getUserData();
@@ -74,6 +76,10 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
   async ngOnInit() {
     jQuery(".modal").modal();
+
+    setTimeout(()=>{
+      this._subList.mobileMenuTabSub.next({show : false});
+    }, 500);
 
     //add a observable for userChat
     await this._socket.removeListener({ type: this._constants.userChatMessageType });
@@ -123,6 +129,13 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     }
   }
 
+  scrollToBottom(){
+    setTimeout(()=>{
+      let height = jQuery(".message-box").last().offset().top;
+      jQuery('.chat-box').animate({scrollTop: height});
+    }, 500);
+  }
+
   //handle all user chat message.
   handleChatMessage(res: any) {
     switch (res.subType) {
@@ -131,6 +144,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           this.userMessages = res.data;
           this.userChatId = this.userMessages._id;
           this.insertTwoWayChatSettingList();
+          this.scrollToBottom();
         }
         break;
       case this._constants.getAllGroupChats:
@@ -141,6 +155,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           this.insertGrpMembers();
           this.getAllUsers();
           this.setGroupProfilePicture();
+          this.scrollToBottom();
         }
         break;
       case this._constants.addNewChat:

@@ -30,5 +30,8 @@ export class SubscriberslistService {
   loaderListAfterSearch = new Subject();
   loaderListAfterSearch$ = this.loaderListAfterSearch.asObservable();
 
+  mobileMenuTabSub = new Subject();
+  mobileMenuTabSub$ = this.mobileMenuTabSub.asObservable();
+
   constructor() { }
 }
