@@ -1566,10 +1566,11 @@ body {
 }
 
 .mat-stepper-vertical, .mat-stepper-horizontal {
-  
+  margin: 20% auto auto auto;
+  background-color: inherit;
 }
 
 .mat-horizontal-stepper-header { 
   pointer-events: none !important;
-  margin-left: 9px;
+  margin-left: 24px;
 }
