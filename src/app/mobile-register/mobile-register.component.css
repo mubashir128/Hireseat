@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 30px;
-  height: 560px;
+  gap: 50px;
+  height: 600px;
   /* padding: 30px; */
 }
 .login_top {

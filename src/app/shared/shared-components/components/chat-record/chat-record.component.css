@@ -12,15 +12,15 @@ a {
 
 .container {
   width: 100%;
-  max-height: 530px;
-  overflow-y: scroll;
+  /* max-height: 530px; */
+  /* overflow-y: scroll; */
   display: block;
   margin: 0 auto;
   box-shadow: 0 2px 5px rgb(0 0 0 / 40%);
 }
 
 .header {
-  padding: 20px 20px 18px 20px;
+  padding: 12px 20px 8px 20px;
   background: #0aafff;
   color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
@@ -50,7 +50,7 @@ a {
   padding: 15px 20px 10px 21px;
   justify-content: space-between;
   position: absolute;
-  bottom: 70px;
+  bottom: 3px;
   box-shadow: 0 2px 5px rgb(0 0 0 / 40%);
 }
 
@@ -82,7 +82,7 @@ a {
   padding: 0 20px;
   color: #a1a1a1;
   overflow: auto;
-  max-height: 510px;
+  max-height: 641px;
   /* background-image: url('../../../../assets/img/ask-recruter.png');
   height: 100%;
   background-position: center;
@@ -141,7 +141,7 @@ a {
 .message {
   background: #fff;
   display: inline-block;
-  padding: 13px;
+  padding: 8px;
   width: 274px;
   border-radius: 2px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
@@ -220,53 +220,54 @@ a {
 }
 
 @media(max-width:640px) {
-  .right-chat { bottom: 69px !important; position: fixed;}
-  .chat-box {max-height: 100px;}
-  .chat-height {max-height: 100px;}
+  /* .right-chat {position: fixed;} */
+  /* .chat-box {max-height: 100px;} */
+  /* .chat-height {max-height: 100px;} */
 }
 @media(max-width:600px) {
-  .right-chat { bottom: 69px; position: fixed;}
-  .chat-height{max-height: 502px;}
-  .chat-box {max-height: 520px;}
+  /* .right-chat {position: fixed;} */
+  /* .chat-height{max-height: 502px;} */
+  /* .chat-box {max-height: 520px;} */
 }
 @media(max-width:550px) {
-  .right-chat { bottom: 32px; position: fixed;}
-  .chat-box {max-height: 503px;}
+  /* .right-chat {position: fixed;} */
+  /* .chat-box {max-height: 503px;} */
 }
 @media(max-width:420px) {
-  .right-chat { bottom: 69px; position: fixed;}
+  /* .right-chat {position: fixed;} */
  
 }
 @media(max-width:414px) {
-  .right-chat { bottom: 69px; position: fixed;}
-  .chat-height{max-height:510px;}
-  .chat-box {max-height: 510px;}
+  /* .right-chat {position: fixed;} */
+  /* .chat-height{max-height:510px;} */
+  /* .chat-box {max-height: 510px;} */
 }
 @media(max-width:411px) {
-  .right-chat { bottom: 69px; position: fixed;}
-  .chat-height{max-height:525px;}
-  .chat-box {max-height: 525px;}
+  /* .right-chat {position: fixed;} */
+  /* .chat-height{max-height:525px;} */
+  /* .chat-box {max-height: 525px;} */
 }
 @media(max-width:375px) {
-  .right-chat { bottom: 69px; position: fixed;}
-  .chat-height{max-height:369px;}
-  .chat-box {max-height: 369px;}
+  /* .right-chat {position: fixed;} */
+  /* .chat-height{max-height:369px;} */
+  /* .chat-box {max-height: 369px;} */
 }
 @media(max-width:360px) {
-  .right-chat { bottom: 69px; position: fixed;}
-  .chat-height{max-height:342px;}
-  .chat-box {max-height: 342px;}
+  /* .right-chat {position: fixed;} */
+  /* .chat-height{max-height:342px;} */
+  /* .chat-box {max-height: 342px;} */
 }
 @media(max-width:320px) {
-  .right-chat { bottom: 69px; position: fixed;}
+  /* .right-chat {position: fixed;} */
   .message { width: 243px ;}
-  .chat-height{max-height:270px;}
-  .chat-box {max-height: 270px;}
+  /* .chat-height{max-height:270px;} */
+  /* .chat-box {max-height: 270px;} */
 }
 
 .addMember {
   font-size: 20px;
 	margin-top: 5px;
+  text-align: right;
 }
 
 .fullNameClass {

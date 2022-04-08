@@ -28,15 +28,15 @@ export class MobileRegisterComponent implements OnInit {
   fdata = new FormData();
   fileUploaded: boolean = false;
   
-  email: string;
+  email: string = "";
   password: string;
-  firstName: string;
-  lastName: string;
-  linkedIn: string;
-  desiredRoles: string;
-  desiredCompanies: string;
-  verifyCode : string;
-  desiredConnector: string;
+  firstName: string ="";
+  lastName: string = "";
+  linkedIn: string = "";
+  desiredRoles: string = "";
+  desiredCompanies: string = "";
+  verifyCode : string = "";
+  desiredConnector: string = "";
 
   localRole = "candidate";
   userRoleData = 0;
@@ -69,8 +69,8 @@ export class MobileRegisterComponent implements OnInit {
       desiredRoles: ['', Validators.required]
     });
     this.thirdFormGroup = this._formBuilder.group({
-      desiredCompanies: ['', Validators.required],
-      desiredConnector: ['', Validators.required]
+      desiredCompanies: [''],
+      desiredConnector: ['']
     });
     this.fourFormGroup = this._formBuilder.group({
       verifyCode: ['', Validators.required]
@@ -109,6 +109,10 @@ export class MobileRegisterComponent implements OnInit {
   }
 
   sendVerifyCode(stepper: MatStepper){
+    if(this.desiredCompanies.trim() == "" && this.desiredConnector.trim() == ""){
+      Materialize.toast("Atleast one Field is required.", 1000, "red");
+      return ;
+    }
     this.formSubmit(stepper);
   }
 
@@ -174,7 +178,6 @@ export class MobileRegisterComponent implements OnInit {
       if(data){
         this.currentUserId = data.currentUserId;
         this._spinner.hide();
-        this.isEditable = false;
         this.goForward(stepper);
       }
       
@@ -204,8 +207,6 @@ export class MobileRegisterComponent implements OnInit {
     }else{
       this.saveData(stepper);
     }
-
-    
   }
 
   goToLogin(){
