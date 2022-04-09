@@ -101,6 +101,7 @@ import { InterviewQuestionsComponent } from './components/interview-questions/in
 import { ProfileButtonsComponent } from "./components/profile-buttons/profile-buttons.component";
 import { DialogProfileExampleComponent } from './components/dialog-profile-example/dialog-profile-example.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+import { UserChatRecordComponent } from './components/user-chat-record/user-chat-record.component';
 
 @NgModule({
   imports: [
@@ -227,6 +228,7 @@ import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.
     InterviewQuestionsComponent,
     DialogProfileExampleComponent,
     DialogDeleteComponent,
+    UserChatRecordComponent,
 
   ],
   exports: [
