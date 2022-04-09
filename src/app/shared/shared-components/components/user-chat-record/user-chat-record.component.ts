@@ -17,16 +17,16 @@ declare var jQuery;
 declare var Materialize;
 
 @Component({
-  selector: 'app-chat-record',
-  templateUrl: './chat-record.component.html',
-  styleUrls: ['./chat-record.component.css']
+  selector: 'app-user-chat-record',
+  templateUrl: './user-chat-record.component.html',
+  styleUrls: ['./user-chat-record.component.css']
 })
-export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges {
+export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChanges {
 
   receiverId: any;
   loggedInUser: any;
   user: any;
-  messageIs: any;
+  messageIs: any = "";
 
   userMessages: any;
   userChatId;
@@ -39,8 +39,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
   groupUserAre = "";
 
-  @ViewChild('chatDiv', { static: true }) private chatDiv: ElementRef;
-  @ViewChild('inputDiv', { static: true }) private inputDiv: ElementRef;
+  @ViewChild('chatDiv', { static: false }) private chatDiv: ElementRef;
 
   settingLists = [];
   addGrpMembers = [];
@@ -53,6 +52,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   addNewGrpMembers = [];
 
   groupIsMore = true;
+  showType : boolean = false;
   
   constructor(private route: ActivatedRoute, 
     private router: Router, 
@@ -76,7 +76,6 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
 
   async ngOnInit() {
     jQuery(".modal").modal();
-
     setTimeout(()=>{
       this._subList.mobileMenuTabSub.next({show : false});
     }, 500);
@@ -102,7 +101,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
   }
 
   ngAfterViewChecked() {
-    this.goToBottom();
+    // this.goToBottom();
   }
 
   getAllChats() {
@@ -126,16 +125,6 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           receiverId: this.receiverId
         }
       });
-
-      //get user online status
-      this._socket.sendMessage({
-        type: this._constants.userChatMessageType,
-        data: {
-          subType: this._constants.getUserActiveStatus,
-          receiverId: this.receiverId
-        }
-      });
-
     }
   }
 
@@ -146,22 +135,26 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     }, 500);
   }
 
-  scrollToBottomNew(res){
-    console.log(res.data.message._id);
+  showTypeFlag(){
+    this.showType = true;
   }
 
   //handle all user chat message.
   handleChatMessage(res: any) {
     switch (res.subType) {
       case this._constants.getAllChats:
+        this.showTypeFlag();
         if (res.data) {
           this.userMessages = res.data;
           this.userChatId = this.userMessages._id;
           this.insertTwoWayChatSettingList();
-          this.scrollToBottom();
         }
+        setTimeout(()=>{
+          this.goToBottomFirst();
+        }, 300);
         break;
       case this._constants.getAllGroupChats:
+        this.showTypeFlag();
         if (res.data) {
           this.groupMessages = res.data;
           this.user = this.groupMessages;
@@ -169,8 +162,10 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           this.insertGrpMembers();
           this.getAllUsers();
           this.setGroupProfilePicture();
-          this.scrollToBottom();
         }
+        setTimeout(()=>{
+          this.goToBottomFirst();
+        }, 300);
         break;
       case this._constants.addNewChat:
         if (res.data) {
@@ -181,7 +176,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
             } else {
               this.userMessages.message = [...this.userMessages.message, res.data.message];
             }
-            this.scrollToBottomNew(res);
+            this.goToBottom();
           }
         }
         break;
@@ -193,7 +188,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
             } else {
               this.groupMessages.message = [...this.groupMessages.message, res.data.message[res.data.message.length - 1]];
             }
-            this.scrollToBottomNew(res);
+            this.goToBottom();
           }
         }
         break;
@@ -237,19 +232,6 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
           this.groupIsMore = false;
           jQuery(".right-chat").css("display","none");
         }
-        break;
-      case this._constants.getUserActiveStatus : 
-        if(res.online){
-          setTimeout(()=>{
-            jQuery('#online_'+res.userId).css("background-color", "green");
-          }, 70);
-        }
-        break;
-      case this._constants.userIsOnline:
-        jQuery('#online_'+res.userId).css("background-color", "green");
-        break;
-      case this._constants.userIsOffline:
-        jQuery('#online_'+res.userId).css("background-color", "red");
         break;
       default:
         break;
@@ -341,9 +323,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     this.router.navigate(["/" + this.loggedInUser.userRole + "/user-chat"], { queryParams: { groupChatActive: this.groupChat ? 3 : 1 }});
   }
 
-  sendChatMessage(text) {
-    this.messageIs = this.inputDiv.nativeElement.value;
-
+  sendChatMessage() {
     if (this.messageIs == '' || this.messageIs == undefined) {
       return;
     }
@@ -383,9 +363,14 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     this.messageIs = "";
   }
 
+  goToBottomFirst() {
+    this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight;
+  }
+
   goToBottom() {
     try {
-      this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight;
+      let height = this.chatDiv.nativeElement.scrollHeight;
+      jQuery('.conversation-container').animate({scrollTop: height});
     } catch (err) {
       console.log(err);
     }

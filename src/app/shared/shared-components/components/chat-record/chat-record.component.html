@@ -44,6 +44,7 @@
         <!-- user1 as a sender -->
         <div
           class="message-box"
+          [id] = "'msg_' + msg._id"
           *ngIf="msg.senderId === userMessages.user1._id"
           [ngClass]="
             msg.senderId === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'
@@ -67,6 +68,7 @@
         <!-- user2 as a sender -->
         <div
           class="message-box"
+          [id] = "'msg_' + msg._id"
           *ngIf="msg.senderId === userMessages.user2._id"
           [ngClass]="
             msg.senderId === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'
@@ -93,7 +95,7 @@
     <div class="chat-box" style="margin-bottom: 30px;" *ngIf = "groupChat">
       <ng-container *ngFor="let msg of groupMessages.message">
           
-        <div class="message-box" [ngClass] = "msg.senderId._id === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'">
+        <div class="message-box" [id] = "'msg_' + msg._id" [ngClass] = "msg.senderId._id === loggedInUser._id ? 'rightSideMsg' : 'leftSideMsg'">
           <div class="message">
             <div [ngClass]="msg.senderId._id === loggedInUser._id ? 'messageRight' : 'messageLeft'">
               <span>{{ msg.senderId.fullName }}</span>
