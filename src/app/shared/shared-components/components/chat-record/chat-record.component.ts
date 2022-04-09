@@ -136,6 +136,10 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
     }, 500);
   }
 
+  scrollToBottomNew(res){
+    console.log(res.data.message._id);
+  }
+
   //handle all user chat message.
   handleChatMessage(res: any) {
     switch (res.subType) {
@@ -167,6 +171,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
             } else {
               this.userMessages.message = [...this.userMessages.message, res.data.message];
             }
+            this.scrollToBottomNew(res);
           }
         }
         break;
@@ -178,6 +183,7 @@ export class ChatRecordComponent implements OnInit, AfterViewChecked, OnChanges 
             } else {
               this.groupMessages.message = [...this.groupMessages.message, res.data.message[res.data.message.length - 1]];
             }
+            this.scrollToBottomNew(res);
           }
         }
         break;
