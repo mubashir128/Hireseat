@@ -4,7 +4,8 @@
   border-radius: 2px;
   margin-top: 10px;
   overflow: auto;
-  max-height: 620px;
+  height: calc(67vh);
+  background-color: white;
 }
 
 .chat-list:hover {

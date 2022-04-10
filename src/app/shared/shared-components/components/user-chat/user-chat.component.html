@@ -31,6 +31,7 @@
   </div>
 
   <div class="chat-list" *ngIf = "chgStyle == 1">
+    <div *ngIf = "onlyChatUsers.length == 0" class="loadStatus clsSt">{{chatUserStatus}}</div>
     <ng-container *ngFor="let user of onlyChatUsers | inUserChatSearch : searchTermByName">
 
       <div class="chat-profile-item animatePart" *ngIf = "user.user1._id !== loggedInUser._id">
@@ -60,11 +61,12 @@
       </div>
 
     </ng-container>
-    <div class="divider"></div>
-    <app-no-data-available *ngIf = "onlyChatUsers.length == 0"></app-no-data-available>
+    <!-- <div class="divider"></div>
+    <app-no-data-available *ngIf = "onlyChatUsers.length == 0"></app-no-data-available> -->
   </div>
 
   <div class="chat-list" *ngIf = "chgStyle == 2">
+    <div *ngIf = "chatUsers.length == 0" class="loadStatus clsSt">{{chatUserStatus}}</div>
     <ng-container *ngFor="let user of chatUsers | search : searchTermByName">
 
       <div class="chat-profile-item animatePart" *ngIf = "user._id !== loggedInUser._id">
@@ -81,11 +83,12 @@
       </div>
 
     </ng-container>
-    <div class="divider"></div>
-    <app-no-data-available *ngIf = "chatUsers.length == 0"></app-no-data-available>
+    <!-- <div class="divider"></div>
+    <app-no-data-available *ngIf = "chatUsers.length == 0"></app-no-data-available> -->
   </div>
 
-  <div class="chat-list" *ngIf = "chgStyle == 3">
+  <div class="chat-list" *ngIf = "chgStyle == 3" style="height: calc(62vh) !important;">
+    <div *ngIf = "groupChatUsers.length == 0" class="loadStatus clsSt">{{chatUserStatus}}</div>
     <ng-container *ngFor="let group of groupChatUsers | searchByOnlyFullName : searchTermByName">
 
       <div class="chat-profile-item animatePart">
@@ -102,8 +105,8 @@
       </div>
 
     </ng-container>
-    <div class="divider"></div>
-    <app-no-data-available *ngIf = "groupChatUsers.length == 0"></app-no-data-available>
+    <!-- <div class="divider"></div>
+    <app-no-data-available *ngIf = "groupChatUsers.length == 0"></app-no-data-available> -->
   </div>
 
 </div>

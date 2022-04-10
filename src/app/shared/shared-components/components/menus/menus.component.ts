@@ -155,7 +155,7 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/Product Walkthrough", "Product Walkthrough", false, "fas fa-info"));
     
     this.tabs2.push(new Tab2("/candidate/my-profile", "Profile", true, "fas fa-user"));
-    this.tabs2.push(new Tab2("/candidate/user-chat", "Candidate Chat", false, "fas fa-comment"));
+    // this.tabs2.push(new Tab2("/candidate/user-chat", "Candidate Chat", false, "fas fa-comment"));
     
     this.tabs2.push(
       new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
