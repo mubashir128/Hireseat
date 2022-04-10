@@ -374,7 +374,7 @@ body {
 }
 
 .conversation-compose .send .circle {
-    background: #03aaff;
+    background: #188986;
     border-radius: 50%;
     color: #fff;
     position: relative;
@@ -445,5 +445,9 @@ body {
 }
 
 .stSize {
-    font-size: 16px;
+    font-size: 18px;
+}
+
+.clsSt {
+    color: white;
 }
