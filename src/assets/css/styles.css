@@ -1466,10 +1466,3 @@ body {
   width: 30px !important;
   height: 30px !important;
 }
-
-.loadStatus {
-  width: 100%;
-  text-align: center;
-  font-size: 20px;
-  margin-top: 50%;
-}

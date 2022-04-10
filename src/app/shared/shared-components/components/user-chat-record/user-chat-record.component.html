@@ -55,7 +55,6 @@
                         
                         <div class="conversation">
                             <div class="conversation-container" #chatDiv *ngIf = "!groupChat">
-                                <div class="loadStatus clsSt">{{chatStatus}}</div>
                                 <ng-container *ngFor="let msg of userMessages.message">
                                     <div *ngIf="msg.senderId === userMessages.user1._id">
                                         <div [ngClass] = "['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
@@ -94,7 +93,6 @@
                             </div>
 
                             <div class="conversation-container" #chatDiv *ngIf = "groupChat">
-                                <div class="loadStatus clsSt">{{chatStatus}}</div>
                                 <ng-container *ngFor="let msg of groupMessages.message">
                                     <div [ngClass] = "['message', (msg.senderId._id === loggedInUser._id) ? 'sent' : 'received']">
                                         <span class="stSize">{{ msg.senderId.fullName }}</span>

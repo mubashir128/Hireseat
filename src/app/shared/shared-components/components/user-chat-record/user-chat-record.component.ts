@@ -53,8 +53,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
 
   groupIsMore = true;
   showType : boolean = false;
-
-  chatStatus = "Loading...";
   
   constructor(private route: ActivatedRoute, 
     private router: Router, 
@@ -141,14 +139,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     this.showType = true;
   }
 
-  chatStatusVal(){
-    if(this.userMessages && this.userMessages.message && this.userMessages.message.length !== 0){
-      this.chatStatus = "";
-    }else{
-      this.chatStatus = "No chat available.";
-    }
-  }
-
   //handle all user chat message.
   handleChatMessage(res: any) {
     switch (res.subType) {
@@ -158,7 +148,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
           this.userMessages = res.data;
           this.userChatId = this.userMessages._id;
           this.insertTwoWayChatSettingList();
-          this.chatStatusVal();
         }
         setTimeout(()=>{
           this.goToBottomFirst();
@@ -173,7 +162,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
           this.insertGrpMembers();
           this.getAllUsers();
           this.setGroupProfilePicture();
-          this.chatStatusVal();
         }
         setTimeout(()=>{
           this.goToBottomFirst();

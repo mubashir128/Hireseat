@@ -33,8 +33,6 @@ export class NotificationsComponent implements OnInit {
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
 
-  notifyStatus = "Loading...";
-
   constructor(
     private userService: UserService,
     private _subList : SubscriberslistService,
@@ -119,7 +117,7 @@ export class NotificationsComponent implements OnInit {
           if(res.count){
             this.notificationLength = res.count;
           }
-          this.statusNotifyVal();
+
         }
         break;
       case this._constants.newNotification:
@@ -128,19 +126,10 @@ export class NotificationsComponent implements OnInit {
           res.data.notification = JSON.parse(res.data.notification);
           this.notificationAre.length !== 0 ? this.notificationAre.unshift(res.data) : this.notificationAre.push(res.data);
           this.incrementNotificationCount();
-          this.statusNotifyVal();
         }
         break;
       default:
         break;
-    }
-  }
-
-  statusNotifyVal(){
-    if(this.notificationAre.length == 0){
-      this.notifyStatus = "No Notifications";
-    }else{
-      this.notifyStatus = "";
     }
   }
 

@@ -51,8 +51,6 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   showAddedUserAre = [];
 
-  chatUserStatus = "Loading...";
-
   constructor(private formBuilder: FormBuilder,
     private _socket: WebsocketService,
     private _constants : ConstantsService,
@@ -131,14 +129,6 @@ export class UserChatComponent implements OnInit, OnChanges {
     });
   }
 
-  chatUserStatusVal(){
-    if(this.chatUsers.length == 0 || this.groupChatUsers.length == 0 || this.onlyChatUsers.length == 0){
-      this.chatUserStatus = "No data available."
-    }else{
-      this.chatUserStatus = "";
-    }
-  }
-
   //handle all user chat.
   handleUserChat(res: any) {
     switch (res.subType) {
@@ -147,7 +137,6 @@ export class UserChatComponent implements OnInit, OnChanges {
         break;
       case this._constants.getOnlyUserChats:
         this.onlyChatUsers = res.data;
-        this.chatUserStatusVal();
         break;
       case this._constants.getGroupChatUsers:
         this.groupChatUsers = res.data;
