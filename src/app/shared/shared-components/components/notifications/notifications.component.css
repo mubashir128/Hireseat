@@ -138,8 +138,16 @@ h4.count {
   /* font-weight: bold; */
 }
 
+.noticatin-a{
+  height: calc(100% - 69px);
+}
+
+.notificationListOverlay2{
+  height: 100%;
+}
+
 .scrollNotification {
-  max-height: 400px;
+  height: calc(72vh);
   overflow: auto;
   position: relative;
   border-radius: 5px;
