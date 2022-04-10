@@ -87,7 +87,7 @@
     <app-no-data-available *ngIf = "chatUsers.length == 0"></app-no-data-available> -->
   </div>
 
-  <div class="chat-list" *ngIf = "chgStyle == 3" style="height: calc(62vh) !important;">
+  <div class="chat-list" *ngIf = "chgStyle == 3" style="height: calc(56vh) !important;">
     <div *ngIf = "groupChatUsers.length == 0" class="loadStatus clsSt">{{chatUserStatus}}</div>
     <ng-container *ngFor="let group of groupChatUsers | searchByOnlyFullName : searchTermByName">
 

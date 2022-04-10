@@ -139,7 +139,7 @@ h4.count {
 }
 
 .scrollNotification {
-  height: calc(72vh);
+  height: calc(66vh);
   overflow: auto;
   position: relative;
   border-radius: 5px;

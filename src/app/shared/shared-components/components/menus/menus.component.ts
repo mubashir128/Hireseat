@@ -214,7 +214,7 @@ export class MenusComponent implements OnInit {
       this.userService.removeBeforeMyProfileWalkthrough();
       this.userService.removeOnlyCandidateWalkthroughWalkthrough();
       this.router.navigate([this.loggedInUser.userRole+'/my-profile']);
-    }else if(text = "Version - "){
+    }else if(text == "Version - "){
       window.open("https://apps.apple.com/us/app/hireseat/id1558475792", "_blank");
     }else{
       this.router.navigate([item]);
