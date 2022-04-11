@@ -65,7 +65,6 @@ import { MobileNavTabComponent } from './components/mobile-nav-tab/mobile-nav-ta
 import { MultiSharedCandidateProfileComponent } from './components/multi-shared-candidate-profile/multi-shared-candidate-profile.component';
 import { ListLoaderComponent } from './components/list-loader/list-loader.component';
 import { UserChatComponent } from './components/user-chat/user-chat.component';
-import { ChatRecordComponent } from './components/chat-record/chat-record.component';
 import { NoDataAvailableComponent } from './no-data-available/no-data-available.component';
 import { SerchBySkillsPipe } from '../../shared/pipes/serch-by-skills.pipe';
 import { SerchByFullNamePipe } from '../../shared/pipes/serch-by-full-name.pipe';
@@ -193,7 +192,6 @@ import { UserChatRecordComponent } from './components/user-chat-record/user-chat
     ListLoaderComponent,
     ListLoaderSearchComponent,
     UserChatComponent,
-    ChatRecordComponent,
     NoDataAvailableComponent,
     SerchBySkillsPipe,
     SerchByFullNamePipe,
