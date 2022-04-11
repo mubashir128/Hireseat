@@ -623,6 +623,39 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     }
   }
 
+  sendProfiledata(){
+    console.log("sendProfiledata() : ",this.user);
+    
+    let index = 1;
+    if(this.user && this.user.candidate_id && this.user.candidate_id.comments.trim() !== ""){
+      this.messageIs = "comment" + index + ")" + this.user.candidate_id.comments;
+      index++;
+      this.sendChatMessage();
+    }
+
+    if(this.user && this.user.candidate_id && this.user.candidate_id.comment2.trim() !== ""){
+      this.messageIs = "comment" + index + ")" + this.user.candidate_id.comment2;
+      index++;
+      this.sendChatMessage();
+    }
+
+    if(this.user && this.user.candidate_id && this.user.candidate_id.comment3.trim() !== ""){
+      this.messageIs = "comment" + index + ")" + this.user.candidate_id.comment3;
+      this.sendChatMessage();
+    }
+
+    if(this.user && this.user.candidate_id && this.user.candidate_id.fileURL.trim() !== ""){
+      this.messageIs = "Resume Url : " + this.user.candidate_id.fileURL;
+      this.sendChatMessage();
+    }
+
+    if(this.user && this.user.candidate_id && this.user.candidate_id.linkedIn.trim() !== ""){
+      this.messageIs = "LinkedIn : " + this.user.candidate_id.linkedIn;
+      this.sendChatMessage();
+    }
+
+  }
+
   getImage(obj){
     obj.showCreatedLogo = true;
   }

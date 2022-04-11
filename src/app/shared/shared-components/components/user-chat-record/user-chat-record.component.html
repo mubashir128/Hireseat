@@ -114,8 +114,8 @@
                                     </svg> --> 
                                 </div>
                                 <input class="input-msg" name="input" [(ngModel)]="messageIs" placeholder="Type a message" autocomplete="off" autofocus/>
-                                <div class="photo">
-                                    <i class="zmdi zmdi-camera"></i>
+                                <div class="photo" *ngIf = "!groupChat">
+                                    <i class="fas fa-link" (click) = "sendProfiledata()"></i>
                                 </div>
                                 <button class="send" (click)="sendChatMessage()">
                                     <div class="circle">

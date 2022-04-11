@@ -75,7 +75,7 @@ body {
 
 .user-bar {
     height: 55px;
-    background: #188986;
+    background: #03aaff;
     color: #fff;
     padding: 0 12px;
     font-size: 24px;
@@ -142,16 +142,7 @@ body {
     height: calc(100% - 12px);
     position: relative;
     /* background: #efe7dd url("https://cloud.githubusercontent.com/assets/398893/15136779/4e765036-1639-11e6-9201-67e728e86f39.jpg") repeat; */
-    /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-2.png") repeat; */
-    /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-3.jpg") repeat; */
-    /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-4.png") repeat; */
-    /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-5.png") repeat; */
-    /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-6.jpg") repeat; */
-    /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-7.jpg") repeat; */
-    background: #efe7dd url("../../../../../assets/chat-back/chat-screen-8.jpg") repeat;
-    /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-13.jpg") repeat; */
-    /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-15.jpg") repeat; */
-    /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-17.jpg") repeat; */
+    background: #efe7dd url("../../../../../assets/chat-back/chat-screen-2.png") repeat;
     z-index: 0;
 }
 
