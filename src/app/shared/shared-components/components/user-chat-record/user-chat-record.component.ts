@@ -55,7 +55,9 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   showType : boolean = false;
 
   chatStatus = "Loading...";
+  
   chatStatusBol: boolean = true;
+  createdUrl = "";
   
   constructor(private route: ActivatedRoute, 
     private router: Router, 
@@ -258,9 +260,33 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
           jQuery(".right-chat").css("display","none");
         }
         break;
+      case this._constants.generateLink : 
+        if(res){
+          this.messageIs = res.link;
+          this.createdUrl = res.link;
+          this.sendChatMessage();
+          this.copyLink();
+        }
+        break;
       default:
         break;
     }
+  }
+
+  copyLink() {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.createdUrl;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+
+    Materialize.toast("Link copied to clipboard", 1000);
   }
 
   setGroupProfilePicture(){
@@ -624,33 +650,19 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   sendProfiledata(){
-    let index = 1;
-    if(this.user && this.user.candidate_id && this.user.candidate_id.comments.trim() !== ""){
-      this.messageIs = "comment" + index + ")" + this.user.candidate_id.comments;
-      index++;
-      this.sendChatMessage();
-    }
 
-    if(this.user && this.user.candidate_id && this.user.candidate_id.comment2.trim() !== ""){
-      this.messageIs = "comment" + index + ")" + this.user.candidate_id.comment2;
-      index++;
-      this.sendChatMessage();
-    }
+    let payload = {
+      recruiterId: this.loggedInUser._id,
+      fullName: this.loggedInUser.fillName
+    };
 
-    if(this.user && this.user.candidate_id && this.user.candidate_id.comment3.trim() !== ""){
-      this.messageIs = "comment" + index + ")" + this.user.candidate_id.comment3;
-      this.sendChatMessage();
-    }
-
-    if(this.user && this.user.candidate_id && this.user.candidate_id.fileURL.trim() !== ""){
-      this.messageIs = "Resume Url : " + this.user.candidate_id.fileURL;
-      this.sendChatMessage();
-    }
-
-    if(this.user && this.user.candidate_id && this.user.candidate_id.linkedIn.trim() !== ""){
-      this.messageIs = "LinkedIn : " + this.user.candidate_id.linkedIn;
-      this.sendChatMessage();
-    }
+    this._socket.sendMessage({
+      type: this._constants.userChatMessageType,
+      data: {
+        subType: this._constants.generateLink,
+        data: payload
+      },
+    });
 
   }
 

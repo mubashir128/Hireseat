@@ -207,7 +207,7 @@ body {
 }
 
 .metadata .time {
-    color: rgba(0, 0, 0, .45);
+    color: white;
     font-size: 11px;
     display: inline-block;
 }
@@ -272,7 +272,8 @@ body {
 }
 
 .message.sent {
-    background: #AEFBF9;
+    color: white;
+    background: #03aaff;
     border-radius: 5px 0px 5px 5px;
     float: right;
 }
