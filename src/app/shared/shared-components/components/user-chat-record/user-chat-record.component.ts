@@ -624,8 +624,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   sendProfiledata(){
-    console.log("sendProfiledata() : ",this.user);
-    
     let index = 1;
     if(this.user && this.user.candidate_id && this.user.candidate_id.comments.trim() !== ""){
       this.messageIs = "comment" + index + ")" + this.user.candidate_id.comments;
