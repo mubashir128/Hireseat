@@ -112,7 +112,7 @@
                                     </svg> --> 
                                 </div>
                                 <input class="input-msg" name="input" [(ngModel)]="messageIs" placeholder="Type a message" autocomplete="off" autofocus/>
-                                <div class="photo" *ngIf = "!groupChat">
+                                <div class="photo" *ngIf = "!groupChat && loggedInUser.userRole == 'candidate'">
                                     <i class="fas fa-link" (click) = "sendProfiledata()"></i>
                                 </div>
                                 <button class="send" (click)="sendChatMessage()">
