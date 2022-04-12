@@ -262,8 +262,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         break;
       case this._constants.generateLink : 
         if(res){
-          this.messageIs = res.link;
-          this.createdUrl = res.link;
+          this.messageIs = res.link.link;
+          this.createdUrl = res.link.link;
           this.sendChatMessage();
           this.copyLink();
         }
@@ -650,10 +650,9 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   sendProfiledata(){
-
     let payload = {
       recruiterId: this.loggedInUser._id,
-      fullName: this.loggedInUser.fillName
+      resumeId : this.user.candidate_id._id
     };
 
     this._socket.sendMessage({
