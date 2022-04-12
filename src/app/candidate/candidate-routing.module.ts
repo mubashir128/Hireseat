@@ -12,7 +12,6 @@ import { NotificationsComponent } from "../shared/shared-components/components/n
 import { FillFormComponent } from "../shared/shared-components/components/fill-form/fill-form.component";
 import { OnlyForCandidateSharedProfileComponent } from "./only-for-candidate-shared-profile/only-for-candidate-shared-profile.component";
 import { UserChatComponent } from "../shared/shared-components/components/user-chat/user-chat.component";
-import { ChatRecordComponent } from "../shared/shared-components/components/chat-record/chat-record.component";
 import { FriendsConnectionsComponent } from "../shared/shared-components/components/friends-connections/friends-connections.component";
 import { TimelineComponent } from "../shared/shared-components/components/timeline/timeline.component";
 import { UserChatRecordComponent } from "../shared/shared-components/components/user-chat-record/user-chat-record.component";
@@ -72,7 +71,6 @@ const routes: Routes = [
       },
       {
         path: "chat-record/:id",
-        // component: ChatRecordComponent,
         component: UserChatRecordComponent,
       },
       {
