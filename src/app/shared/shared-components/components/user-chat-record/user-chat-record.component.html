@@ -28,7 +28,7 @@
                                 <i class="zmdi zmdi-arrow-left"></i>
                             </div>
                             <div class="backBtn">
-                                <i (click)="backToChat()" style="color: #AEFBF9" class="fa fa-arrow-left" aria-hidden="true"></i>
+                                <i (click)="backToChat()" class="fa fa-arrow-left colorSt" aria-hidden="true"></i>
                             </div>
                             <div class="avatar">
                                 <div *ngIf = "!user.showCreatedLogo">
@@ -48,8 +48,8 @@
                                 </span>
                             </div>
                             <div class="actions more">
-                                <i *ngIf = "!groupChat" class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "setting()"></i>
-                                <i *ngIf = "groupChat && groupIsMore" class="fa fa-ellipsis-v" style="color: black;" aria-hidden="true" (click) = "setting()"></i>
+                                <i *ngIf = "!groupChat" class="fa fa-ellipsis-v colorSt" aria-hidden="true" (click) = "setting()"></i>
+                                <i *ngIf = "groupChat && groupIsMore" class="fa fa-ellipsis-v colorSt" aria-hidden="true" (click) = "setting()"></i>
                             </div>
                         </div>
                         
