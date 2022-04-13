@@ -175,7 +175,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         }
         setTimeout(()=>{
           this.goToBottomFirst();
-        }, 300);
+        }, 700);
         break;
       case this._constants.getAllGroupChats:
         this.showTypeFlag();
@@ -190,7 +190,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         }
         setTimeout(()=>{
           this.goToBottomFirst();
-        }, 300);
+        }, 700);
         break;
       case this._constants.addNewChat:
         if (res.data) {

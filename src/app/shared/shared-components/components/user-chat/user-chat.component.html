@@ -1,6 +1,6 @@
 <div class="" style="margin-bottom: 50px;">
 
-  <div class="row">
+  <div class="row marBt">
     <div class="col s4 m4 l4 textAlign" [ngClass] = "chgStyle == 1 ? 'frtClass' : 'secClass'" (click) = "changesType('1')">
       CHATS
     </div>
@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="row" *ngIf = "chgStyle == 3">
+  <div class="row marBt" *ngIf = "chgStyle == 3">
     <form [formGroup]="">
       <div class="createGRP" (click) = "createGroup()">
         Create Group
@@ -21,7 +21,7 @@
     </form>
   </div>
 
-  <div class="row">
+  <div class="row marBt">
     <form [formGroup]="auctionFrm">
       <div class="searchDiv">
         <input type="text" class="searchRecruiter" formControlName="searchTermByNameIs" [(ngModel)]="searchTermByName" placeholder="Search..." #searchInputTerm>
@@ -87,7 +87,7 @@
     <app-no-data-available *ngIf = "chatUsers.length == 0"></app-no-data-available> -->
   </div>
 
-  <div class="chat-list" *ngIf = "chgStyle == 3" style="height: calc(56vh) !important;">
+  <div class="chat-list" *ngIf = "chgStyle == 3" style="height: calc(54vh) !important;">
     <div *ngIf = "groupChatUsers.length == 0" class="loadStatus clsSt">{{chatUserStatus}}</div>
     <ng-container *ngFor="let group of groupChatUsers | searchByOnlyFullName : searchTermByName">
 

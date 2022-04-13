@@ -34,7 +34,7 @@ body {
 
 .screen-container {
     /* height: 100%; */
-    margin-top: 118px !important;
+    margin-top: 55px !important;
 }
 
 /* Status Bar */
@@ -415,7 +415,7 @@ body {
         left: 0;
         right: 0;
         bottom: 0;
-        margin-top: 118px !important
+        margin-top: 55px !important
     }
 
     .conversation {
