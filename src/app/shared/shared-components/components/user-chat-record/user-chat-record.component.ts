@@ -415,13 +415,26 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   goToBottomFirst() {
-    this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight;
+    try {
+      setTimeout(()=>{
+        if(this.chatDiv && this.chatDiv.nativeElement && this.chatDiv.nativeElement.scrollHeight){
+          this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight;
+          return ;
+        }else{
+          this.goToBottomFirst();
+        }
+      }, 500);
+    } catch (err) {
+      console.log(err);
+    } 
   }
 
   goToBottom() {
     try {
-      let height = this.chatDiv.nativeElement.scrollHeight;
-      jQuery('.conversation-container').animate({scrollTop: height});
+      if(this.chatDiv && this.chatDiv.nativeElement && this.chatDiv.nativeElement.scrollHeight){
+        let height = this.chatDiv.nativeElement.scrollHeight;
+        jQuery('.conversation-container').animate({scrollTop: height});
+      }
     } catch (err) {
       console.log(err);
     }

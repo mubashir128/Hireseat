@@ -140,6 +140,9 @@ export class ConstantsService {
 
   currIosAppVersion;
 
+  androidPlayStoreLink;
+  iosPlayStoreLink
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -355,6 +358,9 @@ export class ConstantsService {
     this.publicProfile = obj.publicProfile;
 
     this.currIosAppVersion = obj.currIosAppVersion;
+
+    this.androidPlayStoreLink = obj.androidPlayStoreLink;
+    this.iosPlayStoreLink = obj.iosPlayStoreLink;
   }
 
 }

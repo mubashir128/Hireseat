@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ConstantsService } from '../_services/constants.service';
 // import { MatVideoComponent } from 'mat-video/app/video/video.component';
 
 @Component({
@@ -67,7 +68,7 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private spinner: NgxSpinnerService,
-
+    private _constants : ConstantsService
   ) { }
 
   ngOnInit() {
@@ -262,11 +263,11 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   googlePlayStore(){
-    window.open("https://play.google.com/store/apps/details?id=com.hireseat.app", "_blank");
+    window.open(""+this._constants.androidPlayStoreLink, "_blank");
   }
 
   iosPlayStore(){
-    window.open("https://apps.apple.com/us/app/hireseat/id1558475792", "_blank");
+    window.open(""+this._constants.iosPlayStoreLink, "_blank");
   }
 
   ngOnDestroy(): void {
