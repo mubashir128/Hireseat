@@ -36,7 +36,7 @@ export class MobileRegisterComponent implements OnInit {
   desiredRoles: string = "";
   desiredCompanies: string = "";
   verifyCode : string = "";
-  desiredConnector: string = "";
+  introduceYouToo: string = "";
 
   localRole = "candidate";
   userRoleData = 0;
@@ -70,7 +70,7 @@ export class MobileRegisterComponent implements OnInit {
     });
     this.thirdFormGroup = this._formBuilder.group({
       desiredCompanies: [''],
-      desiredConnector: ['']
+      introduceYouToo: ['']
     });
     this.fourFormGroup = this._formBuilder.group({
       verifyCode: ['', Validators.required]
@@ -109,7 +109,7 @@ export class MobileRegisterComponent implements OnInit {
   }
 
   sendVerifyCode(stepper: MatStepper){
-    if(this.desiredCompanies.trim() == "" && this.desiredConnector.trim() == ""){
+    if(this.desiredCompanies.trim() == "" && this.introduceYouToo.trim() == ""){
       Materialize.toast("Atleast one Field is required.", 1000, "red");
       return ;
     }
@@ -168,7 +168,7 @@ export class MobileRegisterComponent implements OnInit {
       linkedIn: this.linkedIn,
       desiredRoles: this.desiredRoles,
       desiredCompanies: this.desiredCompanies,
-      desiredConnector: this.desiredConnector,
+      introduceYouToo: this.introduceYouToo,
       userRole: this.localRole,
       role: this.userRoleData,
       fileURL: this.fileURL
