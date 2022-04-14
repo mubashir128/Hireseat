@@ -44,7 +44,6 @@ export class SearchByCTRPipe implements PipeTransform {
             }
           }
         });
-        console.log("usersAre : ",usersAre);
         return usersAre;
       }else{
         return users;
