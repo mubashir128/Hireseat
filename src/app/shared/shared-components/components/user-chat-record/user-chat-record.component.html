@@ -60,11 +60,7 @@
                                     <div *ngIf="msg.senderId === userMessages.user1._id">
                                         <div [ngClass] = "['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
                                             <span class="stSize">{{ userMessages.user1.fullName }}</span>
-                                            <p *ngIf = "!isUrl(msg.message)">{{ msg.message }}</p>
-                                            <p *ngIf = "isUrl(msg.message)">
-                                                <a [href]="msg.message" (click) = "openUrl(msg.message)" style="color: blue;" target="_blank">{{ msg.message }}
-                                                </a>
-                                            </p>
+                                            <p>{{ msg.message }}</p>
                                             <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
                                             <!-- <span class="metadata">
                                                 <span class="time"></span><span class="tick"><svg
@@ -84,11 +80,7 @@
                                     <div *ngIf="msg.senderId === userMessages.user2._id">
                                         <div [ngClass] = "['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
                                             <span class="stSize">{{ userMessages.user2.fullName }}</span>
-                                            <p *ngIf = "!isUrl(msg.message)">{{ msg.message }}</p>
-                                            <p *ngIf = "isUrl(msg.message)">
-                                                <a [href]="msg.message" (click) = "openUrl(msg.message)" style="color: blue;" target="_blank">{{ msg.message }}
-                                                </a>
-                                            </p>
+                                            <p>{{ msg.message }}</p>
                                             <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
                                             <!-- <span class="metadata">
                                                 <span class="time"></span><span class="tick"><svg
@@ -112,11 +104,7 @@
                                 <ng-container *ngFor="let msg of groupMessages.message">
                                     <div [ngClass] = "['message', (msg.senderId._id === loggedInUser._id) ? 'sent' : 'received']">
                                         <span class="stSize">{{ msg.senderId.fullName }}</span>
-                                        <p *ngIf = "!isUrl(msg.message)">{{ msg.message }}</p>
-                                        <p *ngIf = "isUrl(msg.message)">
-                                            <a [href]="msg.message" (click) = "openUrl(msg.message)" style="color: blue;" target="_blank">{{ msg.message }}
-                                            </a>
-                                        </p>
+                                        <p>{{ msg.message }}</p>
                                         <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
                                         <div *ngIf = "isUrl(msg.message)">
                                             <button class="clkOpen" (click) = "openUrl(msg.message)">Open link</button>
