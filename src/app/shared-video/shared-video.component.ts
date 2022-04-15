@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, OnChanges } from '
 // import videojs from 'video.js';
 import { ShareVideoService } from '../_services/share-video.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConstantsService } from '../_services/constants.service';
@@ -68,7 +68,8 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private spinner: NgxSpinnerService,
-    private _constants : ConstantsService
+    private _constants : ConstantsService,
+    private _router: Router
   ) { }
 
   ngOnInit() {
@@ -268,6 +269,10 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
 
   iosPlayStore(){
     window.open(""+this._constants.iosPlayStoreLink, "_blank");
+  }
+
+  backToPage(){
+    this._router.navigate["/home"];
   }
 
   ngOnDestroy(): void {
