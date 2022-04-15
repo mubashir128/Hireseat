@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
+import { MobileServiceService } from 'src/app/_services/mobile-service.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
@@ -65,7 +66,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     private _socket: WebsocketService, 
     private _constants: ConstantsService,
     public dialog: MatDialog,
-    private _subList : SubscriberslistService
+    private _subList : SubscriberslistService,
+    private _mobileService : MobileServiceService
   ) {
     // this.messageIs = '';
     this.loggedInUser = this.userService.getUserData();
@@ -262,10 +264,12 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         break;
       case this._constants.generateLink : 
         if(res){
+          Materialize.toast(""+res.link.link, 1000, "blue");
           this.messageIs = res.link.link;
           this.createdUrl = res.link.link;
           this.sendChatMessage();
-          this.copyLink();
+          this._mobileService.copyLinkViaClipbord(this.createdUrl, "Link copied to clipbord");
+          // this.copyLink();
         }
         break;
       default:
