@@ -188,7 +188,7 @@ body {
     margin: 8px 0;
     max-width: 85%;
     word-wrap: break-word;
-    z-index: -1;
+    z-index: 1;
 }
 
 .message:after {
@@ -443,4 +443,16 @@ body {
 
 .colorSt{
     color: white;
+}
+
+.clkOpen {
+    border: solid 1px black;
+    padding: 10px;
+    border-radius: 5px;
+    background: transparent;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+    width: 40%;
 }
