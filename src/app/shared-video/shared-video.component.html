@@ -18,9 +18,13 @@
       </div>
     </nav>
   </ng-container> -->
+
   <ng-container *ngIf="isTokenValid">
     <div class="MainTempMiddle">
       <div class="mainTemplate">
+        <div class="backBtn">
+          <i (click)="backToPage()" class="fa fa-arrow-left" aria-hidden="true"></i>
+        </div>
         <ng-container>
           <!-- <div class="interviewVideoDiv stickyDiv"> -->
           <div class="container">
