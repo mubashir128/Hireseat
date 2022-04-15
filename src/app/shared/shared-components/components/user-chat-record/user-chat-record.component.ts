@@ -59,6 +59,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   
   chatStatusBol: boolean = true;
   createdUrl = "";
+
+  userCandidateProfileData: any;
   
   constructor(private route: ActivatedRoute, 
     private router: Router, 
@@ -102,13 +104,22 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     this.getAllChats();
   }
 
-
   ngOnChanges() {
     jQuery(".modal").modal();
   }
 
   ngAfterViewChecked() {
     // this.goToBottom();
+  }
+
+  isUrl(s) {
+    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+    return regexp.test(s);
+  }
+
+  openUrl(url){
+    console.log(url);
+    window.open(url, "_blank");
   }
 
   getAllChats() {
@@ -365,7 +376,14 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   handleUserData() {
+    this.getCandidateUserDetails();
     this.getCurrentUserDetails();
+  }
+
+  getCandidateUserDetails() {
+    this.userService.getCandidateUserDetails({ userId: this.loggedInUser._id }).subscribe((res: any) => {
+      this.userCandidateProfileData = res.data;
+    });
   }
 
   getCurrentUserDetails() {
@@ -656,7 +674,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   sendProfiledata(){
     let payload = {
       recruiterId: this.loggedInUser._id,
-      resumeId : this.user.candidate_id._id
+      resumeId : this.userCandidateProfileData._id
     };
 
     this._socket.sendMessage({
