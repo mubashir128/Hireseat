@@ -25,7 +25,8 @@
 
           <div class="pro-4">
             <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && !timeline.systemUserId">
-              {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}}.
+              <!-- {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}}. -->
+              {{timeline.fromId?.fullName}} intro'd Someone.
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.connectionRequest">
@@ -33,7 +34,8 @@
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && timeline.systemUserId">
-              {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}} with {{timeline.systemUserId.fullName}} .
+              <!-- {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}} with {{timeline.systemUserId.fullName}} . -->
+              {{timeline.fromId?.fullName}} intro'd Someone .
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.sayThanks">
@@ -44,7 +46,7 @@
               {{timeline.fromId?.fullName}} just joined the HireSeat Network. Welcome {{timeline.fromId?.fullName}}.
             </span>
 
-            <div class="">
+            <!-- <div class="">
               <ng-container *ngIf="timeline.systemUserId">
                 <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
                   <img [src] = "timeline.systemUserId?.profileimage ? timeline.systemUserId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
@@ -56,14 +58,15 @@
                   <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
                 </div>
               </ng-container>
-            </div>
+            </div> -->
           </div>
         </div>
         
         <div class="row introSection" *ngIf = "timeline.status == _constants.actualTimeline">
           <span style="font-size: 17px;">Request Introductions : </span>
           <div class="row" style="text-align: center;">
-            <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;">
+            <!-- <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;"> -->
+            <div class="col s12 m12 l12">
               <span style="color: red;">
                 {{timeline.fromId?.fullName}} :
               </span>
@@ -81,7 +84,7 @@
               </div>
             </div>
 
-            <div class="col s6 m6 l6" style="text-align: left;">
+            <!-- <div class="col s6 m6 l6" style="text-align: left;">
               <span style="color: red;">
                 {{timeline.profileUserId?.fullName}} :
               </span>
@@ -97,14 +100,16 @@
                   </label>
                 </span>
               </div>
-            </div>
+            </div> -->
+
           </div>
 
-          <!-- asda -->
           <div class="row" style="text-align: center; margin-top: -20px;">
 
-            <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;">
-              <div class="pro-share" style="margin-top: 10px;">
+            <!-- <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;"> -->
+            <div class="col s12 m12 l12">
+              <!-- <div class="pro-share" style="margin-top: 10px;"> -->
+              <div class="pro-share" style="margin: auto; float: none; width: 50%;">
                 <div class="">
                   <button class="connectBtn" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                     <a>
@@ -118,7 +123,7 @@
               </div>
             </div>
 
-            <div class="col s6 m6 l6" style="text-align: left;">
+            <!-- <div class="col s6 m6 l6" style="text-align: left;">
               <div class="pro-share" style="margin-top: 10px;">
                 <div class="">
                   <button class="connectBtn" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
@@ -131,10 +136,10 @@
                   </button>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
 
-          <div class="row" style="text-align: center;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
+          <!-- <div class="row" style="text-align: center;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
             <div class="" style="width: 50%; margin-left: auto; margin-right: auto;">
               <span style="color: red;">
                 {{timeline.systemUserId?.fullName}} :
@@ -152,9 +157,9 @@
                 </span>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="row" style="text-align: center; margin-top: -20px;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
+          <!-- <div class="row" style="text-align: center; margin-top: -20px;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
             <div class="" style="width: 50%; margin-right: auto; margin-left: auto;">
               <div class="pro-share" style="margin-top: 10px;">
                 <div class="">
@@ -169,7 +174,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
         </div>
         <div class="timelineTime notificaationDateTime">

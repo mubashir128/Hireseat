@@ -99,7 +99,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
     this._route.queryParams.subscribe(params => {
       this.throughProfileId = params['profileId'];
-      this.searchTerm = params['fullName'] ? params['fullName'] : "";
+      // this.searchTerm = params['fullName'] ? params['fullName'] : "";
+      this.searchCTRTerm = params['fullName'] ? params['fullName'] : "";
       this.throughRoute = true;
     });
 

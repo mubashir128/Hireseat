@@ -32,6 +32,7 @@
     "@capacitor/keyboard": "^1.2.0",
     "@capacitor/push-notifications": "^1.0.7",
     "@capacitor/status-bar": "^1.0.3",
+    "@capacitor/clipboard": "^1.0.8",
     "@ckeditor/ckeditor5-angular": "^2.0.1",
     "@ckeditor/ckeditor5-build-classic": "^12.4.0",
     "@ckeditor/ckeditor5-media-embed": "^11.1.3",
