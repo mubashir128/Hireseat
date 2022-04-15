@@ -275,7 +275,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         break;
       case this._constants.generateLink : 
         if(res){
-          Materialize.toast(""+res.link.link, 1000, "blue");
           this.messageIs = res.link.link;
           this.createdUrl = res.link.link;
           this.sendChatMessage();

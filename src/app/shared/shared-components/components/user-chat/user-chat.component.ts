@@ -141,11 +141,9 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   //handle all user chat.
   handleUserChat(res: any) {
-    Materialize.toast("data comes : ", 1000, "yellow");
     switch (res.subType) {
       case this._constants.getAllUsers:
         this.chatUsers = res.data;
-        Materialize.toast("data binded to chat user : "+res.data.length, 1000, "yellow");
         this.chatUserStatusVal();
         break;
       case this._constants.getOnlyUserChats:
