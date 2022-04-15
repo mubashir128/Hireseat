@@ -113,7 +113,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   openUrl(url){
-    console.log(url);
     window.open(url, "_blank");
   }
 
