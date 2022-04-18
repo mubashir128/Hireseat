@@ -22,7 +22,7 @@
   <ng-container *ngIf="isTokenValid">
     <div class="MainTempMiddle">
       <div class="mainTemplate">
-        <div class="backBtn">
+        <div *ngIf = "userChatId" class="backBtn">
           <i (click)="backToPage()" class="fa fa-arrow-left" aria-hidden="true"></i>
         </div>
         <ng-container>

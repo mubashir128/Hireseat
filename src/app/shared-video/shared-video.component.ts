@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { UserService } from '../_services/user.service';
 // import { MatVideoComponent } from 'mat-video/app/video/video.component';
 
 @Component({
@@ -61,20 +62,29 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   isbufferLoader = false;
   timeNow: number;
   recruiterDetails: any;
+  userChatId : any;
+
+  loggedInUser: any;
+
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private spinner: NgxSpinnerService,
-    private _router: Router
-  ) { }
+    private _router: Router,
+    private userService: UserService
+  ){
+    this.loggedInUser = this.userService.getUserData();
+  }
 
   ngOnInit() {
     this.isTokenValid = false;
     this.showCustomLoader = false;
     this.spinner.show();
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
+    this.userChatId = this.activatedRoute.snapshot.queryParams["userChatId"];
+
     const isCandidate = this.token.split('@')[1];
     
     if (isCandidate === 'candidate') {
@@ -270,7 +280,11 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   backToPage(){
-    this._router.navigate["/home"];
+    if(this.userChatId){
+      this._router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", this.userChatId]);
+    }else{
+      this._router.navigate["/home"];
+    }
   }
 
   ngOnDestroy(): void {
