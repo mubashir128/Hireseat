@@ -99,6 +99,7 @@ import { ProfileButtonsComponent } from "./components/profile-buttons/profile-bu
 import { DialogProfileExampleComponent } from './components/dialog-profile-example/dialog-profile-example.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { UserChatRecordComponent } from './components/user-chat-record/user-chat-record.component';
+import { DialogAskToSendProfileLinkComponent } from './components/dialog-ask-to-send-profile-link/dialog-ask-to-send-profile-link.component';
 
 @NgModule({
   imports: [
@@ -223,6 +224,7 @@ import { UserChatRecordComponent } from './components/user-chat-record/user-chat
     DialogProfileExampleComponent,
     DialogDeleteComponent,
     UserChatRecordComponent,
+    DialogAskToSendProfileLinkComponent,
 
   ],
   exports: [

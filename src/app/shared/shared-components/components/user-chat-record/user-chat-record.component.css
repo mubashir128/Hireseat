@@ -446,13 +446,14 @@ body {
 }
 
 .clkOpen {
-    border: solid 1px black;
+    background-color: red !important;
+    border: solid 1px white;
     padding: 10px;
     border-radius: 5px;
     background: transparent;
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 500;
-    color: black;
+    color: white;
     width: 40%;
 }

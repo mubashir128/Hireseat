@@ -1,0 +1,13 @@
+<div id="createGroupModal">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
+    <div class="row" style="margin-top: 12px;">
+        <span>Do you want share your profile </span>
+        <div class="row form-group textRight">
+            <button class="createAndAddMemberClass" (click)="sendLink(true)">Send</button>
+            <button (click)="sendLink(false)" class="createAndAddMemberClass cancelBtn">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>

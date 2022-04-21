@@ -71,7 +71,7 @@
                                                     </svg></span>
                                             </span> -->
                                             <div *ngIf = "isUrl(msg.message)">
-                                                <button class="clkOpen" (click) = "openUrl(msg.message)">Open link</button>
+                                                <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@
                                                     </svg></span>
                                             </span> -->
                                             <div *ngIf = "isUrl(msg.message)">
-                                                <button class="clkOpen" (click) = "openUrl(msg.message)">Open link</button>
+                                                <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@
                                         <p>{{ msg.message }}</p>
                                         <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
                                         <div *ngIf = "isUrl(msg.message)">
-                                            <button class="clkOpen" (click) = "openUrl(msg.message)">Open link</button>
+                                            <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
                                         </div>
                                     </div>
                                 </ng-container>
@@ -122,7 +122,7 @@
                                 </div>
                                 <input class="input-msg" name="input" [(ngModel)]="messageIs" placeholder="Type a message" autocomplete="off" autofocus/>
                                 <div class="photo" *ngIf = "!groupChat && loggedInUser.userRole == 'candidate'">
-                                    <i class="fas fa-link" (click) = "sendProfiledata()"></i>
+                                    <i class="fas fa-link" (click) = "askShare()"></i>
                                 </div>
                                 <button class="send" (click)="sendChatMessage()">
                                     <div class="circle">

@@ -77,6 +77,15 @@
                           </div>
                         </div>
 
+                        <div class="row marginAuto marOther">
+                          <div style="border-radius: 10px; background-color: red; width: 50%; margin-left: 40px;">
+                            <label style="color: white; margin-left: 10px;"># of Introductions : </label>
+                              <label style="font-size: 12px; color: white;">
+                                {{ getIntroduceCount(requestedFriendIs, 'resumeId') }}
+                              </label>
+                          </div>
+                        </div>
+
                         <div class="other-details">
                           <p *ngIf = "requestedFriendIs?.resumeId?.introduceYouToo">
                             <label>I can Intro you to Companies/Teams at :</label>
@@ -173,6 +182,14 @@
                             </span>
                           </div>
                         </div>
+                        <div class="row marginAuto marOther">
+                          <div style="border-radius: 10px; background-color: red; width: 50%; margin-left: 40px;">
+                            <label style="color: white; margin-left: 10px;"># of Introductions : </label>
+                              <label style="font-size: 12px; color: white;">
+                                {{ getIntroduceCount(friendsAre, 'resumeId') }}
+                              </label>
+                          </div>
+                        </div>
 
                         <div class="other-details">
                           <p *ngIf = "friendsAre?.resumeId?.introduceYouToo">
@@ -229,6 +246,15 @@
                             <span>
                               {{ friendsAre.recipient.fullName }}
                             </span>
+                          </div>
+                        </div>
+
+                        <div class="row marginAuto marOther">
+                          <div style="border-radius: 10px; background-color: red; width: 50%; margin-left: 40px;">
+                            <label style="color: white; margin-left: 10px;"># of Introductions : </label>
+                              <label style="font-size: 12px; color: white;">
+                                {{ getIntroduceCount(friendsAre, 'resumeId2') }}
+                              </label>
                           </div>
                         </div>
 

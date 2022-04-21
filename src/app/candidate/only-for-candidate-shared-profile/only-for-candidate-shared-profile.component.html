@@ -88,10 +88,11 @@
               </div>
             </div>
             <div class="row marginAuto marOther">
-              <div style="border-radius: 10px; background-color: red; width: 60%;" *ngIf = "resume?.introduceCount || resume?.candidateProfileKey?.introduceCount">
+              <div style="border-radius: 10px; background-color: red; width: 60%;">
                 <label style="margin-left: 5px; color: white;"># of Introductions : </label>
                   <label style="font-size: 12px; color: white;">
-                    {{ resume?.introduceCount || resume?.candidateProfileKey?.introduceCount }}
+                    <!-- {{ resume?.introduceCount || resume?.candidateProfileKey?.introduceCount }} -->
+                    {{ getIntroduceCount(resume) }}
                   </label>
               </div>
             </div>

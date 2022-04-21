@@ -744,6 +744,10 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     this.showResult = false;
   }
 
+  getIntroduceCount(resume){
+    return (resume?.introduceCount) ? resume.introduceCount : (resume?.candidateProfileKey?.introduceCount) ? resume.candidateProfileKey.introduceCount : 0;
+  }
+
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.onlyForCandidateSharedProfileType });
     this.onlyForCandidateSharedProfileObserver.unsubscribe();
