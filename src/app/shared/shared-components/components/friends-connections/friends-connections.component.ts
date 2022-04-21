@@ -629,6 +629,10 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     });
   }
 
+  getIntroduceCount(requestedFriendIs,obj){
+    return requestedFriendIs?.[obj]?.introduceCount ? requestedFriendIs[obj].introduceCount : 0;
+  }
+
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
     this.connectFriendObserver.unsubscribe();

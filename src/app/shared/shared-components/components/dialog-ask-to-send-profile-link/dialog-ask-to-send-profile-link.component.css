@@ -1,0 +1,20 @@
+.createAndAddMemberClass{
+  background-color: #039be5;
+  color: #fff;
+  border: 1px solid #039be5;
+  padding: 5px 15px;
+  border-radius: 3px;
+  margin-top: 10px;
+  float: right;
+}
+
+.textRight {
+  margin: auto !important;
+  margin-top: 10px !important;
+}
+
+.cancelBtn {
+  margin-right: 10px;
+  background-color: red;
+  border: 1px solid red !important;
+}

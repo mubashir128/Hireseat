@@ -327,3 +327,12 @@ input {
 .user-details {
   width: 100%;
 }
+
+.marginAuto{
+  margin: auto;
+}
+
+.marOther{
+  margin-left: 65px;
+  margin-top: -15px;
+}

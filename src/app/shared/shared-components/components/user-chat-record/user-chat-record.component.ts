@@ -9,6 +9,7 @@ import { SubscriberslistService } from 'src/app/_services/subscriberslist.servic
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { DialogAddMembersComponent } from '../dialog-add-members/dialog-add-members.component';
+import { DialogAskToSendProfileLinkComponent } from '../dialog-ask-to-send-profile-link/dialog-ask-to-send-profile-link.component';
 import { DialogGroupMembersComponent } from '../dialog-group-members/dialog-group-members.component';
 import { DialogImagePreviewComponent } from '../dialog-image-preview/dialog-image-preview.component';
 import { DialogSettingComponent } from '../dialog-setting/dialog-setting.component';
@@ -119,6 +120,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
 
   openUrl(url){
     window.open(url, "_blank");
+    // let token = url?.split("/")[4];
+    // this.router.navigate(["/shared-video/", token], { queryParams: { userChatId: this.receiverId }});
   }
 
   getAllChats() {
@@ -667,6 +670,21 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         );
       }
     }
+  }
+
+  askShare(){
+    const dialogCreateGroupRef = this.dialog.open(DialogAskToSendProfileLinkComponent,{
+      data: {
+        dialogType : "askProfileLink",
+        dialogTitle : "Profile link send..."
+      }
+    });
+
+    dialogCreateGroupRef.afterClosed().subscribe(result => {
+      if(result){
+        this.sendProfiledata();
+      }
+    });
   }
 
   sendProfiledata(){
