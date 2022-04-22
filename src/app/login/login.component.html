@@ -1,6 +1,6 @@
 <div id="login-page" class="mainWrapperLogin">
   <app-navbar></app-navbar>
-  <div id="container-parent" style=" min-height:100vh;height:100%; padding-bottom:10vh;">
+  <div id="container-parent">
     <div class="container">
       <div class="row loginCardDiv" style="padding-top:10vh;">
         <div class="col s12 m6 l6 hide-on-small-only">
@@ -82,39 +82,14 @@
                   Forgot Password?
                 </a>
               </div>
-            </form>
-          </div>
-          <div class="card row" style="padding:20px;">
-            <div class="title center-align" style="margin-bottom:30px;">
-              Create Account
-            </div>
-            <div class="role-section">
-              <div class="rec-emp">
 
-                <div style="display:inline-block; width:calc(50% - 15px); float:left; border-right: 1px solid #00000021"
-                  class="center-align">
-                  <h5>Employer</h5>
-                  <p class="center-align">Are you looking to hire?</p>
-                  <a class="btn-flat  transparentBtnN" (click)="createNewAccount('employer')" style="color:#114488;">
-                    Sign up
-                  </a>
-                </div>
-                <div style="display:inline-block; width:calc(50% - 15px);float:right;" class="center-align">
-                  <h5>Recruiter</h5>
-                  <p class="center-align">Are you a recruiting agency?</p>
-                  <a class="btn-flat transparentBtnN" (click)="createNewAccount('recruiter')"
-                    style="color:#114488;">Sign
-                    up</a>
-                </div>
+              <div class="row center-align">
+                <button class="btn" style="margin-top: -15px;" (click)="signUp()">
+                  <span>Sign Up</span>
+                </button>
               </div>
-              <div class="candidate">
-                <h5>Candidate</h5>
-                <p class="center-align">Are you looking to connect with professional recruiters?
-                </p>
-                <a class="btn-flat transparentBtnN" (click)="createNewAccount('candidate')" style="color:#114488;">Sign
-                  up</a>
-              </div>
-            </div>
+
+            </form>
           </div>
         </div>
       </div>

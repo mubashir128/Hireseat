@@ -7,6 +7,12 @@ import { IProfile } from "../profile/model/user-profile";
 import { IUser } from "../models/user";
 import { BehaviorSubject, Subject } from "rxjs";
 
+export enum eUserType {
+  employer = "employer", //2
+  recruiter = "recruiter", //3
+  candidate = "candidate" //4
+}
+
 @Injectable({
   providedIn: "root",
 })

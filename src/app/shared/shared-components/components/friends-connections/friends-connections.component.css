@@ -327,3 +327,36 @@ input {
 .user-details {
   width: 100%;
 }
+
+.marginAuto{
+  margin: auto;
+}
+
+.marOther{
+  margin-left: 65px;
+  margin-top: -15px;
+}
+
+.cirDiv {
+  background: #ff0000 !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50%;
+  color: #fff;
+  position: absolute;
+  padding: 3px;
+  top: 6px;
+  margin-left: 3px
+}
+
+.styDiv1 {
+  border-radius: 10px;
+  background-color: red;
+  width: 50%;
+  margin-left: 20px;
+}
+
+.lblSty {
+  color: white;
+  margin-left: 10px;
+}

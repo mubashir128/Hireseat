@@ -1,10 +1,10 @@
 <div class="tabsAre">
   <ul class="tabs">
     <li class="tablink" id="switch0" [ngClass]="itemsIs === 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
-      Intros to Companies
+      Intros to Companies - <span class="cirDiv">{{introsToCompaniesCount}}</span>
     </li>
     <li class="tablink" id="switch1" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
-      My Network
+      My Network - <span class="cirDiv">{{myNetworkCount}}</span>
     </li>
   </ul>
 </div>
@@ -61,7 +61,7 @@
                       <div class="user-details">
 
                         <div class="row" style="margin: auto;">
-                          <div class="col s3 m3 l3">
+                          <div class="col s3 m3 l3" style="width: auto;">
                             <div *ngIf = "!requestedFriendIs.requester.showCreatedLogo" class="big-badge big-badge-wid">
                               <img src="{{ requestedFriendIs.requester.profileimage }}" (error)="changeLogo(requestedFriendIs.requester)" class="iconStyle" style="max-width: 100%" />
                             </div>
@@ -74,6 +74,15 @@
                             <span>
                               {{ requestedFriendIs.requester.fullName }}
                             </span>
+                          </div>
+                        </div>
+
+                        <div class="row marginAuto marOther">
+                          <div class="styDiv1">
+                            <label class="lblSty"># of Introductions : </label>
+                              <label style="font-size: 12px; color: white;">
+                                {{ getIntroduceCount(requestedFriendIs, 'resumeId') }}
+                              </label>
                           </div>
                         </div>
 
@@ -158,7 +167,7 @@
                       <div class="user-details">
 
                         <div class="row" style="margin: auto;">
-                          <div class="col s3 m3 l3">
+                          <div class="col s3 m3 l3" style="width: auto;">
                             <div *ngIf = "!friendsAre.requester.showCreatedLogo" class="big-badge big-badge-wid">
                               <img src="{{ friendsAre.requester.profileimage }}" (error)="changeLogo(friendsAre.requester)" class="iconStyle" style="max-width: 100%" />
                             </div>
@@ -171,6 +180,14 @@
                             <span>
                               {{ friendsAre.requester.fullName }}
                             </span>
+                          </div>
+                        </div>
+                        <div class="row marginAuto marOther">
+                          <div class="styDiv1">
+                            <label class="lblSty"># of Introductions : </label>
+                              <label style="font-size: 12px; color: white;">
+                                {{ getIntroduceCount(friendsAre, 'resumeId') }}
+                              </label>
                           </div>
                         </div>
 
@@ -216,7 +233,7 @@
                       <div class="user-details">
 
                         <div class="row" style="margin: auto;">
-                          <div class="col s3 m3 l3">
+                          <div class="col s3 m3 l3" style="width: auto;">
                             <div *ngIf = "!friendsAre.recipient.showCreatedLogo" class="big-badge big-badge-wid">
                               <img src="{{ friendsAre.recipient.profileimage }}" (error)="changeLogo(friendsAre.recipient)" class="iconStyle" style="max-width: 100%" />
                             </div>
@@ -229,6 +246,15 @@
                             <span>
                               {{ friendsAre.recipient.fullName }}
                             </span>
+                          </div>
+                        </div>
+
+                        <div class="row marginAuto marOther">
+                          <div class="styDiv1">
+                            <label class="lblSty"># of Introductions : </label>
+                              <label style="font-size: 12px; color: white;">
+                                {{ getIntroduceCount(friendsAre, 'resumeId2') }}
+                              </label>
                           </div>
                         </div>
 

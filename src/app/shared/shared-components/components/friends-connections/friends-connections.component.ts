@@ -45,6 +45,9 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   itemsIs = 0;
 
   thxFullObj;
+
+  introsToCompaniesCount : number = 0;
+  myNetworkCount : number = 0;
   
   constructor(
     protected _userService: UserService,
@@ -161,6 +164,12 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         this.requestedFriendAre = [friend, ...this.requestedFriendAre];
       }
     });
+    this.increseCount();
+  }
+
+  increseCount(){
+    this.introsToCompaniesCount = this.companiesUsresAre.length;
+    this.myNetworkCount = this.friendsConnections.length;
   }
 
   getUserWithRespectCompanies(friend){
@@ -232,6 +241,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
   addFriendToFriendConnection(res){
     this.friendsConnections = [res, ...this.friendsConnections];
+    this.increseCount();
   }
 
   addRequestToRequestFriendConnection(res){
@@ -627,6 +637,10 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
       Materialize.toast(err.err, 3000, "red");
       this.spinner.hide();
     });
+  }
+
+  getIntroduceCount(requestedFriendIs,obj){
+    return requestedFriendIs?.[obj]?.introduceCount ? requestedFriendIs[obj].introduceCount : 0;
   }
 
   //unscubscribe the subscribed variables.

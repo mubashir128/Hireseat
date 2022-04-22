@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { UserService } from '../_services/user.service';
+import { UserService, eUserType } from '../_services/user.service';
 import { CandidateService } from '../_services/candidate.service';
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -32,6 +32,7 @@ export class MobileRegisterComponent implements OnInit {
   password: string;
   firstName: string ="";
   lastName: string = "";
+  jobTitle: string = "";
   linkedIn: string = "";
   desiredRoles: string = "";
   desiredCompanies: string = "";
@@ -47,6 +48,14 @@ export class MobileRegisterComponent implements OnInit {
   loading: boolean = false;
 
   isEditable = true;
+
+  userTypes = [
+    {name : "Employer", value: eUserType.employer},
+    {name : "Recruiter", value: eUserType.recruiter},
+    {name : "Candidate", value: eUserType.candidate}
+  ];
+  
+  canValue : eUserType = eUserType.candidate;
 
   @ViewChild('fileInput') fileInput : ElementRef;
 
@@ -65,6 +74,7 @@ export class MobileRegisterComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      jobTitle: ['', Validators.required],
       linkedIn : [''],
       desiredRoles: ['', Validators.required]
     });
@@ -82,10 +92,17 @@ export class MobileRegisterComponent implements OnInit {
     }
   }
 
-  signUp(stepper: MatStepper){
+  signUp(stepper: MatStepper){;
+    localStorage.setItem("Role", this.canValue);
+    if(this.canValue !== eUserType.candidate){
+      this._router.navigate(["/register"], { queryParams: { email : this.email}});
+      return ;
+    }
+
     let payload = {
       email : this.email
     }
+
     this.loading = true;
     this._userService.checkEmailMobileCandidate(payload).subscribe((data) => {
       this.loading = false;
@@ -165,6 +182,7 @@ export class MobileRegisterComponent implements OnInit {
       password: this.password,
       firstName: this.firstName,
       lastName: this.lastName,
+      jobTitle: this.jobTitle,
       linkedIn: this.linkedIn,
       desiredRoles: this.desiredRoles,
       desiredCompanies: this.desiredCompanies,

@@ -31,7 +31,7 @@
             </div>
             <div class="row">
               <div class="input-field col s12 m12 l12">
-                <input type="email" class="form-control" name="email" formControlName="email"
+                <input type="email" class="form-control" name="email" formControlName="email" [(ngModel)]="email"
                   pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" autocomplete="off" />
                 <label for="email">Email</label>
                 <div *ngIf="signin.controls['email'].hasError('required')" class="error">
