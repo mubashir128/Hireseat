@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { UserService } from '../_services/user.service';
+import { UserService, eUserType } from '../_services/user.service';
 import { CandidateService } from '../_services/candidate.service';
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -48,6 +48,14 @@ export class MobileRegisterComponent implements OnInit {
 
   isEditable = true;
 
+  userTypes = [
+    {name : "Employer", value: eUserType.employer},
+    {name : "Recruiter", value: eUserType.recruiter},
+    {name : "Candidate", value: eUserType.candidate}
+  ];
+  
+  canValue : eUserType = eUserType.candidate;
+
   @ViewChild('fileInput') fileInput : ElementRef;
 
   constructor(private _router: Router, 
@@ -82,10 +90,17 @@ export class MobileRegisterComponent implements OnInit {
     }
   }
 
-  signUp(stepper: MatStepper){
+  signUp(stepper: MatStepper){;
+    localStorage.setItem("Role", this.canValue);
+    if(this.canValue !== eUserType.candidate){
+      this._router.navigate(["/register"], { queryParams: { email : this.email}});
+      return ;
+    }
+
     let payload = {
       email : this.email
     }
+
     this.loading = true;
     this._userService.checkEmailMobileCandidate(payload).subscribe((data) => {
       this.loading = false;

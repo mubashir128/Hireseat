@@ -1566,7 +1566,7 @@ body {
 }
 
 .mat-stepper-vertical, .mat-stepper-horizontal {
-  margin: 20% auto auto auto;
+  margin: 15% auto auto auto;
   background-color: inherit;
 }
 

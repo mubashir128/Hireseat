@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { NgxSpinnerService } from "ngx-spinner";
 import { UserService } from "../_services/user.service";
@@ -32,11 +32,14 @@ export class RegisterComponent implements OnInit {
   value: string | number | string[];
   confirmPasswordError = false;
 
+  email: string;
+
   constructor(
     private http: HttpClient,
     private userService: UserService,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _route: ActivatedRoute
   ) {
     this.signin = new FormGroup({
       fullname: new FormControl(),
@@ -48,6 +51,10 @@ export class RegisterComponent implements OnInit {
       companyName: new FormControl(),
     });
     // file: new FormControl()
+
+    this._route.queryParams.subscribe(params => {
+      this.email = params.email
+    });
 
     this.localRole = localStorage.getItem("Role");
     if (this.localRole == "employer") {

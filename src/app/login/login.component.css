@@ -6,11 +6,6 @@
   border-left: 1px solid black;
 }
 
-.title {
-  font-size: 24px;
-  color: #114488;
-  font-weight: 400;
-}
 /* =================================== Media query Starts====================================== */
 @media only screen and (min-width: 320px) and (max-width: 667px) {
   .loginCardDiv .center-align {
@@ -33,12 +28,6 @@
   box-shadow: 0 0 10px #99999924;
 }
 
-.rec-emp {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
 .candidate {
   width: 100%;
   display: flex;
@@ -47,10 +36,6 @@
   align-items: center;
   border-bottom: 1px solid #33aaff !important;
   padding-bottom: 30px;
-}
-.role-section {
-  display: flex;
-  flex-direction: column-reverse;
 }
 
 .CheckBoxcontainer {

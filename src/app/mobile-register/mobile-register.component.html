@@ -6,13 +6,23 @@
                 <div class="container contSt">
                     <div class="login_top">
                         <div style="text-align: center;">
-                            <h2>A place to give your Networking a booster Shot</h2>
+                            <h2>A network of people helping people get jobs</h2>
                         </div>
                         <img class="marTop20" src="assets/img/navbar-logo.png" alt="no img" />
                     </div>
                     <div class="login_middle">
                         <div class="width100"><input type="text" autocomplete="off" formControlName="email" placeholder="email ID*" [(ngModel)]="email" required></div>
                         <div class="width100"><input type="password" autocomplete="off" formControlName="password" placeholder="password*" [(ngModel)]="password" required></div>
+                        <div class="width100">
+                            <mat-form-field class="width100" appearance="fill">
+                                <mat-label>Select Role</mat-label>
+                                <mat-select [(value)]="canValue">
+                                    <mat-option *ngFor="let role of userTypes" [value]="role.value">
+                                        {{role.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                         <div class="width100">
                             <button class="btn" style="margin-top: -15px;" (click)="signUp(stepper)">
                                 SIGN UP

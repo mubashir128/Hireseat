@@ -130,17 +130,13 @@ export class LoginComponent implements OnInit {
       this.suBtnActive = true;
     }
   }
+
   focusFunction(e) {
     this.status = null;
   }
 
-  createNewAccount(role) {
-    localStorage.setItem("Role", role);
-    if(role == "candidate"){
-      this.router.navigate(["/mobileRegister"]);
-    }else{
-      this.router.navigate(["/register"]);
-    }
+  signUp() {
+    this.router.navigate(["/mobileRegister"]);
   }
 
   redirectToForgotPassword() {

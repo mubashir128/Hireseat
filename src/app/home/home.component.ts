@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
       }
     }
 
-    this.router.navigate(["/login"]);
+    this.router.navigate(["/mobileRegister"]);
 
   }
 
