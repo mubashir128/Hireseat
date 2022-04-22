@@ -32,6 +32,7 @@ export class MobileRegisterComponent implements OnInit {
   password: string;
   firstName: string ="";
   lastName: string = "";
+  jobTitle: string = "";
   linkedIn: string = "";
   desiredRoles: string = "";
   desiredCompanies: string = "";
@@ -73,6 +74,7 @@ export class MobileRegisterComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      jobTitle: ['', Validators.required],
       linkedIn : [''],
       desiredRoles: ['', Validators.required]
     });
@@ -180,6 +182,7 @@ export class MobileRegisterComponent implements OnInit {
       password: this.password,
       firstName: this.firstName,
       lastName: this.lastName,
+      jobTitle: this.jobTitle,
       linkedIn: this.linkedIn,
       desiredRoles: this.desiredRoles,
       desiredCompanies: this.desiredCompanies,
