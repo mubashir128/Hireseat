@@ -4,11 +4,10 @@
 </div>
 
 <ng-container *ngIf="timelines">
-  <div class="ListResume">
+  <div class="timelineList">
     <div class="timelineUI animatePart" *ngFor="let timeline of timelines">
       <div class="row" style="margin: auto;">
         <div class="pro">
-
           <div class="pro-3">
             <ng-container *ngIf="!timeline.fromId?.profileimage">
               <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
@@ -22,7 +21,6 @@
               </div>
             </ng-container>
           </div>
-
           <div class="pro-4">
             <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && !timeline.systemUserId" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
               <!-- {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}}. -->
@@ -60,125 +58,127 @@
               </ng-container>
             </div> -->
           </div>
-        </div>
-        
-        <div class="row introSection" *ngIf = "timeline.status == _constants.actualTimeline">
-          <span style="font-size: 17px;">Request Introductions : </span>
-          <div class="row" style="text-align: center;">
-            <!-- <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;"> -->
-            <div class="col s12 m12 l12">
-              <span style="color: red;">
-                {{timeline.fromId?.fullName}} :
-              </span>
-              <span>
-                {{timeline.candidateFromId?.introduceYouToo}}
-              </span>
-
-              <div class="row" style="margin-right : 10px" *ngIf = "timeline.candidateFromId?.introduceCount">
+          
+          <div class="row introSection" *ngIf = "timeline.status == _constants.actualTimeline">
+            <div class="row" style="text-align: center;">
+              <!-- <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;"> -->
+              <div class="col s12 m12 l12">
+                <div class="row">Request Introductions :</div>
                 <span style="color: red;">
-                  <label># of Introductions : </label>
-                  <label class="backStyle">
-                    {{ timeline.candidateFromId?.introduceCount}}
-                  </label>
+                  {{timeline.fromId?.fullName}} :
                 </span>
+                <span>
+                  {{timeline.candidateFromId?.introduceYouToo}}
+                </span>
+  
+                <div class="row" style="margin-right : 10px" *ngIf = "timeline.candidateFromId?.introduceCount">
+                  <span style="color: red;">
+                    <label># of Introductions : </label>
+                    <label class="backStyle">
+                      {{ timeline.candidateFromId?.introduceCount}}
+                    </label>
+                  </span>
+                </div>
               </div>
-            </div>
-
-            <!-- <div class="col s6 m6 l6" style="text-align: left;">
-              <span style="color: red;">
-                {{timeline.profileUserId?.fullName}} :
-              </span>
-              <span>
-                {{timeline.candidateProfileUserId?.introduceYouToo}}
-              </span>
-              
-              <div class="row" style="margin-left : 10px" *ngIf = "timeline.candidateProfileUserId?.introduceCount">
+  
+              <!-- <div class="col s6 m6 l6" style="text-align: left;">
                 <span style="color: red;">
-                  <label># of Introductions : </label>
-                  <label class="backStyle">
-                    {{ timeline.candidateProfileUserId?.introduceCount}}
-                  </label>
+                  {{timeline.profileUserId?.fullName}} :
                 </span>
+                <span>
+                  {{timeline.candidateProfileUserId?.introduceYouToo}}
+                </span>
+                
+                <div class="row" style="margin-left : 10px" *ngIf = "timeline.candidateProfileUserId?.introduceCount">
+                  <span style="color: red;">
+                    <label># of Introductions : </label>
+                    <label class="backStyle">
+                      {{ timeline.candidateProfileUserId?.introduceCount}}
+                    </label>
+                  </span>
+                </div>
+              </div> -->
+  
+            </div>
+  
+            <div class="row" style="text-align: center; margin-top: -20px;">
+  
+              <!-- <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;"> -->
+              <div class="col s12 m12 l12">
+                <!-- <div class="pro-share" style="margin-top: 10px;"> -->
+                <div class="pro-share" style="margin: auto; float: none; width: 50%;">
+                  <div class="">
+                    <button class="connectBtn" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
+                      <a>
+                        <div class="icon-name">
+                          <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                          <span class="shareText"> Intro </span>
+                        </div>
+                      </a>
+                    </button>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- <div class="col s6 m6 l6" style="text-align: left;">
+                <div class="pro-share" style="margin-top: 10px;">
+                  <div class="">
+                    <button class="connectBtn" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
+                      <a>
+                        <div class="icon-name">
+                          <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                          <span class="shareText"> Intro </span>
+                        </div>
+                      </a>
+                    </button>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+  
+            <!-- <div class="row" style="text-align: center;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
+              <div class="" style="width: 50%; margin-left: auto; margin-right: auto;">
+                <span style="color: red;">
+                  {{timeline.systemUserId?.fullName}} :
+                </span>
+                <span>
+                  {{timeline.candidateSystemUserId?.introduceYouToo}}
+                </span>
+  
+                <div class="row" *ngIf = "timeline.candidateSystemUserId?.introduceCount">
+                  <span style="color: red;">
+                    <label># of Introductions : </label>
+                    <label class="backStyle">
+                      {{ timeline.candidateSystemUserId?.introduceCount}}
+                    </label>
+                  </span>
+                </div>
               </div>
             </div> -->
-
-          </div>
-
-          <div class="row" style="text-align: center; margin-top: -20px;">
-
-            <!-- <div class="col s6 m6 l6" style="border-right: 1px solid black; text-align: right;"> -->
-            <div class="col s12 m12 l12">
-              <!-- <div class="pro-share" style="margin-top: 10px;"> -->
-              <div class="pro-share" style="margin: auto; float: none; width: 50%;">
-                <div class="">
-                  <button class="connectBtn" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
-                    <a>
-                      <div class="icon-name">
-                        <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                        <span class="shareText"> Intro </span>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- <div class="col s6 m6 l6" style="text-align: left;">
-              <div class="pro-share" style="margin-top: 10px;">
-                <div class="">
-                  <button class="connectBtn" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
-                    <a>
-                      <div class="icon-name">
-                        <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                        <span class="shareText"> Intro </span>
-                      </div>
-                    </a>
-                  </button>
+  
+            <!-- <div class="row" style="text-align: center; margin-top: -20px;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
+              <div class="" style="width: 50%; margin-right: auto; margin-left: auto;">
+                <div class="pro-share" style="margin-top: 10px;">
+                  <div class="">
+                    <button class="connectBtn" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
+                      <a>
+                        <div class="icon-name">
+                          <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+                          <span class="shareText"> Intro </span>
+                        </div>
+                      </a>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div> -->
+  
           </div>
 
-          <!-- <div class="row" style="text-align: center;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
-            <div class="" style="width: 50%; margin-left: auto; margin-right: auto;">
-              <span style="color: red;">
-                {{timeline.systemUserId?.fullName}} :
-              </span>
-              <span>
-                {{timeline.candidateSystemUserId?.introduceYouToo}}
-              </span>
+          <div class="timelineTime notificaationDateTime">
+            {{timeline.updatedAt | amTimeAgo}}
+          </div>
 
-              <div class="row" *ngIf = "timeline.candidateSystemUserId?.introduceCount">
-                <span style="color: red;">
-                  <label># of Introductions : </label>
-                  <label class="backStyle">
-                    {{ timeline.candidateSystemUserId?.introduceCount}}
-                  </label>
-                </span>
-              </div>
-            </div>
-          </div> -->
-
-          <!-- <div class="row" style="text-align: center; margin-top: -20px;" *ngIf = "timeline.systemUserId && timeline.candidateSystemUserId">
-            <div class="" style="width: 50%; margin-right: auto; margin-left: auto;">
-              <div class="pro-share" style="margin-top: 10px;">
-                <div class="">
-                  <button class="connectBtn" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
-                    <a>
-                      <div class="icon-name">
-                        <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                        <span class="shareText"> Intro </span>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-        </div>
-        <div class="timelineTime notificaationDateTime">
-          {{timeline.updatedAt | amTimeAgo}}
         </div>
       </div>
     </div>

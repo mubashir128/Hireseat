@@ -2,18 +2,6 @@
   border-bottom: 1px solid #708381;
 }
 
-.ListResume {
-  list-style: none;
-  padding: 0;
-  width: 100%;
-  float: left;
-  /* height: 640px;
-  overflow: auto; */
-  margin-bottom: 100px;
-  /* height: calc(100vh - 540px);
-              overflow: scroll; */
-}
-
 .pro {
   width: 100%;
   float: left;
@@ -73,12 +61,10 @@
 
 .intoedClass {
   width: 58%;
-  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: 'gilroybold';
   font-size: 15px;
-  position: absolute;
 }
 
 .introSection {
@@ -108,4 +94,10 @@ button.connectBtn{
 
 .shareText {
   color: #fff !important;
+}
+
+.timelineList{
+  height: calc(82vh);
+  overflow: auto;
+  position: relative;
 }
