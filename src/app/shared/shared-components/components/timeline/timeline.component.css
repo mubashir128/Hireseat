@@ -97,7 +97,7 @@ button.connectBtn{
 }
 
 .timelineList{
-  height: calc(78vh);
+  height: calc(82vh);
   overflow: auto;
   position: relative;
 }

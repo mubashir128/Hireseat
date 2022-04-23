@@ -21,8 +21,12 @@
     <input type="text" id="searchText" [(ngModel)]="searchTerm" placeholder="Search here..." #searchInputTerm>
   </div>
 
+  <div>
+    <app-list-loader></app-list-loader>
+  </div>
+
   <div style="margin-bottom: 50px;">
-    <ul id="bidding-event-list" style="margin-top:8px;">
+    <ul id="bidding-event-list" style="margin-top:8px; height: calc(77vh); overflow: auto;">
       <li *ngFor="
           let user of userList | paginate: { itemsPerPage: itemsPerPageAre, currentPage: p }
         " style="cursor:pointer;">
@@ -45,13 +49,6 @@
         <div class="divider"></div>
       </li>
     </ul>
-    <pagination-controls *ngIf="!noBiddingEvents && userList.length !== 0 " (pageChange)="handlePaginator($event)"></pagination-controls>
+    <pagination-controls *ngIf="userList.length !== 0 " (pageChange)="handlePaginator($event)"></pagination-controls>
   </div>
-  <div *ngIf="noBiddingEvents">
-    No Results to show
-  </div>
-</div>
-
-<div>
-  <app-list-loader></app-list-loader>
 </div>
