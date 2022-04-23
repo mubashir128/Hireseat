@@ -59,12 +59,31 @@ export class MobileRegisterComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput : ElementRef;
 
+  loggedInUser: any;
+
   constructor(private _router: Router, 
     private _formBuilder: FormBuilder,
     private _userService: UserService,
     private _candidateService: CandidateService,
     private _spinner: NgxSpinnerService
-  ) { }
+  ) {
+    this.loggedInUser = this._userService.getUserData();
+    if (this.loggedInUser != "no") {
+      if (this.loggedInUser.userRole == "employer") {
+        this._router.navigate(["employer/share-candidate-profile"]);
+      } else if (this.loggedInUser.userRole == "recruiter") {
+        this._router.navigate(["recruiter/share-candidate-profile"]);
+      } else if (this.loggedInUser.userRole == "admin") {
+        this._router.navigate(["/user-list"]);
+      } else if (this.loggedInUser.userRole == "super-admin") {
+        this._router.navigate(["super-admin/user-list"]);
+      } else if (this.loggedInUser.userRole == "enterprise") {
+        this._router.navigate(["enterprise/user-list"]);
+      }else if (this.loggedInUser.userRole == "candidate") {
+        this._router.navigate(["candidate/timeline"]);
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
