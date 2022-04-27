@@ -1,5 +1,6 @@
 <ng-container>
     <div class="ListResume">
+        <div *ngIf = "showLoadStatus" class="stDv">{{loadStatus}}</div>
         <div class="singleList employerResume animatePart" *ngFor="let companiesAre of suggestIntro">
             <div class="pro">
                 <span style="color: red;">
