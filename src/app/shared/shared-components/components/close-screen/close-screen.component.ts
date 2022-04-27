@@ -15,7 +15,7 @@ export class CloseScreenComponent implements OnInit {
   }
 
   closeShareModal(){
-    this.closeEm.emit("Closing the screen");
+    this.closeEm.emit(false);
   }
 
 }

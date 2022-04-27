@@ -13,6 +13,7 @@ import { OnlyForCandidateSharedProfileComponent } from "./only-for-candidate-sha
 import { UserChatComponent } from "../shared/shared-components/components/user-chat/user-chat.component";
 import { FriendsConnectionsComponent } from "../shared/shared-components/components/friends-connections/friends-connections.component";
 import { UserChatRecordComponent } from "../shared/shared-components/components/user-chat-record/user-chat-record.component";
+import { SuggestIntroduceComponent } from "../shared/shared-components/components/suggest-introduce/suggest-introduce.component";
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
       {
         path: "friends-connections",
         component: FriendsConnectionsComponent,
+      },
+      {
+        path: "suggest-introduce",
+        component: SuggestIntroduceComponent,
       },
       {
         path: "my-reviewed-profiles",

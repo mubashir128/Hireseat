@@ -215,6 +215,8 @@ export class UserChatComponent implements OnInit, OnChanges {
 
   createGroup(){
     const dialogCreateGroupRef = this.dialog.open(DialogCreateGroupComponent,{
+      autoFocus: false,
+      width: '45vh',
       data: {
         dialogType : "creatGroup",
         dialogTitle : "Create Group...",

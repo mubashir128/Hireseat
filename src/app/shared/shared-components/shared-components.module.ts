@@ -100,6 +100,10 @@ import { DialogProfileExampleComponent } from './components/dialog-profile-examp
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { UserChatRecordComponent } from './components/user-chat-record/user-chat-record.component';
 import { DialogAskToSendProfileLinkComponent } from './components/dialog-ask-to-send-profile-link/dialog-ask-to-send-profile-link.component';
+import { PostJobComponent } from './components/post-job/post-job.component';
+import { DialogCreatePostJobComponent } from './components/dialog-create-post-job/dialog-create-post-job.component';
+import { AppListComponent } from './components/app-list/app-list.component';
+import { SuggestIntroduceComponent } from './components/suggest-introduce/suggest-introduce.component';
 
 @NgModule({
   imports: [
@@ -225,6 +229,10 @@ import { DialogAskToSendProfileLinkComponent } from './components/dialog-ask-to-
     DialogDeleteComponent,
     UserChatRecordComponent,
     DialogAskToSendProfileLinkComponent,
+    PostJobComponent,
+    DialogCreatePostJobComponent,
+    AppListComponent,
+    SuggestIntroduceComponent,
 
   ],
   exports: [
