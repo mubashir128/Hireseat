@@ -12,6 +12,9 @@ export class SuggestIntroduceComponent implements OnInit {
   suggestIntro: any[];
   searchFilters = new Map();
 
+  showLoadStatus : boolean = true;
+  loadStatus = "Loading...";
+
   constructor(protected _userService: UserService) { }
 
   ngOnInit(): void {
@@ -21,8 +24,13 @@ export class SuggestIntroduceComponent implements OnInit {
   getSuggestIntroduce(){
     this._userService.getPostJob(null, true, this.searchFilters).subscribe((data)=>{
       this.suggestIntro = data.result;
+      if(this.suggestIntro.length !== 0){
+        this.showLoadStatus = false;
+        this.loadStatus = "";
+      }
     }, (err) => {
       console.log(err);
+      this.loadStatus = "No Data available.";
     });
   }
 
