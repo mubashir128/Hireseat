@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MenusComponent } from '../shared/shared-components/components/menus/menus.component';
 import { NotificationsComponent } from '../shared/shared-components/components/notifications/notifications.component';
+import { PostJobComponent } from '../shared/shared-components/components/post-job/post-job.component';
 import { SADashboardComponent } from './sa-dashboard/sa-dashboard.component';
 
 const routes: Routes = [
@@ -29,6 +30,10 @@ const routes: Routes = [
         path: "menus",
         component: MenusComponent,
       },
+      {
+        path: "post-job",
+        component: PostJobComponent
+      }
     ],
     // canActivate: [SupperAdminGuard]
   },

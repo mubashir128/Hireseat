@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import * as myGlobals from "../globalPath";
 import { IProfile } from "../profile/model/user-profile";
@@ -81,6 +81,34 @@ export class UserService {
     );
   }
 
+  postJob(info: any) {
+    let url = this.baseurl + "api/";
+    url += (info._id) ? "update-post-job" : "create-post-job";
+    return this.http.post<any>(url, info).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  getPostJob(jobPost?: any, suggest?, searchFilters?) {
+    let params = new HttpParams();
+    if(jobPost) {
+      params = params.append('_id', jobPost._id.toString());
+    }
+
+    if(searchFilters) {
+      searchFilters.forEach((value, key) => {
+        params = params.append(key, value);
+      });
+    }
+
+    if(suggest){
+      params = params.append('suggest', suggest);
+    }
+    return this.http.get<any>(this.baseurl + "api/get-post-job", {params :params});
+  }
+
   verifyMobileCandidate(info: any) {
     return this.http.post<any>(this.baseurl + "api/verifyMobileCandidate", info).pipe(
       map((res: any) => {
@@ -106,6 +134,7 @@ export class UserService {
         })
       );
   }
+
   registerEnterprise(info: any) {
     return this.http
       .post<any>(this.baseurl + "api/registerEnterprise", info)

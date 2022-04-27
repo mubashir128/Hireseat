@@ -1,0 +1,16 @@
+<div class="container">
+    <div id="job-profile-list" style="margin-top:15px; height: 75vh; overflow: auto;">
+        <div class="job-profile-item" style="padding:10px;"
+            *ngFor="let list of lists.dataSource; let i = index">
+            <div style="cursor: pointer;" class="disF" style="width: 100%;">
+                <img src="assets/img/jobprofile.png" height="50px">
+                <div class="job-title" style="cursor: pointer;"> {{ list[lists.dynamicColumns[1]] }}
+                </div>
+                <i class="material-icons" style="cursor: pointer;" (click)="edit(list)">edit</i>
+            </div>
+        </div>
+        <!-- <app-no-data-available></app-no-data-available> -->
+
+        <div class="divider"></div>
+    </div>
+</div>
