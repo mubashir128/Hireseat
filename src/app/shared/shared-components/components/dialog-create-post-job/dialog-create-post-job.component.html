@@ -1,0 +1,55 @@
+<div class="">
+    <app-close-screen name="close" (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
+    <div>
+        <form novalidate (ngSubmit)="formSubmit()" [formGroup]="jobPostForm" novalidate>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <input class="form-control marBT" type="text" name="companyName" formControlName="companyName" [(ngModel)] = "jobList.companyName"
+                        autocomplete="off" placeholder="Company Name*"/>
+                    <!-- <label>Company Name*</label> -->
+                    <span>Company Name*</span>
+                    <div *ngIf="jobPostForm.controls['companyName'].invalid && jobPostForm.controls['companyName'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="jobPostForm.controls['companyName'].hasError('required')" class="error">
+                            Please Enter Company Name
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <input class="form-control marBT" type="text" name="jobSpecification" formControlName="jobSpecification" [(ngModel)] = "jobList.jobSpecification"
+                        autocomplete="off" placeholder="Job Specification*"/>
+                    <!-- <label>Job Specification*</label> -->
+                    <span>Job Specification*</span>
+                    <div *ngIf="jobPostForm.controls['jobSpecification'].invalid && jobPostForm.controls['jobSpecification'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="jobPostForm.controls['jobSpecification'].hasError('required')" class="error">
+                            Please Enter Job discription
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <input class="form-control marBT" type="text" name="location" formControlName="location" [(ngModel)] = "jobList.location"
+                        autocomplete="off" placeholder="Location*"/>
+                    <!-- <label>Location*</label> -->
+                    <span>Location*</span>
+                    <div *ngIf="jobPostForm.controls['location'].invalid && jobPostForm.controls['location'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="jobPostForm.controls['location'].hasError('required')" class="error">
+                            Please Enter Location
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row center-align">
+                <button type="submit" class="waves-effect waves-light commonBlueBtnN">
+                    {{btnName}}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

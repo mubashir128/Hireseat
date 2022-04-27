@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="row center-align">
+            <button class="waves-effect waves-light commonBlueBtnN" (click) = "createPostJob()">
+                <i class="material-icons left">add</i>
+                Create Post Job
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <app-app-list 
+            [(lists)]="jobList" 
+            [(type)]="actionType" 
+            (editEM)='edit($event)'
+            [(columnNames)]="columnNames"
+			(filterEM)='filterModules($event)'
+        ></app-app-list>
+    </div>
+</div>
