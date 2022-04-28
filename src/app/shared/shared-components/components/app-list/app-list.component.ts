@@ -12,13 +12,15 @@ export enum dialogPopupType {
 export class PostJob {
   public _id: string;
   public companyName: string;
+  public jobTitle: string;
   public jobSpecification: string;
   public location: string;
 
   constructor();
-  constructor(_id?: string, companyName?: string, jobSpecification?: string, location?: string){
+  constructor(_id?: string, companyName?: string, jobTitle?: string, jobSpecification?: string, location?: string){
     this._id = _id;
     this.companyName = companyName;
+    this.jobTitle = jobTitle;
     this.jobSpecification = jobSpecification;
     this.location = location;
   }
