@@ -19,6 +19,20 @@
             </div>
             <div class="row">
                 <div class="input-field col s12 m12 l12">
+                    <input class="form-control marBT" type="text" name="jobTitle" formControlName="jobTitle" [(ngModel)] = "jobList.jobTitle"
+                        autocomplete="off" placeholder="Job Specification*"/>
+                    <!-- <label>Job Specification*</label> -->
+                    <span>Job Title*</span>
+                    <div *ngIf="jobPostForm.controls['jobTitle'].invalid && jobPostForm.controls['jobTitle'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="jobPostForm.controls['jobTitle'].hasError('required')" class="error">
+                            Please Enter Job Title
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
                     <input class="form-control marBT" type="text" name="jobSpecification" formControlName="jobSpecification" [(ngModel)] = "jobList.jobSpecification"
                         autocomplete="off" placeholder="Job Specification*"/>
                     <!-- <label>Job Specification*</label> -->

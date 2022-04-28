@@ -114,9 +114,9 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   openUrl(url){
-    window.open(url, "_blank");
-    // let token = url?.split("/")[4];
-    // this.router.navigate(["/shared-video/", token], { queryParams: { userChatId: this.receiverId }});
+    // window.open(url, "_blank");
+    let token = url?.split("/")[4];
+    this.router.navigate(["/shared-video/", token], { queryParams: { userChatId: this.receiverId }});
   }
 
   getAllChats() {
