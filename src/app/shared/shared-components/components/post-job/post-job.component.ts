@@ -14,7 +14,7 @@ export class PostJobComponent implements OnInit {
   jobList: List;
   searchFilters = new Map();
   actionType : actionType = actionType.postJob;
-  columnNames : string[] = ['_id','companyName', 'jobSpecification','location'];
+  columnNames : string[] = ['_id','companyName', 'jobTitle', 'jobSpecification','location'];
 
   constructor(protected dialog: MatDialog, 
     private _userService: UserService
@@ -23,7 +23,7 @@ export class PostJobComponent implements OnInit {
   ngOnInit(): void {
     this.getJobList();
     this.jobList = new List(
-      ['_id','companyName'],
+      ['_id','companyName', 'jobTitle', 'jobSpecification', 'location'],
       []
     );
   }

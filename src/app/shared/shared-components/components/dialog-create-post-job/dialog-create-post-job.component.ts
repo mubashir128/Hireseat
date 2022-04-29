@@ -29,6 +29,7 @@ export class DialogCreatePostJobComponent extends AbstractDialogComponent implem
     super(data, dialogRef);
     this.jobPostForm = this.formBuilder.group({
       companyName: ["", Validators.compose([Validators.required])],
+      jobTitle : ["", Validators.compose([Validators.required])],
       jobSpecification: ["", Validators.compose([Validators.required])],
       location: ["", Validators.compose([Validators.required])]
     });
