@@ -34,20 +34,21 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   friendsConnections = [];
   companiesUsresAre = [];
 
-  showRequest = true;
-  showFriends = false;
+  itemsIs = 2;
+  showOnlyCan: boolean = true;
+  showRequest: boolean = false;
+  showFriends: boolean = false;
 
   connectFriendObserver = new Subject();
   connectFriendObserver$ = this.connectFriendObserver.asObservable();
 
   loggedUser: any;
 
-  itemsIs = 0;
-
   thxFullObj;
 
-  introsToCompaniesCount : number = 0;
-  myNetworkCount : number = 0;
+  onlyCanCount: Number = 0;
+  introsToCompaniesCount: number = 0;
+  myNetworkCount: number = 0;
   
   constructor(
     protected _userService: UserService,
@@ -263,11 +264,17 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     jQuery("#switch" + page).css("background-color", "#27B1BD");
 
     if(this.itemsIs == 0){
-      this.showRequest = true;
+      this.showOnlyCan = false;
       this.showFriends = false;
-    }else{
-      this.showFriends = true;
+      this.showRequest = true;
+    }else if(this.itemsIs == 1){
+      this.showOnlyCan = false;
       this.showRequest = false;
+      this.showFriends = true;
+    }else{
+      this.showFriends = false;
+      this.showRequest = false;
+      this.showOnlyCan = true;
     }
   }
 
@@ -627,6 +634,10 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
   getIntroduceCount(requestedFriendIs,obj){
     return requestedFriendIs?.[obj]?.introduceCount ? requestedFriendIs[obj].introduceCount : 0;
+  }
+
+  countModules(event){
+    this.onlyCanCount = event;
   }
 
   //unscubscribe the subscribed variables.

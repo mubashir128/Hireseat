@@ -3,6 +3,8 @@ import {
   OnInit,
   OnChanges,
   OnDestroy,
+  EventEmitter,
+  Output,
 } from "@angular/core";
 import {
   FormBuilder,
@@ -58,6 +60,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   showResult = false;
   searchIndustry = "";
+
+  @Output() countEM = new EventEmitter();
 
   constructor(
     protected resumeService: ResumeService,
@@ -155,6 +159,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
         this.resumes = res.data;
         this.addFriendConnectionToProfile(res);
         this.sortProfilesByConpanies();
+        this.onCount(this.resumes.length);
         this._subList.loaderList.next({type : "0"});
         break;
       case this._constants.addComment:
@@ -191,6 +196,10 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       default:
         break;
     }
+  }
+
+  onCount(count){
+    this.countEM.emit(count);
   }
 
   changesOnlineStatus(res, status){
