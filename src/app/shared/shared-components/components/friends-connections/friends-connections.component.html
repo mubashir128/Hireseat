@@ -1,5 +1,8 @@
 <div class="tabsAre">
   <ul class="tabs">
+    <li class="tablink" id="switch2" [ngClass]="itemsIs === 2 ? 'tablinkActive' : false" (click)="switchPage(2)">
+      Only Can - <span class="cirDiv">{{onlyCanCount}}</span>
+    </li>
     <li class="tablink" id="switch0" [ngClass]="itemsIs === 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
       Intros to Companies - <span class="cirDiv">{{introsToCompaniesCount}}</span>
     </li>
@@ -12,6 +15,10 @@
 <div>
   <app-list-loader></app-list-loader>
 </div>
+
+<ng-container *ngIf="showOnlyCan">
+  <app-only-for-candidate-shared-profile (countEM)='countModules($event)'></app-only-for-candidate-shared-profile>
+</ng-container>
 
 <ng-container *ngIf="showRequest">
   <div class="ListResume">
