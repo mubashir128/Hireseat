@@ -1,5 +1,6 @@
 <div class="">
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)] = "dialogTitle"></app-dialog-title>
     <mat-selection-list (selectionChange)="selectionChange($event)" [(ngModel)]="selected">
         <mat-list-option *ngFor="let profile of profileContents" 
             checkboxPosition="before" 

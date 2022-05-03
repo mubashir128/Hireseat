@@ -25,10 +25,9 @@ import {
   distinctUntilChanged,
   tap,
 } from "rxjs/operators";
-import { Plugins } from '@capacitor/core';
+import { Share } from '@capacitor/share';
 import { DialogShareToUsersComponent } from "../shared/shared-components/components/dialog-share-to-users/dialog-share-to-users.component";
 
-const { Share } = Plugins;
 declare var jQuery;
 declare var Materialize;
 
@@ -828,9 +827,7 @@ export abstract class AbstractSharedComponent{
     this.createdUrl = res.result.link;
     this.copyLink();
 
-    let shareRet = await Share.share({
-      // title: 'See cool stuff',
-      // text: 'Really awesome thing you need to see right meow',
+    await Share.share({
       url: this.createdUrl,
       dialogTitle: 'Share with'
     });
