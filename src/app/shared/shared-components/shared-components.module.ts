@@ -107,6 +107,9 @@ import { DialogCreatePostJobComponent } from './components/dialog-create-post-jo
 import { AppListComponent } from './components/app-list/app-list.component';
 import { SuggestIntroduceComponent } from './components/suggest-introduce/suggest-introduce.component';
 import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-for-candidate-shared-profile/only-for-candidate-shared-profile.component";
+import { DialogSelectToAddFriendsComponent } from './components/dialog-select-to-add-friends/dialog-select-to-add-friends.component';
+import {MatListModule} from '@angular/material/list';
+
 
 @NgModule({
   imports: [
@@ -131,7 +134,8 @@ import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-f
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MomentModule,
-    MatDialogModule
+    MatDialogModule,
+    MatListModule
   ],
   declarations: [
     FooterComponent,
@@ -238,7 +242,8 @@ import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-f
     DialogCreatePostJobComponent,
     AppListComponent,
     SuggestIntroduceComponent,
-    OnlyForCandidateSharedProfileComponent
+    OnlyForCandidateSharedProfileComponent,
+    DialogSelectToAddFriendsComponent
   ],
   exports: [
     FooterComponent,

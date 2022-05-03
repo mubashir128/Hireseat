@@ -222,7 +222,7 @@ button.cancelBtn{
   font-size: 16px;
   width: 50%;
   z-index: 1;
-  height: 40px;
+  height: 50px;
   text-align: center;
   padding-top: 8px;
   position: relative;
@@ -242,7 +242,7 @@ button.cancelBtn{
 }
 
 @media only screen and (min-width: 320px) and (max-width: 667px) {
-  .tablink {height: 32px;font-size: 10px !important; width: 39%!important;}
+  .tablink {height: 50px; font-size: 10px !important; width: 39%!important;}
 }
 
 .tabsAre{
@@ -345,8 +345,8 @@ input {
   color: #fff;
   position: absolute;
   padding: 3px;
-  top: 6px;
-  margin-left: 2px
+  top: 25px;
+  margin-left: -10px;
 }
 
 .styDiv1 {
@@ -359,4 +359,10 @@ input {
 .lblSty {
   color: white;
   margin-left: 10px;
+}
+
+.wrdWrap{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

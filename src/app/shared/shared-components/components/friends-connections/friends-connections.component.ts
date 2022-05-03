@@ -8,7 +8,7 @@ import { SubscriberslistService } from 'src/app/_services/subscriberslist.servic
 import { UserService } from 'src/app/_services/user.service';
 import { VideoCallingService } from 'src/app/_services/video-calling.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
-import { Plugins } from '@capacitor/core';
+import { Share } from '@capacitor/share';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as myGlobals from "../../../../globalPath";
 import { AbstractSharedComponent } from 'src/app/abstract-classes/abstract-shared.component';
@@ -19,7 +19,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ReadResumeService } from 'src/app/_services/read-resume.service';
 import { ResumeService } from 'src/app/_services/resume.service';
 
-const { Share } = Plugins;
 declare var jQuery;
 declare var Materialize;
 
@@ -111,8 +110,9 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     this.generateLink = false;
     this.createdUrl = res.result.link;
     this.copyLink();
-
-    let shareRet = await Share.share({
+    await Share.share({
+      title: 'You can share this link.',
+      text: 'Hireseat',
       url: this.createdUrl,
       dialogTitle: 'Share with'
     });

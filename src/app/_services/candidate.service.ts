@@ -208,6 +208,23 @@ export class CandidateService {
       })
     );
   }
+
+  connectWithMultipleUsers(payload) {
+    let params = [];
+    if(payload){
+      payload.forEach((value, key) => {
+        if(value){
+          params.push(key);
+        }
+      });
+    }
+    
+    return this.http.post<any>(this.baseurl + "api/connectWithMultipleUsers", {recipients : params}).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
   
   getAllConnectedUsers(payload) {
     return this.http.post<any>(this.baseurl + "api/getAllConnectedUsers", payload).pipe(
@@ -241,4 +258,11 @@ export class CandidateService {
     );
   }
 
+  getCandidateSharedProfiles() {
+    return this.http.get<any>(this.baseurl + "api/getCandidateSharedProfiles").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
 }

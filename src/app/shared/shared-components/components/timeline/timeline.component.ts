@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
+import { DialogSelectToAddFriendsComponent } from '../dialog-select-to-add-friends/dialog-select-to-add-friends.component';
 
 @Component({
   selector: 'app-timeline',
@@ -26,7 +28,8 @@ export class TimelineComponent implements OnInit {
     private _socket: WebsocketService,
     private _router: Router,
     private userService: UserService,
-    private _subList: SubscriberslistService
+    private _subList: SubscriberslistService,
+    public _dialog: MatDialog
   ) {
     this.loggedUser = this.userService.getUserData();
   }
@@ -43,6 +46,25 @@ export class TimelineComponent implements OnInit {
     this.timelineObserver$.subscribe((res: any) => {
       this.handleTimelineData(res);
     });
+
+    this.checkSelctToAddFriends();
+  }
+
+  checkSelctToAddFriends(){
+    let status = JSON.parse(this.userService.getSelectToAddFriends());
+    if(status){
+      const dialogRef = this._dialog.open(DialogSelectToAddFriendsComponent, {
+        autoFocus: false,
+        width: '45vh',
+        data: {
+          dialogType : "selectToAddFriend",
+          dialogTitle : "Select to add friends..."
+        }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+      });
+    }
   }
 
   getAllTimelines(){
@@ -77,6 +99,7 @@ export class TimelineComponent implements OnInit {
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.timelineType });
     this.timelineObserver.unsubscribe();
+    this.userService.removeSelectToAddFriends();
   }
 
 }

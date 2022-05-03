@@ -1,13 +1,13 @@
 <div class="tabsAre">
   <ul class="tabs">
     <li class="tablink" id="switch2" [ngClass]="itemsIs === 2 ? 'tablinkActive' : false" (click)="switchPage(2)">
-      Hireseat Network <span class="cirDiv">{{onlyCanCount}}</span>
+      Hireseat Network <br><span class="cirDiv">{{onlyCanCount}}</span>
     </li>
     <li class="tablink" id="switch0" [ngClass]="itemsIs === 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
-      Intros to Companies <span class="cirDiv">{{introsToCompaniesCount}}</span>
+      Intros to Companies <br><span class="cirDiv">{{introsToCompaniesCount}}</span>
     </li>
     <li class="tablink" id="switch1" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
-      My Network <span class="cirDiv">{{myNetworkCount}}</span>
+      My Network <br><span class="cirDiv">{{myNetworkCount}}</span>
     </li>
   </ul>
 </div>
@@ -40,7 +40,7 @@
                 {{ userList.user.fullName | uppercase | slice: 0 : 1 }}
               </div>
 
-              <div style="margin-left: 22px !important;">
+              <div class="wrdWrap" style="margin-left: 22px !important;">
                 {{userList.user.fullName}}
               </div>
             </div>
@@ -77,7 +77,7 @@
                             </div>
                           </div>
 
-                          <div class="col s9 m9 l9 marTop">
+                          <div class="col s9 m9 l9 marTop wrdWrap">
                             <span>
                               {{ requestedFriendIs.requester.fullName }}
                             </span>
@@ -183,7 +183,7 @@
                             </div>
                           </div>
 
-                          <div class="col s9 m9 l9 marTop">
+                          <div class="col s9 m9 l9 marTop wrdWrap">
                             <span>
                               {{ friendsAre.requester.fullName }}
                             </span>
