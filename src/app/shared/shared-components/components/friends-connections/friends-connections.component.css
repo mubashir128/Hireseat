@@ -360,3 +360,9 @@ input {
   color: white;
   margin-left: 10px;
 }
+
+.wrdWrap{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
