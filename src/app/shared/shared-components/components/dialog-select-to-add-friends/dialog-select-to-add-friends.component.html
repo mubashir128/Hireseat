@@ -5,7 +5,7 @@
         Welcome to HireSeat. Connect with the below members to get intros to your first 5 companies.
     </label>
     <div>
-        <mat-selection-list (selectionChange)="selectionChange($event)" [(ngModel)]="selected">
+        <mat-selection-list (selectionChange)="selectionChange($event)" [(ngModel)]="selectedList">
             <mat-list-option *ngFor="let profile of profileContents" 
                 checkboxPosition="before" 
                 [value]="profile.candidate_id._id"
