@@ -49,6 +49,18 @@ export class LoginComponent implements OnInit {
         this.router.navigate(["candidate/timeline"]);
       }
     }
+
+    this.route.queryParams.subscribe(params => {
+      let email = params['email'];
+      let pass = params['pass'];
+      let direct = params['direct'];
+
+      this.login.controls['email'].setValue(email);
+      this.login.controls['password'].setValue(pass);
+      if(JSON.parse(direct)){
+        this.formSubmit();
+      }
+    });
   }
 
   ngOnInit() {

@@ -394,4 +394,16 @@ export class UserService {
         })
       );
   }
+
+  setSelectToAddFriends(){
+    localStorage.setItem("selectToAddCandidate", "true");
+  }
+
+  getSelectToAddFriends(){
+    return localStorage.getItem("selectToAddCandidate");
+  }
+
+  removeSelectToAddFriends(){
+    localStorage.removeItem("selectToAddCandidate");
+  }
 }

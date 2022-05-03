@@ -169,7 +169,8 @@ export class MobileRegisterComponent implements OnInit {
       this.loading = false;
       if(data){
         Materialize.toast("You have been successfully verified", 1000, "green");
-        this.goToLogin();
+        this._userService.setSelectToAddFriends();
+        this.goToLogin(true);
       }
     }, (err) => {
       this.loading = false;
@@ -196,6 +197,7 @@ export class MobileRegisterComponent implements OnInit {
   }
 
   saveData(stepper: MatStepper){
+    this.email = this.email.trim().toLowerCase();
     let payload = {
       email: this.email,
       password: this.password,
@@ -246,8 +248,7 @@ export class MobileRegisterComponent implements OnInit {
     }
   }
 
-  goToLogin(){
-    this._router.navigate(["/login"]);
+  goToLogin(val){
+    this._router.navigate(["/login"],{queryParams : {email : this.email, pass : this.password, direct : val}});
   }
-
 }
