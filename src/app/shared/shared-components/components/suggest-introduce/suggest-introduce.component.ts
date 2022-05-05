@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CandidateService } from 'src/app/_services/candidate.service';
 import { UserService } from 'src/app/_services/user.service';
+import * as myGlobals from '../../../../globalPath';
 
 @Component({
   selector: 'app-suggest-introduce',
@@ -15,7 +15,12 @@ export class SuggestIntroduceComponent implements OnInit {
   showLoadStatus : boolean = true;
   loadStatus = "Loading...";
 
-  constructor(protected _userService: UserService) { }
+  createdUrl: string = "";
+  public baseurl: any;
+
+  constructor(protected _userService: UserService){
+    this.baseurl = myGlobals.redirecUrl;
+  }
 
   ngOnInit(): void {
     this.getSuggestIntroduce();
@@ -36,5 +41,10 @@ export class SuggestIntroduceComponent implements OnInit {
 
   changeLogo(notify){
     notify.showCreatedLogo = true;
+  }
+
+  shareClick(companyId){
+    this.createdUrl = this.baseurl + "shareIntroduceCompany/" + companyId;
+    this._userService.shareToMedia(this.createdUrl);
   }
 }

@@ -7,6 +7,7 @@ export const environment = {
   baseUrl: "http://localhost:5000/",
   socketUrl: "ws://localhost:5000/webSocket",
   chatRedirectUrl : "http://localhost:4200/",
+  redirecUrl : "http://localhost:4200/",
   firebase : {
     apiKey: "AIzaSyCv0FeWpM2qiRy_SaYtLdZmoGQNwSpm_5I",
     authDomain: "bluerecruting.firebaseapp.com",
