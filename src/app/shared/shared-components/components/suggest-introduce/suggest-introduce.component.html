@@ -4,6 +4,9 @@
         <div *ngIf = "showLoadStatus" class="stDv">{{loadStatus}}</div>
         <div class="singleList employerResume animatePart" *ngFor="let companiesAre of suggestIntro">
             <div class="pro">
+                <div class="shareIcon" style="float: right;" (click) = "shareClick(companiesAre._id)">
+                    <i class="fas fa-share"></i>
+                </div>
                 <span style="color: red;">
                     {{companiesAre.companyName | uppercase}}
                 </span>

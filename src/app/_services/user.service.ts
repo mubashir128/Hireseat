@@ -7,6 +7,9 @@ import { IProfile } from "../profile/model/user-profile";
 import { IUser } from "../models/user";
 import { BehaviorSubject, Subject } from "rxjs";
 
+import { Plugins } from '@capacitor/core';
+const { Share } = Plugins;
+
 @Injectable({
   providedIn: "root",
 })
@@ -77,7 +80,7 @@ export class UserService {
     );
   }
 
-  getPostJob(jobPost?: any, suggest?, searchFilters?) {
+  getPostJob(jobPost?: any, suggest?, searchFilters?, companyId?) {
     let params = new HttpParams();
     if(jobPost) {
       params = params.append('_id', jobPost._id.toString());
@@ -87,6 +90,10 @@ export class UserService {
       searchFilters.forEach((value, key) => {
         params = params.append(key, value);
       });
+    }
+
+    if(companyId) {
+      params = params.append('companyId', companyId.toString());
     }
 
     if(suggest){
@@ -363,5 +370,12 @@ export class UserService {
           return res;
         })
       );
+  }
+
+  async shareToMedia(createdUrl){
+    await Share.share({
+      url: createdUrl,
+      dialogTitle: 'Share with'
+    });
   }
 }

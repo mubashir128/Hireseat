@@ -1,0 +1,45 @@
+<div class="ListResume">
+    <span style="font-size: 20px;">Suggest Introduce : </span>
+    <div *ngIf="showLoadStatus" class="stDv">{{loadStatus}}</div>
+    <div class="singleList employerResume" *ngFor="let companiesAre of suggestIntro">
+        <div class="pro">
+            <span style="color: red;">
+                {{companiesAre.companyName | uppercase}}
+            </span>
+            <br>
+            <div class="sideCss">
+                <div class="lblTxt">
+                    <p *ngIf="companiesAre?.jobTitle"><label>Job Title :</label> {{ companiesAre?.jobTitle }}</p>
+                    <p *ngIf="companiesAre?.jobSpecification"><label>Job Specification :</label> {{
+                        companiesAre?.jobSpecification }}</p>
+                    <p *ngIf="companiesAre?.location"><label>Location :</label> {{ companiesAre?.location }}</p>
+                </div>
+                <div *ngIf="companiesAre?.candidate?.length == 0" class="row" class="userCss">- No users</div>
+                <span *ngIf="companiesAre?.candidate?.length" class="userCss">- Users who can introduce you to
+                    above company : </span>
+                <div class="sideCss" *ngFor="let userList of companiesAre.candidate; index as indexValue">
+                    <div class="row" (click)="gotoUser(userList.candidate_id._id)">
+
+                        <div *ngIf="!userList?.candidate_id?.showCreatedLogo" class="big-badge candProfile22">
+                            <img src="{{ userList.candidate_id?.profileimage }}"
+                                (error)="changeLogo(userList.candidate_id)" style="max-width: 100%" />
+                        </div>
+                        <div *ngIf="userList?.candidate_id?.showCreatedLogo" class="big-badge candProfile22">
+                            {{ userList?.candidate_id?.fullName | uppercase | slice: 0 : 1 }}
+                        </div>
+
+                        <div style="margin-left: 35px !important;">
+                            {{userList?.candidate_id?.fullName}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer" *ngIf = "suggestIntro.length">
+        <a [routerLink]="['/']" class="brand-logo footerLogo"
+          ><img src="assets/img/HSfooterLogo.png" style="vertical-align: middle"
+        /></a>
+        <a [routerLink]="['/']" class="link"> www.hireseat.com </a>
+      </div>
+</div>

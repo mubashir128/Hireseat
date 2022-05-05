@@ -3,6 +3,7 @@ export const environment = {
   baseUrl: 'https://hireseat.com:5000/',
   socketUrl: "wss://hireseat.com:5000/webSocket",
   chatRedirectUrl : "https://hireseat.com/",
+  redirecUrl : "https://hireseat.com/",
   firebase : {
     apiKey: "AIzaSyCv0FeWpM2qiRy_SaYtLdZmoGQNwSpm_5I",
     authDomain: "bluerecruting.firebaseapp.com",
