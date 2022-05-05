@@ -183,7 +183,9 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
       )
     );
     
-    this.tabs2.push(new Tab2("/candidate/suggest-introduce", "Suggest Introduce", true, "fas fa-user-friends"));
+    this.tabs2.push(
+      new Tab2("/candidate/all-only-candidate-shared-profile", "OnlyCandidateSharedProfile", false, "fas fa-user-friends")
+    );
 
     this.tabs2.push(
       new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-search")
