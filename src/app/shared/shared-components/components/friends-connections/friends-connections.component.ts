@@ -8,7 +8,6 @@ import { SubscriberslistService } from 'src/app/_services/subscriberslist.servic
 import { UserService } from 'src/app/_services/user.service';
 import { VideoCallingService } from 'src/app/_services/video-calling.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
-import { Share } from '@capacitor/share';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as myGlobals from "../../../../globalPath";
 import { AbstractSharedComponent } from 'src/app/abstract-classes/abstract-shared.component';
@@ -110,12 +109,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     this.generateLink = false;
     this.createdUrl = res.result.link;
     this.copyLink();
-    await Share.share({
-      title: 'You can share this link.',
-      text: 'Hireseat',
-      url: this.createdUrl,
-      dialogTitle: 'Share with'
-    });
+    this._userService.shareToMedia(this.createdUrl);
   }
 
   copyLink() {

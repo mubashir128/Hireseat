@@ -19,6 +19,10 @@ export class DialogSelectToAddFriendsComponent extends AbstractDialogComponent i
 
   profileSet = new Map();
 
+  step = 1;
+
+  suggestProfileContents : any[];
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogSelectToAddFriendsComponent, 
     public dialog: MatDialog, 
     public dialogRef: MatDialogRef<DialogSelectToAddFriendsComponent>, 
@@ -28,7 +32,20 @@ export class DialogSelectToAddFriendsComponent extends AbstractDialogComponent i
   }
 
   ngOnInit(): void {
+    this.getTopProfilesByDesiredComapines();
     this.getTopProfiles();
+  }
+
+  getTopProfilesByDesiredComapines(){
+    this._candidateService.getCandidateSharedProfiles(true).subscribe((res) => {
+      if(res){
+        this.suggestProfileContents = res;
+      }
+      if(this.suggestProfileContents.length == 0){
+        this.step = 2;
+      }
+    }, err=>{
+    });
   }
 
   getTopProfiles(){
@@ -40,16 +57,11 @@ export class DialogSelectToAddFriendsComponent extends AbstractDialogComponent i
     });
   }
 
-  selectionChange($event: any) {
-    this.profileSet.set($event.option.value, !this.profileSet.get($event.option.value));
+  closeDialog($event){
+    this.dialogRef.close($event);
   }
 
-  sendFriendRequest(){
-    this._candidateService.connectWithMultipleUsers(this.profileSet).subscribe((res) => {
-      Materialize.toast("Friend requestes are sended", 1000, "green");
-      this.dialogRef.close();
-    }, (err) => {
-    });
+  nextStep(step){
+    this.step = step;
   }
-
 }

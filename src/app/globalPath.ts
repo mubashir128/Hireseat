@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 export const baseUrl = environment.baseUrl;
 export const socketUrl = environment.socketUrl;
 export const chatRedirectUrl = environment.chatRedirectUrl;
+export const redirecUrl = environment.redirecUrl;
+
 // import { environment} from '../environments/environment.prod';
 // local path with ip server path
 // export const baseUrl = 'http://localhost:5000/'; // ip link

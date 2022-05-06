@@ -96,6 +96,10 @@ const appRoutes: Routes = [
     path: "user-list",
     loadChildren: () => import('./admin/userlist/userlist.module').then(m => m.UserlistModule),
     canActivate: [AdminGuard]
+  },
+  {
+    path: 'shareIntroduceCompany/:companyId',
+    loadChildren: () => import('./share-introduce-company/share-introduce-company.module').then(m => m.ShareIntroduceCompanyModule)
   }
 
 ];

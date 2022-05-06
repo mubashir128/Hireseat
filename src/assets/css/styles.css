@@ -1581,3 +1581,8 @@ body {
   font-size: 20px;
   margin-top: 50%;
 }
+
+.shareIcon i{
+  font-size: 18px;
+  color: red;
+}

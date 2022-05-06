@@ -25,7 +25,6 @@ import {
   distinctUntilChanged,
   tap,
 } from "rxjs/operators";
-import { Share } from '@capacitor/share';
 import { DialogShareToUsersComponent } from "../shared/shared-components/components/dialog-share-to-users/dialog-share-to-users.component";
 
 declare var jQuery;
@@ -827,10 +826,7 @@ export abstract class AbstractSharedComponent{
     this.createdUrl = res.result.link;
     this.copyLink();
 
-    await Share.share({
-      url: this.createdUrl,
-      dialogTitle: 'Share with'
-    });
+    this._userService.shareToMedia(this.createdUrl);
   }
 
   copyLink() {
