@@ -45,11 +45,19 @@ export class DialogSelectToAddFriendsComponent extends AbstractDialogComponent i
   }
 
   sendFriendRequest(){
+    if(this.profileSet.size == 0){
+      return ;
+    }
+
     this._candidateService.connectWithMultipleUsers(this.profileSet).subscribe((res) => {
       Materialize.toast("Friend requestes are sended", 1000, "green");
       this.dialogRef.close();
     }, (err) => {
     });
+  }
+
+  changeLogo(notify){
+    notify.showCreatedLogo = true;
   }
 
 }

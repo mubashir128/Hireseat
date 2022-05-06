@@ -10,7 +10,17 @@
                 checkboxPosition="before" 
                 [value]="profile.candidate_id._id"
                 [selected]="profileSet.get(profile.candidate_id._id)">
-                {{profile?.candidate_id?.fullName}}
+                <div class="row">
+                    <div *ngIf = "!profile.candidate_id.showCreatedLogo" class="big-badge candProfile22">
+                        <img src="{{ profile.candidate_id.profileimage }}" (error)="changeLogo(profile.candidate_id)" style="max-width: 100%" />
+                    </div>
+                    <div *ngIf = "profile.candidate_id.showCreatedLogo" class="big-badge candProfile22">
+                        {{ profile.candidate_id.fullName | uppercase | slice: 0 : 1 }}
+                    </div>
+                    <span style="margin-left: 10px; word-wrap: break-word;">
+                        {{profile?.candidate_id?.fullName}}
+                    </span>
+                </div>
             </mat-list-option>
         </mat-selection-list>
     </div>
