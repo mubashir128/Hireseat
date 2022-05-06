@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 import * as myGlobals from "../globalPath";
 import { map } from "rxjs/operators";
@@ -219,11 +219,7 @@ export class CandidateService {
       });
     }
     
-    return this.http.post<any>(this.baseurl + "api/connectWithMultipleUsers", {recipients : params}).pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+    return this.http.post<any>(this.baseurl + "api/connectWithMultipleUsers", {recipients : params});
   }
   
   getAllConnectedUsers(payload) {
@@ -258,11 +254,11 @@ export class CandidateService {
     );
   }
 
-  getCandidateSharedProfiles() {
-    return this.http.get<any>(this.baseurl + "api/getCandidateSharedProfiles").pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+  getCandidateSharedProfiles(desiredCompany?) {
+    let params = new HttpParams();
+    if(desiredCompany) {
+      params = params.append('desiredCompany', "true");
+    }
+    return this.http.get<any>(this.baseurl + "api/getCandidateSharedProfiles", {params :params});
   }
 }

@@ -109,6 +109,7 @@ import { SuggestIntroduceComponent } from './components/suggest-introduce/sugges
 import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-for-candidate-shared-profile/only-for-candidate-shared-profile.component";
 import { DialogSelectToAddFriendsComponent } from './components/dialog-select-to-add-friends/dialog-select-to-add-friends.component';
 import {MatListModule} from '@angular/material/list';
+import { ShowFriendRequestListComponent } from './components/show-friend-request-list/show-friend-request-list.component';
 
 
 @NgModule({
@@ -243,7 +244,8 @@ import {MatListModule} from '@angular/material/list';
     AppListComponent,
     SuggestIntroduceComponent,
     OnlyForCandidateSharedProfileComponent,
-    DialogSelectToAddFriendsComponent
+    DialogSelectToAddFriendsComponent,
+    ShowFriendRequestListComponent
   ],
   exports: [
     FooterComponent,
