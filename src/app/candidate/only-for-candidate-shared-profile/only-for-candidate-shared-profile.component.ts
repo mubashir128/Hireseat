@@ -55,7 +55,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   CompaniesTeamsRolesFrm: FormGroup;
 
-  @Input() searchCTRTerm = "";
+  searchCTRTerm = "";
+  @Input() companyName = "";
 
   searchText = "onlyCandidateSearch";
 
@@ -101,13 +102,13 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   async ngOnInit() {
     this.setModel();
-
     this._route.queryParams.subscribe(params => {
       this.throughProfileId = params['profileId'];
       // this.searchTerm = params['fullName'] ? params['fullName'] : "";
       this.searchCTRTerm = params['fullName'] ? params['fullName'] : "";
       this.throughRoute = true;
     });
+    this.searchCTRTerm = (this.searchCTRTerm !== "") ? this.searchCTRTerm : (this.companyName !== "") ? this.companyName : "";
 
     await this._socket.removeListener({ type: this._constants.onlyForCandidateSharedProfileType });
     this._socket.addListener({
