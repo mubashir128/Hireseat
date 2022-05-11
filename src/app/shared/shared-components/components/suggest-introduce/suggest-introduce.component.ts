@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/_services/user.service';
 import * as myGlobals from '../../../../globalPath';
 
@@ -18,8 +19,11 @@ export class SuggestIntroduceComponent implements OnInit {
   createdUrl: string = "";
   public baseurl: any;
 
-  constructor(protected _userService: UserService){
+  loggedUser: any;
+
+  constructor(protected _userService: UserService, private _router: Router){
     this.baseurl = myGlobals.redirecUrl;
+    this.loggedUser = this._userService.getUserData();
   }
 
   ngOnInit(): void {
@@ -46,5 +50,11 @@ export class SuggestIntroduceComponent implements OnInit {
   shareClick(companyId){
     this.createdUrl = this.baseurl + "shareIntroduceCompany/" + companyId;
     this._userService.shareToMedia(this.createdUrl);
+  }
+
+  gotoUsers(companiesAre){
+    if(companiesAre && companiesAre.candidate.length){
+      this._router.navigate(["/"+this.loggedUser.userRole+"/friends-connections"], { queryParams: { companyName: companiesAre.companyName}});
+    }
   }
 }

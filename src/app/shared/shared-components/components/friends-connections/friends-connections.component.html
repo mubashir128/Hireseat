@@ -17,7 +17,7 @@
 </div>
 
 <ng-container *ngIf="showOnlyCan">
-  <app-only-for-candidate-shared-profile (countEM)='countModules($event)'></app-only-for-candidate-shared-profile>
+  <app-only-for-candidate-shared-profile (countEM)='countModules($event)' [(searchCTRTerm)]="companyName"></app-only-for-candidate-shared-profile>
 </ng-container>
 
 <ng-container *ngIf="showRequest">
