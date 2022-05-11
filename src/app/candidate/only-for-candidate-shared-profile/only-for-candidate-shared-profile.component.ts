@@ -5,6 +5,7 @@ import {
   OnDestroy,
   EventEmitter,
   Output,
+  Input,
 } from "@angular/core";
 import {
   FormBuilder,
@@ -54,7 +55,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   CompaniesTeamsRolesFrm: FormGroup;
 
-  searchCTRTerm = "";
+  @Input() searchCTRTerm = "";
 
   searchText = "onlyCandidateSearch";
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ConstantsService } from 'src/app/_services/constants.service';
@@ -47,6 +47,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   onlyCanCount: Number = 0;
   introsToCompaniesCount: number = 0;
   myNetworkCount: number = 0;
+
+  companyName: string = "";
   
   constructor(
     protected _userService: UserService,
@@ -63,13 +65,17 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     protected _bidEventService: BiddingEventService,
     protected _sanitizer: DomSanitizer,
     protected _readResume : ReadResumeService,
-    protected _resumeService: ResumeService
+    protected _resumeService: ResumeService,
+    private _route: ActivatedRoute
   ){
     super(dialog, shareVideoService, _userService, formBuilder, _bidEventService,_sanitizer, _candidateService, _readResume, _resumeService, _subList, spinner, videoCallingService);
   }
 
   async ngOnInit(){
     jQuery(".modal").modal();
+    this._route.params.subscribe(params => {
+      this.companyName = this._route.snapshot.queryParams["companyName"] ? this._route.snapshot.queryParams["companyName"] : "";
+    });
 
     //add a observable for connection
     await this._socket.removeListener({ type: this._constants.connectionFriendType });
