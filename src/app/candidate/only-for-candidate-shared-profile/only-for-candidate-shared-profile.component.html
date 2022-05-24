@@ -115,13 +115,13 @@
                   </label>
               </p>
               <p *ngIf = "resume?.location"><label>Location :</label> {{ resume?.location }}</p>
-              <!-- <p *ngIf = "resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies">
+              <p *ngIf = "(resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies) && resume.addedAsAFriend">
                 <i class="fas fa-binoculars" aria-hidden="true"></i>
                 <label joyrideStep="secondStep" title="The Network" text="See which companies members want intros to." stepPosition = "bottom">Desired Companies :</label>
                   <label style="font-size: 14px; color: #54A4F0;">
                     {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
                   </label>
-              </p> -->
+              </p>
             </div>
 
             <!-- <div class="row list">
@@ -152,6 +152,13 @@
             <div class="container">
               <div class="row cont">
                 <button (click)="showShareModal2(resume)">Offer Intro</button>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid" style="margin-top: 10px;" *ngIf = "resume.addedAsAFriend">
+            <div class="container">
+              <div class="row cont">
+                <button (click)="swapIntro(resume)">Swap Intros</button>
               </div>
             </div>
           </div>
