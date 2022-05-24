@@ -117,7 +117,6 @@ export class NotificationsComponent implements OnInit {
           if(res.count){
             this.notificationLength = res.count;
           }
-
         }
         break;
       case this._constants.newNotification:
@@ -172,10 +171,9 @@ export class NotificationsComponent implements OnInit {
   }
 
   //when cliking on notification, then it will redired to respected route.
-  getToQuestion(id, type, redirectId, redirectId2) {
+  getToQuestion(id?, type?, redirectId?, redirectId2?, message?) {
     this.toggle();
     this.decreaseNotification(id);
-
     switch(type){
       case "askQuestion" : 
         this.router.navigate(["/question-details/", redirectId]);
@@ -203,7 +201,7 @@ export class NotificationsComponent implements OnInit {
         this.router.navigate(["/recruiter/multi-share-candidate-profile"]);
         break;
       case "chatNotification" : 
-        this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2}});
+        this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2, message: message}});
         break;
       default : 
         break;

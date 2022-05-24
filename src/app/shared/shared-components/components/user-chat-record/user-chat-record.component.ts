@@ -58,6 +58,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   createdUrl = "";
 
   userCandidateProfileData: any;
+
+  defaultMessage: string = "";
   
   constructor(private route: ActivatedRoute, 
     private router: Router, 
@@ -72,6 +74,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     this.route.params.subscribe(params => {
       this.receiverId = params.id;
       this.groupChat = this.route.snapshot.queryParams["groupChat"] == 'true' ? true : false;
+      this.defaultMessage = this.route.snapshot.queryParams["message"];
       if(!this.groupChat){
         this.handleUserData();
       }
@@ -98,6 +101,11 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     });
 
     this.getAllChats();
+
+    if(this.defaultMessage){
+      this.messageIs = this.defaultMessage;
+      this.sendChatMessage();
+    }
   }
 
   ngOnChanges() {

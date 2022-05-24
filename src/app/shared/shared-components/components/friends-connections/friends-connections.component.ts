@@ -377,6 +377,11 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     }
   }
 
+  swapIntroLocal(_id, resumeId, resumeId2){
+    let resume = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
+    this.swapIntro(resume);
+  }
+
   thxLetter(_id, resumeId, resumeId2){
     this.thxFullObj = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
     let thxFullName = this.thxFullObj.candidate_id.fullName;
