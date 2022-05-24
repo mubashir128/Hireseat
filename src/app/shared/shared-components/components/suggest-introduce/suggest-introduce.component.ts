@@ -57,4 +57,14 @@ export class SuggestIntroduceComponent implements OnInit {
       this._router.navigate(["/"+this.loggedUser.userRole+"/friends-connections"], { queryParams: { companyName: companiesAre.companyName}});
     }
   }
+
+  showHideJobSpec(company){
+    if(company.expanded){
+      jQuery("#jobSpec_"+company._id).css("display", "none");
+      company.expanded = false;
+    }else{
+      jQuery("#jobSpec_"+company._id).css("display", "block");
+      company.expanded = true;
+    }
+  }
 }
