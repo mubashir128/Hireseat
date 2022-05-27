@@ -12,6 +12,7 @@
     <div class="" *ngIf="step == 2">
         <app-show-friend-request-list
             [(profileContents)] = "profileContents"
+            [(profileSet)] = "profileSet"
             [step] = "2"
             (closeEM)='closeDialog($event)'
         ></app-show-friend-request-list>
