@@ -1082,4 +1082,10 @@ export abstract class AbstractSharedComponent{
   getImage(obj){
     obj.showCreatedLogo = true;
   }
+
+  swapIntro(resume){
+    this._resumeService.swapIntro(resume).subscribe((data)=>{
+      Materialize.toast("Intro swapped", 1000, "green");
+    });
+  }
 }

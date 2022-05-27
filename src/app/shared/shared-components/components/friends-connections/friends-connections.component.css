@@ -366,3 +366,8 @@ input {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+button.shareBtn{
+  background-color: #03aaff !important;
+  border: 1px solid #03aaff !important;
+}

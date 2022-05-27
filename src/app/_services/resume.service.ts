@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import * as myGlobals from "../globalPath";
 import { IResume, Resume } from "../models/resume";
@@ -295,5 +295,13 @@ export class ResumeService {
       this.baseurl + "api/post-candidate-reply",
       payload
     );
+  }
+  
+  swapIntro(payload) {
+    let params = new HttpParams();
+    if(payload && payload.candidate_id){
+      params = params.append('toUserId', payload.candidate_id._id.toString());
+    }
+    return this.http.get<any>(this.baseurl + "api/swap-intro", {params :params});
   }
 }
