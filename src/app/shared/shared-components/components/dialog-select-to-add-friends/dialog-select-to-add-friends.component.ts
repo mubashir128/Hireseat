@@ -61,7 +61,8 @@ export class DialogSelectToAddFriendsComponent extends AbstractDialogComponent i
     this.dialogRef.close($event);
   }
 
-  nextStep(step){
-    this.step = step;
+  nextStep(object){
+    this.step = object.step ? object.step : this.step;
+    this.profileSet = object.profileSet ? object.profileSet : this.profileSet
   }
 }

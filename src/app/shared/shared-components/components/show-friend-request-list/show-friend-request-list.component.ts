@@ -14,7 +14,7 @@ export class ShowFriendRequestListComponent implements OnInit {
   users : any[];
   selectedList: any = [];
   
-  profileSet = new Map();
+  @Input() profileSet = new Map();
   
   @Input() profileContents : any[];
   @Input() step : number = 1;
@@ -25,7 +25,7 @@ export class ShowFriendRequestListComponent implements OnInit {
   constructor(protected _candidateService: CandidateService){
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
   }
 
   selectionChange($event: any) {
@@ -34,6 +34,7 @@ export class ShowFriendRequestListComponent implements OnInit {
 
   sendFriendRequest(){
     if(this.profileSet.size == 0){
+      Materialize.toast("Select atleast one person.", 1000, "red");
       return ;
     }
 
@@ -53,7 +54,7 @@ export class ShowFriendRequestListComponent implements OnInit {
   }
 
   nextStep(step){
-    this.nextEM.emit(step);
+    this.nextEM.emit({step : step, profileSet : this.profileSet});
   }
 
   getStep(step){
