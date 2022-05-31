@@ -2,7 +2,8 @@ export class Tab2 {
     id: string;
     displayText: string;
     selected: boolean;
-    addedClass : string
+    addedClass : string;
+    showCreatedLogo: boolean;
     constructor(id: string, displayText: string, selected: boolean, addedClass : string) {
         this.id = id;
         this.displayText = displayText;

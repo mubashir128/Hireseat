@@ -194,7 +194,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
       new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
     );
     this.tabs2.push(
-      new Tab2("/candidate/menus", "Menu", false, "fas fa-bars")
+      new Tab2("/candidate/menus", "Menu", false, "fas fa-user")
     );
   }
 
@@ -248,6 +248,10 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     if(this.mobileNotificationIncrementObserver){
       this.mobileNotificationIncrementObserver.unsubscribe();
     }
+  }
+
+  changeLogo(tab){
+    tab.showCreatedLogo = true;
   }
 
 }
