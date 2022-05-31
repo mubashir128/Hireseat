@@ -6,10 +6,25 @@
         <!-- <h4 class="count" *ngIf="notificationLength > 0 && (tab.displayText === 'Notification')">
           {{notificationLength}}
         </h4> -->
-        <i
-          [ngClass]="tab.addedClass"
-          [ngStyle]="{ color: tab.selected ? '#393B3B' : '#ffffff' }"
-        ></i><br />
+        <div *ngIf = "tab.displayText !== 'Menu'">
+          <i
+            [ngClass]="tab.addedClass"
+            [ngStyle]="{ color: tab.selected ? '#393B3B' : '#ffffff' }"
+          ></i><br />
+        </div>
+        <div *ngIf = "tab.displayText == 'Menu'">
+          <div class="">
+            <div *ngIf = "!tab.showCreatedLogo" class="big-badge sizeImage">
+              <img src="{{ tab.profileimage }}" (error)="changeLogo(tab)" style="max-width: 100%" />
+            </div>
+            <div *ngIf = "tab.showCreatedLogo" class="big-badge">
+              <i
+                [ngClass]="tab.addedClass"
+                [ngStyle]="{ color: tab.selected ? '#393B3B' : '#ffffff' }"
+              ></i><br />
+            </div>
+          </div>
+        </div>
       </a>
       <span *ngIf="multiSharedCandidateProfileCount > 0 && (tab.displayText === 'Multi Shared Candidate Profile')">{{ multiSharedCandidateProfileCount }}</span>
       <!-- <span *ngIf="notificationLength > 0 && (tab.displayText === 'Notification')">{{ notificationLength }}</span> -->
