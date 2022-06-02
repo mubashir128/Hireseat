@@ -138,6 +138,8 @@ export class ConstantsService {
 
   publicProfile;
 
+  swapChatNotification;
+  
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -351,6 +353,8 @@ export class ConstantsService {
     this.getUserActiveStatus = obj.getUserActiveStatus;
 
     this.publicProfile = obj.publicProfile;
+
+    this.swapChatNotification = obj.swapChatNotification;
   }
 
 }

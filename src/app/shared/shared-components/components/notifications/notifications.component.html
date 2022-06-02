@@ -29,7 +29,7 @@
               <!-- {{notify.createdAt | amLocale:'en' | amDateFormat:'MMMM Do YYYY, h:mm:ss a'}} -->
             </div>
             <a
-              (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2)"
+              (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2, notify.notification.message, notify.senderName, notify.from)"
               [routerLink]=""
               routerLinkActive="notification-content"
               [innerHtml]="truncateHTML(notify.notification.message, notify.senderName)"
@@ -87,7 +87,7 @@
               </div>
               <div class="col s10 l10 m10" style="margin-left: -20px;">
                 <a
-                  (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2, notify.notification.message)"
+                  (click)="getToQuestion(notify._id, notify.notification.notificationType, notify.notification.redirectId, notify.notification.redirectId2, notify.notification.message, notify.senderName, notify.from)"
                   [routerLink]=""
                   routerLinkActive="notification-content"
                   [innerHtml]="truncateHTML(notify.notification.message, notify.senderName)"

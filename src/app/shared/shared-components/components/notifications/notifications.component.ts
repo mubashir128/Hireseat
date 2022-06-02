@@ -1,10 +1,12 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
+import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 declare var jQuery;
 
 @Component({
@@ -42,6 +44,7 @@ export class NotificationsComponent implements OnInit {
     private _socket: WebsocketService,
     private _constants : ConstantsService,
     private router: Router,
+    protected _dialog: MatDialog
   ) { }
 
   async ngOnInit(){
@@ -115,7 +118,6 @@ export class NotificationsComponent implements OnInit {
 
   //handle notifications of user.
   handleNotificationData(res: any) {
-    console.log("res : ",res);
     switch (res.subType) {
       case this._constants.getAllNotifications:
         // add all notifications to list.
@@ -184,7 +186,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   //when cliking on notification, then it will redired to respected route.
-  getToQuestion(id?, type?, redirectId?, redirectId2?, message?) {
+  getToQuestion(id?, type?, redirectId?, redirectId2?, message?, senderName?, from?) {
     this.toggle();
     this.decreaseNotification(id);
     switch(type){
@@ -216,9 +218,34 @@ export class NotificationsComponent implements OnInit {
       case "chatNotification" : 
         this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2, message: message}});
         break;
+      case this._constants.swapChatNotification : 
+        this.askToUser(redirectId, redirectId2, message, senderName, from);
+        break;
       default : 
         break;
     }
+  }
+
+  askToUser(redirectId?, redirectId2?, message?, senderName?, from?){
+    const dialogIntroduceRef = this._dialog.open(DialogMessageComponent,{
+      data: {
+        dialogType : "askToUser",
+        dialogTitle : "Ask to User",
+        dialogText : "Would you like to chat with "+senderName
+      }
+    });
+
+    dialogIntroduceRef.afterClosed().subscribe(result => {
+      if(result){
+        this.backResponseToUser(from);
+        this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2, message: message}});
+      }
+    });
+  }
+
+  backResponseToUser(fromUserId?){
+    this.userService.backResponseToUser(fromUserId).subscribe(res=>{
+    });
   }
   
   //reduce the count of notication, remove the notification from array and make isRead flag to true for clicked notification.
