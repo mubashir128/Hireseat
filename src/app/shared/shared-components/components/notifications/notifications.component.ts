@@ -105,6 +105,7 @@ export class NotificationsComponent implements OnInit {
 
   //handle notifications of user.
   handleNotificationData(res: any) {
+    console.log("res : ",res);
     switch (res.subType) {
       case this._constants.getAllNotifications:
         // add all notifications to list.
