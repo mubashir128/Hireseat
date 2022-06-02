@@ -105,6 +105,7 @@ import { DialogCreatePostJobComponent } from './components/dialog-create-post-jo
 import { AppListComponent } from './components/app-list/app-list.component';
 import { SuggestIntroduceComponent } from './components/suggest-introduce/suggest-introduce.component';
 import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-for-candidate-shared-profile/only-for-candidate-shared-profile.component";
+import { DialogMessageComponent } from './components/dialog-message/dialog-message.component';
 
 @NgModule({
   imports: [
@@ -234,7 +235,8 @@ import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-f
     DialogCreatePostJobComponent,
     AppListComponent,
     SuggestIntroduceComponent,
-    OnlyForCandidateSharedProfileComponent
+    OnlyForCandidateSharedProfileComponent,
+    DialogMessageComponent
   ],
   exports: [
     FooterComponent,

@@ -378,4 +378,12 @@ export class UserService {
       dialogTitle: 'Share with'
     });
   }
+
+  backResponseToUser(fromUserId){
+    let params = new HttpParams();
+    if(fromUserId){
+      params = params.append('fromUserId', fromUserId.toString());
+    }
+    return this.http.get<any>(this.baseurl + "api/backResponseToUser", {params :params});
+  }
 }

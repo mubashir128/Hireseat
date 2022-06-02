@@ -126,6 +126,8 @@ export class ConstantsService {
   userIsOnline;
   userIsOffline;
 
+  swapChatNotification;
+  
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -327,6 +329,8 @@ export class ConstantsService {
 
     this.userIsOnline = obj.userIsOnline;
     this.userIsOffline = obj.userIsOffline;
+
+    this.swapChatNotification = obj.swapChatNotification;
   }
 
 }
