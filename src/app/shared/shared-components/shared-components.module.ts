@@ -111,6 +111,7 @@ import { DialogSelectToAddFriendsComponent } from './components/dialog-select-to
 import {MatListModule} from '@angular/material/list';
 import { ShowFriendRequestListComponent } from './components/show-friend-request-list/show-friend-request-list.component';
 
+import { DialogMessageComponent } from './components/dialog-message/dialog-message.component';
 
 @NgModule({
   imports: [
@@ -245,7 +246,8 @@ import { ShowFriendRequestListComponent } from './components/show-friend-request
     SuggestIntroduceComponent,
     OnlyForCandidateSharedProfileComponent,
     DialogSelectToAddFriendsComponent,
-    ShowFriendRequestListComponent
+    ShowFriendRequestListComponent,
+    DialogMessageComponent
   ],
   exports: [
     FooterComponent,

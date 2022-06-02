@@ -156,7 +156,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     // );
 
     this.tabs2.push(
-      new Tab2("/candidate/menus", "Menu", false, "fas fa-bars")
+      new Tab2("/candidate/menus", "Menu", false, "fas fa-user")
     );
   }
 
@@ -207,6 +207,10 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
+  }
+
+  changeLogo(tab){
+    tab.showCreatedLogo = true;
   }
 
 }

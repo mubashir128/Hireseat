@@ -124,3 +124,8 @@ h4.count {
   right: 5px;
   top: -10px;
 }
+
+.sizeImage{
+  width: 32px !important;
+  height: 32px !important;
+}

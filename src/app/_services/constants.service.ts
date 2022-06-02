@@ -143,6 +143,8 @@ export class ConstantsService {
   androidPlayStoreLink;
   iosPlayStoreLink
 
+  swapChatNotification;
+  
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -361,6 +363,7 @@ export class ConstantsService {
 
     this.androidPlayStoreLink = obj.androidPlayStoreLink;
     this.iosPlayStoreLink = obj.iosPlayStoreLink;
+    this.swapChatNotification = obj.swapChatNotification;
   }
 
 }

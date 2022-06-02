@@ -113,7 +113,7 @@
             <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
           </div>
           <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge">
-            {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+            {{ (resume?.candidateName || resume?.candidate_id?.fullName || resume?.candidateKey?.fullName) | uppercase | slice: 0 : 1 }}
           </div>
         </div>
         <div class="pro-1">
@@ -123,7 +123,7 @@
                 <div class="user-details">
                   <span>
                     {{
-                      resume?.candidateName || resume?.candidate_id?.fullName
+                      resume?.candidateName || resume?.candidate_id?.fullName || resume?.candidateKey?.fullName
                     }}
                   </span>
                   <div class="other-details">
@@ -257,13 +257,13 @@
                           <img [src]="cmt?.recruiterId?.profileimage" (error)="getImage(cmt)" class="uploadedImgUser">
                         </div>
                         <div *ngIf = "cmt.showCreatedLogo" class="big-badge extrabig-badge-cmt">
-                          {{ (cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+                          {{ (cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName || resume?.candidateKey?.fullName) | uppercase | slice: 0 : 1 }}
                         </div>
 
                         <div class="recruiter-name recruiter-name-space">
                           <span>{{
                             cmt?.recruiterId?.fullName ||
-                              resume?.candidate_id?.fullName
+                              resume?.candidate_id?.fullName || resume?.candidateKey?.fullName
                           }}</span>
                           <span
                             class="see-profile"
@@ -474,11 +474,11 @@
                         <img [src]="cmt?.recruiterId?.profileimage" (error)="getImage(cmt)" class="uploadedImgUser">
                       </div>
                       <div *ngIf = "cmt.showCreatedLogo" class="big-badge extrabig-badge-cmt">
-                        {{ (cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+                        {{ (cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName || resume?.candidateKey?.fullName) | uppercase | slice: 0 : 1 }}
                       </div>
 
                       <div class="recruiter-name recruiter-name-space">
-                        <span>{{ cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName}}</span>
+                        <span>{{ cmt?.recruiterId?.fullName || resume?.candidate_id?.fullName || resume?.candidateKey?.fullName}}</span>
                         <span class="see-profile" *ngIf="cmt?.recruiterId?.userRole === 'recruiter'" (click)="openRecruiterModal(cmt?.recruiterId._id)">
                           See profile
                         </span>

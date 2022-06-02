@@ -5,6 +5,7 @@ import * as myGlobals from "../globalPath";
 import { UserService } from "./user.service";
 import { Router } from "@angular/router";
 import { PushNotifications, Token, ActionPerformed, PushNotificationSchema, } from "@capacitor/push-notifications";
+import { ConstantsService } from "./constants.service";
 
 declare var Materialize: any;
 
@@ -20,7 +21,7 @@ export class FirebasePushNotificationService {
 
   loggedInUser : any;
 
-  constructor(private _http: HttpClient, private _userService: UserService, private _router: Router) {
+  constructor(private _http: HttpClient, private _userService: UserService, private _router: Router, private _constants : ConstantsService) {
 		this.loggedInUser = this._userService.getUser();
 	}
 
@@ -114,6 +115,9 @@ export class FirebasePushNotificationService {
         this._router.navigate(["/forum"]);
         break;
       case "chatNotification" : 
+        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2}});
+        break;
+      case this._constants.swapChatNotification : 
         this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2}});
         break;
       default : 

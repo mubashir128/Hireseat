@@ -1,5 +1,5 @@
 <div class="otherProfileDetails">
-    <div class="skill-height">
+    <div *ngIf = "resume.skills" class="skill-height">
       <label>{{title}} :</label>
       <button class="down-1" (click)="upDownSkills()" *ngIf = "resume.skills.split(',').length > 2"><i [ngClass]="skillsClass"></i></button>
       <div class="industries onLimitedSkills" *ngIf = "!skillsShow">
@@ -16,7 +16,7 @@
       </div>
       
     </div>
-    <p>
+    <p *ngIf = "resume.industries">
       <label>Industries :</label>
       <span
         class="industrieName"
