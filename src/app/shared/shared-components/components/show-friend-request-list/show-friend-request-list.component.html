@@ -1,6 +1,15 @@
 <ng-container>
-    <label for="">
-        {{(getStep(2)) ? 'Welcome to HireSeat. Connect with the below members to get intros to your first 5 companies.' : 'Welcome to HireSeat. Connect with the below members that can intros you to your desired companies.'}} 
+    <label for="" style="color: red !important;">
+        <div *ngIf = "!getStep(2)">
+            <p>Thank you for joining Hireseat….</p>
+            <div>
+                I am the founder of HireSeat and I can be your first connection if you send me a request below. We will help you get better jobs and grow your network. 
+            </div><br>
+            <div>Sujith.</div>
+        </div>
+        <div *ngIf = "getStep(2)">
+            'Welcome to HireSeat. Connect with the below members that can intros you to your desired companies.'
+        </div>
     </label>
     <div>
         <mat-selection-list (selectionChange)="selectionChange($event)" [(ngModel)]="selectedList">
