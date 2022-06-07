@@ -1,5 +1,7 @@
 import { Component, Inject, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { CandidateService } from 'src/app/_services/candidate.service';
+import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 
 declare var jQuery;
 declare var Materialize;
@@ -22,7 +24,7 @@ export class ShowFriendRequestListComponent implements OnInit {
   @Output() closeEM = new EventEmitter();
   @Output() nextEM = new EventEmitter();
 
-  constructor(protected _candidateService: CandidateService){
+  constructor(protected _candidateService: CandidateService, protected _dialog: MatDialog){
   }
 
   ngOnInit(): void {
@@ -43,9 +45,27 @@ export class ShowFriendRequestListComponent implements OnInit {
       if(this.step == 1){
         this.nextStep(2);
         return ;
+      }else if(this.step == 2){
+        this.thanksUser();
       }
       this.closeEM.emit(true);
     }, (err) => {
+    });
+  }
+
+  thanksUser(){
+    const dialogMessageRef = this._dialog.open(DialogMessageComponent,{
+      data: {
+        dialogType : "goodJob",
+        dialogTitle : "Thanks",
+        dialogText : "Good job for starting to build your network and unlocking opportunities with your favorite companies",
+        btns : {"cancel" : "Close"}
+      }
+    });
+
+    dialogMessageRef.afterClosed().subscribe(result => {
+      if(result){
+      }
     });
   }
 

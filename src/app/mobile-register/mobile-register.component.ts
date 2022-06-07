@@ -98,8 +98,8 @@ export class MobileRegisterComponent implements OnInit {
       desiredRoles: ['', Validators.required]
     });
     this.thirdFormGroup = this._formBuilder.group({
-      desiredCompanies: [''],
-      introduceYouToo: ['']
+      desiredCompanies: ['', Validators.required],
+      introduceYouToo: ['', Validators.required]
     });
     this.fourFormGroup = this._formBuilder.group({
       verifyCode: ['', Validators.required]
@@ -145,8 +145,8 @@ export class MobileRegisterComponent implements OnInit {
   }
 
   sendVerifyCode(stepper: MatStepper){
-    if(this.desiredCompanies.trim() == "" && this.introduceYouToo.trim() == ""){
-      Materialize.toast("Atleast one Field is required.", 1000, "red");
+    if(this.desiredCompanies.trim() == "" || this.introduceYouToo.trim() == ""){
+      Materialize.toast("All Fields are required.", 1000, "red");
       return ;
     }
     this.formSubmit(stepper);

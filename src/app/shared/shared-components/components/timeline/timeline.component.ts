@@ -53,6 +53,7 @@ export class TimelineComponent implements OnInit {
   checkSelctToAddFriends(){
     let status = JSON.parse(this.userService.getSelectToAddFriends());
     if(status){
+      this._router.navigate(["/"+this.loggedUser.userRole+"/friends-connections"]);
       const dialogRef = this._dialog.open(DialogSelectToAddFriendsComponent, {
         autoFocus: false,
         width: '45vh',
