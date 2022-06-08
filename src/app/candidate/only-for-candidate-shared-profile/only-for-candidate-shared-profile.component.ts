@@ -275,14 +275,26 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     res.frdConnection.forEach((frd, index) => {
       this.resumes.forEach((profile, index2) => {
         if(profile.candidateKey?._id == frd.recipient._id || profile.candidate_id?._id == frd.recipient._id){
-          profile.addedAsAFriend = true;
+          if(frd.status == this._constants.asAFriend){
+            profile.addedAsAFriend = true;
+          }else if(frd.status == this._constants.asARequested){
+            profile.toRequested = true;
+          }
         }else if(profile.candidateKey?._id == frd.requester._id || profile.candidate_id?._id == frd.requester._id){
-          profile.addedAsAFriend = true;
+          if(frd.status == this._constants.asAFriend){
+            profile.addedAsAFriend = true;
+          }else if(frd.status == this._constants.asARequested){
+            profile.toRequested = true;
+          }
         }else{
 
         }
       });
     });
+  }
+
+  pendingRequest(resume){
+    Materialize.toast("Request is pending", 1000, "red");
   }
 
   handleResponse(res) {
@@ -673,6 +685,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
     this.candidateService.connectWithUsers(payload).subscribe((res) => {
       Materialize.toast(res.message, 1000, "green");
+      this.shareResume.toRequested = true;
     }, (err) => {
       Materialize.toast("Something went wrong!", 1000);
     });

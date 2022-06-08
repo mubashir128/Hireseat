@@ -227,15 +227,16 @@ export class NotificationsComponent implements OnInit {
   }
 
   askToUser(redirectId?, redirectId2?, message?, senderName?, from?){
-    const dialogIntroduceRef = this._dialog.open(DialogMessageComponent,{
+    const dialogMessageRef = this._dialog.open(DialogMessageComponent,{
       data: {
         dialogType : "askToUser",
         dialogTitle : "Ask to User",
-        dialogText : "Would you like to chat with "+senderName
+        dialogText : "Would you like to chat with "+senderName,
+        btns : {"accept" : "Accept", "cancel" : "Cancel"}
       }
     });
 
-    dialogIntroduceRef.afterClosed().subscribe(result => {
+    dialogMessageRef.afterClosed().subscribe(result => {
       if(result){
         this.backResponseToUser(from);
         this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2, message: message}});

@@ -9,8 +9,13 @@ import { AbstractDialogComponent } from '../abstract-dialog.component';
 })
 export class DialogMessageComponent extends AbstractDialogComponent implements OnInit {
 
+  btns: Object;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogMessageComponent, public dialogRef: MatDialogRef<DialogMessageComponent>){
     super(data, dialogRef);
+    if(this.data && this.data.btns){
+      this.btns = this.data.btns;
+    }
   }
 
   ngOnInit(): void {
@@ -20,4 +25,11 @@ export class DialogMessageComponent extends AbstractDialogComponent implements O
     this.dialogRef.close(true);
   }
 
+  showBtn(boolBtn){
+    return this.btns[boolBtn] ? true : false;
+  }
+
+  getBtnText(btnText){
+    return this.btns[btnText] ? this.btns[btnText] : "";
+  }
 }

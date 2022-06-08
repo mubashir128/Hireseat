@@ -25,6 +25,11 @@
                     </div>
                     <span style="margin-left: 10px; word-wrap: break-word;">
                         {{profile?.candidate_id?.fullName}}
+                        <div *ngIf = "profile?.introduceYouToo" class="row">
+                            <span style="margin-left: 10px; font-size: 12px; color: red;">
+                                [ Introduce : {{profile?.introduceYouToo}} ]
+                            </span>
+                        </div>
                     </span>
                 </div>
             </mat-list-option>
@@ -32,7 +37,7 @@
     </div>
     <div *ngIf = "getStep(1)">
         <div class="form-group">
-            <button class="sendBtn" (click)="nextStep(2)">Next</button>
+            <button class="sendBtn" (click)="nextStep(2)">Skip</button>
         </div>
     </div>
     <div>

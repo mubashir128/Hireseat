@@ -5,11 +5,11 @@
     <div class="modal-content">
         <p class="bodyPara">{{dialogText}}</p>
         <div class="textCenter">
-            <button (click)="closeScreen($event)" class="sendBtn spaceBet introStyle">
-                Cancel
+            <button *ngIf = "showBtn('cancel')" (click)="closeScreen($event)" class="sendBtn spaceBet introStyle">
+                {{getBtnText("cancel")}}
             </button>&nbsp;&nbsp;
-            <button (click)="accept()" class="sendBtn spaceBet introStyle">
-                Accept
+            <button *ngIf = "showBtn('accept')" (click)="accept()" class="sendBtn spaceBet introStyle">
+                {{getBtnText("accept")}}
             </button>
         </div>
     </div>

@@ -74,7 +74,7 @@ h2 {
 }
 
 .signup_middle_content{
-  display: flex; 
+  /* display: flex; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -86,7 +86,8 @@ h2 {
 }
 
 .top_top{
-  display: flex
+  display: flex;
+  border: 1px solid darkgrey;
 }
 
 #imgIDD{
@@ -131,4 +132,9 @@ h2 {
 
 .width100{
   width: 100%;
+}
+
+.example-form.width100{
+  width: 90% !important;
+  padding-left: 25px !important;
 }
