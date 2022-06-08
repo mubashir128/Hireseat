@@ -118,7 +118,10 @@ export class FirebasePushNotificationService {
         this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2}});
         break;
       case this._constants.swapChatNotification : 
-        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2}});
+        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/chat-record", redirectId]);
+        break;
+      case this._constants.connectFriend : 
+        this._router.navigate(["/"+this.loggedInUser.userInfo.userRole+"/friends-connections"], { queryParams: {redirectId : redirectId}});
         break;
       default : 
         break;

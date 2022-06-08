@@ -75,6 +75,12 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     jQuery(".modal").modal();
     this._route.params.subscribe(params => {
       this.companyName = this._route.snapshot.queryParams["companyName"] ? this._route.snapshot.queryParams["companyName"] : "";
+      let receiverId = this._route.snapshot.queryParams["redirectId"];
+      if(receiverId){
+        setTimeout(()=>{
+          this.gotoUser(receiverId);
+        }, 500);
+      }
     });
 
     //add a observable for connection
