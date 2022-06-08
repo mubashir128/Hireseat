@@ -14,10 +14,10 @@
         </div>
         <div *ngIf = "tab.displayText == 'Menu'">
           <div class="">
-            <div *ngIf = "!tab.showCreatedLogo" class="big-badge sizeImage">
-              <img src="{{ tab.profileimage }}" (error)="changeLogo(tab)" style="max-width: 100%" />
+            <div *ngIf = "!loggedInUser.showCreatedLogo" class="big-badge candProfile">
+              <img src="{{ loggedInUser.profileimage }}" (error)="changeLogo(loggedInUser)" style="max-width: 100%" />
             </div>
-            <div *ngIf = "tab.showCreatedLogo" class="big-badge">
+            <div *ngIf = "loggedInUser.showCreatedLogo" class="big-badge">
               <i
                 [ngClass]="tab.addedClass"
                 [ngStyle]="{ color: tab.selected ? '#393B3B' : '#ffffff' }"
