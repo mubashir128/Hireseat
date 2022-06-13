@@ -149,7 +149,7 @@ export class MenusComponent implements OnInit {
   }
   
   candidateMenuTabs(){
-    this.tabs2.push(new Tab2("/candidate/my-posted-profiles", "My Posted Profiles", true, "fas fa-user"));
+    this.tabs2.push(new Tab2("/candidate/my-posted-profiles", "My Profiles", true, "fas fa-user"));
 
     // this.tabs2.push(new Tab2("/candidate/my-profile", "Profile", true, "fas fa-user"));
     this.tabs2.push(new Tab2("/Product Walkthrough", "Product Walkthrough", false, "fas fa-info"));
