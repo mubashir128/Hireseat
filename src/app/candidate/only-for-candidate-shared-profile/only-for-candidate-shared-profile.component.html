@@ -140,7 +140,7 @@
         </div>
 
         <div style="margin-bottom: 10px;">
-          <div class="container-fluid"  *ngIf = "!resume.toRequested">
+          <div class="container-fluid"  *ngIf = "!resume.toRequested && !resume.addedAsAFriend">
             <div class="container">
               <div class="row cont">
                 <button (click)="connectWithOffers(resume)">connect</button>
