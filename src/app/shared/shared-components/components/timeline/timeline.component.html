@@ -71,12 +71,14 @@
                   {{timeline.candidateFromId?.introduceYouToo}}
                 </span>
   
-                <div class="row" style="margin-right : 10px" *ngIf = "timeline.candidateFromId?.introduceCount">
+                <div class="row" style="margin-right : 10px" *ngIf = "timeline?.introduceCount">
                   <span style="color: red;">
                     <label># of Introductions : </label>
-                    <label class="backStyle">
-                      {{ timeline.candidateFromId?.introduceCount}}
-                    </label>
+                    <div class="row" style="margin-bottom: 0px;">
+                      <label class="backStyle">
+                        {{ timeline.introduceCount}}
+                      </label>
+                    </div>
                   </span>
                 </div>
               </div>
