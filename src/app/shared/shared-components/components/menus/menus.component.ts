@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Tab } from "src/app/recruiter/models/tab";
 import { Tab2 } from 'src/app/recruiter/models/tab2';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { DataExportsService } from 'src/app/_services/data.exports.service';
 import { SuperAdminService } from 'src/app/_services/super-admin.service';
 import { UserService } from 'src/app/_services/user.service';
 import { App } from '@capacitor/app';
@@ -40,7 +41,8 @@ export class MenusComponent implements OnInit {
     private router: Router,
     private _subList : SubscriberslistService,
     private _socket: WebsocketService,
-    private _constants : ConstantsService
+    private _constants : ConstantsService,
+    private _exportsService : DataExportsService
   ) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
@@ -192,6 +194,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
 
     this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
+    
+    // this.tabs2.push(new Tab2("api/export-user", "Export User", false, "fas fa-file-export"));
   }
 
   adminMenuTab(){
@@ -216,6 +220,11 @@ export class MenusComponent implements OnInit {
       this.userService.removeBeforeMyProfileWalkthrough();
       this.userService.removeOnlyCandidateWalkthroughWalkthrough();
       this.router.navigate([this.loggedInUser.userRole+'/my-profile']);
+    }else if(text == 'Export User'){
+      let promises = this._exportsService.exportXlsxData(item).toPromise();
+      promises.then(result=>{
+        console.log("result : ",result);
+      });
     }else{
       this.router.navigate([item]);
     }
