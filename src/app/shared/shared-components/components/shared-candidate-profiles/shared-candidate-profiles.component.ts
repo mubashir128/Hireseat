@@ -455,6 +455,10 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     this._router.navigate(["/"+this.loggedUser.userRole+"/my-profile"]);
   }
 
+  editHightlights(){
+    console.log("logged : ",this.loggedUser);
+  }
+
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.sharedProfileType });
     this.sharedProfileObserver.unsubscribe();
