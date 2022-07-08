@@ -99,6 +99,16 @@
 </ng-container>
 
 <ng-container *ngIf="resumes">
+  <div *ngIf="loggedUser.userRole == 'candidate'" class="row" style="margin-bottom: 5px;">
+    <button class="shareBtn" (click)="editHightlights()">
+      <a>
+        <div class="icon-name">
+          <i class="fa fa-share shared-icon" aria-hidden="true"></i>
+          <span class="shareText"> Edit Highlights </span>
+        </div>
+      </a>
+    </button>
+  </div>
   <div class="ListResume">
     <div
       class="singleList employerResume resumeSingleList"

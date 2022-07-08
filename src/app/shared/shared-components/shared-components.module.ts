@@ -112,6 +112,8 @@ import {MatListModule} from '@angular/material/list';
 import { ShowFriendRequestListComponent } from './components/show-friend-request-list/show-friend-request-list.component';
 
 import { DialogMessageComponent } from './components/dialog-message/dialog-message.component';
+import { EditHighlightsComponent } from './components/edit-highlights/edit-highlights.component';
+import {MatFormFieldModule} from '@angular/material/form-field';  
 
 @NgModule({
   imports: [
@@ -137,7 +139,8 @@ import { DialogMessageComponent } from './components/dialog-message/dialog-messa
     OwlNativeDateTimeModule,
     MomentModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule
   ],
   declarations: [
     FooterComponent,
@@ -247,7 +250,8 @@ import { DialogMessageComponent } from './components/dialog-message/dialog-messa
     OnlyForCandidateSharedProfileComponent,
     DialogSelectToAddFriendsComponent,
     ShowFriendRequestListComponent,
-    DialogMessageComponent
+    DialogMessageComponent,
+    EditHighlightsComponent
   ],
   exports: [
     FooterComponent,
@@ -327,7 +331,7 @@ import { DialogMessageComponent } from './components/dialog-message/dialog-messa
     CandidateSummaryComponent,
     SkillsAndIndustriesComponent,
     ProfileButtonsComponent,
-    InterviewQuestionsComponent
+    InterviewQuestionsComponent,
   ],
 
 })

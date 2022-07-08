@@ -1,0 +1,178 @@
+<div class="mainDiv">
+    <div class="resumeDiv slidein marAuto" *ngIf = "resumeTab">
+        <form [formGroup]="resumeTabFrm" novalidate>
+            <div class="row marSpace textDeco">
+                Most candidate do not know 3 reasons why they should be hired. if you don't know how would recruiters ? 
+                Upload your resume below to find find out.
+            </div>
+            <div class="row marSpace" style="margin-bottom: 0px;">
+                <div class="centerDiv file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text">
+                    <div class="uploadBtn" style="display: table-cell" joyrideStep="secondStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
+                        <span>Upload Resume / Change Resume</span>
+                        <input type="file" accept=".pdf, .docx" (change)="fileChange($event)" accept=".pdf, .docx"/>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="uploadFileName !== ''" class="row marSpace centerDiv" style="margin-bottom: 0px !important;">
+                <mat-hint>Selected File Name : {{uploadFileName}}</mat-hint>
+            </div>
+            <div class="row marSpace centerDiv">
+                <mat-hint>Allowed formats: .pdf, .docx</mat-hint>
+            </div>
+            <button type="submit" class="row eduuction-cant-2" (click) = "nextResume()">Next</button>
+        </form>
+    </div>
+
+    <div class="importantDiv slidein marAuto" *ngIf = "importantTab">
+        <form [formGroup]="importantTabFrm" novalidate>
+            <div class="row marSpace textDeco">
+                We found these skills that are important to highlights to employees.
+            </div>
+            <div class="row marSpace">
+                <div class="row marSpace">
+                    <span class="suggestSkill">Add skills : </span>
+                    <div class="inputInnerDiv">
+                        <tag-input
+                            class="borderBott borderBottN skillBorBott"
+                            [(ngModel)]="tagsBind"
+                            formControlName="tags"
+                            [addOnBlur]="true"
+                            (onAdd)="onSkillSetsAdd($event)"
+                            (onRemove)="onSkillSetsAdd($event)"
+                            [placeholder]="'Search by skillSets'"
+                            [secondaryPlaceholder]="'search by skillSets'">
+                            <tag-input-dropdown
+                                [autocompleteItems]="skillSets"
+                                [keepOpen]="false"
+                                [showDropdownIfEmpty]="true">
+                            </tag-input-dropdown>
+                        </tag-input>
+                    </div>
+                </div>
+
+                <div class="row marSpace">
+                    <span class="suggestSkill">Add experience specific to your industry : </span>
+                    <div class="inputInnerDiv">
+                        <tag-input
+                            class="borderBott borderBottN skillBorBott"
+                            [(ngModel)]="industryBind"
+                            formControlName="industry"
+                            [addOnBlur]="true"
+                            (onAdd)="onIndustriesAdd($event)"
+                            (onRemove)="onIndustriesAdd($event)"
+                            [placeholder]="'Search by Industries'"
+                            [secondaryPlaceholder]="'search by Industries'">
+
+                            <tag-input-dropdown
+                                [autocompleteItems]="industriesAre"
+                                [keepOpen]="false"
+                                [showDropdownIfEmpty]="true">
+                            </tag-input-dropdown>
+                        </tag-input>
+                    </div>
+                </div>
+                <div class="row marSpace grouup-in" style="margin: auto;">
+                    <span class="suggestSkill">Education :</span>
+                    <input type="text" class="form-control" placeholder="Enter Education" [(ngModel)] = "educationBind" name="education" formControlName="education">
+                </div>
+            </div>
+            <button type="submit" class="row eduuction-btn-2" (click) = "nextImportant()">Next</button>
+            <button class="row eduuction-cant-2"(click) = "previousImportant()">Previous</button>
+        </form>
+    </div>
+
+    <div class="accomplishmentDiv slidein marAuto" *ngIf = "accomplishmentTab">
+        <form [formGroup]="accomplishmentTabFrm" novalidate>
+            <div class="row marSpace textDeco">
+                What accomplishment are you most provd of ?
+                We found some. Pick 3.
+            </div>
+            <div class="row accomCss">
+                <textarea
+                    rows="50"
+                    [(ngModel)] = "accom1"
+                    maxlength="25000"
+                    formControlName="accomFrm1"
+                ></textarea>
+                <div>
+                    Accomplishment/Unique Experience 1.
+                </div>
+            </div>
+            <div class="row accomCss">
+                <textarea
+                    rows="50"
+                    [(ngModel)] = "accom2"
+                    maxlength="25000"
+                    formControlName="accomFrm2"
+                ></textarea>
+                <div>
+                    Accomplishment/Unique Experience 2.
+                </div>
+            </div>
+            <div class="row accomCss">
+                <textarea
+                    rows="50"
+                    [(ngModel)] = "accom3"
+                    maxlength="25000"
+                    formControlName="accomFrm3"
+                ></textarea>
+                <div>
+                    Accomplishment/Unique Experience 3.
+                </div>
+            </div>
+            <button type="submit" class="row eduuction-btn-2" (click) = "previewAll()">Preview</button>
+            <button class="row eduuction-cant-2"(click) = "previousAccomplishment()">Previous</button>
+        </form>
+    </div>
+
+    <div class="previewDiv slidein" *ngIf = "previewTab">
+        <div class="" *ngIf = "uploadFileName !== ''">
+            <p class="textDeco"><i class="fas fa-check-square"></i> Uploaded Resume : </p>
+            <span> - {{uploadFileName}}</span>
+        </div>
+        <div class="bottom-text skillDiv" *ngIf = "finalSkillSets.length !== 0">
+            <p class="textDeco"><i class="fas fa-check-square"></i> Skills  :</p>
+            <form [formGroup]="showSkillsSetsFrm" novalidate>
+                <div class="inputInnerDiv3">
+                    <tag-input [ngModel]="finalSkillSets"
+                        formControlName="showSkillsAre"
+                        [maxItems]="finalSkillSets.length"
+                        [ripple]="false"
+                        [removable]="false">
+                    </tag-input>
+                </div>
+            </form>
+        </div>
+        <div class="bottom-text induDiv" *ngIf = "finalIndustriesAre.length !== 0">
+            <p class="textDeco"><i class="fas fa-check-square"></i> Industry Experience : </p>
+            <form [formGroup]="showIndustriesFrm" novalidate>
+                <div class="inputInnerDiv3">
+                    <tag-input [ngModel]="finalIndustriesAre"
+                        formControlName="showIndustriesAre"
+                        [maxItems]="finalIndustriesAre.length"
+                        [ripple]="false"
+                        [displayBy]="'name'"
+                        [removable]="false">
+                    </tag-input>
+                </div>
+            </form>
+        </div>
+        <div class="row marSpace" *ngIf = "educationBind !== ''">
+            <p class="textDeco"><i class="fas fa-check-square"></i> Education : </p>
+            <span> - {{educationBind}}</span>
+        </div>
+        <div class="row marSpace" *ngIf = "accom2 !== '' || accom2 !== '' || accom2 !== ''">
+            <p>
+                <span class="textDeco"> <i class="fas fa-check-square"></i> Accomplishments and Unique Experiences : </span><br>
+                <span class="detailsData" *ngIf = "accom1 !== ''">- {{accom1}}.</span><br>
+                <span class="detailsData" *ngIf = "accom2 !== ''">- {{accom2}}. <br> </span>
+                <span class="detailsData" *ngIf = "accom3 !== ''">- {{accom3}}. <br> </span>
+            </p>
+        </div>
+        <div class="row marSpace" style="margin-top: 10px;">
+            <button class="row eduuction-btn-2" (click) = "save()">Save</button>
+            <button class="row eduuction-cant-2" (click) = "edit()">Edit</button>
+        </div>
+    </div>
+
+</div>
