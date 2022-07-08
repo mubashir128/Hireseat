@@ -456,7 +456,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   }
 
   editHightlights(){
-    console.log("logged : ",this.loggedUser);
+    this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"]);
   }
 
   ngOnDestroy() {

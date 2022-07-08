@@ -48,7 +48,7 @@ export class FillFormComponent implements OnInit, OnDestroy {
   accom5 = "";
 
   public tagsBind = [];
-  public industryBind = []
+  public industryBind = [];
   public skillSets = [];
   public mainIndustriesAre = [];
   public industriesAre = [];

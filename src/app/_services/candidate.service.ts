@@ -48,6 +48,16 @@ export class CandidateService {
       );
   }
 
+  saveCandidateProfileDuringHighlightsData(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/saveCandidateProfileDuringHighlightsData", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
   // auth : candidate
   editProfile(payload) {
     return this.http

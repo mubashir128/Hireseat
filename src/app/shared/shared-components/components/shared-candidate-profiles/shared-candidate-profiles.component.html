@@ -99,7 +99,7 @@
 </ng-container>
 
 <ng-container *ngIf="resumes">
-  <div *ngIf="loggedUser.userRole == 'candidate'">
+  <div *ngIf="loggedUser.userRole == 'candidate'" class="row" style="margin-bottom: 5px;">
     <button class="shareBtn" (click)="editHightlights()">
       <a>
         <div class="icon-name">

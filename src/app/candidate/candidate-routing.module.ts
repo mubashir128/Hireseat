@@ -16,6 +16,7 @@ import { FriendsConnectionsComponent } from "../shared/shared-components/compone
 import { TimelineComponent } from "../shared/shared-components/components/timeline/timeline.component";
 import { UserChatRecordComponent } from "../shared/shared-components/components/user-chat-record/user-chat-record.component";
 import { SuggestIntroduceComponent } from "../shared/shared-components/components/suggest-introduce/suggest-introduce.component";
+import { EditHighlightsComponent } from "../shared/shared-components/components/edit-highlights/edit-highlights.component";
 
 const routes: Routes = [
   {
@@ -81,6 +82,10 @@ const routes: Routes = [
       {
         path: "timeline",
         component: TimelineComponent,
+      },
+      {
+        path: "edit-highlights",
+        component: EditHighlightsComponent,
       }
     ],
   },

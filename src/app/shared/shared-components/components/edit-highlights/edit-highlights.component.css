@@ -1,0 +1,87 @@
+.mainDiv {
+    margin-bottom: 50px;
+    height: calc(76vh);
+    /* max-height: 800px; */
+    overflow: auto;
+    overflow-x: hidden;
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+    border: 1px solid #03aaff;
+}
+
+.mainDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.eduuction-btn-2 {
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+    text-transform: uppercase;
+    margin: auto;
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.eduuction-cant-2 {
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+    text-transform: uppercase;
+    margin: auto;
+    margin-top: 20px;
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.marSpace {
+    margin-left: 0px;
+    width: 100%;
+}
+
+.uploadBtn {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    background-color: #4db0f4;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.centerDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accomCss{
+    width: 95%;
+    margin-left: 0px;
+    margin-top: 10px !important;
+}
+
+.marAuto {
+    justify-content: center;
+    display: flex;
+    margin: auto;
+}
+
+.inputInnerDiv {
+    width: 100% !important;
+    font-size: 18px;
+    max-height: 250px;
+    overflow: auto;
+}
+
+.suggestSkill{
+    font-size: 16px;
+    color: red;
+}
+
+.textDeco {
+    font-size: 15px;
+    color: black;
+}
