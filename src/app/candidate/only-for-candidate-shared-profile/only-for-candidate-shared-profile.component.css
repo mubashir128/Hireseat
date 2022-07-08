@@ -988,7 +988,7 @@ input {
 .bor { border:solid 1px #03aaff; margin-top: 5%; margin-bottom: 5%;}
 .list { text-align: center; margin: 0 auto; padding: 10px; margin-top: 30px; margin-bottom: 30px;}
 .img-1 { text-align: center; margin: 0 auto;}
-.cont button { border: solid 1px #4472c4;padding: 10px; border-radius: 5px; background: transparent; text-transform: uppercase; font-size: 15px;font-weight: 500; color: #4472c4; width: 40%;}
+.cont button { border: solid 1px #4472c4;padding: 10px; border-radius: 5px; background: transparent; text-transform: uppercase; font-size: 15px;font-weight: 500; color: #4472c4; width: 50%;}
 .img-1 { padding: 20px;}
 .list img { text-align: center; margin: 0 auto;}
 .cont {  text-align: center; margin: 0 auto;}
