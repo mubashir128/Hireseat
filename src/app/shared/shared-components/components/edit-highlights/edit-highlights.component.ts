@@ -5,6 +5,8 @@ import { UserService } from 'src/app/_services/user.service';
 import * as lib from "src/app/lib-functions";
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { Router } from '@angular/router';
+import { ReadResumeService } from 'src/app/_services/read-resume.service';
+import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.service';
 
 declare var Materialize: any;
 
@@ -47,11 +49,15 @@ export class EditHighlightsComponent implements OnInit {
   accom3: string = "";
   educationBind: string = "";
 
+  educationBindArray = [];
+
   constructor(private resumeService: ResumeService, 
     private userService: UserService, 
     private formBuilder: FormBuilder,
     private candidateService: CandidateService,
     private _router: Router,
+    private _readResume : ReadResumeService,
+    private _candidateCarrer : CandidateCarrerService
   ){
     this.loggedInUser = this.userService.getUserData();
 
@@ -81,6 +87,7 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.educationBindArray = this._candidateCarrer.getSchool();
     this.showSkills();
     this.showIndustries();
   }
@@ -91,12 +98,49 @@ export class EditHighlightsComponent implements OnInit {
     promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
     Promise.all(promiseAll).then(result=>{
       this.skillSets = result[0];
-      this.skillSets.forEach((item)=>{
-          if(result[1].data && result[1].data.indexOf(item.value.toLowerCase()) !== -1){
-            this.tagsBind.push(item);
-            this.finalSkillSets.push(item.value.toLowerCase());
-          }
+      let resumeData = result[1].data ? result[1].data.toLowerCase() : "";
+      this.getEducation(resumeData);
+      this.expBoxValues(result[1]);
+      this.skillSets.forEach((item, index)=>{
+        if(resumeData && resumeData.search(item.value.toLowerCase()) !== -1){
+          this.tagsBind.push(item);
+          this.finalSkillSets.push(item.value.toLowerCase());
+        }
       });
+    });
+  }
+
+  getEducation(resumeData){
+    this.educationBindArray.forEach((edu, index)=>{
+        if(resumeData.search(edu.toLowerCase()) !== -1){
+          this.educationBind = edu;
+        }
+      });
+  }
+
+  async expBoxValues(allResumeData){
+    this.accom1 = "";
+    this.accom2 = "";
+    this.accom3 = "";
+
+    let finalStatementsArr = [];
+    finalStatementsArr = await this._readResume.readResume({resumeDataIs : allResumeData.data});
+
+    //combine first three statements.
+    finalStatementsArr.forEach((val ,index)=>{
+      switch(index){
+        case 0 : 
+          this.accom1 = val.stm;
+          break;
+        case 1 : 
+          this.accom2 = val.stm;
+          break;
+        case 2 : 
+          this.accom3 = val.stm;
+          break;
+        default : 
+          break;
+      }
     });
   }
 
@@ -143,12 +187,13 @@ export class EditHighlightsComponent implements OnInit {
     promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
     Promise.all(promiseAll).then(result=>{
       this.mainIndustriesAre = result[0].industries;
+      let resumeData = result[1].data ? result[1].data.toLowerCase() : "";
       this.mainIndustriesAre.forEach((item)=>{
         this.industriesAre.push({
           display : item.name,
           value : item.name.toLowerCase()
         });
-        if(result[1].data.indexOf(item.name.toLowerCase()) !== -1){
+        if(resumeData.search(item.name.toLowerCase()) !== -1){
           this.industryBind.push({
             display : item.name,
             value : item.name.toLowerCase()
