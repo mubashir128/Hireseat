@@ -100,7 +100,7 @@ export class EditHighlightsComponent implements OnInit {
       this.skillSets = result[0];
       let resumeData = result[1].data ? result[1].data.toLowerCase() : "";
       this.getEducation(resumeData);
-      this.expBoxValues(result[1]);
+      this.expBoxValues(resumeData);
       this.skillSets.forEach((item, index)=>{
         if(resumeData && resumeData.search(item.value.toLowerCase()) !== -1){
           this.tagsBind.push(item);
@@ -124,7 +124,7 @@ export class EditHighlightsComponent implements OnInit {
     this.accom3 = "";
 
     let finalStatementsArr = [];
-    finalStatementsArr = await this._readResume.readResume({resumeDataIs : allResumeData.data});
+    finalStatementsArr = await this._readResume.readResume({resumeDataIs : allResumeData});
 
     //combine first three statements.
     finalStatementsArr.forEach((val ,index)=>{
