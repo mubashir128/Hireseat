@@ -17,6 +17,8 @@ import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { JoyrideService } from "ngx-joyride";
 import { DialogProfileExampleComponent } from "src/app/shared/shared-components/components/dialog-profile-example/dialog-profile-example.component";
 import { MatDialog } from "@angular/material/dialog";
+import { AuthenticationService } from "src/app/_services/authentication.service";
+import { DialogDeleteComponent } from "src/app/shared/shared-components/components/dialog-delete/dialog-delete.component";
 
 declare var Materialize: any;
 
@@ -65,7 +67,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private _candidateCarrer : CandidateCarrerService,
     private _readResume : ReadResumeService,
     private readonly joyrideService: JoyrideService,
-    protected dialog: MatDialog
+    protected dialog: MatDialog,
+    private _authService: AuthenticationService,
+    protected _dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -572,6 +576,31 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       Materialize.toast("Something Went Wrong !", 1000);
     });
 
+  }
+
+  deleteProfile(){
+    const dialogDeleteRef = this._dialog.open(DialogDeleteComponent,{
+      data: {
+        dialogType : "ConfirmDeleteAction",
+        dialogTitle : "Confirm Delete Action",
+        dialogText : "Are want to sure delete this accout permanently ?"
+      }
+    });
+
+    dialogDeleteRef.afterClosed().subscribe(result => {
+      if(result && result.process){
+        this.confirmDelete();
+      }
+    });
+    
+  }
+
+  confirmDelete(){
+    this.userService.deleteUserPermanantly().subscribe(res=>{
+      if(res){
+        this._authService.logout();
+      }
+    });
   }
 
 }
