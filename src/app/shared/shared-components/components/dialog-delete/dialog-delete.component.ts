@@ -16,7 +16,7 @@ export class DialogDeleteComponent extends AbstractDialogComponent implements On
   ngOnInit(): void {
   }
 
-  confirmedDeleteResume(status){
+  confirmedDelete(status){
     this.dialogRef.close({
       type : "ConfirmDeleteAction",
       process : status
