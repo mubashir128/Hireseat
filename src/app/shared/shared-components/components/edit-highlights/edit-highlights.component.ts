@@ -10,6 +10,18 @@ import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.servi
 
 declare var Materialize: any;
 
+export class AccomplishmentType{
+  type : string;
+  header : string;
+  checked: boolean;
+  constructor(type, header, checked){
+    this.type = type;
+    this.header = header;
+    this.checked = checked;
+  }
+}
+
+
 @Component({
   selector: 'app-edit-highlights',
   templateUrl: './edit-highlights.component.html',
@@ -44,12 +56,18 @@ export class EditHighlightsComponent implements OnInit {
   accomplishmentTab: boolean = false;
   previewTab: boolean = false;
 
-  accom1: string = "";
-  accom2: string = "";
-  accom3: string = "";
+  accomplishmentArray : Array<AccomplishmentType>;
+
   educationBind: string = "";
 
   educationBindArray = [];
+
+  limitNumber: number = 3;
+  checkedNumber: number = 0;
+
+  comments : string;
+  comment2 : string;
+  comment3 : string;
 
   constructor(private resumeService: ResumeService, 
     private userService: UserService, 
@@ -74,6 +92,8 @@ export class EditHighlightsComponent implements OnInit {
       accomFrm1 : new FormControl(),
       accomFrm2 : new FormControl(),
       accomFrm3 : new FormControl(),
+      accomFrm4 : new FormControl(),
+      accomFrm5 : new FormControl()
     });
 
     this.showSkillsSetsFrm = this.formBuilder.group({
@@ -90,6 +110,13 @@ export class EditHighlightsComponent implements OnInit {
     this.educationBindArray = this._candidateCarrer.getSchool();
     this.showSkills();
     this.showIndustries();
+    
+    this.accomplishmentArray = [];
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm1", "Accomplishment/Unique Experience 1.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm2", "Accomplishment/Unique Experience 2.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm3", "Accomplishment/Unique Experience 3.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm4", "Accomplishment/Unique Experience 4.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm5", "Accomplishment/Unique Experience 5.", false));
   }
 
   showSkills(){
@@ -119,9 +146,6 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   async expBoxValues(allResumeData){
-    this.accom1 = "";
-    this.accom2 = "";
-    this.accom3 = "";
 
     let finalStatementsArr = [];
     finalStatementsArr = await this._readResume.readResume({resumeDataIs : allResumeData});
@@ -130,13 +154,19 @@ export class EditHighlightsComponent implements OnInit {
     finalStatementsArr.forEach((val ,index)=>{
       switch(index){
         case 0 : 
-          this.accom1 = val.stm;
+          this.accomplishmentTabFrm.get('accomFrm1').setValue(val.stm);
           break;
         case 1 : 
-          this.accom2 = val.stm;
+          this.accomplishmentTabFrm.controls['accomFrm2'].setValue(val.stm);
           break;
         case 2 : 
-          this.accom3 = val.stm;
+          this.accomplishmentTabFrm.controls['accomFrm3'].setValue(val.stm);
+          break;
+        case 3 : 
+          this.accomplishmentTabFrm.controls['accomFrm4'].setValue(val.stm);
+          break;
+        case 4 : 
+          this.accomplishmentTabFrm.controls['accomFrm5'].setValue(val.stm);
           break;
         default : 
           break;
@@ -283,9 +313,9 @@ export class EditHighlightsComponent implements OnInit {
       education : this.educationBind,
       skills : this.finalSkillSets.join(","),
       industries : this.finalIndustriesAre,
-      comments : this.accom1,
-      comment2 : this.accom2,
-      comment3 : this.accom3
+      comments : this.comments,
+      comment2 : this.comment2,
+      comment3 : this.comment3
     }
     
     this.candidateService.saveCandidateProfileDuringHighlightsData(userInfo).subscribe((res) => {
@@ -321,5 +351,46 @@ export class EditHighlightsComponent implements OnInit {
         Materialize.toast("Only allow .PDF and .DOCX extension files", 1500, 'red');
       }
     }
+  }
+
+  onCheckboxChange($event){
+    this.accomplishmentArray.forEach((accom)=>{
+      if(accom.type === $event.target.name){
+        if($event.target.checked){
+          accom.checked = true;
+          this.checkedNumber++;
+        }else{
+          accom.checked = false;
+          this.checkedNumber--;
+        }
+      }
+    });
+
+    this.setValues();
+  }
+
+  setValues(){
+    let temp = 0;
+    this.comments = "";
+    this.comment2 = "";
+    this.comment3 = "";
+
+    this.accomplishmentArray.forEach((accom)=>{
+      accom.checked ? temp++ : '';
+      switch(temp){
+        case 1 :
+          this.comments = this.accomplishmentTabFrm.get('accomFrm1').value;
+          break;
+        case 2 :
+          this.comment2 = this.accomplishmentTabFrm.get('accomFrm2').value;
+          break;
+        case 3 :
+          this.comment3 = this.accomplishmentTabFrm.get('accomFrm3').value;
+          break;
+        default : 
+          break;
+      }
+    });
+    
   }
 }

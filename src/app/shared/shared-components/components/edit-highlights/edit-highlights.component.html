@@ -8,7 +8,7 @@
             <div class="row marSpace" style="margin-bottom: 0px;">
                 <div class="centerDiv file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text">
                     <div class="uploadBtn" style="display: table-cell" joyrideStep="secondStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
-                        <span>Upload Resume / Change Resume</span>
+                        <span>Upload Resume</span>
                         <input type="file" accept=".pdf, .docx" (change)="fileChange($event)" accept=".pdf, .docx"/>
                     </div>
                 </div>
@@ -85,39 +85,22 @@
         <form [formGroup]="accomplishmentTabFrm" novalidate>
             <div class="row marSpace textDeco">
                 What accomplishment are you most provd of ?
-                We found some. Pick 3.
+                We found some. Pick any 3.
             </div>
-            <div class="row accomCss">
-                <textarea
-                    rows="50"
-                    [(ngModel)] = "accom1"
-                    maxlength="25000"
-                    formControlName="accomFrm1"
-                ></textarea>
-                <div>
-                    Accomplishment/Unique Experience 1.
-                </div>
-            </div>
-            <div class="row accomCss">
-                <textarea
-                    rows="50"
-                    [(ngModel)] = "accom2"
-                    maxlength="25000"
-                    formControlName="accomFrm2"
-                ></textarea>
-                <div>
-                    Accomplishment/Unique Experience 2.
-                </div>
-            </div>
-            <div class="row accomCss">
-                <textarea
-                    rows="50"
-                    [(ngModel)] = "accom3"
-                    maxlength="25000"
-                    formControlName="accomFrm3"
-                ></textarea>
-                <div>
-                    Accomplishment/Unique Experience 3.
+            <div *ngFor = "let accomplishment of accomplishmentArray; let ind = index">
+                <div class="row accomCss">
+                    <label class="CheckBoxcontainer">
+                        <input type="checkbox" name="{{accomplishment.type}}" [(disabled)] = "!accomplishment.checked && checkedNumber === limitNumber" (change)="onCheckboxChange($event)" [(checked)]="accomplishment.checked">
+                        <span class="checkmark"></span>
+                    </label>
+                    <span style="font-size: 15px;">
+                        {{accomplishment.header}}
+                    </span>
+                    <textarea
+                        rows="50"
+                        maxlength="25000"
+                        [formControlName]="accomplishmentArray[ind].type"
+                    ></textarea>
                 </div>
             </div>
             <button type="submit" class="row eduuction-btn-2" (click) = "previewAll()">Preview</button>
@@ -164,9 +147,9 @@
         <div class="row marSpace" *ngIf = "accom2 !== '' || accom2 !== '' || accom2 !== ''">
             <p>
                 <span class="textDeco"> <i class="fas fa-check-square"></i> Accomplishments and Unique Experiences : </span><br>
-                <span class="detailsData" *ngIf = "accom1 !== ''">- {{accom1}}.</span><br>
-                <span class="detailsData" *ngIf = "accom2 !== ''">- {{accom2}}. <br> </span>
-                <span class="detailsData" *ngIf = "accom3 !== ''">- {{accom3}}. <br> </span>
+                <span class="detailsData" *ngIf = "accom1 !== ''">- {{comments}}.</span><br>
+                <span class="detailsData" *ngIf = "accom2 !== ''">- {{comment2}}. <br> </span>
+                <span class="detailsData" *ngIf = "accom3 !== ''">- {{comment3}}. <br> </span>
             </p>
         </div>
         <div class="row marSpace" style="margin-top: 10px;">
