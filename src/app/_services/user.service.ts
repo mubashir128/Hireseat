@@ -426,4 +426,8 @@ export class UserService {
     }
     return this.http.get<any>(this.baseurl + "api/backResponseToUser", {params :params});
   }
+
+  deleteUserPermanantly(){
+    return this.http.get<any>(this.baseurl + "api/deleteUserPermanantly");
+  }
 }

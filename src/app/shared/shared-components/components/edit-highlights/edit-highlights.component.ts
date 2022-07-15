@@ -5,8 +5,22 @@ import { UserService } from 'src/app/_services/user.service';
 import * as lib from "src/app/lib-functions";
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { Router } from '@angular/router';
+import { ReadResumeService } from 'src/app/_services/read-resume.service';
+import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.service';
 
 declare var Materialize: any;
+
+export class AccomplishmentType{
+  type : string;
+  header : string;
+  checked: boolean;
+  constructor(type, header, checked){
+    this.type = type;
+    this.header = header;
+    this.checked = checked;
+  }
+}
+
 
 @Component({
   selector: 'app-edit-highlights',
@@ -42,16 +56,26 @@ export class EditHighlightsComponent implements OnInit {
   accomplishmentTab: boolean = false;
   previewTab: boolean = false;
 
-  accom1: string = "";
-  accom2: string = "";
-  accom3: string = "";
+  accomplishmentArray : Array<AccomplishmentType>;
+
   educationBind: string = "";
+
+  educationBindArray = [];
+
+  limitNumber: number = 3;
+  checkedNumber: number = 0;
+
+  comments : string;
+  comment2 : string;
+  comment3 : string;
 
   constructor(private resumeService: ResumeService, 
     private userService: UserService, 
     private formBuilder: FormBuilder,
     private candidateService: CandidateService,
     private _router: Router,
+    private _readResume : ReadResumeService,
+    private _candidateCarrer : CandidateCarrerService
   ){
     this.loggedInUser = this.userService.getUserData();
 
@@ -68,6 +92,8 @@ export class EditHighlightsComponent implements OnInit {
       accomFrm1 : new FormControl(),
       accomFrm2 : new FormControl(),
       accomFrm3 : new FormControl(),
+      accomFrm4 : new FormControl(),
+      accomFrm5 : new FormControl()
     });
 
     this.showSkillsSetsFrm = this.formBuilder.group({
@@ -81,8 +107,16 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.educationBindArray = this._candidateCarrer.getSchool();
     this.showSkills();
     this.showIndustries();
+    
+    this.accomplishmentArray = [];
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm1", "Accomplishment/Unique Experience 1.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm2", "Accomplishment/Unique Experience 2.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm3", "Accomplishment/Unique Experience 3.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm4", "Accomplishment/Unique Experience 4.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm5", "Accomplishment/Unique Experience 5.", false));
   }
 
   showSkills(){
@@ -91,12 +125,52 @@ export class EditHighlightsComponent implements OnInit {
     promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
     Promise.all(promiseAll).then(result=>{
       this.skillSets = result[0];
-      this.skillSets.forEach((item)=>{
-          if(result[1].data && result[1].data.indexOf(item.value.toLowerCase()) !== -1){
-            this.tagsBind.push(item);
-            this.finalSkillSets.push(item.value.toLowerCase());
-          }
+      let resumeData = result[1].data ? result[1].data.toLowerCase() : "";
+      this.getEducation(resumeData);
+      this.expBoxValues(resumeData);
+      this.skillSets.forEach((item, index)=>{
+        if(resumeData && resumeData.search(item.value.toLowerCase()) !== -1){
+          this.tagsBind.push(item);
+          this.finalSkillSets.push(item.value.toLowerCase());
+        }
       });
+    });
+  }
+
+  getEducation(resumeData){
+    this.educationBindArray.forEach((edu, index)=>{
+        if(resumeData.search(edu.toLowerCase()) !== -1){
+          this.educationBind = edu;
+        }
+      });
+  }
+
+  async expBoxValues(allResumeData){
+
+    let finalStatementsArr = [];
+    finalStatementsArr = await this._readResume.readResume({resumeDataIs : allResumeData});
+
+    //combine first three statements.
+    finalStatementsArr.forEach((val ,index)=>{
+      switch(index){
+        case 0 : 
+          this.accomplishmentTabFrm.get('accomFrm1').setValue(val.stm);
+          break;
+        case 1 : 
+          this.accomplishmentTabFrm.controls['accomFrm2'].setValue(val.stm);
+          break;
+        case 2 : 
+          this.accomplishmentTabFrm.controls['accomFrm3'].setValue(val.stm);
+          break;
+        case 3 : 
+          this.accomplishmentTabFrm.controls['accomFrm4'].setValue(val.stm);
+          break;
+        case 4 : 
+          this.accomplishmentTabFrm.controls['accomFrm5'].setValue(val.stm);
+          break;
+        default : 
+          break;
+      }
     });
   }
 
@@ -143,12 +217,13 @@ export class EditHighlightsComponent implements OnInit {
     promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
     Promise.all(promiseAll).then(result=>{
       this.mainIndustriesAre = result[0].industries;
+      let resumeData = result[1].data ? result[1].data.toLowerCase() : "";
       this.mainIndustriesAre.forEach((item)=>{
         this.industriesAre.push({
           display : item.name,
           value : item.name.toLowerCase()
         });
-        if(result[1].data.indexOf(item.name.toLowerCase()) !== -1){
+        if(resumeData.search(item.name.toLowerCase()) !== -1){
           this.industryBind.push({
             display : item.name,
             value : item.name.toLowerCase()
@@ -238,9 +313,9 @@ export class EditHighlightsComponent implements OnInit {
       education : this.educationBind,
       skills : this.finalSkillSets.join(","),
       industries : this.finalIndustriesAre,
-      comments : this.accom1,
-      comment2 : this.accom2,
-      comment3 : this.accom3
+      comments : this.comments,
+      comment2 : this.comment2,
+      comment3 : this.comment3
     }
     
     this.candidateService.saveCandidateProfileDuringHighlightsData(userInfo).subscribe((res) => {
@@ -276,5 +351,46 @@ export class EditHighlightsComponent implements OnInit {
         Materialize.toast("Only allow .PDF and .DOCX extension files", 1500, 'red');
       }
     }
+  }
+
+  onCheckboxChange($event){
+    this.accomplishmentArray.forEach((accom)=>{
+      if(accom.type === $event.target.name){
+        if($event.target.checked){
+          accom.checked = true;
+          this.checkedNumber++;
+        }else{
+          accom.checked = false;
+          this.checkedNumber--;
+        }
+      }
+    });
+
+    this.setValues();
+  }
+
+  setValues(){
+    let temp = 0;
+    this.comments = "";
+    this.comment2 = "";
+    this.comment3 = "";
+
+    this.accomplishmentArray.forEach((accom)=>{
+      accom.checked ? temp++ : '';
+      switch(temp){
+        case 1 :
+          this.comments = this.accomplishmentTabFrm.get('accomFrm1').value;
+          break;
+        case 2 :
+          this.comment2 = this.accomplishmentTabFrm.get('accomFrm2').value;
+          break;
+        case 3 :
+          this.comment3 = this.accomplishmentTabFrm.get('accomFrm3').value;
+          break;
+        default : 
+          break;
+      }
+    });
+    
   }
 }
