@@ -2,8 +2,10 @@
     <div class="resumeDiv slidein marAuto" *ngIf = "resumeTab">
         <form [formGroup]="resumeTabFrm" novalidate>
             <div class="row marSpace textDeco">
-                Most candidate do not know 3 reasons why they should be hired. if you don't know how would recruiters ? 
-                Upload your resume below to find find out.
+                Recruiters spend 6 seconds each looking at resumes. You need to quickly and easily point out 3 reasons why you should be hired. most candidates do not know the answer to this.
+            </div>
+            <div class="row marSpace textDeco">
+                We can help you answer that by uploading your resume below;
             </div>
             <div class="row marSpace" style="margin-bottom: 0px;">
                 <div class="centerDiv file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text">
@@ -84,9 +86,12 @@
     <div class="accomplishmentDiv slidein marAuto" *ngIf = "accomplishmentTab">
         <form [formGroup]="accomplishmentTabFrm" novalidate>
             <div class="row marSpace textDeco">
-                What accomplishment are you most provd of ?
-                We found some. Pick any 3.
+                What accomplishments are you most proud of? We found 5 impressive points from your resume. pick 3, edit, or write in your own top 3 accomplishments.
             </div>
+            <div class="row marSpace textDeco">
+                ***Recruiter are looking for words like "led, developed, increased revenue or users by, decreased costs" and like numbers and percentages..."decreased costs by 30%"
+            </div>
+
             <div *ngFor = "let accomplishment of accomplishmentArray; let ind = index">
                 <div class="row accomCss">
                     <label class="CheckBoxcontainer">
@@ -109,6 +114,9 @@
     </div>
 
     <div class="previewDiv slidein" *ngIf = "previewTab">
+        <div class="row marSpace textDeco">
+            Ok now when a hiring manager asks you to give them 3 reasosn to hire you, you should highlight the below...
+        </div>
         <div class="" *ngIf = "uploadFileName !== ''">
             <p class="textDeco"><i class="fas fa-check-square"></i> Uploaded Resume : </p>
             <span> - {{uploadFileName}}</span>
