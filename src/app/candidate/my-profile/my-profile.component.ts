@@ -68,7 +68,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private _readResume : ReadResumeService,
     private readonly joyrideService: JoyrideService,
     protected dialog: MatDialog,
-    private _authService: AuthenticationService,
     protected _dialog: MatDialog
   ) {}
 
@@ -577,30 +576,4 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     });
 
   }
-
-  deleteProfile(){
-    const dialogDeleteRef = this._dialog.open(DialogDeleteComponent,{
-      data: {
-        dialogType : "ConfirmDeleteAction",
-        dialogTitle : "Confirm Delete Action",
-        dialogText : "Are want to sure delete this accout permanently ?"
-      }
-    });
-
-    dialogDeleteRef.afterClosed().subscribe(result => {
-      if(result && result.process){
-        this.confirmDelete();
-      }
-    });
-    
-  }
-
-  confirmDelete(){
-    this.userService.deleteUserPermanantly().subscribe(res=>{
-      if(res){
-        this._authService.logout();
-      }
-    });
-  }
-
 }

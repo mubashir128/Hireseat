@@ -106,6 +106,7 @@ import { AppListComponent } from './components/app-list/app-list.component';
 import { SuggestIntroduceComponent } from './components/suggest-introduce/suggest-introduce.component';
 import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-for-candidate-shared-profile/only-for-candidate-shared-profile.component";
 import { DialogMessageComponent } from './components/dialog-message/dialog-message.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   imports: [
@@ -236,7 +237,8 @@ import { DialogMessageComponent } from './components/dialog-message/dialog-messa
     AppListComponent,
     SuggestIntroduceComponent,
     OnlyForCandidateSharedProfileComponent,
-    DialogMessageComponent
+    DialogMessageComponent,
+    SettingsComponent
   ],
   exports: [
     FooterComponent,
