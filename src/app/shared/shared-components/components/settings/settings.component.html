@@ -1,0 +1,7 @@
+<div class="menu">
+    <ul *ngFor="let tab of tabs2">
+        <li (click)="SelectItem2(tab.id, tab.displayText)">
+            <a [ngClass]="{ active: tab.selected === true }"><i [ngClass]="tab.addedClass"></i>{{ tab.displayText }}</a>
+        </li>
+    </ul>
+</div>
