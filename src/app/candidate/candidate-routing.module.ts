@@ -17,6 +17,7 @@ import { TimelineComponent } from "../shared/shared-components/components/timeli
 import { UserChatRecordComponent } from "../shared/shared-components/components/user-chat-record/user-chat-record.component";
 import { SuggestIntroduceComponent } from "../shared/shared-components/components/suggest-introduce/suggest-introduce.component";
 import { EditHighlightsComponent } from "../shared/shared-components/components/edit-highlights/edit-highlights.component";
+import { SettingsComponent } from "../shared/shared-components/components/settings/settings.component";
 
 const routes: Routes = [
   {
@@ -86,6 +87,10 @@ const routes: Routes = [
       {
         path: "edit-highlights",
         component: EditHighlightsComponent,
+      },
+      {
+        path: "settings",
+        component: SettingsComponent,
       }
     ],
   },
