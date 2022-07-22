@@ -316,7 +316,7 @@ export class EditHighlightsComponent implements OnInit {
       fileURL : this.downloadURL
     }
     
-    this.candidateService.saveCandidateProfileDuringHighlightsData(userInfo).subscribe((res) => {
+    this.candidateService.saveCandidateProfileFileUrlDuringHighlightsData(userInfo).subscribe((res) => {
       if (res) {
         this.showSkills();
         this.showIndustries();
@@ -336,7 +336,9 @@ export class EditHighlightsComponent implements OnInit {
         this.resumeService.uploadResume(fdata).subscribe((data: any) => {
           if (data.result) {
             this.downloadURL = data.result;
-            this.saveFileUrl();
+            if(this.downloadURL !== ""){
+              this.saveFileUrl();
+            }
             this.fileUploaded = 2;
             Materialize.toast("Resume Uploaded Successfully !", 1000);
           } else {

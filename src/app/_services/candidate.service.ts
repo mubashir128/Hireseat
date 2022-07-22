@@ -58,6 +58,16 @@ export class CandidateService {
       );
   }
 
+  saveCandidateProfileFileUrlDuringHighlightsData(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/saveCandidateProfileFileUrlDuringHighlightsData", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+  
   // auth : candidate
   editProfile(payload) {
     return this.http
