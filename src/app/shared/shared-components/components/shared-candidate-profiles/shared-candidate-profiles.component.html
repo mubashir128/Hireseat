@@ -1,4 +1,12 @@
-<ng-container>
+<div>
+  <app-list-loader></app-list-loader>
+</div>
+
+<div>
+  <app-list-loader-search></app-list-loader-search>
+</div>
+
+<ng-container *ngIf="loggedUser.userRole != 'candidate'">
   <div class="row" style="margin-top: 10px; margin-bottom: 5px; padding: 0 0px !important;">
     <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
   </div>
@@ -99,16 +107,6 @@
 </ng-container>
 
 <ng-container *ngIf="resumes">
-  <div *ngIf="loggedUser.userRole == 'candidate'" class="row" style="margin-bottom: 5px;">
-    <button class="shareBtn" (click)="editHightlights()">
-      <a>
-        <div class="icon-name">
-          <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-          <span class="shareText"> Edit Highlights </span>
-        </div>
-      </a>
-    </button>
-  </div>
   <div class="ListResume">
     <div
       class="singleList employerResume resumeSingleList"
@@ -169,14 +167,25 @@
             <button class="shareBtn2" (click)="editUserProfile()">
               <a>
                 <div class="icon-name">
-                  <i class="fa fa-share shared-icon" aria-hidden="true"></i>
-                  <span class="shareText"> Edit Profile </span>
+                  <i class="fa fa-share shared-icon shared-icon2" aria-hidden="true"></i>
+                  <span class="shareText shareText2"> Edit Profile </span>
                 </div>
               </a>
             </button>
           </div>
         </div>
         
+      </div>
+
+      <div *ngIf="loggedUser.userRole == 'candidate'" class="row" style="margin-bottom: 5px;">
+        <button class="shareBtn3" (click)="editHightlights()" joyrideStep="firstStep" title="Summary" text="Ok this one is important…most people do not know how to market themselves. We can help you sell yourself to recruiters and hiring managers in 60 seconds." stepPosition = "bottom">
+          <a>
+            <div class="icon-name">
+              <i class="fa fa-share shared-icon shared-icon2" aria-hidden="true"></i>
+              <span class="shareText shareText2">Edit Summary</span>
+            </div>
+          </a>
+        </button>
       </div>
 
       <ng-container *ngIf="resume?.comments">
@@ -517,20 +526,11 @@
     </ng-container>
 
     </div>
+    <div class="row" *ngIf="loggedUser.userRole != 'candidate' && resumes.length !== 0">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
   </div>
 </ng-container>
-
-<div class="row" *ngIf="loggedUser.userRole != 'candidate' && resumes.length !== 0">
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-</div>
-
-<div>
-  <app-list-loader></app-list-loader>
-</div>
-
-<div>
-  <app-list-loader-search></app-list-loader-search>
-</div>
 
 <!-- modal to select dates -->
 

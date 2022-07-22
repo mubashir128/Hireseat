@@ -69,22 +69,38 @@
 }
 
 button.shareBtn {
-  border: 1px solid #DD3215;
-  background-color: #DD3215;
+  border: 1px solid #000000;
+  background-color: #D3D3D3;
 }
 
 button.shareBtn2 {
-  border: 1px solid #00aaff;
-  background-color: #00aaff;
+  border: 1px solid #000000;
+  background-color: #808080;
+}
+
+button.shareBtn3 {
+  border: 1px solid red;
+  background-color: red;
+  width: 98%;
+  display: block;
+  border-radius: 5px;
 }
 
 .shared-icon {
   width: 20px;
   margin-right: 3px;
+  color: #000000 !important;
+}
+
+.shared-icon2 {
   color: #fff !important;
 }
 
 .shareText {
+  color: #000000 !important;
+}
+
+.shareText2 {
   color: #fff !important;
 }
 

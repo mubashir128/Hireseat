@@ -115,6 +115,8 @@ import { DialogMessageComponent } from './components/dialog-message/dialog-messa
 import { EditHighlightsComponent } from './components/edit-highlights/edit-highlights.component';
 import {MatFormFieldModule} from '@angular/material/form-field';  
 import { SettingsComponent } from './components/settings/settings.component';
+import { JoyrideModule } from "ngx-joyride";
+import { MatStepperModule } from "@angular/material/stepper";
 
 @NgModule({
   imports: [
@@ -141,7 +143,9 @@ import { SettingsComponent } from './components/settings/settings.component';
     MomentModule,
     MatDialogModule,
     MatListModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    JoyrideModule,
+    MatStepperModule
   ],
   declarations: [
     FooterComponent,

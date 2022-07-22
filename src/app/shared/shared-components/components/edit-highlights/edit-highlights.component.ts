@@ -7,6 +7,7 @@ import { CandidateService } from 'src/app/_services/candidate.service';
 import { Router } from '@angular/router';
 import { ReadResumeService } from 'src/app/_services/read-resume.service';
 import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.service';
+import { MatStepper } from '@angular/material/stepper';
 
 declare var Materialize: any;
 
@@ -20,7 +21,6 @@ export class AccomplishmentType{
     this.checked = checked;
   }
 }
-
 
 @Component({
   selector: 'app-edit-highlights',
@@ -51,15 +51,9 @@ export class EditHighlightsComponent implements OnInit {
   uploadFileName: string = "";
   file: File;
 
-  resumeTab: boolean = true;
-  importantTab: boolean = false;
-  accomplishmentTab: boolean = false;
-  previewTab: boolean = false;
-
   accomplishmentArray : Array<AccomplishmentType>;
 
   educationBind: string = "";
-
   educationBindArray = [];
 
   limitNumber: number = 3;
@@ -68,6 +62,9 @@ export class EditHighlightsComponent implements OnInit {
   comments : string;
   comment2 : string;
   comment3 : string;
+
+  isLinear = true;
+  isEditable = true;
 
   constructor(private resumeService: ResumeService, 
     private userService: UserService, 
@@ -120,6 +117,7 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   showSkills(){
+    this.tagsBind = [];
     let promiseAll = [];
     promiseAll.push(this.resumeService.getSkillSets().toPromise());
     promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
@@ -138,6 +136,7 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   getEducation(resumeData){
+    this.educationBind = "";
     this.educationBindArray.forEach((edu, index)=>{
         if(resumeData.search(edu.toLowerCase()) !== -1){
           this.educationBind = edu;
@@ -212,6 +211,7 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   showIndustries(){
+    this.industryBind = [];
     let promiseAll = [];
     promiseAll.push(this.candidateService.getCandidateExperienceIndustries().toPromise());
     promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
@@ -277,34 +277,20 @@ export class EditHighlightsComponent implements OnInit {
     });
   }
 
-  nextResume(){
-    this.resumeTab = false;
-    this.importantTab = true;
+  nextResume(stepper){
+    this.goForward(stepper);
   }
 
-  previousImportant(){
-    this.resumeTab = true;
-    this.importantTab = false;
+  goBack(stepper: MatStepper){
+    stepper.previous();
   }
 
-  nextImportant(){
-    this.importantTab = false;
-    this.accomplishmentTab = true;
+  goForward(stepper: MatStepper){
+    stepper.next();
   }
 
-  previousAccomplishment(){
-    this.importantTab = true;
-    this.accomplishmentTab = false;
-  }
-
-  previewAll(){
-    this.accomplishmentTab = false;
-    this.previewTab = true;
-  }
-
-  edit(){
-    this.resumeTab = true;
-    this.previewTab = false;
+  edit(stepper){
+    stepper.selectedIndex = 0;
   }
 
   save(){
@@ -325,6 +311,19 @@ export class EditHighlightsComponent implements OnInit {
     });
   }
 
+  saveFileUrl(){
+    let userInfo = {
+      fileURL : this.downloadURL
+    }
+    
+    this.candidateService.saveCandidateProfileDuringHighlightsData(userInfo).subscribe((res) => {
+      if (res) {
+        this.showSkills();
+        this.showIndustries();
+      }
+    });
+  }
+
   fileChange(event) {
     if (event.target.files) {
       if(event.target.files[0].name.endsWith(".pdf") || event.target.files[0].name.endsWith(".docx")){
@@ -337,6 +336,7 @@ export class EditHighlightsComponent implements OnInit {
         this.resumeService.uploadResume(fdata).subscribe((data: any) => {
           if (data.result) {
             this.downloadURL = data.result;
+            this.saveFileUrl();
             this.fileUploaded = 2;
             Materialize.toast("Resume Uploaded Successfully !", 1000);
           } else {
@@ -390,7 +390,11 @@ export class EditHighlightsComponent implements OnInit {
         default : 
           break;
       }
-    });
-    
+    }); 
+  }
+
+  selectionChange(event, stepper){
+    if(event.selectedIndex == 1){
+    }
   }
 }

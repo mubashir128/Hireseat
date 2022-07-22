@@ -1565,16 +1565,6 @@ body {
   height: 30px !important;
 }
 
-.mat-stepper-vertical, .mat-stepper-horizontal {
-  margin: 15% auto auto auto;
-  background-color: inherit;
-}
-
-.mat-horizontal-stepper-header { 
-  pointer-events: none !important;
-  margin-left: 24px;
-}
-
 .loadStatus {
   width: 100%;
   text-align: center;
@@ -1585,4 +1575,14 @@ body {
 .shareIcon i{
   font-size: 18px;
   color: red;
+}
+
+.mat-horizontal-content-container {
+  overflow: hidden !important;
+  padding: 0 0px 0px 0px !important;
+}
+
+.mat-horizontal-stepper-header {
+  height: 40px !important;
+  padding: 0 35px !important;
 }

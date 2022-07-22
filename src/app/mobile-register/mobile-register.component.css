@@ -138,3 +138,13 @@ h2 {
   width: 90% !important;
   padding-left: 25px !important;
 }
+
+.settleMobileStepper .mat-stepper-vertical, .mat-stepper-horizontal {
+  margin: 10% auto auto auto;
+  background-color: inherit;
+}
+
+.settleMobileStepper .mat-horizontal-stepper-header { 
+  pointer-events: none !important;
+  margin-left: 24px;
+}
