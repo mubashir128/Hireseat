@@ -390,6 +390,18 @@ export class UserService {
     localStorage.removeItem("onlyCandidateWalkthrough");
   }
 
+  getBeforeSharedWalkthrough(){
+    return localStorage.getItem("beforeSharedWalkthrough");
+  }
+
+  setBeforeSharedWalkthrough(){
+    localStorage.setItem("beforeSharedWalkthrough", "true");
+  }
+
+  removeBeforeSharedWalkthrough(){
+    localStorage.removeItem("beforeSharedWalkthrough");
+  }
+
   getAllRelatedUsers(payload){
     return this.http
       .post<any>(this.baseurl + "api/getAllRelatedUsers/", payload)

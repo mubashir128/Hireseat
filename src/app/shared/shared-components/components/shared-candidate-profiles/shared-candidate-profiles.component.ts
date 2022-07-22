@@ -24,6 +24,7 @@ import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-shared.component";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
+import { JoyrideService } from "ngx-joyride";
 
 declare var jQuery;
 declare var Materialize;
@@ -58,7 +59,8 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     private _router: Router,
     protected _bidEventService: BiddingEventService,
     protected _readResume : ReadResumeService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private readonly _joyrideService: JoyrideService
   ) {
     super(dialog, shareVideoService, userService, formBuilder, _bidEventService, _sanitizer, candidateService, _readResume, resumeService, _subList, spinner, videoCallingService);
 
@@ -90,6 +92,39 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     this.sharedProfileObserver$.subscribe((res: any) => {
       this.handleProfileData(res);
     });
+
+    setTimeout(()=>{
+      this.tourStart();
+    }, 500);
+  }
+
+  tourStart(){
+    let loginCount = JSON.parse(localStorage.getItem("currentUser")).userInfo.loginCount;
+    let beforeSharedWalkthrough = JSON.parse(this.userService.getBeforeSharedWalkthrough());
+    
+    if(loginCount == 1){
+      if(!beforeSharedWalkthrough){
+        this.joyRide();
+      }
+    }else if(!beforeSharedWalkthrough){
+      this.joyRide();
+    }
+  }
+
+  joyRide(){
+    this._joyrideService.startTour({ steps: ['firstStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
+      /*Do something*/
+    }, (err) => {
+      /*handle error*/
+      this.onDone();
+    }, () => {
+      /*Tour is finished here, do something*/
+      this.onDone();
+    });
+  }
+
+  onDone(){
+    this.userService.setBeforeSharedWalkthrough();
   }
 
   handleProfileData(res: any) {

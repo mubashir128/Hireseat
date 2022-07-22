@@ -1,169 +1,181 @@
-<div class="mainDiv">
-    <div class="resumeDiv slidein marAuto" *ngIf = "resumeTab">
-        <form [formGroup]="resumeTabFrm" novalidate>
-            <div class="row marSpace textDeco">
-                Recruiters spend 6 seconds each looking at resumes. You need to quickly and easily point out 3 reasons why you should be hired. most candidates do not know the answer to this.
+<div class="settleStepper">
+    <mat-horizontal-stepper #stepper [linear]="isLinear" (selectionChange)="selectionChange($event, stepper)">
+        <mat-step [stepControl]="resumeTabFrm" [editable]="isEditable">
+            <div class="resumeDiv slidein marAuto mainDiv">
+                <div style="margin-top: 50px !important;">
+                    <form [formGroup]="resumeTabFrm" novalidate>
+                        <div class="row marSpace textDeco">
+                            Recruiters spend 6 seconds each looking at resumes. You need to quickly and easily point out 3 reasons why you should be hired. most candidates do not know the answer to this.
+                        </div>
+                        <div class="row marSpace textDeco">
+                            We can help you answer that by uploading your resume below;
+                        </div>
+                        <div class="row marSpace" style="margin-bottom: 0px;">
+                            <div class="centerDiv file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text">
+                                <div class="uploadBtn" style="display: table-cell" title="My Profile" text="Upload or change resume">
+                                    <span>Upload Resume</span>
+                                    <input type="file" accept=".pdf, .docx" (change)="fileChange($event)" accept=".pdf, .docx"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="uploadFileName !== ''" class="row marSpace centerDiv" style="margin-bottom: 0px !important;">
+                            <mat-hint>Selected File Name : {{uploadFileName}}</mat-hint>
+                        </div>
+                        <div class="row marSpace centerDiv">
+                            <mat-hint>Allowed formats: .pdf, .docx</mat-hint>
+                        </div>
+                        <button type="submit" class="row eduuction-cant-2" (click) = "goForward(stepper)">Next</button>
+                    </form>
+                </div>
             </div>
-            <div class="row marSpace textDeco">
-                We can help you answer that by uploading your resume below;
-            </div>
-            <div class="row marSpace" style="margin-bottom: 0px;">
-                <div class="centerDiv file-field input-field waves-effect waves-teal btn grey lighten-4 grey-text">
-                    <div class="uploadBtn" style="display: table-cell" joyrideStep="secondStep" title="My Profile" text="Upload or change resume" stepPosition = "bottom">
-                        <span>Upload Resume</span>
-                        <input type="file" accept=".pdf, .docx" (change)="fileChange($event)" accept=".pdf, .docx"/>
+        </mat-step>
+
+        <mat-step [stepControl]="importantTabFrm" [editable]="isEditable">
+            <div class="importantDiv slidein marAuto mainDiv">
+                <form [formGroup]="importantTabFrm" novalidate>
+                    <div class="row marSpace textDeco">
+                        We found these skills that are important to highlights to employees.
                     </div>
-                </div>
-            </div>
-            <div *ngIf="uploadFileName !== ''" class="row marSpace centerDiv" style="margin-bottom: 0px !important;">
-                <mat-hint>Selected File Name : {{uploadFileName}}</mat-hint>
-            </div>
-            <div class="row marSpace centerDiv">
-                <mat-hint>Allowed formats: .pdf, .docx</mat-hint>
-            </div>
-            <button type="submit" class="row eduuction-cant-2" (click) = "nextResume()">Next</button>
-        </form>
-    </div>
+                    <div class="row marSpace">
+                        <div class="row marSpace">
+                            <span class="suggestSkill">Add skills : </span>
+                            <div class="inputInnerDiv">
+                                <tag-input
+                                    class="borderBott borderBottN skillBorBott"
+                                    [(ngModel)]="tagsBind"
+                                    formControlName="tags"
+                                    [addOnBlur]="true"
+                                    (onAdd)="onSkillSetsAdd($event)"
+                                    (onRemove)="onSkillSetsAdd($event)"
+                                    [placeholder]="'Search by skillSets'"
+                                    [secondaryPlaceholder]="'search by skillSets'">
+                                    <tag-input-dropdown
+                                        [autocompleteItems]="skillSets"
+                                        [keepOpen]="false"
+                                        [showDropdownIfEmpty]="true">
+                                    </tag-input-dropdown>
+                                </tag-input>
+                            </div>
+                        </div>
 
-    <div class="importantDiv slidein marAuto" *ngIf = "importantTab">
-        <form [formGroup]="importantTabFrm" novalidate>
-            <div class="row marSpace textDeco">
-                We found these skills that are important to highlights to employees.
-            </div>
-            <div class="row marSpace">
-                <div class="row marSpace">
-                    <span class="suggestSkill">Add skills : </span>
-                    <div class="inputInnerDiv">
-                        <tag-input
-                            class="borderBott borderBottN skillBorBott"
-                            [(ngModel)]="tagsBind"
-                            formControlName="tags"
-                            [addOnBlur]="true"
-                            (onAdd)="onSkillSetsAdd($event)"
-                            (onRemove)="onSkillSetsAdd($event)"
-                            [placeholder]="'Search by skillSets'"
-                            [secondaryPlaceholder]="'search by skillSets'">
-                            <tag-input-dropdown
-                                [autocompleteItems]="skillSets"
-                                [keepOpen]="false"
-                                [showDropdownIfEmpty]="true">
-                            </tag-input-dropdown>
-                        </tag-input>
+                        <div class="row marSpace">
+                            <span class="suggestSkill">Add experience specific to your industry : </span>
+                            <div class="inputInnerDiv">
+                                <tag-input
+                                    class="borderBott borderBottN skillBorBott"
+                                    [(ngModel)]="industryBind"
+                                    formControlName="industry"
+                                    [addOnBlur]="true"
+                                    (onAdd)="onIndustriesAdd($event)"
+                                    (onRemove)="onIndustriesAdd($event)"
+                                    [placeholder]="'Search by Industries'"
+                                    [secondaryPlaceholder]="'search by Industries'">
+
+                                    <tag-input-dropdown
+                                        [autocompleteItems]="industriesAre"
+                                        [keepOpen]="false"
+                                        [showDropdownIfEmpty]="true">
+                                    </tag-input-dropdown>
+                                </tag-input>
+                            </div>
+                        </div>
+                        <div class="row marSpace grouup-in" style="margin: auto;">
+                            <span class="suggestSkill">Education :</span>
+                            <input type="text" class="form-control" placeholder="Enter Education" [(ngModel)] = "educationBind" name="education" formControlName="education">
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" class="row eduuction-btn-2" (click) = "goForward(stepper)">Next</button>
+                    <button class="row eduuction-cant-2"(click) = "goBack(stepper)">Previous</button>
+                </form>
+            </div>
+        </mat-step>
 
-                <div class="row marSpace">
-                    <span class="suggestSkill">Add experience specific to your industry : </span>
-                    <div class="inputInnerDiv">
-                        <tag-input
-                            class="borderBott borderBottN skillBorBott"
-                            [(ngModel)]="industryBind"
-                            formControlName="industry"
-                            [addOnBlur]="true"
-                            (onAdd)="onIndustriesAdd($event)"
-                            (onRemove)="onIndustriesAdd($event)"
-                            [placeholder]="'Search by Industries'"
-                            [secondaryPlaceholder]="'search by Industries'">
-
-                            <tag-input-dropdown
-                                [autocompleteItems]="industriesAre"
-                                [keepOpen]="false"
-                                [showDropdownIfEmpty]="true">
-                            </tag-input-dropdown>
-                        </tag-input>
+        <mat-step [stepControl]="accomplishmentTabFrm" [editable]="isEditable">
+            <div class="accomplishmentDiv slidein marAuto mainDiv">
+                <form [formGroup]="accomplishmentTabFrm" novalidate>
+                    <div class="row marSpace textDeco">
+                        What accomplishments are you most proud of? We found 5 impressive points from your resume. pick 3, edit, or write in your own top 3 accomplishments.
                     </div>
+                    <div class="row marSpace textDeco">
+                        ***Recruiter are looking for words like "led, developed, increased revenue or users by, decreased costs" and like numbers and percentages..."decreased costs by 30%"
+                    </div>
+
+                    <div *ngFor = "let accomplishment of accomplishmentArray; let ind = index">
+                        <div class="row accomCss">
+                            <label class="CheckBoxcontainer">
+                                <input type="checkbox" name="{{accomplishment.type}}" [(disabled)] = "!accomplishment.checked && checkedNumber === limitNumber" (change)="onCheckboxChange($event)" [(checked)]="accomplishment.checked">
+                                <span class="checkmark"></span>
+                            </label>
+                            <span style="font-size: 15px;">
+                                {{accomplishment.header}}
+                            </span>
+                            <textarea
+                                rows="50"
+                                maxlength="25000"
+                                [formControlName]="accomplishmentArray[ind].type"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="row eduuction-btn-2" (click) = "goForward(stepper)">Preview</button>
+                    <button class="row eduuction-cant-2"(click) = "goBack(stepper)">Previous</button>
+                </form>
+            </div>
+        </mat-step>
+
+        <mat-step [stepControl]="" [editable]="isEditable">
+            <div class="previewDiv slidein mainDiv">
+                <div class="row marSpace textDeco">
+                    Ok now when a hiring manager asks you to give them 3 reasosn to hire you, you should highlight the below...
                 </div>
-                <div class="row marSpace grouup-in" style="margin: auto;">
-                    <span class="suggestSkill">Education :</span>
-                    <input type="text" class="form-control" placeholder="Enter Education" [(ngModel)] = "educationBind" name="education" formControlName="education">
+                <!-- <div class="" *ngIf = "uploadFileName !== ''">
+                    <p class="textDeco"><i class="fas fa-check-square"></i> Uploaded Resume : </p>
+                    <span> - {{uploadFileName}}</span>
+                </div> -->
+                <div class="bottom-text skillDiv" *ngIf = "finalSkillSets.length !== 0">
+                    <p class="textDeco"><i class="fas fa-check-square"></i> Skills  :</p>
+                    <form [formGroup]="showSkillsSetsFrm" novalidate>
+                        <div class="inputInnerDiv3">
+                            <tag-input [ngModel]="finalSkillSets"
+                                formControlName="showSkillsAre"
+                                [maxItems]="finalSkillSets.length"
+                                [ripple]="false"
+                                [removable]="false">
+                            </tag-input>
+                        </div>
+                    </form>
+                </div>
+                <div class="bottom-text induDiv" *ngIf = "finalIndustriesAre.length !== 0">
+                    <p class="textDeco"><i class="fas fa-check-square"></i> Industry Experience : </p>
+                    <form [formGroup]="showIndustriesFrm" novalidate>
+                        <div class="inputInnerDiv3">
+                            <tag-input [ngModel]="finalIndustriesAre"
+                                formControlName="showIndustriesAre"
+                                [maxItems]="finalIndustriesAre.length"
+                                [ripple]="false"
+                                [displayBy]="'name'"
+                                [removable]="false">
+                            </tag-input>
+                        </div>
+                    </form>
+                </div>
+                <div class="row marSpace" *ngIf = "educationBind !== ''">
+                    <p class="textDeco"><i class="fas fa-check-square"></i> Education : </p>
+                    <span> - {{educationBind}}</span>
+                </div>
+                <div class="row marSpace" *ngIf = "comments !== '' || comment2 !== '' || comment3 !== ''">
+                    <p>
+                        <span class="textDeco"> <i class="fas fa-check-square"></i> Accomplishments and Unique Experiences : </span><br>
+                        <span class="detailsData" *ngIf = "comments !== ''">- {{comments}}</span><br>
+                        <span class="detailsData" *ngIf = "comment2 !== ''">- {{comment2}}</span><br>
+                        <span class="detailsData" *ngIf = "comment3 !== ''">- {{comment3}}</span><br>
+                    </p>
+                </div>
+                <div class="row marSpace" style="margin-top: 10px;">
+                    <button class="row eduuction-btn-2" (click) = "save()">Save</button>
+                    <button class="row eduuction-cant-2" (click) = "edit(stepper)">Edit</button>
                 </div>
             </div>
-            <button type="submit" class="row eduuction-btn-2" (click) = "nextImportant()">Next</button>
-            <button class="row eduuction-cant-2"(click) = "previousImportant()">Previous</button>
-        </form>
-    </div>
+        </mat-step>
 
-    <div class="accomplishmentDiv slidein marAuto" *ngIf = "accomplishmentTab">
-        <form [formGroup]="accomplishmentTabFrm" novalidate>
-            <div class="row marSpace textDeco">
-                What accomplishments are you most proud of? We found 5 impressive points from your resume. pick 3, edit, or write in your own top 3 accomplishments.
-            </div>
-            <div class="row marSpace textDeco">
-                ***Recruiter are looking for words like "led, developed, increased revenue or users by, decreased costs" and like numbers and percentages..."decreased costs by 30%"
-            </div>
-
-            <div *ngFor = "let accomplishment of accomplishmentArray; let ind = index">
-                <div class="row accomCss">
-                    <label class="CheckBoxcontainer">
-                        <input type="checkbox" name="{{accomplishment.type}}" [(disabled)] = "!accomplishment.checked && checkedNumber === limitNumber" (change)="onCheckboxChange($event)" [(checked)]="accomplishment.checked">
-                        <span class="checkmark"></span>
-                    </label>
-                    <span style="font-size: 15px;">
-                        {{accomplishment.header}}
-                    </span>
-                    <textarea
-                        rows="50"
-                        maxlength="25000"
-                        [formControlName]="accomplishmentArray[ind].type"
-                    ></textarea>
-                </div>
-            </div>
-            <button type="submit" class="row eduuction-btn-2" (click) = "previewAll()">Preview</button>
-            <button class="row eduuction-cant-2"(click) = "previousAccomplishment()">Previous</button>
-        </form>
-    </div>
-
-    <div class="previewDiv slidein" *ngIf = "previewTab">
-        <div class="row marSpace textDeco">
-            Ok now when a hiring manager asks you to give them 3 reasosn to hire you, you should highlight the below...
-        </div>
-        <div class="" *ngIf = "uploadFileName !== ''">
-            <p class="textDeco"><i class="fas fa-check-square"></i> Uploaded Resume : </p>
-            <span> - {{uploadFileName}}</span>
-        </div>
-        <div class="bottom-text skillDiv" *ngIf = "finalSkillSets.length !== 0">
-            <p class="textDeco"><i class="fas fa-check-square"></i> Skills  :</p>
-            <form [formGroup]="showSkillsSetsFrm" novalidate>
-                <div class="inputInnerDiv3">
-                    <tag-input [ngModel]="finalSkillSets"
-                        formControlName="showSkillsAre"
-                        [maxItems]="finalSkillSets.length"
-                        [ripple]="false"
-                        [removable]="false">
-                    </tag-input>
-                </div>
-            </form>
-        </div>
-        <div class="bottom-text induDiv" *ngIf = "finalIndustriesAre.length !== 0">
-            <p class="textDeco"><i class="fas fa-check-square"></i> Industry Experience : </p>
-            <form [formGroup]="showIndustriesFrm" novalidate>
-                <div class="inputInnerDiv3">
-                    <tag-input [ngModel]="finalIndustriesAre"
-                        formControlName="showIndustriesAre"
-                        [maxItems]="finalIndustriesAre.length"
-                        [ripple]="false"
-                        [displayBy]="'name'"
-                        [removable]="false">
-                    </tag-input>
-                </div>
-            </form>
-        </div>
-        <div class="row marSpace" *ngIf = "educationBind !== ''">
-            <p class="textDeco"><i class="fas fa-check-square"></i> Education : </p>
-            <span> - {{educationBind}}</span>
-        </div>
-        <div class="row marSpace" *ngIf = "accom2 !== '' || accom2 !== '' || accom2 !== ''">
-            <p>
-                <span class="textDeco"> <i class="fas fa-check-square"></i> Accomplishments and Unique Experiences : </span><br>
-                <span class="detailsData" *ngIf = "comments !== ''">- {{comments}}.</span><br>
-                <span class="detailsData" *ngIf = "comment2 !== ''">- {{comment2}}. <br> </span>
-                <span class="detailsData" *ngIf = "comment3 !== ''">- {{comment3}}. <br> </span>
-            </p>
-        </div>
-        <div class="row marSpace" style="margin-top: 10px;">
-            <button class="row eduuction-btn-2" (click) = "save()">Save</button>
-            <button class="row eduuction-cant-2" (click) = "edit()">Edit</button>
-        </div>
-    </div>
-
+    </mat-horizontal-stepper>
 </div>
