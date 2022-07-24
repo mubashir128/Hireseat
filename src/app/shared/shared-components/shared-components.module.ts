@@ -107,6 +107,7 @@ import { SuggestIntroduceComponent } from './components/suggest-introduce/sugges
 import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-for-candidate-shared-profile/only-for-candidate-shared-profile.component";
 import { DialogMessageComponent } from './components/dialog-message/dialog-message.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
@@ -131,7 +132,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MomentModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressBarModule
   ],
   declarations: [
     FooterComponent,
