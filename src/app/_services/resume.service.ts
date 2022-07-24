@@ -1,16 +1,17 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import * as myGlobals from "../globalPath";
 import { IResume, Resume } from "../models/resume";
 import { IResumeBank } from "../models/resumebank";
+import { AbstractService } from "./abstract.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class ResumeService {
   public baseurl: any;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _abstractService : AbstractService) {
     this.baseurl = myGlobals.baseUrl;
   }
 
@@ -20,6 +21,13 @@ export class ResumeService {
         return res;
       })
     );
+  }
+
+  uploadResumeWithProgress(info) {
+    let url = this.baseurl + "api/uploadResume";
+    let req = new HttpRequest('POST', url, info,{reportProgress: true});
+    let result = this._abstractService.requestProgress(this.http, req);
+    return result;
   }
 
   uploadResumeInBank(info) {

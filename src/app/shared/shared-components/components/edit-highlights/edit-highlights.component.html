@@ -24,6 +24,7 @@
                         <div class="row marSpace centerDiv">
                             <mat-hint>Allowed formats: .pdf, .docx</mat-hint>
                         </div>
+                        <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="determinate" [value]="progressPercent"></mat-progress-bar>
                         <button type="submit" class="row eduuction-cant-2" (click) = "goForward(stepper)">Next</button>
                     </form>
                 </div>
@@ -170,6 +171,7 @@
                         <span class="detailsData" *ngIf = "comment3 !== ''">- {{comment3}}</span><br>
                     </p>
                 </div>
+                <mat-progress-bar class="progress-bar" *ngIf="inProgress2" mode="determinate" [value]="progressPercent2"></mat-progress-bar>
                 <div class="row marSpace" style="margin-top: 10px;">
                     <button class="row eduuction-btn-2" (click) = "save()">Save</button>
                     <button class="row eduuction-cant-2" (click) = "edit(stepper)">Edit</button>

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ReadResumeService } from 'src/app/_services/read-resume.service';
 import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.service';
 import { MatStepper } from '@angular/material/stepper';
+import { Observable } from 'rxjs';
 
 declare var Materialize: any;
 
@@ -65,6 +66,14 @@ export class EditHighlightsComponent implements OnInit {
 
   isLinear = true;
   isEditable = true;
+
+  progress: Observable<any>;
+  progressPercent: Number;
+  inProgress: boolean = false;
+  
+  progress2: Observable<any>;
+  progressPercent2: Number;
+  inProgress2: boolean = false;
 
   constructor(private resumeService: ResumeService, 
     private userService: UserService, 
@@ -303,11 +312,22 @@ export class EditHighlightsComponent implements OnInit {
       comment2 : this.comment2,
       comment3 : this.comment3
     }
-    
-    this.candidateService.saveCandidateProfileDuringHighlightsData(userInfo).subscribe((res) => {
-      if (res) {
-        this._router.navigate(["/"+this.loggedInUser.userRole+"/my-posted-profiles"]);
-      }
+
+    this.progress2 = this.candidateService.saveCandidateProfileDuringHighlightsData(userInfo);
+    this.progressPercent2 = 0;
+    this.progress2.subscribe(progress => {
+      console.log(`Upload ${progress.percent}% completed`);
+      this.inProgress2 = true;
+      this.progressPercent2 = progress.percent;
+      if(progress.completeStatus && progress.body){
+          this._router.navigate(["/"+this.loggedInUser.userRole+"/my-posted-profiles"]);
+        }
+      }, error => {
+        this.inProgress2 = false;
+        this.progressPercent2 = 0;
+        Materialize.toast("Something Went Wrong !", 1000);
+      },() => {
+        console.log("completed : ");
     });
   }
 
@@ -333,21 +353,25 @@ export class EditHighlightsComponent implements OnInit {
         this.uploadFileName = this.file.name;
         var fdata = new FormData();
         fdata.append("image", this.file);
-        this.resumeService.uploadResume(fdata).subscribe((data: any) => {
-          if (data.result) {
-            this.downloadURL = data.result;
-            if(this.downloadURL !== ""){
-              this.saveFileUrl();
+        this.progress = this.resumeService.uploadResumeWithProgress(fdata);
+        this.progressPercent = 0;
+        this.progress.subscribe(progress => {
+          console.log(`Upload ${progress.percent}% completed`);
+          this.inProgress = true;
+          this.progressPercent = progress.percent;
+          if(progress.completeStatus){
+            this.downloadURL = progress.body.result;
+              if(this.downloadURL !== ""){
+                this.saveFileUrl();
+              }
+              Materialize.toast("Resume Uploaded Successfully !", 1000);
             }
-            this.fileUploaded = 2;
-            Materialize.toast("Resume Uploaded Successfully !", 1000);
-          } else {
+          }, error => {
+            this.inProgress = false;
+            this.progressPercent = 0;
             Materialize.toast("Something Went Wrong !", 1000);
-          }
-        },(error)=>{
-          if (error) {
-            Materialize.toast("Something Went Wrong !", 1000);
-          }
+          },() => {
+            console.log("completed : ");
         });
       }else{
         Materialize.toast("Only allow .PDF and .DOCX extension files", 1500, 'red');

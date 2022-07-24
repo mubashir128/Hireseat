@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpRequest } from "@angular/common/http";
 
 import * as myGlobals from "../globalPath";
 import { map } from "rxjs/operators";
+import { AbstractService } from "./abstract.service";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +11,7 @@ import { map } from "rxjs/operators";
 export class CandidateService {
   baseurl: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _abstractService : AbstractService) {
     this.baseurl = myGlobals.baseUrl;
   }
   // auth : candidate
@@ -49,13 +50,10 @@ export class CandidateService {
   }
 
   saveCandidateProfileDuringHighlightsData(payload) {
-    return this.http
-      .post<any>(this.baseurl + "api/saveCandidateProfileDuringHighlightsData", payload)
-      .pipe(
-        map((res: any) => {
-          return res;
-        })
-      );
+    let url = this.baseurl + "api/saveCandidateProfileDuringHighlightsData";
+    let req = new HttpRequest('POST', url, payload,{reportProgress: true});
+    let result = this._abstractService.requestProgress(this.http, req);
+    return result;
   }
 
   saveCandidateProfileFileUrlDuringHighlightsData(payload) {
