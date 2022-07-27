@@ -136,7 +136,7 @@ export class EditHighlightsComponent implements OnInit {
       this.getEducation(resumeData);
       this.expBoxValues(resumeData);
       this.skillSets.forEach((item, index)=>{
-        if(resumeData && resumeData.search(item.value.toLowerCase()) !== -1){
+        if(resumeData && resumeData.indexOf(item.value.toLowerCase()) !== -1){
           this.tagsBind.push(item);
           this.finalSkillSets.push(item.value.toLowerCase());
         }
@@ -147,7 +147,7 @@ export class EditHighlightsComponent implements OnInit {
   getEducation(resumeData){
     this.educationBind = "";
     this.educationBindArray.forEach((edu, index)=>{
-        if(resumeData.search(edu.toLowerCase()) !== -1){
+        if(resumeData.indexOf(edu.toLowerCase()) !== -1){
           this.educationBind = edu;
         }
       });
@@ -232,7 +232,7 @@ export class EditHighlightsComponent implements OnInit {
           display : item.name,
           value : item.name.toLowerCase()
         });
-        if(resumeData.search(item.name.toLowerCase()) !== -1){
+        if(resumeData.indexOf(item.name.toLowerCase()) !== -1){
           this.industryBind.push({
             display : item.name,
             value : item.name.toLowerCase()
