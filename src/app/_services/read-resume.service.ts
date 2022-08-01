@@ -355,7 +355,8 @@ export class ReadResumeService {
         type : skill,
         value : 0
       }
-      if(this.loopSkills[skill] !== undefined){
+      let checkType = skill.toLowerCase();
+      if(this.loopSkills[checkType] !== undefined){
         pusObj.value = this.loopSkills[skill];
       }
 
@@ -373,8 +374,9 @@ export class ReadResumeService {
         type : industry.name,
         value : 0
       }
-      if(this.loopSkills[industry] !== undefined){
-        pusObj.value = this.loopSkills[industry];
+      let checkType = industry.name.toLowerCase();
+      if(this.loopIndustries[checkType] !== undefined){
+        pusObj.value = this.loopIndustries[checkType];
       }
 
       finalArray.push(pusObj);
