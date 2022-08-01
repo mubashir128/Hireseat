@@ -222,15 +222,7 @@ export class ReadResumeService {
     // console.log("---------------------------------------------- 3) thirdArray : ",thirdArray);
 
     //sort array in descending order
-    firstArray.forEach((item, index)=>{
-      for(let i = index + 1; i < firstArray.length; i++){
-        if(firstArray[i].value > firstArray[index].value){
-          let temp = firstArray[index];
-          firstArray[index] = firstArray[i];
-          firstArray[i] = temp;
-        }
-      }
-    });
+    this.sortArray(firstArray);
 
     let finalStatementsArr = [];
 
@@ -327,15 +319,7 @@ export class ReadResumeService {
     });
 
     //sort array in descending order
-    firstArray.forEach((item, index)=>{
-      for(let i = index + 1; i < firstArray.length; i++){
-        if(firstArray[i].value > firstArray[index].value){
-          let temp = firstArray[index];
-          firstArray[index] = firstArray[i];
-          firstArray[i] = temp;
-        }
-      }
-    });
+    this.sortArray(firstArray);
 
     let finalStatementsArr = [];
 
