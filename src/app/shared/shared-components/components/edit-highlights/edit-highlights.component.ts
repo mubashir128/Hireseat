@@ -16,10 +16,12 @@ export class AccomplishmentType{
   type : string;
   header : string;
   checked: boolean;
-  constructor(type, header, checked){
+  value: number;
+  constructor(type, header, checked, value){
     this.type = type;
     this.header = header;
     this.checked = checked;
+    this.value = value;
   }
 }
 
@@ -60,9 +62,9 @@ export class EditHighlightsComponent implements OnInit {
   limitNumber: number = 3;
   checkedNumber: number = 0;
 
-  comments : string;
-  comment2 : string;
-  comment3 : string;
+  comments : string = "";
+  comment2 : string = "";
+  comment3 : string = "";
 
   isLinear = true;
   isEditable = true;
@@ -74,6 +76,10 @@ export class EditHighlightsComponent implements OnInit {
   progress2: Observable<any>;
   progressPercent2: Number;
   inProgress2: boolean = false;
+
+  candidateProfile: any = {};
+  generateStatement: string = "Experience with ";
+  resumeData: string = "";
 
   constructor(private resumeService: ResumeService, 
     private userService: UserService, 
@@ -118,25 +124,26 @@ export class EditHighlightsComponent implements OnInit {
     this.showIndustries();
     
     this.accomplishmentArray = [];
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm1", "Accomplishment/Unique Experience 1.", false));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm2", "Accomplishment/Unique Experience 2.", false));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm3", "Accomplishment/Unique Experience 3.", false));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm4", "Accomplishment/Unique Experience 4.", false));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm5", "Accomplishment/Unique Experience 5.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm1", "Accomplishment/Unique Experience 1.", false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm2", "Accomplishment/Unique Experience 2.", false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm3", "Accomplishment/Unique Experience 3.", false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm4", "Accomplishment/Unique Experience 4.", false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm5", "Accomplishment/Unique Experience 5.", false, 0));
   }
 
   showSkills(){
     this.tagsBind = [];
     let promiseAll = [];
     promiseAll.push(this.resumeService.getSkillSets().toPromise());
-    promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
+    promiseAll.push(this.candidateService.getCandidateProfile().toPromise());
     Promise.all(promiseAll).then(result=>{
       this.skillSets = result[0];
-      let resumeData = result[1].data ? result[1].data.toLowerCase() : "";
-      this.getEducation(resumeData);
-      this.expBoxValues(resumeData);
+      this.resumeData = result[1].resumeDataIs ? result[1].resumeDataIs.toLowerCase() : "";
+      this.getEducation();
+      this.expBoxValues();
+      this.candidateProfile = result[1] ? result[1] : {};
       this.skillSets.forEach((item, index)=>{
-        if(resumeData && resumeData.indexOf(item.value.toLowerCase()) !== -1){
+        if(this.resumeData && this.resumeData.indexOf(item.value.toLowerCase()) !== -1){
           this.tagsBind.push(item);
           this.finalSkillSets.push(item.value.toLowerCase());
         }
@@ -144,37 +151,61 @@ export class EditHighlightsComponent implements OnInit {
     });
   }
 
-  getEducation(resumeData){
-    this.educationBind = "";
-    this.educationBindArray.forEach((edu, index)=>{
-        if(resumeData.indexOf(edu.toLowerCase()) !== -1){
-          this.educationBind = edu;
-        }
-      });
+  createStatement(){
+    this.generateStatement = "Experience with ";
+    if(this.candidateProfile.jobTitle !== ""){
+      this.generateStatement = this.candidateProfile.jobTitle + " with experience with ";
+    }else if(this.candidateProfile.desiredRoles !== ""){
+      this.generateStatement = this.candidateProfile.desiredRoles + " with experience with ";
+    }
+    this.generateStatement += this.getTopThreeIndustries() + " and ";
+    this.generateStatement += this.getTopThreeSkills();
   }
 
-  async expBoxValues(allResumeData){
+  getTopThreeSkills(){
+    return this._readResume.getTopSkills(3, this.finalSkillSets);
+  }
+
+  getTopThreeIndustries(){
+    return this._readResume.getTopIndustries(3, this.finalIndustriesAre);
+  }
+
+  getEducation(){
+    this.educationBind = "";
+    this.educationBindArray.forEach((edu, index)=>{
+      if(this.resumeData.indexOf(edu.toLowerCase()) !== -1){
+        this.educationBind = edu;
+      }
+    });
+  }
+
+  async expBoxValues(){
 
     let finalStatementsArr = [];
-    finalStatementsArr = await this._readResume.readResume({resumeDataIs : allResumeData});
+    finalStatementsArr = await this._readResume.readResume({resumeDataIs : this.resumeData});
 
     //combine first three statements.
     finalStatementsArr.forEach((val ,index)=>{
       switch(index){
         case 0 : 
           this.accomplishmentTabFrm.get('accomFrm1').setValue(val.stm);
+          this.accomplishmentArray[0].value = val.value;
           break;
         case 1 : 
           this.accomplishmentTabFrm.controls['accomFrm2'].setValue(val.stm);
+          this.accomplishmentArray[1].value = val.value;
           break;
         case 2 : 
           this.accomplishmentTabFrm.controls['accomFrm3'].setValue(val.stm);
+          this.accomplishmentArray[2].value = val.value;
           break;
         case 3 : 
           this.accomplishmentTabFrm.controls['accomFrm4'].setValue(val.stm);
+          this.accomplishmentArray[3].value = val.value;
           break;
         case 4 : 
           this.accomplishmentTabFrm.controls['accomFrm5'].setValue(val.stm);
+          this.accomplishmentArray[4].value = val.value;
           break;
         default : 
           break;
@@ -223,16 +254,16 @@ export class EditHighlightsComponent implements OnInit {
     this.industryBind = [];
     let promiseAll = [];
     promiseAll.push(this.candidateService.getCandidateExperienceIndustries().toPromise());
-    promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
+    promiseAll.push(this.candidateService.getCandidateProfile().toPromise());
     Promise.all(promiseAll).then(result=>{
       this.mainIndustriesAre = result[0].industries;
-      let resumeData = result[1].data ? result[1].data.toLowerCase() : "";
+      this.resumeData = result[1].resumeDataIs ? result[1].resumeDataIs.toLowerCase() : "";
       this.mainIndustriesAre.forEach((item)=>{
         this.industriesAre.push({
           display : item.name,
           value : item.name.toLowerCase()
         });
-        if(resumeData.indexOf(item.name.toLowerCase()) !== -1){
+        if(this.resumeData.indexOf(item.name.toLowerCase()) !== -1){
           this.industryBind.push({
             display : item.name,
             value : item.name.toLowerCase()
@@ -420,7 +451,8 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   selectionChange(event, stepper){
-    if(event.selectedIndex == 1){
+    if(event.selectedIndex == stepper.steps.length-1){
+      this.createStatement();
     }
   }
 }

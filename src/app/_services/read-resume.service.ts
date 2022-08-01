@@ -364,4 +364,65 @@ export class ReadResumeService {
     return finalStatementsArr;
   }
 
+  getTopSkills(count: number, finalSkillSets: string[]){
+    let finalArray : any[] = [];
+    finalSkillSets.forEach((skill, index)=>{
+      let pusObj = {
+        type : skill,
+        value : 0
+      }
+      if(this.loopSkills[skill] !== undefined){
+        pusObj.value = this.loopSkills[skill];
+      }
+
+      finalArray.push(pusObj);
+    });
+    this.sortArray(finalArray);
+
+    return this.getStatements(finalArray, count);
+  }
+
+  getTopIndustries(count: number, finalIndustriesAre: any){
+    let finalArray : any[] = [];
+    finalIndustriesAre.forEach((industry, index)=>{
+      let pusObj = {
+        type : industry.name,
+        value : 0
+      }
+      if(this.loopSkills[industry] !== undefined){
+        pusObj.value = this.loopSkills[industry];
+      }
+
+      finalArray.push(pusObj);
+    });
+    this.sortArray(finalArray);
+
+    return this.getStatements(finalArray, count);
+  }
+
+  sortArray(finalArray: any[]){
+    finalArray.forEach((item, index)=>{
+      for(let i = index + 1; i < finalArray.length; i++){
+        if(finalArray[i].value > finalArray[index].value){
+          let temp = finalArray[index];
+          finalArray[index] = finalArray[i];
+          finalArray[i] = temp;
+        }
+      }
+    });
+  }
+
+  getStatements(finalArray, count){
+    let finalString = "";
+    finalArray.forEach((item, index)=>{
+      if(index < count){
+        finalString += item.type;
+        if(index + 1 !== count){
+          finalString += ", ";
+        }
+      }
+    });
+    return finalString;
+  }
+
 }
