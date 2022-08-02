@@ -142,6 +142,14 @@ export class ViewForumComponent implements OnInit, OnDestroy {
         // add all notifications to list.
         this.questData.unshift(res.result);
         break;
+      case this._constants.answer:
+          if(res.result){
+            this.getAnswerData = [res.result, ...this.getAnswerData];
+            if(jQuery("#answerQue_"+res.result.questionByUserId._id).css("display") == "block"){
+              this.answerQueData = [res.result, ...this.answerQueData];
+            }
+          }
+          break;
       default:
         break;
     }
@@ -179,14 +187,6 @@ export class ViewForumComponent implements OnInit, OnDestroy {
 
   loadDataForQuestions(obj){
     this.questData.unshift(obj);
-  }
-
-  answerPopup(){
-    jQuery('#answermsdPop').modal('open');
-    
-  }
-  closeanswerPopup(){
-    jQuery('#answermsdPop').modal('close');
   }
 
   showAnsDiv(id){
@@ -262,16 +262,11 @@ export class ViewForumComponent implements OnInit, OnDestroy {
     this._forum.addAnserData(answerD).subscribe(res=>{
         if(res.data){
           this.getAnswerData = [res.data, ...this.getAnswerData];
+          jQuery("#answerspost_"+id).val("");
           if(jQuery("#answerQue_"+res.data.questionByUserId._id).css("display") == "block"){
             this.answerQueData = [res.data, ...this.answerQueData];
           }
         }
-        this.msgForPopup=res.message;
-        this.answerPopup();
-        jQuery("#"+id).css("display","none");
-        setTimeout(()=>{
-          this.closeanswerPopup();
-        },2000);
       }, err => {
         console.log(err);
       });
