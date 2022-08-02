@@ -9,13 +9,13 @@
       <div class="row" style="margin: auto;">
         <div class="pro">
           <div class="pro-3">
-            <ng-container *ngIf="!timeline.fromId?.profileimage">
+            <ng-container *ngIf="!timeline.fromId?.profileimage && timeline.status !== _constants.answer">
               <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                 <img src = "assets/img/profile-user.png" alt="profile" />
               </div>
             </ng-container>
 
-            <ng-container *ngIf="timeline.fromId?.profileimage">
+            <ng-container *ngIf="timeline.fromId?.profileimage && timeline.status !== _constants.answer">
               <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                 <img [src] = "timeline.fromId?.profileimage" alt="profile" />
               </div>
@@ -45,9 +45,9 @@
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.answer" (click)="goToQuestionAnswer()">
-              Qustion : {{timeline.question}}
+              Qustion : {{timeline?.toId?.questionByUserId?.question}}
               <p>
-                Answer : {{timeline.answer}}
+                Answer : {{timeline?.toId?.answer}}
               </p>
             </span>
 
