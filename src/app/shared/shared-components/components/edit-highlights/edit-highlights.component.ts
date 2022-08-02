@@ -56,8 +56,15 @@ export class EditHighlightsComponent implements OnInit {
 
   accomplishmentArray : Array<AccomplishmentType>;
 
-  educationBind: string = "";
   educationBindArray = [];
+  educationBind: string = "";
+
+  techMajorArray = [];
+  techMajor: string = ""
+
+  degreeArray = [];
+  degree: string = "";
+
 
   limitNumber: number = 3;
   checkedNumber: number = 0;
@@ -97,7 +104,9 @@ export class EditHighlightsComponent implements OnInit {
     this.importantTabFrm = this.formBuilder.group({
       tags : [""],
       industry : [""],
-      education : [""]
+      education : [""],
+      techMajor : [""],
+      degree : [""]
     });
 
     this.accomplishmentTabFrm = this.formBuilder.group({
@@ -120,6 +129,9 @@ export class EditHighlightsComponent implements OnInit {
 
   ngOnInit(): void {
     this.educationBindArray = this._candidateCarrer.getSchool();
+    this.techMajorArray = this._candidateCarrer.getTechnocalMajor();
+    this.degreeArray =this._candidateCarrer.getDegree();
+
     this.showSkills();
     this.showIndustries();
     
@@ -148,6 +160,8 @@ export class EditHighlightsComponent implements OnInit {
           this.finalSkillSets.push(item.value.toLowerCase());
         }
       });
+      this.tagsBind = this._readResume.getSortSkillsResult2(this.tagsBind);
+      this.finalSkillSets = this._readResume.getSortSkillsResult(this.finalSkillSets);
     });
   }
 
@@ -177,6 +191,21 @@ export class EditHighlightsComponent implements OnInit {
         this.educationBind = edu;
       }
     });
+
+    this.techMajor = "";
+    this.techMajorArray.forEach((techMaj, index)=>{
+      if(this.resumeData.indexOf(techMaj.toLowerCase()) !== -1){
+        this.techMajor = techMaj;
+      }
+    });
+    
+    this.degree = "";
+    this.degreeArray.forEach((degreeA, index)=>{
+      if(this.resumeData.indexOf(degreeA.toLowerCase()) !== -1){
+        this.degree = degreeA;
+      }
+    });
+
   }
 
   async expBoxValues(){
@@ -271,6 +300,8 @@ export class EditHighlightsComponent implements OnInit {
           this.finalIndustriesAre.push(item);
         }
       });
+      this.industryBind = this._readResume.getSortIndustriesResult2(this.industryBind);
+      this.finalIndustriesAre = this._readResume.getSortIndustriesResult(this.finalIndustriesAre);
     });
   }
 
@@ -334,6 +365,8 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   save(){
+    this._readResume.removeDuplicateSkills(this.finalSkillSets);
+    this._readResume.removeDuplicateIndustries(this.finalIndustriesAre);
     let userInfo = {
       fileURL : this.downloadURL,
       education : this.educationBind,

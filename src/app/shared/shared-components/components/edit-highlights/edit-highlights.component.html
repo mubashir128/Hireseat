@@ -80,9 +80,19 @@
                                 </tag-input>
                             </div>
                         </div>
-                        <div class="row marSpace grouup-in" style="margin: auto;">
-                            <span class="suggestSkill">Education :</span>
-                            <input type="text" class="form-control" placeholder="Enter Education" [(ngModel)] = "educationBind" name="education" formControlName="education">
+                        <div>
+                            <div class="row marSpace grouup-in" style="margin: auto;">
+                                <span class="suggestSkill">Education : </span>
+                                <input type="text" class="form-control" placeholder="Enter Education" [(ngModel)] = "educationBind" name="education" formControlName="education">
+                            </div>
+                            <div class="row marSpace grouup-in">
+                                <span class="suggestSkill">Degree : </span>
+                                <input type="text" class="form-control" placeholder="Enter Degree" [(ngModel)] = "degree" name="degree" formControlName="degree">
+                            </div>
+                            <div class="row marSpace grouup-in">
+                                <span class="suggestSkill">Tech Major : </span>
+                                <input type="text" class="form-control" placeholder="Enter tech Major" [(ngModel)] = "techMajor" name="techMajor" formControlName="techMajor">
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="row eduuction-btn-2" (click) = "goForward(stepper)">Next</button>
