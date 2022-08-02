@@ -45,6 +45,7 @@
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.answer" (click)="goToQuestionAnswer()">
+              {{timeline.toName}} : <br>
               Qustion : {{timeline?.toId?.questionByUserId?.question}}
               <p>
                 Answer : {{timeline?.toId?.answer}}
