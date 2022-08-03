@@ -51,7 +51,7 @@ export class ReadResumeService {
 
         if(globalString !== ""){
           let obj = {
-            stm : globalString,
+            stm : globalString.trim(),
             value : this.loopSkills[values[0].toLowerCase()] == undefined ? 0 : this.loopSkills[values[0].toLowerCase()]
           };
           
@@ -124,7 +124,7 @@ export class ReadResumeService {
 
         if(globalString !== ""){
           let obj = {
-            stm : globalString,
+            stm : globalString.trim(),
             value : this.loopSkills[values[0].toLowerCase()] == undefined ? 0 : this.loopSkills[values[0].toLowerCase()]
           };
           
@@ -153,6 +153,7 @@ export class ReadResumeService {
 
           if(temp){
             secondArray.push(obj);
+            firstArray.push(obj);
           }
         }
       }
@@ -191,7 +192,7 @@ export class ReadResumeService {
 
         if(globalString !== ""){
           let obj = {
-            stm : globalString,
+            stm : globalString.trim(),
             value : this.loopAchivments[values[0].toLowerCase()] == undefined ? 0 : this.loopAchivments[values[0].toLowerCase()]
           };
 
@@ -214,12 +215,15 @@ export class ReadResumeService {
 
           if(temp){
             thirdArray.push(obj);
+            firstArray.push(obj);
           }
         }
       }
     });
 
     // console.log("---------------------------------------------- 3) thirdArray : ",thirdArray);
+
+    this.removeSameStatments(firstArray);
 
     //sort array in descending order
     this.sortArray(firstArray);
@@ -355,6 +359,18 @@ export class ReadResumeService {
           let temp = finalArray[index];
           finalArray[index] = finalArray[i];
           finalArray[i] = temp;
+        }
+      }
+    });
+  }
+
+  //remove same statements
+  removeSameStatments(firstArray){
+    firstArray.forEach((item, index)=>{
+      for(let i = index + 1; i < firstArray.length; i++){
+        if(firstArray[i].stm.toLowerCase() == firstArray[index].stm.toLowerCase()){
+          firstArray.splice(i, 1);
+          i--;
         }
       }
     });
