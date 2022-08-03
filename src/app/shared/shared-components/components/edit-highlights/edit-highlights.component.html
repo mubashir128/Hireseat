@@ -175,9 +175,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="row marSpace" *ngIf = "educationBind !== ''">
+                <div class="row marSpace" *ngIf = "educationBind !== '' || degree !== '' || techMajor !== ''">
                     <p class="textDeco"><i class="fas fa-check-square"></i> Education : </p>
-                    <span> - {{educationBind}}</span>
+                    <p *ngIf = "educationBind !== ''"> - {{educationBind}}.</p>
+                    <p *ngIf = "degree !== ''"> - {{degree}} degree.</p>
+                    <p *ngIf = "techMajor !== ''"> - {{techMajor}} tech major.</p>
                 </div>
                 <div class="row marSpace" *ngIf = "comments !== '' || comment2 !== '' || comment3 !== '' || generateStatement !== '' ">
                     <p>
