@@ -140,16 +140,30 @@
         </mat-step>
 
         <mat-step [stepControl]="" [editable]="isEditable">
-            <div class="previewDiv slidein mainDiv">
-                <div class="row marSpace textDeco">
-                    Ok now when a hiring manager asks you to give them 3 reasosn to hire you, you should highlight the below...
+            <div class="previewDiv slidein mainDiv" style="height: auto !important; padding: 0px !important;">
+                <div class="row marSpace colorStyle newStyle borderBottomStyle">
+                    <span style="font-size: 18px;">Hiii {{loggedInUser.fullName}},</span>
+                    <p>
+                        Below is the first line of your introduction to Recruiter and Hiring manager.
+                    </p>
+                    <div *ngIf="generateStatement !== '' " class="row marSpace textDeco22 colorStyle newStyle2">
+                        <textarea style="height: 100px; color: black; background-color: white;"
+                            rows="50"
+                            maxlength="25000"
+                            [(ngModel)] = "generateStatement"
+                        ></textarea>
+                    </div>
+
+                    <div class="">
+                        Out algo is not perfect yet so we recommend that you make your own edits above.
+                    </div>
                 </div>
-                <!-- <div class="" *ngIf = "uploadFileName !== ''">
-                    <p class="textDeco"><i class="fas fa-check-square"></i> Uploaded Resume : </p>
-                    <span> - {{uploadFileName}}</span>
-                </div> -->
-                <div class="bottom-text skillDiv" *ngIf = "finalSkillSets.length !== 0">
-                    <p class="textDeco"><i class="fas fa-check-square"></i> Skills  :</p>
+                
+                <div *ngIf = "finalSkillSets.length !== 0" class="row bottom-text skillDiv marSpace textDeco22 colorStyle newStyle2 borderBottomStyle">
+                    <p class="fontStyle">
+                        We ranked your Skills and Industries.
+                    </p>
+                    <p class="textDeco22 fontStyle"><i class="fas fa-check-square"></i> Skills  :</p>
                     <form [formGroup]="showSkillsSetsFrm" novalidate>
                         <div class="inputInnerDiv3">
                             <tag-input [ngModel]="finalSkillSets"
@@ -161,8 +175,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="bottom-text induDiv" *ngIf = "finalIndustriesAre.length !== 0">
-                    <p class="textDeco"><i class="fas fa-check-square"></i> Industry Experience : </p>
+                <div *ngIf = "finalIndustriesAre.length !== 0" class="row bottom-text induDiv marSpace textDeco22 colorStyle newStyle2 borderBottomStyle">
+                    <p class="textDeco22 fontStyle"><i class="fas fa-check-square"></i> Industry Experience : </p>
                     <form [formGroup]="showIndustriesFrm" novalidate>
                         <div class="inputInnerDiv3">
                             <tag-input [ngModel]="finalIndustriesAre"
@@ -175,23 +189,37 @@
                         </div>
                     </form>
                 </div>
-                <div class="row marSpace" *ngIf = "educationBind !== '' || degree !== '' || techMajor !== ''">
-                    <p class="textDeco"><i class="fas fa-check-square"></i> Education : </p>
+
+                <div class="row marSpace textDeco22 colorStyle newStyle2 borderBottomStyle">
+                    We recommand looking at linkedIn profile of people who have similar roles of your desired companies and look 
+                    skills or keywords you have but have missed.
+                </div>
+
+                <div *ngIf = "educationBind !== '' || degree !== '' || techMajor !== ''" class="row marSpace textDeco22 colorStyle newStyle2 borderBottomStyle">
+                    <p class="textDeco22 fontStyle"><i class="fas fa-check-square"></i> Education : </p>
                     <p *ngIf = "educationBind !== ''"> - {{educationBind}}.</p>
                     <p *ngIf = "degree !== ''"> - {{degree}} degree.</p>
                     <p *ngIf = "techMajor !== ''"> - {{techMajor}} tech major.</p>
                 </div>
-                <div class="row marSpace" *ngIf = "comments !== '' || comment2 !== '' || comment3 !== '' || generateStatement !== '' ">
+
+                <div *ngIf = "comments !== '' || comment2 !== '' || comment3 !== '' || generateStatement !== '' " class="row marSpace textDeco22 colorStyle newStyle2 borderBottomStyle">
+                    <span class="textDeco22 fontStyle"> <i class="fas fa-check-square"></i> Accomplishments and Unique Experiences : </span><br>
+                    <div class="row marSpace textDeco22 colorStyle newStyle2 fontStyle">
+                        The below is what we have that you should highlight to recruiters and hiring managers.
+                        <p>
+                            If hiring manager asks you "Give mi 3 reasons why i should hire you? You should respond with this.
+                        </p>
+                    </div>
                     <p>
-                        <span class="textDeco"> <i class="fas fa-check-square"></i> Accomplishments and Unique Experiences : </span><br>
-                        <span *ngIf = "generateStatement !== ''" class="detailsData">- {{generateStatement}}</span><br>
-                        <span *ngIf = "comments !== ''" class="detailsData">- {{comments}}</span><br>
-                        <span *ngIf = "comment2 !== ''" class="detailsData">- {{comment2}}</span><br>
-                        <span *ngIf = "comment3 !== ''" class="detailsData">- {{comment3}}</span><br>
+                        <span *ngIf = "generateStatement !== ''">- {{generateStatement}}.</span><br>
+                        <span *ngIf = "comments !== ''">- {{comments}}.</span><br>
+                        <span *ngIf = "comment2 !== ''">- {{comment2}}.</span><br>
+                        <span *ngIf = "comment3 !== ''">- {{comment3}}.</span><br>
                     </p>
                 </div>
+
                 <mat-progress-bar class="progress-bar" *ngIf="inProgress2" mode="determinate" [value]="progressPercent2"></mat-progress-bar>
-                <div class="row marSpace" style="margin-top: 10px;">
+                <div class="row marSpace btnStyle textDeco22 colorStyle newStyle2 borderBottomStyle" style="margin-bottom: 30px;">
                     <button class="row eduuction-btn-2" (click) = "save()">Save</button>
                     <button class="row eduuction-cant-2" (click) = "edit(stepper)">Edit</button>
                 </div>
