@@ -93,7 +93,7 @@
                         aria-hidden="true"></i> Answer</button>
                     <div class="questionDivTextReply" [id]="'questionDivTextReplyId_'+data._id">
                       <textarea placeholder="Write Your Answer here.." formControlName="answerPost"
-                        id="answerspost" (keyup)="handleAnswerPost($event)"></textarea>
+                        [id]="'answerspost_'+data._id" (keyup)="handleAnswerPost($event)"></textarea>
                       <div *ngIf="postAnswer.hasError('','answerPost') && postAnswer.get('answerPost').touched">
                         Answer is required*</div>
                       <button class="waves-effect waves-light btn" id="postAnswerBtn" disabled
@@ -146,16 +146,6 @@
           <app-questions [questData]="questData"></app-questions>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-<!--message pop up:START-->
-<div id="answermsdPop" class="modal videoModalMain forumPopMain forumMsgPopup newPopZindex">
-  <a (click)="closeanswerPopup()" class=" videoCloseBtn"><i class="material-icons">close</i></a>
-  <div class="modal-content videoModalContent">
-    <h4 class="slide-heading text-center">Message</h4>
-    <div class="modalBodyPop">
-      <p>{{ msgForPopup }}</p>
     </div>
   </div>
 </div>

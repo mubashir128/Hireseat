@@ -117,6 +117,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { SettingsComponent } from './components/settings/settings.component';
 import { JoyrideModule } from "ngx-joyride";
 import { MatStepperModule } from "@angular/material/stepper";
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
@@ -145,7 +146,8 @@ import { MatStepperModule } from "@angular/material/stepper";
     MatListModule,
     MatFormFieldModule,
     JoyrideModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressBarModule
   ],
   declarations: [
     FooterComponent,

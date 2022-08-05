@@ -106,7 +106,7 @@ export class MenusComponent implements OnInit {
 
   employerMenuTabs(){
     this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter 24/7", false, "fas fa-network-wired"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
 
     this.tabs2.push(new Tab2("/employer/user-chat", "Employer Chat", false, "fas fa-comment"));
@@ -128,7 +128,7 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/recruiter/dashboard", "Dashboard", false, "fas fa-network-wired"));
     // this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
     
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-question"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter 24/7", false, "fas fa-question"));
     
     this.tabs2.push(
       new Tab2("/recruiter/all-recruiters", "Recruiters", true, "fas fa-home")
@@ -165,7 +165,7 @@ export class MenusComponent implements OnInit {
     // this.tabs2.push(new Tab2("/candidate/friends-connections", "My Connections", true, "fas fa-user"));
     
     this.tabs2.push(new Tab2("/candidate/fill-form", "Career Value Finder", false, "fas fa-shopping-bag"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-shopping-bag"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter 24/7", false, "fas fa-shopping-bag"));
     this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters", false, "fas fa-user-alt"));
     // this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
 
@@ -185,7 +185,7 @@ export class MenusComponent implements OnInit {
 
   superAdminMenuTab(){
     this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter 24/7", false, "fas fa-network-wired"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
 
     this.tabs2.push(new Tab2("/super-admin/user-list", "Super Admin Dashboard", false, "fas fa-plus"));
@@ -209,7 +209,7 @@ export class MenusComponent implements OnInit {
 
   noUserMenuTabs(){
     this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter", false, "fas fa-network-wired"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter 24/7", false, "fas fa-network-wired"));
     this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
   }
 

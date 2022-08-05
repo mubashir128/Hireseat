@@ -51,7 +51,7 @@ export class ReadResumeService {
 
         if(globalString !== ""){
           let obj = {
-            stm : globalString,
+            stm : globalString.trim(),
             value : this.loopSkills[values[0].toLowerCase()] == undefined ? 0 : this.loopSkills[values[0].toLowerCase()]
           };
           
@@ -124,7 +124,7 @@ export class ReadResumeService {
 
         if(globalString !== ""){
           let obj = {
-            stm : globalString,
+            stm : globalString.trim(),
             value : this.loopSkills[values[0].toLowerCase()] == undefined ? 0 : this.loopSkills[values[0].toLowerCase()]
           };
           
@@ -153,6 +153,7 @@ export class ReadResumeService {
 
           if(temp){
             secondArray.push(obj);
+            firstArray.push(obj);
           }
         }
       }
@@ -191,7 +192,7 @@ export class ReadResumeService {
 
         if(globalString !== ""){
           let obj = {
-            stm : globalString,
+            stm : globalString.trim(),
             value : this.loopAchivments[values[0].toLowerCase()] == undefined ? 0 : this.loopAchivments[values[0].toLowerCase()]
           };
 
@@ -214,6 +215,7 @@ export class ReadResumeService {
 
           if(temp){
             thirdArray.push(obj);
+            firstArray.push(obj);
           }
         }
       }
@@ -221,16 +223,10 @@ export class ReadResumeService {
 
     // console.log("---------------------------------------------- 3) thirdArray : ",thirdArray);
 
+    this.removeSameStatments(firstArray);
+
     //sort array in descending order
-    firstArray.forEach((item, index)=>{
-      for(let i = index + 1; i < firstArray.length; i++){
-        if(firstArray[i].value > firstArray[index].value){
-          let temp = firstArray[index];
-          firstArray[index] = firstArray[i];
-          firstArray[i] = temp;
-        }
-      }
-    });
+    this.sortArray(firstArray);
 
     let finalStatementsArr = [];
 
@@ -327,15 +323,7 @@ export class ReadResumeService {
     });
 
     //sort array in descending order
-    firstArray.forEach((item, index)=>{
-      for(let i = index + 1; i < firstArray.length; i++){
-        if(firstArray[i].value > firstArray[index].value){
-          let temp = firstArray[index];
-          firstArray[index] = firstArray[i];
-          firstArray[i] = temp;
-        }
-      }
-    });
+    this.sortArray(firstArray);
 
     let finalStatementsArr = [];
 
@@ -362,6 +350,196 @@ export class ReadResumeService {
     // console.log("--- finalStatementsArr : ",finalStatementsArr);
 
     return finalStatementsArr;
+  }
+
+  getTopSkills(count: number, finalSkillSets: string[]){
+    let finalArray : any[] = [];
+    finalSkillSets.forEach((skill, index)=>{
+      let pusObj = {
+        type : skill,
+        value : 0
+      }
+      let checkType = skill.toLowerCase();
+      if(this.loopSkills[checkType] !== undefined){
+        pusObj.value = this.loopSkills[skill];
+      }
+
+      finalArray.push(pusObj);
+    });
+    this.sortArray(finalArray);
+
+    return this.getStatements(finalArray, count);
+  }
+
+  getSortSkillsResult(finalSkillSets: string[]){
+    let finalArray : any[] = [];
+    finalSkillSets.forEach((skill, index)=>{
+      let pusObj = {
+        type : skill,
+        value : 0
+      }
+      let checkType = skill.toLowerCase();
+      if(this.loopSkills[checkType] !== undefined){
+        pusObj.value = this.loopSkills[skill];
+      }
+
+      finalArray.push(pusObj);
+    });
+    this.sortArray(finalArray);
+    return this.getFinalSkills(finalArray);
+  }
+
+  getFinalSkills(finalArray){
+    let finalArrayResult : any[] = [];
+    finalArray.forEach((skill, index)=>{
+      finalArrayResult.push(skill.type);
+    });
+    return finalArrayResult;
+  }
+
+  getSortSkillsResult2(finalSkillSets: any[]){
+    let finalArray : any[] = [];
+    finalSkillSets.forEach((skill, index)=>{
+      let pusObj = {
+        display : skill.display,
+        value : skill.value,
+        valueCount : 0
+      }
+      let checkType = skill.value.toLowerCase();
+      if(this.loopSkills[checkType] !== undefined){
+        pusObj.valueCount = this.loopSkills[checkType];
+      }
+      finalArray.push(pusObj);
+    });
+    this.sortArray2(finalArray);
+    return finalArray;
+  }
+
+  getTopIndustries(count: number, finalIndustriesAre: any){
+    let finalArray : any[] = [];
+    finalIndustriesAre.forEach((industry, index)=>{
+      let pusObj = {
+        type : industry.name,
+        value : 0
+      }
+      let checkType = industry.name.toLowerCase();
+      if(this.loopIndustries[checkType] !== undefined){
+        pusObj.value = this.loopIndustries[checkType];
+      }
+
+      finalArray.push(pusObj);
+    });
+    this.sortArray(finalArray);
+
+    return this.getStatements(finalArray, count);
+  }
+
+  getSortIndustriesResult(finalIndustriesAre: any){
+    let finalArray : any[] = [];
+    finalIndustriesAre.forEach((industry, index)=>{
+      let pusObj = {
+        name : industry.name,
+        value : 0,
+        _id : industry._id
+      }
+      let checkType = industry.name.toLowerCase();
+      if(this.loopIndustries[checkType] !== undefined){
+        pusObj.value = this.loopIndustries[checkType];
+      }
+
+      finalArray.push(pusObj);
+    });
+    this.sortArray(finalArray);
+    return finalArray;
+  }
+
+  getSortIndustriesResult2(finalIndustriesAre: any){
+    let finalArray : any[] = [];
+    finalIndustriesAre.forEach((industry, index)=>{
+      let pusObj = {
+        display : industry.display,
+        value : industry.value,
+        valueCount : 0
+      }
+      let checkType = industry.value.toLowerCase();
+      if(this.loopIndustries[checkType] !== undefined){
+        pusObj.valueCount = this.loopIndustries[checkType];
+      }
+
+      finalArray.push(pusObj);
+    });
+    this.sortArray2(finalArray);
+    return finalArray;
+  }
+
+  sortArray(finalArray: any[]){
+    finalArray.forEach((item, index)=>{
+      for(let i = index + 1; i < finalArray.length; i++){
+        if(finalArray[i].value > finalArray[index].value){
+          let temp = finalArray[index];
+          finalArray[index] = finalArray[i];
+          finalArray[i] = temp;
+        }
+      }
+    });
+  }
+
+  sortArray2(finalArray: any[]){
+    finalArray.forEach((item, index)=>{
+      for(let i = index + 1; i < finalArray.length; i++){
+        if(finalArray[i].valueCount > finalArray[index].valueCount){
+          let temp = finalArray[index];
+          finalArray[index] = finalArray[i];
+          finalArray[i] = temp;
+        }
+      }
+    });
+  }
+
+  getStatements(finalArray, count){
+    let finalString = "";
+    finalArray.forEach((item, index)=>{
+      if(index < count){
+        finalString += item.type;
+        if(index + 1 !== count){
+          finalString += ", ";
+        }
+      }
+    });
+    return finalString;
+  }
+
+  removeDuplicateSkills(finalArray){
+    finalArray.forEach((item, index)=>{
+      for(let i = index + 1; i < finalArray.length; i++){
+        if(finalArray[i].toLowerCase() === finalArray[index].toLowerCase()){
+          finalArray.splice(i, 1);
+          i--;
+        }
+      }
+    });
+  }
+
+  removeDuplicateIndustries(finalArray){
+    finalArray.forEach((item, index)=>{
+      for(let i = index + 1; i < finalArray.length; i++){
+        if(finalArray[i].name.toLowerCase() === finalArray[index].name.toLowerCase()){
+          finalArray.splice(i, 1);
+          i--;
+        }
+      }
+    });
+  }
+
+  removeSameStatments(firstArray){
+    firstArray.forEach((item, index)=>{
+      for(let i = index + 1; i < firstArray.length; i++){
+        if(firstArray[i].stm.toLowerCase() == firstArray[index].stm.toLowerCase()){
+          firstArray.splice(i, 1);
+          i--;
+        }
+      }
+    });
   }
 
 }

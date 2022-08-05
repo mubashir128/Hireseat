@@ -172,3 +172,44 @@ button {
     background-color: #03aaff;
     color: #fff;
 }
+
+.btnStyle button {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+.badge {
+    margin-top: 5px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+}
+
+span.badge {
+    min-width: auto;
+    margin-left: 0px;
+    width: 20px;
+    height: 20px;
+    line-height: 0px;
+    padding: 5px 0px;
+}
+
+.colorStyle {
+    background-color: #03aaff;
+    color: white;
+    margin-bottom: 0px;
+    text-align: center;
+    padding: 10px;
+}
+
+.borderBottomStyle {
+    border-bottom: 2px solid white;
+}
+
+.textDeco22{
+    color: white !important;
+}
+
+.fontStyle {
+    font-size: 18px;
+}

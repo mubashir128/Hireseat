@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ReadResumeService } from 'src/app/_services/read-resume.service';
 import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.service';
 import { MatStepper } from '@angular/material/stepper';
+import { Observable } from 'rxjs';
 
 declare var Materialize: any;
 
@@ -15,10 +16,12 @@ export class AccomplishmentType{
   type : string;
   header : string;
   checked: boolean;
-  constructor(type, header, checked){
+  value: number;
+  constructor(type, header, checked, value){
     this.type = type;
     this.header = header;
     this.checked = checked;
+    this.value = value;
   }
 }
 
@@ -53,18 +56,37 @@ export class EditHighlightsComponent implements OnInit {
 
   accomplishmentArray : Array<AccomplishmentType>;
 
-  educationBind: string = "";
   educationBindArray = [];
+  educationBind: string = "";
+
+  techMajorArray = [];
+  techMajor: string = ""
+
+  degreeArray = [];
+  degree: string = "";
+
 
   limitNumber: number = 3;
   checkedNumber: number = 0;
 
-  comments : string;
-  comment2 : string;
-  comment3 : string;
+  comments : string = "";
+  comment2 : string = "";
+  comment3 : string = "";
 
   isLinear = true;
   isEditable = true;
+
+  progress: Observable<any>;
+  progressPercent: Number;
+  inProgress: boolean = false;
+  
+  progress2: Observable<any>;
+  progressPercent2: Number;
+  inProgress2: boolean = false;
+
+  candidateProfile: any = {};
+  generateStatement: string = "Experience with ";
+  resumeData: string = "";
 
   constructor(private resumeService: ResumeService, 
     private userService: UserService, 
@@ -82,7 +104,9 @@ export class EditHighlightsComponent implements OnInit {
     this.importantTabFrm = this.formBuilder.group({
       tags : [""],
       industry : [""],
-      education : [""]
+      education : [""],
+      techMajor : [""],
+      degree : [""]
     });
 
     this.accomplishmentTabFrm = this.formBuilder.group({
@@ -105,67 +129,112 @@ export class EditHighlightsComponent implements OnInit {
 
   ngOnInit(): void {
     this.educationBindArray = this._candidateCarrer.getSchool();
+    this.techMajorArray = this._candidateCarrer.getTechnocalMajor();
+    this.degreeArray =this._candidateCarrer.getDegree();
+
     this.showSkills();
     this.showIndustries();
     
     this.accomplishmentArray = [];
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm1", "Accomplishment/Unique Experience 1.", false));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm2", "Accomplishment/Unique Experience 2.", false));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm3", "Accomplishment/Unique Experience 3.", false));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm4", "Accomplishment/Unique Experience 4.", false));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm5", "Accomplishment/Unique Experience 5.", false));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm1", "Accomplishment/Unique Experience 1.", false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm2", "Accomplishment/Unique Experience 2.", false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm3", "Accomplishment/Unique Experience 3.", false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm4", "Accomplishment/Unique Experience 4.", false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm5", "Accomplishment/Unique Experience 5.", false, 0));
   }
 
   showSkills(){
     this.tagsBind = [];
     let promiseAll = [];
     promiseAll.push(this.resumeService.getSkillSets().toPromise());
-    promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
+    promiseAll.push(this.candidateService.getCandidateProfile().toPromise());
     Promise.all(promiseAll).then(result=>{
       this.skillSets = result[0];
-      let resumeData = result[1].data ? result[1].data.toLowerCase() : "";
-      this.getEducation(resumeData);
-      this.expBoxValues(resumeData);
+      this.resumeData = result[1].resumeDataIs ? result[1].resumeDataIs.toLowerCase() : "";
+      this.getEducation();
+      this.expBoxValues();
+      this.candidateProfile = result[1] ? result[1] : {};
       this.skillSets.forEach((item, index)=>{
-        if(resumeData && resumeData.search(item.value.toLowerCase()) !== -1){
+        if(this.resumeData && this.resumeData.indexOf(item.value.toLowerCase()) !== -1){
           this.tagsBind.push(item);
           this.finalSkillSets.push(item.value.toLowerCase());
         }
       });
+      this.tagsBind = this._readResume.getSortSkillsResult2(this.tagsBind);
+      this.finalSkillSets = this._readResume.getSortSkillsResult(this.finalSkillSets);
     });
   }
 
-  getEducation(resumeData){
-    this.educationBind = "";
-    this.educationBindArray.forEach((edu, index)=>{
-        if(resumeData.search(edu.toLowerCase()) !== -1){
-          this.educationBind = edu;
-        }
-      });
+  createStatement(){
+    this.generateStatement = "Experience with ";
+    if(this.candidateProfile.jobTitle !== ""){
+      this.generateStatement = this.candidateProfile.jobTitle + " with experience with ";
+    }else if(this.candidateProfile.desiredRoles !== ""){
+      this.generateStatement = this.candidateProfile.desiredRoles + " with experience with ";
+    }
+    this.generateStatement += this.getTopThreeIndustries() + " and ";
+    this.generateStatement += this.getTopThreeSkills();
   }
 
-  async expBoxValues(allResumeData){
+  getTopThreeSkills(){
+    return this._readResume.getTopSkills(3, this.finalSkillSets);
+  }
+
+  getTopThreeIndustries(){
+    return this._readResume.getTopIndustries(3, this.finalIndustriesAre);
+  }
+
+  getEducation(){
+    this.educationBind = "";
+    this.educationBindArray.forEach((edu, index)=>{
+      if(this.resumeData.indexOf(edu.toLowerCase()) !== -1){
+        this.educationBind = edu;
+      }
+    });
+
+    this.techMajor = "";
+    this.techMajorArray.forEach((techMaj, index)=>{
+      if(this.resumeData.indexOf(techMaj.toLowerCase()) !== -1){
+        this.techMajor = techMaj;
+      }
+    });
+    
+    this.degree = "";
+    this.degreeArray.forEach((degreeA, index)=>{
+      if(this.resumeData.indexOf(degreeA.toLowerCase()) !== -1){
+        this.degree = degreeA;
+      }
+    });
+
+  }
+
+  async expBoxValues(){
 
     let finalStatementsArr = [];
-    finalStatementsArr = await this._readResume.readResume({resumeDataIs : allResumeData});
+    finalStatementsArr = await this._readResume.readResume({resumeDataIs : this.resumeData});
 
     //combine first three statements.
     finalStatementsArr.forEach((val ,index)=>{
       switch(index){
         case 0 : 
           this.accomplishmentTabFrm.get('accomFrm1').setValue(val.stm);
+          this.accomplishmentArray[0].value = val.value;
           break;
         case 1 : 
           this.accomplishmentTabFrm.controls['accomFrm2'].setValue(val.stm);
+          this.accomplishmentArray[1].value = val.value;
           break;
         case 2 : 
           this.accomplishmentTabFrm.controls['accomFrm3'].setValue(val.stm);
+          this.accomplishmentArray[2].value = val.value;
           break;
         case 3 : 
           this.accomplishmentTabFrm.controls['accomFrm4'].setValue(val.stm);
+          this.accomplishmentArray[3].value = val.value;
           break;
         case 4 : 
           this.accomplishmentTabFrm.controls['accomFrm5'].setValue(val.stm);
+          this.accomplishmentArray[4].value = val.value;
           break;
         default : 
           break;
@@ -214,16 +283,16 @@ export class EditHighlightsComponent implements OnInit {
     this.industryBind = [];
     let promiseAll = [];
     promiseAll.push(this.candidateService.getCandidateExperienceIndustries().toPromise());
-    promiseAll.push(this.resumeService.getResumeSkillsets().toPromise());
+    promiseAll.push(this.candidateService.getCandidateProfile().toPromise());
     Promise.all(promiseAll).then(result=>{
       this.mainIndustriesAre = result[0].industries;
-      let resumeData = result[1].data ? result[1].data.toLowerCase() : "";
+      this.resumeData = result[1].resumeDataIs ? result[1].resumeDataIs.toLowerCase() : "";
       this.mainIndustriesAre.forEach((item)=>{
         this.industriesAre.push({
           display : item.name,
           value : item.name.toLowerCase()
         });
-        if(resumeData.search(item.name.toLowerCase()) !== -1){
+        if(this.resumeData.indexOf(item.name.toLowerCase()) !== -1){
           this.industryBind.push({
             display : item.name,
             value : item.name.toLowerCase()
@@ -231,6 +300,8 @@ export class EditHighlightsComponent implements OnInit {
           this.finalIndustriesAre.push(item);
         }
       });
+      this.industryBind = this._readResume.getSortIndustriesResult2(this.industryBind);
+      this.finalIndustriesAre = this._readResume.getSortIndustriesResult(this.finalIndustriesAre);
     });
   }
 
@@ -294,6 +365,8 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   save(){
+    this._readResume.removeDuplicateSkills(this.finalSkillSets);
+    this._readResume.removeDuplicateIndustries(this.finalIndustriesAre);
     let userInfo = {
       fileURL : this.downloadURL,
       education : this.educationBind,
@@ -303,11 +376,22 @@ export class EditHighlightsComponent implements OnInit {
       comment2 : this.comment2,
       comment3 : this.comment3
     }
-    
-    this.candidateService.saveCandidateProfileDuringHighlightsData(userInfo).subscribe((res) => {
-      if (res) {
-        this._router.navigate(["/"+this.loggedInUser.userRole+"/my-posted-profiles"]);
-      }
+
+    this.progress2 = this.candidateService.saveCandidateProfileDuringHighlightsData(userInfo);
+    this.progressPercent2 = 0;
+    this.progress2.subscribe(progress => {
+      console.log(`Upload ${progress.percent}% completed`);
+      this.inProgress2 = true;
+      this.progressPercent2 = progress.percent;
+      if(progress.completeStatus && progress.body){
+          this._router.navigate(["/"+this.loggedInUser.userRole+"/my-posted-profiles"]);
+        }
+      }, error => {
+        this.inProgress2 = false;
+        this.progressPercent2 = 0;
+        Materialize.toast("Something Went Wrong !", 1000);
+      },() => {
+        console.log("completed : ");
     });
   }
 
@@ -333,21 +417,25 @@ export class EditHighlightsComponent implements OnInit {
         this.uploadFileName = this.file.name;
         var fdata = new FormData();
         fdata.append("image", this.file);
-        this.resumeService.uploadResume(fdata).subscribe((data: any) => {
-          if (data.result) {
-            this.downloadURL = data.result;
-            if(this.downloadURL !== ""){
-              this.saveFileUrl();
+        this.progress = this.resumeService.uploadResumeWithProgress(fdata);
+        this.progressPercent = 0;
+        this.progress.subscribe(progress => {
+          console.log(`Upload ${progress.percent}% completed`);
+          this.inProgress = true;
+          this.progressPercent = progress.percent;
+          if(progress.completeStatus){
+            this.downloadURL = progress.body.result;
+              if(this.downloadURL !== ""){
+                this.saveFileUrl();
+              }
+              Materialize.toast("Resume Uploaded Successfully !", 1000);
             }
-            this.fileUploaded = 2;
-            Materialize.toast("Resume Uploaded Successfully !", 1000);
-          } else {
+          }, error => {
+            this.inProgress = false;
+            this.progressPercent = 0;
             Materialize.toast("Something Went Wrong !", 1000);
-          }
-        },(error)=>{
-          if (error) {
-            Materialize.toast("Something Went Wrong !", 1000);
-          }
+          },() => {
+            console.log("completed : ");
         });
       }else{
         Materialize.toast("Only allow .PDF and .DOCX extension files", 1500, 'red');
@@ -396,7 +484,8 @@ export class EditHighlightsComponent implements OnInit {
   }
 
   selectionChange(event, stepper){
-    if(event.selectedIndex == 1){
+    if(event.selectedIndex == stepper.steps.length-1){
+      this.createStatement();
     }
   }
 }
