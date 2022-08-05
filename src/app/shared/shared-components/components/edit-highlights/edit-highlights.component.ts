@@ -372,6 +372,7 @@ export class EditHighlightsComponent implements OnInit {
       education : this.educationBind,
       skills : this.finalSkillSets.join(","),
       industries : this.finalIndustriesAre,
+      comments0 : this.generateStatement,
       comments : this.comments,
       comment2 : this.comment2,
       comment3 : this.comment3
