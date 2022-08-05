@@ -39,19 +39,25 @@
       </div>
     </div>
 
-    <div class="PointsDiv commonSingleInner">
+    <div *ngIf="resume?.comments0" class="PointsDiv commonSingleInner">
+      <div class="PointsDivSingle PointsDivSingleN">
+        <h4> <i class="fas fa-check-square"></i> {{ resume?.comments0 }}</h4>
+      </div>
+    </div>
+
+    <div *ngIf="resume?.comments" class="PointsDiv commonSingleInner">
       <div class="PointsDivSingle PointsDivSingleN">
         <h4> <i class="fas fa-check-square"></i> {{ resume?.comments }}</h4>
       </div>
     </div>
 
-    <div class="PointsDiv commonSingleInner" *ngIf = "resume?.comment2">
+    <div *ngIf="resume?.comment2" class="PointsDiv commonSingleInner">
       <div class="PointsDivSingle PointsDivSingleN">
         <h4> <i class="fas fa-check-square"></i> {{ resume?.comment2 }}</h4>
       </div>
     </div>
 
-    <div class="PointsDiv commonSingleInner" *ngIf = "resume?.comment3">
+    <div *ngIf="resume?.comment3" class="PointsDiv commonSingleInner">
       <div class="PointsDivSingle PointsDivSingleN">
         <h4> <i class="fas fa-check-square"></i> {{ resume?.comment3 }}</h4>
       </div>

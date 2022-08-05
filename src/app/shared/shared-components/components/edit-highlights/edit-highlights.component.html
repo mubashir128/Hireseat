@@ -202,7 +202,7 @@
                     <p *ngIf = "techMajor !== ''"> - {{techMajor}} tech major.</p>
                 </div>
 
-                <div *ngIf = "comments !== '' || comment2 !== '' || comment3 !== '' || generateStatement !== '' " class="row marSpace textDeco22 colorStyle newStyle2 borderBottomStyle">
+                <div *ngIf = "comments !== '' || comment2 !== '' || comment3 !== '' " class="row marSpace textDeco22 colorStyle newStyle2 borderBottomStyle">
                     <span class="textDeco22 fontStyle"> <i class="fas fa-check-square"></i> Accomplishments and Unique Experiences : </span><br>
                     <div class="row marSpace textDeco22 colorStyle newStyle2 fontStyle">
                         The below is what we have that you should highlight to recruiters and hiring managers.
@@ -211,7 +211,6 @@
                         </p>
                     </div>
                     <p>
-                        <span *ngIf = "generateStatement !== ''">- {{generateStatement}}.</span><br>
                         <span *ngIf = "comments !== ''">- {{comments}}.</span><br>
                         <span *ngIf = "comment2 !== ''">- {{comment2}}.</span><br>
                         <span *ngIf = "comment3 !== ''">- {{comment3}}.</span><br>
