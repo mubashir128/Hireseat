@@ -4,6 +4,7 @@ import * as myGlobals from "../globalPath";
 import { FirebasePushNotificationService } from "src/app/_services/firebase-push-notification.service";
 import { AuthenticationService } from "src/app/_services/authentication.service";
 import { UserService } from "./user.service";
+import { ContactsService } from "./contacts.service";
 
 @Injectable({
   providedIn: "root",
@@ -17,7 +18,8 @@ export class WebsocketService {
 
   constructor(private _firebasePushNotificationService : FirebasePushNotificationService, 
     private _userAuth: AuthenticationService, 
-    private userService: UserService
+    private userService: UserService,
+    private _contactsService : ContactsService
   ) {
     this.socketUrl = myGlobals.socketUrl;
   }
@@ -57,6 +59,7 @@ export class WebsocketService {
     this._firebasePushNotificationService.initiate();
     this.user = this.userService.getUser();
     this._userAuth.handleLoginSessionLog();
+    this._contactsService.getPermission();
   }
 
   sendMessage(obj: any) {
