@@ -4,6 +4,7 @@ import {  Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import * as myGlobals from '../globalPath';
 import { map } from 'rxjs/operators';
 import { UserService } from './user.service';
+import { GoogleAuthLoginService } from './google-auth-login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthenticationService {
   loggedInUser;
 
   constructor(private http: HttpClient,private router: Router,private route:ActivatedRoute, 
-    private userService: UserService
+    private userService: UserService,
+    private _googleAuthLoginService: GoogleAuthLoginService
   ) {
     this.baseurl = myGlobals.baseUrl;
     this.loggedInUser = this.userService.getUser();
@@ -52,15 +54,15 @@ logout() {
     localStorage.removeItem('currentUser');
     localStorage.clear();
     this.router.navigate(['/home']);
-    this.router.events.subscribe((res) => { 
+    this.router.events.subscribe((res) => {
       // console.log(res);
       if (res instanceof NavigationEnd ) {
         this.url = res.url;
         // console.log(this.url);
 
       }
-  })
-   
+    });
+    this._googleAuthLoginService.googleSignout();
   }
 
   logoutWithoutNavigate(){

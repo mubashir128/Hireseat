@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserService } from "../_services/user.service";
 import { AuthenticationService } from "../_services/authentication.service";
+import { AppleAuthLoginService } from "../_services/apple-auth-login.service";
+import { GoogleAuthLoginService } from "../_services/google-auth-login.service";
 
 declare var jQuery: any;
 declare var Materialize: any;
@@ -27,7 +29,9 @@ export class LoginComponent implements OnInit {
     private _AuthService: AuthenticationService,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private _googleAuthLoginService: GoogleAuthLoginService,
+    private _appleAuthLoginService: AppleAuthLoginService,
   ) {
     this.login = new FormGroup({
       email: new FormControl(),
@@ -61,6 +65,7 @@ export class LoginComponent implements OnInit {
         this.formSubmit();
       }
     });
+    this._googleAuthLoginService.initialize();
   }
 
   ngOnInit() {
@@ -74,6 +79,85 @@ export class LoginComponent implements OnInit {
       );
     });
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+  }
+
+  doGoogleAuthLogin(){
+    this._googleAuthLoginService.googleAuthLogin().then(res=>{
+      console.log("++++++++++++++++ res doGoogleAuthLogin : ",res);
+      this.googleAuthLogin(res);
+    }).catch(err=>{
+      console.log("++++++++++++++++ err doGoogleAuthLogin : ",err);
+    });
+  }
+
+  googleAuthLogin(googleAuthData) {
+    this.suBtnActive = false;
+    this.status = null;
+    let data = {
+      email: googleAuthData.email,
+      auth : true
+    };
+    if (data) {
+      this._AuthService.login(data).subscribe(
+        (data) => {
+          console.log("data : ",data);
+          
+          if (data == "success") {
+            this.userData = this.userService.getUserData();
+            if (this.userData.userRole == "employer") {
+              this.router.navigate(["employer/share-candidate-profile"]);
+            } else if (this.userData.userRole == "recruiter") {
+              // if (this.returnUrl) {
+              //   this.router.navigate([this.returnUrl]);
+              // } else {
+              this.router.navigate(["recruiter/share-candidate-profile"]);
+              // }
+            } else if (this.userData.userRole == "admin") {
+              this.router.navigate(["user-list"]);
+            } else if (this.userData.userRole == "super-admin") {
+              this.router.navigate(["super-admin/user-list"]);
+            } else if (this.userData.userRole == "enterprise") {
+              this.router.navigate(["enterprise/user-list"]);
+            } else if (this.userData.userRole == "candidate") {
+              this.router.navigate(["candidate/timeline"]);
+            }
+            
+          } else{
+            this._googleAuthLoginService.googleSignout();
+            if (data == "wrongpass") {
+              this.status = "wrongpass";
+              Materialize.toast("Enter valid Password", 1000, "rounded");
+              this.suBtnActive = true;
+            } else if (data == "emailnotfound") {
+              this.status = "emailnotfound";
+              Materialize.toast("Email Id Not Found", 1000, "rounded");
+              this.suBtnActive = true;
+            } else if (data == "fail") {
+              Materialize.toast("Enter valid details", 1000, "rounded");
+              this.suBtnActive = true;
+            }
+          }
+        }, (error) => {
+          this._googleAuthLoginService.googleSignout();
+          console.log("error : ",error);
+          if (error == "wrong") {
+            Materialize.toast("Enter valid details", 1000, "rounded");
+          } else if (error == "fail") {
+            Materialize.toast("Enter valid Password", 1000, "rounded");
+          } else {
+            Materialize.toast(error, 1000, "rounded");
+          }
+          this.status = null;
+          this.suBtnActive = true;
+        }
+      );
+    } else {
+      this.suBtnActive = true;
+    }
+  }
+
+  doAppleAuthLogin(){
+    this._appleAuthLoginService.appleAuthLogin();
   }
 
   formSubmit() {

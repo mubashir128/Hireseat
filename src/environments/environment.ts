@@ -8,6 +8,9 @@ export const environment = {
   socketUrl: "ws://localhost:5000/webSocket",
   chatRedirectUrl : "http://localhost:4200/",
   redirecUrl : "http://localhost:4200/",
+  redirectAppleUrl : "https://bluerecruting.firebaseapp.com/__/auth/handler",
+  serverId : "861355719085-slte0lj3ge7riviat156g898463d6mp1.apps.googleusercontent.com",
+  appleUrl: "com.hireseatAuth.app",
   firebase : {
     apiKey: "AIzaSyCv0FeWpM2qiRy_SaYtLdZmoGQNwSpm_5I",
     authDomain: "bluerecruting.firebaseapp.com",
