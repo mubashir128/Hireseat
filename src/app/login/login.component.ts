@@ -5,6 +5,7 @@ import { UserService } from "../_services/user.service";
 import { AuthenticationService } from "../_services/authentication.service";
 import { AppleAuthLoginService } from "../_services/apple-auth-login.service";
 import { GoogleAuthLoginService } from "../_services/google-auth-login.service";
+import { SignInWithAppleResponse } from "@capacitor-community/apple-sign-in";
 
 declare var jQuery: any;
 declare var Materialize: any;
@@ -84,17 +85,17 @@ export class LoginComponent implements OnInit {
   doGoogleAuthLogin(){
     this._googleAuthLoginService.googleAuthLogin().then(res=>{
       console.log("++++++++++++++++ res doGoogleAuthLogin : ",res);
-      this.googleAuthLogin(res);
+      this.authLogin(res);
     }).catch(err=>{
       console.log("++++++++++++++++ err doGoogleAuthLogin : ",err);
     });
   }
 
-  googleAuthLogin(googleAuthData) {
+  authLogin(authData) {
     this.suBtnActive = false;
     this.status = null;
     let data = {
-      email: googleAuthData.email,
+      email: authData.email,
       auth : true
     };
     if (data) {
@@ -157,7 +158,15 @@ export class LoginComponent implements OnInit {
   }
 
   doAppleAuthLogin(){
-    this._appleAuthLoginService.appleAuthLogin();
+    this._appleAuthLoginService.appleAuthLogin().then((res: SignInWithAppleResponse) => {
+      // Handle user information
+      // Validate token with server and create new session
+      console.log("res : ",res);
+      this.authLogin(res);
+    }).catch(error => {
+      // Handle error
+      console.log("error : ",error);
+    });
   }
 
   formSubmit() {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as myGlobals from '../globalPath';
 import {
   SignInWithApple,
-  SignInWithAppleResponse,
   SignInWithAppleOptions,
 } from '@capacitor-community/apple-sign-in';
 
@@ -25,14 +24,7 @@ export class AppleAuthLoginService {
   }
 
   async appleAuthLogin() {
-    await SignInWithApple.authorize(options).then((result: SignInWithAppleResponse) => {
-      // Handle user information
-      // Validate token with server and create new session
-      console.log("result : ",result);
-    }).catch(error => {
-      // Handle error
-      console.log("error : ",error);
-    });
+    return SignInWithApple.authorize(options);
   }
 
   appleSignout(){
