@@ -5,6 +5,9 @@ import { MatStepper } from '@angular/material/stepper';
 import { UserService, eUserType } from '../_services/user.service';
 import { CandidateService } from '../_services/candidate.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { GoogleAuthLoginService } from '../_services/google-auth-login.service';
+import { AppleAuthLoginService } from '../_services/apple-auth-login.service';
+import { SignInWithAppleResponse } from '@capacitor-community/apple-sign-in';
 
 declare var Materialize: any;
 
@@ -65,7 +68,9 @@ export class MobileRegisterComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _userService: UserService,
     private _candidateService: CandidateService,
-    private _spinner: NgxSpinnerService
+    private _spinner: NgxSpinnerService,
+    private _googleAuthLoginService: GoogleAuthLoginService,
+    private _appleAuthLoginService: AppleAuthLoginService
   ) {
     this.loggedInUser = this._userService.getUserData();
     if (this.loggedInUser != "no") {
@@ -104,6 +109,7 @@ export class MobileRegisterComponent implements OnInit {
     this.fourFormGroup = this._formBuilder.group({
       verifyCode: ['', Validators.required]
     });
+    this._googleAuthLoginService.initialize();
   }
 
   selectionChange(event, stepper){
@@ -251,4 +257,35 @@ export class MobileRegisterComponent implements OnInit {
   goToLogin(val){
     this._router.navigate(["/login"],{queryParams : {email : this.email, pass : this.password, direct : val}});
   }
+
+  async doGoogleAuthSignup(stepper) {
+    this._googleAuthLoginService.googleAuthLogin().then(res=>{
+      console.log("++++++++++++++++ res doGoogleAuthLogin : ",res);
+      this.doAuthenticate(stepper, res);
+    }).catch(err=>{
+      console.log("++++++++++++++++ err doGoogleAuthLogin : ",err);
+    });
+  }
+
+  doAuthenticate(stepper, emailData){
+    this.email = emailData.email;
+    this.password = emailData.email + '@Hireseat';
+    this.canValue = eUserType.candidate;
+    this.firstName = emailData.givenName;
+    this.lastName = emailData.familyName;
+    this.signUp(stepper);
+  }
+
+  doAppleAuthSignup(stepper){
+    this._appleAuthLoginService.appleAuthLogin().then((res: SignInWithAppleResponse) => {
+      // Handle user information
+      // Validate token with server and create new session
+      console.log("res : ",res);
+      this.doAuthenticate(stepper, res);
+    }).catch(error => {
+      // Handle error
+      console.log("error : ",error);
+    });
+  }
+
 }
