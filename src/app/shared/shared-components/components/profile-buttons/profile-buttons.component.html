@@ -1,14 +1,14 @@
 <div class="pro-2">
     <div class="cadidateResumeDiv set-one">
-      <button class="downloadResume">
-        <a
+      <button class="downloadResume" (click)="transform(resume?.fileURL)">
+        <!-- <a
           [attr.href]="transform(resume?.fileURL)"
           target="_blank"
           download
         >
+      </a> -->
           <i class="fa fa-download"></i>
           Download Resume
-        </a>
       </button>
       <div class="smallBtns">
         <button class="LinkedInBtn">
