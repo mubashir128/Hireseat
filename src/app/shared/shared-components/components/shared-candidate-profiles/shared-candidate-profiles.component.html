@@ -173,6 +173,18 @@
               </a>
             </button>
           </div>
+
+          <div class="" style="margin-top: 10px;" *ngIf="loggedUser.userRole == 'candidate'">
+            <button class="shareBtn2" (click)="previewProfile(resume)">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-share shared-icon shared-icon2" aria-hidden="true"></i>
+                  <span class="shareText shareText2"> Preview </span>
+                </div>
+              </a>
+            </button>
+          </div>
+
         </div>
         
       </div>
