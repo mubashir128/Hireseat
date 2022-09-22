@@ -55,7 +55,9 @@ export class FirebasePushNotificationService {
       "registration",
       (token: Token) => {
         // Materialize.toast("token :  " + token, 2000, "blue");
+        console.log("token : ",token)
         this.token = token.value;
+        console.log("this.token : ",this.token)
         let payload = {
           deviceType: "ios",
           pushToken: this.token,
