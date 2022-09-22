@@ -337,7 +337,8 @@ export abstract class AbstractSharedComponent{
   }
 
   transform(url) {
-    return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+    // return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+    window.open(url, '_blank');
   }
 
   sortByIndustries() {
