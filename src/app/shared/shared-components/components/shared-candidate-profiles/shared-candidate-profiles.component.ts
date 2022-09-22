@@ -494,6 +494,32 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"]);
   }
 
+  previewProfile(resume){
+    const payload = {
+      recipientEmail: "spapali@hireseat.com",
+      cc: resume.candidate_id.email,
+      bcc: "",
+      fullName: resume.candidate_id.fullName,
+      subject: "subject",
+      comment: resume.comments,
+      comment2: resume.comment2,
+      comment3: resume.comment3,
+      senderName : "contact@hireseat",
+      fileURL : resume.fileURL,
+      recipientName : "Sujith",
+      linkedIn : resume.linkedIn
+    };
+
+    this.candidateService.sharePreviewEmail(payload).subscribe((res) => {
+      if(res){
+        Materialize.toast(res.msg, 1000);
+        console.log("res : ",res);
+      }
+    }, (err) => {
+      Materialize.toast("Something Went Wrong !", 1000);
+    });
+  }
+
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.sharedProfileType });
     this.sharedProfileObserver.unsubscribe();
