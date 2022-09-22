@@ -35,8 +35,14 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) access your camera to upload profile picture..</string>
+	<key>NSContactsUsageDescription</key>
+	<string>The HireSeat app uses the users contact list to confirm if users know each other. This data is used to help establish and suggest real relationships. The data will never be public or given to third parties. </string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME)access your photos to upload profile picture..</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
