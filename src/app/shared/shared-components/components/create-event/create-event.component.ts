@@ -80,7 +80,7 @@ export class CreateEventComponent implements OnInit {
           if(user.userId._id == this.loggedUser._id){
             event.attendingUsers.splice(index, 1);
           }
-        });
+        }); 
       }
     });
   }
