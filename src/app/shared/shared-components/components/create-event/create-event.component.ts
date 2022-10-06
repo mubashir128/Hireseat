@@ -62,7 +62,7 @@ export class CreateEventComponent implements OnInit {
       this.removeUserFromAttendingUsers(event);
     }, err=>{
       console.log("err : ",err);
-    });
+    }); 
   }
 
   addUserToAttendingUsers(mainEvent, data){
