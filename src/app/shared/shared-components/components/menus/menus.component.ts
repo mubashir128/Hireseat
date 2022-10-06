@@ -197,6 +197,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion, false, "fas fa-plus"));
     
     // this.tabs2.push(new Tab2("api/export-user", "Export User", false, "fas fa-file-export"));
+
+    this.tabs2.push(new Tab2("/super-admin/create-event", "Create event", false, "fas fa-network-wired"));
   }
 
   adminMenuTab(){

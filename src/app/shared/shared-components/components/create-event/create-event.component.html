@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row" *ngIf = "loggedUser.userRole == 'super-admin'">
+        <div class="row center-align">
+            <button class="waves-effect waves-light commonBlueBtnN" (click) = "createEvent()">
+                <i class="material-icons left">add</i>
+                Create Event
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <app-event-list
+            [(eventsList)]="eventsList"
+            (attendEM)='attendEvent($event)'
+            (cancelAttendEM)='cancelAttendEvent($event)'
+        ></app-event-list>
+    </div>
+</div>

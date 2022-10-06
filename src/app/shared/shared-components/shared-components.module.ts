@@ -118,6 +118,13 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { JoyrideModule } from "ngx-joyride";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CreateEventComponent } from './components/create-event/create-event.component';
+import { DialogCreateEventComponent } from './components/dialog-create-event/dialog-create-event.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { EventListComponent } from './components/event-list/event-list.component';
+import { SuggestAndEventsComponent } from './components/suggest-and-events/suggest-and-events.component';
+import { EventListUsersComponent } from './components/event-list-users/event-list-users.component';
+
 
 @NgModule({
   imports: [
@@ -147,7 +154,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatFormFieldModule,
     JoyrideModule,
     MatStepperModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDatepickerModule
   ],
   declarations: [
     FooterComponent,
@@ -259,7 +267,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ShowFriendRequestListComponent,
     DialogMessageComponent,
     EditHighlightsComponent,
-    SettingsComponent
+    SettingsComponent,
+    CreateEventComponent,
+    DialogCreateEventComponent,
+    EventListComponent,
+    SuggestAndEventsComponent,
+    EventListUsersComponent
   ],
   exports: [
     FooterComponent,

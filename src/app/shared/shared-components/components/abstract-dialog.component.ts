@@ -1,6 +1,14 @@
 import { Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
+export class uploadFile{
+	constructor(public name: string, public file: any, public  type: FileType,public size: number, public data: any){}
+}
+
+export enum FileType {
+	image = 'image',
+}
+
 export abstract class AbstractDialogComponent{
   
   dialogType: string;

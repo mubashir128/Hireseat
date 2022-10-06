@@ -26,6 +26,27 @@ export class PostJob {
   }
 }
 
+export class PeoplesEvent {
+  _id: string;
+  name: string;
+  eventDate: Date;
+  location: string;
+  link: string;
+  eventPicture: string;
+  attendingUsers: any[]
+
+  constructor();
+  constructor(_id?: string, name?: string, eventDate?: Date, location?: string, link?: string, eventPicture?: string, attendingUsers?: any[]){
+    this._id = _id;
+    this.name = name;
+    this.eventDate = eventDate;
+    this.location = location;
+    this.link = link;
+    this.eventPicture = eventPicture;
+    this.attendingUsers = attendingUsers;
+  }
+}
+
 export class List {
   constructor(public dynamicColumns: string[], public dataSource : any[]){
   }

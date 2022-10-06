@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CreateEventComponent } from '../shared/shared-components/components/create-event/create-event.component';
 import { MenusComponent } from '../shared/shared-components/components/menus/menus.component';
 import { NotificationsComponent } from '../shared/shared-components/components/notifications/notifications.component';
 import { PostJobComponent } from '../shared/shared-components/components/post-job/post-job.component';
@@ -33,6 +34,10 @@ const routes: Routes = [
       {
         path: "post-job",
         component: PostJobComponent
+      },
+      {
+        path: "create-event",
+        component: CreateEventComponent
       }
     ],
     // canActivate: [SupperAdminGuard]

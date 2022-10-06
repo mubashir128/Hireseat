@@ -1,0 +1,43 @@
+.eventList {
+    height: calc(78vh);
+    overflow: auto;
+    position: relative;
+}
+
+.eventUI {
+    width: 98% !important;
+    border-bottom: 1px solid #708381;
+}
+
+.pro {
+    width: 100%;
+    float: left;
+    padding: 10px;
+}
+
+.pro-3 {
+    width: 15%;
+    float: left;
+}
+
+.pro-4 {
+    width: 80%;
+    float: left;
+    margin: 8px 0px 0px 5px;
+}
+
+.pro .candProfile {
+    width: 30px;
+    height: 30px;
+    background-color: #e7e7e7;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.pro .candProfile img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}

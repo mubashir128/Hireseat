@@ -1,0 +1,34 @@
+<ng-container *ngIf="eventsList.attendingUsers.length">
+    <div class="backBtn">
+        <i (click)="backToEvents()" class="fa fa-arrow-left colorSt" aria-hidden="true"></i>
+    </div>
+    <div class="eventList">
+        <span style="color: red; font-size: 18px;">
+            Event Name : {{eventsList.name | uppercase}}
+        </span>
+        <div class="eventUI animatePart" *ngFor="let eventUsers of eventsList.attendingUsers; let ind = index">
+            <div class="row" style="margin: auto;">
+                <div class="pro">
+                    <div class="pro-3">
+                        <ng-container *ngIf="!eventUsers.userId.profileimage">
+                            <div class="candProfile">
+                                <img src="assets/img/profile-user.png" alt="profile" />
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="eventUsers.userId.profileimage">
+                            <div class="candProfile">
+                                <img [src]="eventUsers.userId.profileimage" alt="profile" />
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="pro-4">
+                        <span>
+                            {{eventUsers.userId.fullName | uppercase}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
