@@ -40,7 +40,7 @@
                 </div>
             </ng-container>
 
-            <div class="row">
+            <div class="row" *ngIf = "loggedUser.userRole !== 'super-admin'">
                 <div class="row center-align" *ngIf="!checkStatus(event)">
                     <button type="button" (click)="attendEvent(event)" class="waves-effect waves-light commonBlueBtnN">
                         Attend
