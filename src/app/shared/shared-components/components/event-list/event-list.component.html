@@ -2,7 +2,7 @@
     <span style="font-size: 20px;">Events : </span>
     <div class="ListResume">
         <div class="singleList employerResume animatePart" *ngFor="let event of eventsList">
-            <div class="edit-event">
+            <div class="edit-event" *ngIf="loggedUser.userRole == 'super-admin'">
                 <i class="fa fa-edit" (click)="editEvent(event)"></i>
                 <i class="fa fa-trash" (click)="deleteEvent(event._id)"></i>
             </div>
@@ -23,17 +23,17 @@
                 <div class="sideCss">
                     <div class="lblTxt">
                         <p *ngIf="event?.location"><label>Event location :</label> {{ event?.location }}</p>
-                        <p *ngIf="event?.eventDate"><label>Event date :</label> {{ event?.eventDate | date }}</p>
+                        <p *ngIf="event?.eventDate"><label>Event date :</label> {{ event?.eventDate }}</p>
                         <p *ngIf="event?.link"><label>Event link :</label> {{ event?.link }}</p>
                     </div>
                 </div>
             </div>
 
-            <ng-container *ngIf="event.attendingUsers.length">
+            <ng-container *ngIf="event?.attendingUsers.length">
                 <div class="row" style="margin: auto;">
                     <!-- <span class="ellipeseClass" *ngIf="event.attendingUsers.length > profileImageLength" mat-raised-button>...</span> -->
-                    <span class="ellipeseClass" *ngIf="event.attendingUsers.length > profileImageLength">
-                        <i class="fa fa-ellipsis-h" (click)="exapndText(notify)"></i>
+                    <span class="ellipeseClass" *ngIf="event?.attendingUsers.length > profileImageLength">
+                        <i class="fa fa-ellipsis-h"></i>
                     </span>
                     <div *ngFor="let user of event.attendingUsers | slice:0:profileImageLength">
                         <div class="candProfile12">

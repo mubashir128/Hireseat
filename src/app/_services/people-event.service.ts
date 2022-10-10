@@ -25,26 +25,12 @@ export class PeopleEventService extends AbstractService {
   }
 
   save(peopleEvent: PeoplesEvent, imagePath): Observable<any> {
-    let url = this.baseurl + "api/create-people-event";
-
+    let hitApi = peopleEvent._id ? "api/edit-people-event" : "api/create-people-event";
+    let url = this.baseurl + hitApi;
     let formData = new FormData();
     if (imagePath) {
       formData.append("file", imagePath[0], imagePath[0].name);
     }
-
-    this.toFormData(formData, peopleEvent);
-    let req = new HttpRequest("POST", url, formData, { reportProgress: true });
-    return this._abstractService.requestProgress(this._http, req);
-  }
-
-  edit(peopleEvent: PeoplesEvent, imagePath) {
-    let url = this.baseurl + "api/edit-people-event";
-
-    let formData = new FormData();
-    if (imagePath) {
-      formData.append("file", imagePath[0], imagePath[0].name);
-    }
-
     this.toFormData(formData, peopleEvent);
     let req = new HttpRequest("POST", url, formData, { reportProgress: true });
     return this._abstractService.requestProgress(this._http, req);

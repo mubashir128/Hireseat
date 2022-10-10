@@ -72,19 +72,7 @@ export class DialogCreateEventComponent
   }
 
   formSubmit() {
-
-    if (this.peopleEvent._id) {
-      this.progress = this._peopleEventService.edit(
-        this.peopleEvent,
-        this.imagePath
-      );
-    } else {
-      this.progress = this._peopleEventService.save(
-        this.peopleEvent,
-        this.imagePath
-      );
-    }
-
+    this.progress = this._peopleEventService.save(this.peopleEvent, this.imagePath);
     this.progressPercent = 0;
     this.progress.subscribe(
       (progress) => {
