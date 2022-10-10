@@ -2,6 +2,10 @@
     <span style="font-size: 20px;">Events : </span>
     <div class="ListResume">
         <div class="singleList employerResume animatePart" *ngFor="let event of eventsList">
+            <div class="edit-event">
+                <i class="fa fa-edit" (click)="editEvent(event)"></i>
+                <i class="fa fa-trash" (click)="deleteEvent(event._id)"></i>
+            </div>
             <div class="uploadProfileImgDiv">
                 <div class="uploadProfileImg">
                     <ng-container *ngIf="event.eventPicture">
@@ -29,7 +33,7 @@
                 <div class="row" style="margin: auto;">
                     <!-- <span class="ellipeseClass" *ngIf="event.attendingUsers.length > profileImageLength" mat-raised-button>...</span> -->
                     <span class="ellipeseClass" *ngIf="event.attendingUsers.length > profileImageLength">
-                        <i class="fa fa-ellipsis-h" (click) = "exapndText(notify)"></i>
+                        <i class="fa fa-ellipsis-h" (click)="exapndText(notify)"></i>
                     </span>
                     <div *ngFor="let user of event.attendingUsers | slice:0:profileImageLength">
                         <div class="candProfile12">
@@ -40,7 +44,7 @@
                 </div>
             </ng-container>
 
-            <div class="row" *ngIf = "loggedUser.userRole !== 'super-admin'">
+            <div class="row events-button" *ngIf="loggedUser.userRole !== 'super-admin'">
                 <div class="row center-align" *ngIf="!checkStatus(event)">
                     <button type="button" (click)="attendEvent(event)" class="waves-effect waves-light commonBlueBtnN">
                         Attend
@@ -53,7 +57,8 @@
                     </button>
                 </div>
                 <div class="row center-align">
-                    <button type="button" (click)="seeEventUsers(event)" class="waves-effect waves-light commonBlueBtnN">
+                    <button type="button" (click)="seeEventUsers(event)"
+                        class="waves-effect waves-light commonBlueBtnN">
                         Attending Users
                     </button>
                 </div>

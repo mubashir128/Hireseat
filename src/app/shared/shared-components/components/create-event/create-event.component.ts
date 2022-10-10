@@ -18,7 +18,7 @@ export class CreateEventComponent implements OnInit {
   constructor(
     protected _dialog: MatDialog,
     private _peopleEventService: PeopleEventService,
-    protected _userService: UserService
+    protected _userService: UserService,
   ){
     this.loggedUser = this._userService.getUserData();
   }
