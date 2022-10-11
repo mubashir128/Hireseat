@@ -94,6 +94,22 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <!-- <input class="form-control marBT" type="text" name="link" formControlName="link"
+                        [(ngModel)]="peopleEvent.link" autocomplete="off" placeholder="Event Name*" /> -->
+                        <span>Event Details</span>
+                        <textarea matInput formControlName="eventDetails"
+                        [(ngModel)]="peopleEvent.eventDetails" autocomplete="off" placeholder="Ex. event details..."></textarea>
+                    
+                    <div *ngIf="createEventForm.controls['link'].invalid && createEventForm.controls['link'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="createEventForm.controls['link'].hasError('required')" class="error">
+                            Please Enter Event link
+                        </div>
+                    </div>
+                </div>
+            </div>
             <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="determinate" [value]="progressPercent">
             </mat-progress-bar>
             <div class="row center-align">

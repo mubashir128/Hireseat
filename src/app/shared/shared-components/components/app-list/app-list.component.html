@@ -8,6 +8,8 @@
                     {{ list[lists.dynamicColumns[1]] }}
                 </div>
                 <i class="material-icons" (click)="edit(list)">edit</i>
+                
+                <i class="ml-3 material-icons delete-icon" (click)="delete(list._id); $event.stopPropagation()">delete</i>
             </div>
         </div>
         <!-- <app-no-data-available></app-no-data-available> -->
