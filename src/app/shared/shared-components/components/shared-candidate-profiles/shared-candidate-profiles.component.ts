@@ -25,6 +25,7 @@ import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-share
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { JoyrideService } from "ngx-joyride";
+import { ConferenceRoomService } from "src/app/_services/conference-room.service";
 
 declare var jQuery;
 declare var Materialize;
@@ -60,7 +61,8 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     protected _bidEventService: BiddingEventService,
     protected _readResume : ReadResumeService,
     public dialog: MatDialog,
-    private readonly _joyrideService: JoyrideService
+    private readonly _joyrideService: JoyrideService,
+    private _conferenceRoom : ConferenceRoomService
   ) {
     super(dialog, shareVideoService, userService, formBuilder, _bidEventService, _sanitizer, candidateService, _readResume, resumeService, _subList, spinner, videoCallingService);
 
@@ -160,6 +162,13 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       case this._constants.generateLink:
         this.addCreatedLink(res);
         break;
+      case this._constants.getAllSharedProfilesClients:
+        res.data.forEach((profile, index) => {
+          if(profile.candidate_id){
+            this.clients.push(profile.candidate_id);
+          }
+        });
+        break;
       default:
         break;
     }
@@ -204,6 +213,13 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       },
     });
 
+    this._socket.sendMessage({
+      type: this._constants.sharedProfileType,
+      data: {
+        subType: this._constants.getAllSharedProfilesClients,
+      },
+    });
+
     if (this.loggedUser.userRole === "candidate") {
       this.myProfile();
     }
@@ -243,7 +259,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       dialogTitle : "Share",
       cc : cc,
       bcc : bcc,
-      clients : [],
+      clients : this.clients,
       loggedUser : this.loggedUser,
       btns : ["Share on HireSeat", "Career Referral", "Copy Profile Link"]
     }
@@ -255,6 +271,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       case "copyProfileLink" : 
         if(result.process){
           THIS.generateLinkForVideo();
+          THIS.createConferenceRoom(result);
         }
         break;
       case "careerReferral" : 
@@ -268,6 +285,18 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
         }
         break;
     }
+  }
+
+  createConferenceRoom(result){
+    this._conferenceRoom.save(result.systemUserId).subscribe(res=>{
+      if(res.completeStatus){
+        console.log("request completed : ");
+      }
+    }, error =>{
+      console.log("++++ err : ",error);
+    }, ()=>{
+      console.log("+++ request completed : ");
+    });
   }
 
   async generateLinkForVideo() {

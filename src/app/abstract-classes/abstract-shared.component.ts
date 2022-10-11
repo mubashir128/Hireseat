@@ -1069,6 +1069,7 @@ export abstract class AbstractSharedComponent{
         cc : payload.cc,
         bcc : payload.bcc,
         btns : payload.btns,
+        clients : payload.clients,
         loggedUser : payload.loggedUser
       }
     });

@@ -29,6 +29,8 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
   loggedUser: any;
 
   btns: string[];
+
+  systemUser: any;
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: DiaplogOfferIntroEmailComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DiaplogOfferIntroEmailComponent>){
     super(data, dialogRef);
@@ -62,6 +64,7 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
 
   onSelectClient(clientObj) {
     if (clientObj) {
+      this.systemUser = clientObj;
       this.flag = false;
       this.recipientName = clientObj.fullName;
       this.recipientEmail = clientObj.email;
@@ -95,7 +98,8 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
   generateLinkForVideo(){
     this.dialogRef.close({
       type : "copyProfileLink",
-      process : true
+      process : true,
+      systemUserId : this.systemUser._id
     });
   }
 

@@ -124,6 +124,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { SuggestAndEventsComponent } from './components/suggest-and-events/suggest-and-events.component';
 import { EventListUsersComponent } from './components/event-list-users/event-list-users.component';
+import { ConferenceRoomComponent } from './components/conference-room/conference-room.component';
 
 
 @NgModule({
@@ -272,7 +273,8 @@ import { EventListUsersComponent } from './components/event-list-users/event-lis
     DialogCreateEventComponent,
     EventListComponent,
     SuggestAndEventsComponent,
-    EventListUsersComponent
+    EventListUsersComponent,
+    ConferenceRoomComponent
   ],
   exports: [
     FooterComponent,

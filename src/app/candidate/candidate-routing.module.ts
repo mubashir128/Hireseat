@@ -19,6 +19,7 @@ import { EditHighlightsComponent } from "../shared/shared-components/components/
 import { SettingsComponent } from "../shared/shared-components/components/settings/settings.component";
 import { SuggestAndEventsComponent } from "../shared/shared-components/components/suggest-and-events/suggest-and-events.component";
 import { EventListUsersComponent } from "../shared/shared-components/components/event-list-users/event-list-users.component";
+import { ConferenceRoomComponent } from "../shared/shared-components/components/conference-room/conference-room.component";
 
 const routes: Routes = [
   {
@@ -96,7 +97,11 @@ const routes: Routes = [
       {
         path: "see-event-users/:eventId",
         component: EventListUsersComponent,
-      }
+      },
+      {
+        path: "conference-room",
+        component: ConferenceRoomComponent,
+      },
     ],
   },
 ];
