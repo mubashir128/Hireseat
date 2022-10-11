@@ -9,6 +9,7 @@ import { ConferenceRoomService } from 'src/app/_services/conference-room.service
 export class ConferenceRoomComponent implements OnInit {
 
   conferenceRooms: any[] = [];
+  showLoader: boolean = true;
 
   constructor(
     private _conferenceRoom: ConferenceRoomService
@@ -20,6 +21,7 @@ export class ConferenceRoomComponent implements OnInit {
 
   getConferenceRooms() {
     this._conferenceRoom.getConferenceRooms().subscribe(res => {
+      this.showLoader = false;
       this.conferenceRooms = res;
     });
   }

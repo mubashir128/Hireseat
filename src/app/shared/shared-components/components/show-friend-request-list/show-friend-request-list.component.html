@@ -13,7 +13,7 @@
     </label>
     <div>
         <mat-selection-list (selectionChange)="selectionChange($event)" [(ngModel)]="selectedList">
-            <mat-list-option *ngFor="let profile of profileContents" checkboxPosition="before"
+            <mat-list-option class="optionClass" *ngFor="let profile of profileContents" checkboxPosition="before"
                 [value]="profile.candidate_id._id" [selected]="profileSet.get(profile.candidate_id._id)">
                 <div class="row">
                     <div *ngIf="!profile.candidate_id.showCreatedLogo" class="big-badge candProfile22">
@@ -25,8 +25,8 @@
                     </div>
                     <span style="margin-left: 10px; word-wrap: break-word;">
                         {{profile?.candidate_id?.fullName}}
-                        <div *ngIf = "profile?.introduceYouToo" class="row" style="margin-bottom: 10px; max-height: 45px; overflow: auto;">
-                            <span style="margin-left: 10px; font-size: 12px; color: red;">
+                        <div *ngIf = "profile?.introduceYouToo" class="row" style="margin-bottom: 10px; max-height: 35px; overflow: auto;">
+                            <span style="margin-left: 10px; font-size: 10px; color: red;">
                                 [ Introduce : {{profile?.introduceYouToo}} ]
                             </span>
                         </div>
