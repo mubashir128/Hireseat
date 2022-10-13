@@ -111,6 +111,8 @@ import { DialogSelectToAddFriendsComponent } from './components/dialog-select-to
 import {MatListModule} from '@angular/material/list';
 import { ShowFriendRequestListComponent } from './components/show-friend-request-list/show-friend-request-list.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
+
 
 import { DialogMessageComponent } from './components/dialog-message/dialog-message.component';
 import { EditHighlightsComponent } from './components/edit-highlights/edit-highlights.component';
@@ -158,7 +160,8 @@ import { ConferenceRoomComponent } from './components/conference-room/conference
     MatStepperModule,
     MatProgressBarModule,
     MatDatepickerModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCardModule
   ],
   declarations: [
     FooterComponent,
@@ -357,7 +360,8 @@ import { ConferenceRoomComponent } from './components/conference-room/conference
     SkillsAndIndustriesComponent,
     ProfileButtonsComponent,
     InterviewQuestionsComponent,
-    MatTabsModule
+    MatTabsModule,
+    MatCardModule
   ],
 
 })

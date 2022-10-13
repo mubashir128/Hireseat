@@ -2,17 +2,18 @@
     height: calc(78vh);
     overflow: auto;
     position: relative;
+    padding-bottom: 35px;
 }
 
 .eventUI {
-    width: 98% !important;
-    border-bottom: 1px solid #708381;
+    width: 100% !important;
+    /* border-bottom: 1px solid #708381; */
 }
 
 .pro {
-    width: 100%;
-    float: left;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .pro-3 {
@@ -27,12 +28,28 @@
 }
 
 .pro .candProfile {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     background-color: #e7e7e7;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 15px;
+}
+
+.pro .pro-user-name{
+    display: flex;
+    align-items: center;
+}
+
+.pro .pro-user-name p{
+   font-size: 16px;
+   font-weight: 600;
+   margin: 0;
+   padding: 0;
+}
+
+.pro .chat-icon i {
+    font-size: 30px;
 }
 
 .pro .candProfile img {
@@ -40,4 +57,25 @@
     height: 100%;
     -o-object-fit: cover;
     object-fit: cover;
+}
+
+.title-bar{
+    padding: 10px 10px 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #cccccc;
+}
+
+
+.user-card{
+    margin: 10px;
+}
+
+.title-bar .backBtn{
+    width: 10%;
+}
+
+.title-bar .event-name{
+    width: 90%;
+    text-align: center;
 }
