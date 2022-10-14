@@ -144,6 +144,8 @@ export class ConstantsService {
   iosPlayStoreLink
 
   swapChatNotification;
+
+  getAllSharedProfilesClients;
   
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -364,6 +366,8 @@ export class ConstantsService {
     this.androidPlayStoreLink = obj.androidPlayStoreLink;
     this.iosPlayStoreLink = obj.iosPlayStoreLink;
     this.swapChatNotification = obj.swapChatNotification;
+
+    this.getAllSharedProfilesClients = obj.getAllSharedProfilesClients;
   }
 
 }

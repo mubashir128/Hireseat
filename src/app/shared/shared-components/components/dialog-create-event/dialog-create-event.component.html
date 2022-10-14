@@ -1,0 +1,122 @@
+<div class="">
+    <app-close-screen name="close" (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
+    <div>
+        <form novalidate (ngSubmit)="formSubmit()" [formGroup]="createEventForm">
+            <div class="uploadProfilePictureClass">
+                <span>Upload Event Picture : </span>
+                <form [formGroup]="updateProfileimg">
+                    <div class="uploadProfileImgDiv">
+                        <div class="uploadProfileImg">
+                            <ng-container *ngIf="imgURL">
+                                <img [src]="imgURL" alt="add img" />
+                            </ng-container>
+
+                            <ng-container>
+                                <div class="UploadImgDefault">
+                                    <img src="assets/img/profile-user.png" alt="add img" />
+                                </div>
+                            </ng-container>
+
+                            <div class="profileAdd">
+                                <div class="profileAddInner">
+                                    <i class="fa fa-camera" aria-hidden="true"></i>
+                                    <p>ADD EVENT PHOTO</p>
+                                </div>
+                            </div>
+                            <input #file type="file" accept="image/*" formControlName="file"
+                                (change)="preview(file.files)" />
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <input class="form-control marBT" type="text" name="name" formControlName="name"
+                        [(ngModel)]="peopleEvent.name" autocomplete="off" placeholder="Event Name*" />
+                    <span>Event Name*</span>
+                    <div *ngIf="createEventForm.controls['name'].invalid && createEventForm.controls['name'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="createEventForm.controls['name'].hasError('required')" class="error">
+                            Please Enter Event Name
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <input type="date" name="eventDate" class="validate datepicker marBT" formControlName="eventDate"
+                        [(ngModel)]="peopleEvent.eventDate">
+                    <span>Event date*</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <input class="form-control marBT" type="text" name="location" formControlName="location"
+                        [(ngModel)]="peopleEvent.location" autocomplete="off" placeholder="Event location*" />
+                    <span>Event location *</span>
+                    <div *ngIf="createEventForm.controls['location'].invalid && createEventForm.controls['location'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="createEventForm.controls['location'].hasError('required')" class="error">
+                            Please Enter Event location
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <div class="input-field col s12 m12 l12">
+                        <input class="form-control marBT" type="text" name="name" formControlName="name" [(ngModel)] = "peopleEvent.type"
+                            autocomplete="off" placeholder="Event Name*"/>
+                        <span>Event Type*</span>
+                        <div *ngIf="createEventForm.controls['type'].invalid && createEventForm.controls['type'].touched"
+                            class="alert alert-danger">
+                            <div *ngIf="createEventForm.controls['type'].hasError('required')" class="error">
+                                Please Enter Event type
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <input class="form-control marBT" type="text" name="link" formControlName="link"
+                        [(ngModel)]="peopleEvent.link" autocomplete="off" placeholder="Event Name*" />
+                    <span>Event link*</span>
+                    <div *ngIf="createEventForm.controls['link'].invalid && createEventForm.controls['link'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="createEventForm.controls['link'].hasError('required')" class="error">
+                            Please Enter Event link
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <!-- <input class="form-control marBT" type="text" name="link" formControlName="link"
+                        [(ngModel)]="peopleEvent.link" autocomplete="off" placeholder="Event Name*" /> -->
+                        <span>Event Details</span>
+                        <textarea matInput formControlName="eventDetails"
+                        [(ngModel)]="peopleEvent.eventDetails" autocomplete="off" placeholder="Ex. event details..."></textarea>
+                    
+                    <div *ngIf="createEventForm.controls['link'].invalid && createEventForm.controls['link'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="createEventForm.controls['link'].hasError('required')" class="error">
+                            Please Enter Event link
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="determinate" [value]="progressPercent">
+            </mat-progress-bar>
+            <div class="row center-align">
+                <button type="submit" class="waves-effect waves-light commonBlueBtnN">
+                    {{dialogTitle | titlecase}}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

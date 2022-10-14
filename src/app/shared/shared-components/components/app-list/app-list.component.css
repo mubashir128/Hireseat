@@ -56,6 +56,11 @@
     .material-icons {
         font-size: 18px;
     }
+
+    .delete-icon{
+        color: red;
+        margin-left: 5px;
+    }
 }
 
 .job-title {

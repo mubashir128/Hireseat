@@ -1,0 +1,82 @@
+<ng-container *ngIf="showLoader">
+    <div class="loader-container marTop50">
+        <div class="loader"></div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf = "!showLoader && conferenceRooms.length == 0">
+    <div class="marTop">
+        <app-no-data-available ></app-no-data-available>
+    </div>
+</ng-container>
+
+<ng-container>
+    <div class="MainTempMiddle">
+        <div class="mainTemplate">
+            <ng-container *ngFor="let conference of conferenceRooms">
+                <div class="row" style="border-bottom: 1px solid #e5e5e5;">
+                    <div class="container">
+                        <ng-container>
+                            <div class="" *ngIf="conference?.candidate_from_id?.user_id?.profileimage === ''">
+                                <img src="../../../assets/img/user.png" class="uploadedImg" />
+                            </div>
+                            <div class="" *ngIf="conference?.candidate_from_id?.user_id?.profileimage !== ''">
+                                <img [src]="conference?.candidate_from_id?.user_id?.profileimage" class="uploadedImg" />
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="singleList employerResume">
+                        <div class="docSectionBtns">
+                            <div class="row candidate-name">
+                                <span *ngIf="conference?.candidate_from_id?.user_id">
+                                    {{ conference.candidate_from_id.user_id.fullName }}
+                                </span>
+                                <p *ngIf="conference?.candidate_from_id?.jobTitle">
+                                    <label>Job Title :</label> {{ conference?.candidate_from_id?.jobTitle }}
+                                </p>
+                                <p *ngIf="conference?.candidate_from_id?.locationPref">
+                                    <label>Location :</label> {{ conference?.candidate_from_id?.locationPref }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row cadidateResumeDiv">
+                            <button class="downloadResume" (click)="transform(conference?.candidate_from_id?.fileURL)">
+                                <i class="fa fa-download"></i>
+                                Download Resume
+                            </button>
+                            <button class="LinkedInBtn" *ngIf="conference?.candidate_from_id?.linkedIn"
+                                (click)="linkedIn(conference?.candidate_from_id?.linkedIn)">
+                                <a>
+                                    <div class="icon-name">
+                                        <img class="linkedin-icon" src="../../assets/icons/linkedin-sign.png" />
+                                        <span> LinkedIn </span>
+                                    </div>
+                                </a>
+                            </button>
+                        </div>
+                        <ng-container
+                            *ngIf="conference?.candidate_from_id?.comments || conference?.candidate_from_id?.comment2 || conference?.candidate_from_id?.comment3">
+                            <div class="row singleListData">
+                                Candidate's Summary :
+                                <div class="PointsDiv" *ngIf="conference?.candidate_from_id?.comments !== ''">
+                                    <div class="PointsDivSingle PointsDivSingleN">
+                                        <h4>- {{ conference?.candidate_from_id?.comments }}</h4>
+                                    </div>
+                                    <div class="PointsDivSingle PointsDivSingleN"
+                                        *ngIf="conference?.candidate_from_id?.comment2 !== ''">
+                                        <h4>- {{ conference?.candidate_from_id?.comment2 }}</h4>
+                                    </div>
+                                    <div class="PointsDivSingle PointsDivSingleN"
+                                        *ngIf="conference?.candidate_from_id?.comment3 !== ''">
+                                        <h4>- {{ conference?.candidate_from_id?.comment3 }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

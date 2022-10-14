@@ -1,0 +1,77 @@
+<ng-container>
+    <!-- <span style="font-size: 20px;">Events : </span> -->
+    <div class="ListResume">
+        <div class="singleList employerResume animatePart" *ngFor="let event of eventsList">
+            <div class="edit-event" *ngIf="loggedUser.userRole == 'super-admin'">
+                <i class="fa fa-edit" (click)="editEvent(event)"></i>
+                <i class="fa fa-trash" (click)="deleteEvent(event._id)"></i>
+            </div>
+            <div class="uploadProfileImgDiv">
+                <div class="uploadProfileImg">
+                    <ng-container *ngIf="event.eventPicture">
+                        <img [src]="event.eventPicture" alt="add img" />
+                    </ng-container>
+                </div>
+            </div>
+            <div class="pro">
+                <span style="color: red;">
+                    Event Name : {{event.name | uppercase}}
+                </span>
+
+                <br>
+
+                <div class="sideCss">
+                    <div class="lblTxt">
+                        <p *ngIf="event?.location"><label>Event location :</label> {{ event?.location }}</p>
+                        <p *ngIf="event?.eventDate"><label>Event date :</label> {{ event?.eventDate }}</p>
+                        <p *ngIf="event?.link"><label>Event link :</label> {{ event?.link }}</p>
+                    </div>
+                </div>
+
+                <div class="details-tab">
+                    <mat-tab-group>
+                        <mat-tab label="Details"> 
+                            {{event?.eventDetails}}
+                         </mat-tab>
+                        <mat-tab label="Comments"> Comments </mat-tab>
+                        <!-- <mat-tab label="Third"> Content 3 </mat-tab> -->
+                    </mat-tab-group>
+                </div>
+            </div>
+
+            <ng-container *ngIf="event?.attendingUsers.length">
+                <div class="row" style="margin: auto;">
+                    <span class="ellipeseClass" *ngIf="event?.attendingUsers.length > profileImageLength">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <div *ngFor="let user of event.attendingUsers | slice:0:profileImageLength">
+                        <div class="candProfile12">
+                            <img [src]="user?.profileimage ? user.profileimage : 'assets/img/profile-user.png'"
+                                alt="profile" />
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="row events-button" *ngIf="loggedUser.userRole !== 'super-admin'">
+                <div class="row center-align" *ngIf="!checkStatus(event)">
+                    <button type="button" (click)="attendEvent(event)" class="waves-effect waves-light commonBlueBtnN">
+                        Attend
+                    </button>
+                </div>
+                <div class="row center-align" *ngIf="checkStatus(event)">
+                    <button type="button" (click)="cancelAttendEvent(event)"
+                        class="waves-effect waves-light commonBlueBtnN">
+                        Cancel Attend
+                    </button>
+                </div>
+                <div class="row center-align">
+                    <button type="button" (click)="seeEventUsers(event)"
+                        class="waves-effect waves-light commonBlueBtnN">
+                        Attending Users
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

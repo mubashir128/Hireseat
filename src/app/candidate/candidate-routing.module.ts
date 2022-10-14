@@ -15,9 +15,11 @@ import { UserChatComponent } from "../shared/shared-components/components/user-c
 import { FriendsConnectionsComponent } from "../shared/shared-components/components/friends-connections/friends-connections.component";
 import { TimelineComponent } from "../shared/shared-components/components/timeline/timeline.component";
 import { UserChatRecordComponent } from "../shared/shared-components/components/user-chat-record/user-chat-record.component";
-import { SuggestIntroduceComponent } from "../shared/shared-components/components/suggest-introduce/suggest-introduce.component";
 import { EditHighlightsComponent } from "../shared/shared-components/components/edit-highlights/edit-highlights.component";
 import { SettingsComponent } from "../shared/shared-components/components/settings/settings.component";
+import { SuggestAndEventsComponent } from "../shared/shared-components/components/suggest-and-events/suggest-and-events.component";
+import { EventListUsersComponent } from "../shared/shared-components/components/event-list-users/event-list-users.component";
+import { ConferenceRoomComponent } from "../shared/shared-components/components/conference-room/conference-room.component";
 
 const routes: Routes = [
   {
@@ -39,10 +41,6 @@ const routes: Routes = [
       {
         path: "friends-connections",
         component: FriendsConnectionsComponent,
-      },
-      {
-        path: "suggest-introduce",
-        component: SuggestIntroduceComponent,
       },
       {
         path: "my-reviewed-profiles",
@@ -91,7 +89,19 @@ const routes: Routes = [
       {
         path: "settings",
         component: SettingsComponent,
-      }
+      },
+      {
+        path: "suggest-and-events",
+        component: SuggestAndEventsComponent,
+      },
+      {
+        path: "see-event-users/:eventId",
+        component: EventListUsersComponent,
+      },
+      {
+        path: "conference-room",
+        component: ConferenceRoomComponent,
+      },
     ],
   },
 ];

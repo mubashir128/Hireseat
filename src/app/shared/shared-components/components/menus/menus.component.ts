@@ -171,7 +171,9 @@ export class MenusComponent implements OnInit {
 
     this.tabs2.push(new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-search"));
     this.tabs2.push(new Tab2("/candidate/settings", "Settings", false, "fas fa-cogs"));
-    
+
+    this.tabs2.push(new Tab2("/candidate/conference-room", "Conference room", false, "fas fa-cogs"));
+
     if(!this.supperAdmin.checkSuperAdminEmail()){
       this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
     }
@@ -197,6 +199,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion + " - click to upgrade", false, "fas fa-plus"));
 
     // this.tabs2.push(new Tab2("api/export-user", "Export User", false, "fas fa-file-export"));
+
+    this.tabs2.push(new Tab2("/super-admin/create-event", "Create event", false, "fas fa-network-wired"));
   }
 
   adminMenuTab(){

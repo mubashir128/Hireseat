@@ -92,6 +92,11 @@ export class UserService {
     );
   }
 
+  deletePostJob(postJobId){
+    let url = this.baseurl + "api/delete-post-job/" + postJobId;
+    return this.http.delete<any>(url);
+  }
+
   getPostJob(jobPost?: any, suggest?, searchFilters?, companyId?) {
     let params = new HttpParams();
     if(jobPost) {

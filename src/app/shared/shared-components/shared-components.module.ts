@@ -110,6 +110,9 @@ import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-f
 import { DialogSelectToAddFriendsComponent } from './components/dialog-select-to-add-friends/dialog-select-to-add-friends.component';
 import {MatListModule} from '@angular/material/list';
 import { ShowFriendRequestListComponent } from './components/show-friend-request-list/show-friend-request-list.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
+
 
 import { DialogMessageComponent } from './components/dialog-message/dialog-message.component';
 import { EditHighlightsComponent } from './components/edit-highlights/edit-highlights.component';
@@ -118,6 +121,14 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { JoyrideModule } from "ngx-joyride";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CreateEventComponent } from './components/create-event/create-event.component';
+import { DialogCreateEventComponent } from './components/dialog-create-event/dialog-create-event.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { EventListComponent } from './components/event-list/event-list.component';
+import { SuggestAndEventsComponent } from './components/suggest-and-events/suggest-and-events.component';
+import { EventListUsersComponent } from './components/event-list-users/event-list-users.component';
+import { ConferenceRoomComponent } from './components/conference-room/conference-room.component';
+
 
 @NgModule({
   imports: [
@@ -147,7 +158,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatFormFieldModule,
     JoyrideModule,
     MatStepperModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDatepickerModule,
+    MatTabsModule,
+    MatCardModule
   ],
   declarations: [
     FooterComponent,
@@ -259,7 +273,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ShowFriendRequestListComponent,
     DialogMessageComponent,
     EditHighlightsComponent,
-    SettingsComponent
+    SettingsComponent,
+    CreateEventComponent,
+    DialogCreateEventComponent,
+    EventListComponent,
+    SuggestAndEventsComponent,
+    EventListUsersComponent,
+    ConferenceRoomComponent
   ],
   exports: [
     FooterComponent,
@@ -340,6 +360,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     SkillsAndIndustriesComponent,
     ProfileButtonsComponent,
     InterviewQuestionsComponent,
+    MatTabsModule,
+    MatCardModule
   ],
 
 })
