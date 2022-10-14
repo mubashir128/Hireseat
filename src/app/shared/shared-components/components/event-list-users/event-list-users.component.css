@@ -72,3 +72,15 @@
 .other-details{
     margin: 5px;
 }
+
+.lableClass {
+    font-size: 16px;
+    color: green;
+    font-size: 16px;
+}
+
+.lableClass2 {
+    font-size: 14px;
+    color: #cc530c;
+    font-weight: bold;
+}

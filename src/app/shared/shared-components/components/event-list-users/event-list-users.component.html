@@ -26,20 +26,22 @@
                         <div class="pro-user-name" style="width: 75%;">
                             <p>{{eventUsers?.fullName | uppercase}}</p>
                         </div>
-                        <div class="chat-icon" style="width: 10%;" (click)="gotoChat(eventUsers._id)">
+                        <div class="chat-icon" style="width: 10%;" *ngIf="eventUsers._id != loggedUser._id" (click)="gotoChat(eventUsers._id)">
                             <i class="fa fa-comments-o" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="row other-details">
                         <p *ngIf = "getIntroYouToAndDesiredCompanies(eventUsers._id, 'introduceYouToo')">
-                          <label>I can Intro you to Companies/Teams at :</label>
-                          <label style="font-size: 14px; color: #cc530c;">
+                          <label class="lableClass">I can Intro you to Companies/Teams at :</label>
+                          <label class="lableClass2">
                             {{ getIntroYouToAndDesiredCompanies(eventUsers._id, 'introduceYouToo')}}
                           </label>
                         </p>
                         <p *ngIf = "getIntroYouToAndDesiredCompanies(eventUsers._id, 'desiredCompanies')">
-                            <label>Want Intro to :</label>
-                            {{ getIntroYouToAndDesiredCompanies(eventUsers._id, 'desiredCompanies') }}
+                            <label class="lableClass">I am interested in intros to :</label>
+                            <label class="lableClass2">
+                                {{ getIntroYouToAndDesiredCompanies(eventUsers._id, 'desiredCompanies') }}
+                            </label>
                         </p>
                     </div>
                 </mat-card>
