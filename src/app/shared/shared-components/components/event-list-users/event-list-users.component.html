@@ -1,63 +1,61 @@
-<ng-container *ngIf="eventsList.attendingUsers.length">
+<ng-container>
     <div class="title-bar">
         <div class="backBtn">
             <i (click)="backToEvents()" class="fa fa-arrow-left colorSt" aria-hidden="true"></i>
         </div>
         <div class="event-name">
             <span style="color: red; font-size: 16px;font-weight: 600;">
-                Event Name : {{eventsList.name | uppercase}}
+                Event Name : {{eventsList?.name | uppercase}}
             </span>
         </div>
     </div>
-    <div class="eventList">
-        <!-- <span style="color: red; font-size: 18px;">
-            Event Name : {{eventsList.name | uppercase}}
-        </span> -->
-        <div class="eventUI animatePart" *ngFor="let eventUsers of eventsList.attendingUsers; let ind = index">
+    <div *ngIf="eventsList?.attendingUsers?.length" class="eventList">
+        <div class="eventUI animatePart" *ngFor="let eventUsers of eventsList?.attendingUsers; let ind = index">
             
             <div class="user-card"> 
                 <mat-card>
                     <div class="user-data pro">
-                        <div  class="candProfile" style="width: 15%;">
-                            <ng-container *ngIf="!eventUsers.userId.profileimage">
+                        <div class="candProfile" style="width: 15%;">
+                            <ng-container *ngIf="!eventUsers?.profileimage">
                                 <img src="assets/img/profile-user.png" alt="profile" />
                             </ng-container>
-                            <ng-container *ngIf="eventUsers.userId.profileimage">
-                                <img [src]="eventUsers.userId.profileimage" alt="profile" />
+                            <ng-container *ngIf="eventUsers?.profileimage">
+                                <img [src]="eventUsers.profileimage" alt="profile" />
                             </ng-container>
                         </div>
                         <div class="pro-user-name" style="width: 75%;">
-                            <p>{{eventUsers.userId.fullName | uppercase}}</p>
+                            <p>{{eventUsers?.fullName | uppercase}}</p>
                         </div>
-                        <div class="chat-icon" style="width: 10%;" (click)="gotoChat(eventUsers.userId._id)">
+                        <div class="chat-icon" style="width: 10%;" (click)="gotoChat(eventUsers._id)">
                             <i class="fa fa-comments-o" aria-hidden="true"></i>
-
                         </div>
+                    </div>
+                    <div class="row other-details">
+                        <p *ngIf = "getIntroYouToAndDesiredCompanies(eventUsers._id, 'introduceYouToo')">
+                          <label>I can Intro you to Companies/Teams at :</label>
+                          <label style="font-size: 14px; color: #cc530c;">
+                            {{ getIntroYouToAndDesiredCompanies(eventUsers._id, 'introduceYouToo')}}
+                          </label>
+                        </p>
+                        <p *ngIf = "getIntroYouToAndDesiredCompanies(eventUsers._id, 'desiredCompanies')">
+                            <label>Want Intro to :</label>
+                            {{ getIntroYouToAndDesiredCompanies(eventUsers._id, 'desiredCompanies') }}
+                        </p>
                     </div>
                 </mat-card>
             </div>
-            <!-- <div class="row" style="margin: auto;">
-                <div class="pro">
-                    <div class="pro-3">
-                        <ng-container *ngIf="!eventUsers.userId.profileimage">
-                            <div class="candProfile">
-                                <img src="assets/img/profile-user.png" alt="profile" />
-                            </div>
-                        </ng-container>
-
-                        <ng-container *ngIf="eventUsers.userId.profileimage">
-                            <div class="candProfile">
-                                <img [src]="eventUsers.userId.profileimage" alt="profile" />
-                            </div>
-                        </ng-container>
-                    </div>
-                    <div class="pro-4">
-                        <span>
-                            {{eventUsers.userId.fullName | uppercase}}
-                        </span>
-                    </div>
-                </div>
-            </div> -->
         </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="showLoader">
+    <div class="loader-container marTop50">
+        <div class="loader"></div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf = "!showLoader && eventsList?.attendingUsers?.length == 0">
+    <div class="marTop">
+        <app-no-data-available ></app-no-data-available>
     </div>
 </ng-container>

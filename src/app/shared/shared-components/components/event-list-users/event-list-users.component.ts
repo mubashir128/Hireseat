@@ -14,6 +14,7 @@ export class EventListUsersComponent implements OnInit {
   eventsList: PeoplesEvent;
 
   loggedUser: any;
+  showLoader: boolean = true;
   
   constructor(
     private _route: ActivatedRoute,
@@ -34,6 +35,9 @@ export class EventListUsersComponent implements OnInit {
   getPeopleEvents() {
     this._peopleEventService.getEvents(this.eventId).subscribe(data => {
       this.eventsList = data[0];
+      this.showLoader = false;
+    },err=>{
+      this.showLoader = false;
     });
   }
 
@@ -45,4 +49,14 @@ export class EventListUsersComponent implements OnInit {
     this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", userId]);
   }
 
+  getIntroYouToAndDesiredCompanies(userId,field){
+    let text = '';
+    for(let candidate of this.eventsList.attendingCandidateList){
+      if(candidate.candidate_id == userId){
+        text = candidate[field];
+        break;
+      }
+    }
+    return text;
+  }
 }

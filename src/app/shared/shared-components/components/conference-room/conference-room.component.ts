@@ -21,8 +21,10 @@ export class ConferenceRoomComponent implements OnInit {
 
   getConferenceRooms() {
     this._conferenceRoom.getConferenceRooms().subscribe(res => {
-      this.showLoader = false;
       this.conferenceRooms = res;
+      this.showLoader = false;
+    }, res=>{
+      this.showLoader = false;
     });
   }
 

@@ -1,5 +1,5 @@
 <ng-container>
-    <span style="font-size: 20px;">Events : </span>
+    <!-- <span style="font-size: 20px;">Events : </span> -->
     <div class="ListResume">
         <div class="singleList employerResume animatePart" *ngFor="let event of eventsList">
             <div class="edit-event" *ngIf="loggedUser.userRole == 'super-admin'">
@@ -39,17 +39,14 @@
                 </div>
             </div>
 
-            
-
             <ng-container *ngIf="event?.attendingUsers.length">
                 <div class="row" style="margin: auto;">
-                    <!-- <span class="ellipeseClass" *ngIf="event.attendingUsers.length > profileImageLength" mat-raised-button>...</span> -->
                     <span class="ellipeseClass" *ngIf="event?.attendingUsers.length > profileImageLength">
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
                     <div *ngFor="let user of event.attendingUsers | slice:0:profileImageLength">
                         <div class="candProfile12">
-                            <img [src]="user.userId?.profileimage ? user.userId.profileimage : 'assets/img/profile-user.png'"
+                            <img [src]="user?.profileimage ? user.profileimage : 'assets/img/profile-user.png'"
                                 alt="profile" />
                         </div>
                     </div>

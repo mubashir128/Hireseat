@@ -44,6 +44,7 @@ export class PeoplesEvent {
   eventDetails:string;
   eventPicture: string;
   attendingUsers: any[];
+  attendingCandidateList: any[];
 
   constructor();
   constructor(
@@ -53,7 +54,8 @@ export class PeoplesEvent {
     location?: string,
     link?: string,
     eventPicture?: string,
-    attendingUsers?: any[]
+    attendingUsers?: any[],
+    attendingCandidateList?: any[]
   ) {
     this._id = _id;
     this.name = name;
@@ -62,6 +64,7 @@ export class PeoplesEvent {
     this.link = link;
     this.eventPicture = eventPicture;
     this.attendingUsers = attendingUsers;
+    this.attendingCandidateList = attendingCandidateList;
   }
 }
 

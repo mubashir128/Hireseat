@@ -1623,3 +1623,7 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.marTop50 {
+  margin-top: 50% !important;
+}

@@ -35,7 +35,7 @@ export class EventListComponent implements OnInit {
     let status: boolean = false;
     if (this.loggedUser.userRole == "candidate") {
       event.attendingUsers.forEach((user) => {
-        if (user.userId._id == this.loggedUser._id) {
+        if (user._id == this.loggedUser._id) {
           status = true;
         }
       });
@@ -73,8 +73,6 @@ export class EventListComponent implements OnInit {
   }
 
   deleteEvent(eventId) {
-    console.log(eventId);
-
     const dialogDeleteRef = this._dialog.open(DialogDeleteComponent, {
       data: {
         dialogType: "delete-event",

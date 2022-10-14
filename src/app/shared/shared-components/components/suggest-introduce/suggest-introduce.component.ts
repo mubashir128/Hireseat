@@ -13,13 +13,11 @@ export class SuggestIntroduceComponent implements OnInit {
   suggestIntro: any[];
   searchFilters = new Map();
 
-  showLoadStatus : boolean = true;
-  loadStatus = "Loading...";
-
   createdUrl: string = "";
   public baseurl: any;
 
   loggedUser: any;
+  showLoader: boolean = true;
 
   constructor(protected _userService: UserService, private _router: Router){
     this.baseurl = myGlobals.redirecUrl;
@@ -33,13 +31,9 @@ export class SuggestIntroduceComponent implements OnInit {
   getSuggestIntroduce(){
     this._userService.getPostJob(null, true, this.searchFilters).subscribe((data)=>{
       this.suggestIntro = data.result;
-      if(this.suggestIntro.length !== 0){
-        this.showLoadStatus = false;
-        this.loadStatus = "";
-      }
+      this.showLoader = false;
     }, (err) => {
       console.log(err);
-      this.loadStatus = "No Data available.";
     });
   }
 

@@ -14,6 +14,7 @@ export class CreateEventComponent implements OnInit {
 
   eventsList: PeoplesEvent[];
   loggedUser: any;
+  showLoader: boolean = true;
 
   constructor(
     protected _dialog: MatDialog,
@@ -46,6 +47,7 @@ export class CreateEventComponent implements OnInit {
   getPeopleEvents() {
     this._peopleEventService.getEvents().subscribe(data => {
       this.eventsList = data;
+      this.showLoader = false;
     });
   }
 
@@ -68,7 +70,10 @@ export class CreateEventComponent implements OnInit {
   addUserToAttendingUsers(mainEvent, data){
     this.eventsList.forEach((event: any, index)=>{
       if(event._id == mainEvent.eventId){
-        event.attendingUsers = [...data.attendingUsers];
+        event.attendingUsers = [];
+        data.attendingUsers.forEach(user=>{
+          event.attendingUsers.push(user.userId);
+        });
       }
     });
   }
@@ -77,7 +82,7 @@ export class CreateEventComponent implements OnInit {
     this.eventsList.forEach((event: any)=>{
       if(event._id == mainEvent.eventId){
         event.attendingUsers.forEach((user: any, index: any)=>{
-          if(user.userId._id == this.loggedUser._id){
+          if(user._id == this.loggedUser._id){
             event.attendingUsers.splice(index, 1);
           }
         }); 
