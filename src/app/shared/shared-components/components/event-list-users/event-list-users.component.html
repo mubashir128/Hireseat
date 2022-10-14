@@ -9,6 +9,9 @@
             </span>
         </div>
     </div>
+    <div class="event_picture" style="width: 100%">
+        <img [src]="eventsList.eventPicture" style="width: 100%;"/>
+    </div>
     <div class="eventList">
         <!-- <span style="color: red; font-size: 18px;">
             Event Name : {{eventsList.name | uppercase}}
@@ -29,7 +32,7 @@
                         <div class="pro-user-name" style="width: 75%;">
                             <p>{{eventUsers.userId.fullName | uppercase}}</p>
                         </div>
-                        <div class="chat-icon" style="width: 10%;" (click)="gotoChat(eventUsers.userId._id)">
+                        <div class="chat-icon" style="width: 10%;" *ngIf="eventUsers.userId._id != loggedUser._id" (click)="gotoChat(eventUsers.userId._id)">
                             <i class="fa fa-comments-o" aria-hidden="true"></i>
 
                         </div>
