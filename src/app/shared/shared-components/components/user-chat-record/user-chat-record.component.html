@@ -55,7 +55,18 @@
                         
                         <div class="conversation">
                             <div class="conversation-container" #chatDiv *ngIf = "!groupChat">
-                                <div *ngIf = "chatStatusBol" class="loadStatus clsSt">{{chatStatus}}</div>
+                                <ng-container *ngIf="showChatLoader">
+                                    <div class="loader-container">
+                                        <div class="loader"></div>
+                                    </div>
+                                </ng-container>
+                                
+                                <ng-container *ngIf = "!showChatLoader && userMessages.message.length == 0">
+                                    <div class="marTopText50">
+                                        <app-no-data-available ></app-no-data-available>
+                                    </div>
+                                </ng-container>
+
                                 <ng-container *ngFor="let msg of userMessages.message">
                                     <div *ngIf="msg.senderId === userMessages.user1._id">
                                         <div [ngClass] = "['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
@@ -100,7 +111,18 @@
                             </div>
 
                             <div class="conversation-container" #chatDiv *ngIf = "groupChat">
-                                <div *ngIf = "chatStatusBol" class="loadStatus clsSt">{{chatStatus}}</div>
+                                <ng-container *ngIf="showGroupChatLoader">
+                                    <div class="loader-container">
+                                        <div class="loader"></div>
+                                    </div>
+                                </ng-container>
+                                
+                                <ng-container *ngIf = "!showGroupChatLoader && groupMessages.message.length == 0">
+                                    <div class="marTopText50">
+                                        <app-no-data-available ></app-no-data-available>
+                                    </div>
+                                </ng-container>
+
                                 <ng-container *ngFor="let msg of groupMessages.message">
                                     <div [ngClass] = "['message', (msg.senderId._id === loggedInUser._id) ? 'sent' : 'received']">
                                         <span class="stSize">{{ msg.senderId.fullName }}</span>
