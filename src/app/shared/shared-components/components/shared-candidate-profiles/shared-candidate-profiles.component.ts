@@ -45,6 +45,8 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   comment3 = "";
   candidateNameIs = "";
 
+  showLoader: boolean = true;
+
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -133,6 +135,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
         this.resumes = res.data;
+        this.showLoader = false;
         this._subList.loaderList.next({type : "0"});
         if(this.loggedUser.userRole == 'candidate' && this.resumes.length == 0){
           this.editUserProfile();
