@@ -49,6 +49,10 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   myNetworkCount: number = 0;
 
   companyName: string = "";
+
+  showCompaniesLoader: boolean = true;
+  showRequestedFriendLoader: boolean = true;
+  showFriendsConnectionsLoader: boolean = true;
   
   constructor(
     protected _userService: UserService,
@@ -171,6 +175,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         this.requestedFriendAre = [friend, ...this.requestedFriendAre];
       }
     });
+    this.showRequestedFriendLoader = false;
+    this.showFriendsConnectionsLoader = false;
     this.increseCount();
   }
 
@@ -209,6 +215,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         });
       }
     });
+    this.showCompaniesLoader = false;
   }
 
   gotoUser(userId){

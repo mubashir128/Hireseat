@@ -1,7 +1,14 @@
+<ng-container *ngIf="showLoader">
+  <div class="loader-container marTop50">
+    <div class="loader"></div>
+  </div>
+</ng-container>
 
-<div>
-  <app-list-loader-search></app-list-loader-search>
-</div>
+<ng-container *ngIf = "!showLoader && timelines.length == 0">
+  <div class="marTop">
+    <app-no-data-available ></app-no-data-available>
+  </div>
+</ng-container>
 
 <ng-container *ngIf="timelines">
   <div class="timelineList">
@@ -190,6 +197,5 @@
         </div>
       </div>
     </div>
-    <app-no-data-available *ngIf = "timelines.length == 0"></app-no-data-available>
   </div>
 </ng-container>

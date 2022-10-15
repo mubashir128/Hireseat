@@ -55,15 +55,15 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
 
   groupIsMore = true;
   showType : boolean = false;
-
-  chatStatus = "Loading...";
   
-  chatStatusBol: boolean = true;
   createdUrl = "";
 
   userCandidateProfileData: any;
 
   defaultMessage: string = "";
+
+  showChatLoader:boolean = true;
+  showGroupChatLoader:boolean = true;
   
   constructor(private route: ActivatedRoute, 
     private router: Router, 
@@ -167,24 +167,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     this.showType = true;
   }
 
-  chatStatusVal(){
-    if(this.userMessages && this.userMessages.message && this.userMessages.message.length !== 0){
-      this.chatStatusBol = false;
-      this.chatStatus = "";
-    }else{
-      this.chatStatus = "No chat available.";
-    }
-  }
-
-  chatStatusGrpVal(){
-    if(this.groupMessages && this.groupMessages.message && this.groupMessages.message.length !== 0){
-      this.chatStatusBol = false;
-      this.chatStatus = "";
-    }else{
-      this.chatStatus = "No chat available.";
-    }
-  }
-
   //handle all user chat message.
   handleChatMessage(res: any) {
     switch (res.subType) {
@@ -192,9 +174,9 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         this.showTypeFlag();
         if (res.data) {
           this.userMessages = res.data;
+          this.showChatLoader = false;
           this.userChatId = this.userMessages._id;
           this.insertTwoWayChatSettingList();
-          this.chatStatusVal();
         }
         setTimeout(()=>{
           this.goToBottomFirst();
@@ -204,12 +186,12 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         this.showTypeFlag();
         if (res.data) {
           this.groupMessages = res.data;
+          this.showGroupChatLoader = false;
           this.user = this.groupMessages;
           this.insertGroupSettingList();
           this.insertGrpMembers();
           this.getAllUsers();
           this.setGroupProfilePicture();
-          this.chatStatusGrpVal();
         }
         setTimeout(()=>{
           this.goToBottomFirst();
@@ -225,7 +207,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
               this.userMessages.message = [...this.userMessages.message, res.data.message];
             }
             this.goToBottom();
-            this.chatStatusVal();
           }
         }
         break;
@@ -238,7 +219,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
               this.groupMessages.message = [...this.groupMessages.message, res.data.message[res.data.message.length - 1]];
             }
             this.goToBottom();
-            this.chatStatusGrpVal();
           }
         }
         break;

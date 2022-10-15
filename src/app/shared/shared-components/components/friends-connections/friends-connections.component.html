@@ -12,15 +12,23 @@
   </ul>
 </div>
 
-<div>
-  <app-list-loader></app-list-loader>
-</div>
-
 <ng-container *ngIf="showOnlyCan">
   <app-only-for-candidate-shared-profile (countEM)='countModules($event)' [(companyName)]="companyName"></app-only-for-candidate-shared-profile>
 </ng-container>
 
 <ng-container *ngIf="showRequest">
+  <ng-container *ngIf="showCompaniesLoader">
+    <div class="loader-container marTop50">
+      <div class="loader"></div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf = "!showCompaniesLoader && companiesUsresAre.length == 0">
+    <div class="marTop">
+      <app-no-data-available ></app-no-data-available>
+    </div>
+  </ng-container>
+  
   <div class="ListResume">
     <div class="singleList employerResume animatePart" *ngFor = "let companiesAre of companiesUsresAre">
       <div class="pro">
@@ -52,6 +60,12 @@
 </ng-container>
 
 <ng-container *ngIf = "showFriends">
+
+  <ng-container *ngIf="showRequestedFriendLoader">
+    <div class="loader-container marTop50">
+      <div class="loader"></div>
+    </div>
+  </ng-container>
 
   <!-- for requested friends slide -->
   <ng-container *ngIf="requestedFriendAre.length">
@@ -156,11 +170,17 @@
 
       </div>
     </div>
-    <!-- <app-no-data-available *ngIf = "requestedFriendAre.length == 0"></app-no-data-available> -->
   </ng-container>
 
   <!-- for freinds slide -->
   <ng-container *ngIf="friendsConnections.length">
+
+    <ng-container *ngIf="showFriendsConnectionsLoader">
+      <div class="loader-container marTop50">
+        <div class="loader"></div>
+      </div>
+    </ng-container>
+
     <div class="ListResume">
       <label for="" class="labelStyle">Connected Friends : </label>
       <div class="singleList employerResume animatePart" *ngFor = "let friendsAre of friendsConnections">
@@ -351,7 +371,12 @@
 
       </div>
     </div>
-    <!-- <app-no-data-available *ngIf = "friendsConnections.length == 0"></app-no-data-available> -->
   </ng-container>
-  <app-no-data-available *ngIf = "requestedFriendAre.length == 0 && friendsConnections.length == 0"></app-no-data-available>
+  
+  <ng-container *ngIf = "!showRequestedFriendLoader && !showFriendsConnectionsLoader && requestedFriendAre.length == 0 && friendsConnections.length == 0">
+    <div class="marTop">
+      <app-no-data-available ></app-no-data-available>
+    </div>
+  </ng-container>
+
 </ng-container>

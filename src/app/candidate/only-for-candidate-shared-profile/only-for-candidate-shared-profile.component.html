@@ -1,6 +1,6 @@
 
 <!-- <ng-container *ngIf = "showResult"> -->
-<ng-container>
+<ng-container *ngIf="!showLoader">
   <!-- <div (click) = "goBack()" style="font-size: 15px; color: #33aaff;">
     <i class="fas fa-long-arrow-alt-left"></i>
     <span style="margin-left: 5px;">Back</span>
@@ -8,7 +8,7 @@
   <!-- <div class="row animatePart" style="margin-top: 10px; margin-bottom: 5px; padding: 0 0px !important;">
     <app-filter-data (handleToggleSign)="handleToggleSign($event)" [item]="searchText"></app-filter-data>
   </div> -->
-  <div class="animatePart">
+  <div class="">
     <div class="sortIndustriesMain input-field col s12 m12 l12">
       
       <div>
@@ -55,14 +55,17 @@
   </div>
 </ng-container>
 
-<div>
-  <app-list-loader></app-list-loader>
-</div>
+<ng-container *ngIf="showLoader">
+  <div class="loader-container marTop50">
+      <div class="loader"></div>
+  </div>
+</ng-container>
 
-<div>
-  <app-list-loader-search></app-list-loader-search>
-</div>
-
+<ng-container *ngIf = "!showLoader && resumes.length == 0">
+  <div class="marTop">
+      <app-no-data-available ></app-no-data-available>
+  </div>
+</ng-container>
 
 <ng-container *ngIf="resumes">
   <div class="ListResume">
@@ -328,5 +331,3 @@
     </div>
   </ng-container>
 </div> -->
-
-<app-no-data-available *ngIf = "resumes.length == 0"></app-no-data-available>

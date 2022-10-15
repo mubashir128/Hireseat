@@ -23,6 +23,8 @@ export class TimelineComponent implements OnInit {
 
   loggedUser: any;
 
+  showLoader: boolean = true;
+
   constructor(
     private _constants: ConstantsService,
     private _socket: WebsocketService,
@@ -84,6 +86,7 @@ export class TimelineComponent implements OnInit {
         if(res.data){
           this.timelines = res.data.reverse();
         }
+        this.showLoader = false;
         this._subList.loaderListAfterSearch.next({type : "000"});
         break ;
       default : 

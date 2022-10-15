@@ -68,6 +68,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   
   @Output() countEM = new EventEmitter();
 
+  showLoader: boolean = true;
+
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -177,6 +179,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     switch (res.subType) {
       case this._constants.getAllOnlyForCandidateSharedProfileType:
         this.resumes = res.data;
+        this.showLoader = false;
         this.scrollAndBorder();
         this.addFriendConnectionToProfile(res);
         this.sortProfilesByConpanies();

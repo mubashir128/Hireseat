@@ -1,18 +1,22 @@
-<div>
-  <app-list-loader></app-list-loader>
-</div>
+<ng-container *ngIf="showLoader">
+  <div class="loader-container marTop50">
+    <div class="loader"></div>
+  </div>
+</ng-container>
 
-<div>
-  <app-list-loader-search></app-list-loader-search>
-</div>
+<ng-container *ngIf = "!showLoader && resumes.length == 0">
+  <div class="marTop">
+    <app-no-data-available ></app-no-data-available>
+  </div>
+</ng-container>
 
-<ng-container *ngIf="loggedUser.userRole != 'candidate'">
+<ng-container *ngIf="!showLoader && loggedUser.userRole != 'candidate'">
   <div class="row" style="margin-top: 10px; margin-bottom: 5px; padding: 0 0px !important;">
     <app-filter-data (handleToggleSign)="handleToggleSign($event)"></app-filter-data>
   </div>
   <div class="hideAndSHoTab">
     <div class="sortIndustriesMain input-field col s12 m12 l12">
-      <div *ngIf="loggedUser.userRole != 'candidate'">
+      <!-- <div *ngIf="loggedUser.userRole != 'candidate'">
         <i class="fa fa-industry" aria-hidden="true"></i>
         <span class="resume-subtitle"> Sort by Industries </span>
         <div *ngFor="let item of industriesAre; let i = index">
@@ -37,7 +41,7 @@
         <div class="row col s12 m12 l12">
           <button class="sortIndustries" (click)="sortByIndustries()">Sort</button>
         </div>
-      </div>
+      </div> -->
     
       <div *ngIf="loggedUser.userRole != 'candidate'">
         <form [formGroup]="Search" novalidate style="width: 100%">
@@ -769,5 +773,3 @@
   </div>
   <!--  -->
 </div>
-
-<app-no-data-available *ngIf = "resumes.length == 0"></app-no-data-available>
