@@ -10,7 +10,6 @@ export class ConferenceRoomComponent implements OnInit {
 
   conferenceRooms: any[] = [];
   showLoader: boolean = true;
-
   constructor(
     private _conferenceRoom: ConferenceRoomService
   ) { }
@@ -21,8 +20,8 @@ export class ConferenceRoomComponent implements OnInit {
 
   getConferenceRooms() {
     this._conferenceRoom.getConferenceRooms().subscribe(res => {
-      this.conferenceRooms = res;
       this.showLoader = false;
+      this.conferenceRooms = res;
     }, res=>{
       this.showLoader = false;
     });
@@ -38,5 +37,9 @@ export class ConferenceRoomComponent implements OnInit {
     if (url != null) {
       window.open(url, "_blank");
     }
+  }
+  
+  getImage(obj){
+    obj.showCreatedLogo = true;
   }
 }

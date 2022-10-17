@@ -34,8 +34,8 @@ export class EventListUsersComponent implements OnInit {
 
   getPeopleEvents() {
     this._peopleEventService.getEvents(this.eventId).subscribe(data => {
-      this.eventsList = data[0];
       this.showLoader = false;
+      this.eventsList = data[0];
     },err=>{
       this.showLoader = false;
     });

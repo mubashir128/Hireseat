@@ -173,8 +173,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       case this._constants.getAllChats:
         this.showTypeFlag();
         if (res.data) {
-          this.userMessages = res.data;
           this.showChatLoader = false;
+          this.userMessages = res.data;
           this.userChatId = this.userMessages._id;
           this.insertTwoWayChatSettingList();
         }
@@ -185,8 +185,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       case this._constants.getAllGroupChats:
         this.showTypeFlag();
         if (res.data) {
-          this.groupMessages = res.data;
           this.showGroupChatLoader = false;
+          this.groupMessages = res.data;
           this.user = this.groupMessages;
           this.insertGroupSettingList();
           this.insertGrpMembers();

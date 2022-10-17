@@ -21,7 +21,7 @@ import { SubscriberslistService } from "src/app/_services/subscriberslist.servic
 import { ConstantsService } from "src/app/_services/constants.service"
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
-import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-shared.component";
+import { AbstractSharedComponent, shareConstants } from "src/app/abstract-classes/abstract-shared.component";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { JoyrideService } from "ngx-joyride";
@@ -134,8 +134,8 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
-        this.resumes = res.data;
         this.showLoader = false;
+        this.resumes = res.data;
         this._subList.loaderList.next({type : "0"});
         if(this.loggedUser.userRole == 'candidate' && this.resumes.length == 0){
           this.editUserProfile();
@@ -264,7 +264,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       bcc : bcc,
       clients : this.clients,
       loggedUser : this.loggedUser,
-      btns : ["Share on HireSeat", "Career Referral", "Copy Profile Link"]
+      btns : ["Share on HireSeat", "Career Referral", "Copy Profile Link", shareConstants.shareConferenceRoom]
     }
     this.showShareCandidateModalSuper(payload, this.showShareCandidateModalSuperCallback);
   }
@@ -274,7 +274,6 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       case "copyProfileLink" : 
         if(result.process){
           THIS.generateLinkForVideo();
-          THIS.createConferenceRoom(result);
         }
         break;
       case "careerReferral" : 
@@ -287,6 +286,11 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
           THIS.showShareTouserModal();
         }
         break;
+      case shareConstants.shareConferenceRoom : 
+        if(result.process){
+          THIS.createConferenceRoom(result);
+        }
+        break
     }
   }
 
@@ -296,7 +300,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
         console.log("request completed : ");
       }
     }, error =>{
-      console.log("++++ err : ",error);
+      Materialize.toast("Conference room already shared !", 1000, "red");
     }, ()=>{
       console.log("+++ request completed : ");
     });

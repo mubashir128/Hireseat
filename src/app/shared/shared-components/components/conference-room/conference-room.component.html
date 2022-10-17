@@ -17,11 +17,8 @@
                 <div class="row" style="border-bottom: 1px solid #e5e5e5;">
                     <div class="container">
                         <ng-container>
-                            <div class="" *ngIf="conference?.candidate_from_id?.user_id?.profileimage === ''">
-                                <img src="../../../assets/img/user.png" class="uploadedImg" />
-                            </div>
-                            <div class="" *ngIf="conference?.candidate_from_id?.user_id?.profileimage !== ''">
-                                <img [src]="conference?.candidate_from_id?.user_id?.profileimage" class="uploadedImg" />
+                            <div class="" *ngIf="!conference.showCreatedLogo">
+                                <img [src]="conference?.candidate_from_id?.user_id?.profileimage" (error)="getImage(conference)" class="uploadedImg" />
                             </div>
                         </ng-container>
                     </div>

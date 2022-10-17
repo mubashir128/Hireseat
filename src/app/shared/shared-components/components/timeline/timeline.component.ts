@@ -83,10 +83,10 @@ export class TimelineComponent implements OnInit {
   handleTimelineData(res){
     switch (res.subType) {
       case this._constants.getTimelinesType:
+        this.showLoader = false;
         if(res.data){
           this.timelines = res.data.reverse();
         }
-        this.showLoader = false;
         this._subList.loaderListAfterSearch.next({type : "000"});
         break ;
       default : 

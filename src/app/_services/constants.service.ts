@@ -141,6 +141,9 @@ export class ConstantsService {
   swapChatNotification;
 
   getAllSharedProfilesClients;
+
+  conferenceRoom;
+  newConferenceRoom;
   
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -359,6 +362,9 @@ export class ConstantsService {
     this.swapChatNotification = obj.swapChatNotification;
 
     this.getAllSharedProfilesClients = obj.getAllSharedProfilesClients;
+
+    this.conferenceRoom = obj.conferenceRoom;
+    this.newConferenceRoom = obj.newConferenceRoom;
   }
 
 }

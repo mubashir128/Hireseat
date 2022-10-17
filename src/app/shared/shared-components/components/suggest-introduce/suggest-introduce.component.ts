@@ -30,8 +30,8 @@ export class SuggestIntroduceComponent implements OnInit {
 
   getSuggestIntroduce(){
     this._userService.getPostJob(null, true, this.searchFilters).subscribe((data)=>{
-      this.suggestIntro = data.result;
       this.showLoader = false;
+      this.suggestIntro = data.result;
     }, (err) => {
       console.log(err);
     });

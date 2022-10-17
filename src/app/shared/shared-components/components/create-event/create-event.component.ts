@@ -46,8 +46,8 @@ export class CreateEventComponent implements OnInit {
 
   getPeopleEvents() {
     this._peopleEventService.getEvents().subscribe(data => {
-      this.eventsList = data;
       this.showLoader = false;
+      this.eventsList = data;
     });
   }
 
