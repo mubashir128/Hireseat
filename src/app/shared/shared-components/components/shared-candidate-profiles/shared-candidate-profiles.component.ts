@@ -3,6 +3,7 @@ import {
   OnInit,
   OnChanges,
   OnDestroy,
+  Input,
 } from "@angular/core";
 import {
   FormBuilder
@@ -23,6 +24,7 @@ import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-shared.component";
 import { MatDialog } from "@angular/material/dialog";
+import { ActivatedRoute } from "@angular/router";
 
 declare var jQuery;
 declare var Materialize;
@@ -42,6 +44,10 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   comment3 = "";
   candidateNameIs = "";
 
+  @Input() companyName = "";
+  throughRoute: boolean = false;
+  throughProfileId;
+
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -56,13 +62,21 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     private _constants: ConstantsService,
     protected _bidEventService: BiddingEventService,
     protected _readResume : ReadResumeService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _route: ActivatedRoute
   ) {
     super(dialog, shareVideoService, userService, formBuilder, _bidEventService, _sanitizer, candidateService, _readResume, resumeService, _subList, spinner, videoCallingService);
 
     shareVideoService._sharableResumeRecruiter.subscribe((res) => {
       this.shareResume = res;
     });
+
+    this._route.queryParams.subscribe(params => {
+      this.throughProfileId = params['profileId'];
+      this.searchTerm = params['fullName'] ? params['fullName'] : "";
+      this.throughRoute = true;
+    });
+    this.searchTerm = (this.searchTerm !== "") ? this.searchTerm : (this.companyName !== "") ? this.companyName : "";
 
   }
 
@@ -94,6 +108,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
         this.resumes = res.data;
+        this.scrollAndBorder();
         this._subList.loaderList.next({type : "0"});
         break;
       case this._constants.addComment:
@@ -122,6 +137,17 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
         break;
       default:
         break;
+    }
+  }
+
+  scrollAndBorder(){
+    if(this.throughRoute){
+      setTimeout(()=>{
+        this.handleToggleSign({searchTab :  true});
+        var scrollPos =  jQuery("#profile_"+this.throughProfileId).offset().top - 20;
+        jQuery(window).scrollTop(scrollPos);
+        jQuery("#profile_"+this.throughProfileId).css("border","1px solid red");
+      }, 1000);
     }
   }
 
