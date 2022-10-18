@@ -97,7 +97,12 @@ export class TimelineComponent implements OnInit {
   introProfile(timeline, prop1, prop2){
     let profileId = timeline[prop1]?._id;
     let fullName = timeline[prop2]?.fullName;
-    this._router.navigate(["/"+this.loggedUser.userRole+"/all-only-candidate-shared-profile"], {queryParams : {profileId : profileId, fullName : fullName}});
+
+    let url = "/all-only-candidate-shared-profile";
+    if(this.loggedUser.userRole == "recruiter"){
+      url = "/candidate-profile";
+    }
+    this._router.navigate(["/"+this.loggedUser.userRole + url], {queryParams : {profileId : profileId, fullName : fullName}});
   }
 
   ngOnDestroy() {

@@ -22,6 +22,7 @@ import { NotificationsComponent } from "../shared/shared-components/components/n
 import { MenusComponent } from "../shared/shared-components/components/menus/menus.component";
 import { MultiSharedCandidateProfileComponent } from "../shared/shared-components/components/multi-shared-candidate-profile/multi-shared-candidate-profile.component";
 import { CandidateProfilesComponent } from "../shared/shared-components/components/candidate-profiles/candidate-profiles.component";
+import { TimelineComponent } from "../shared/shared-components/components/timeline/timeline.component";
 
 const routes: Routes = [
   {
@@ -115,6 +116,10 @@ const routes: Routes = [
       {
         path: "candidate-profile",
         component: CandidateProfilesComponent,
+      },
+      {
+        path: "timeline",
+        component: TimelineComponent,
       },
     ],
     // canActivate: [RecruiterGuard]
