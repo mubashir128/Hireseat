@@ -113,7 +113,7 @@
 <ng-container *ngIf="resumes">
   <div class="ListResume">
     <div
-      class="singleList employerResume resumeSingleList"  [id] = "'profile_' + resume._id"
+      class="singleList employerResume resumeSingleList" [id] = "'profile_' + resume._id"
       *ngFor="
         let resume of resumes | serchByFullName : searchTerm | serchByJobTitle : searchJobTitleTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: p };
         let i = index
