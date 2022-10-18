@@ -100,7 +100,7 @@ export class TimelineComponent implements OnInit {
 
     let url = "/all-only-candidate-shared-profile";
     if(this.loggedUser.userRole == "recruiter"){
-      url = "/candidate-profile";
+      url = "/share-candidate-profile";
     }
     this._router.navigate(["/"+this.loggedUser.userRole + url], {queryParams : {profileId : profileId, fullName : fullName}});
   }
