@@ -12,6 +12,10 @@ export enum dialogPopupType {
   editPostJob = "editPostJob",
 }
 
+export enum shareConstants {
+  shareConferenceRoom = "shareConferenceRoom"
+}
+
 export class PostJob {
   public _id: string;
   public companyName: string;
@@ -39,6 +43,7 @@ export class PeoplesEvent {
   _id: string;
   name: string;
   eventDate: Date;
+  eventTime:string;
   location: string;
   link: string;
   eventDetails:string;

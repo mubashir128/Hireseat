@@ -21,11 +21,12 @@ import { SubscriberslistService } from "src/app/_services/subscriberslist.servic
 import { ConstantsService } from "src/app/_services/constants.service"
 import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
-import { AbstractSharedComponent, shareConstants } from "src/app/abstract-classes/abstract-shared.component";
+import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-shared.component";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { JoyrideService } from "ngx-joyride";
 import { ConferenceRoomService } from "src/app/_services/conference-room.service";
+import { shareConstants } from "../app-list/app-list.component";
 
 declare var jQuery;
 declare var Materialize;

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialog} from '@angular/material/dialog';
-import { shareConstants } from 'src/app/abstract-classes/abstract-shared.component';
 import { AbstractDialogComponent } from '../abstract-dialog.component';
+import { shareConstants } from '../app-list/app-list.component';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 
 declare var Materialize;

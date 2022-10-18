@@ -30,11 +30,6 @@ import { DialogShareToUsersComponent } from "../shared/shared-components/compone
 declare var jQuery;
 declare var Materialize;
 
-export enum shareConstants {
-  shareConferenceRoom = "shareConferenceRoom"
-}
-
-
 @Injectable()
 export abstract class AbstractSharedComponent{
   

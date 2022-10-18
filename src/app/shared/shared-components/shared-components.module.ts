@@ -129,7 +129,7 @@ import { SuggestAndEventsComponent } from './components/suggest-and-events/sugge
 import { EventListUsersComponent } from './components/event-list-users/event-list-users.component';
 import { ConferenceRoomComponent } from './components/conference-room/conference-room.component';
 import { CandidateProfilesComponent } from './components/candidate-profiles/candidate-profiles.component';
-
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
   imports: [
@@ -162,7 +162,8 @@ import { CandidateProfilesComponent } from './components/candidate-profiles/cand
     MatProgressBarModule,
     MatDatepickerModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    NgxMaterialTimepickerModule
   ],
   declarations: [
     FooterComponent,
@@ -363,7 +364,8 @@ import { CandidateProfilesComponent } from './components/candidate-profiles/cand
     ProfileButtonsComponent,
     InterviewQuestionsComponent,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    NgxMaterialTimepickerModule
   ],
 
 })
