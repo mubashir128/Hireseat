@@ -44,6 +44,8 @@ export class MultiSharedCandidateProfileComponent extends AbstractSharedComponen
 
   currentUserRole : any;
 
+  showLoader: boolean = true;
+
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -121,6 +123,7 @@ export class MultiSharedCandidateProfileComponent extends AbstractSharedComponen
   async handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllMultiSharedProfiles:
+        this.showLoader = false;
         this.resumes = res.data;
         this._subList.loaderList.next({type : "0"});
         let rs = await this.getReverseUniqueResumeIds(res.result);

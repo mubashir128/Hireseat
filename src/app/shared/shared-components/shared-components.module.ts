@@ -128,6 +128,7 @@ import { EventListComponent } from './components/event-list/event-list.component
 import { SuggestAndEventsComponent } from './components/suggest-and-events/suggest-and-events.component';
 import { EventListUsersComponent } from './components/event-list-users/event-list-users.component';
 import { ConferenceRoomComponent } from './components/conference-room/conference-room.component';
+import { CandidateProfilesComponent } from './components/candidate-profiles/candidate-profiles.component';
 
 
 @NgModule({
@@ -279,7 +280,8 @@ import { ConferenceRoomComponent } from './components/conference-room/conference
     EventListComponent,
     SuggestAndEventsComponent,
     EventListUsersComponent,
-    ConferenceRoomComponent
+    ConferenceRoomComponent,
+    CandidateProfilesComponent
   ],
   exports: [
     FooterComponent,

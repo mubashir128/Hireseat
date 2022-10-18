@@ -1,0 +1,22 @@
+<div class="tabsAre">
+    <ul class="tabs">
+        <li class="tablink" id="switch1" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
+            All Shared
+        </li>
+        <li class="tablink" id="switch2" [ngClass]="itemsIs === 2 ? 'tablinkActive' : false" (click)="switchPage(2)">
+            Recruiters Shared
+        </li>
+    </ul>
+</div>
+
+<ng-container *ngIf="showAllShared">
+    <app-shared-candidate-profiles>
+
+    </app-shared-candidate-profiles>
+</ng-container>
+
+<ng-container *ngIf="onlyRecruiterShared">
+    <app-multi-shared-candidate-profile>
+
+    </app-multi-shared-candidate-profile>
+</ng-container>

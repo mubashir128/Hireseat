@@ -21,6 +21,7 @@ import { EditJobProfileComponent } from "../employer/edit-job-profile/edit-job-p
 import { NotificationsComponent } from "../shared/shared-components/components/notifications/notifications.component";
 import { MenusComponent } from "../shared/shared-components/components/menus/menus.component";
 import { MultiSharedCandidateProfileComponent } from "../shared/shared-components/components/multi-shared-candidate-profile/multi-shared-candidate-profile.component";
+import { CandidateProfilesComponent } from "../shared/shared-components/components/candidate-profiles/candidate-profiles.component";
 
 const routes: Routes = [
   {
@@ -110,6 +111,10 @@ const routes: Routes = [
       {
         path: "menus",
         component: MenusComponent,
+      },
+      {
+        path: "candidate-profile",
+        component: CandidateProfilesComponent,
       },
     ],
     // canActivate: [RecruiterGuard]
