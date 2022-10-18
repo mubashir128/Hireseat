@@ -48,6 +48,8 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   throughRoute: boolean = false;
   throughProfileId;
 
+  showLoader: boolean = true;
+
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -107,6 +109,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
+        this.showLoader = false;
         this.resumes = res.data;
         this.scrollAndBorder();
         this._subList.loaderList.next({type : "0"});
