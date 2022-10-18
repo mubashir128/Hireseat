@@ -144,17 +144,6 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     this.userService.setBeforeSharedWalkthrough();
   }
 
-  scrollAndBorder(){
-    if(this.throughRoute){
-      setTimeout(()=>{
-        this.handleToggleSign({searchTab :  true});
-        var scrollPos =  jQuery("#profile_"+this.throughProfileId).offset().top - 20;
-        jQuery(window).scrollTop(scrollPos);
-        jQuery("#profile_"+this.throughProfileId).css("border","1px solid red");
-      }, 1000);
-    }
-  }
-
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
@@ -199,6 +188,17 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
         break;
       default:
         break;
+    }
+  }
+
+  scrollAndBorder(){
+    if(this.throughRoute){
+      setTimeout(()=>{
+        this.handleToggleSign({searchTab :  true});
+        var scrollPos =  jQuery("#profile_"+this.throughProfileId).offset().top - 20;
+        jQuery(window).scrollTop(scrollPos);
+        jQuery("#profile_"+this.throughProfileId).css("border","1px solid red");
+      }, 1000);
     }
   }
 
