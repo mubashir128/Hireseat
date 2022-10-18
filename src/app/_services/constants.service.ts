@@ -127,6 +127,13 @@ export class ConstantsService {
   userIsOffline;
 
   swapChatNotification;
+
+  timelineType;
+  getTimelinesType;
+  actualTimeline;
+  connectionRequest;
+  sayThanks;
+  publicProfile;
   
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -331,6 +338,13 @@ export class ConstantsService {
     this.userIsOffline = obj.userIsOffline;
 
     this.swapChatNotification = obj.swapChatNotification;
+
+    this.timelineType = obj.timelineType;
+    this.getTimelinesType = obj.getTimelinesType;
+    this.actualTimeline = obj.actualTimeline;
+    this.connectionRequest = obj.connectionRequest;
+    this.sayThanks = obj.sayThanks;
+    this.publicProfile = obj.publicProfile;
   }
 
 }

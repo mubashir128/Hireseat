@@ -1,0 +1,110 @@
+.timelineUI {
+  width: 98% !important;
+  border-bottom: 1px solid #708381;
+}
+
+.pro {
+  width: 100%;
+  float: left;
+  padding: 10px;
+}
+
+.pro-3 {
+  width: 15%;
+  float: left;
+}
+
+.pro-4 {
+  width: 80%;
+  float: left;
+  margin: 8px 0px 0px 5px;
+}
+
+.pro .candProfile {
+  width: 50px;
+  height: 50px;
+  background-color: #e7e7e7;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.pro .candProfile img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.pro .candProfile11 {
+  float: right;
+  width: 25px;
+  height: 25px;
+  background-color: #e7e7e7;
+  border-radius: 50%;
+  overflow: hidden;
+  /* margin-right: 15px; */
+}
+
+.pro .candProfile11 img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.timelineTime {
+  float: right;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-size: 12px !important;
+}
+
+.intoedClass {
+  width: 58%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'gilroybold';
+  font-size: 15px;
+}
+
+.introSection {
+  margin: auto;
+  text-align: center;
+}
+
+.pro-share{
+  width: 100%;
+  float: left;
+  margin-top: 10px;
+}
+
+.connectBtn {
+  width: 100%;
+  border-radius: 7px;
+}
+
+.connectBtn i{
+  color: #fff !important;
+}
+
+button.connectBtn{
+  border: 1px solid #1a1;
+  background-color: #1a1;
+}
+
+.shareText {
+  color: #fff !important;
+}
+
+.timelineList{
+  height: calc(78vh);
+  overflow: auto;
+  position: relative;
+}
+
+.backStyle {
+  width: 35px !important;
+  height: 35px !important;
+  font-size: 15px !important;
+}

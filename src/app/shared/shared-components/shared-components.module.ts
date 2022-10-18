@@ -108,6 +108,7 @@ import { OnlyForCandidateSharedProfileComponent } from "src/app/candidate/only-f
 import { DialogMessageComponent } from './components/dialog-message/dialog-message.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 @NgModule({
   imports: [
@@ -240,7 +241,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     SuggestIntroduceComponent,
     OnlyForCandidateSharedProfileComponent,
     DialogMessageComponent,
-    SettingsComponent
+    SettingsComponent,
+    TimelineComponent
   ],
   exports: [
     FooterComponent,
