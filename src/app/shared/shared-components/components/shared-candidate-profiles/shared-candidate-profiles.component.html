@@ -4,7 +4,7 @@
   </div>
   <div class="hideAndSHoTab">
     <div class="sortIndustriesMain input-field col s12 m12 l12">
-      <div *ngIf="loggedUser.userRole != 'candidate'">
+      <!-- <div *ngIf="loggedUser.userRole != 'candidate'">
         <i class="fa fa-industry" aria-hidden="true"></i>
         <span class="resume-subtitle"> Sort by Industries </span>
         <div *ngFor="let item of industriesAre; let i = index">
@@ -29,7 +29,7 @@
         <div class="row col s12 m12 l12">
           <button class="sortIndustries" (click)="sortByIndustries()">Sort</button>
         </div>
-      </div>
+      </div> -->
     
       <div *ngIf="loggedUser.userRole != 'candidate'">
         <form [formGroup]="Search" novalidate style="width: 100%">
