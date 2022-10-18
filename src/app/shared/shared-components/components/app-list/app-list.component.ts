@@ -39,6 +39,7 @@ export class PeoplesEvent {
   _id: string;
   name: string;
   eventDate: Date;
+  eventTime:string;
   location: string;
   link: string;
   eventDetails:string;

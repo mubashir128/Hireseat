@@ -52,6 +52,7 @@ export class DialogCreateEventComponent
     this.createEventForm = this._formBuilder.group({
       name: ["", Validators.compose([Validators.required])],
       eventDate: [""],
+      eventTime:[""],
       eventDetails:[""],
       location: [""],
       link: [""],
