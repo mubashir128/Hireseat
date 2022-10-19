@@ -17,6 +17,7 @@ export class EventListComponent implements OnInit {
   @Output() attendEM = new EventEmitter();
   @Output() cancelAttendEM = new EventEmitter();
 
+  commentData:any="";
   loggedUser: any;
   profileImageLength: number = 5;
 
@@ -96,5 +97,19 @@ export class EventListComponent implements OnInit {
         );
       }
     });
+  }
+
+  onCommentPostClick(eventId)
+  {
+    const payload = {
+      userId:this.loggedUser._id,
+      message:this.commentData
+    }
+
+    this._peopleEventService.postEventComment(eventId,payload).subscribe((res)=>{
+      console.log(res);
+    },(err)=>{
+      console.log(err)
+    })
   }
 }
