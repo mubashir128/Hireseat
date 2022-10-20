@@ -36,7 +36,7 @@ export class EventListComponent implements OnInit {
     let status: boolean = false;
     if (this.loggedUser.userRole == "candidate") {
       event.attendingUsers.forEach((user) => {
-        if (user._id == this.loggedUser._id) {
+        if (user.userId._id == this.loggedUser._id) {
           status = true;
         }
       });

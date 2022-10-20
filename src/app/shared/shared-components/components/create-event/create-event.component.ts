@@ -53,7 +53,7 @@ export class CreateEventComponent implements OnInit {
 
   attendEvent(event) {
     this._peopleEventService.attendEvent({eventId : event.eventId}).subscribe(data => {
-      this.addUserToAttendingUsers(event, data);
+      this.getPeopleEvents();
     }, err=>{
       console.log("err : ",err);
     });
@@ -61,32 +61,9 @@ export class CreateEventComponent implements OnInit {
 
   cancelAttendEvent(event){
     this._peopleEventService.cancelAttendEvent({eventId : event.eventId}).subscribe(data => {
-      this.removeUserFromAttendingUsers(event);
+      this.getPeopleEvents();
     }, err=>{
       console.log("err : ",err);
     }); 
-  }
-
-  addUserToAttendingUsers(mainEvent, data){
-    this.eventsList.forEach((event: any, index)=>{
-      if(event._id == mainEvent.eventId){
-        event.attendingUsers = [];
-        data.attendingUsers.forEach(user=>{
-          event.attendingUsers.push(user.userId);
-        });
-      }
-    });
-  }
-
-  removeUserFromAttendingUsers(mainEvent){
-    this.eventsList.forEach((event: any)=>{
-      if(event._id == mainEvent.eventId){
-        event.attendingUsers.forEach((user: any, index: any)=>{
-          if(user._id == this.loggedUser._id){
-            event.attendingUsers.splice(index, 1);
-          }
-        }); 
-      }
-    });
   }
 }

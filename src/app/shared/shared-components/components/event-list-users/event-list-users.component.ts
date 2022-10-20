@@ -48,15 +48,4 @@ export class EventListUsersComponent implements OnInit {
   gotoChat(userId){
     this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", userId]);
   }
-
-  getIntroYouToAndDesiredCompanies(userId,field){
-    let text = '';
-    for(let candidate of this.eventsList.attendingCandidateList){
-      if(candidate.candidate_id == userId){
-        text = candidate[field];
-        break;
-      }
-    }
-    return text;
-  }
 }

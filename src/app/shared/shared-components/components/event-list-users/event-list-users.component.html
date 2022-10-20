@@ -16,31 +16,31 @@
                 <mat-card>
                     <div class="user-data pro">
                         <div class="candProfile">
-                            <ng-container *ngIf="!eventUsers?.profileimage">
+                            <ng-container *ngIf="!eventUsers?.userId?.profileimage">
                                 <img src="assets/img/profile-user.png" alt="profile" />
                             </ng-container>
-                            <ng-container *ngIf="eventUsers?.profileimage">
-                                <img [src]="eventUsers.profileimage" alt="profile" />
+                            <ng-container *ngIf="eventUsers?.userId?.profileimage">
+                                <img [src]="eventUsers.userId.profileimage" alt="profile" />
                             </ng-container>
                         </div>
                         <div class="pro-user-name" style="width: 75%;">
-                            <p>{{eventUsers?.fullName | uppercase}}</p>
+                            <p>{{eventUsers?.userId?.fullName | uppercase}}</p>
                         </div>
-                        <div class="chat-icon" style="width: 10%;" *ngIf="eventUsers._id != loggedUser._id" (click)="gotoChat(eventUsers._id)">
+                        <div class="chat-icon" style="width: 10%;" *ngIf="eventUsers.userId._id != loggedUser._id" (click)="gotoChat(eventUsers.userId._id)">
                             <i class="fa fa-comments-o" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="row other-details">
-                        <p *ngIf = "getIntroYouToAndDesiredCompanies(eventUsers._id, 'introduceYouToo')">
+                        <p *ngIf = "eventUsers?.userId?.candidate_id?.introduceYouToo">
                           <label class="lableClass">I can Intro you to Companies/Teams at :</label>
                           <label class="lableClass2">
-                            {{ getIntroYouToAndDesiredCompanies(eventUsers._id, 'introduceYouToo')}}
+                            {{ eventUsers?.userId?.candidate_id?.introduceYouToo}}
                           </label>
                         </p>
-                        <p *ngIf = "getIntroYouToAndDesiredCompanies(eventUsers._id, 'desiredCompanies')">
+                        <p *ngIf = "eventUsers?.userId?.candidate_id?.desiredCompanies">
                             <label class="lableClass">I am interested in intros to :</label>
                             <label class="lableClass2">
-                                {{ getIntroYouToAndDesiredCompanies(eventUsers._id, 'desiredCompanies') }}
+                                {{ eventUsers?.userId?.candidate_id?.desiredCompanies }}
                             </label>
                         </p>
                     </div>
