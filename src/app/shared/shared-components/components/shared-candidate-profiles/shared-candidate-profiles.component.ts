@@ -320,7 +320,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   }
 
   createConferenceRoom(result){
-    this._conferenceRoom.save(result.systemUserId).subscribe(res=>{
+    this._conferenceRoom.save(result.systemUserId, this.shareResume._id).subscribe(res=>{
       if(res.completeStatus){
         console.log("request completed : ");
       }

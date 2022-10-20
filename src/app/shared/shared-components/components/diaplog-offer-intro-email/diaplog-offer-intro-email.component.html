@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <div *ngIf = "getBtns(shareConstants.shareConferenceRoom)" class="row form-group autoClass" style="margin-top: -15px;">
+            <div *ngIf = "loggedUser.userRole == 'candidate' && getBtns(shareConstants.shareConferenceRoom)" class="row form-group autoClass" style="margin-top: -15px;">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="shareConferenceRoom()">Share Conference</button>
                 </div>
