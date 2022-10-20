@@ -4,6 +4,7 @@ import { PeopleEventService } from 'src/app/_services/people-event.service';
 import { UserService } from 'src/app/_services/user.service';
 import { PeoplesEvent } from '../app-list/app-list.component';
 import { DialogCreateEventComponent } from '../dialog-create-event/dialog-create-event.component';
+import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 
 @Component({
   selector: 'app-create-event',
@@ -39,7 +40,7 @@ export class CreateEventComponent implements OnInit {
 
     dialogDeleteRef.afterClosed().subscribe(result => {
       if (result) {
-        this.eventsList = [result, ...this.eventsList];
+        this.getPeopleEvents();
       }
     });
   }
@@ -65,5 +66,43 @@ export class CreateEventComponent implements OnInit {
     }, err=>{
       console.log("err : ",err);
     }); 
+  }
+
+  editEvent(eventData){
+    const dialogDeleteRef = this._dialog.open(DialogCreateEventComponent, {
+      data: {
+        dialogType: "edit-event",
+        dialogTitle: "Edit event",
+        dialogText: "",
+        eventData: eventData,
+      },
+    });
+
+    dialogDeleteRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getPeopleEvents();
+      }
+    });
+  }
+
+  deleteEvent(eventId) {
+    const dialogDeleteRef = this._dialog.open(DialogDeleteComponent, {
+      data: {
+        dialogType: "delete-event",
+        dialogTitle: "Delete event",
+        dialogText: "",
+      },
+    });
+
+    dialogDeleteRef.afterClosed().subscribe((result) => {
+      if (result.process == true) {
+        this._peopleEventService.delete(eventId).subscribe((res) => {
+            this.getPeopleEvents();
+          }, (err) => {
+            console.log("err : ", err);
+          }
+        );
+      }
+    });
   }
 }
