@@ -3,6 +3,7 @@ import {
   OnInit,
   OnChanges,
   OnDestroy,
+  Input,
 } from "@angular/core";
 import {
   FormBuilder
@@ -22,9 +23,10 @@ import { BiddingEventService } from "src/app/_services/bidding-event.service";
 import { ReadResumeService } from "src/app/_services/read-resume.service";
 import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-shared.component";
 import { MatDialog } from "@angular/material/dialog";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { JoyrideService } from "ngx-joyride";
 import { ConferenceRoomService } from "src/app/_services/conference-room.service";
+import { shareConstants } from "../app-list/app-list.component";
 
 declare var jQuery;
 declare var Materialize;
@@ -46,6 +48,10 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
 
   showLoader: boolean = true;
 
+  @Input() companyName = "";
+  throughRoute: boolean = false;
+  throughProfileId;
+
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -63,7 +69,8 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     protected _readResume : ReadResumeService,
     public dialog: MatDialog,
     private readonly _joyrideService: JoyrideService,
-    private _conferenceRoom : ConferenceRoomService
+    private _conferenceRoom : ConferenceRoomService,
+    private _route: ActivatedRoute
   ) {
     super(dialog, shareVideoService, userService, formBuilder, _bidEventService, _sanitizer, candidateService, _readResume, resumeService, _subList, spinner, videoCallingService);
 
@@ -71,6 +78,12 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       this.shareResume = res;
     });
 
+    this._route.queryParams.subscribe(params => {
+      this.throughProfileId = params['profileId'];
+      this.searchTerm = params['fullName'] ? params['fullName'] : "";
+      this.throughRoute = true;
+    });
+    this.searchTerm = (this.searchTerm !== "") ? this.searchTerm : (this.companyName !== "") ? this.companyName : "";
   }
 
   ngOnChanges() {
@@ -133,8 +146,9 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllSharedProfiles:
-        this.resumes = res.data;
         this.showLoader = false;
+        this.resumes = res.data;
+        this.scrollAndBorder();
         this._subList.loaderList.next({type : "0"});
         if(this.loggedUser.userRole == 'candidate' && this.resumes.length == 0){
           this.editUserProfile();
@@ -173,6 +187,17 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
         break;
       default:
         break;
+    }
+  }
+
+  scrollAndBorder(){
+    if(this.throughRoute){
+      setTimeout(()=>{
+        this.handleToggleSign({searchTab :  true});
+        var scrollPos =  jQuery("#profile_"+this.throughProfileId).offset().top - 20;
+        jQuery(window).scrollTop(scrollPos);
+        jQuery("#profile_"+this.throughProfileId).css("border","1px solid red");
+      }, 1000);
     }
   }
 
@@ -263,7 +288,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       bcc : bcc,
       clients : this.clients,
       loggedUser : this.loggedUser,
-      btns : ["Share on HireSeat", "Career Referral", "Copy Profile Link"]
+      btns : ["Share on HireSeat", "Career Referral", "Copy Profile Link", shareConstants.shareConferenceRoom]
     }
     this.showShareCandidateModalSuper(payload, this.showShareCandidateModalSuperCallback);
   }
@@ -273,7 +298,6 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       case "copyProfileLink" : 
         if(result.process){
           THIS.generateLinkForVideo();
-          THIS.createConferenceRoom(result);
         }
         break;
       case "careerReferral" : 
@@ -286,16 +310,21 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
           THIS.showShareTouserModal();
         }
         break;
+      case shareConstants.shareConferenceRoom : 
+        if(result.process){
+          THIS.createConferenceRoom(result);
+        }
+        break
     }
   }
 
   createConferenceRoom(result){
-    this._conferenceRoom.save(result.systemUserId).subscribe(res=>{
+    this._conferenceRoom.save(result.systemUserId, this.shareResume._id).subscribe(res=>{
       if(res.completeStatus){
         console.log("request completed : ");
       }
     }, error =>{
-      console.log("++++ err : ",error);
+      Materialize.toast("Conference room already shared !", 1000, "red");
     }, ()=>{
       console.log("+++ request completed : ");
     });

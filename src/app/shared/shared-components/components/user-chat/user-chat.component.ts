@@ -137,16 +137,16 @@ export class UserChatComponent implements OnInit, OnChanges {
   handleUserChat(res: any) {
     switch (res.subType) {
       case this._constants.getAllUsers:
-        this.chatUsers = res.data;
         this.showOnlyCharUserLoader = false;
+        this.chatUsers = res.data;
         break;
       case this._constants.getOnlyUserChats:
-        this.onlyChatUsers = res.data;
         this.showChatUsersLoader = false;
+        this.onlyChatUsers = res.data;
         break;
       case this._constants.getGroupChatUsers:
-        this.groupChatUsers = res.data;
         this.showGroupChatUsersLoader = false;
+        this.groupChatUsers = res.data;
         break;
       case this._constants.createAndAddGroup:
         if(res){

@@ -61,4 +61,9 @@ export class PeopleEventService extends AbstractService {
     let url = this.baseurl + "api/cancel-attend-events/" + event.eventId;
     return this._http.delete<any>(url);
   }
+
+  postEventComment(eventId,postData):Observable<any>{
+    let url = this.baseurl + "api/post-event-comment/" + eventId;
+    return this._http.post<any>(url,postData);
+  }
 }

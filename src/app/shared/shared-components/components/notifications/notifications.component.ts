@@ -222,6 +222,9 @@ export class NotificationsComponent implements OnInit {
       case this._constants.swapChatNotification : 
         this.askToUser(redirectId, redirectId2, message, senderName, from);
         break;
+      case this._constants.conferenceRoom : 
+        this.router.navigate(["/candidate/conference-room"]);
+        break;
       default : 
         break;
     }

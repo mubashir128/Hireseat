@@ -25,6 +25,8 @@ export class AbstractService {
           sub.next({ percent: 100, body: event.body, completeStatus: true });
           sub.complete();
         }
+      }, err=>{
+        sub.error();
       });
     });
   }

@@ -120,11 +120,11 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   forRecrutierMobileTab(){
     //for mobile view
     this.tabs2.push(
-      new Tab2("/recruiter/share-candidate-profile", "Candidates", true, "fas fa-users")
+      new Tab2("/recruiter/timeline", "Timelines", false, "fas fa-home")
     );
 
     this.tabs2.push(
-      new Tab2("/recruiter/multi-share-candidate-profile", "Multi Shared Candidate Profile", true, "fas fa-user-friends")
+      new Tab2("/recruiter/candidate-profile", "Candidate Profile", true, "fas fa-user-friends")
     );
 
     this.tabs2.push(

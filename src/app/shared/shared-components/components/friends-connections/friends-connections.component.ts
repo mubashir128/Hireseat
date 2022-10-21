@@ -166,6 +166,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   }
 
   sortBasedOnStatusAsFriend(data){
+    this.showRequestedFriendLoader = false;
+    this.showFriendsConnectionsLoader = false;
     data.forEach((friend, index) => {
       if(friend.status === this._constants.asAFriend){
         this.friendsConnections = [friend, ...this.friendsConnections];
@@ -175,8 +177,6 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         this.requestedFriendAre = [friend, ...this.requestedFriendAre];
       }
     });
-    this.showRequestedFriendLoader = false;
-    this.showFriendsConnectionsLoader = false;
     this.increseCount();
   }
 
@@ -186,6 +186,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   }
 
   getUserWithRespectCompanies(friend){
+    this.showCompaniesLoader = false;
     let obj; // for resume data
     let obj2; //for user data
     if(friend.recipient._id == this.loggedUser._id){
@@ -215,7 +216,6 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         });
       }
     });
-    this.showCompaniesLoader = false;
   }
 
   gotoUser(userId){

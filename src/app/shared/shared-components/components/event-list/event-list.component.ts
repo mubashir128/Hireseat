@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { PeopleEventService } from "src/app/_services/people-event.service";
@@ -17,6 +17,10 @@ export class EventListComponent implements OnInit {
   @Output() attendEM = new EventEmitter();
   @Output() cancelAttendEM = new EventEmitter();
 
+  @Output() editEventEM = new EventEmitter();
+  @Output() deleteEventEM = new EventEmitter();
+
+  commentData:any="";
   loggedUser: any;
   profileImageLength: number = 5;
 
@@ -24,7 +28,7 @@ export class EventListComponent implements OnInit {
     protected _dialog: MatDialog,
     protected _userService: UserService,
     private _router: Router,
-    private _peopleEventService: PeopleEventService
+    private _peopleEventService: PeopleEventService,
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +39,7 @@ export class EventListComponent implements OnInit {
     let status: boolean = false;
     if (this.loggedUser.userRole == "candidate") {
       event.attendingUsers.forEach((user) => {
-        if (user._id == this.loggedUser._id) {
+        if (user.userId._id == this.loggedUser._id) {
           status = true;
         }
       });
@@ -56,45 +60,26 @@ export class EventListComponent implements OnInit {
   }
 
   editEvent(eventData: any) {
-    const dialogDeleteRef = this._dialog.open(DialogCreateEventComponent, {
-      data: {
-        dialogType: "edit-event",
-        dialogTitle: "Edit event",
-        dialogText: "",
-        eventData: eventData,
-      },
-    });
-
-    dialogDeleteRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.eventsList = [result, ...this.eventsList];
-      }
-    });
+    this.editEventEM.emit(eventData);
   }
 
-  deleteEvent(eventId) {
-    const dialogDeleteRef = this._dialog.open(DialogDeleteComponent, {
-      data: {
-        dialogType: "delete-event",
-        dialogTitle: "Delete event",
-        dialogText: "",
-      },
-    });
+  deleteEvent(eventData: any) {
+    this.deleteEventEM.emit(eventData);
+  }
 
-    dialogDeleteRef.afterClosed().subscribe((result) => {
-      if (result.process == true) {
-        this._peopleEventService.delete(eventId).subscribe(
-          (res) => {
-            const eventIndex = this.eventsList.findIndex((x) => {
-              return x._id == eventId;
-            });
-            this.eventsList.splice(eventIndex, 1);
-          },
-          (err) => {
-            console.log("err : ", err);
-          }
-        );
+  onCommentPostClick(eventId,eventIndex){
+    const payload = {
+      userId:this.loggedUser._id,
+      message:this.commentData
+    }
+
+    this._peopleEventService.postEventComment(eventId,payload).subscribe((res)=>{
+      if(res){        
+      this.eventsList[eventIndex].comments = res.comments;
+        this.commentData="";
       }
-    });
+    },(err)=>{
+      console.log(err)
+    })
   }
 }

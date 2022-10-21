@@ -4,6 +4,7 @@ import { PeopleEventService } from 'src/app/_services/people-event.service';
 import { UserService } from 'src/app/_services/user.service';
 import { PeoplesEvent } from '../app-list/app-list.component';
 import { DialogCreateEventComponent } from '../dialog-create-event/dialog-create-event.component';
+import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 
 @Component({
   selector: 'app-create-event',
@@ -39,21 +40,21 @@ export class CreateEventComponent implements OnInit {
 
     dialogDeleteRef.afterClosed().subscribe(result => {
       if (result) {
-        this.eventsList = [result, ...this.eventsList];
+        this.getPeopleEvents();
       }
     });
   }
 
   getPeopleEvents() {
     this._peopleEventService.getEvents().subscribe(data => {
-      this.eventsList = data;
       this.showLoader = false;
+      this.eventsList = data;
     });
   }
 
   attendEvent(event) {
     this._peopleEventService.attendEvent({eventId : event.eventId}).subscribe(data => {
-      this.addUserToAttendingUsers(event, data);
+      this.getPeopleEvents();
     }, err=>{
       console.log("err : ",err);
     });
@@ -61,31 +62,46 @@ export class CreateEventComponent implements OnInit {
 
   cancelAttendEvent(event){
     this._peopleEventService.cancelAttendEvent({eventId : event.eventId}).subscribe(data => {
-      this.removeUserFromAttendingUsers(event);
+      this.getPeopleEvents();
     }, err=>{
       console.log("err : ",err);
     }); 
   }
 
-  addUserToAttendingUsers(mainEvent, data){
-    this.eventsList.forEach((event: any, index)=>{
-      if(event._id == mainEvent.eventId){
-        event.attendingUsers = [];
-        data.attendingUsers.forEach(user=>{
-          event.attendingUsers.push(user.userId);
-        });
+  editEvent(eventData){
+    const dialogDeleteRef = this._dialog.open(DialogCreateEventComponent, {
+      data: {
+        dialogType: "edit-event",
+        dialogTitle: "Edit event",
+        dialogText: "",
+        eventData: eventData,
+      },
+    });
+
+    dialogDeleteRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getPeopleEvents();
       }
     });
   }
 
-  removeUserFromAttendingUsers(mainEvent){
-    this.eventsList.forEach((event: any)=>{
-      if(event._id == mainEvent.eventId){
-        event.attendingUsers.forEach((user: any, index: any)=>{
-          if(user._id == this.loggedUser._id){
-            event.attendingUsers.splice(index, 1);
+  deleteEvent(eventId) {
+    const dialogDeleteRef = this._dialog.open(DialogDeleteComponent, {
+      data: {
+        dialogType: "delete-event",
+        dialogTitle: "Delete event",
+        dialogText: "",
+      },
+    });
+
+    dialogDeleteRef.afterClosed().subscribe((result) => {
+      if (result.process == true) {
+        this._peopleEventService.delete(eventId).subscribe((res) => {
+            this.getPeopleEvents();
+          }, (err) => {
+            console.log("err : ", err);
           }
-        }); 
+        );
       }
     });
   }

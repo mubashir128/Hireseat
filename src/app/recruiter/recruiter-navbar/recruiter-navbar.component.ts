@@ -83,6 +83,8 @@ export class RecruiterNavbarComponent implements OnInit {
     //   new Tab("/recruiter/video-interview-room", "Video Interview Room", false)
     // );
     this.tabs1.push(new Tab("/recruiter/calendar", "Calendar", false));
+
+    this.tabs1.push(new Tab("/recruiter/timeline", "Timelines", false));
   }
 
   ngOnInit() {

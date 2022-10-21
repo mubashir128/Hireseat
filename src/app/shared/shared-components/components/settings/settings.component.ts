@@ -34,6 +34,8 @@ export class SettingsComponent implements OnInit {
   loggedInUser: any;
   isLoggedIn: boolean = false;
 
+  showLoader: boolean = false;
+
   constructor(private _userService: UserService, 
     protected _dialog: MatDialog, 
     private userService: UserService, 
@@ -87,10 +89,14 @@ export class SettingsComponent implements OnInit {
   }
 
   confirmDelete(){
+    this.showLoader = true;
     this.userService.deleteUserPermanantly().subscribe(res=>{
-      if(res){  
+      if(res){
         this._authService.logout();
       }
+      this.showLoader = false;
+    }, err=>{
+      this.showLoader = false;
     });
   }
 }

@@ -128,7 +128,9 @@ import { EventListComponent } from './components/event-list/event-list.component
 import { SuggestAndEventsComponent } from './components/suggest-and-events/suggest-and-events.component';
 import { EventListUsersComponent } from './components/event-list-users/event-list-users.component';
 import { ConferenceRoomComponent } from './components/conference-room/conference-room.component';
-
+import { CandidateProfilesComponent } from './components/candidate-profiles/candidate-profiles.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
 
 @NgModule({
   imports: [
@@ -161,7 +163,8 @@ import { ConferenceRoomComponent } from './components/conference-room/conference
     MatProgressBarModule,
     MatDatepickerModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    NgxMaterialTimepickerModule
   ],
   declarations: [
     FooterComponent,
@@ -279,7 +282,9 @@ import { ConferenceRoomComponent } from './components/conference-room/conference
     EventListComponent,
     SuggestAndEventsComponent,
     EventListUsersComponent,
-    ConferenceRoomComponent
+    ConferenceRoomComponent,
+    CandidateProfilesComponent,
+    CommentsSectionComponent
   ],
   exports: [
     FooterComponent,
@@ -361,7 +366,8 @@ import { ConferenceRoomComponent } from './components/conference-room/conference
     ProfileButtonsComponent,
     InterviewQuestionsComponent,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    NgxMaterialTimepickerModule
   ],
 
 })

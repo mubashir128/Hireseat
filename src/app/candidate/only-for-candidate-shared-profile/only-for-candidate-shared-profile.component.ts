@@ -178,8 +178,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   handleProfileData(res: any) {
     switch (res.subType) {
       case this._constants.getAllOnlyForCandidateSharedProfileType:
-        this.resumes = res.data;
         this.showLoader = false;
+        this.resumes = res.data;
         this.scrollAndBorder();
         this.addFriendConnectionToProfile(res);
         this.sortProfilesByConpanies();
@@ -224,8 +224,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   scrollAndBorder(){
     if(this.throughRoute){
-      this.handleToggleSign({searchTab :  true});
       setTimeout(()=>{
+        this.handleToggleSign({searchTab :  true});
         var scrollPos =  jQuery("#profile_"+this.throughProfileId).offset().top;
         jQuery(window).scrollTop(scrollPos);
         jQuery("#profile_"+this.throughProfileId).css("border","1px solid red");

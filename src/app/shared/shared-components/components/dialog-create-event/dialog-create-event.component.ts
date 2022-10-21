@@ -52,6 +52,7 @@ export class DialogCreateEventComponent
     this.createEventForm = this._formBuilder.group({
       name: ["", Validators.compose([Validators.required])],
       eventDate: [""],
+      eventTime:[""],
       eventDetails:[""],
       location: [""],
       link: [""],
@@ -80,11 +81,6 @@ export class DialogCreateEventComponent
         console.log(`Upload ${progress.percent}% completed`);
         this.inProgress = true;
         this.progressPercent = progress.percent;
-        if (progress.completeStatus && progress.body && !this.peopleEvent._id) {
-          this._dialogRef.close(progress.body);
-        } else {
-          this._dialogRef.close();
-        }
       },
       (error) => {
         this.inProgress = false;
@@ -94,6 +90,7 @@ export class DialogCreateEventComponent
       () => {
         this.inProgress = false;
         console.log("completed : ");
+        this._dialogRef.close(true);
       }
     );
   }

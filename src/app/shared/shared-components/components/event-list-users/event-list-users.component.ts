@@ -34,8 +34,8 @@ export class EventListUsersComponent implements OnInit {
 
   getPeopleEvents() {
     this._peopleEventService.getEvents(this.eventId).subscribe(data => {
-      this.eventsList = data[0];
       this.showLoader = false;
+      this.eventsList = data[0];
     },err=>{
       this.showLoader = false;
     });
@@ -47,16 +47,5 @@ export class EventListUsersComponent implements OnInit {
 
   gotoChat(userId){
     this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", userId]);
-  }
-
-  getIntroYouToAndDesiredCompanies(userId,field){
-    let text = '';
-    for(let candidate of this.eventsList.attendingCandidateList){
-      if(candidate.candidate_id == userId){
-        text = candidate[field];
-        break;
-      }
-    }
-    return text;
   }
 }

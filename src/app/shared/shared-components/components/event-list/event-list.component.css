@@ -162,3 +162,45 @@
 ::ng-deep .mat-tab-body-wrapper{
     padding: 10px !important;
 }
+
+.comment-list{
+    height: 50vh;
+    overflow: auto;
+}
+
+.profile .candidate-profile{
+    width: 40px;
+    height: 40px;
+    background-color: #e7e7e7;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.comment-data{
+    display: flex;
+    margin: 15px 0px;
+    /* align-items: center; */
+}
+
+.comment-data .profile{
+    width: 20%;   
+}
+
+.comment-data .comment-details{
+    width: 80%;   
+}
+
+.comment-details .user-name p{
+    margin: 0;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.comment-description p{
+    margin: 0;
+}
+
+textarea{
+    padding: 10px;
+}

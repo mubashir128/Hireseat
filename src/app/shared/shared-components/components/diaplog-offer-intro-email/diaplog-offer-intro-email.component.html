@@ -38,28 +38,34 @@
                 <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
             </div>
             
-            <div class="row form-group autoClass" *ngIf = "getBtns('Offer Intro')">
+            <div *ngIf = "getBtns('Offer Intro')" class="row form-group autoClass">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="closeOfferEmailDialog()">Offer Intro</button>
                 </div>
             </div>
 
             <div class="row form-group autoClass">
-                <div class="" style="width: 55%; float: left;" *ngIf = "getBtns('General Referral')">
+                <div *ngIf = "getBtns('General Referral')" class="" style="width: 55%; float: left;">
                     <button class="sendBtn" (click)="generalEmailIntro()">General Referral</button>
                 </div>
-                <div class="" style="width: 45%; float: right !important; border-left: 2px solid white;" *ngIf = "getBtns('Career Referral')">
+                <div *ngIf = "getBtns('Career Referral')" class="" style="width: 45%; float: right !important; border-left: 2px solid white;">
                     <button class="sendBtn" (click)="introduceUser()">Career Referral</button>
                 </div>
             </div>
 
-            <div class="row form-group autoClass" style="margin-top: -25px;" *ngIf = "getBtns('Copy Profile Link')">
+            <div *ngIf = "loggedUser.userRole == 'candidate' && getBtns(shareConstants.shareConferenceRoom)" class="row form-group autoClass" style="margin-top: -15px;">
+                <div class="" style="float: right;">
+                    <button class="sendBtn" (click)="shareConferenceRoom()">Share Conference</button>
+                </div>
+            </div>
+
+            <div *ngIf = "getBtns('Copy Profile Link')" class="row form-group autoClass" style="margin-top: -25px;">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="generateLinkForVideo()">Copy Profile Link</button>
                 </div>
             </div>
 
-            <div class="row form-group autoClass" *ngIf = "getBtns('SEND')">
+            <div *ngIf = "getBtns('SEND')" class="row form-group autoClass">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="share()">SEND</button>
                 </div>

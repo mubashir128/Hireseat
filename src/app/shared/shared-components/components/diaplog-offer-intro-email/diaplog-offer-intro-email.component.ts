@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialog} from '@angular/material/dialog';
 import { AbstractDialogComponent } from '../abstract-dialog.component';
+import { shareConstants } from '../app-list/app-list.component';
+import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 
 declare var Materialize;
 
@@ -32,6 +34,8 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
 
   systemUser: any;
   
+  shareConstants: any;
+  
   constructor(@Inject(MAT_DIALOG_DATA) public data: DiaplogOfferIntroEmailComponent, public dialog: MatDialog, public dialogRef: MatDialogRef<DiaplogOfferIntroEmailComponent>){
     super(data, dialogRef);
     if(data){
@@ -45,6 +49,7 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
 
       this.btns = this.data.btns;
     }
+    this.shareConstants = shareConstants;
   }
 
   ngOnInit(): void {
@@ -100,6 +105,28 @@ export class DiaplogOfferIntroEmailComponent extends AbstractDialogComponent imp
       type : "copyProfileLink",
       process : true,
       systemUserId : this.systemUser._id
+    });
+  }
+  
+  shareConferenceRoom(){
+    console.log("shareConferenceRoom : ");
+    const dialogMessageRef = this.dialog.open(DialogMessageComponent,{
+      data: {
+        dialogType : "shareConferenceRoom",
+        dialogTitle : "Share Conference room",
+        dialogText : "Would you like share conference room ? ",
+        btns : {"share" : "Share", "cancel" : "Cancel"}
+      }
+    });
+
+    dialogMessageRef.afterClosed().subscribe(result => {
+      if(result){
+        this.dialogRef.close({
+          type : this.shareConstants.shareConferenceRoom,
+          process : true,
+          systemUserId : this.systemUser._id
+        });
+      }
     });
   }
 

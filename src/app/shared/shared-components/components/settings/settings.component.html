@@ -1,4 +1,11 @@
-<div class="menu">
+
+<ng-container *ngIf="showLoader">
+    <div class="loader-container marTop50">
+        <div class="loader"></div>
+    </div>
+</ng-container>
+
+<div class="menu" *ngIf = "!showLoader">
     <ul *ngFor="let tab of tabs2">
         <li (click)="SelectItem2(tab.id, tab.displayText)">
             <a [ngClass]="{ active: tab.selected === true }"><i [ngClass]="tab.addedClass"></i>{{ tab.displayText }}</a>

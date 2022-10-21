@@ -1,9 +1,13 @@
-<div class="">
-    <app-close-screen name="close" (closeEm)='closeScreen($event)'></app-close-screen>
-    <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
-    <div>
-        <form novalidate (ngSubmit)="formSubmit()" [formGroup]="createEventForm">
-            <div class="uploadProfilePictureClass">
+<div style="max-height: 500px">
+    <form novalidate (ngSubmit)="formSubmit()" [formGroup]="createEventForm">
+    <div class="header">
+        <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
+        <app-close-screen name="close" (closeEm)='closeScreen($event)'></app-close-screen>
+    </div>
+    <div class="mat-body-data">
+        <div style="padding: 10px;">
+            
+            <div class="uploadProfilePictureClass" style="text-align: center;">
                 <span>Upload Event Picture : </span>
                 <form [formGroup]="updateProfileimg">
                     <div class="uploadProfileImgDiv">
@@ -51,6 +55,15 @@
                         [(ngModel)]="peopleEvent.eventDate">
                     <span>Event date*</span>
                 </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <input [ngxTimepicker]="picker" class="form-control marBT" formControlName="eventTime"
+                    [(ngModel)]="peopleEvent.eventTime">
+                    <ngx-material-timepicker #picker></ngx-material-timepicker>
+                    <span>Event time*</span>
+                 </div>
             </div>
 
             <div class="row">
@@ -110,13 +123,16 @@
                     </div>
                 </div>
             </div>
-            <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="determinate" [value]="progressPercent">
-            </mat-progress-bar>
-            <div class="row center-align">
-                <button type="submit" class="waves-effect waves-light commonBlueBtnN">
-                    {{dialogTitle | titlecase}}
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
+    <div class="mat-footer">
+        <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="determinate" [value]="progressPercent">
+        </mat-progress-bar>
+        <div class="row center-align">
+            <button type="submit" class="waves-effect waves-light commonBlueBtnN">
+                {{dialogTitle | titlecase}}
+            </button>
+        </div>
+    </div>
+    </form>
 </div>

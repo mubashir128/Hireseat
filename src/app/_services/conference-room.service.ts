@@ -7,13 +7,15 @@ import { AbstractService } from './abstract.service';
 export class ConferenceRoom {
   _id: string;
   conferenceFromId: any;
-  conferenceToId: any;
+  conferenceToIds: any[];
+  candidate_id: any;
 
   constructor();
-  constructor(_id?: string, conferenceFromId?: string, conferenceToId?: Date){
+  constructor(_id?: string, conferenceFromId?: any, conferenceToIds?: any[], candidate_id?: any){
     this._id = _id;
     this.conferenceFromId = conferenceFromId;
-    this.conferenceToId = conferenceToId;
+    this.conferenceToIds = conferenceToIds;
+    this.candidate_id = candidate_id;
   }
 }
 
@@ -30,9 +32,9 @@ export class ConferenceRoomService {
     this.baseurl = myGlobals.baseUrl;
   }
 
-  save(conferenceToId): Observable<any> {
+  save(conferenceToId, profileId): Observable<any> {
     let url = this.baseurl + "api/create-conference-room";
-    let req = new HttpRequest("POST", url, {conferenceToId : conferenceToId}, { reportProgress: true });
+    let req = new HttpRequest("POST", url, {conferenceToId : conferenceToId, profileId : profileId}, { reportProgress: true });
     return this._abstractService.requestProgress(this._http, req);
   }
 
@@ -40,6 +42,10 @@ export class ConferenceRoomService {
     let url = this.baseurl + "api/get-conference-room";
     let params = new HttpParams();
     return this._http.get<any>(url, { params: params });
+  }
+
+  postMyComment(payload) {
+    return this._http.post<any>(this.baseurl + "api/conference-post-comment", payload);
   }
 
 }
