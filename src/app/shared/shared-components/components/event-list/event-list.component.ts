@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { PeopleEventService } from "src/app/_services/people-event.service";
@@ -28,7 +28,7 @@ export class EventListComponent implements OnInit {
     protected _dialog: MatDialog,
     protected _userService: UserService,
     private _router: Router,
-    private _peopleEventService: PeopleEventService
+    private _peopleEventService: PeopleEventService,
   ) {}
 
   ngOnInit(): void {
@@ -67,14 +67,17 @@ export class EventListComponent implements OnInit {
     this.deleteEventEM.emit(eventData);
   }
 
-  onCommentPostClick(eventId){
+  onCommentPostClick(eventId,eventIndex){
     const payload = {
       userId:this.loggedUser._id,
       message:this.commentData
     }
 
     this._peopleEventService.postEventComment(eventId,payload).subscribe((res)=>{
-      console.log(res);
+      if(res){        
+      this.eventsList[eventIndex].comments = res.comments;
+        this.commentData="";
+      }
     },(err)=>{
       console.log(err)
     })

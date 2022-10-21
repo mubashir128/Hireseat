@@ -1,7 +1,7 @@
 <ng-container>
     <!-- <span style="font-size: 20px;">Events : </span> -->
     <div class="ListResume">
-        <div class="singleList employerResume" *ngFor="let event of eventsList">
+        <div class="singleList employerResume" *ngFor="let event of eventsList;let ind=index;">
             <div class="edit-event" *ngIf="loggedUser.userRole == 'super-admin'">
                 <i class="fa fa-edit" (click)="editEvent(event)"></i>
                 <i class="fa fa-trash" (click)="deleteEvent(event._id)"></i>
@@ -35,34 +35,33 @@
                             {{event?.eventDetails}}
                          </mat-tab>
                         <mat-tab label="Comments"> 
-                            <!-- <div class="comment-list" *ngIf="event.comments">
+                            <div class="comment-list" *ngIf="event.comments" [ngStyle]="{'height':!event.comments[0]?.userId?._id ? '0vh' :'50vh'}">
                                 <ng-container *ngFor="let comments of event.comments">
-                                <div class="comment-data">
+                                <div class="comment-data" *ngIf="comments.userId._id">
                                     <div class="profile">
                                         <img class="candidate-profile" src="assets/img/profile-user.png"/>
                                     </div>
                                     <div class="comment-details">
                                         <mat-card>
                                             <div class="user-name">
-                                                <p>Dipak Patil</p>
-                                                <span style="font-size: 12px;" *ngIf="comments.dateTime">{{comments.dateTime | date:'dd/MM/yyyy hh:mm a'}}</span>
+                                                <p>{{comments.userId.fullName}}</p>
+                                                <span style="font-size: 12px;" *ngIf="comments.timestamps">{{comments.timestamps | date:'dd/MM/yyyy hh:mm a'}}</span>
                                             </div>
                                             <div class="comment-description">
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                            </div>
-                                            
+                                                <p>{{comments.message}}</p>
+                                            </div>                                            
                                         </mat-card>
                                     </div>
                                 </div>
                                 </ng-container>
                             </div> 
-                            <div class="No-comments" *ngIf="!event.comments" style="text-align: center;">
+                            <div class="No-comments" *ngIf="!event.comments[0]?.userId?._id" style="text-align: center;">
                                 <p>No Comments</p>
                             </div>
                             <div class="comment-texbox-area" style="text-align: end;">
                                 <textarea class="form-control" placeholder="comment..." [(ngModel)]="commentData" rows="3" style="height: unset;"></textarea>
-                                <button class="commonBlueBtnN" (click)="onCommentPostClick(event._id)">Post</button>
-                            </div> -->
+                                <button class="commonBlueBtnN" (click)="onCommentPostClick(event._id,ind)">Post</button>
+                            </div>
                         </mat-tab>
                         <!-- <mat-tab label="Third"> Content 3 </mat-tab> -->
                     </mat-tab-group>
