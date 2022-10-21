@@ -50,6 +50,7 @@ export class PeoplesEvent {
   eventPicture: string;
   attendingUsers: any[];
   attendingCandidateList: any[];
+  comments:any=[];
 
   constructor();
   constructor(
