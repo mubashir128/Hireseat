@@ -35,7 +35,7 @@
                             {{event?.eventDetails}}
                          </mat-tab>
                         <mat-tab label="Comments"> 
-                            <div class="comment-list" *ngIf="event.comments" [ngStyle]="{'height':!event.comments[0]?.userId?._id ? '0vh' :'50vh'}">
+                            <!-- <div class="comment-list" *ngIf="event.comments" [ngStyle]="{'height':!event.comments[0]?.userId?._id ? '0vh' :'50vh'}">
                                 <ng-container *ngFor="let comments of event.comments">
                                 <div class="comment-data" *ngIf="comments.userId._id">
                                     <div class="profile">
@@ -61,9 +61,8 @@
                             <div class="comment-texbox-area" style="text-align: end;">
                                 <textarea class="form-control" placeholder="comment..." [(ngModel)]="commentData" rows="3" style="height: unset;"></textarea>
                                 <button class="commonBlueBtnN" (click)="onCommentPostClick(event._id,ind)">Post</button>
-                            </div>
+                            </div> -->
                         </mat-tab>
-                        <!-- <mat-tab label="Third"> Content 3 </mat-tab> -->
                     </mat-tab-group>
                 </div>
             </div>
