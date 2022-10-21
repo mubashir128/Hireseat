@@ -130,6 +130,7 @@ import { EventListUsersComponent } from './components/event-list-users/event-lis
 import { ConferenceRoomComponent } from './components/conference-room/conference-room.component';
 import { CandidateProfilesComponent } from './components/candidate-profiles/candidate-profiles.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
 
 @NgModule({
   imports: [
@@ -282,7 +283,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     SuggestAndEventsComponent,
     EventListUsersComponent,
     ConferenceRoomComponent,
-    CandidateProfilesComponent
+    CandidateProfilesComponent,
+    CommentsSectionComponent
   ],
   exports: [
     FooterComponent,

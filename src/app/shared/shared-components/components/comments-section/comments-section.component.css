@@ -1,0 +1,147 @@
+.comment {
+    font-size: 14px;
+    font-weight: 600;
+    color: #413f3f;
+}
+
+.post-cmt textarea {
+    border: solid 1px #999999;
+    padding: 10px;
+    outline: none;
+}
+
+.post-cmt {
+    margin: 20px 0;
+}
+
+.btn-placement {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-placement.postBtnDiv {
+    margin-bottom: 10px;
+}
+
+.btn-accept.postBtn {
+    height: 34px;
+    padding: 0 20px;
+    border-radius: 3px;
+}
+
+.btn-accept.postBtn:hover {
+    opacity: 0.8;
+}
+
+.btn-accept.postCommentDiv {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px #c1c1c1;
+    /* box-shadow: 0 4px 1px #5794bf; */
+    transition: 0.5s;
+}
+
+.btn-accept.postCommentDiv:hover {
+    width: 100px;
+    box-shadow: 0 4px 1px #5794bf;
+}
+
+.postCommentDiv span {
+    display: none;
+}
+
+.postCommentDiv img {
+    width: 20px;
+    height: auto;
+    filter: invert(1);
+}
+
+.postCommentDiv:hover.postCommentDiv span {
+    display: block;
+    margin-right: 10px;
+}
+
+.postCommentDiv:active {
+    /* transform: scale(0.9); */
+    opacity: 0.8;
+    transform: translateY(4px);
+    box-shadow: 0 1px 0px #5794bf !important;
+}
+
+.commentmainscroll {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.cmt-box {
+    border-bottom: 1px solid #dddddd;
+    margin: 20px 0;
+    padding-right: 5px;
+}
+
+.recruitercommenthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recruiternamedetails {
+    display: flex;
+    align-items: center;
+}
+
+.candProfile.recruiterprof {
+    width: 40px !important;
+    height: 40px !important;
+    background-color: #e7e7e7;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.candProfile.recruiterprof img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pro .candProfile {
+    width: 100px;
+    height: 100px;
+    background-color: #e7e7e7;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.pro .candProfile img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.CandidateDetails .candProfile {
+    width: 100px;
+    height: 100px;
+    background-color: #e7e7e7;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.CandidateDetails .candProfile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recruiter-name {
+    font-weight: 600;
+    font-size: 17px;
+    color: #272727;
+}

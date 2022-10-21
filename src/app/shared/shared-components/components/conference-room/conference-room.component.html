@@ -13,7 +13,7 @@
 <ng-container>
     <div class="MainTempMiddle">
         <div class="mainTemplate">
-            <ng-container *ngFor="let conference of conferenceRooms">
+            <ng-container *ngFor="let conference of conferenceRooms; let i = index">
                 <div class="row" style="border-bottom: 1px solid #e5e5e5;">
                     <div class="container">
                         <ng-container>
@@ -74,6 +74,14 @@
                         </ng-container>
                     </div>
                 </div>
+
+                <!-- <ng-container>
+                    <app-comments-section 
+                        [conference] = "conferenceRooms[i]"
+                        (postCmtEM) = "postMycmt($event)" 
+                    ></app-comments-section>
+                </ng-container> -->
+
             </ng-container>
         </div>
     </div>

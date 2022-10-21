@@ -1,0 +1,45 @@
+<ng-container>
+    <div style="margin-bottom: 150px !important;">
+        <span class="comment">Comments:</span>
+        <ng-container>
+            <div class="post-cmt">
+                <textarea [(ngModel)]="review" placeholder="Enter your comment"></textarea>
+                <ng-container *ngIf="review">
+                    <div class="btn-placement">
+                        <div class="btn-accept postCommentDiv" (click)="postMycmt()">
+                            <span>Post</span>
+                            <img src="assets/img/paper-plane.png" alt="profile" />
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="conference?.candidate_id?.canconferenceRoom?.length > 0">
+            <div class="commentmainscroll">
+                <div *ngFor="let cmt of conference.candidate_id.canconferenceRoom | reverse; let i = index">
+                    <div class="singleListData">
+                        <div class="cmt-box">
+                            <div class="recruitercommenthead">
+                                <div class="recruiternamedetails">
+
+                                    <div class="candProfile recruiterprof" *ngIf="!cmt.showCreatedLogo">
+                                        <img [src]="cmt?.recruiterId?.profileimage" (error)="getImage(cmt)"
+                                            class="uploadedImgUser">
+                                    </div>
+                                    <div *ngIf="cmt.showCreatedLogo" class="big-badge extrabig-badge-cmt">
+                                        {{ resume?.recruiterId?.fullName | uppercase | slice: 0 : 1 }}
+                                    </div>
+
+                                    <div class="recruiter-name recruiter-name-space">
+                                        <span>{{cmt?.recruiterId?.fullName}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-container>
