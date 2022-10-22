@@ -31,16 +31,16 @@
                         </div>
                     </div>
                     <div class="row other-details">
-                        <p *ngIf = "eventUsers?.userId?.candidate_id?.introduceYouToo">
+                        <p *ngIf = "eventUsers?.candidate_id?.introduceYouToo">
                           <label class="lableClass">I can Intro you to Companies/Teams at :</label>
                           <label class="lableClass2">
-                            {{ eventUsers?.userId?.candidate_id?.introduceYouToo}}
+                            {{ eventUsers?.candidate_id?.introduceYouToo}}
                           </label>
                         </p>
-                        <p *ngIf = "eventUsers?.userId?.candidate_id?.desiredCompanies">
+                        <p *ngIf = "eventUsers?.candidate_id?.desiredCompanies">
                             <label class="lableClass">I am interested in intros to :</label>
                             <label class="lableClass2">
-                                {{ eventUsers?.userId?.candidate_id?.desiredCompanies }}
+                                {{ eventUsers?.candidate_id?.desiredCompanies }}
                             </label>
                         </p>
                     </div>

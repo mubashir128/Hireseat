@@ -67,15 +67,15 @@ export class EventListComponent implements OnInit {
     this.deleteEventEM.emit(eventData);
   }
 
-  onCommentPostClick(eventId,eventIndex){
+  onCommentPostClick(eventId, eventIndex){
     const payload = {
       userId:this.loggedUser._id,
       message:this.commentData
     }
 
-    this._peopleEventService.postEventComment(eventId,payload).subscribe((res)=>{
+    this._peopleEventService.postEventComment(eventId, payload).subscribe((res)=>{
       if(res){        
-      this.eventsList[eventIndex].comments = res.comments;
+        this.eventsList[eventIndex].comments.push(res);
         this.commentData="";
       }
     },(err)=>{

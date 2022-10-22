@@ -67,7 +67,6 @@ export class DialogCreateEventComponent
 
   getEventData() {
     if (this.data.eventData) {
-      console.log(this.data.eventData);
       this.peopleEvent = this.data.eventData;
       this.imgURL = this.data.eventData.eventPicture;
     }
@@ -81,16 +80,21 @@ export class DialogCreateEventComponent
         console.log(`Upload ${progress.percent}% completed`);
         this.inProgress = true;
         this.progressPercent = progress.percent;
+        if (progress.completeStatus && progress.body && !this.peopleEvent._id) {
+          this._dialogRef.close({add : true, event : progress.body});
+        }else if (progress.completeStatus && progress.body && this.peopleEvent._id) {
+          this._dialogRef.close({edit : true, event : progress.body});
+        }
       },
       (error) => {
         this.inProgress = false;
         this.progressPercent = 0;
+        this._dialogRef.close();
         console.log("error : ", error);
       },
       () => {
         this.inProgress = false;
         console.log("completed : ");
-        this._dialogRef.close(true);
       }
     );
   }

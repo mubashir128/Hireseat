@@ -13,7 +13,7 @@ import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component'
 })
 export class CreateEventComponent implements OnInit {
 
-  eventsList: PeoplesEvent[];
+  eventsList: PeoplesEvent[] = [];
   loggedUser: any;
   showLoader: boolean = true;
 
@@ -29,22 +29,6 @@ export class CreateEventComponent implements OnInit {
     this.getPeopleEvents();
   }
 
-  createEvent() {
-    const dialogDeleteRef = this._dialog.open(DialogCreateEventComponent, {
-      data: {
-        dialogType: "create-event",
-        dialogTitle: "Create event",
-        dialogText: ""
-      }
-    });
-
-    dialogDeleteRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.getPeopleEvents();
-      }
-    });
-  }
-
   getPeopleEvents() {
     this._peopleEventService.getEvents().subscribe(data => {
       this.showLoader = false;
@@ -54,33 +38,50 @@ export class CreateEventComponent implements OnInit {
 
   attendEvent(event) {
     this._peopleEventService.attendEvent({eventId : event.eventId}).subscribe(data => {
-      this.getPeopleEvents();
+      this.addAttendingUsers(data);
     }, err=>{
       console.log("err : ",err);
+    });
+  }
+
+  addAttendingUsers(data){
+    this.eventsList.forEach(event => {
+      if(event._id == data._id){
+        event.attendingUsers = data.attendingUsers;
+      }
     });
   }
 
   cancelAttendEvent(event){
     this._peopleEventService.cancelAttendEvent({eventId : event.eventId}).subscribe(data => {
-      this.getPeopleEvents();
+      this.addAttendingUsers(data);
     }, err=>{
       console.log("err : ",err);
     }); 
   }
 
-  editEvent(eventData){
+  editCreateEvent(eventData){
     const dialogDeleteRef = this._dialog.open(DialogCreateEventComponent, {
       data: {
-        dialogType: "edit-event",
-        dialogTitle: "Edit event",
-        dialogText: "",
-        eventData: eventData,
+        dialogType:  eventData ? "edit-event" : "create-event",
+        dialogTitle: eventData ? "Edit event" : "Create event",
+        eventData: eventData
       },
     });
 
     dialogDeleteRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.getPeopleEvents();
+      if (result && result?.add) {
+        this.eventsList = [result?.event, ...this.eventsList];
+      }else if (result && result?.edit) {
+        this.editAttendingUsers(result);
+      }
+    });
+  }
+
+  editAttendingUsers(data){
+    this.eventsList.forEach(event => {
+      if(event?._id == data?._id){
+        event = {...data};
       }
     });
   }
@@ -97,11 +98,19 @@ export class CreateEventComponent implements OnInit {
     dialogDeleteRef.afterClosed().subscribe((result) => {
       if (result.process == true) {
         this._peopleEventService.delete(eventId).subscribe((res) => {
-            this.getPeopleEvents();
+            this.removeEventFromList(eventId);
           }, (err) => {
             console.log("err : ", err);
           }
         );
+      }
+    });
+  }
+
+  removeEventFromList(eventId){
+    this.eventsList.forEach((event, index) => {
+      if(event?._id == eventId){
+        this.eventsList.splice(index, 1);
       }
     });
   }

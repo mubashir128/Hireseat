@@ -31,7 +31,7 @@
     padding: 20px 30px;
     display: block;
     justify-content: unset;
-    margin-bottom: 30px;
+    margin-bottom: 50px !important;
     transition: 1s;
     height: auto;
     background-color: #ffffff;

@@ -24,7 +24,6 @@ export class ConferenceRoomComponent implements OnInit {
     this._conferenceRoom.getConferenceRooms().subscribe(res => {
       this.showLoader = false;
       this.conferenceRooms = res;
-      console.log("this.conferenceRooms : ",this.conferenceRooms);
     }, res=>{
       this.showLoader = false;
     });
@@ -47,7 +46,6 @@ export class ConferenceRoomComponent implements OnInit {
   }
 
   postMycmt(event) {
-    console.log("event : ",event);
     if (event.review === "" || event.review === null || event.review === undefined) {
       Materialize.toast("Comment box is empty!");
     } else {
@@ -56,12 +54,22 @@ export class ConferenceRoomComponent implements OnInit {
         review: event.review
       };
 
-      console.log("payload : ",payload);
       this._conferenceRoom.postMyComment(payload).subscribe((res) => {
-        console.log("res : ",res);
+        if(res){
+          this.addReviewToConference(event, res);
+        }
       }, (err) => {
         Materialize.toast("Unable to post!", 5000);
       });
     }
   }
+
+  addReviewToConference(event, res){
+    this.conferenceRooms.forEach(conference => {
+      if(conference?._id == event?.conference._id){
+        conference.candidate_id.canconferenceRoom = [...conference?.candidate_id?.canconferenceRoom, res];
+      }
+    });
+  }
+  
 }
