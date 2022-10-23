@@ -849,3 +849,10 @@ a.videoCloseBtn {
 input {
   margin-bottom: 0px !important;
 }
+
+.divider {
+  height: 2px;
+  overflow: hidden;
+  background-color: #e0e0e0;
+  margin-top: 20px;
+}

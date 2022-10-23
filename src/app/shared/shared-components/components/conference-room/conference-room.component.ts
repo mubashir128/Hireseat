@@ -45,18 +45,18 @@ export class ConferenceRoomComponent implements OnInit {
     obj.showCreatedLogo = true;
   }
 
-  postMycmt(event) {
+  postMyConferencecmt(event) {
     if (event.review === "" || event.review === null || event.review === undefined) {
       Materialize.toast("Comment box is empty!");
     } else {
       const payload = {
-        profileId: event.conference.candidate_id._id,
+        profileId: event.profileId,
         review: event.review
       };
 
       this._conferenceRoom.postMyComment(payload).subscribe((res) => {
         if(res){
-          this.addReviewToConference(event, res);
+          this.addReviewToConference(event.conferenceId, res);
         }
       }, (err) => {
         Materialize.toast("Unable to post!", 5000);
@@ -64,9 +64,9 @@ export class ConferenceRoomComponent implements OnInit {
     }
   }
 
-  addReviewToConference(event, res){
+  addReviewToConference(conferenceId, res){
     this.conferenceRooms.forEach(conference => {
-      if(conference?._id == event?.conference._id){
+      if(conference?._id == conferenceId){
         conference.candidate_id.canconferenceRoom = [...conference?.candidate_id?.canconferenceRoom, res];
       }
     });

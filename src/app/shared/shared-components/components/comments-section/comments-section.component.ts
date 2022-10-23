@@ -8,7 +8,10 @@ import { ConferenceRoom } from 'src/app/_services/conference-room.service';
 })
 export class CommentsSectionComponent implements OnInit {
 
-  @Input() conference: ConferenceRoom;
+  @Input() conferenceId: any;
+  @Input() canconferenceRoom: any[];
+
+  @Input() profileId: any;
   review: string;
 
   @Output() postCmtEM = new EventEmitter();
@@ -16,11 +19,10 @@ export class CommentsSectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("conference : ",this.conference);
   }
 
-  postMycmt() {
-    this.postCmtEM.emit({review : this.review, conference : this.conference});
+  postMyConferencecmt() {
+    this.postCmtEM.emit({review : this.review, profileId : this.profileId, conferenceId: this.conferenceId});
     this.review = "";
   }
 

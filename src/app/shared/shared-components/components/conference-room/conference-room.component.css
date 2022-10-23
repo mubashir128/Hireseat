@@ -126,3 +126,11 @@
     word-wrap: break-word;
     white-space: pre-line;
 }
+
+.divider {
+    height: 2px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

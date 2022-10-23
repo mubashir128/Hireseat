@@ -72,11 +72,15 @@
                                 </div>
                             </div>
                         </ng-container>
+
+                        <div class="divider"></div>
                         
                         <ng-container>
-                            <app-comments-section 
-                            [conference] = "conferenceRooms[i]"
-                            (postCmtEM) = "postMycmt($event)" 
+                            <app-comments-section
+                                [canconferenceRoom] = "conferenceRooms[i]?.candidate_id?.canconferenceRoom"
+                                [profileId] = "conferenceRooms[i]?.candidate_id?._id"
+                                [conferenceId] = "conferenceRooms[i]?._id"
+                                (postCmtEM) = "postMyConferencecmt($event)"
                             ></app-comments-section>
                         </ng-container>
                     </div>
