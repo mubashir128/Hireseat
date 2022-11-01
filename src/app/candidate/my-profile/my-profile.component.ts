@@ -57,6 +57,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   loopSkills;
   loopIndustries;
 
+  loggedInUser: any;
+
+  resumeUploaded: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
@@ -70,7 +74,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private readonly joyrideService: JoyrideService,
     protected dialog: MatDialog,
     protected _dialog: MatDialog
-  ) {}
+  ) {
+    this.loggedInUser = this.userService.getUserData();
+  }
 
   ngOnInit() {
     this.currentUserId = JSON.parse(
@@ -234,6 +240,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
                 // this.resume.fileURL = data.result;
                 this.fileUploaded = 2;
                 Materialize.toast("Resume Uploaded Successfully !", 1000);
+                this.resumeUploaded = true;
                 this.submit();
               } else {
                 Materialize.toast("Something Went Wrong !", 1000);
@@ -424,6 +431,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             if(res.data.resumeDataIs !== undefined){
               this.handleResumeData(res.data);
             }
+          }
+          if(this.resumeUploaded){
+            this.router.navigate(["/"+this.loggedInUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
           }
         },
         (err) => {

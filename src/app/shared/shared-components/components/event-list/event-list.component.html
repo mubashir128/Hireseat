@@ -38,8 +38,11 @@
                             <div class="comment-list" *ngIf="event.comments">
                                 <ng-container *ngFor="let comments of event.comments">
                                 <div class="comment-data" *ngIf="comments.userId._id">
-                                    <div class="profile">
+                                    <div class="profile" *ngIf="!comments.userId.profileimage">
                                         <img class="candidate-profile" src="assets/img/profile-user.png"/>
+                                    </div>
+                                    <div class="profile" *ngIf="comments.userId.profileimage">
+                                        <img class="candidate-profile" [src]="comments.userId.profileimage"/>
                                     </div>
                                     <div class="comment-details">
                                         <mat-card>

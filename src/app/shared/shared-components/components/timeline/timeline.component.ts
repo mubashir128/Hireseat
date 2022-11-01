@@ -54,6 +54,7 @@ export class TimelineComponent implements OnInit {
 
   checkSelctToAddFriends(){
     let status = JSON.parse(this.userService.getSelectToAddFriends());
+    let autoValueFinder = JSON.parse(this.userService.getAutoRunValueFinder());
     if(status){
       this._router.navigate(["/"+this.loggedUser.userRole+"/friends-connections"]);
       const dialogRef = this._dialog.open(DialogSelectToAddFriendsComponent, {
@@ -66,7 +67,10 @@ export class TimelineComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
+        this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
       });
+    }else if(autoValueFinder){
+      this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
     }
   }
 
