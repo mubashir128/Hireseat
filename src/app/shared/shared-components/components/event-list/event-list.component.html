@@ -35,11 +35,14 @@
                             {{event?.eventDetails}}
                          </mat-tab>
                         <mat-tab label="Comments"> 
-                            <!-- <div class="comment-list" *ngIf="event.comments" [ngStyle]="{'height':!event.comments[0]?.userId?._id ? '0vh' :'50vh'}">
+                            <div class="comment-list" *ngIf="event.comments">
                                 <ng-container *ngFor="let comments of event.comments">
                                 <div class="comment-data" *ngIf="comments.userId._id">
-                                    <div class="profile">
+                                    <div class="profile" *ngIf="!comments.userId.profileimage">
                                         <img class="candidate-profile" src="assets/img/profile-user.png"/>
+                                    </div>
+                                    <div class="profile" *ngIf="comments.userId.profileimage">
+                                        <img class="candidate-profile" [src]="comments.userId.profileimage"/>
                                     </div>
                                     <div class="comment-details">
                                         <mat-card>
@@ -55,13 +58,13 @@
                                 </div>
                                 </ng-container>
                             </div> 
-                            <div class="No-comments" *ngIf="!event.comments[0]?.userId?._id" style="text-align: center;">
+                            <div class="No-comments" *ngIf="!event.comments.length" style="text-align: center;">
                                 <p>No Comments</p>
                             </div>
-                            <div class="comment-texbox-area" style="text-align: end;">
+                            <div  *ngIf="loggedUser.userRole !== 'super-admin'" class="comment-texbox-area" style="text-align: end;">
                                 <textarea class="form-control" placeholder="comment..." [(ngModel)]="commentData" rows="3" style="height: unset;"></textarea>
                                 <button class="commonBlueBtnN" (click)="onCommentPostClick(event._id,ind)">Post</button>
-                            </div> -->
+                            </div>
                         </mat-tab>
                     </mat-tab-group>
                 </div>

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ResumeService } from 'src/app/_services/resume.service';
 import { UserService } from 'src/app/_services/user.service';
 import * as lib from "src/app/lib-functions";
 import { CandidateService } from 'src/app/_services/candidate.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReadResumeService } from 'src/app/_services/read-resume.service';
 import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.service';
 import { MatStepper } from '@angular/material/stepper';
@@ -30,7 +30,7 @@ export class AccomplishmentType{
   templateUrl: './edit-highlights.component.html',
   styleUrls: ['./edit-highlights.component.css']
 })
-export class EditHighlightsComponent implements OnInit {
+export class EditHighlightsComponent implements OnInit, AfterViewInit {
 
   loggedInUser: any;
   finalSkillSets = [];
@@ -88,13 +88,18 @@ export class EditHighlightsComponent implements OnInit {
   generateStatement: string = "Experience with ";
   resumeData: string = "";
 
+  step: number;
+
+  @ViewChild('myNextButton') private myNextButtonOkk: ElementRef;
+
   constructor(private resumeService: ResumeService, 
     private userService: UserService, 
     private formBuilder: FormBuilder,
     private candidateService: CandidateService,
     private _router: Router,
     private _readResume : ReadResumeService,
-    private _candidateCarrer : CandidateCarrerService
+    private _candidateCarrer : CandidateCarrerService,
+    private _route: ActivatedRoute
   ){
     this.loggedInUser = this.userService.getUserData();
 
@@ -125,6 +130,10 @@ export class EditHighlightsComponent implements OnInit {
       showIndustriesAre : ["", Validators.required],
     });
     
+    this._route.params.subscribe(params => {
+      this.step = this._route.snapshot.queryParams["step"];
+    });
+
   }
 
   ngOnInit(): void {
@@ -136,11 +145,17 @@ export class EditHighlightsComponent implements OnInit {
     this.showIndustries();
     
     this.accomplishmentArray = [];
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm1", "Accomplishment/Unique Experience 1.", false, 0));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm2", "Accomplishment/Unique Experience 2.", false, 0));
-    this.accomplishmentArray.push(new AccomplishmentType("accomFrm3", "Accomplishment/Unique Experience 3.", false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm1", "Accomplishment/Unique Experience 1.", this.step ? true : false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm2", "Accomplishment/Unique Experience 2.", this.step ? true : false, 0));
+    this.accomplishmentArray.push(new AccomplishmentType("accomFrm3", "Accomplishment/Unique Experience 3.", this.step ? true : false, 0));
     this.accomplishmentArray.push(new AccomplishmentType("accomFrm4", "Accomplishment/Unique Experience 4.", false, 0));
     this.accomplishmentArray.push(new AccomplishmentType("accomFrm5", "Accomplishment/Unique Experience 5.", false, 0));
+  }
+
+  ngAfterViewInit() {
+    if(this.step){
+      this.myNextButtonOkk.nativeElement.click();
+    }
   }
 
   showSkills(){
@@ -488,5 +503,9 @@ export class EditHighlightsComponent implements OnInit {
     if(event.selectedIndex == stepper.steps.length-1){
       this.createStatement();
     }
+  }
+
+  ngOnDestroy(){
+    this.userService.removeAutoRunValueFinder();
   }
 }

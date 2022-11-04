@@ -24,7 +24,6 @@ export class ConferenceRoomComponent implements OnInit {
     this._conferenceRoom.getConferenceRooms().subscribe(res => {
       this.showLoader = false;
       this.conferenceRooms = res;
-      console.log("this.conferenceRooms : ",this.conferenceRooms);
     }, res=>{
       this.showLoader = false;
     });
@@ -46,22 +45,31 @@ export class ConferenceRoomComponent implements OnInit {
     obj.showCreatedLogo = true;
   }
 
-  postMycmt(event) {
-    console.log("event : ",event);
+  postMyConferencecmt(event) {
     if (event.review === "" || event.review === null || event.review === undefined) {
       Materialize.toast("Comment box is empty!");
     } else {
       const payload = {
-        profileId: event.conference.candidate_id._id,
+        profileId: event.profileId,
         review: event.review
       };
 
-      console.log("payload : ",payload);
       this._conferenceRoom.postMyComment(payload).subscribe((res) => {
-        console.log("res : ",res);
+        if(res){
+          this.addReviewToConference(event.conferenceId, res);
+        }
       }, (err) => {
         Materialize.toast("Unable to post!", 5000);
       });
     }
   }
+
+  addReviewToConference(conferenceId, res){
+    this.conferenceRooms.forEach(conference => {
+      if(conference?._id == conferenceId){
+        conference.candidate_id.canconferenceRoom = [...conference?.candidate_id?.canconferenceRoom, res];
+      }
+    });
+  }
+  
 }

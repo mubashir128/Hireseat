@@ -31,7 +31,7 @@
     padding: 20px 30px;
     display: block;
     justify-content: unset;
-    margin-bottom: 30px;
+    margin-bottom: 50px !important;
     transition: 1s;
     height: auto;
     background-color: #ffffff;
@@ -125,4 +125,12 @@
     color: #919191;
     word-wrap: break-word;
     white-space: pre-line;
+}
+
+.divider {
+    height: 2px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

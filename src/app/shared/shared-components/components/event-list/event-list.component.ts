@@ -1,8 +1,11 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
+import { Subject } from "rxjs";
+import { ConstantsService } from "src/app/_services/constants.service";
 import { PeopleEventService } from "src/app/_services/people-event.service";
 import { UserService } from "src/app/_services/user.service";
+import { WebsocketService } from "src/app/_services/websocket.service";
 import { PeoplesEvent } from "../app-list/app-list.component";
 import { DialogCreateEventComponent } from "../dialog-create-event/dialog-create-event.component";
 import { DialogDeleteComponent } from "../dialog-delete/dialog-delete.component";
@@ -24,15 +27,48 @@ export class EventListComponent implements OnInit {
   loggedUser: any;
   profileImageLength: number = 5;
 
+
+  peopleEventCommnetsObserver = new Subject();
+  peopleEventCommnetsObserver$ = this.peopleEventCommnetsObserver.asObservable();
+
   constructor(
     protected _dialog: MatDialog,
     protected _userService: UserService,
     private _router: Router,
     private _peopleEventService: PeopleEventService,
+    private _socket: WebsocketService, 
+    private _constants: ConstantsService,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(){
     this.loggedUser = this._userService.getUserData();
+    //add a observable for userChat
+    await this._socket.removeListener({ type: this._constants.peopleEventComment });
+    this._socket.addListener({
+      type: this._constants.peopleEventComment,
+      callback: this.peopleEventCommnetsObserver,
+    });
+
+    //when any activity of userChat is happened, then this observable is called.
+    this.peopleEventCommnetsObserver$.subscribe((res: any) => {
+      this.handlePeopleEventComments(res);
+    });
+  }
+
+  handlePeopleEventComments(res: any){
+    switch (res.subType) {
+      case this._constants.postPeopleEventComment:
+        this.addPeopleEventComment(res);
+        break;
+    }
+  }
+
+  addPeopleEventComment(eventRes){
+    const eventData = this.eventsList.find((x)=>{
+      return x._id==eventRes.eventId;
+    });
+
+    eventData.comments.push(eventRes.data)
   }
 
   checkStatus(event) {
@@ -67,15 +103,15 @@ export class EventListComponent implements OnInit {
     this.deleteEventEM.emit(eventData);
   }
 
-  onCommentPostClick(eventId,eventIndex){
+  onCommentPostClick(eventId, eventIndex){
     const payload = {
       userId:this.loggedUser._id,
       message:this.commentData
     }
 
-    this._peopleEventService.postEventComment(eventId,payload).subscribe((res)=>{
+    this._peopleEventService.postEventComment(eventId, payload).subscribe((res)=>{
       if(res){        
-      this.eventsList[eventIndex].comments = res.comments;
+        this.eventsList[eventIndex].comments.push(res);
         this.commentData="";
       }
     },(err)=>{

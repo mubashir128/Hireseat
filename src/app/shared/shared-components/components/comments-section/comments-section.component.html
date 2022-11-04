@@ -1,12 +1,12 @@
 <ng-container>
-    <div style="margin-bottom: 150px !important;">
-        <span class="comment">Comments:</span>
+    <div style="margin-bottom: 30px !important;">
+        <span class="comment">Conference Comments:</span>
         <ng-container>
             <div class="post-cmt">
                 <textarea [(ngModel)]="review" placeholder="Enter your comment"></textarea>
                 <ng-container *ngIf="review">
                     <div class="btn-placement">
-                        <div class="btn-accept postCommentDiv" (click)="postMycmt()">
+                        <div class="btn-accept postCommentDiv" (click)="postMyConferencecmt()">
                             <span>Post</span>
                             <img src="assets/img/paper-plane.png" alt="profile" />
                         </div>
@@ -14,19 +14,19 @@
                 </ng-container>
             </div>
         </ng-container>
-        <ng-container *ngIf="conference?.candidate_id?.canconferenceRoom?.length > 0">
+        <ng-container *ngIf="canconferenceRoom?.length > 0">
             <div class="commentmainscroll">
-                <div *ngFor="let cmt of conference.candidate_id.canconferenceRoom | reverse; let i = index">
+                <div *ngFor="let cmt of canconferenceRoom | reverse; let i = index">
                     <div class="singleListData">
                         <div class="cmt-box">
                             <div class="recruitercommenthead">
                                 <div class="recruiternamedetails">
 
-                                    <div class="candProfile recruiterprof" *ngIf="!cmt.showCreatedLogo">
+                                    <div class="candProfile recruiterprof" *ngIf="!cmt?.showCreatedLogo">
                                         <img [src]="cmt?.recruiterId?.profileimage" (error)="getImage(cmt)"
                                             class="uploadedImgUser">
                                     </div>
-                                    <div *ngIf="cmt.showCreatedLogo" class="big-badge extrabig-badge-cmt">
+                                    <div *ngIf="cmt?.showCreatedLogo" class="big-badge extrabig-badge-cmt">
                                         {{ resume?.recruiterId?.fullName | uppercase | slice: 0 : 1 }}
                                     </div>
 
@@ -35,6 +35,16 @@
                                     </div>
 
                                 </div>
+                            </div>
+                            <div class="PointsDiv commonSingleInner CommentInner">
+                                <div class="PointsDivSingle PointsDivSingleN recruitercom divide">
+                                  <p>
+                                    {{ cmt?.review }}
+                                  </p>
+                                </div>
+                            </div>
+                            <div class="timelineTime notificaationDateTime">
+                                {{cmt?.timestamps | amTimeAgo}}
                             </div>
                         </div>
                     </div>

@@ -469,6 +469,18 @@
         </div>
       </ng-container>
 
+      <div class="divider"></div>
+      
+      <ng-container *ngIf = "loggedUser.userRole === 'candidate'">
+        <div style="margin-top: 20px;">
+          <app-comments-section 
+            [canconferenceRoom] = "resume?.canconferenceRoom"
+            [profileId] = "resume?._id"
+            (postCmtEM) = "postMyConferencecmt($event)"
+          ></app-comments-section>
+        </div>
+      </ng-container>
+
     <div class="row" style="border-top: 1px solid #dddddd;">
     </div>
     <ng-container *ngIf="loggedUser.userRole === 'recruiter'">

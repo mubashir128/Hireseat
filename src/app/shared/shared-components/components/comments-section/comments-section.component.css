@@ -10,10 +10,6 @@
     outline: none;
 }
 
-.post-cmt {
-    margin: 20px 0;
-}
-
 .btn-placement {
     width: 100%;
     height: 100%;
@@ -41,7 +37,6 @@
     padding: 0;
     border-radius: 5px;
     box-shadow: 0 5px 10px #c1c1c1;
-    /* box-shadow: 0 4px 1px #5794bf; */
     transition: 0.5s;
 }
 
@@ -66,7 +61,6 @@
 }
 
 .postCommentDiv:active {
-    /* transform: scale(0.9); */
     opacity: 0.8;
     transform: translateY(4px);
     box-shadow: 0 1px 0px #5794bf !important;
@@ -75,10 +69,10 @@
 .commentmainscroll {
     max-height: 300px;
     overflow: auto;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .cmt-box {
-    border-bottom: 1px solid #dddddd;
     margin: 20px 0;
     padding-right: 5px;
 }
@@ -144,4 +138,54 @@
     font-weight: 600;
     font-size: 17px;
     color: #272727;
+}
+
+.PointsDiv.commonSingleInner.CommentInner {
+    padding-left: 55px;
+    padding-left: 0px;
+    width: 100%;
+    float: none;
+}
+
+.commonSingleInner {
+    width: 100% !important;
+}
+
+.PointsDiv.commonSingleInner.CommentInner {
+    padding-left: 0px;
+    width: 100%;
+    float: none;
+}
+
+.PointsDivSingle {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.PointsDivSingle h4 {
+    margin: 0 20px;
+    font-size: 16px;
+    color: #635858;
+    /* word-wrap: break-word; */
+    white-space: pre-line;
+}
+
+.PointsDivSingle i {
+    color: red;
+}
+
+.recruitercom p {
+    margin: 0;
+}
+
+.divide {
+    display: flex;
+}
+
+.timelineTime {
+    float: right;
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
+    font-size: 12px !important;
 }

@@ -580,6 +580,33 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     });
   }
 
+  postMyConferencecmt(event) {
+    if (event.review === "" || event.review === null || event.review === undefined) {
+      Materialize.toast("Comment box is empty!");
+    } else {
+      const payload = {
+        profileId: event.profileId,
+        review: event.review
+      };
+
+      this._conferenceRoom.postMyComment(payload).subscribe((res) => {
+        if(res){
+          this.addReviewToConference(event.profileId, res);
+        }
+      }, (err) => {
+        Materialize.toast("Unable to post!", 5000);
+      });
+    }
+  }
+
+  addReviewToConference(profileId, res){
+    this.resumes.forEach(resume => {
+      if(resume?._id == profileId){
+        resume.canconferenceRoom = [...resume?.canconferenceRoom, res];
+      }
+    });
+  }
+
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.sharedProfileType });
     this.sharedProfileObserver.unsubscribe();

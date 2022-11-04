@@ -176,6 +176,7 @@ export class MobileRegisterComponent implements OnInit {
       if(data){
         Materialize.toast("You have been successfully verified", 1000, "green");
         this._userService.setSelectToAddFriends();
+        this._userService.setAutoRunValueFinder();
         this.goToLogin(true);
       }
     }, (err) => {

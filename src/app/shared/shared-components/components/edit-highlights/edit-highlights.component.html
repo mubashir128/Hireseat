@@ -25,7 +25,7 @@
                             <mat-hint>Allowed formats: .pdf, .docx</mat-hint>
                         </div>
                         <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="determinate" [value]="progressPercent"></mat-progress-bar>
-                        <button type="submit" class="row eduuction-cant-2" (click) = "goForward(stepper)">Next</button>
+                        <button type="submit" #myNextButton class="row eduuction-cant-2" (click) = "goForward(stepper)">Next</button>
                     </form>
                 </div>
             </div>

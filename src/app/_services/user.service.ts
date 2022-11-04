@@ -429,6 +429,18 @@ export class UserService {
     localStorage.removeItem("selectToAddCandidate");
   }
 
+  setAutoRunValueFinder(){
+    localStorage.setItem("autoValueFinder", "true");
+  }
+
+  getAutoRunValueFinder(){
+    return localStorage.getItem("autoValueFinder");
+  }
+
+  removeAutoRunValueFinder(){
+    localStorage.removeItem("autoValueFinder");
+  }
+
   async shareToMedia(createdUrl){
     await Share.share({
       url: createdUrl,
