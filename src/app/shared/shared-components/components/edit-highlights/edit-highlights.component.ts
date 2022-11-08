@@ -234,14 +234,17 @@ export class EditHighlightsComponent implements OnInit, AfterViewInit {
         case 0 : 
           this.accomplishmentTabFrm.get('accomFrm1').setValue(val.stm);
           this.accomplishmentArray[0].value = val.value;
+          this.comments = val.stm;
           break;
         case 1 : 
           this.accomplishmentTabFrm.controls['accomFrm2'].setValue(val.stm);
           this.accomplishmentArray[1].value = val.value;
+          this.comment2 = val.stm;
           break;
         case 2 : 
           this.accomplishmentTabFrm.controls['accomFrm3'].setValue(val.stm);
           this.accomplishmentArray[2].value = val.value;
+          this.comment3 = val.stm;
           break;
         case 3 : 
           this.accomplishmentTabFrm.controls['accomFrm4'].setValue(val.stm);

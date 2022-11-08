@@ -1,8 +1,8 @@
 .ListResume {
     list-style: none;
     padding: 0;
-    width: 100%;
-    float: left;
+    /* width: 100%; */
+    /* float: left; */
     margin-bottom: 100px;
     height: calc(75vh) !important;
     overflow: auto;

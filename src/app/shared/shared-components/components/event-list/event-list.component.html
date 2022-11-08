@@ -1,6 +1,6 @@
 <ng-container>
     <!-- <span style="font-size: 20px;">Events : </span> -->
-    <div class="ListResume">
+    <div class="row ListResume">
         <div class="singleList employerResume" *ngFor="let event of eventsList;let ind=index;">
             <div class="edit-event" *ngIf="loggedUser.userRole == 'super-admin'">
                 <i class="fa fa-edit" (click)="editEvent(event)"></i>
