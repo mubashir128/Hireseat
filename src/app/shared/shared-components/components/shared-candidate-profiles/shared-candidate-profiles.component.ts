@@ -323,6 +323,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     this._conferenceRoom.save(result.systemUserId, this.shareResume._id).subscribe(res=>{
       if(res.completeStatus){
         console.log("request completed : ");
+        Materialize.toast("Message share was done", 1000, "green");
       }
     }, error =>{
       Materialize.toast("Conference room already shared !", 1000, "red");
