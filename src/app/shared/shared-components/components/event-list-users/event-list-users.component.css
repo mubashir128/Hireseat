@@ -27,7 +27,8 @@
 
 .pro .pro-user-name{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
+    flex-direction: column;
 }
 
 .pro .pro-user-name p{
@@ -35,6 +36,12 @@
    font-weight: 600;
    margin: 0;
    padding: 0;
+}
+
+.pro .pro-user-name span{
+    color: green;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .pro .chat-icon i {

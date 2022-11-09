@@ -48,4 +48,13 @@ export class EventListUsersComponent implements OnInit {
   gotoChat(userId){
     this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", userId]);
   }
+
+  verifyCheckInUser(userId, checkInUsers) {
+    // console.log(userId, checkInUsers)
+    for (let index = 0; index < checkInUsers.length; index++) {
+      if (checkInUsers[index].userId._id == userId && checkInUsers[index].checkIn) {
+        return true;
+      }
+    }
+  }
 }

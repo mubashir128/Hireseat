@@ -20,9 +20,12 @@ export class EventListComponent implements OnInit {
   @Output() attendEM = new EventEmitter();
   @Output() cancelAttendEM = new EventEmitter();
 
+  @Output() checkInUserEM = new EventEmitter();
+  @Output() unCheckInUserEM = new EventEmitter();
+
   @Output() editEventEM = new EventEmitter();
   @Output() deleteEventEM = new EventEmitter();
-
+  
   commentData:any="";
   loggedUser: any;
   profileImageLength: number = 5;
@@ -117,5 +120,25 @@ export class EventListComponent implements OnInit {
     },(err)=>{
       console.log(err)
     })
+  }
+
+  onCheckInClick(event){
+    this.checkInUserEM.emit(event);
+  }
+
+  onUncheckInClick(event){
+    this.unCheckInUserEM.emit(event);
+  }
+
+  checkInUserStatus(event){
+    let status: boolean = false;
+    if (this.loggedUser.userRole == "candidate") {
+      event.checkInUsers.forEach((user) => {
+        if (user.userId._id == this.loggedUser._id) {
+          status = true;
+        }
+      });
+    }
+    return status;
   }
 }

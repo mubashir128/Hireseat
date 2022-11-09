@@ -103,6 +103,25 @@
                     </button>
                 </div>
             </div>
+            <div class="row events-button" *ngIf="loggedUser.userRole !== 'super-admin'">
+                <div class="row center-align" *ngIf="!checkInUserStatus(event)">
+                    <button type="button" class="waves-effect waves-light commonBlueBtnN" (click)="onCheckInClick(event)" style="
+                    background-color: #d9534f !important;
+                    border-color: #d9534f !important;
+                ">
+                        CheckIn
+                    </button>
+                </div>
+
+                <div class="row center-align" *ngIf="checkInUserStatus(event)">
+                    <button type="button" class="waves-effect waves-light commonBlueBtnN" (click)="onUncheckInClick(event)" style="
+                    background-color: #d9534f !important;
+                    border-color: #d9534f !important;
+                ">
+                        Uncheck
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </ng-container>

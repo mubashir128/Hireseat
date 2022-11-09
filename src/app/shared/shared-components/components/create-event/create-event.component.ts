@@ -52,6 +52,30 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
+  checkInUser(event){
+    this._peopleEventService.checkInEvent({eventId : event._id}).subscribe((data:any) => {
+      this.addCheckInUsers(data)
+    }, err=>{
+      console.log("err : ",err);
+    });
+  }
+
+  unCheckInUser(event){
+    this._peopleEventService.unCheckInEvent({eventId : event._id}).subscribe((data:any) => {      
+      this.addCheckInUsers(data)
+    }, err=>{
+      console.log("err : ",err);
+    });
+  }
+
+  addCheckInUsers(data){
+    this.eventsList.forEach(event => {
+      if(event._id == data._id){
+        event.checkInUsers = data.checkInUsers;
+      }
+    });
+  }
+
   cancelAttendEvent(event){
     this._peopleEventService.cancelAttendEvent({eventId : event.eventId}).subscribe(data => {
       this.addAttendingUsers(data);
