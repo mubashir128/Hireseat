@@ -51,7 +51,8 @@ export class ConferenceRoomComponent implements OnInit {
     } else {
       const payload = {
         profileId: event.profileId,
-        review: event.review
+        review: event.review,
+        conferenceId: event.conferenceId,
       };
 
       this._conferenceRoom.postMyComment(payload).subscribe((res) => {
