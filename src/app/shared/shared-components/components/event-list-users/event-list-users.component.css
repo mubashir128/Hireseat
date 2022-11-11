@@ -91,3 +91,8 @@
     color: #cc530c;
     font-weight: bold;
 }
+
+.events-button{
+    display: flex;
+    justify-content: center;
+}
