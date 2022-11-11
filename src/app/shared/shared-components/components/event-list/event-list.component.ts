@@ -117,7 +117,7 @@ export class EventListComponent implements OnInit {
       if(res){        
         this.eventsList[eventIndex].comments.push(res);
         this.commentData="";
-        this.scrollCommentToBottom(eventId,'post_comment');
+        this.scrollCommentToBottom(eventId, 'post_comment');
       }
     },(err)=>{
       console.log(err)
@@ -148,10 +148,10 @@ export class EventListComponent implements OnInit {
     if(event.index==1) this.scrollCommentToBottom(eventId,'go_to_bottom');
   }
 
-  scrollCommentToBottom(eventId,type){
+  scrollCommentToBottom(eventId, type){
     setTimeout(() => {
       const element = document.getElementById('comment-list_'+eventId);
       element.scroll({ top: element.scrollHeight, behavior: 'smooth' }); 
-    }, type=='post_comment'?1000:0);
+    }, type=='post_comment' ? 500 : 0);
   }
 }
