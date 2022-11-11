@@ -52,6 +52,8 @@ export class EventListUsersComponent implements OnInit {
     this._peopleEventService.getEvents(this.eventId).subscribe(data => {
       this.showLoader = false;
       this.eventsList = data[0];
+      this.setCheckInUsersInEventList();
+      
     },err=>{
       this.showLoader = false;
     });
@@ -65,10 +67,30 @@ export class EventListUsersComponent implements OnInit {
     this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", userId]);
   }
 
+  setCheckInUsersInEventList(){
+    if(this.eventsList.attendingUsers.length!=0){
+      for (let index = 0; index < this.eventsList.attendingUsers.length; index++) {
+        this.eventsList.attendingUsers[index].checkIn=false;
+        this.verifyCheckInUser(this.eventsList.attendingUsers[index].userId._id,this.eventsList.checkInUsers)          
+      }
+      let attendingUsers = this.eventsList.attendingUsers.sort((x,y)=>{
+        return Number(y.checkIn)-Number(x.checkIn);
+      })
+
+      this.eventsList.attendingUsers = attendingUsers;
+    }
+  }
+
   verifyCheckInUser(userId, checkInUsers) {
     // console.log(userId, checkInUsers)
     for (let index = 0; index < checkInUsers.length; index++) {
       if (checkInUsers[index].userId._id == userId && checkInUsers[index].checkIn) {
+        for (let j = 0; j < this.eventsList.attendingUsers.length; j++) {
+          if(this.eventsList.attendingUsers[j].userId._id==checkInUsers[index].userId._id){
+            this.eventsList.attendingUsers[j].checkIn=true;
+           //console.log(checkInUsers[index].userId._id,this.eventsList.attendingUsers[j])
+          }          
+        }
         return true;
       }
     }

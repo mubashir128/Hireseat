@@ -25,7 +25,7 @@
                         </div>
                         <div class="pro-user-name" style="width: 75%;">
                             <p>{{eventUsers?.userId?.fullName | uppercase}}</p>
-                            <span *ngIf="verifyCheckInUser(eventUsers?.userId?._id,eventsList?.checkInUsers)">I am here</span>                            
+                            <span *ngIf="eventUsers?.checkIn">I am here</span>                           
                         </div>
                         <div class="chat-icon" style="width: 10%;" *ngIf="eventUsers?.userId?._id != loggedUser._id" (click)="gotoChat(eventUsers.userId._id)">
                             <i class="fa fa-comments-o" aria-hidden="true"></i>
