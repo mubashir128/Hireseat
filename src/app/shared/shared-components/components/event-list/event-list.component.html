@@ -35,7 +35,7 @@
                             {{event?.eventDetails}}
                          </mat-tab>
                         <mat-tab label="Comments" > 
-                            <div class="comment-list" #commentDiv id="comment-list_{{event._id}}" *ngIf="event.comments">
+                            <div class="comment-list" id="comment-list_{{event._id}}" *ngIf="event.comments">
                                 <ng-container *ngFor="let comments of event.comments">
                                 <div class="comment-data" *ngIf="comments.userId._id">
                                     <div class="profile" *ngIf="!comments.userId.profileimage">
