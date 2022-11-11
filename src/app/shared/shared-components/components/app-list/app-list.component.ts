@@ -51,6 +51,7 @@ export class PeoplesEvent {
   attendingUsers: any[];
   attendingCandidateList: any[];
   comments:any=[];
+  checkInUsers:any=[];
 
   constructor();
   constructor(

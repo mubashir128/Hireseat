@@ -25,11 +25,12 @@
                         </div>
                         <div class="pro-user-name" style="width: 75%;">
                             <p>{{eventUsers?.userId?.fullName | uppercase}}</p>
+                            <span *ngIf="eventUsers?.checkIn">I am here</span>                           
                         </div>
-                        <div class="chat-icon" style="width: 10%;" *ngIf="eventUsers.userId._id != loggedUser._id" (click)="gotoChat(eventUsers.userId._id)">
+                        <div class="chat-icon" style="width: 10%;" *ngIf="eventUsers?.userId?._id != loggedUser._id" (click)="gotoChat(eventUsers.userId._id)">
                             <i class="fa fa-comments-o" aria-hidden="true"></i>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="row other-details">
                         <p *ngIf = "eventUsers?.candidate_id?.introduceYouToo">
                           <label class="lableClass">I can Intro you to Companies/Teams at :</label>
@@ -43,6 +44,13 @@
                                 {{ eventUsers?.candidate_id?.desiredCompanies }}
                             </label>
                         </p>
+                    </div>
+                    <div class="row events-button"*ngIf = "eventUsers?.userId?._id != loggedUser._id">
+                        <div class="row center-align">
+                            <button type="button" class="waves-effect waves-light commonBlueBtnN redBtn" (click)="connectWithOffers(eventUsers)">
+                                Connect
+                            </button>
+                        </div>
                     </div>
                 </mat-card>
             </div>

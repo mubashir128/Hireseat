@@ -52,6 +52,31 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
+  checkInUser(event){
+    this._peopleEventService.checkInEvent({eventId : event._id}).subscribe((data:any) => {
+      this.addCheckInUsers(data);
+      this.onCommentPostClick(event._id);
+    }, err=>{
+      console.log("err : ",err);
+    });
+  }
+
+  unCheckInUser(event){
+    this._peopleEventService.unCheckInEvent({eventId : event._id}).subscribe((data:any) => {      
+      this.addCheckInUsers(data)
+    }, err=>{
+      console.log("err : ",err);
+    });
+  }
+
+  addCheckInUsers(data){
+    this.eventsList.forEach(event => {
+      if(event._id == data._id){
+        event.checkInUsers = data.checkInUsers;
+      }
+    });
+  }
+
   cancelAttendEvent(event){
     this._peopleEventService.cancelAttendEvent({eventId : event.eventId}).subscribe(data => {
       this.addAttendingUsers(data);
@@ -113,5 +138,25 @@ export class CreateEventComponent implements OnInit {
         this.eventsList.splice(index, 1);
       }
     });
+  }
+
+  onCommentPostClick(eventId){
+    const payload = {
+      userId: this.loggedUser._id,
+      message: "I checked In",
+      timiline : true
+    }
+
+    this._peopleEventService.postEventComment(eventId, payload).subscribe((res)=>{
+      if(res){
+        this.eventsList.forEach((event)=>{
+          if(event._id == eventId){
+            event.comments = [...event.comments, res];
+          }
+        });
+      }
+    },(err)=>{
+      console.log(err)
+    })
   }
 }

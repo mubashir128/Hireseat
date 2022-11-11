@@ -1,6 +1,6 @@
 <ng-container>
     <!-- <span style="font-size: 20px;">Events : </span> -->
-    <div class="ListResume">
+    <div class="row ListResume">
         <div class="singleList employerResume" *ngFor="let event of eventsList;let ind=index;">
             <div class="edit-event" *ngIf="loggedUser.userRole == 'super-admin'">
                 <i class="fa fa-edit" (click)="editEvent(event)"></i>
@@ -30,12 +30,12 @@
                 </div>
 
                 <div class="details-tab">
-                    <mat-tab-group>
+                    <mat-tab-group (selectedTabChange)="matTabChange($event,event._id)">
                         <mat-tab label="Details"> 
                             {{event?.eventDetails}}
                          </mat-tab>
-                        <mat-tab label="Comments"> 
-                            <div class="comment-list" *ngIf="event.comments">
+                        <mat-tab label="Comments" > 
+                            <div class="comment-list" id="comment-list_{{event._id}}" *ngIf="event.comments">
                                 <ng-container *ngFor="let comments of event.comments">
                                 <div class="comment-data" *ngIf="comments.userId._id">
                                     <div class="profile" *ngIf="!comments.userId.profileimage">
@@ -100,6 +100,19 @@
                     <button type="button" (click)="seeEventUsers(event)"
                         class="waves-effect waves-light commonBlueBtnN">
                         Attending Users
+                    </button>
+                </div>
+            </div>
+            <div class="row events-button" *ngIf="loggedUser.userRole !== 'super-admin'">
+                <div class="row center-align" *ngIf="!checkInUserStatus(event)">
+                    <button type="button" class="waves-effect waves-light commonBlueBtnN redBtn" (click)="onCheckInClick(event)">
+                        CheckIn
+                    </button>
+                </div>
+
+                <div class="row center-align" *ngIf="checkInUserStatus(event)">
+                    <button type="button" class="waves-effect waves-light commonBlueBtnN redBtn" (click)="onUncheckInClick(event)">
+                        Uncheck
                     </button>
                 </div>
             </div>

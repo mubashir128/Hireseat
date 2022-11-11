@@ -23,6 +23,8 @@
             [(eventsList)]="eventsList"
             (attendEM)='attendEvent($event)'
             (cancelAttendEM)='cancelAttendEvent($event)'
+            (checkInUserEM)='checkInUser($event)'
+            (unCheckInUserEM)='unCheckInUser($event)'
             (editEventEM)='editCreateEvent($event)'
             (deleteEventEM)='deleteEvent($event)'            
         ></app-event-list>

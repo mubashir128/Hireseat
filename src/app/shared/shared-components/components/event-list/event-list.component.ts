@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
@@ -10,6 +10,8 @@ import { PeoplesEvent } from "../app-list/app-list.component";
 import { DialogCreateEventComponent } from "../dialog-create-event/dialog-create-event.component";
 import { DialogDeleteComponent } from "../dialog-delete/dialog-delete.component";
 
+declare var jQuery;
+
 @Component({
   selector: "app-event-list",
   templateUrl: "./event-list.component.html",
@@ -20,13 +22,15 @@ export class EventListComponent implements OnInit {
   @Output() attendEM = new EventEmitter();
   @Output() cancelAttendEM = new EventEmitter();
 
+  @Output() checkInUserEM = new EventEmitter();
+  @Output() unCheckInUserEM = new EventEmitter();
+
   @Output() editEventEM = new EventEmitter();
   @Output() deleteEventEM = new EventEmitter();
-
+  
   commentData:any="";
   loggedUser: any;
   profileImageLength: number = 5;
-
 
   peopleEventCommnetsObserver = new Subject();
   peopleEventCommnetsObserver$ = this.peopleEventCommnetsObserver.asObservable();
@@ -113,9 +117,41 @@ export class EventListComponent implements OnInit {
       if(res){        
         this.eventsList[eventIndex].comments.push(res);
         this.commentData="";
+        this.scrollCommentToBottom(eventId, 'post_comment');
       }
     },(err)=>{
       console.log(err)
     })
+  }
+
+  onCheckInClick(event){
+    this.checkInUserEM.emit(event);
+  }
+
+  onUncheckInClick(event){
+    this.unCheckInUserEM.emit(event);
+  }
+
+  checkInUserStatus(event){
+    let status: boolean = false;
+    if (this.loggedUser.userRole == "candidate") {
+      event.checkInUsers.forEach((user) => {
+        if (user.userId._id == this.loggedUser._id) {
+          status = true;
+        }
+      });
+    }
+    return status;
+  }
+
+  matTabChange(event,eventId){
+    if(event.index==1) this.scrollCommentToBottom(eventId,'go_to_bottom');
+  }
+
+  scrollCommentToBottom(eventId, type){
+    setTimeout(() => {
+      const element = document.getElementById('comment-list_'+eventId);
+      element.scroll({ top: element.scrollHeight, behavior: 'smooth' }); 
+    }, type=='post_comment' ? 500 : 0);
   }
 }
