@@ -8,6 +8,7 @@ import { IUser } from "../models/user";
 import { BehaviorSubject, Subject } from "rxjs";
 
 import { Plugins } from '@capacitor/core';
+import * as moment from "moment";
 const { Share } = Plugins;
 
 @Injectable({
@@ -389,5 +390,9 @@ export class UserService {
 
   deleteUserPermanantly(){
     return this.http.get<any>(this.baseurl + "api/deleteUserPermanantly");
+  }
+
+  formatDate(now, format){
+    return now ? moment(now).format(format) : '';
   }
 }
