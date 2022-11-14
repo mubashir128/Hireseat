@@ -17,7 +17,9 @@ export class DataExportsService {
   exportXlsxData(apkUrl) : Observable<any>{
     let url = this.baseurl + apkUrl;
     let params = new HttpParams();
-    // params = params.append(key, values.join());
+    // params = params.append("role", "candidate");
+    // params = params.append("role", "recruiter");
+    // params = params.append("role", "employer");
 
     return this.http.get(url, {params :params, responseType: 'blob'}).pipe(map(data => {
       if(data){
