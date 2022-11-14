@@ -109,6 +109,10 @@ import { DialogMessageComponent } from './components/dialog-message/dialog-messa
 import { SettingsComponent } from './components/settings/settings.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { DialogSelectUserToExportComponent } from './components/dialog-select-user-to-export/dialog-select-user-to-export.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -134,7 +138,10 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     OwlNativeDateTimeModule,
     MomentModule,
     MatDialogModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [
     FooterComponent,
@@ -242,7 +249,8 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     OnlyForCandidateSharedProfileComponent,
     DialogMessageComponent,
     SettingsComponent,
-    TimelineComponent
+    TimelineComponent,
+    DialogSelectUserToExportComponent
   ],
   exports: [
     FooterComponent,

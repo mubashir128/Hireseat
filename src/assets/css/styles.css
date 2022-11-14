@@ -1520,3 +1520,8 @@ body {
 .marTopText50 {
   margin-top: 50% !important;
 }
+
+.redBtn{
+  border: 1px solid red !important;
+  background-color: red !important;
+}

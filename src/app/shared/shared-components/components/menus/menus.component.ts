@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Tab } from "src/app/recruiter/models/tab";
 import { Tab2 } from 'src/app/recruiter/models/tab2';
@@ -6,6 +7,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { DataExportsService } from 'src/app/_services/data.exports.service';
 import { SuperAdminService } from 'src/app/_services/super-admin.service';
 import { UserService } from 'src/app/_services/user.service';
+import { DialogSelectUserToExportComponent } from '../dialog-select-user-to-export/dialog-select-user-to-export.component';
 
 @Component({
   selector: 'app-menus',
@@ -22,7 +24,9 @@ export class MenusComponent implements OnInit {
   isSuperAdmin: boolean = false;
   isEnterprise: boolean = false;
 
-  constructor(private userService: UserService, private authService:AuthenticationService, public supperAdmin: SuperAdminService, private router: Router, private _exportsService : DataExportsService) {
+  constructor(private userService: UserService, private authService:AuthenticationService, public supperAdmin: SuperAdminService, private router: Router, private _exportsService : DataExportsService, 
+    public _dialog: MatDialog
+  ) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
     if (this.loggedInUser != "no") {
@@ -129,7 +133,7 @@ export class MenusComponent implements OnInit {
     
     this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
 
-    // this.tabs2.push(new Tab2("api/export-user", "Export User", false, "fas fa-file-export"));
+    this.tabs2.push(new Tab2("api/export-user", "Export User", false, "fas fa-file-export"));
   }
 
   adminMenuTab(){
@@ -155,10 +159,7 @@ export class MenusComponent implements OnInit {
       this.userService.removeOnlyCandidateWalkthroughWalkthrough();
       this.router.navigate([this.loggedInUser.userRole+'/my-profile']);
     }else if(text == 'Export User'){
-      let promises = this._exportsService.exportXlsxData(item).toPromise();
-      promises.then(result=>{
-        console.log("result : ",result);
-      });
+      this.selectUserToExport(item);
     }else{
       this.router.navigate([item]);
     }
@@ -172,6 +173,24 @@ export class MenusComponent implements OnInit {
     // });
 
 
+  }
+
+  selectUserToExport(item){
+    const dialogIntroduceRef = this._dialog.open(DialogSelectUserToExportComponent, {
+      data: {
+        dialogType : "selectUserToExport",
+        dialogTitle : "Select User"
+      }
+    });
+
+    dialogIntroduceRef.afterClosed().subscribe(result => {
+      if(result){
+        let promises = this._exportsService.exportXlsxData(item, result.type).toPromise();
+        promises.then(result=>{
+          console.log("result : ",result);
+        });
+      }
+    });
   }
 
 }
