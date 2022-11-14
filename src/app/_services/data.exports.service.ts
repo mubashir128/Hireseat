@@ -14,12 +14,12 @@ export class DataExportsService {
     this.baseurl = myGlobals.baseUrl;
   }
 
-  exportXlsxData(apkUrl) : Observable<any>{
+  exportXlsxData(apkUrl, type?) : Observable<any>{
     let url = this.baseurl + apkUrl;
     let params = new HttpParams();
-    // params = params.append("role", "candidate");
-    // params = params.append("role", "recruiter");
-    // params = params.append("role", "employer");
+    if(type){
+      params = params.append("role", type);
+    }
 
     return this.http.get(url, {params :params, responseType: 'blob'}).pipe(map(data => {
       if(data){

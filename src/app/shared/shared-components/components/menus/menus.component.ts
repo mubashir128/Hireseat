@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Tab } from "src/app/recruiter/models/tab";
 import { Tab2 } from 'src/app/recruiter/models/tab2';
@@ -11,6 +12,7 @@ import { SubscriberslistService } from 'src/app/_services/subscriberslist.servic
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { Subject } from 'rxjs';
+import { DialogSelectUserToExportComponent } from '../dialog-select-user-to-export/dialog-select-user-to-export.component';
 
 @Component({
   selector: 'app-menus',
@@ -42,7 +44,8 @@ export class MenusComponent implements OnInit {
     private _subList : SubscriberslistService,
     private _socket: WebsocketService,
     private _constants : ConstantsService,
-    private _exportsService : DataExportsService
+    private _exportsService : DataExportsService,
+    public _dialog: MatDialog
   ) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
@@ -226,10 +229,7 @@ export class MenusComponent implements OnInit {
       this.userService.removeOnlyCandidateWalkthroughWalkthrough();
       this.router.navigate([this.loggedInUser.userRole+'/my-profile']);
     }else if(text == 'Export User'){
-      let promises = this._exportsService.exportXlsxData(item).toPromise();
-      promises.then(result=>{
-        console.log("result : ",result);
-      });
+      this.selectUserToExport(item);
     }else{
       this.router.navigate([item]);
     }
@@ -243,6 +243,24 @@ export class MenusComponent implements OnInit {
     // });
 
 
+  }
+
+  selectUserToExport(item){
+    const dialogIntroduceRef = this._dialog.open(DialogSelectUserToExportComponent, {
+      data: {
+        dialogType : "selectUserToExport",
+        dialogTitle : "Select User"
+      }
+    });
+
+    dialogIntroduceRef.afterClosed().subscribe(result => {
+      if(result){
+        let promises = this._exportsService.exportXlsxData(item, result.type).toPromise();
+        promises.then(result=>{
+          console.log("result : ",result);
+        });
+      }
+    });
   }
 
   ngOnDestroy(){
