@@ -7,6 +7,7 @@ import { IProfile } from "../profile/model/user-profile";
 import { IUser } from "../models/user";
 import { BehaviorSubject, Subject } from "rxjs";
 import { Share } from '@capacitor/share';
+import * as moment from "moment";
 
 export enum eUserType {
   employer = "employer", //2
@@ -458,5 +459,9 @@ export class UserService {
 
   deleteUserPermanantly(){
     return this.http.get<any>(this.baseurl + "api/deleteUserPermanantly");
+  }
+
+  formatDate(now, format){
+    return now ? moment(now).format(format) : '';
   }
 }
