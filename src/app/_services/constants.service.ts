@@ -134,6 +134,8 @@ export class ConstantsService {
   connectionRequest;
   sayThanks;
   publicProfile;
+
+  eventCheckIn;
   
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -345,6 +347,8 @@ export class ConstantsService {
     this.connectionRequest = obj.connectionRequest;
     this.sayThanks = obj.sayThanks;
     this.publicProfile = obj.publicProfile;
+
+    this.eventCheckIn = obj.eventCheckIn;
   }
 
 }

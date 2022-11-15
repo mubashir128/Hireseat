@@ -16,13 +16,13 @@
       <div class="row" style="margin: auto;">
         <div class="pro">
           <div class="pro-3">
-            <ng-container *ngIf="!timeline.fromId?.profileimage && timeline.status !== _constants.answer">
+            <ng-container *ngIf="!timeline.fromId?.profileimage">
               <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                 <img src = "assets/img/profile-user.png" alt="profile" />
               </div>
             </ng-container>
 
-            <ng-container *ngIf="timeline.fromId?.profileimage && timeline.status !== _constants.answer">
+            <ng-container *ngIf="timeline.fromId?.profileimage">
               <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
                 <img [src] = "timeline.fromId?.profileimage" alt="profile" />
               </div>
@@ -53,10 +53,17 @@
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.answer" (click)="goToQuestionAnswer()">
               {{timeline.toName}} : <br>
-              Qustion : {{timeline?.answerId?.questionByUserId?.question}}
-              <p>
-                Answer : {{timeline?.answerId?.answer}}
+              Question : {{timeline?.answerId?.questionByUserId?.question}}
+              <p class="marAuto" style="font-size: 15px; font-family: 'gilroybold';">
+                Answer by {{timeline.fromId?.fullName}} : 
               </p>
+              <p class="marAuto" style="margin-left: 10px;">
+                - {{timeline?.answerId?.answer}}
+              </p>
+            </span>
+
+            <span class="intoedClass" *ngIf = "timeline.status == _constants.eventCheckIn" (click)="goToPeopleEvent(timeline.peopleEventId)">
+              {{timeline.fromId?.fullName}} Check In to ' {{timeline.peopleEventId?.name}} ' event.
             </span>
 
             <div class="">

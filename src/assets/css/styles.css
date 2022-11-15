@@ -1525,3 +1525,7 @@ body {
   border: 1px solid red !important;
   background-color: red !important;
 }
+
+.marAuto {
+  margin: auto;
+}
