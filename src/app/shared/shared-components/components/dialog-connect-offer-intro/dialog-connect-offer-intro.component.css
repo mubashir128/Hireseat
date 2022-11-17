@@ -7,3 +7,17 @@ button.sendBtn {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.form-group{
+  margin: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.form-group button{
+  font-size: 12px;
+}
