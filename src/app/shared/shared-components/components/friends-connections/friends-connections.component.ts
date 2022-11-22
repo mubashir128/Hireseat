@@ -53,6 +53,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   showCompaniesLoader: boolean = true;
   showRequestedFriendLoader: boolean = true;
   showFriendsConnectionsLoader: boolean = true;
+
+  profileId: any;
   
   constructor(
     protected _userService: UserService,
@@ -84,6 +86,11 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         setTimeout(()=>{
           this.gotoUser(receiverId);
         }, 500);
+      }
+
+      this.profileId = this._route.snapshot.queryParams["profileId"] ? this._route.snapshot.queryParams["profileId"] : "";
+      if(this.profileId){
+        this.switchPage(1);
       }
     });
 

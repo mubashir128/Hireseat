@@ -27,8 +27,10 @@
                             <p>{{eventUsers?.userId?.fullName | uppercase}}</p>
                             <span *ngIf="eventUsers?.checkIn">I am here</span>                           
                         </div>
-                        <div class="chat-icon" style="width: 10%;" *ngIf="eventUsers?.userId?._id != loggedUser._id" (click)="gotoChat(eventUsers.userId._id)">
-                            <i class="fa fa-comments-o" aria-hidden="true"></i>
+                        <div class="chat-icon" style="width: 10%;">
+                            <div *ngIf="eventUsers?.userId?._id != loggedUser._id" (click)="gotoChat(eventUsers.userId._id)">
+                                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>                    
                     <div class="row other-details">

@@ -39,9 +39,13 @@
 }
 
 .pro .pro-user-name span{
-    color: green;
+    color: white;
     font-weight: 600;
     font-size: 14px;
+    width: 70px;
+    text-align: center;
+    border: 1px solid red;
+    background-color: #FB4D48;
 }
 
 .pro .chat-icon i {

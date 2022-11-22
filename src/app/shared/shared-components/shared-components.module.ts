@@ -131,6 +131,9 @@ import { ConferenceRoomComponent } from './components/conference-room/conference
 import { CandidateProfilesComponent } from './components/candidate-profiles/candidate-profiles.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
+import { DialogSelectUserToExportComponent } from './components/dialog-select-user-to-export/dialog-select-user-to-export.component';
+import {MatSelectModule} from '@angular/material/select';
+import { MatInputModule} from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -164,7 +167,9 @@ import { CommentsSectionComponent } from './components/comments-section/comments
     MatDatepickerModule,
     MatTabsModule,
     MatCardModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatSelectModule,
+    MatInputModule
   ],
   declarations: [
     FooterComponent,
@@ -284,7 +289,8 @@ import { CommentsSectionComponent } from './components/comments-section/comments
     EventListUsersComponent,
     ConferenceRoomComponent,
     CandidateProfilesComponent,
-    CommentsSectionComponent
+    CommentsSectionComponent,
+    DialogSelectUserToExportComponent
   ],
   exports: [
     FooterComponent,

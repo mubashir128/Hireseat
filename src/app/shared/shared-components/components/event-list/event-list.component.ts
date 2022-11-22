@@ -151,7 +151,7 @@ export class EventListComponent implements OnInit {
   scrollCommentToBottom(eventId, type){
     setTimeout(() => {
       const element = document.getElementById('comment-list_'+eventId);
-      element.scroll({ top: element.scrollHeight, behavior: 'smooth' }); 
+      element.scroll({ top: element.scrollHeight}); 
     }, type=='post_comment' ? 500 : 0);
   }
 }
