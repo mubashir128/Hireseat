@@ -49,6 +49,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   myNetworkCount: number = 0;
 
   companyName: string = "";
+  profileId: any;
   
   constructor(
     protected _userService: UserService,
@@ -75,6 +76,10 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     jQuery(".modal").modal();
     this._route.params.subscribe(params => {
       this.companyName = this._route.snapshot.queryParams["companyName"] ? this._route.snapshot.queryParams["companyName"] : "";
+      this.profileId = this._route.snapshot.queryParams["profileId"] ? this._route.snapshot.queryParams["profileId"] : "";
+      if(this.profileId){
+        this.switchPage(1);
+      }
     });
 
     //add a observable for connection

@@ -210,9 +210,16 @@ export class NotificationsComponent implements OnInit {
       case this._constants.swapChatNotification : 
         this.askToUser(redirectId, redirectId2, message, senderName, from);
         break;
+      case this._constants.connectFriend : 
+        this.goToConnectFriends(redirectId, redirectId2, message, senderName, from);
+        break;
       default : 
         break;
     }
+  }
+
+  goToConnectFriends(redirectId?, redirectId2?, message?, senderName?, from?){
+    this.router.navigate(["/"+this.loggedInUser.userRole+"/friends-connections"], { queryParams: { profileId : from}});
   }
 
   askToUser(redirectId?, redirectId2?, message?, senderName?, from?){
