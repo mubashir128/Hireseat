@@ -149,6 +149,7 @@ export class ConstantsService {
   postPeopleEventComment;
 
   eventCheckIn;
+  eventAttending;
   
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -374,6 +375,7 @@ export class ConstantsService {
     this.postPeopleEventComment= obj.postPeopleEventComment;
 
     this.eventCheckIn = obj.eventCheckIn;
+    this.eventAttending = obj.eventAttending;
   }
 
 }
