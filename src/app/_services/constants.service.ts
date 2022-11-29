@@ -136,7 +136,7 @@ export class ConstantsService {
   publicProfile;
 
   eventCheckIn;
-  eventAttending;
+  eventAttendingAre;
   
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -350,7 +350,7 @@ export class ConstantsService {
     this.publicProfile = obj.publicProfile;
 
     this.eventCheckIn = obj.eventCheckIn;
-    this.eventAttending = obj.eventAttending;
+    this.eventAttendingAre = obj.eventAttendingAre;
   }
 
 }
