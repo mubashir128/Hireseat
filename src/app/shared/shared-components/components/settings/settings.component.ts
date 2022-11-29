@@ -22,6 +22,10 @@ const candidateMenuTypes : SubMenuType[] = [
   {url : eMenuType.deleteAccountUrl, text : eMenuType.deleteAccount, status : true, icon : eMenuType.fas_fa_trash}
 ];
 
+const recruiterMenuTypes : SubMenuType[] = [
+  {url : eMenuType.deleteAccountUrl, text : eMenuType.deleteAccount, status : true, icon : eMenuType.fas_fa_trash}
+];
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -46,6 +50,11 @@ export class SettingsComponent implements OnInit {
       if(this.loggedInUser.userRole == "candidate") {
         this.candidateMenuTabs();
       }
+
+      if(this.loggedInUser.userRole == "recruiter") {
+        this.recruiterMenuTabs();
+      }
+
     }else{
       this.noUserMenuTabs();
     }
@@ -56,6 +65,12 @@ export class SettingsComponent implements OnInit {
 
   candidateMenuTabs(){
     candidateMenuTypes.forEach((menu)=>{
+      this.tabs2.push(new Tab2(menu.url, menu.text, menu.status, menu.icon));
+    });
+  }
+
+  recruiterMenuTabs(){
+    recruiterMenuTypes.forEach((menu)=>{
       this.tabs2.push(new Tab2(menu.url, menu.text, menu.status, menu.icon));
     });
   }
