@@ -154,4 +154,13 @@ export class EventListComponent implements OnInit {
       element.scroll({ top: element.scrollHeight}); 
     }, type=='post_comment' ? 500 : 0);
   }
+
+  getCheckInStatus(event){
+    let diff = this._userService.dateDifference(event.eventDate, new Date());
+    let timeDiff = this._userService.timeDifference(event.eventTime, new Date());
+    if(diff <= 0){
+      return timeDiff > 0 ? true : false;
+    }
+    return false;
+  }
 }
