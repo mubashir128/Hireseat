@@ -6,6 +6,7 @@ import { UserService } from "./user.service";
 import { Router } from "@angular/router";
 import { PushNotifications, Token, ActionPerformed, PushNotificationSchema, } from "@capacitor/push-notifications";
 import { ConstantsService } from "./constants.service";
+import { BadgeCountService } from "./badge-count.service";
 
 declare var Materialize: any;
 
@@ -21,7 +22,9 @@ export class FirebasePushNotificationService {
 
   loggedInUser : any;
 
-  constructor(private _http: HttpClient, private _userService: UserService, private _router: Router, private _constants : ConstantsService) {
+  constructor(private _http: HttpClient, private _userService: UserService, private _router: Router, private _constants : ConstantsService, 
+    private _badgeCountService : BadgeCountService
+  ) {
 		this.loggedInUser = this._userService.getUser();
 	}
 
@@ -64,6 +67,7 @@ export class FirebasePushNotificationService {
           userToken: this.loggedInUser.token,
           userRole: this.loggedInUser.userInfo.userRole,
         };
+        this._badgeCountService.setCount(1);
         this.openConnection(payload);
       }
     );
@@ -74,7 +78,9 @@ export class FirebasePushNotificationService {
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener(
       "pushNotificationReceived",
-      (notification: PushNotificationSchema) => {}
+      (notification: PushNotificationSchema) => {
+        this._badgeCountService.increase();
+      }
     );
 
     // Method called when tapping on a notification

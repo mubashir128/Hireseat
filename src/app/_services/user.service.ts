@@ -464,4 +464,24 @@ export class UserService {
   formatDate(now, format){
     return now ? moment(now).format(format) : '';
   }
+
+  dateDifference(date1, date2){
+    let day1 = moment(date1);
+    let day2 = moment(date2);
+    return day1.diff(day2, "days");
+  }
+
+  timeDifference(time1, date){
+    var startTime = moment(time1, 'HH:mm a');
+    var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+    var am_pm = date.getHours() >= 12 ? "PM" : "AM";
+    hours = hours < 10 ? "0" + hours : hours;
+    var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+    
+    var endTime = moment(hours + ':' + minutes + ' '+am_pm, 'HH:mm a');
+
+    // calculate total duration
+    return endTime.diff(startTime, 'minutes');
+    // return endTime.diff(startTime, 'hours');
+  }
 }

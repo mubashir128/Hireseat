@@ -66,6 +66,10 @@
               {{timeline.fromId?.fullName}} Check In to ' {{timeline.peopleEventId?.name}} ' event.
             </span>
 
+            <span class="intoedClass" *ngIf = "timeline.status == _constants.eventAttendingAre" (click)="goToPeopleEvent(timeline.peopleEventId)">
+              {{timeline.fromId?.fullName}} Attending ' {{timeline.peopleEventId?.name}} ' event.
+            </span>
+            
             <div class="">
               <ng-container *ngIf="timeline.systemUserId">
                 <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">

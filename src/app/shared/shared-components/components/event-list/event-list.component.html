@@ -23,7 +23,7 @@
                 <div class="sideCss">
                     <div class="lblTxt">
                         <p *ngIf="event?.location"><label>Event location :</label> {{ event?.location }}</p>
-                        <p *ngIf="event?.eventDate"><label>Event date :</label> {{ event?.eventDate | date:"dd/MM/yyyy" }}</p>
+                        <p *ngIf="event?.eventDate"><label>Event date :</label> {{ event?.eventDate | date:"d MMM y" }}</p>
                         <p *ngIf="event?.eventTime"><label>Event time :</label> {{ event?.eventTime }}</p>
                         <p *ngIf="event?.link"><label>Event link :</label> {{ event?.link }}</p>
                     </div>
@@ -103,7 +103,7 @@
                     </button>
                 </div>
             </div>
-            <div class="row events-button" *ngIf="loggedUser.userRole !== 'super-admin'">
+            <div class="row events-button" *ngIf="loggedUser.userRole !== 'super-admin' && getCheckInStatus(event)">
                 <div class="row center-align" *ngIf="!checkInUserStatus(event)">
                     <button type="button" class="waves-effect waves-light commonBlueBtnN redBtn" (click)="onCheckInClick(event)">
                         CheckIn
