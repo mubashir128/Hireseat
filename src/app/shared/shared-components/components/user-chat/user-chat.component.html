@@ -42,7 +42,12 @@
           <div *ngIf = "user.user1.showCreatedLogo" class="big-badge extrabig-badge" (click)="showImageModal(user.user1)">
             {{ user.user1.fullName | uppercase | slice: 0 : 1 }}
           </div>
-          <div class="chat-user-title" (click)="showUserData(user.user1._id)"> {{ user.user1.fullName }} </div>
+          <div class="chat-user-title" (click)="showUserData(user.user1._id)">
+            {{ user.user1.fullName }}
+            <span class="countText" *ngIf="user.count > 0">
+              {{user.count}}
+            </span>
+          </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i>
         </div>
       </div>
@@ -55,7 +60,12 @@
           <div *ngIf = "user.user2.showCreatedLogo" class="big-badge extrabig-badge" (click)="showImageModal(user.user2)">
             {{ user.user2.fullName | uppercase | slice: 0 : 1 }}
           </div>
-          <div class="chat-user-title" (click)="showUserData(user.user2._id)"> {{ user.user2.fullName }} </div>
+          <div class="chat-user-title" (click)="showUserData(user.user2._id)">
+            {{ user.user2.fullName }}
+            <span class="countText" *ngIf="user.count > 0">
+              {{user.count}}
+            </span>
+          </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
         </div>
       </div>

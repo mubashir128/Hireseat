@@ -137,6 +137,7 @@ export class UserChatComponent implements OnInit, OnChanges {
         break;
       case this._constants.getOnlyUserChats:
         this.onlyChatUsers = res.data;
+        this.setReadCount();
         break;
       case this._constants.getGroupChatUsers:
         this.groupChatUsers = res.data;
@@ -152,6 +153,9 @@ export class UserChatComponent implements OnInit, OnChanges {
 
           }
         }
+        break;
+      case this._constants.newChatComeForTop : 
+        this.sortBasedOnLatestMessage(res.data);
         break;
       default : 
         break;
@@ -309,4 +313,33 @@ export class UserChatComponent implements OnInit, OnChanges {
     obj.showCreatedLogo = true;
   }
 
+  sortBasedOnLatestMessage(data){
+    let oldChat;
+    this.onlyChatUsers.forEach(((chat, index)=>{
+      if(chat._id == data._id){
+        oldChat = chat;
+        this.onlyChatUsers.splice(index, 1);
+      }
+    }));
+    oldChat.message.push(data.message);
+    this.onlyChatUsers = [oldChat, ...this.onlyChatUsers];
+    this.setReadCount();
+  }
+
+  setReadCount(){
+    this.onlyChatUsers.forEach((user)=>{
+      this.getUnreadMessageCount(user);
+    });
+  }
+
+  getUnreadMessageCount(user){
+    let count = 0;
+    user?.message.forEach((message)=>{
+      if(message.is_read){
+      }else{
+        count++;
+      }
+    });
+    user.count = count;
+  }
 }
