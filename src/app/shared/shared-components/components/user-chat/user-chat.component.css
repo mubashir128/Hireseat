@@ -118,3 +118,13 @@
   float: right;
   color: #0AAFFF;
 }
+
+.countText {
+  font-size: 10px !important;
+  background: #ff0000!important;
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 50%;
+  color: #fff;
+  padding: 3px;
+}

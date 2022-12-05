@@ -150,6 +150,8 @@ export class ConstantsService {
 
   eventCheckIn;
   eventAttendingAre;
+
+  newChatComeForTop;
   
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -376,6 +378,8 @@ export class ConstantsService {
 
     this.eventCheckIn = obj.eventCheckIn;
     this.eventAttendingAre = obj.eventAttendingAre;
+
+    this.newChatComeForTop = obj.newChatComeForTop;
   }
 
 }
