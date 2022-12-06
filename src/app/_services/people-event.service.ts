@@ -76,4 +76,9 @@ export class PeopleEventService extends AbstractService {
     let url = this.baseurl + "api/uncheck-in-event/"+event.eventId;
     return this._http.get<PeopleEventResponse>(url);
   }
+
+  annouceEvent(eventId, postData):Observable<any>{
+    let url = this.baseurl + "api/annouce-event/" + eventId;
+    return this._http.post<any>(url,postData);
+  }
 }

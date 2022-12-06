@@ -3,6 +3,7 @@
     <div class="row ListResume">
         <div class="singleList employerResume" *ngFor="let event of eventsList;let ind=index;">
             <div class="edit-event" *ngIf="loggedUser.userRole == 'super-admin'">
+                <i class="fa fa-bullhorn" (click)="annoucevent(event)"></i>
                 <i class="fa fa-edit" (click)="editEvent(event)"></i>
                 <i class="fa fa-trash" (click)="deleteEvent(event._id)"></i>
             </div>

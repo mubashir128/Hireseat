@@ -28,6 +28,8 @@ export class EventListComponent implements OnInit {
   @Output() editEventEM = new EventEmitter();
   @Output() deleteEventEM = new EventEmitter();
   
+  @Output() annouceEventEM = new EventEmitter();
+
   commentData:any="";
   loggedUser: any;
   profileImageLength: number = 5;
@@ -105,6 +107,10 @@ export class EventListComponent implements OnInit {
 
   deleteEvent(eventData: any) {
     this.deleteEventEM.emit(eventData);
+  }
+
+  annoucevent(eventData: any){
+    this.annouceEventEM.emit(eventData);
   }
 
   onCommentPostClick(eventId, eventIndex){
