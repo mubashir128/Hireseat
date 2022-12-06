@@ -141,6 +141,8 @@ export class ConstantsService {
   newChatComeForTop;
   setIsReadTrue;
   
+  createdNewEvent;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -357,6 +359,8 @@ export class ConstantsService {
 
     this.newChatComeForTop = obj.newChatComeForTop;
     this.setIsReadTrue = obj.setIsReadTrue;
+
+    this.createdNewEvent = obj.createdNewEvent;
   }
 
 }
