@@ -7,6 +7,7 @@ export const baseUrl = environment.baseUrl;
 export const socketUrl = environment.socketUrl;
 export const chatRedirectUrl = environment.chatRedirectUrl;
 export const redirecUrl = environment.redirecUrl;
+export const platformUrl = environment.platformUrl;
 
 // import { environment} from '../environments/environment.prod';
 // local path with ip server path

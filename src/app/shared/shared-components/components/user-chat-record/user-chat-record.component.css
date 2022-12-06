@@ -293,13 +293,18 @@ body {
     flex-direction: row;
     align-items: flex-end;
     overflow: hidden;
-    height: 50px;
+    height: 38px;
     width: 100%;
     z-index: 2;
 }
 
 .conversation-compose div,
 .conversation-compose input {
+    background: #fff;
+    height: 100%;
+}
+
+.conversation-compose textarea {
     background: #fff;
     height: 100%;
 }
@@ -371,15 +376,15 @@ body {
     border-radius: 50%;
     color: #fff;
     position: relative;
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .conversation-compose .send .circle i {
-    font-size: 20px;
+    font-size: 16px;
     color: white;
 }
 
@@ -455,5 +460,5 @@ body {
     font-size: 15px;
     font-weight: 500;
     color: white;
-    width: 40%;
+    /* width: 40%; */
 }
