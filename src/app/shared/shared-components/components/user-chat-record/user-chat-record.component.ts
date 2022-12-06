@@ -287,7 +287,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
           this.createdUrl = res.link.link;
           this.sendChatMessage();
           this._mobileService.copyLinkViaClipbord(this.createdUrl, "Link copied to clipbord");
-          this.copyLink();
+          // this.copyLink();
         }
         break;
       default:
