@@ -13,6 +13,7 @@ import { DialogGroupMembersComponent } from '../dialog-group-members/dialog-grou
 import { DialogImagePreviewComponent } from '../dialog-image-preview/dialog-image-preview.component';
 import { DialogSettingComponent } from '../dialog-setting/dialog-setting.component';
 import { DialogUploadPictureComponent } from '../dialog-upload-picture/dialog-upload-picture.component';
+import * as myGlobals from "../../../../globalPath";
 
 declare var jQuery;
 declare var Materialize;
@@ -117,14 +118,31 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   isUrl(s) {
-    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-    return regexp.test(s);
+    let result = false;
+    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    if(regexp.test(s)){
+      result = s.includes(myGlobals.platformUrl);
+    }
+    return result;
+  }
+
+  isUrl2(s) {
+    let result = false;
+    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    if(regexp.test(s)){
+      result = !s.includes(myGlobals.platformUrl);
+    }
+    return result;
   }
 
   openUrl(url){
     // window.open(url, "_blank");
     let token = url?.split("/")[4];
     this.router.navigate(["/shared-video/", token], { queryParams: { userChatId: this.receiverId }});
+  }
+
+  openUrl2(url){
+    window.open(url, "_blank");
   }
 
   getAllChats() {

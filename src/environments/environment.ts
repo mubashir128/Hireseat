@@ -16,7 +16,8 @@ export const environment = {
     storageBucket: "bluerecruting.appspot.com",
     messagingSenderId: "861355719085",
     appId: "1:861355719085:web:d7d0b93cfe920c68944924"
-  }
+  },
+  platformUrl : "localhost"
 };
 
 /*

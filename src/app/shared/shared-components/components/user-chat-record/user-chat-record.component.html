@@ -73,6 +73,10 @@
                                             <div *ngIf = "isUrl(msg.message)">
                                                 <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
                                             </div>
+
+                                            <div *ngIf = "isUrl2(msg.message)">
+                                                <button class="clkOpen" (click) = "openUrl2(msg.message)">Click</button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -120,7 +124,7 @@
                                             fill="#7d8489" />
                                     </svg> --> 
                                 </div>
-                                <input class="input-msg" name="input" [(ngModel)]="messageIs" placeholder="Type a message" autocomplete="off" autofocus/>
+                                <textarea class="input-msg" name="input" rows="5" cols="4" [(ngModel)]="messageIs" placeholder="Type a message" autocomplete="off" autofocus></textarea>
                                 <div class="photo" *ngIf = "!groupChat && loggedInUser.userRole == 'candidate'">
                                     <i class="fas fa-link" (click) = "askShare()"></i>
                                 </div>

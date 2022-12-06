@@ -172,7 +172,14 @@ export class UserChatComponent implements OnInit, OnChanges {
     });
   }
 
-  showUserData(id, groupChat){
+  showUserData(id, groupChat, chatId){
+    this._socket.sendMessage({
+      type: this._constants.userChatType,
+      data: {
+        subType: this._constants.setIsReadTrue,
+        chatId : chatId
+      }
+    });
     this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", id], { queryParams: { groupChat : groupChat }});
   }
 
@@ -336,7 +343,7 @@ export class UserChatComponent implements OnInit, OnChanges {
     let count = 0;
     user?.message.forEach((message)=>{
       if(message.is_read){
-      }else{
+      }else if(message.senderId !== this.loggedInUser._id){
         count++;
       }
     });
