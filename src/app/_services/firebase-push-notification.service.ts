@@ -67,7 +67,7 @@ export class FirebasePushNotificationService {
           userToken: this.loggedInUser.token,
           userRole: this.loggedInUser.userInfo.userRole,
         };
-        this._badgeCountService.setCount(1);
+        // this._badgeCountService.setCount(1);
         this.openConnection(payload);
       }
     );
@@ -79,7 +79,7 @@ export class FirebasePushNotificationService {
     PushNotifications.addListener(
       "pushNotificationReceived",
       (notification: PushNotificationSchema) => {
-        this._badgeCountService.increase();
+        // this._badgeCountService.increase();
       }
     );
 

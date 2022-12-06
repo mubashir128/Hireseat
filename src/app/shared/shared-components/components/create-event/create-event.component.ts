@@ -159,4 +159,13 @@ export class CreateEventComponent implements OnInit {
       console.log(err)
     })
   }
+
+  annouceEvent(eventData){
+    let payload = {
+      name : eventData.name
+    }
+    this._peopleEventService.annouceEvent(eventData.eventId, payload).subscribe((res)=>{
+      // console.log("res : ",res);
+    })
+  }
 }

@@ -70,6 +70,10 @@
               {{timeline.fromId?.fullName}} Attending ' {{timeline.peopleEventId?.name}} ' event.
             </span>
             
+            <span class="intoedClass" *ngIf = "timeline.status == _constants.createdNewEvent" (click)="goToPeopleEvent(timeline.peopleEventId)">
+              Super admin Created New event - '{{timeline.peopleEventId?.name}}'.
+            </span>
+
             <div class="">
               <ng-container *ngIf="timeline.systemUserId">
                 <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">

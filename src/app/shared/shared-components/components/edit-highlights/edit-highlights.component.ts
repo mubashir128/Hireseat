@@ -92,6 +92,8 @@ export class EditHighlightsComponent implements OnInit, AfterViewInit {
 
   @ViewChild('myNextButton') private myNextButtonOkk: ElementRef;
 
+  autoRedirect: boolean = true;
+
   constructor(private resumeService: ResumeService, 
     private userService: UserService, 
     private formBuilder: FormBuilder,
@@ -132,6 +134,10 @@ export class EditHighlightsComponent implements OnInit, AfterViewInit {
     
     this._route.params.subscribe(params => {
       this.step = this._route.snapshot.queryParams["step"];
+      if(this.step){
+        this.autoRedirect = false;
+        this.save();
+      }
     });
 
   }
@@ -382,6 +388,11 @@ export class EditHighlightsComponent implements OnInit, AfterViewInit {
     stepper.selectedIndex = 0;
   }
 
+  saveFirst(){
+    this.autoRedirect = true;
+    this.save();
+  }
+
   save(){
     this._readResume.removeDuplicateSkills(this.finalSkillSets);
     this._readResume.removeDuplicateIndustries(this.finalIndustriesAre);
@@ -403,7 +414,9 @@ export class EditHighlightsComponent implements OnInit, AfterViewInit {
       this.inProgress2 = true;
       this.progressPercent2 = progress.percent;
       if(progress.completeStatus && progress.body){
-          this._router.navigate(["/"+this.loggedInUser.userRole+"/my-posted-profiles"]);
+          if(this.autoRedirect){
+            this._router.navigate(["/"+this.loggedInUser.userRole+"/my-posted-profiles"]);
+          }
         }
       }, error => {
         this.inProgress2 = false;

@@ -10,6 +10,7 @@ export const redirecUrl = environment.redirecUrl;
 export const redirectAppleUrl = environment.redirectAppleUrl;
 export const serverId = environment.serverId;
 export const appleUrl = environment.appleUrl;
+export const platformUrl = environment.platformUrl;
 
 // import { environment} from '../environments/environment.prod';
 // local path with ip server path
