@@ -142,6 +142,7 @@ export class ConstantsService {
   setIsReadTrue;
   
   createdNewEvent;
+  chatFileUpload;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -361,6 +362,7 @@ export class ConstantsService {
     this.setIsReadTrue = obj.setIsReadTrue;
 
     this.createdNewEvent = obj.createdNewEvent;
+    this.chatFileUpload = obj.chatFileUpload;
   }
 
 }

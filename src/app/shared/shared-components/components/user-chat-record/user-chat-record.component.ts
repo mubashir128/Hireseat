@@ -2,7 +2,7 @@ import { AfterViewChecked, Component, ElementRef, OnChanges, OnInit, ViewChild }
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -14,6 +14,7 @@ import { DialogImagePreviewComponent } from '../dialog-image-preview/dialog-imag
 import { DialogSettingComponent } from '../dialog-setting/dialog-setting.component';
 import { DialogUploadPictureComponent } from '../dialog-upload-picture/dialog-upload-picture.component';
 import * as myGlobals from "../../../../globalPath";
+import { ChatService } from 'src/app/_services/chat.service';
 
 declare var jQuery;
 declare var Materialize;
@@ -61,6 +62,13 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   userCandidateProfileData: any;
 
   defaultMessage: string = "";
+
+  imagePath: any;
+  message: string;
+  filepath: File;
+  progress: Observable<Number>;
+  progressPercent: Number;
+  inProgress: boolean = false;
   
   constructor(private route: ActivatedRoute, 
     private router: Router, 
@@ -68,7 +76,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     private _socket: WebsocketService, 
     private _constants: ConstantsService,
     public dialog: MatDialog,
-    private _subList : SubscriberslistService
+    private _subList : SubscriberslistService,
+    private _chatService: ChatService
   ) {
     // this.messageIs = '';
     this.loggedInUser = this.userService.getUserData();
@@ -703,5 +712,70 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
 
   getImage(obj){
     obj.showCreatedLogo = true;
+  }
+
+  shareFile(){
+    console.log("shareFile : ");
+  }
+
+  preview(files) {
+    if (files.length === 0) return;
+
+    var mimeType = files[0].type;
+    // if (mimeType.match(/image\/*/) == null) {
+    //   this.message = "Only images are supported.";
+    //   return;
+    // }
+    this.filepath = <File>files[0];
+
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+    };
+    if (this.filepath){
+      console.log("+++ this.imagePath[0] : ",this.imagePath[0]);
+      this.uploadChatFile();
+    }
+  }
+
+  uploadChatFile() {
+    const fd = new FormData();
+    if (!this.imagePath) {
+      Materialize.toast("Please click on the plus Icon to upload a Picture !", 4000);
+    } else {
+      fd.append("file", this.imagePath[0], this.imagePath[0].name);
+      fd.append("fromId", this.loggedInUser._id);
+      fd.append("receiverId", this.receiverId);
+
+      this._chatService.uploadChatFile(fd).subscribe(
+        (res) => {
+          Materialize.toast(res.message, 1000);
+        }, (error) => {
+          console.log(error);
+      });
+    }
+  }
+
+  downloadFile(message, filePath){
+    // this._chatService.downloadChatFile(filePath, message).subscribe(res=>{
+    //   this._chatService.download(res, message);
+    // });
+
+    this.progress = this._chatService.downloadChatFile(filePath, message);
+    this.progressPercent = 0;
+    this.progress.subscribe(progress => {
+      console.log(`Upload ${progress}% completed`);
+      this.inProgress = true;
+      this.progressPercent = progress;
+      console.log("this.progressPercent : ",this.progressPercent);
+    }, error => {
+      console.error(error);
+      this.inProgress = false;
+      this.progressPercent = 0;
+    }, () => {
+      console.log("completed : ");
+    });
   }
 }
