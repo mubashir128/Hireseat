@@ -70,7 +70,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   imagePath: any;
   message: string;
   filepath: File;
-  progress: Observable<Number>;
+  progress: Observable<any>;
   progressPercent: Number;
   inProgress: boolean = false;
   
@@ -743,7 +743,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       this.imgURL = reader.result;
     };
     if (this.filepath){
-      console.log("+++ this.imagePath[0] : ",this.imagePath[0]);
       this.uploadChatFile();
     }
   }
@@ -767,17 +766,15 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   downloadFile(message, filePath){
-    // this._chatService.downloadChatFile(filePath, message).subscribe(res=>{
-    //   this._chatService.download(res, message);
-    // });
-
     this.progress = this._chatService.downloadChatFile(filePath, message);
     this.progressPercent = 0;
     this.progress.subscribe(progress => {
-      console.log(`Upload ${progress}% completed`);
+      this.progressPercent = progress.percent;
+      console.log(`Upload ${this.progressPercent}% completed`);
       this.inProgress = true;
-      this.progressPercent = progress;
-      console.log("this.progressPercent : ",this.progressPercent);
+      if(progress.completeStatus && progress.body){
+        this._chatService.download(progress.body, message);
+      }
     }, error => {
       console.error(error);
       this.inProgress = false;
