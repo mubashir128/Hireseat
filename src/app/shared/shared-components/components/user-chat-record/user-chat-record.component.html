@@ -81,6 +81,10 @@
                                             <div *ngIf = "msg.type == _constants.chatFileUpload">
                                                 <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
                                             </div>
+
+                                            <!-- <ng-container *ngIf = "msg.type == _constants.chatFileUpload">
+                                                <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="determinate" [value]="progressPercent"></mat-progress-bar>
+                                            </ng-container> -->
                                         </div>
                                     </div>
 
@@ -109,6 +113,10 @@
                                             <div *ngIf = "msg.type == _constants.chatFileUpload">
                                                 <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
                                             </div>
+
+                                            <!-- <ng-container *ngIf = "msg.type == _constants.chatFileUpload && inProgress">
+                                                <mat-progress-bar id="newOne" class="progress-bar aaaaa" mode="determinate" [value]="progressPercent"></mat-progress-bar>
+                                            </ng-container> -->
                                         </div>
                                     </div>
                                 </ng-container>

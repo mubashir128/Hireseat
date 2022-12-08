@@ -10,26 +10,28 @@ export class AbstractService {
 
   constructor() { }
 
-  requestProgress(http: HttpClient, req: any){
-    return new Observable<Number>(
-       sub => {
-         http.request(req).subscribe(event => {
-           if (event.type === HttpEventType.UploadProgress) {
-             let loaded = event.loaded;
-             if (event.loaded === event.total) {
-               sub.next(100);
-             } else {
-               sub.next(Math.round((100 * loaded) / event.total));
-             }
-           } else if (event instanceof HttpResponse) {
-             sub.complete();
-           }
-         });
-       }
-     );
-   }
-   
-   handleError(error: any) { 
-     return throwError(error);
-   }
+  requestProgress(http: HttpClient, req: any) {
+    return new Observable<any>(sub => {
+      http.request(req).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          let loaded = event.loaded;
+          if (event.loaded === event.total) {
+            // sub.next({ percent: 100, completeStatus: false });
+          } else {
+            let percent = Math.round((100 * loaded) / event.total);
+            sub.next({ percent: percent, completeStatus: false });
+          }
+        } else if (event instanceof HttpResponse) {
+          sub.next({ percent: 100, body: event.body, completeStatus: true });
+          sub.complete();
+        }
+      }, err => {
+        sub.error();
+      });
+    });
+  }
+
+  handleError(error: any) {
+    return throwError(error);
+  }
 }

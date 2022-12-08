@@ -26,16 +26,6 @@ export class ChatService {
 
   downloadChatFile(filePath, message): Observable<Number> {
     let url = this.baseurl + "api/downloadChatFile/";
-
-    // return this.http.post<any>(this.baseurl + "api/downloadChatFile/", {fileName : message, filePath : filePath}).pipe(map((res: any) => {
-    //   return res;
-    // }));
-
-    // return this._http.post(url, { fileName: message, filePath: filePath }, {
-    //   responseType: "blob",
-    //   headers: new HttpHeaders().append("Content-Type", "application/json")
-    // });
-
     let req = new HttpRequest("POST", url, { fileName: message, filePath: filePath }, {
       reportProgress: true,
       responseType: "blob",
