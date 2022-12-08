@@ -462,3 +462,12 @@ body {
     color: white;
     /* width: 40%; */
 }
+
+.image-upload>input {
+    display: none;
+}
+
+.downloadIcon {
+    color: black;
+    font-size: 20px;
+}
