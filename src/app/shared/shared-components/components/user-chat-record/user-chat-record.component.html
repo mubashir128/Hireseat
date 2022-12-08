@@ -151,7 +151,7 @@
                                 <div class="photo" *ngIf = "!groupChat && loggedInUser.userRole == 'candidate'">
                                     <div class="image-upload">
                                         <label for="file-input">
-                                          <i class="fas fa-share" (click) = "shareFile()"></i>
+                                          <i class="fas fa-share"></i>
                                         </label>
                                         <input id="file-input" #file type="file" (change)="preview(file.files)" />
                                     </div>

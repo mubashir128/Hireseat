@@ -219,15 +219,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         break;
       case this._constants.addNewChat:
         if (res.data) {
-          if (res.data.user1._id === this.receiverId || res.data.user2._id === this.receiverId) {
-            if (this.userMessages === undefined) {
-              res.data.message = [res.data.message];
-              this.userMessages = res.data;
-            } else {
-              this.userMessages.message = [...this.userMessages.message, res.data.message];
-            }
-            this.goToBottom();
-          }
+          this.insertChat(res);
         }
         break;
       case this._constants.addNewGroupChat:
@@ -714,10 +706,6 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     obj.showCreatedLogo = true;
   }
 
-  shareFile(){
-    console.log("shareFile : ");
-  }
-
   preview(files) {
     if (files.length === 0) return;
 
@@ -748,9 +736,10 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       fd.append("fromId", this.loggedInUser._id);
       fd.append("receiverId", this.receiverId);
 
-      this._chatService.uploadChatFile(fd).subscribe(
-        (res) => {
-          Materialize.toast(res.message, 1000);
+      this._chatService.uploadChatFile(fd).subscribe((res) => {
+          if(res.data){
+            this.insertChat(res);
+          }
         }, (error) => {
           console.log(error);
       });
@@ -774,5 +763,17 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     }, () => {
       console.log("completed : ");
     });
+  }
+
+  insertChat(res){
+    if (res.data.user1._id === this.receiverId || res.data.user2._id === this.receiverId) {
+      if (this.userMessages === undefined) {
+        res.data.message = [res.data.message];
+        this.userMessages = res.data;
+      } else {
+        this.userMessages.message = [...this.userMessages.message, res.data.message];
+      }
+      this.goToBottom();
+    }
   }
 }
