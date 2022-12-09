@@ -148,6 +148,7 @@ export class UserChatComponent implements OnInit, OnChanges {
       case this._constants.getGroupChatUsers:
         this.showGroupChatUsersLoader = false;
         this.groupChatUsers = res.data;
+        this.setReadCountGroupChat();
         break;
       case this._constants.createAndAddGroup:
         if(res){
@@ -167,7 +168,15 @@ export class UserChatComponent implements OnInit, OnChanges {
         jQuery('#online_'+res.userId).css("background-color", "red");
         break;
       case this._constants.newChatComeForTop : 
-        this.sortBasedOnLatestMessage(res.data);
+        if(res.data){
+          this.sortBasedOnLatestMessage(res.data);
+        }
+        break;
+      case this._constants.newGroupChatComeForTop : 
+        if(res.data){
+          this.sortBasedOnLatestMessageGroupChat(res.data);
+        }
+        break;
       default : 
         break;
     }
@@ -184,13 +193,23 @@ export class UserChatComponent implements OnInit, OnChanges {
   }
 
   showUserData(id, groupChat, chatId){
-    this._socket.sendMessage({
-      type: this._constants.userChatType,
-      data: {
-        subType: this._constants.setIsReadTrue,
-        chatId : chatId
-      }
-    });
+    if(groupChat){
+      this._socket.sendMessage({
+        type: this._constants.userChatType,
+        data: {
+          subType: this._constants.setIsReadTrueGroupChat,
+          groupId : id
+        }
+      });
+    }else{
+      this._socket.sendMessage({
+        type: this._constants.userChatType,
+        data: {
+          subType: this._constants.setIsReadTrue,
+          chatId : chatId
+        }
+      });
+    }
     this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", id], { queryParams: { groupChat : groupChat }});
   }
 
@@ -347,6 +366,42 @@ export class UserChatComponent implements OnInit, OnChanges {
   setReadCount(){
     this.onlyChatUsers.forEach((user)=>{
       this.getUnreadMessageCount(user);
+    });
+  }
+
+  sortBasedOnLatestMessageGroupChat(data){
+    let oldChat;
+    this.groupChatUsers.forEach(((groupChat, index)=>{
+      if(groupChat._id == data._id){
+        oldChat = groupChat;
+        this.groupChatUsers.splice(index, 1);
+      }
+    }));
+    oldChat.message = data.message;
+    this.groupChatUsers = [oldChat, ...this.groupChatUsers];
+    this.setReadCountGroupChat();
+  }
+
+  setReadCountGroupChat(){
+    this.groupChatUsers.forEach((group)=>{
+      group.count = 0;
+      for(let message of group.message){
+        if(message.senderId._id !== this.loggedInUser._id){
+          if(Array.isArray(message.is_readArray)){
+            let checkExistance = false;
+            for(let readEntry of message.is_readArray){
+              if(readEntry.userId == this.loggedInUser._id && readEntry.is_read){
+                checkExistance = true;
+              }
+            }
+            if(!checkExistance){
+              group.count++;
+            }
+          }else{
+            group.count = group?.message?.length;
+          }
+        }
+      }
     });
   }
 

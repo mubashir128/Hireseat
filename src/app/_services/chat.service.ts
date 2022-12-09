@@ -24,6 +24,12 @@ export class ChatService {
     }));
   }
 
+  uploadGroupChatFile(data: any) {
+    return this._http.post<any>(this.baseurl + "api/uploadGroupChatFile/", data).pipe(map((res: any) => {
+      return res;
+    }));
+  }
+
   downloadChatFile(filePath, message): Observable<Number> {
     let url = this.baseurl + "api/downloadChatFile/";
     let req = new HttpRequest("POST", url, { fileName: message, filePath: filePath }, {

@@ -742,15 +742,23 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     } else {
       fd.append("file", this.imagePath[0], this.imagePath[0].name);
       fd.append("fromId", this.loggedInUser._id);
-      fd.append("receiverId", this.receiverId);
+      fd.append("chatId", this.receiverId);
 
-      this._chatService.uploadChatFile(fd).subscribe((res) => {
+      if(this.groupChat){
+        this._chatService.uploadGroupChatFile(fd).subscribe((res) => {
           if(res.data){
-            this.insertChat(res);
           }
         }, (error) => {
           console.log(error);
-      });
+        });
+      }else{
+        this._chatService.uploadChatFile(fd).subscribe((res) => {
+          if(res.data){
+          }
+        }, (error) => {
+          console.log(error);
+        });
+      }
     }
   }
 
