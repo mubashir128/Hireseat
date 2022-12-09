@@ -107,7 +107,12 @@
           <div *ngIf = "group.showCreatedLogo" class="big-badge extrabig-badge" (click)="showImageModal(group)">
             {{ group.fullName | uppercase | slice: 0 : 1 }}
           </div>
-          <div class="chat-user-title" (click)="showUserData(group._id, true)"> {{ group.fullName }} </div>
+          <div class="chat-user-title" (click)="showUserData(group._id, true)">
+            {{ group.fullName }}
+            <span class="countText" *ngIf="group.count > 0">
+              {{group.count}}
+            </span>
+          </div>
           <i class="fa fa-ellipsis-v VIconE" aria-hidden="true" (click) = "setting()"></i> 
         </div>
       </div>

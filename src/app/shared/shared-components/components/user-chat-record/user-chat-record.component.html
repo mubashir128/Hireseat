@@ -128,8 +128,12 @@
                                         <span class="stSize">{{ msg.senderId.fullName }}</span>
                                         <p>{{ msg.message }}</p>
                                         <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
-                                        <div *ngIf = "isUrl(msg.message)">
+                                        <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.groupChatFileUpload">
                                             <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
+                                        </div>
+
+                                        <div *ngIf = "msg.type == _constants.groupChatFileUpload">
+                                            <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
                                         </div>
                                     </div>
                                 </ng-container>
@@ -148,7 +152,7 @@
                                 <div class="photo" *ngIf = "!groupChat && loggedInUser.userRole == 'candidate'">
                                     <i class="fas fa-link" (click) = "askShare()"></i>
                                 </div>
-                                <div class="photo" *ngIf = "!groupChat && loggedInUser.userRole == 'candidate'">
+                                <div class="photo" *ngIf = "loggedInUser.userRole == 'candidate'">
                                     <div class="image-upload">
                                         <label for="file-input">
                                           <i class="fas fa-share"></i>
