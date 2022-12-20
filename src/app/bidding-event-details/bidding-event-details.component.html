@@ -51,54 +51,56 @@
               >,&nbsp;</span
             >
             <span
-              *ngIf="
-                remainingTime.remainingDays === 0 &&
-                remainingTime.remainingMinutes > 0
-              "
-              >{{ remainingTime.remainingMinutes }} &nbsp; mins</span
+            *ngIf="
+            remainingTime.remainingDays === 0 &&
+            remainingTime.remainingMinutes > 0
+            "
+            >{{ remainingTime.remainingMinutes }} &nbsp; mins</span
             >
           </div>
           <div *ngIf="biddingStatus === -1">Expired</div>
         </h3>
       </div>
       <div class="fullwidth posRel">
-        <h2 class="secHead">
-          {{ biddingEvent.jobTitle }}<span> <!-- ( URGENT! ) --></span>
-        </h2>
-
-        <h4 class="salHead">
-          Salary
-          <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle === '1'"
+        <div class="row" style="margin-bottom: 0px !important;">
+          <img src="assets/img/hireseat_header_logo.png" class="logoHome" />
+        </div>
+        <div class="row">
+          <h2 class="secHead">
+            {{ biddingEvent.jobTitle }}<span> <!-- ( URGENT! ) --></span>
+          </h2>
+          
+          <h4 class="salHead">
+            Salary
+            <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle === '1'"
             >per Year</span
-          >
-          <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle === '2'"
+            >
+            <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle === '2'"
             >per Month</span
-          >
+            >
           <span *ngIf="biddingEvent.jobProfileKey?.salaryCycle === '3'"
             >per Week</span
-          >
-          ${{ numberWithCommas(biddingEvent.jobProfileKey?.salaryFrom) }} - ${{
-            numberWithCommas(biddingEvent.jobProfileKey?.salaryTo)
-          }}
-        </h4>
-
-        <img src="assets/img/hireseat_header_logo.png" class="logoHome" />
-      </div>
-      <div
-        class="salPerYear"
-        *ngIf="
-          loggedUser?.userRole === 'employer' ||
-          (loggedUser?.userRole === 'recruiter' &&
-            biddingEvent.employerKey['_id'] !== loggedUser._id)
-        "
-      >
-        <div class="pull-right">
-          <h4 class="reward">
-            Reward Range: ${{
-              numberWithCommas(biddingEvent.rewardMoneyFrom)
+            >
+            ${{ numberWithCommas(biddingEvent.jobProfileKey?.salaryFrom) }} - ${{
+              numberWithCommas(biddingEvent.jobProfileKey?.salaryTo)
             }}
-            - ${{ numberWithCommas(biddingEvent.rewardMoneyTo) }}
           </h4>
+          
+          <div
+            class="salPerYear"
+            *ngIf="
+            loggedUser?.userRole === 'employer' ||
+            (loggedUser?.userRole === 'recruiter' &&
+            biddingEvent.employerKey['_id'] !== loggedUser._id)
+            "
+            >
+            <h4 class="reward">
+              Reward Range: ${{
+                numberWithCommas(biddingEvent.rewardMoneyFrom)
+              }}
+              - ${{ numberWithCommas(biddingEvent.rewardMoneyTo) }}
+            </h4>
+          </div>
         </div>
       </div>
     </div>
