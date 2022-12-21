@@ -16,7 +16,7 @@ export class AbstractService {
         if (event.type === HttpEventType.UploadProgress) {
           let loaded = event.loaded;
           if (event.loaded === event.total) {
-            sub.next({ percent: 100, completeStatus: false });
+            // sub.next({ percent: 100, completeStatus: false });
           } else {
             let percent = Math.round((100 * loaded) / event.total);
             sub.next({ percent: percent, completeStatus: false });

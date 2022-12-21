@@ -160,6 +160,12 @@ export class ConstantsService {
   setIsReadTrue;
   
   createdNewEvent;
+  chatFileUpload;
+
+  groupChatFileUpload;
+  setIsReadTrueGroupChat;
+
+  newGroupChatComeForTop;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -395,6 +401,12 @@ export class ConstantsService {
     this.setIsReadTrue = obj.setIsReadTrue;
 
     this.createdNewEvent = obj.createdNewEvent;
+    this.chatFileUpload = obj.chatFileUpload;
+
+    this.groupChatFileUpload = obj.groupChatFileUpload;
+    this.setIsReadTrueGroupChat = obj.setIsReadTrueGroupChat;
+
+    this.newGroupChatComeForTop = obj.newGroupChatComeForTop;
   }
 
 }

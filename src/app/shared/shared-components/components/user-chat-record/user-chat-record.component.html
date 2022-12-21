@@ -82,13 +82,21 @@
                                                             fill="#4fc3f7" />
                                                     </svg></span>
                                             </span> -->
-                                            <div *ngIf = "isUrl(msg.message)">
+                                            <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.chatFileUpload">
                                                 <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
                                             </div>
 
-                                            <div *ngIf = "isUrl2(msg.message)">
+                                            <div *ngIf = "isUrl2(msg.message) && msg.type !== _constants.chatFileUpload">
                                                 <button class="clkOpen" (click) = "openUrl2(msg.message)">Click</button>
                                             </div>
+
+                                            <div *ngIf = "msg.type == _constants.chatFileUpload">
+                                                <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
+                                            </div>
+
+                                            <!-- <ng-container *ngIf = "msg.type == _constants.chatFileUpload">
+                                                <mat-progress-bar class="progress-bar" *ngIf="inProgress" mode="determinate" [value]="progressPercent"></mat-progress-bar>
+                                            </ng-container> -->
                                         </div>
                                     </div>
 
@@ -106,9 +114,21 @@
                                                             fill="#4fc3f7" />
                                                     </svg></span>
                                             </span> -->
-                                            <div *ngIf = "isUrl(msg.message)">
+                                            <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.chatFileUpload">
                                                 <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
                                             </div>
+
+                                            <div *ngIf = "isUrl2(msg.message) && msg.type !== _constants.chatFileUpload">
+                                                <button class="clkOpen" (click) = "openUrl2(msg.message)">Click</button>
+                                            </div>
+                                            
+                                            <div *ngIf = "msg.type == _constants.chatFileUpload">
+                                                <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
+                                            </div>
+
+                                            <!-- <ng-container *ngIf = "msg.type == _constants.chatFileUpload && inProgress">
+                                                <mat-progress-bar id="newOne" class="progress-bar aaaaa" mode="determinate" [value]="progressPercent"></mat-progress-bar>
+                                            </ng-container> -->
                                         </div>
                                     </div>
                                 </ng-container>
@@ -132,8 +152,12 @@
                                         <span class="stSize">{{ msg.senderId.fullName }}</span>
                                         <p>{{ msg.message }}</p>
                                         <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
-                                        <div *ngIf = "isUrl(msg.message)">
+                                        <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.groupChatFileUpload">
                                             <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
+                                        </div>
+
+                                        <div *ngIf = "msg.type == _constants.groupChatFileUpload">
+                                            <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
                                         </div>
                                     </div>
                                 </ng-container>
@@ -151,6 +175,14 @@
                                 <textarea class="input-msg" name="input" rows="5" cols="4" [(ngModel)]="messageIs" placeholder="Type a message" autocomplete="off" autofocus></textarea>
                                 <div class="photo" *ngIf = "!groupChat && loggedInUser.userRole == 'candidate'">
                                     <i class="fas fa-link" (click) = "askShare()"></i>
+                                </div>
+                                <div class="photo" *ngIf = "loggedInUser.userRole == 'candidate'">
+                                    <div class="image-upload">
+                                        <label for="file-input">
+                                          <i class="fas fa-share"></i>
+                                        </label>
+                                        <input id="file-input" #file type="file" (change)="preview(file.files)" />
+                                    </div>
                                 </div>
                                 <button class="send" (click)="sendChatMessage()">
                                     <div class="circle">
