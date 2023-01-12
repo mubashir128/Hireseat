@@ -1,0 +1,69 @@
+.NewResumeForm {
+    padding: 25px !important;
+}
+
+.section-header {
+    font-size: 20px;
+    color: #114488;
+    font-weight: 700;
+}
+
+/*================================ mobile responsive css start  ===============================*/
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .newResume {
+        padding: 0 !important;
+    }
+
+    .file-field span {
+        font-size: 13px;
+    }
+
+    .card {
+        width: 100%;
+        float: left;
+    }
+
+    .marB0 {
+        margin-bottom: 0;
+    }
+}
+
+.NewResumeForm .error {
+    color: red;
+    /* position: absolute; */
+    bottom: -2px;
+}
+
+.NewResumeForm input {
+    height: 30px !important;
+}
+
+.NewResumeForm .input-field {
+    position: relative;
+    margin-top: 10px;
+}
+
+.NewResumeForm .fa {
+    color: #909090;
+}
+
+.marB10 {
+    margin-bottom: 10px;
+}
+
+.NewResumeForm textarea {
+    height: auto;
+}
+
+.NewResumeForm .wid100.center-align {
+    height: 200px !important;
+}
+
+.resume-subtitle {
+    color: #0aafff;
+}
+
+.note {
+    color: #ccd1d3;
+}

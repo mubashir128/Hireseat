@@ -78,6 +78,7 @@ export class RecruiterNavbarComponent implements OnInit {
       new Tab("/recruiter/won-bids", "Selected Candidates", false)
     );
     this.tabs1.push(new Tab("/recruiter/resume-list", "My Candidates", false));
+    this.tabs1.push(new Tab("/recruiter/my-clients", "My Clients", false));
     this.tabs1.push(new Tab("/recruiter/waiting-list", "Waiting List", false));
     this.tabs1.push(new Tab("/recruiter/search-resume", "Resume Bank", false));
 
