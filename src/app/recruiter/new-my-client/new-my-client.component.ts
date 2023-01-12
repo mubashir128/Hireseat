@@ -24,7 +24,7 @@ export class NewMyClientComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _myClient: MyClientService,
     private userService: UserService,
-    private router: Router,
+    private _router: Router,
     private spinner: NgxSpinnerService
   ) {
     this.client = new MyClient();
@@ -60,13 +60,14 @@ export class NewMyClientComponent implements OnInit {
   submit() {
     this.spinner.show();
     if (this.userRole === 'recruiter') {
-      this.createResume();
+      this.createNewMyClient();
     }
   }
 
-  createResume() {
+  createNewMyClient() {
     this._myClient.createNewMyClient(this.client).subscribe((data: any) => {
       this.spinner.hide();
+      this._router.navigate(["/recruiter/my-clients"]);
     }, (error) => {
       if (error === 'Conflict') {
         Materialize.toast(
