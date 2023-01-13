@@ -43,7 +43,6 @@ export class MyClientsComponent implements OnInit {
   getAllClients() {
     this.spinner.show();
     this._myClientService.getClients().subscribe((data: MyClient[]) => {
-      console.log(data);
       if (data.length > 0) {
         this.clients = data;
         this.spinner.hide();

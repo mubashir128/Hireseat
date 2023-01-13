@@ -90,3 +90,9 @@
     /* max-height: 30px; */
     overflow: auto;
 }
+
+.contactInfoClass {
+    margin-left: 15px;
+    background-color: #E7E3E3;
+    padding: 5px;
+}
