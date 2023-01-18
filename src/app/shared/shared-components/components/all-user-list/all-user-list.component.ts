@@ -37,7 +37,7 @@ export class AllUserListComponent implements OnInit {
     this._route.queryParams.subscribe(params => {
       this.type = params.type;
     });
-    this.title = (this.type == this._constants.pendingCandidates) ? "Pendging Candidates" : "";
+    this.title = (this.type == this._constants.pendingCandidates) ? "Pending Candidates" : "";
     this.getTypeUsers(this.type);
   }
 
