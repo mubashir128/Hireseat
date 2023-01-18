@@ -6,6 +6,9 @@ import { ConstantsService } from 'src/app/_services/constants.service';
 import { UserService } from 'src/app/_services/user.service';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 
+declare var jQuery;
+declare var Materialize;
+
 export interface UsersData {
   fullName: string;
   email: number;
@@ -61,6 +64,7 @@ export class AllUserListComponent implements OnInit {
         promises.then(result2=>{
           this.getTypeUsers(this.type);
           this._spinner.hide();
+          Materialize.toast("User deleted successfully", 1000, "green");
         }).catch((err)=>{
           this._spinner.hide();
         });
