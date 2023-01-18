@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { DataExportsService } from 'src/app/_services/data.exports.service';
 import { SuperAdminService } from 'src/app/_services/super-admin.service';
 import { UserService } from 'src/app/_services/user.service';
+import { DialogDeleteUsersComponent } from '../dialog-delete-users/dialog-delete-users.component';
 import { DialogSelectUserToExportComponent } from '../dialog-select-user-to-export/dialog-select-user-to-export.component';
 
 @Component({
@@ -136,6 +137,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
 
     this.tabs2.push(new Tab2("api/export-user", "Export User", false, "fas fa-file-export"));
+
+    this.tabs2.push(new Tab2("api/delete-users", "Delete Users", false, "fas fa-trash"));
   }
 
   adminMenuTab(){
@@ -162,6 +165,8 @@ export class MenusComponent implements OnInit {
       this.router.navigate([this.loggedInUser.userRole+'/my-profile']);
     }else if(text == 'Export User'){
       this.selectUserToExport(item);
+    }else if(text == 'Delete Users'){
+      this.deleteUsers(item);
     }else{
       this.router.navigate([item]);
     }
@@ -191,6 +196,20 @@ export class MenusComponent implements OnInit {
         promises.then(result=>{
           console.log("result : ",result);
         });
+      }
+    });
+  }
+
+  deleteUsers(item){
+    const dialogDeleteUserRef = this._dialog.open(DialogDeleteUsersComponent, {
+      data: {
+        dialogType : "selectUserToDelete",
+        dialogTitle : "Select User"
+      }
+    });
+    dialogDeleteUserRef.afterClosed().subscribe(result => {
+      if(result){
+        this.router.navigate([this.loggedInUser.userRole+'/all-user-list'], { queryParams: { type: result.type}});
       }
     });
   }

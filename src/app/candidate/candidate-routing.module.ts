@@ -16,6 +16,7 @@ import { UserChatRecordComponent } from "../shared/shared-components/components/
 import { SuggestIntroduceComponent } from "../shared/shared-components/components/suggest-introduce/suggest-introduce.component";
 import { SettingsComponent } from "../shared/shared-components/components/settings/settings.component";
 import { TimelineComponent } from "../shared/shared-components/components/timeline/timeline.component";
+import { SuggestConnectedComponent } from "../shared/shared-components/components/suggest-connected/suggest-connected.component";
 
 const routes: Routes = [
   {
@@ -81,6 +82,10 @@ const routes: Routes = [
       {
         path: "timeline",
         component: TimelineComponent,
+      },
+      {
+        path: "suggest-connected-friends",
+        component: SuggestConnectedComponent,
       },
     ],
   },

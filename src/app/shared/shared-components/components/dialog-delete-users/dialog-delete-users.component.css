@@ -1,0 +1,12 @@
+.mat-form-field {
+    width: 100%;
+}
+
+button.sendBtn {
+    background-color: #039be5;
+    color: #fff;
+    border: 1px solid #039be5;
+    padding: 10px 20px;
+    border-radius: 3px;
+    margin-top: 20px;
+}

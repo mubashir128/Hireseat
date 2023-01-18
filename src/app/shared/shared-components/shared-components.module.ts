@@ -113,6 +113,11 @@ import { DialogSelectUserToExportComponent } from './components/dialog-select-us
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule} from '@angular/material/input';
+import { SuggestConnectedComponent } from './components/suggest-connected/suggest-connected.component';
+import { DialogDeleteUsersComponent } from './components/dialog-delete-users/dialog-delete-users.component';
+import { AllUserListComponent } from './components/all-user-list/all-user-list.component';
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   imports: [
@@ -141,7 +146,8 @@ import { MatInputModule} from '@angular/material/input';
     MatProgressBarModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule
   ],
   declarations: [
     FooterComponent,
@@ -250,7 +256,10 @@ import { MatInputModule} from '@angular/material/input';
     DialogMessageComponent,
     SettingsComponent,
     TimelineComponent,
-    DialogSelectUserToExportComponent
+    DialogSelectUserToExportComponent,
+    SuggestConnectedComponent,
+    DialogDeleteUsersComponent,
+    AllUserListComponent
   ],
   exports: [
     FooterComponent,

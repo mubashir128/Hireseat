@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AllUserListComponent } from '../shared/shared-components/components/all-user-list/all-user-list.component';
 import { MenusComponent } from '../shared/shared-components/components/menus/menus.component';
 import { NotificationsComponent } from '../shared/shared-components/components/notifications/notifications.component';
 import { PostJobComponent } from '../shared/shared-components/components/post-job/post-job.component';
@@ -33,6 +34,10 @@ const routes: Routes = [
       {
         path: "post-job",
         component: PostJobComponent
+      },
+      {
+        path: "all-user-list",
+        component: AllUserListComponent
       }
     ],
     // canActivate: [SupperAdminGuard]
