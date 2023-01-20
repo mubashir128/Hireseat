@@ -13,6 +13,7 @@ import { WebsocketService } from 'src/app/_services/websocket.service';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { Subject } from 'rxjs';
 import { DialogSelectUserToExportComponent } from '../dialog-select-user-to-export/dialog-select-user-to-export.component';
+import { DialogDeleteUsersComponent } from '../dialog-delete-users/dialog-delete-users.component';
 
 @Component({
   selector: 'app-menus',
@@ -206,6 +207,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("api/export-user", "Export User", false, "fas fa-file-export"));
 
     this.tabs2.push(new Tab2("/super-admin/create-event", "Create event", false, "fas fa-network-wired"));
+
+    this.tabs2.push(new Tab2("api/delete-users", "Delete Users", false, "fas fa-trash"));
   }
 
   adminMenuTab(){
@@ -232,6 +235,8 @@ export class MenusComponent implements OnInit {
       this.router.navigate([this.loggedInUser.userRole+'/my-profile']);
     }else if(text == 'Export User'){
       this.selectUserToExport(item);
+    }else if(text == 'Delete Users'){
+      this.deleteUsers(item);
     }else{
       this.router.navigate([item]);
     }
@@ -261,6 +266,20 @@ export class MenusComponent implements OnInit {
         promises.then(result=>{
           console.log("result : ",result);
         });
+      }
+    });
+  }
+
+  deleteUsers(item){
+    const dialogDeleteUserRef = this._dialog.open(DialogDeleteUsersComponent, {
+      data: {
+        dialogType : "selectUserToDelete",
+        dialogTitle : "Select User"
+      }
+    });
+    dialogDeleteUserRef.afterClosed().subscribe(result => {
+      if(result){
+        this.router.navigate([this.loggedInUser.userRole+'/all-user-list'], { queryParams: { type: result.type}});
       }
     });
   }

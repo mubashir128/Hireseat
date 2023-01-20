@@ -1,0 +1,128 @@
+<div class="newResume" style="padding:30px;">
+    <a *ngIf="userRole === 'recruiter'" [routerLink]="['/recruiter/my-clients']"> <i
+            class="material-icons left">chevron_left</i> My Clients</a>
+
+    <div class="card white" style="margin-top:30px;">
+        <div style="padding:20px; border-bottom: solid #e0e0e0 1px;">
+            <div class="section-header"> New Client </div>
+        </div>
+        <form [formGroup]="newClientFrm" (ngSubmit)="submit()" novalidate>
+            <div style=" width:100%; margin-bottom:0px;">
+                <div class="NewResumeForm" id="resume-info"
+                    style=" border-left: solid #e0e0e0 1px;  width:100%; padding:15px;">
+                    <div class="row" style="margin-bottom:0px;">
+                        <div class="input-field">
+                            <div> <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="resume-subtitle">
+                                    Client Name*
+                                </span>
+                            </div>
+                            <input id="candidate-name" type="text" class="validate" [(ngModel)]="client.name"
+                                formControlName="name">
+                            <div *ngIf="(f.name.touched && f.name.errors)" class="invalid-feedback"
+                                class="error">
+                                <div *ngIf="f.name.errors.required">Candidate Name is required</div>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <div><i class="fa fa-envelope" aria-hidden="true"></i>
+                                <span class="resume-subtitle">
+                                    Email
+                                </span>
+                            </div>
+                            <input id="candidate-name" type="text" class="validate" [(ngModel)]="client.email"
+                                formControlName="email">
+                            <div *ngIf="(f.email.touched && f.email.errors)" class="invalid-feedback" class="error">
+                                <div *ngIf="f.email.errors.required">Enter valid email</div>
+                            </div>
+
+                        </div>
+                        <div class="input-field">
+                            <div><i class="fa fa-phone" aria-hidden="true"></i>
+                                <span class="resume-subtitle">
+                                    Phone NO.
+                                </span>
+                            </div>
+                            <input id="candidate-name" type="text" class="validate" [(ngModel)]="client.phoneNumber"
+                                formControlName="phoneNumber">
+                            <div *ngIf="(f.phoneNumber.touched && f.phoneNumber.errors)" class="invalid-feedback"
+                                class="error">
+                                <div *ngIf="f.phoneNumber.errors.pattern">Numbers Only</div>
+                            </div>
+                            <div class="error" *ngIf="f.phoneNumber.errors?.maxlength">
+                                10 Digits Only
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <div class="marB10"><i class="fa fa-comment" aria-hidden="true"></i>
+                                <span class="resume-subtitle">
+                                    Comments :
+                                </span>
+                            </div>
+                            <textarea rows=4 formControlName="comments" [(ngModel)]="client.comment"></textarea>
+                        </div>
+
+                        <!-- contact person info -->
+                        <div class="input-field">
+                            <div> <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="resume-subtitle">
+                                    Contact person Name*
+                                </span>
+                            </div>
+                            <input id="candidate_name" type="text" class="validate" [(ngModel)]="client.contactInfo.name"
+                                formControlName="contact_name">
+                            <div *ngIf="(f.contact_name.touched && f.contact_name.errors)" class="invalid-feedback"
+                                class="error">
+                                <div *ngIf="f.contact_name.errors.required">Contact person name is required</div>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <div><i class="fa fa-envelope" aria-hidden="true"></i>
+                                <span class="resume-subtitle">
+                                    Contact person Email
+                                </span>
+                            </div>
+                            <input id="contact_email" type="text" class="validate" [(ngModel)]="client.contactInfo.email"
+                                formControlName="contact_email">
+                            <div *ngIf="(f.contact_email.touched && f.contact_email.errors)" class="invalid-feedback" class="error">
+                                <div *ngIf="f.contact_email.errors.required">Enter valid email</div>
+                            </div>
+
+                        </div>
+                        <div class="input-field">
+                            <div><i class="fa fa-phone" aria-hidden="true"></i>
+                                <span class="resume-subtitle">
+                                    Contact person Phone NO*.
+                                </span>
+                            </div>
+                            <input id="contact_phoneNumber" type="text" class="validate" [(ngModel)]="client.contactInfo.phoneNumber"
+                                formControlName="contact_phoneNumber">
+                            <div *ngIf="(f.contact_phoneNumber.touched && f.contact_phoneNumber.errors)" class="invalid-feedback"
+                                class="error">
+                                <div *ngIf="f.contact_phoneNumber.errors.pattern">Numbers Only</div>
+                            </div>
+                            <div class="error" *ngIf="f.contact_phoneNumber.errors?.maxlength">
+                                10 Digits Only
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <div> <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="resume-subtitle">
+                                    Contact person title
+                                </span>
+                            </div>
+                            <input id="contact_title" type="text" class="validate" [(ngModel)]="client.contactInfo.title"
+                                formControlName="contact_title">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class=" row center-align marB0" style="padding:15px;">
+                <a class="waves-effect waves-light btn-flat" (click)="cancle()">Clear</a>
+                <button type="submit" class="waves-effect waves-light btn">Create</button>
+            </div>
+        </form>
+    </div>
+</div>

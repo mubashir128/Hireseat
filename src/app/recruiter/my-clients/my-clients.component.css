@@ -1,0 +1,23 @@
+.row .col.l6 {
+    margin-bottom: 10px;
+}
+
+ul.resumeList {
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.btn {
+    background-color: #03a9f4 !important;
+}
+
+a.waves-effect.waves-light.btn.newResumeBtn {
+    width: 200px;
+}
+
+li.floatUns.marginUns {
+    margin-left: unset;
+}

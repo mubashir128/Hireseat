@@ -460,6 +460,14 @@ export class UserService {
   deleteUserPermanantly(){
     return this.http.get<any>(this.baseurl + "api/deleteUserPermanantly");
   }
+  
+  deleteParticularUser(userId){
+    return this.http.post<any>(this.baseurl + "api/deleteParticularUser", {userId : userId});
+  }
+
+  getTypeUsers(type){
+    return this.http.post<any>(this.baseurl + "api/getTypeUsers", {type : type});
+  }
 
   formatDate(now, format){
     return now ? moment(now).format(format) : '';

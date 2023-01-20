@@ -18,6 +18,9 @@ import { RecruiterPieChartComponent } from './charts/recruiter-pie-chart/recruit
 import { RecruiterLineChartComponent } from './charts/recruiter-line-chart/recruiter-line-chart.component';
 import { RecruiterBarChartComponent } from './charts/recruiter-bar-chart/recruiter-bar-chart.component';
 import { RecruiterDoughnutChartComponent } from './charts/recruiter-doughnut-chart/recruiter-doughnut-chart.component';
+import { MyClientsComponent } from './my-clients/my-clients.component';
+import { NewMyClientComponent } from './new-my-client/new-my-client.component';
+import { MyClientsListComponent } from './my-clients-list/my-clients-list.component';
 
 @NgModule({
   imports: [
@@ -41,6 +44,9 @@ import { RecruiterDoughnutChartComponent } from './charts/recruiter-doughnut-cha
     RecruiterLineChartComponent,
     RecruiterBarChartComponent,
     RecruiterDoughnutChartComponent,
+    MyClientsComponent,
+    NewMyClientComponent,
+    MyClientsListComponent,
   ]
 })
 export class RecruiterModule { }

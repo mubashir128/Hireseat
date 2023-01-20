@@ -71,7 +71,15 @@
             </span>
             
             <span class="intoedClass" *ngIf = "timeline.status == _constants.createdNewEvent" (click)="goToPeopleEvent(timeline.peopleEventId)">
-              Super admin Created New event - '{{timeline.peopleEventId?.name}}'.
+              New event - '{{timeline.peopleEventId?.name}}'.
+              <br>
+              <span>
+                Date : {{timeline.peopleEventId?.eventDate | date}}.
+              </span>
+              <br>
+              <span>
+                Time : {{timeline.peopleEventId?.eventTime}}.
+              </span>
             </span>
 
             <div class="">

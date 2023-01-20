@@ -5,6 +5,7 @@ import { MenusComponent } from '../shared/shared-components/components/menus/men
 import { NotificationsComponent } from '../shared/shared-components/components/notifications/notifications.component';
 import { PostJobComponent } from '../shared/shared-components/components/post-job/post-job.component';
 import { SADashboardComponent } from './sa-dashboard/sa-dashboard.component';
+import { AllUserListComponent } from '../shared/shared-components/components/all-user-list/all-user-list.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: "create-event",
         component: CreateEventComponent
+      },
+      {
+        path: "all-user-list",
+        component: AllUserListComponent
       }
     ],
     // canActivate: [SupperAdminGuard]

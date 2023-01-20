@@ -45,6 +45,7 @@ export class CandidateNavbarComponent implements OnInit {
     );
     this.tabs1.push(new Tab("/candidate/all-only-candidate-shared-profile", "HireSeat Network", false));
     this.tabs1.push(new Tab("/candidate/friends-connections", "HireSeat Connections", false));
+    this.tabs1.push(new Tab("/candidate/suggest-connected-friends", "Suggest Connected friends", false));
     this.tabs1.push(
       new Tab("/candidate/bidding-event-list", "Job Posting", false)
     );

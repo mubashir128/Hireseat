@@ -184,7 +184,7 @@
     <div class="ListResume">
       <label for="" class="labelStyle">Connected Friends : </label>
       <div class="singleList employerResume animatePart" *ngFor = "let friendsAre of friendsConnections">
-        <div class="pro" [id] = "'mention_' + friendsAre.requester._id" *ngIf = "friendsAre.recipient._id == loggedUser._id">
+        <div class="pro" [id] = "'mention_' + friendsAre?.requester._id" *ngIf = "friendsAre?.recipient?._id == loggedUser._id">
           <div class="pro-3">
 
               <div class="pro-1">
@@ -196,20 +196,20 @@
                         <div class="row" style="margin: auto;">
                           <div class="col s3 m3 l3" style="width: auto;">
                             <div *ngIf = "!friendsAre.requester.showCreatedLogo" class="big-badge big-badge-wid">
-                              <img src="{{ friendsAre.requester.profileimage }}" (error)="changeLogo(friendsAre.requester)" class="iconStyle" style="max-width: 100%" />
+                              <img src="{{ friendsAre?.requester?.profileimage }}" (error)="changeLogo(friendsAre.requester)" class="iconStyle" style="max-width: 100%" />
                             </div>
                             <div *ngIf = "friendsAre.requester.showCreatedLogo" class="big-badge big-badge-wid">
-                              {{ friendsAre.requester.fullName | uppercase | slice: 0 : 1 }}
+                              {{ friendsAre?.requester?.fullName | uppercase | slice: 0 : 1 }}
                             </div>
                           </div>
 
                           <div class="col s9 m9 l9 marTop wrdWrap">
                             <span>
-                              {{ friendsAre.requester.fullName }}
+                              {{ friendsAre?.requester?.fullName }}
                             </span>
                           </div>
                         </div>
-                        <div class="row marginAuto marOther">
+                        <div *ngIf="getIntroduceCount(friendsAre, 'resumeId') !== 0" class="row marginAuto marOther">
                           <div class="styDiv1">
                             <label class="lblSty"># of Introductions : </label>
                               <label style="font-size: 12px; color: white;">
@@ -262,21 +262,21 @@
                         <div class="row" style="margin: auto;">
                           <div class="col s3 m3 l3" style="width: auto;">
                             <div *ngIf = "!friendsAre.recipient.showCreatedLogo" class="big-badge big-badge-wid">
-                              <img src="{{ friendsAre.recipient.profileimage }}" (error)="changeLogo(friendsAre.recipient)" class="iconStyle" style="max-width: 100%" />
+                              <img src="{{ friendsAre?.recipient?.profileimage }}" (error)="changeLogo(friendsAre.recipient)" class="iconStyle" style="max-width: 100%" />
                             </div>
                             <div *ngIf = "friendsAre.recipient.showCreatedLogo" class="big-badge big-badge-wid">
-                              {{ friendsAre.recipient.fullName | uppercase | slice: 0 : 1 }}
+                              {{ friendsAre?.recipient?.fullName | uppercase | slice: 0 : 1 }}
                             </div>
                           </div>
 
                           <div class="col s9 m9 l9 marTop">
                             <span>
-                              {{ friendsAre.recipient.fullName }}
+                              {{ friendsAre?.recipient?.fullName }}
                             </span>
                           </div>
                         </div>
 
-                        <div class="row marginAuto marOther">
+                        <div *ngIf="getIntroduceCount(friendsAre, 'resumeId2') !== 0" class="row marginAuto marOther">
                           <div class="styDiv1">
                             <label class="lblSty"># of Introductions : </label>
                               <label style="font-size: 12px; color: white;">

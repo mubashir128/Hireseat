@@ -25,10 +25,10 @@
                 <div class="sideCss">
                     <div class="lblTxt">
                         <p *ngIf = "companiesAre?.jobTitle"><label>Job Title :</label> {{ companiesAre?.jobTitle }}</p>
-                        <p *ngIf = "companiesAre?.jobSpecification"><label>Job Specification :</label> 
+                        <p *ngIf = "companiesAre?.jobSpecification || companiesAre?.jobBrief"><label>Job Specification :</label> 
                             <span (click) = "showHideJobSpec(companiesAre)" style="color: red;"> - Click to see specifications</span>
                             <span class="jobSpecClass" [id] = "'jobSpec_' + companiesAre._id">
-                                - {{ companiesAre?.jobSpecification }}
+                                - {{ companiesAre?.jobSpecification || companiesAre?.jobBrief }}
                             </span>
                         </p>
                         <p *ngIf = "companiesAre?.location"><label>Location :</label> {{ companiesAre?.location }}</p>

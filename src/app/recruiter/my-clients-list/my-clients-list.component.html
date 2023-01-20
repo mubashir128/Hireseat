@@ -1,0 +1,80 @@
+<div class="resume-item">
+    <div class="sub-info">
+        <img src="assets/img/resume.png" style="
+          display: inline-block;
+          width: 30%;
+          height: auto;
+          opacity: 0.75;
+        " />
+        <div class="candidate-name" style="
+          display: inline-block;
+          width: 70%;
+          height: auto;
+          padding-left: 15px;
+        ">
+            <div>
+                <h3>{{ client?.name }}</h3>
+            </div>
+
+            <div>
+                <h4 class="title">
+                    Email
+                </h4>
+                <div class="listDiv">
+                    <span class="chipu">{{ client?.email }} </span>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="title">
+                    Phone Number
+                </h4>
+                <div class="listDiv">
+                    <span class="chipu">{{ client?.phoneNumber }} </span>
+                </div>
+            </div>
+
+            <div *ngIf="client?.contactInfo">
+                <h4 class="title">
+                    *Contact Info
+                </h4>
+                <div class="contactInfoClass">
+                    <div class="listDiv">
+                        <h4 class="title">
+                        Name
+                        </h4>
+                        <span class="chipu">{{ client?.contactInfo?.name }} </span>
+                    </div>
+                    <div class="listDiv">
+                        <h4 class="title">
+                            Phone Number
+                        </h4>
+                        <span class="chipu">{{ client?.contactInfo?.phoneNumber }} </span>
+                    </div>
+                    <div class="listDiv">
+                        <h4 class="title">
+                            Email
+                        </h4>
+                        <span class="chipu">{{ client?.contactInfo?.email }} </span>
+                    </div>
+                    <div class="listDiv">
+                        <h4 class="title">
+                            Title
+                        </h4>
+                        <span class="chipu">{{ client?.contactInfo?.title }} </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="title">
+                    Comment
+                </h4>
+                <div class="listDiv">
+                    <span class="chipu">{{ client?.comment }} </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
