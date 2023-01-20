@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient  } from '@angular/common/http';
+import { HttpClient, HttpParams  } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import * as myGlobals from '../globalPath';
 import { IBiddingEvent } from '../models/bidding-event'
@@ -87,8 +87,12 @@ export class BiddingEventService {
     }))
   }
   
-  getJobProfiles(){
-    return this.http.get<IJobProfile[]>(this.baseurl+'api/getJobProfiles').pipe(map((res:IJobProfile[])=>{    
+  getJobProfiles(all?){
+    let params = new HttpParams();
+    if(all){
+      params = params.append("all", all);
+    }
+    return this.http.get<IJobProfile[]>(this.baseurl+'api/getJobProfiles', {params :params}).pipe(map((res:IJobProfile[])=>{    
       return res;
     }))
   }

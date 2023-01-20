@@ -1,0 +1,23 @@
+<div style="min-width:300px">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
+
+    <div>
+        <mat-form-field appearance="standard">
+            <!-- <mat-label>Role</mat-label> -->
+            <mat-select [(value)]="defaultType">
+                <mat-option *ngFor="let userType of selectTypes" [value]="userType.value">
+                    {{userType.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="row form-group autoClass" style="margin: auto; text-align: center;">
+        <div class="" style="width: 45%; float: left; border-left: 2px solid white;">
+            <button class="sendBtn redBtn" (click)="closeScreen(false)">Cancel</button>
+        </div>
+        <div class="" style="width: 55%; float: left;">
+            <button class="sendBtn" (click)="select()">Select</button>
+        </div>
+    </div>
+</div>

@@ -166,6 +166,7 @@ export class ConstantsService {
   setIsReadTrueGroupChat;
 
   newGroupChatComeForTop;
+  pendingCandidates;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -407,6 +408,8 @@ export class ConstantsService {
     this.setIsReadTrueGroupChat = obj.setIsReadTrueGroupChat;
 
     this.newGroupChatComeForTop = obj.newGroupChatComeForTop;
+
+    this.pendingCandidates = obj.pendingCandidates;
   }
 
 }

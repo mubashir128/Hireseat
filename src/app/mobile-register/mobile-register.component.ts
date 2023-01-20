@@ -185,6 +185,25 @@ export class MobileRegisterComponent implements OnInit {
     });
   }
 
+  checkVerification(){
+    let payload = {
+      email: this.email,
+      currentUserId: this.currentUserId
+    }
+    this._userService.checkVerification(payload).subscribe((data) => {
+      this.loading = false;
+      if(data){
+        Materialize.toast("You have been successfully verified", 1000, "green");
+        this._userService.setSelectToAddFriends();
+        this._userService.setAutoRunValueFinder();
+        this.goToLogin(true);
+      }
+    }, (err) => {
+      this.loading = false;
+      Materialize.toast("Yet not verified, please check you mail.", 1000, "red");
+    });
+  }
+
   openFile(){
     this.fileInput.nativeElement.click();
   }

@@ -128,6 +128,14 @@ export class UserService {
     );
   }
 
+  checkVerification(info: any) {
+    return this.http.post<any>(this.baseurl + "api/checkVerification", info).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   checkEmailMobileCandidate(info: any) {
     return this.http.post<any>(this.baseurl + "api/checkEmailMobileCandidate", info).pipe(
       map((res: any) => {
@@ -459,6 +467,14 @@ export class UserService {
 
   deleteUserPermanantly(){
     return this.http.get<any>(this.baseurl + "api/deleteUserPermanantly");
+  }
+  
+  deleteParticularUser(userId){
+    return this.http.post<any>(this.baseurl + "api/deleteParticularUser", {userId : userId});
+  }
+
+  getTypeUsers(type){
+    return this.http.post<any>(this.baseurl + "api/getTypeUsers", {type : type});
   }
 
   formatDate(now, format){

@@ -1,0 +1,22 @@
+<div>
+    <div class="row right">
+        <a class="waves-effect waves-light btn newResumeBtn" [routerLink]="['/recruiter/new-my-client']">
+            <i class="material-icons left">add</i>New Client</a>
+    </div>
+
+    <div style="margin-top : 10px;">
+        <div style="margin-top: 15px;">
+            <ul class="resumeList">
+                <li *ngFor="let client of clients | paginate: { itemsPerPage: 8, currentPage: p }" class="col s12 m12 l6 floatUns marginUns">
+                    <app-my-clients-list [client]="client"></app-my-clients-list>
+                </li>
+            </ul>
+            <!-- <div class="row">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="clients.length == 0">
+    No Results to show
+</div>
