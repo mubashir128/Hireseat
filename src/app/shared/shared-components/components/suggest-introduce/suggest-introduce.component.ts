@@ -43,8 +43,6 @@ export class SuggestIntroduceComponent implements OnInit {
       this.suggestIntro = result[0].result;
       this.suggestIntro2 = result[1];
       if(result){
-        this.showLoadStatus = false;
-        this.loadStatus = "";
         this.suggestIntro = [...this.suggestIntro, ...this.suggestIntro2];
       }
     });

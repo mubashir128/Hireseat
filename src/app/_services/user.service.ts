@@ -128,6 +128,14 @@ export class UserService {
     );
   }
 
+  checkVerification(info: any) {
+    return this.http.post<any>(this.baseurl + "api/checkVerification", info).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   checkEmailMobileCandidate(info: any) {
     return this.http.post<any>(this.baseurl + "api/checkEmailMobileCandidate", info).pipe(
       map((res: any) => {
