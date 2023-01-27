@@ -40,6 +40,7 @@ export class SuggestIntroduceComponent implements OnInit {
     promises.push(this._biddingEventService.getJobProfiles(true).toPromise());
     Promise.all(promises).then(result => {
       console.log(result);
+      this.showLoader = false;
       this.suggestIntro = result[0].result;
       this.suggestIntro2 = result[1];
       if(result){
