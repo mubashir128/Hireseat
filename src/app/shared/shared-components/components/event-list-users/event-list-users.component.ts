@@ -60,7 +60,7 @@ export class EventListUsersComponent implements OnInit {
   }
 
   backToEvents(){
-    this._router.navigate(["/candidate/suggest-and-events"], { queryParams: { eventRoute: 1}});
+    this._router.navigate(["/candidate/suggest-and-events"], { queryParams: { eventRoute: 0}});
   }
 
   gotoChat(userId){
