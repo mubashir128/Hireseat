@@ -1,0 +1,78 @@
+<ng-container *ngIf="showLoader">
+    <div class="loader-container marTop50">
+        <div class="loader"></div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!showLoader && pendingIntroductions.length == 0">
+    <div class="marTop">
+        <app-no-data-available></app-no-data-available>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="pendingIntroductions.length">
+    <div class="timelineList">
+        <div class="timelineUI animatePart" *ngFor="let entry of pendingIntroductions; let ind = index">
+            <div class="row" style="margin: auto;">
+                <div class="pro">
+                    <div class="pro-3">
+                        <ng-container *ngIf="!entry.fromId?.profileimage">
+                            <div class="candProfile">
+                                <img src="assets/img/profile-user.png" alt="profile" />
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="entry.fromId?.profileimage">
+                            <div class="candProfile">
+                                <img [src]="entry.fromId?.profileimage" alt="profile" />
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="pro-4">
+                        <ng-container *ngIf="loggedUser._id == entry?.toId?._id">
+                            <span class="intoedClass">
+                                {{entry.fromId?.fullName}} would like to intro you to {{entry.introduceId?.fullName}}.
+                                {{entry.introduceId?.fullName}} can introduce you to {{entry?.comapnyName}}.
+                            </span>
+                            <div class="">
+                                <ng-container *ngIf="entry?.introduceId">
+                                    <div class="candProfile11">
+                                        <img [src]="entry.introduceId?.profileimage ? entry.introduceId?.profileimage : 'assets/img/profile-user.png' "
+                                            alt="profile" />
+                                    </div>`
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="loggedUser._id == entry?.introduceId?._id">
+                            <span class="intoedClass">
+                                {{entry.fromId?.fullName}} would like to intro you to {{entry.toId?.fullName}}.
+                                You can introduce {{entry.toId?.fullName}} to {{entry?.comapnyName}}.
+                            </span>
+                            <div class="">
+                                <ng-container *ngIf="entry?.introduceId">
+                                    <div class="candProfile11">
+                                        <img [src]="entry.introduceId?.profileimage ? entry.introduceId?.profileimage : 'assets/img/profile-user.png' "
+                                            alt="profile" />
+                                    </div>`
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div *ngIf="getAcceptCheck(entry)" class="matBtm">
+                        <div class="pro-share marTop" style="float: right;">
+                            <div class="">
+                                <button class="acceptBtn" (click)="accept(entry)">
+                                    <a>
+                                        <div class="icon-name">
+                                            <span class="btnText">Accept</span>
+                                        </div>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

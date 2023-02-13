@@ -168,6 +168,9 @@ export class ConstantsService {
   newGroupChatComeForTop;
   pendingCandidates;
 
+  toIdAccept;
+  introduceIdAccept;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -410,6 +413,9 @@ export class ConstantsService {
     this.newGroupChatComeForTop = obj.newGroupChatComeForTop;
 
     this.pendingCandidates = obj.pendingCandidates;
+
+    this.toIdAccept = obj.toIdAccept;
+    this.introduceIdAccept = obj.introduceIdAccept;
   }
 
 }

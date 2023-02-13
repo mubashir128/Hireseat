@@ -500,4 +500,38 @@ export class UserService {
     return endTime.diff(startTime, 'minutes');
     // return endTime.diff(startTime, 'hours');
   }
+
+  getUserObject(friendsConnections, array, userObj, eachEntry, user){
+    for (let desireCompany of array){
+      let desireCompanyFinal = desireCompany?.trim()?.toLowerCase();
+      for (let connection2 of friendsConnections){
+        let introCom = connection2?.resumeId?.introduceYouToo?.trim().toLowerCase();
+        
+        if(introCom && desireCompanyFinal && introCom.indexOf(desireCompanyFinal) !== -1 && userObj?.user?._id !== connection2?.requester?._id){
+          userObj.intro.push({
+            company : desireCompanyFinal,
+            user : connection2?.requester
+          });
+          eachEntry.push({
+            company : desireCompanyFinal,
+            desiredUser : user,
+            introUser : connection2?.requester
+          });
+        }
+        
+        let introCom2 = connection2?.resumeId2?.introduceYouToo?.trim()?.toLowerCase();
+        if(introCom2 && desireCompanyFinal && introCom2.indexOf(desireCompanyFinal) !== -1 && userObj?.user?._id !== connection2?.recipient?._id){
+          userObj.intro.push({
+            company : desireCompanyFinal,
+            user : connection2?.recipient
+          });
+          eachEntry.push({
+            company : desireCompanyFinal,
+            desiredUser : user,
+            introUser : connection2?.recipient
+          });
+        }
+      }
+    }
+  }
 }

@@ -1,0 +1,203 @@
+.ListResume {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    float: left;
+    margin-bottom: 100px;
+}
+
+.labelStyle {
+    color: darkblue;
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.singleList.employerResume {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px 30px;
+    /* display: block; */
+    justify-content: unset;
+    margin-bottom: 10px;
+    transition: 1s;
+    height: auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Tablet css :STARTS */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .docSectionBtns button {
+        margin-bottom: 7px !important;
+    }
+
+    .singleList.employerResume {
+        padding: 20px !important;
+    }
+}
+
+.pro {
+    width: 100%;
+    float: left;
+}
+
+.pro-3 {
+    width: 100%;
+    float: left;
+}
+
+.pro-1 {
+    width: 100%;
+    float: left;
+}
+
+.docSectionBtns {
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+}
+
+.docSectionBtns button {
+    font-size: 13px;
+    border-radius: 5px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .CandidateDetails {
+        width: 100%;
+        display: block;
+    }
+
+    .candidate-name {
+        width: 100%;
+    }
+
+    .candidate-name p {
+        font-size: 0.8rem;
+    }
+
+    .lates-s {
+        width: 100% !important;
+    }
+
+}
+
+.candidate-name {
+    width: calc(100% - 200px);
+    text-align: left;
+}
+
+.candidate-name span {
+    color: #33aaff;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.candidate-name p {
+    margin: 3px 0;
+    color: #8c8c8c;
+    font-size: 14px;
+}
+
+.candidate-name {
+    font-size: 12px !important;
+    color: #8ca2c3 !important;
+}
+
+@media (max-width: 1440px) {
+    .candidate-name {
+        width: 100%;
+    }
+}
+
+.CandidateDetails {
+    display: flex;
+    align-items: center;
+}
+
+.user-details {
+    width: 100%;
+}
+
+.big-badge-wid {
+    width: 25px !important;
+    height: 25px !important;
+}
+
+.big-badge-wid img,
+.big-badge img {
+    border-radius: 50% !important;
+    width: 100%;
+    height: 100%;
+}
+
+.marTop {
+    margin-top: 10px;
+}
+
+.wrdWrap {
+    overflow: hidden;
+}
+
+.other-details {
+    text-align: center;
+}
+
+.listUser {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    transition: 1s;
+    background-color: #ffffff;
+    display: block;
+}
+
+.big-badge-wid22 {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.lblTable {
+    font-size: 12px;
+}
+
+@media (max-width: 1440px) {
+    button.acceptBtn {
+        width: 98%;
+    }
+}
+
+.acceptBtn {
+    width: 48%;
+    border-radius: 7px;
+}
+
+button.acceptBtn {
+    border: 1px solid #1a1;
+    background-color: #1a1;
+}
+
+button.cancelBtn {
+    border: 1px solid red !important;
+    background-color: red !important;
+}
+
+.btnText {
+    color: #fff !important;
+    font-size: 15px !important;
+}
+
+.btn-icon {
+    width: 20px;
+    margin-right: 3px;
+    color: #fff !important;
+}
+
+.matBtm {
+    margin-bottom: 0px !important;
+}
+
+.txtSize {
+    font-size: 16px;
+}
