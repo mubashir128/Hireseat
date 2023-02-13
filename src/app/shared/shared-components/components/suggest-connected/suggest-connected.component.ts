@@ -9,38 +9,27 @@ import { UserService } from 'src/app/_services/user.service';
   styleUrls: ['./suggest-connected.component.css']
 })
 export class SuggestConnectedComponent implements OnInit {
-  friendsConnections: any;
-  loggedUser: any;
+  intros: boolean = true;
+  pendingIntros: boolean = false;
+  itemsIs = 0;
 
-  constructor(
-    private _candidateService : CandidateService,
-    private _constants : ConstantsService, 
-    protected _userService: UserService, 
-  ) {
-    this.loggedUser = this._userService.getUserData();
-  }
+  constructor() {}
 
   ngOnInit(): void {
-    this.getConnectedFriends();
   }
 
-  getConnectedFriends(){
-    let payload = {
-      type : this._constants.asAFriend
+  switchPage(page){
+    jQuery("#switch" + this.itemsIs).css("background-color", "#33aaff");
+    this.itemsIs = page;
+    jQuery("#switch" + page).css("background-color", "#27B1BD");
+
+    if(this.itemsIs == 0){
+      this.intros = true;
+      this.pendingIntros = false;
+    }else if(this.itemsIs == 1){
+      this.intros = false;
+      this.pendingIntros = true;
     }
-    this._candidateService.getAllConnectedUsers(payload).subscribe((res) => {
-      this.friendsConnections = res.data;
-    }, (err) => {
-      console.log(err);
-    });
-  }
-
-  getIntroduceCount(requestedFriendIs,obj){
-    return requestedFriendIs?.[obj]?.introduceCount ? requestedFriendIs[obj].introduceCount : 0;
-  }
-
-  changeLogo(notify){
-    notify.showCreatedLogo = true;
   }
 
 }
