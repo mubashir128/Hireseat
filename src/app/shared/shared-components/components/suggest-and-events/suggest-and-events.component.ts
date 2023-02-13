@@ -9,8 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 export class SuggestAndEventsComponent implements OnInit {
 
   itemsIs = 0;
-  showIntro: boolean = true;
-  showEvents: boolean = false;
+  showEvents: boolean = true;
+  showNewIntro: boolean = false;
+  showIntro: boolean = false;
+  showJobs: boolean = false;
 
   constructor(
     private _route: ActivatedRoute
@@ -33,19 +35,41 @@ export class SuggestAndEventsComponent implements OnInit {
     jQuery("#switch" + page).css("background-color", "#27B1BD");
 
     if(this.itemsIs == 0){
-      this.activeIntrotab();
-    }else if(this.itemsIs == 1){
       this.activeEventstab();
+    }else if(this.itemsIs == 1){
+      this.activeNewIntros();
+    }else if(this.itemsIs == 2){
+      this.activeIntrotab();
+    }else if(this.itemsIs == 3){
+      this.activeJobs();
     }
+  }
+
+  activeEventstab(){
+    this.showEvents = true;
+    this.showNewIntro = false;
+    this.showIntro = false;
+    this.showJobs = false;
   }
 
   activeIntrotab(){
     this.showIntro = true;
     this.showEvents = false;
+    this.showNewIntro = false;
+    this.showJobs = false;
   }
 
-  activeEventstab(){
+  activeNewIntros(){
+    this.showNewIntro = true;
+    this.showEvents = false;
     this.showIntro = false;
-    this.showEvents = true;
+    this.showJobs = false;
+  }
+
+  activeJobs(){
+    this.showJobs = true;
+    this.showEvents = false;
+    this.showNewIntro = false;
+    this.showIntro = false;
   }
 }
