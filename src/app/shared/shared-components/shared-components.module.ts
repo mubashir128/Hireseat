@@ -138,6 +138,8 @@ import { SuggestConnectedComponent } from './components/suggest-connected/sugges
 import { DialogDeleteUsersComponent } from './components/dialog-delete-users/dialog-delete-users.component';
 import { AllUserListComponent } from './components/all-user-list/all-user-list.component';
 import { MatTableModule } from '@angular/material/table';
+import { IntroductionsComponent } from './components/introductions/introductions.component';
+import { PendingIntroductionsComponent } from './components/pending-introductions/pending-introductions.component';
 
 
 @NgModule({
@@ -299,7 +301,9 @@ import { MatTableModule } from '@angular/material/table';
     DialogSelectUserToExportComponent,
     SuggestConnectedComponent,
     DialogDeleteUsersComponent,
-    AllUserListComponent
+    AllUserListComponent,
+    IntroductionsComponent,
+    PendingIntroductionsComponent
   ],
   exports: [
     FooterComponent,
