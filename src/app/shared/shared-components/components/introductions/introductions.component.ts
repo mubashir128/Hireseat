@@ -57,7 +57,7 @@ export class IntroductionsComponent implements OnInit {
           intro: []
         };
 
-        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.recipient);
+        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.recipient, this.loggedUser);
         if (userObj && userObj.intro && userObj.intro.length !== 0) {
           // this.eachEntry.push(userObj);
         }
@@ -68,7 +68,7 @@ export class IntroductionsComponent implements OnInit {
           intro: []
         };
 
-        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.requester);
+        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.requester, this.loggedUser);
         if (userObj && userObj.intro && userObj.intro.length !== 0) {
           // this.eachEntry.push(userObj);
         }

@@ -404,17 +404,13 @@ export class UserService {
     return now ? moment(now).format(format) : '';
   }
 
-  getUserObject(friendsConnections, array, userObj, eachEntry, user){
+  getUserObject(friendsConnections, array, userObj, eachEntry, user, loggedUser){
     for (let desireCompany of array){
       let desireCompanyFinal = desireCompany?.trim()?.toLowerCase();
       for (let connection2 of friendsConnections){
         let introCom = connection2?.resumeId?.introduceYouToo?.trim().toLowerCase();
         
-        if(introCom && desireCompanyFinal && introCom.indexOf(desireCompanyFinal) !== -1 && userObj?.user?._id !== connection2?.requester?._id){
-          userObj.intro.push({
-            company : desireCompanyFinal,
-            user : connection2?.requester
-          });
+        if(connection2?.requester?._id !== loggedUser._id && introCom && desireCompanyFinal && introCom.indexOf(desireCompanyFinal) !== -1 && userObj?.user?._id !== connection2?.requester?._id){
           eachEntry.push({
             company : desireCompanyFinal,
             desiredUser : user,
@@ -423,11 +419,7 @@ export class UserService {
         }
         
         let introCom2 = connection2?.resumeId2?.introduceYouToo?.trim()?.toLowerCase();
-        if(introCom2 && desireCompanyFinal && introCom2.indexOf(desireCompanyFinal) !== -1 && userObj?.user?._id !== connection2?.recipient?._id){
-          userObj.intro.push({
-            company : desireCompanyFinal,
-            user : connection2?.recipient
-          });
+        if(connection2?.recipient?._id !== loggedUser._id && introCom2 && desireCompanyFinal && introCom2.indexOf(desireCompanyFinal) !== -1 && userObj?.user?._id !== connection2?.recipient?._id){
           eachEntry.push({
             company : desireCompanyFinal,
             desiredUser : user,
