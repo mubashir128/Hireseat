@@ -136,6 +136,10 @@
     margin-top: 10px;
 }
 
+.marBtm {
+    margin-bottom: 0px !important;
+}
+
 .wrdWrap {
     overflow: hidden;
 }

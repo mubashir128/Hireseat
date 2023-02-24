@@ -213,9 +213,33 @@ export class NotificationsComponent implements OnInit {
       case this._constants.connectFriend : 
         this.goToConnectFriends(redirectId, redirectId2, message, senderName, from);
         break;
+
+      case this._constants.introduceToIdSend :
+        this.goToIntroducePage(redirectId, redirectId2, message, senderName, from, 1);
+        break;
+      case this._constants.introduceIntroduceIdIdSend :
+        this.goToIntroducePage(redirectId, redirectId2, message, senderName, from, 1);
+        break;
+      case this._constants.introduceFromIdAccepted :
+        this.goToGroupChatpage(redirectId, redirectId2, message, senderName, from);
+        break;
+      case this._constants.introduceToIdAccepted :
+        this.goToGroupChatpage(redirectId, redirectId2, message, senderName, from);
+        break;
+      case this._constants.introduceIntroduceIdIdAccepted :
+        this.goToGroupChatpage(redirectId, redirectId2, message, senderName, from);        
+        break;
       default : 
         break;
     }
+  }
+
+  goToIntroducePage(redirectId?, redirectId2?, message?, senderName?, from?, type?){
+    this.router.navigate(["/"+this.loggedInUser.userRole+"/suggest-connected-friends"], { queryParams: {redirectId : redirectId, type : type}});
+  }
+
+  goToGroupChatpage(redirectId?, redirectId2?, message?, senderName?, from?){
+    this.router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", redirectId], { queryParams: { groupChat: redirectId2}});
   }
 
   goToConnectFriends(redirectId?, redirectId2?, message?, senderName?, from?){

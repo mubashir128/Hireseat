@@ -404,29 +404,49 @@ export class UserService {
     return now ? moment(now).format(format) : '';
   }
 
-  getUserObject(friendsConnections, array, userObj, eachEntry, user, loggedUser){
+  getUserObject(friendsConnections, array, userObj, eachEntry, user, loggedUser, allConnectedFriends){
     for (let desireCompany of array){
       let desireCompanyFinal = desireCompany?.trim()?.toLowerCase();
       for (let connection2 of friendsConnections){
         let introCom = connection2?.resumeId?.introduceYouToo?.trim().toLowerCase();
         
         if(connection2?.requester?._id !== loggedUser._id && introCom && desireCompanyFinal && introCom.indexOf(desireCompanyFinal) !== -1 && userObj?.user?._id !== connection2?.requester?._id){
-          eachEntry.push({
-            company : desireCompanyFinal,
-            desiredUser : user,
-            introUser : connection2?.requester
-          });
+          let status = this.checkConnectedOrNot(allConnectedFriends, user, connection2?.requester);
+          if(!status){
+            eachEntry.push({
+              company : desireCompanyFinal,
+              desiredUser : user,
+              introUser : connection2?.requester
+            });
+          }
         }
         
         let introCom2 = connection2?.resumeId2?.introduceYouToo?.trim()?.toLowerCase();
         if(connection2?.recipient?._id !== loggedUser._id && introCom2 && desireCompanyFinal && introCom2.indexOf(desireCompanyFinal) !== -1 && userObj?.user?._id !== connection2?.recipient?._id){
-          eachEntry.push({
-            company : desireCompanyFinal,
-            desiredUser : user,
-            introUser : connection2?.recipient
-          });
+          let status = this.checkConnectedOrNot(allConnectedFriends, user, connection2?.recipient);
+          if(!status){
+            eachEntry.push({
+              company : desireCompanyFinal,
+              desiredUser : user,
+              introUser : connection2?.recipient
+            });
+          }
         }
       }
     }
+  }
+
+  checkConnectedOrNot(allConnectedFriends, user, user2){
+    let status = false;
+    for(let item of allConnectedFriends){
+      if(item?.recipient?._id == user?._id && item?.requester?._id == user2?._id){
+        status = true;
+        break;
+      }else if(item?.requester?._id == user?._id && item?.recipient?._id == user2?._id){
+        status = true;
+        break;
+      }
+    }
+    return status;
   }
 }
