@@ -1,3 +1,20 @@
+<ng-container *ngIf="!showLoader && eachEntry.length !== 0">
+    <div>
+        <form [formGroup]="Search" novalidate style="width: 100%">
+            <div class="row input-field col s12 m12 l12 marBtm">
+                <div class="skillInput">
+                    <span class="note" style="float: left"><span style="color: #f58e8e">Note:</span> Search by Name :
+                    </span>
+                </div>
+                <div class="inputDivMainN">
+                    <input type="text" formControlName="searchTerm"
+                        placeholder="Search here..." #searchByName/>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-container>
+
 <ng-container *ngIf="showLoader">
     <div class="loader-container marTop50">
         <div class="loader"></div>
@@ -13,7 +30,7 @@
 <ng-container *ngIf="eachEntry.length && intros">
     <div class="ListResume">
         <!-- <label for="" class="labelStyle">Connected Friends : </label> -->
-        <div class="singleList employerResume animatePart" *ngFor="let entry of eachEntry">
+        <div class="singleList employerResume animatePart" *ngFor="let entry of eachEntry | serchByFullName : searchTerm : 'intros' ">
 
 
             <div class="row" style="text-align: center;">

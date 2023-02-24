@@ -1,9 +1,9 @@
 <div class="tabsAre">
     <ul class="tabs">
-        <li class="tablink" id="switch0" [ngClass]="itemsIs === 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
+        <li class="tablink" id="switch0" [ngClass]="itemsIs == 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
             Intros
         </li>
-        <li class="tablink" id="switch2" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
+        <li class="tablink" id="switch1" [ngClass]="itemsIs == 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
             New Intros
         </li>
     </ul>

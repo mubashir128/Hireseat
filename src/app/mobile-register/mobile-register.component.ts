@@ -53,8 +53,8 @@ export class MobileRegisterComponent implements OnInit {
   isEditable = true;
 
   userTypes = [
-    {name : "Employer", value: eUserType.employer},
-    {name : "Recruiter", value: eUserType.recruiter},
+    // {name : "Employer", value: eUserType.employer},
+    // {name : "Recruiter", value: eUserType.recruiter},
     {name : "Candidate", value: eUserType.candidate}
   ];
   

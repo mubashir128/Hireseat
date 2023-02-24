@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { IntroduceService } from 'src/app/_services/introduce.service';
@@ -14,6 +16,7 @@ declare var Materialize;
 })
 export class IntroductionsComponent implements OnInit {
   friendsConnections: any;
+  allConnectedFriends: []= [];
   loggedUser: any;
   eachEntry: any[] = [];
 
@@ -23,28 +26,51 @@ export class IntroductionsComponent implements OnInit {
 
   showLoader: boolean = true;
 
+  Search: FormGroup;
+  @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
+  searchTerm: String = "";
+
   constructor(
     private _candidateService: CandidateService,
     private _constants: ConstantsService,
     protected _userService: UserService,
-    protected _introduceService: IntroduceService
+    protected _introduceService: IntroduceService,
+    protected _formBuilder: FormBuilder
   ) {
     this.loggedUser = this._userService.getUserData();
+    this.Search = this._formBuilder.group({
+      searchTerm: [""],
+    });
   }
 
   ngOnInit(): void {
     this.getConnectedFriends();
+    this.debounceSearch();
+  }
+
+  debounceSearch(){
+    this.Search.valueChanges.pipe(debounceTime(1200), distinctUntilChanged()).subscribe((value) => {
+      this.searchTerm = value.searchTerm;
+    });
   }
 
   getConnectedFriends() {
     let payload = {
       type: this._constants.asAFriend
     }
-    this._candidateService.getAllConnectedUsers(payload).subscribe((res) => {
-      this.friendsConnections = res.data;
+
+    let payload2 = {
+      type: this._constants.asAFriend,
+      allRecords : true
+    }
+
+    let promises = [];
+    promises.push(this._candidateService.getAllConnectedUsers(payload).toPromise());
+    promises.push(this._candidateService.getAllConnectedUsers(payload2).toPromise());
+    Promise.all(promises).then(result => {
+      this.friendsConnections = result[0].data;
+      this.allConnectedFriends = result[1].data;
       this.fetchEachMatchingEntry();
-    }, (err) => {
-      console.log(err);
     });
   }
 
@@ -57,10 +83,7 @@ export class IntroductionsComponent implements OnInit {
           intro: []
         };
 
-        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.recipient, this.loggedUser);
-        if (userObj && userObj.intro && userObj.intro.length !== 0) {
-          // this.eachEntry.push(userObj);
-        }
+        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.recipient, this.loggedUser, this.allConnectedFriends);
       } else if (connection?.recipient?._id == this.loggedUser._id) {
         let array = connection?.resumeId?.desiredCompanies ? connection?.resumeId?.desiredCompanies?.split(",") : [];
         let userObj = {
@@ -68,14 +91,12 @@ export class IntroductionsComponent implements OnInit {
           intro: []
         };
 
-        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.requester, this.loggedUser);
-        if (userObj && userObj.intro && userObj.intro.length !== 0) {
-          // this.eachEntry.push(userObj);
-        }
+        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.requester, this.loggedUser, this.allConnectedFriends);
       } else {
         console.log("no match : ");
       }
     });
+    // console.log("this.eachEntry : ",this.eachEntry);
     this.showLoader = false;
   }
 

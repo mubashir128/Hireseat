@@ -171,6 +171,12 @@ export class ConstantsService {
   toIdAccept;
   introduceIdAccept;
 
+  introduceToIdSend;
+  introduceIntroduceIdIdSend;
+  introduceFromIdAccepted;
+  introduceToIdAccepted;
+  introduceIntroduceIdIdAccepted
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -416,6 +422,12 @@ export class ConstantsService {
 
     this.toIdAccept = obj.toIdAccept;
     this.introduceIdAccept = obj.introduceIdAccept;
+
+    this.introduceToIdSend = obj.introduceToIdSend;
+    this.introduceIntroduceIdIdSend = obj.introduceIntroduceIdIdSend;
+    this.introduceFromIdAccepted = obj.introduceFromIdAccepted;
+    this.introduceToIdAccepted = obj.introduceToIdAccepted;
+    this.introduceIntroduceIdIdAccepted = obj.introduceIntroduceIdIdAccepted;
   }
 
 }
