@@ -71,6 +71,7 @@ export class IntroductionsComponent implements OnInit {
       this.friendsConnections = result[0].data;
       this.allConnectedFriends = result[1].data;
       this.fetchEachMatchingEntry();
+      this.fetchEachMatchingEntryByIndustries();
     });
   }
 
@@ -92,6 +93,32 @@ export class IntroductionsComponent implements OnInit {
         };
 
         this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.requester, this.loggedUser, this.allConnectedFriends);
+      } else {
+        console.log("no match : ");
+      }
+    });
+    // console.log("this.eachEntry : ",this.eachEntry);
+    this.showLoader = false;
+  }
+
+  fetchEachMatchingEntryByIndustries() {
+    this.friendsConnections.forEach((connection, index) => {
+      if (connection?.requester?._id == this.loggedUser._id) {
+        let array = connection?.resumeId2?.industries ? connection?.resumeId2?.industries.map((industry)=>industry.name) : [];
+        let userObj = {
+          user: connection?.recipient,
+          intro: []
+        };
+
+        this._userService.getUserObject2(this.friendsConnections, array, userObj, this.eachEntry, connection.recipient, this.loggedUser, this.allConnectedFriends);
+      } else if (connection?.recipient?._id == this.loggedUser._id) {
+        let array = connection?.resumeId?.industries ? connection?.resumeId?.industries.map((industry)=>industry.name) : [];
+        let userObj = {
+          user: connection?.requester,
+          intro: []
+        };
+
+        this._userService.getUserObject2(this.friendsConnections, array, userObj, this.eachEntry, connection.requester, this.loggedUser, this.allConnectedFriends);
       } else {
         console.log("no match : ");
       }
