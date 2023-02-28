@@ -61,6 +61,9 @@ export class MobileRegisterComponent implements OnInit {
 
   loggedInUser: any;
 
+  industriesAre = [];
+  industries = [];
+
   constructor(private _router: Router, 
     private _formBuilder: FormBuilder,
     private _userService: UserService,
@@ -104,6 +107,37 @@ export class MobileRegisterComponent implements OnInit {
     this.fourFormGroup = this._formBuilder.group({
       verifyCode: ['', Validators.required]
     });
+
+    this.getIndustriesToShow();
+  }
+
+  getIndustriesToShow() {
+    this._candidateService.getCandidateIndustries().subscribe((res) => {
+      if (res) {
+        res.industries.forEach((item1, index1) => {
+          this.industriesAre.push(item1);
+        });
+      }
+    });
+  }
+
+  handleIndustries($event, _id) {
+    let selectIndex = 0;
+    this.industriesAre.forEach((item, index) => {
+      if (item._id === _id) {
+        selectIndex = index;
+      }
+    });
+
+    if ($event.target.checked) {
+      this.industries.push(this.industriesAre[selectIndex]);
+    } else {
+      this.industries.forEach((item, index) => {
+        if (item._id === _id) {
+          this.industries.splice(index, 1);
+        }
+      });
+    }
   }
 
   selectionChange(event, stepper){
@@ -230,7 +264,8 @@ export class MobileRegisterComponent implements OnInit {
       introduceYouToo: this.introduceYouToo,
       userRole: this.localRole,
       role: this.userRoleData,
-      fileURL: this.fileURL
+      fileURL: this.fileURL,
+      industries: this.industries
     }
 
     this._userService.registerMobileCandidate(payload).subscribe((data) => {

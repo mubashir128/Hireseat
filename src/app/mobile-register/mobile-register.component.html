@@ -123,6 +123,31 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="input-field col s12 m12 l12">
+                            <i class="fa fa-industry" aria-hidden="true"></i>
+                            <span class="resume-subtitle">Select Industries </span>
+                            <div *ngFor="let item of industriesAre; let i = index">
+                              <div class="row col s4 m4 l4 late-mobile">
+                                <div class="actionDiv">
+                                  <label class="CheckBoxcontainer">
+                                    <input
+                                      type="checkbox"
+                                      name="IT"
+                                      formControlName="item.name"
+                                      (change)="handleIndustries($event, item._id)"
+                                      [checked]="item.valueType"
+                                    />
+                                    <span class="checkmark"></span>
+                                    <span class="industrieName">
+                                      {{ item.name }}
+                                    </span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                     </div>
                     <div class="signup_footer">
                         <div>
