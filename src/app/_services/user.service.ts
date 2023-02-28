@@ -436,6 +436,38 @@ export class UserService {
     }
   }
 
+  getUserObject2(friendsConnections, array, userObj, eachEntry, user, loggedUser, allConnectedFriends){
+    for (let industryName of array){
+      let industryFinal = industryName?.trim()?.toLowerCase();
+      for (let connection2 of friendsConnections){
+        let introCom = connection2?.resumeId?.industries ? connection2?.resumeId?.industries.map((industry)=>industry.name) : [];
+        
+        if(connection2?.requester?._id !== loggedUser._id && introCom && industryFinal && introCom.includes(industryFinal) !== -1 && userObj?.user?._id !== connection2?.requester?._id){
+          let status = this.checkConnectedOrNot(allConnectedFriends, user, connection2?.requester);
+          if(!status){
+            eachEntry.push({
+              company : industryFinal,
+              desiredUser : user,
+              introUser : connection2?.requester
+            });
+          }
+        }
+        
+        let introCom2 = connection2?.resumeId2?.industries ? connection2?.resumeId2?.industries.map((industry)=>industry.name) : [];
+        if(connection2?.recipient?._id !== loggedUser._id && introCom2 && industryFinal && introCom2.indexOf(industryFinal) !== -1 && userObj?.user?._id !== connection2?.recipient?._id){
+          let status = this.checkConnectedOrNot(allConnectedFriends, user, connection2?.recipient);
+          if(!status){
+            eachEntry.push({
+              company : industryFinal,
+              desiredUser : user,
+              introUser : connection2?.recipient
+            });
+          }
+        }
+      }
+    }
+  }
+
   checkConnectedOrNot(allConnectedFriends, user, user2){
     let status = false;
     for(let item of allConnectedFriends){
