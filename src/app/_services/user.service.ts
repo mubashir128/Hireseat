@@ -537,9 +537,9 @@ export class UserService {
     for (let industryName of array){
       let industryFinal = industryName?.trim()?.toLowerCase();
       for (let connection2 of friendsConnections){
-        let introCom = connection2?.resumeId?.industries ? connection2?.resumeId?.industries.map((industry)=>industry.name) : [];
+        let introCom = connection2?.resumeId?.industries ? connection2?.resumeId?.industries.map((industry)=>industry?.name?.trim().toLowerCase()) : [];
         
-        if(connection2?.requester?._id !== loggedUser._id && introCom && industryFinal && introCom.includes(industryFinal) !== -1 && userObj?.user?._id !== connection2?.requester?._id){
+        if(connection2?.requester?._id !== loggedUser._id && introCom && industryFinal && introCom.indexOf(industryFinal) !== -1 && userObj?.user?._id !== connection2?.requester?._id){
           let status = this.checkConnectedOrNot(allConnectedFriends, user, connection2?.requester);
           if(!status){
             eachEntry.push({
@@ -550,7 +550,7 @@ export class UserService {
           }
         }
         
-        let introCom2 = connection2?.resumeId2?.industries ? connection2?.resumeId2?.industries.map((industry)=>industry.name) : [];
+        let introCom2 = connection2?.resumeId2?.industries ? connection2?.resumeId2?.industries.map((industry)=>industry?.name?.trim().toLowerCase()) : [];
         if(connection2?.recipient?._id !== loggedUser._id && introCom2 && industryFinal && introCom2.indexOf(industryFinal) !== -1 && userObj?.user?._id !== connection2?.recipient?._id){
           let status = this.checkConnectedOrNot(allConnectedFriends, user, connection2?.recipient);
           if(!status){
