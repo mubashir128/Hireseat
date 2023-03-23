@@ -22,43 +22,77 @@
                             </div>
                         </ng-container>
 
-                        <ng-container *ngIf="entry.fromId?.profileimage">
+                        <ng-container *ngIf="entry?.fromId?.profileimage">
                             <div class="candProfile">
-                                <img [src]="entry.fromId?.profileimage" alt="profile" />
+                                <img [src]="entry?.fromId?.profileimage" alt="profile" />
                             </div>
                         </ng-container>
                     </div>
                     <div class="pro-4">
+                        <ng-container *ngIf="loggedUser?._id == entry?.fromId?._id">
+                            <span class="intoedClass">
+                                <ng-container *ngIf="entry?.toIdAccept">
+                                    Request accepted by {{ entry?.toId?.fullName }}.
+                                    <br>
+                                </ng-container>
+                                <ng-container *ngIf="!entry?.toIdAccept">
+                                    Request pending to {{ entry?.toId?.fullName }}.
+                                    <br>
+                                </ng-container>
+                                <ng-container *ngIf="entry?.introduceIdAccept">
+                                    Request accepted by {{ entry?.introduceId?.fullName }}.
+                                    <br>
+                                </ng-container>
+                                <ng-container *ngIf="!entry?.introduceIdAccept">
+                                    Request pending to {{ entry?.introduceId?.fullName }}.
+                                    <br>
+                                </ng-container>
+                            </span>
+                            <div class="">
+                                <ng-container *ngIf="entry?.toId">
+                                    <div class="candProfile11">
+                                        <img [src]="entry?.toId?.profileimage ? entry?.toId?.profileimage : 'assets/img/profile-user.png' "
+                                            alt="profile" />
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="entry?.introduceId">
+                                    <div class="candProfile11">
+                                        <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
+                                            alt="profile" />
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
                         <ng-container *ngIf="loggedUser._id == entry?.toId?._id">
                             <span class="intoedClass">
-                                {{entry.fromId?.fullName}} would like to intro you to {{entry.introduceId?.fullName}}.
-                                {{entry.introduceId?.fullName}} can introduce you to {{entry?.comapnyName}}.
+                                {{entry?.fromId?.fullName}} would like to intro you to {{entry?.introduceId?.fullName}}.
+                                {{entry?.introduceId?.fullName}} can introduce you to {{entry?.comapnyName}}.
                             </span>
                             <div class="">
                                 <ng-container *ngIf="entry?.introduceId">
                                     <div class="candProfile11">
-                                        <img [src]="entry.introduceId?.profileimage ? entry.introduceId?.profileimage : 'assets/img/profile-user.png' "
+                                        <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
                                             alt="profile" />
                                     </div>`
                                 </ng-container>
                             </div>
                         </ng-container>
-                        <ng-container *ngIf="loggedUser._id == entry?.introduceId?._id">
+                        <ng-container *ngIf="loggedUser?._id == entry?.introduceId?._id">
                             <span class="intoedClass">
-                                {{entry.fromId?.fullName}} would like to intro you to {{entry.toId?.fullName}}.
-                                You can introduce {{entry.toId?.fullName}} to {{entry?.comapnyName}}.
+                                {{entry?.fromId?.fullName}} would like to intro you to {{entry?.toId?.fullName}}.
+                                You can introduce {{entry?.toId?.fullName}} to {{entry?.comapnyName}}.
                             </span>
                             <div class="">
                                 <ng-container *ngIf="entry?.introduceId">
                                     <div class="candProfile11">
-                                        <img [src]="entry.introduceId?.profileimage ? entry.introduceId?.profileimage : 'assets/img/profile-user.png' "
+                                        <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
                                             alt="profile" />
                                     </div>`
                                 </ng-container>
                             </div>
                         </ng-container>
                     </div>
-                    <div *ngIf="getAcceptCheck(entry)" class="matBtm">
+                    <div *ngIf="loggedUser?._id !== entry?.fromId?._id && getAcceptCheck(entry)" class="matBtm">
                         <div class="pro-share marTop" style="float: right;">
                             <div class="">
                                 <button class="acceptBtn" (click)="accept(entry)">
