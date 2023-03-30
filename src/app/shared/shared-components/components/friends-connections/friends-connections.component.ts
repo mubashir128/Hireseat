@@ -400,8 +400,6 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     });
 
     dialogThanksLaterRef.afterClosed().subscribe(result => {
-      console.log(result);
-      
       if(result){
         let payload = {
           toIds: result,
