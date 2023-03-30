@@ -21,6 +21,14 @@ export class IntroduceService {
     );
   }
 
+  multipleIntroduce(info: any) {
+    return this._http.post<any>(this.baseurl + "api/multiple-introduce", info).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   getIntroduce() {
     return this._http.get<any>(this.baseurl + "api/get-introduce").pipe(
       map((res: any) => {

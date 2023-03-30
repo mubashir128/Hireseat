@@ -79,7 +79,7 @@ export class List {
   constructor(public dynamicColumns: string[], public dataSource: any[]) {}
 }
 
-export class SearchFilter {
+export class SearchFilter2 {
   constructor(public column: string, public value: string) {}
 }
 
