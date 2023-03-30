@@ -2,10 +2,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/_services/user.service';
 import { AbstractDialogComponent } from '../abstract-dialog.component';
-import { List } from '../app-list/app-list.component';
 import { actionUserType, Paginator, SearchFilter, UserList } from '../user-list/user-list.component';
 
 @Component({
