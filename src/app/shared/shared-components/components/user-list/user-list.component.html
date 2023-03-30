@@ -1,0 +1,44 @@
+<div style='display: flex;flex-direction: row;justify-content: flex-end;'>
+    <button style="margin-right:8px" mat-raised-button color="primary" (click)="introduce()">
+        Introduce
+    </button>
+</div>
+<div class='table-responsive' [formGroup]="listFormGroup">
+    <table mat-table [dataSource]="list.dataSource" class="mat-elevation-z8" multiTemplateDataRows cdkDropList
+        [cdkDropListData]="list.dataSource" (cdkDropListDropped)="drop($event)">
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="list.selection.hasValue() && isAllSelected()"
+                    [indeterminate]="list.selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? singleSelection(row) : null"
+                    [checked]="list.selection.isSelected(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of list.dynamicColumns">
+            <th mat-header-cell *matHeaderCellDef>
+                <app-sort style="cursor:pointer" (click)="sortTable(column)" column="{{column}}"
+                    [(sortColumn)]="currentSort.column" [(sortDirection)]="currentSort.sortDirection"></app-sort>
+                <span *ngIf="!filterActive(column)">{{getTitle(column)}}</span>
+                <span *ngIf="filterActive(column)">
+                    <input formControlName="column" matInput placeholder="{{getTitle(column)}}"
+                        (input)="onFilterChange(column,$event.target.value)">
+                </span>
+            </th>
+
+            <td mat-cell *matCellDef="let item">
+                <span>{{item[column]}}</span>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="list.displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: list.displayedColumns;"></tr>
+    </table>
+</div>

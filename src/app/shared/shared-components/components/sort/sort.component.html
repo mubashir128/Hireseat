@@ -1,0 +1,4 @@
+<i *ngIf="sortColumn!=column" style="vertical-align: middle" class="material-icons icon-image-preview">sort</i>
+<i *ngIf="sortColumn==column && sortDirection == eSortDirection.desc" class="material-icons icon-image-preview">sort</i>
+<i *ngIf="sortColumn==column && sortDirection == eSortDirection.asc"
+    style="vertical-align: middle; transform: rotate(180deg)" class="material-icons icon-image-preview">sort</i>

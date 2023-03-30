@@ -31,7 +31,7 @@ export class List {
   }
 }
 
-export class SearchFilter {
+export class SearchFilter2 {
   constructor(
     public column: string,
     public value: string

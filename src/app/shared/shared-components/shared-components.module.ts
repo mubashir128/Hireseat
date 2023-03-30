@@ -119,6 +119,12 @@ import { AllUserListComponent } from './components/all-user-list/all-user-list.c
 import { MatTableModule } from '@angular/material/table';
 import { IntroductionsComponent } from './components/introductions/introductions.component';
 import { PendingIntroductionsComponent } from './components/pending-introductions/pending-introductions.component';
+import { DialogSelectUserComponent } from './components/dialog-select-user/dialog-select-user.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SortComponent } from './components/sort/sort.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -149,7 +155,10 @@ import { PendingIntroductionsComponent } from './components/pending-introduction
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    DragDropModule,
+    MatCheckboxModule,
+    MatButtonModule
   ],
   declarations: [
     FooterComponent,
@@ -263,7 +272,10 @@ import { PendingIntroductionsComponent } from './components/pending-introduction
     DialogDeleteUsersComponent,
     AllUserListComponent,
     IntroductionsComponent,
-    PendingIntroductionsComponent
+    PendingIntroductionsComponent,
+    DialogSelectUserComponent,
+    UserListComponent,
+    SortComponent
   ],
   exports: [
     FooterComponent,

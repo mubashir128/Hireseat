@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreatePostJobComponent } from '../dialog-create-post-job/dialog-create-post-job.component';
-import { actionType, List, SearchFilter, dialogPopupType } from '../../components/app-list/app-list.component';
+import { actionType, List, SearchFilter2, dialogPopupType } from '../../components/app-list/app-list.component';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class PostJobComponent implements OnInit {
     });
   }
 
-  filter(searchFilter: SearchFilter){
+  filter(searchFilter: SearchFilter2){
     this.searchFilters.set(searchFilter.column, searchFilter.value);
   }
 

@@ -17,6 +17,8 @@ import { BiddingEventService } from 'src/app/_services/bidding-event.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReadResumeService } from 'src/app/_services/read-resume.service';
 import { ResumeService } from 'src/app/_services/resume.service';
+import { IntroduceService } from 'src/app/_services/introduce.service';
+import { DialogSelectUserComponent } from '../dialog-select-user/dialog-select-user.component';
 
 declare var jQuery;
 declare var Materialize;
@@ -67,7 +69,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     protected _sanitizer: DomSanitizer,
     protected _readResume : ReadResumeService,
     protected _resumeService: ResumeService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    protected _introduceService: IntroduceService
   ){
     super(dialog, shareVideoService, _userService, formBuilder, _bidEventService,_sanitizer, _candidateService, _readResume, _resumeService, _subList, spinner, videoCallingService);
   }
@@ -386,6 +389,36 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     let resume = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
     this.swapIntro(resume);
   }
+
+  introduceTo(_id, resumeId, resumeId2){
+    let resume = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
+    const dialogThanksLaterRef = this.dialog.open(DialogSelectUserComponent,{
+      data: {
+        dialogType : "select-candidates",
+        dialogTitle : "Select Candidates"
+      }
+    });
+
+    dialogThanksLaterRef.afterClosed().subscribe(result => {
+      console.log(result);
+      
+      if(result){
+        let payload = {
+          toIds: result,
+          introduceId: resume?.candidate_id?._id,
+          comapnyName:  resume?.desiredCompanies
+        }
+        this._introduceService.multipleIntroduce(payload).subscribe((res) => {
+          Materialize.toast("Introduced successfully", 1000, "green");
+        }, (err) => {
+          console.log(err);
+          Materialize.toast("Already introduced", 1000, "red");
+        });
+
+      }
+    });
+  }
+
 
   thxLetter(_id, resumeId, resumeId2){
     this.thxFullObj = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
