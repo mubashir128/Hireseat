@@ -67,10 +67,10 @@ export class TimelineComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
+        // this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
       });
     }else if(autoValueFinder){
-      this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
+      // this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
     }
   }
 
