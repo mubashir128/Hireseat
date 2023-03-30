@@ -1,0 +1,13 @@
+<div>
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
+    <app-user-list
+        style="max-height: 525px !important; display: block;"
+        [(list)]="userList" 
+        [(type)]="actionType" 
+        [(columnNames)]="columnNames"
+        (filterEM)='filterModules($event)'
+        (batchOptEM)='batchOperations($event)'
+        (introduceEM)='introduce($event)'>
+    </app-user-list>
+</div>

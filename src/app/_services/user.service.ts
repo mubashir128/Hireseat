@@ -220,6 +220,16 @@ export class UserService {
       );
   }
 
+  getUsersWithRole(userRole, searchFilters) {
+    let params = new HttpParams();
+    if (searchFilters) {
+      searchFilters.forEach((value, key) => {
+        params = params.append(key, value);
+      });
+    }
+    return this.http.get(this.baseurl + "api/get-users/" + userRole, { params: params });
+  }
+
   getUserDetails(obj) {
     return this.http.post(this.baseurl + "api/getUserDetails/", obj);
   }

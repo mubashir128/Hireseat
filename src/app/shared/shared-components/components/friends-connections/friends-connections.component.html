@@ -342,12 +342,24 @@
             </div>
           </div>
 
-          <div class="pro-share marTop">
+          <!-- <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn shareBtn " (click)="swapIntroLocal(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
                   <div class="icon-name">
                     <span class="btnText"> Swap Intros </span>
+                  </div>
+                </a>
+              </button>
+            </div>
+          </div> -->
+
+          <div class="pro-share marTop">
+            <div class="">
+              <button class="acceptBtn shareBtn " (click)="introduceTo(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
+                <a>
+                  <div class="icon-name">
+                    <span class="btnText"> Introduce </span>
                   </div>
                 </a>
               </button>
