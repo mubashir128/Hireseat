@@ -15,13 +15,6 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="!showLoader && eachEntry1.length == 0">
-    <div class="marTop">
-        <app-no-data-available></app-no-data-available>
-    </div>
-</ng-container>
-
-
 <ng-container *ngIf="jobs">
     <app-intros-tab [(eachEntry)]="eachEntry1"></app-intros-tab>
 </ng-container>
