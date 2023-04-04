@@ -7,6 +7,13 @@ import { SubscriberslistService } from 'src/app/_services/subscriberslist.servic
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { DialogSelectToAddFriendsComponent } from '../dialog-select-to-add-friends/dialog-select-to-add-friends.component';
+import { CandidateService } from 'src/app/_services/candidate.service';
+import { ResumeService } from 'src/app/_services/resume.service';
+import { ReadResumeService } from 'src/app/_services/read-resume.service';
+import { FormGroup } from '@angular/forms';
+import { AccomplishmentType } from '../edit-highlights/edit-highlights.component';
+
+declare var Materialize: any;
 
 @Component({
   selector: 'app-timeline',
@@ -25,13 +32,43 @@ export class TimelineComponent implements OnInit {
 
   showLoader: boolean = true;
 
+  tagsBind = [];
+  skillSets = [];
+  resumeData: string = "";
+  candidateProfile: any = {};
+  finalSkillSets = [];
+
+  comments : string = "";
+  comment2 : string = "";
+  comment3 : string = "";
+
+  accomplishmentTabFrm: FormGroup;
+  accomplishmentArray : Array<AccomplishmentType>;
+
+  educationBindArray = [];
+  educationBind: string = "";
+
+  techMajorArray = [];
+  techMajor: string = ""
+
+  degreeArray = [];
+  degree: string = "";
+
+  industryBind = [];
+  mainIndustriesAre = [];
+  finalIndustriesAre = [];
+  industriesAre = [];
+
   constructor(
     private _constants: ConstantsService,
     private _socket: WebsocketService,
     private _router: Router,
     private userService: UserService,
     private _subList: SubscriberslistService,
-    public _dialog: MatDialog
+    public _dialog: MatDialog,
+    private resumeService: ResumeService,
+    private candidateService: CandidateService,
+    private _readResume : ReadResumeService
   ) {
     this.loggedUser = this.userService.getUserData();
   }
@@ -67,10 +104,12 @@ export class TimelineComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        // this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
+        this.showSkills();
+        this.showIndustries();
       });
     }else if(autoValueFinder){
-      // this._router.navigate(["/"+this.loggedUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
+      this.showSkills();
+      this.showIndustries();
     }
   }
 
@@ -111,6 +150,124 @@ export class TimelineComponent implements OnInit {
 
   goToPeopleEvent(peopleEventId){
     this._router.navigate(["/" + this.loggedUser.userRole + "/suggest-and-events"], { queryParams: { eventRoute: 1, eventId : peopleEventId._id}});
+  }
+
+  showSkills(){
+    this.tagsBind = [];
+    let promiseAll = [];
+    promiseAll.push(this.resumeService.getSkillSets().toPromise());
+    promiseAll.push(this.candidateService.getCandidateProfile().toPromise());
+    Promise.all(promiseAll).then(result=>{
+      this.skillSets = result[0];
+      this.resumeData = result[1].resumeDataIs ? result[1].resumeDataIs.toLowerCase() : "";
+      this.getEducation();
+      this.expBoxValues();
+      this.candidateProfile = result[1] ? result[1] : {};
+      this.skillSets.forEach((item, index)=>{
+        if(this.resumeData && this.resumeData.indexOf(item.value.toLowerCase()) !== -1){
+          this.tagsBind.push(item);
+          this.finalSkillSets.push(item.value.toLowerCase());
+        }
+      });
+      this.tagsBind = this._readResume.getSortSkillsResult2(this.tagsBind);
+      this.finalSkillSets = this._readResume.getSortSkillsResult(this.finalSkillSets);
+    });
+
+  }
+
+  getEducation(){
+    this.educationBind = "";
+    this.educationBindArray.forEach((edu, index)=>{
+      if(this.resumeData.indexOf(edu.toLowerCase()) !== -1){
+        this.educationBind = edu;
+      }
+    });
+
+    this.techMajor = "";
+    this.techMajorArray.forEach((techMaj, index)=>{
+      if(this.resumeData.indexOf(techMaj.toLowerCase()) !== -1){
+        this.techMajor = techMaj;
+      }
+    });
+    
+    this.degree = "";
+    this.degreeArray.forEach((degreeA, index)=>{
+      if(this.resumeData.indexOf(degreeA.toLowerCase()) !== -1){
+        this.degree = degreeA;
+      }
+    });
+  }
+
+  async expBoxValues(){
+    let finalStatementsArr = [];
+    finalStatementsArr = await this._readResume.readResume({resumeDataIs : this.resumeData});
+    //combine first three statements.
+    finalStatementsArr.forEach((val ,index)=>{
+      switch(index){
+        case 0 : 
+          this.comments = val.stm;
+          break;
+        case 1 : 
+          this.comment2 = val.stm;
+          break;
+        case 2 : 
+          this.comment3 = val.stm;
+          break;
+        default : 
+          break;
+      }
+    });
+  }
+
+  showIndustries(){
+    this.industryBind = [];
+    let promiseAll = [];
+    promiseAll.push(this.candidateService.getCandidateExperienceIndustries().toPromise());
+    promiseAll.push(this.candidateService.getCandidateProfile().toPromise());
+    Promise.all(promiseAll).then(result=>{
+      this.mainIndustriesAre = result[0].industries;
+      this.resumeData = result[1].resumeDataIs ? result[1].resumeDataIs.toLowerCase() : "";
+      this.mainIndustriesAre.forEach((item)=>{
+        this.industriesAre.push({
+          display : item.name,
+          value : item.name.toLowerCase()
+        });
+        if(this.resumeData.indexOf(item.name.toLowerCase()) !== -1){
+          this.industryBind.push({
+            display : item.name,
+            value : item.name.toLowerCase()
+          });
+          this.finalIndustriesAre.push(item);
+        }
+      });
+      this.industryBind = this._readResume.getSortIndustriesResult2(this.industryBind);
+      this.finalIndustriesAre = this._readResume.getSortIndustriesResult(this.finalIndustriesAre);
+      this.save();
+    });
+  }
+  
+  save(){
+    this._readResume.removeDuplicateSkills(this.finalSkillSets);
+    this._readResume.removeDuplicateIndustries(this.finalIndustriesAre);
+    let userInfo = {
+      education : this.educationBind,
+      skills : this.finalSkillSets.join(","),
+      industries : this.finalIndustriesAre,
+      comments : this.comments,
+      comment2 : this.comment2,
+      comment3 : this.comment3
+    }
+
+    let progress2 = this.candidateService.saveCandidateProfileDuringHighlightsData(userInfo);
+    progress2.subscribe(progress => {
+      console.log(`Upload ${progress.percent}% completed`);
+      if(progress.completeStatus && progress.body){
+        }
+      }, error => {;
+        Materialize.toast("Something Went Wrong !", 1000);
+      },() => {
+        console.log("completed : ");
+    });
   }
 
   ngOnDestroy() {
