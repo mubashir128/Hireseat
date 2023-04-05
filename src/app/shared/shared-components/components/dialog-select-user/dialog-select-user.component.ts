@@ -19,6 +19,8 @@ export class DialogSelectUserComponent extends AbstractDialogComponent implement
     'fullName':'Full Name'
   };
 
+  btns: any[];
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogSelectUserComponent,
     public _dialog: MatDialog,
@@ -26,6 +28,7 @@ export class DialogSelectUserComponent extends AbstractDialogComponent implement
     private _userService : UserService
   ) {
     super(data, _dialogRef);
+    this.btns = this.data.btns;
     this.userList = new UserList(
       ['fullName'],
       ['fullName'],
