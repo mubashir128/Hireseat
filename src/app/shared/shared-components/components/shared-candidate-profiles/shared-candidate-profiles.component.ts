@@ -28,6 +28,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { JoyrideService } from "ngx-joyride";
 import { ConferenceRoomService } from "src/app/_services/conference-room.service";
 import { shareConstants } from "../app-list/app-list.component";
+import { DialogSelectUserComponent } from "../dialog-select-user/dialog-select-user.component";
 
 declare var jQuery;
 declare var Materialize;
@@ -580,6 +581,24 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     }, (err) => {
       Materialize.toast("Something Went Wrong !", 1000);
     });
+  }
+
+  reviewMyResume(resume){
+    console.log("resume : ",resume);
+
+    const dialogSelectUsersRef = this.dialog.open(DialogSelectUserComponent ,{
+      data: {
+        dialogType : "select-users",
+        dialogTitle : "Select Users",
+      }
+    });
+
+    dialogSelectUsersRef.afterClosed().subscribe(result => {
+      console.log("result : ",result);
+      if(result){
+      }
+    });
+
   }
 
   postMyConferencecmt(event) {
