@@ -70,6 +70,8 @@ export class UserListComponent implements OnInit {
   @Output() batchOptEM = new EventEmitter();
   @Output() introduceEM = new EventEmitter();
 
+  @Output() reviewEM = new EventEmitter();
+
   constructor(
     private _formBuilder: FormBuilder
   ) { }
@@ -131,6 +133,10 @@ export class UserListComponent implements OnInit {
 
   introduce() {
     this.introduceEM.emit();
+  }
+
+  review(){
+    this.reviewEM.emit();
   }
 
   getBtn(btn){

@@ -590,12 +590,21 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       data: {
         dialogType : "select-users",
         dialogTitle : "Select Users",
+        btns : ["review"]
       }
     });
 
     dialogSelectUsersRef.afterClosed().subscribe(result => {
-      console.log("result : ",result);
       if(result){
+        this._conferenceRoom.saveMultiple(result, resume._id).subscribe(res=>{
+          if(res.completeStatus){
+            Materialize.toast("Message share was done", 1000, "green");
+          }
+        }, error =>{
+          Materialize.toast("Conference room already shared !", 1000, "red");
+        }, ()=>{
+          console.log("+++ request completed : ");
+        });
       }
     });
 

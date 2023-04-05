@@ -38,6 +38,12 @@ export class ConferenceRoomService {
     return this._abstractService.requestProgress(this._http, req);
   }
 
+  saveMultiple(conferenceToIds, profileId): Observable<any> {
+    let url = this.baseurl + "api/multiple-create-conference-room";
+    let req = new HttpRequest("POST", url, {conferenceToIds : conferenceToIds, profileId : profileId}, { reportProgress: true });
+    return this._abstractService.requestProgress(this._http, req);
+  }
+
   getConferenceRooms(): Observable<any> {
     let url = this.baseurl + "api/get-conference-room";
     let params = new HttpParams();
