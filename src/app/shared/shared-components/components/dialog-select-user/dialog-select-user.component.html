@@ -4,8 +4,9 @@
     <app-user-list
         style="max-height: 525px !important; display: block;"
         [(list)]="userList" 
-        [(type)]="actionType" 
+        [(type)]="actionType"
         [(columnNames)]="columnNames"
+        [(btns)]="btns" 
         (filterEM)='filterModules($event)'
         (batchOptEM)='batchOperations($event)'
         (introduceEM)='introduce($event)'>

@@ -395,7 +395,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     const dialogThanksLaterRef = this.dialog.open(DialogSelectUserComponent,{
       data: {
         dialogType : "select-candidates",
-        dialogTitle : "Select Candidates"
+        dialogTitle : "Select Candidates",
+        btns : ["introduce"]
       }
     });
 

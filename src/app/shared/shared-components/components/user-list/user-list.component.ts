@@ -58,6 +58,7 @@ export class UserListComponent implements OnInit {
   @Input() list: UserList;
   @Input() columnNames: any;
   @Input() type: actionUserType;
+  @Input() btns: any;
 
   @Output() filterEM = new EventEmitter();
   @Output() editEM = new EventEmitter();
@@ -130,5 +131,9 @@ export class UserListComponent implements OnInit {
 
   introduce() {
     this.introduceEM.emit();
+  }
+
+  getBtn(btn){
+    return this.btns.includes(btn) ? true : false;
   }
 }
