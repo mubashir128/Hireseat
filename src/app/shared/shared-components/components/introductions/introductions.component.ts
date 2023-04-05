@@ -18,17 +18,14 @@ export class IntroductionsComponent implements OnInit {
   friendsConnections: any;
   allConnectedFriends: []= [];
   loggedUser: any;
-  eachEntry: any[] = [];
-
-  intros: boolean = true;
-  pendingIntros: boolean = false;
-  itemsIs = 0;
+  eachEntry1: any[] = [];
+  eachEntry2: any[] = [];
 
   showLoader: boolean = true;
 
-  Search: FormGroup;
-  @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
-  searchTerm: String = "";
+  jobs: boolean = true;
+  industries: boolean = false;
+  itemsIs = 0;
 
   constructor(
     private _candidateService: CandidateService,
@@ -38,20 +35,10 @@ export class IntroductionsComponent implements OnInit {
     protected _formBuilder: FormBuilder
   ) {
     this.loggedUser = this._userService.getUserData();
-    this.Search = this._formBuilder.group({
-      searchTerm: [""],
-    });
   }
 
   ngOnInit(): void {
     this.getConnectedFriends();
-    this.debounceSearch();
-  }
-
-  debounceSearch(){
-    this.Search.valueChanges.pipe(debounceTime(1200), distinctUntilChanged()).subscribe((value) => {
-      this.searchTerm = value.searchTerm;
-    });
   }
 
   getConnectedFriends() {
@@ -84,7 +71,7 @@ export class IntroductionsComponent implements OnInit {
           intro: []
         };
 
-        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.recipient, this.loggedUser, this.allConnectedFriends);
+        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry1, connection.recipient, this.loggedUser, this.allConnectedFriends);
       } else if (connection?.recipient?._id == this.loggedUser._id) {
         let array = connection?.resumeId?.desiredCompanies ? connection?.resumeId?.desiredCompanies?.split(",") : [];
         let userObj = {
@@ -92,12 +79,12 @@ export class IntroductionsComponent implements OnInit {
           intro: []
         };
 
-        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry, connection.requester, this.loggedUser, this.allConnectedFriends);
+        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry1, connection.requester, this.loggedUser, this.allConnectedFriends);
       } else {
         console.log("no match : ");
       }
     });
-    // console.log("this.eachEntry : ",this.eachEntry);
+    // console.log("desired company this.eachEntry : ",this.eachEntry1);
     this.showLoader = false;
   }
 
@@ -110,7 +97,7 @@ export class IntroductionsComponent implements OnInit {
           intro: []
         };
 
-        this._userService.getUserObject2(this.friendsConnections, array, userObj, this.eachEntry, connection.recipient, this.loggedUser, this.allConnectedFriends);
+        this._userService.getUserObject2(this.friendsConnections, array, userObj, this.eachEntry2, connection.recipient, this.loggedUser, this.allConnectedFriends);
       } else if (connection?.recipient?._id == this.loggedUser._id) {
         let array = connection?.resumeId?.industries ? connection?.resumeId?.industries.map((industry)=>industry.name) : [];
         let userObj = {
@@ -118,44 +105,26 @@ export class IntroductionsComponent implements OnInit {
           intro: []
         };
 
-        this._userService.getUserObject2(this.friendsConnections, array, userObj, this.eachEntry, connection.requester, this.loggedUser, this.allConnectedFriends);
+        this._userService.getUserObject2(this.friendsConnections, array, userObj, this.eachEntry2, connection.requester, this.loggedUser, this.allConnectedFriends);
       } else {
         console.log("no match : ");
       }
     });
-    // console.log("this.eachEntry : ",this.eachEntry);
+    // console.log("industries this.eachEntry : ",this.eachEntry2);
     this.showLoader = false;
   }
 
-  introduce(entry){
-    let payload = {
-      toId: entry?.desiredUser?._id,
-      introduceId: entry?.introUser?._id,
-      comapnyName:  entry?.company
-    }
-    this._introduceService.introduce(payload).subscribe((res) => {
-      Materialize.toast("Introduced successfully", 1000, "green");
-    }, (err) => {
-      console.log(err);
-      Materialize.toast("Already introduced", 1000, "red");
-    });
-  }
-
-  changeLogo(notify) {
-    notify.showCreatedLogo = true;
-  }
-
-  switchPage(page) {
+  switchPage(page){
     jQuery("#switch" + this.itemsIs).css("background-color", "#33aaff");
     this.itemsIs = page;
     jQuery("#switch" + page).css("background-color", "#27B1BD");
 
-    if (this.itemsIs == 0) {
-      this.intros = true;
-      this.pendingIntros = false;
-    } else if (this.itemsIs == 1) {
-      this.intros = false;
-      this.pendingIntros = true;
+    if(this.itemsIs == 0){
+      this.jobs = true;
+      this.industries = false;
+    }else if(this.itemsIs == 1){
+      this.jobs = false;
+      this.industries = true;
     }
   }
 
