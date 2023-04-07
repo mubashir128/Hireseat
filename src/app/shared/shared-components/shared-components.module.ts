@@ -147,6 +147,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SortComponent } from './components/sort/sort.component';
 import { MatButtonModule } from '@angular/material/button';
 import { IntrosTabComponent } from './components/intros-tab/intros-tab.component';
+import { DialogInputTextMessageComponent } from './components/dialog-input-text-message/dialog-input-text-message.component';
 
 @NgModule({
   imports: [
@@ -316,7 +317,8 @@ import { IntrosTabComponent } from './components/intros-tab/intros-tab.component
     DialogSelectUserComponent,
     UserListComponent,
     SortComponent,
-    IntrosTabComponent
+    IntrosTabComponent,
+    DialogInputTextMessageComponent
   ],
   exports: [
     FooterComponent,
