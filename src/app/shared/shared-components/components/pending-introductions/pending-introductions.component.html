@@ -47,6 +47,10 @@
                                     Request pending to {{ entry?.introduceId?.fullName }}.
                                     <br>
                                 </ng-container>
+                                <ng-container *ngIf="entry?.message">
+                                    Message - {{ entry?.message }}.
+                                    <br>
+                                </ng-container>
                             </span>
                             <div class="">
                                 <ng-container *ngIf="entry?.toId">

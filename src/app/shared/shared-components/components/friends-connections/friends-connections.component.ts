@@ -19,6 +19,7 @@ import { ReadResumeService } from 'src/app/_services/read-resume.service';
 import { ResumeService } from 'src/app/_services/resume.service';
 import { IntroduceService } from 'src/app/_services/introduce.service';
 import { DialogSelectUserComponent } from '../dialog-select-user/dialog-select-user.component';
+import { DialogInputTextMessageComponent } from '../dialog-input-text-message/dialog-input-text-message.component';
 
 declare var jQuery;
 declare var Materialize;
@@ -402,18 +403,29 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
     dialogThanksLaterRef.afterClosed().subscribe(result => {
       if(result){
-        let payload = {
-          toIds: result,
-          introduceId: resume?.candidate_id?._id,
-          comapnyName:  resume?.desiredCompanies
-        }
-        this._introduceService.multipleIntroduce(payload).subscribe((res) => {
-          Materialize.toast("Introduced successfully", 1000, "green");
-        }, (err) => {
-          console.log(err);
-          Materialize.toast("Already introduced", 1000, "red");
-        });
 
+        const dialogTextInputRef = this.dialog.open(DialogInputTextMessageComponent,{
+          data: {
+            dialogType : "select-reason",
+            dialogTitle : "Reason for introducing your 2 connections "
+          }
+        });
+    
+        dialogTextInputRef.afterClosed().subscribe(result2 => {
+          console.log("result2 : ",result2);
+          let payload = {
+            toIds: result,
+            introduceId: resume?.candidate_id?._id,
+            comapnyName:  resume?.desiredCompanies,
+            message : result2.message
+          }
+          this._introduceService.multipleIntroduce(payload).subscribe((res) => {
+            Materialize.toast("Introduced successfully", 1000, "green");
+          }, (err) => {
+            console.log(err);
+            Materialize.toast("Already introduced", 1000, "red");
+          });
+        });
       }
     });
   }
