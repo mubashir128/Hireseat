@@ -119,7 +119,7 @@
         let i = index
       "
     >
-      <div class="pro">
+      <div class="pro" style="margin-bottom: 5px;">
         <div class="pro-3">
           <div class="candProfile" *ngIf = "!resume.showCreatedLogo">
             <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
@@ -184,6 +184,17 @@
                 <div class="icon-name">
                   <i class="fa fa-share shared-icon shared-icon2" aria-hidden="true"></i>
                   <span class="shareText shareText2"> Preview </span>
+                </div>
+              </a>
+            </button>
+          </div>
+
+          <div class="" style="margin-top: 10px;" *ngIf="loggedUser.userRole == 'candidate'">
+            <button class="shareBtn2" style="background-color: #03aaff; border: 1px solid #03aaff;" (click)="reviewMyResume(resume)">
+              <a>
+                <div class="icon-name">
+                  <i class="fa fa-share shared-icon shared-icon2" aria-hidden="true"></i>
+                  <span class="shareText shareText2"> Review Resume </span>
                 </div>
               </a>
             </button>

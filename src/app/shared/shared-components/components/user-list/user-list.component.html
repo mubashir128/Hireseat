@@ -1,6 +1,9 @@
 <div style='display: flex;flex-direction: row;justify-content: flex-end;'>
-    <button style="margin-right:8px" mat-raised-button color="primary" (click)="introduce()">
+    <button *ngIf="getBtn('introduce')" style="margin-right:8px" mat-raised-button color="primary" (click)="introduce()">
         Introduce
+    </button>
+    <button *ngIf="getBtn('review')" style="margin-right:8px" mat-raised-button color="primary" (click)="review()">
+        Review
     </button>
 </div>
 <div class='table-responsive' [formGroup]="listFormGroup">

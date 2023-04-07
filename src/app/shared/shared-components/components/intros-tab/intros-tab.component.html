@@ -1,0 +1,146 @@
+<ng-container *ngIf="eachEntry.length !== 0">
+    <div>
+        <form [formGroup]="Search" novalidate style="width: 100%">
+            <div class="row input-field col s12 m12 l12 marBtm">
+                <div class="skillInput">
+                    <span class="note" style="float: left"><span style="color: #f58e8e">Note:</span> Search by Name :
+                    </span>
+                </div>
+                <div class="inputDivMainN">
+                    <input type="text" formControlName="searchTerm" placeholder="Search here..." #searchByName />
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-container>
+
+<div class="ListResume">
+    <div class="singleList employerResume animatePart"
+        *ngFor="let entry of eachEntry | serchByFullName : searchTerm : 'intros' ">
+        <div class="row" style="text-align: center;">
+            <div class="col s5 m5 l5">
+                <div class="pro">
+                    <div class="pro-3">
+                        <div class="pro-1">
+                            <div class="docSectionBtns lates-s">
+                                <div class="candidate-name">
+                                    <div class="CandidateDetails">
+                                        <div class="user-details">
+
+                                            <div class="row" style="margin: auto;">
+                                                <div class="col s3 m3 l3" style="width: auto;">
+                                                    <div *ngIf="!entry?.desiredUser?.showCreatedLogo"
+                                                        class="big-badge big-badge-wid">
+                                                        <img src="{{ entry?.desiredUser?.profileimage }}"
+                                                            (error)="changeLogo(entry.desiredUser)" class="iconStyle"
+                                                            style="max-width: 100%" />
+                                                    </div>
+                                                    <div *ngIf="entry?.desiredUser?.showCreatedLogo"
+                                                        class="big-badge big-badge-wid">
+                                                        {{ entry?.desiredUser?.fullName | uppercase | slice: 0 : 1
+                                                        }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col s9 m9 l9 wrdWrap">
+                                                    <span>
+                                                        {{ entry?.desiredUser?.fullName }}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="other-details">
+                                                <div class="listUser">
+                                                    <div class="row matBtm">
+                                                        <div>
+                                                            <label class="lblTable">Desired Companies</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row matBtm">
+                                                        <div class="txtSize">
+                                                            {{ entry?.company }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s2 m2 l2" style="margin-top: 9%;">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </div>
+            <div class="col s5 m5 l5">
+                <div class="pro">
+                    <div class="pro-3">
+                        <div class="pro-1">
+                            <div class="docSectionBtns lates-s">
+                                <div class="candidate-name">
+                                    <div class="CandidateDetails">
+                                        <div class="user-details">
+
+                                            <div class="row" style="margin: auto;">
+                                                <div class="col s3 m3 l3" style="width: auto;">
+                                                    <div *ngIf="!entry?.introUser?.showCreatedLogo"
+                                                        class="big-badge big-badge-wid">
+                                                        <img src="{{ entry?.introUser?.profileimage }}"
+                                                            (error)="changeLogo(entry.introUser)" class="iconStyle"
+                                                            style="max-width: 100%" />
+                                                    </div>
+                                                    <div *ngIf="entry?.introUser?.showCreatedLogo"
+                                                        class="big-badge big-badge-wid">
+                                                        {{ entry?.introUser?.fullName | uppercase | slice: 0 : 1 }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col s9 m9 l9 wrdWrap">
+                                                    <span>
+                                                        {{ entry?.introUser?.fullName }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="other-details">
+                                                <div class="listUser">
+                                                    <div class="row matBtm">
+                                                        <div>
+                                                            <label class="lblTable">Can make intros to</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row matBtm">
+                                                        <div class="txtSize">
+                                                            {{ entry?.company }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row matBtm">
+                                                        <div class="marTop">
+                                                            <div class="">
+                                                                <button class="acceptBtn shareBtn "
+                                                                    (click)="introduce(entry)">
+                                                                    <a>
+                                                                        <div class="icon-name">
+                                                                            <span class="btnText">Introduce</span>
+                                                                        </div>
+                                                                    </a>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

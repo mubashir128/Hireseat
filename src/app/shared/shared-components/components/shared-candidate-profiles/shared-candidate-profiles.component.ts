@@ -27,6 +27,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { JoyrideService } from "ngx-joyride";
 import { ConferenceRoomService } from "src/app/_services/conference-room.service";
 import { shareConstants } from "../app-list/app-list.component";
+import { DialogSelectUserComponent } from "../dialog-select-user/dialog-select-user.component";
 
 declare var jQuery;
 declare var Materialize;
@@ -579,6 +580,33 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     }, (err) => {
       Materialize.toast("Something Went Wrong !", 1000);
     });
+  }
+
+  reviewMyResume(resume){
+    console.log("resume : ",resume);
+
+    const dialogSelectUsersRef = this.dialog.open(DialogSelectUserComponent ,{
+      data: {
+        dialogType : "select-users",
+        dialogTitle : "Select Users",
+        btns : ["review"]
+      }
+    });
+
+    dialogSelectUsersRef.afterClosed().subscribe(result => {
+      if(result){
+        this._conferenceRoom.saveMultiple(result, resume._id).subscribe(res=>{
+          if(res.completeStatus){
+            Materialize.toast("Message share was done", 1000, "green");
+          }
+        }, error =>{
+          Materialize.toast("Conference room already shared !", 1000, "red");
+        }, ()=>{
+          console.log("+++ request completed : ");
+        });
+      }
+    });
+
   }
 
   postMyConferencecmt(event) {

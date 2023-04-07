@@ -1,0 +1,16 @@
+<div>
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
+
+    <div class="modal-content">
+        <input type="text" class="" placeholder="Message" [(ngModel)]="message">
+        <div class="textCenter">
+            <button (click)="closeScreen($event)" class="sendBtn introStyle">
+                Cancel
+            </button>&nbsp;&nbsp;
+            <button (click)="submit()" class="sendBtn">
+                Submit
+            </button>
+        </div>
+    </div>
+</div>
