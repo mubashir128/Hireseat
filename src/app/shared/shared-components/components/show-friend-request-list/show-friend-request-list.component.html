@@ -12,16 +12,57 @@
         </div>
     </label>
     <div>
-        <mat-selection-list (selectionChange)="selectionChange($event)" [(ngModel)]="selectedList">
+
+        <ng-container *ngFor="let profile of profileContents; let i = index">
+            <div class="row" style="margin-bottom: auto;">
+                <div class="container">
+                    <ng-container>
+                        <div *ngIf="!profile?.candidate_id?.showCreatedLogo" class="uploadedImg">
+                            <img src="{{ profile?.candidate_id?.profileimage }}" (error)="changeLogo(profile?.candidate_id)"
+                                style="max-width: 100%" />
+                        </div>
+                        <div *ngIf="profile?.candidate_id?.showCreatedLogo" class="uploadedImg">
+                            {{ profile?.candidate_id?.fullName | uppercase | slice: 0 : 1 }}
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="singleList employerResume">
+                    <div class="docSectionBtns">
+                        <div class="row candidate-name">
+                            <span *ngIf="profile?.candidate_id">
+                                {{ profile?.candidate_id?.fullName }}
+                            </span>
+                            <p>
+                                Thank you for joining HireSeat...
+                                <br>
+                                <br>
+                                I am the Founder of HireSeat and appreciate your early support. As you can see it's still a work in progress.
+
+                                You can connect with me below and I will be your first connection. I can start making intros for you to members and recruiters to help you get to where you want in your career. 
+
+                                I can also do a free resume resume review for you.
+
+                                Thanks again for the early support.
+                                <br>
+                                <br>
+                                Sujith.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- <mat-selection-list (selectionChange)="selectionChange($event)" [(ngModel)]="selectedList">
             <mat-list-option class="optionClass" *ngFor="let profile of profileContents" checkboxPosition="before"
-                [value]="profile.candidate_id._id" [selected]="profileSet.get(profile.candidate_id._id)">
+                [value]="profile?.candidate_id?._id" [selected]="profileSet.get(profile?.candidate_id?._id)">
                 <div class="row">
-                    <div *ngIf="!profile.candidate_id.showCreatedLogo" class="big-badge candProfile22">
-                        <img src="{{ profile.candidate_id.profileimage }}" (error)="changeLogo(profile.candidate_id)"
+                    <div *ngIf="!profile?.candidate_id?.showCreatedLogo" class="big-badge candProfile22">
+                        <img src="{{ profile?.candidate_id?.profileimage }}" (error)="changeLogo(profile?.candidate_id)"
                             style="max-width: 100%" />
                     </div>
-                    <div *ngIf="profile.candidate_id.showCreatedLogo" class="big-badge candProfile22">
-                        {{ profile.candidate_id.fullName | uppercase | slice: 0 : 1 }}
+                    <div *ngIf="profile?.candidate_id?.showCreatedLogo" class="big-badge candProfile22">
+                        {{ profile?.candidate_id?.fullName | uppercase | slice: 0 : 1 }}
                     </div>
                     <span style="margin-left: 10px; word-wrap: break-word;">
                         {{profile?.candidate_id?.fullName}}
@@ -33,7 +74,7 @@
                     </span>
                 </div>
             </mat-list-option>
-        </mat-selection-list>
+        </mat-selection-list> -->
     </div>
     <!-- <div *ngIf = "getStep(1)">
         <div class="form-group">

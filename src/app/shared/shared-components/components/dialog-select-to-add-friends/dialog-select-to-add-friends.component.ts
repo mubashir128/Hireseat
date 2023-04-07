@@ -52,6 +52,7 @@ export class DialogSelectToAddFriendsComponent extends AbstractDialogComponent i
     this._candidateService.getCandidateSharedProfiles().subscribe((res) => {
       if(res){
         this.profileContents = res;
+        this.profileContents.splice(1);
       }
     }, err=>{
     });
