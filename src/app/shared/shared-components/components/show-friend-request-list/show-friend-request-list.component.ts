@@ -35,11 +35,12 @@ export class ShowFriendRequestListComponent implements OnInit {
   }
 
   sendFriendRequest(){
-    if(this.profileSet.size == 0){
-      Materialize.toast("Select atleast one person.", 1000, "red");
-      return ;
-    }
+    // if(this.profileSet.size == 0){
+    //   Materialize.toast("Select atleast one person.", 1000, "red");
+    //   return ;
+    // }
 
+    this.profileSet.set(this.profileContents[0]?.candidate_id?._id, true);
     this._candidateService.connectWithMultipleUsers(this.profileSet).subscribe((res) => {
       Materialize.toast("Friend requestes are sended", 1000, "green");
       if(this.step == 1){
