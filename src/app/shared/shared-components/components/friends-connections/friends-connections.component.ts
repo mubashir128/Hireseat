@@ -407,12 +407,11 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         const dialogTextInputRef = this.dialog.open(DialogInputTextMessageComponent,{
           data: {
             dialogType : "select-reason",
-            dialogTitle : "Reason for introducing your 2 connections "
+            dialogTitle : "Provide a note expressing how your 2 connections can help each other."
           }
         });
     
         dialogTextInputRef.afterClosed().subscribe(result2 => {
-          console.log("result2 : ",result2);
           let payload = {
             toIds: result,
             introduceId: resume?.candidate_id?._id,
