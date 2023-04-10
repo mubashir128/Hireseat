@@ -20,6 +20,10 @@ export class SuggestConnectedComponent implements OnInit {
   redirectId;
   type;
 
+  fromId;
+  introduceId;
+  toId;
+
   constructor(
     private _route: ActivatedRoute
   ) {
@@ -28,6 +32,11 @@ export class SuggestConnectedComponent implements OnInit {
   ngOnInit(): void {
     this.redirectId = this._route.snapshot.queryParams["redirectId"];
     this.type = this._route.snapshot.queryParams["type"];
+    this._route.queryParams.subscribe(params => {
+      this.fromId = params['fromId'];
+      this.introduceId = params['introduceId'];
+      this.toId = params['toId'];
+    });
     if(this.type){
       this.switchPage2(this.type);
     }

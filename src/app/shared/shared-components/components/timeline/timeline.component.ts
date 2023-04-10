@@ -89,6 +89,15 @@ export class TimelineComponent implements OnInit {
     this._router.navigate(["/" + this.loggedUser.userRole + "/suggest-and-events"], { queryParams: { eventRoute: 1, eventId : peopleEventId._id}});
   }
 
+  goToIntroducePage(timeline){
+    let fromId = timeline?.fromId?._id;
+    let introduceId = timeline?.introduceId?._id;
+    let toId = timeline?.toId?._id;
+
+    let url = "/suggest-connected-friends";
+    this._router.navigate(["/"+this.loggedUser.userRole + url], {queryParams : {fromId : fromId, introduceId: introduceId, toId : toId, type: 1}});
+  }
+
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.timelineType });
     this.timelineObserver.unsubscribe();
