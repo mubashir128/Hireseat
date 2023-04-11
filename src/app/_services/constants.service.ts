@@ -175,7 +175,9 @@ export class ConstantsService {
   introduceIntroduceIdIdSend;
   introduceFromIdAccepted;
   introduceToIdAccepted;
-  introduceIntroduceIdIdAccepted
+  introduceIntroduceIdIdAccepted;
+
+  threeIntroduce;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -428,6 +430,8 @@ export class ConstantsService {
     this.introduceFromIdAccepted = obj.introduceFromIdAccepted;
     this.introduceToIdAccepted = obj.introduceToIdAccepted;
     this.introduceIntroduceIdIdAccepted = obj.introduceIntroduceIdIdAccepted;
+
+    this.threeIntroduce = obj.threeIntroduce;
   }
 
 }

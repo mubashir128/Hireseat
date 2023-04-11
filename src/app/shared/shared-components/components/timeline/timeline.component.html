@@ -69,6 +69,10 @@
             <span class="intoedClass" *ngIf = "timeline.status == _constants.eventAttendingAre" (click)="goToPeopleEvent(timeline.peopleEventId)">
               {{timeline.fromId?.fullName}} Attending ' {{timeline.peopleEventId?.name}} ' event.
             </span>
+
+            <span class="intoedClass" *ngIf = "timeline.status == _constants.threeIntroduce" (click)="goToIntroducePage(timeline)">
+              {{timeline.fromId?.fullName}} introduced {{timeline.toId?.fullName}} to {{timeline.introduceId?.fullName}}.
+            </span>
             
             <span class="intoedClass" *ngIf = "timeline.status == _constants.createdNewEvent" (click)="goToPeopleEvent(timeline.peopleEventId)">
               New event - '{{timeline.peopleEventId?.name}}'.
