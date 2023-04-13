@@ -160,6 +160,7 @@ export class ConstantsService {
   introduceIntroduceIdIdAccepted;
 
   threeIntroduce;
+  pendintIntroduceCount;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -398,6 +399,7 @@ export class ConstantsService {
     this.introduceIntroduceIdIdAccepted = obj.introduceIntroduceIdIdAccepted;
 
     this.threeIntroduce = obj.threeIntroduce;
+    this.pendintIntroduceCount = obj.pendintIntroduceCount;
   }
 
 }

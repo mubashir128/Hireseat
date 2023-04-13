@@ -28,6 +28,8 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   notificationLength = 0;
   multiSharedCandidateProfileCount = 0;
 
+  pendingIntroduceCount = 0;
+
   mobileNotificationIncrementObserver = new Subject();
   mobileNotificationIncrementObserver$ = this.mobileNotificationIncrementObserver.asObservable();
 
@@ -104,6 +106,9 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     switch (res.subType) {
       case this._constants.getMobileNotificationIncrementType:
         this.notificationLength += 1;
+        break;
+      case this._constants.pendintIntroduceCount:
+        this.pendingIntroduceCount += 1;
         break;
       default:
         break;
