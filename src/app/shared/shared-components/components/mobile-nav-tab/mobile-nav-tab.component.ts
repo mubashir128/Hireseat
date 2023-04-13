@@ -28,6 +28,8 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   notificationLength = 0;
   multiSharedCandidateProfileCount = 0;
 
+  pendingIntroduceCount = 0;
+
   multiSharedCandidateProfileCountObserver = new Subject();
   multiSharedCandidateProfileCountObserver$ = this.multiSharedCandidateProfileCountObserver.asObservable();
 
@@ -81,10 +83,15 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   }
 
   handleMultiSharedCandidateProfileCountData(res){
+    console.log("---------- res : ",res);
     switch (res.subType) {
       case this._constants.multiSharedCandidateProfileCountType:
         this.multiSharedCandidateProfileCount += 1;
         break;
+      case this._constants.pendintIntroduceCount:
+          console.log("+++ res : ",res);
+          this.pendingIntroduceCount += 1;
+          break;
       default:
         break;
     }

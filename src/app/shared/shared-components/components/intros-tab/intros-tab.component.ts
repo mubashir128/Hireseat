@@ -43,10 +43,11 @@ export class IntrosTabComponent implements OnInit {
 
   introduce(entry){
     let payload = {
-      toId: entry?.desiredUser?._id,
-      introduceId: entry?.introUser?._id,
+      toId: entry?.introUser?._id,
+      introduceId: entry?.desiredUser?._id,
       comapnyName:  entry?.company
-    }
+    };
+
     this._introduceService.introduce(payload).subscribe((res) => {
       Materialize.toast("Introduced successfully", 1000, "green");
     }, (err) => {
