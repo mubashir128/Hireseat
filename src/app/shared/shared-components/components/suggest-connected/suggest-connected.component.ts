@@ -24,9 +24,13 @@ export class SuggestConnectedComponent implements OnInit {
   introduceId;
   toId;
 
+  pendingIntroduceCount: number = 0;
+
   constructor(
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _userService: UserService
   ) {
+    this.pendingIntroduceCount = this._userService.getPendingIntroduceCount();
   }
 
   ngOnInit(): void {
@@ -51,6 +55,8 @@ export class SuggestConnectedComponent implements OnInit {
       this.intros = true;
       this.pendingIntros = false;
     }else if(this.itemsIs == 1){
+      this.pendingIntroduceCount = 0;
+      this._userService.removePendingIntroduceCount();
       this.intros = false;
       this.pendingIntros = true;
     }
