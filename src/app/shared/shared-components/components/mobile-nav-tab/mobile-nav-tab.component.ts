@@ -28,6 +28,11 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   notificationLength = 0;
   multiSharedCandidateProfileCount = 0;
 
+  pendingIntroduceCount = 0;
+
+  mobileNotificationIncrementObserver = new Subject();
+  mobileNotificationIncrementObserver$ = this.mobileNotificationIncrementObserver.asObservable();
+
   multiSharedCandidateProfileCountObserver = new Subject();
   multiSharedCandidateProfileCountObserver$ = this.multiSharedCandidateProfileCountObserver.asObservable();
 
@@ -66,6 +71,18 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
 
     this.SelectItem2(this.router.url);
 
+    //add a observable for notificaton
+    await this._socket.removeListener({ type: this._constants.mobileNotificationIncrementType });
+    this._socket.addListener({
+      type: this._constants.mobileNotificationIncrementType,
+      callback: this.mobileNotificationIncrementObserver,
+    });
+
+    //when any activity of notification is happened, then this observable is called.
+    this.mobileNotificationIncrementObserver$.subscribe((res: any) => {
+      this.handleNotificationData(res);
+    });
+
     //add a observable for multiSharedCandidateProfileCount
     await this._socket.removeListener({ type: this._constants.multiSharedCandidateProfileCount });
     this._socket.addListener({
@@ -80,11 +97,26 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   }
 
+  //handle notifications of user.
+  handleNotificationData(res: any) {
+    switch (res.subType) {
+      case this._constants.pendintIntroduceCount:
+        this.pendingIntroduceCount += 1;
+        this.userService.setPendingIntroduceCount(this.pendingIntroduceCount);
+        break;
+      default:
+        break;
+    }
+  }
+
   handleMultiSharedCandidateProfileCountData(res){
     switch (res.subType) {
       case this._constants.multiSharedCandidateProfileCountType:
         this.multiSharedCandidateProfileCount += 1;
         break;
+      case this._constants.pendintIntroduceCount:
+          this.pendingIntroduceCount += 1;
+          break;
       default:
         break;
     }
@@ -198,6 +230,9 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   SelectItem2(item) {
     this.tabs2.forEach((tab) => {
+      if(tab.displayText == "Suggest And Events"){
+        this.pendingIntroduceCount = 0;
+      }
       if (tab.id === item) {
         tab.selected = true;
       } else {
@@ -207,6 +242,12 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
+    if(this.mobileNotificationIncrementObserver){
+      this.mobileNotificationIncrementObserver.unsubscribe();
+    }
+    if(this.multiSharedCandidateProfileCountObserver){
+      this.multiSharedCandidateProfileCountObserver.unsubscribe();
+    }
   }
 
   changeLogo(tab){

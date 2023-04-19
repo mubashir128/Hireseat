@@ -425,6 +425,18 @@ export class UserService {
   removeBeforeSharedWalkthrough(){
     localStorage.removeItem("beforeSharedWalkthrough");
   }
+  
+  setPendingIntroduceCount(value){
+    localStorage.setItem("pendingIntroduceCount", value);
+  }
+
+  removePendingIntroduceCount(){
+    localStorage.removeItem("pendingIntroduceCount");
+  }
+
+  getPendingIntroduceCount(){
+    return Number(localStorage.getItem("pendingIntroduceCount"));
+  }
 
   getAllRelatedUsers(payload){
     return this.http

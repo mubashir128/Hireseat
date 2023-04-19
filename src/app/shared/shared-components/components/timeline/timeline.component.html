@@ -71,7 +71,7 @@
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.threeIntroduce" (click)="goToIntroducePage(timeline)">
-              {{timeline.fromId?.fullName}} introduced {{timeline.toId?.fullName}} to {{timeline.introduceId?.fullName}}.
+              {{timeline.fromId?.fullName}} introduced {{timeline.introduceId?.fullName}} to {{timeline.toId?.fullName}}.
             </span>
             
             <span class="intoedClass" *ngIf = "timeline.status == _constants.createdNewEvent" (click)="goToPeopleEvent(timeline.peopleEventId)">
