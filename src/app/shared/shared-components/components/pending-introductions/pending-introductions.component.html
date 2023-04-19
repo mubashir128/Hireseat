@@ -48,8 +48,9 @@
                                     <br>
                                 </ng-container>
                                 <ng-container *ngIf="entry?.message">
-                                    Message - {{ entry?.message }}.
-                                    <br>
+                                    <span class="msgClass">
+                                        Message - {{ entry?.message }}.
+                                    </span>
                                 </ng-container>
                             </span>
                             <div class="">
@@ -71,8 +72,19 @@
                             <span class="intoedClass">
                                 {{entry?.fromId?.fullName}} would like to intro you to {{entry?.introduceId?.fullName}}.
                                 {{entry?.introduceId?.fullName}} can introduce you to {{entry?.comapnyName}}.
+                                <ng-container *ngIf="entry?.message">
+                                    <span class="msgClass">
+                                        Message - {{ entry?.message }}.
+                                    </span>
+                                </ng-container>
                             </span>
                             <div class="">
+                                <ng-container *ngIf="entry?.toId">
+                                    <div class="candProfile11">
+                                        <img [src]="entry?.toId?.profileimage ? entry?.toId?.profileimage : 'assets/img/profile-user.png' "
+                                            alt="profile" />
+                                    </div>
+                                </ng-container>
                                 <ng-container *ngIf="entry?.introduceId">
                                     <div class="candProfile11">
                                         <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
@@ -85,8 +97,19 @@
                             <span class="intoedClass">
                                 {{entry?.fromId?.fullName}} would like to intro you to {{entry?.toId?.fullName}}.
                                 You can introduce {{entry?.toId?.fullName}} to {{entry?.comapnyName}}.
+                                <ng-container *ngIf="entry?.message">
+                                    <span class="msgClass">
+                                        Message - {{ entry?.message }}.
+                                    </span>
+                                </ng-container>
                             </span>
                             <div class="">
+                                <ng-container *ngIf="entry?.toId">
+                                    <div class="candProfile11">
+                                        <img [src]="entry?.toId?.profileimage ? entry?.toId?.profileimage : 'assets/img/profile-user.png' "
+                                            alt="profile" />
+                                    </div>
+                                </ng-container>
                                 <ng-container *ngIf="entry?.introduceId">
                                     <div class="candProfile11">
                                         <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
