@@ -5,6 +5,7 @@
         </li>
         <li class="tablink" id="switch1" [ngClass]="itemsIs == 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
             New Intros
+            <span *ngIf="pendingIntroduceCount >= 1">{{ pendingIntroduceCount }}</span>
         </li>
     </ul>
 </div>

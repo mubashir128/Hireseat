@@ -102,6 +102,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     switch (res.subType) {
       case this._constants.pendintIntroduceCount:
         this.pendingIntroduceCount += 1;
+        this.userService.setPendingIntroduceCount(this.pendingIntroduceCount);
         break;
       default:
         break;

@@ -87,3 +87,9 @@ button.acceptBtn {
     color: #fff !important;
     font-size: 15px !important;
 }
+
+.msgClass{
+    display: block;
+    margin-top: 5px;
+    color: #708381;
+}
