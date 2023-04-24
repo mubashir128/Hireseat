@@ -373,18 +373,6 @@ export class UserService {
     localStorage.removeItem("onlyCandidateWalkthrough");
   }
 
-  setPendingIntroduceCount(value){
-    localStorage.setItem("pendingIntroduceCount", value);
-  }
-
-  removePendingIntroduceCount(){
-    localStorage.removeItem("pendingIntroduceCount");
-  }
-
-  getPendingIntroduceCount(){
-    return Number(localStorage.getItem("pendingIntroduceCount"));
-  }
-
   getAllRelatedUsers(payload){
     return this.http
       .post<any>(this.baseurl + "api/getAllRelatedUsers/", payload)

@@ -37,6 +37,22 @@ export class IntroduceService {
     );
   }
 
+  getReadIntroduceCount() {
+    return this._http.get<any>(this.baseurl + "api/get-read-introduce-count").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  updateReadIntroduceCount() {
+    return this._http.put<any>(this.baseurl + "api/update-read-introduce-count", {}).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
   updateStatus(payload: any) {
     return this._http.post<any>(this.baseurl + "api/update-status", payload).pipe(
       map((res: any) => {
