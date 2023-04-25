@@ -17,6 +17,8 @@ import { SuggestIntroduceComponent } from "../shared/shared-components/component
 import { SettingsComponent } from "../shared/shared-components/components/settings/settings.component";
 import { TimelineComponent } from "../shared/shared-components/components/timeline/timeline.component";
 import { SuggestConnectedComponent } from "../shared/shared-components/components/suggest-connected/suggest-connected.component";
+import { AppliedPostJobsComponent } from "../shared/shared-components/components/applied-post-jobs/applied-post-jobs.component";
+import { SuggestedPostJobsComponent } from "../shared/shared-components/components/suggested-post-jobs/suggested-post-jobs.component";
 
 const routes: Routes = [
   {
@@ -87,6 +89,14 @@ const routes: Routes = [
         path: "suggest-connected-friends",
         component: SuggestConnectedComponent,
       },
+      {
+        path: "applied-jobs",
+        component: AppliedPostJobsComponent,
+      },
+      {
+        path: "my-post-jobs",
+        component: SuggestedPostJobsComponent,
+      }
     ],
   },
 ];

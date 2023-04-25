@@ -1,0 +1,48 @@
+<ng-container>
+    <span style="font-size: 20px;">Applied for Jobs : </span>
+    <div class="ListResume">
+        <div class="singleList employerResume animatePart" *ngFor="let item of appliedPostJobs">
+            <div class="pro">
+                <span style="color: red;">
+                    {{item?.postJobId?.companyName | uppercase}}
+                </span>
+                <br>
+                <div class="sideCss">
+                    <div class="lblTxt">
+                        <p *ngIf="item?.postJobId?.jobTitle"><label>Job Title :</label> {{ item?.postJobId?.jobTitle }}
+                        </p>
+                        <p *ngIf="item?.postJobId?.jobSpecification || item?.postJobId?.jobBrief"><label>Job
+                                Specification
+                                :</label>
+                            <span (click)="showHideJobSpec(item)" style="color: red;"> - Click to see
+                                specifications</span>
+                            <span class="jobSpecClass" [id]="'jobSpec_' + item._id">
+                                - {{ item?.postJobId?.jobSpecification || item?.postJobId?.jobBrief }}
+                            </span>
+                        </p>
+                        <p *ngIf="item?.postJobId?.location"><label>Location :</label> {{ item?.postJobId?.location }}
+                        </p>
+
+                        <div class="formDivCreate">
+                            <div *ngIf="item?.postJobId?.point1" class="form-group">
+                                <input type="checkbox" name="point1" value="point1" class="createpostInput">
+                                <p *ngIf="item?.postJobId?.point1"><label>Point1 :</label> {{ item?.postJobId?.point1 }}
+                                </p>
+                            </div>
+                            <div *ngIf="item?.postJobId?.point2" class="form-group">
+                                <input type="checkbox" name="point2" value="point2" class="createpostInput">
+                                <p *ngIf="item?.postJobId?.point2"><label>Point2 :</label> {{ item?.postJobId?.point2 }}
+                                </p>
+                            </div>
+                            <div *ngIf="item?.postJobId?.point3" class="form-group">
+                                <input type="checkbox" name="point3" value="point3" class="createpostInput">
+                                <p *ngIf="item?.postJobId?.point3"><label>Point3 :</label> {{ item?.postJobId?.point3 }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

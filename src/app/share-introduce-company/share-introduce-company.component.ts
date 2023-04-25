@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services/user.service';
+import { PostJobService } from '../_services/post-job.service';
 
 @Component({
   selector: 'app-share-introduce-company',
@@ -14,7 +15,8 @@ export class ShareIntroduceCompanyComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    protected _userService: UserService
+    protected _userService: UserService,
+    protected _postJobService: PostJobService
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +25,7 @@ export class ShareIntroduceCompanyComponent implements OnInit {
   }
 
   shareClick(){
-    this._userService.getPostJob(null, true, null, this.companyId).subscribe((data)=>{
+    this._postJobService.getPostJob(null, true, null, this.companyId).subscribe((data)=>{
       if(Array.isArray(data.result)){
         this.suggestIntro = data.result;
       }

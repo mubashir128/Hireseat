@@ -860,3 +860,24 @@ iframe.interviewVideo {
   textarea { margin-bottom:10px; padding: 10px;}
   .btn { border-radius: 0px !important}
 }
+
+.formDivCreate p {
+  margin: 0 5px;
+}
+
+.formDivCreate .form-group {
+  display: flex;
+  align-items: center;
+}
+
+.createpostInput{
+  opacity: 1;
+  position: unset;
+  pointer-events: unset;
+}
+
+.commonBlueBtnN{
+  height: 30px !important;
+  margin-top: 10px;
+  border: none !important;
+}

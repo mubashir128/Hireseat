@@ -71,38 +71,6 @@ export class UserService {
     );
   }
 
-  postJob(info: any) {
-    let url = this.baseurl + "api/";
-    url += (info._id) ? "update-post-job" : "create-post-job";
-    return this.http.post<any>(url, info).pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
-  }
-
-  getPostJob(jobPost?: any, suggest?, searchFilters?, companyId?) {
-    let params = new HttpParams();
-    if(jobPost) {
-      params = params.append('_id', jobPost._id.toString());
-    }
-
-    if(searchFilters) {
-      searchFilters.forEach((value, key) => {
-        params = params.append(key, value);
-      });
-    }
-
-    if(companyId) {
-      params = params.append('companyId', companyId.toString());
-    }
-
-    if(suggest){
-      params = params.append('suggest', suggest);
-    }
-    return this.http.get<any>(this.baseurl + "api/get-post-job", {params :params});
-  }
-
   registerCandidate(info: any) {
     return this.http
       .post<any>(this.baseurl + "api/registerCandidate", info)
@@ -187,6 +155,17 @@ export class UserService {
       });
     }
     return this.http.get(this.baseurl + "api/get-users/" + userRole, { params: params });
+  }
+
+  getUsersWithField(userRole, fieldName, fieldValue) {
+    let params = new HttpParams();
+    params = params.append('fieldName', fieldName);
+    params = params.append('fieldValue', JSON.stringify(fieldValue));
+    return this.http.get(this.baseurl + "api/get-users-with-fields/" + userRole, { params: params });
+  }
+
+  getUsersById() {
+    return this.http.get(this.baseurl + "api/get-users-by-id");
   }
 
   getUserDetails(obj) {
@@ -325,6 +304,16 @@ export class UserService {
   updateProfileImg(data: any) {
     return this.http
       .post<any>(this.baseurl + "api/updateProfileImg/", data)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
+  updateAsARecruiter(data: any) {
+    return this.http
+      .post<any>(this.baseurl + "api/update-as-a-recruiter/", data)
       .pipe(
         map((res: any) => {
           return res;

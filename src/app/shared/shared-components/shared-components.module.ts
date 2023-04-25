@@ -127,6 +127,8 @@ import { SortComponent } from './components/sort/sort.component';
 import { MatButtonModule } from '@angular/material/button';
 import { IntrosTabComponent } from './components/intros-tab/intros-tab.component';
 import { DialogInputTextMessageComponent } from './components/dialog-input-text-message/dialog-input-text-message.component';
+import { SuggestedPostJobsComponent } from './components/suggested-post-jobs/suggested-post-jobs.component';
+import { AppliedPostJobsComponent } from './components/applied-post-jobs/applied-post-jobs.component';
 
 
 @NgModule({
@@ -279,7 +281,9 @@ import { DialogInputTextMessageComponent } from './components/dialog-input-text-
     UserListComponent,
     SortComponent,
     IntrosTabComponent,
-    DialogInputTextMessageComponent
+    DialogInputTextMessageComponent,
+    SuggestedPostJobsComponent,
+    AppliedPostJobsComponent
   ],
   exports: [
     FooterComponent,

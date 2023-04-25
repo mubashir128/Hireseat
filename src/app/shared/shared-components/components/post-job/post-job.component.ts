@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogCreatePostJobComponent } from '../dialog-create-post-job/dialog-create-post-job.component';
 import { actionType, List, SearchFilter2, dialogPopupType } from '../../components/app-list/app-list.component';
 import { UserService } from 'src/app/_services/user.service';
+import { PostJobService } from 'src/app/_services/post-job.service';
 
 @Component({
   selector: 'app-post-job',
@@ -16,8 +17,8 @@ export class PostJobComponent implements OnInit {
   actionType : actionType = actionType.postJob;
   columnNames : string[] = ['_id','companyName', 'jobTitle', 'jobSpecification','location'];
 
-  constructor(protected dialog: MatDialog, 
-    private _userService: UserService
+  constructor(protected dialog: MatDialog,
+    private _postJobService : PostJobService
   ){ }
 
   ngOnInit(): void {
@@ -29,7 +30,7 @@ export class PostJobComponent implements OnInit {
   }
 
   getJobList(){
-    this._userService.getPostJob(null, false, this.searchFilters).subscribe((data)=>{
+    this._postJobService.getPostJob(null, false, this.searchFilters).subscribe((data)=>{
       this.jobList.dataSource = data.result;
     }, (err) => {
       console.log(err);
@@ -56,6 +57,7 @@ export class PostJobComponent implements OnInit {
     const dialogIntroduceRef = this.dialog.open(DialogCreatePostJobComponent,{
       autoFocus: false,
       width: '40vh',
+      height: '75vh',
       data: {
         dialogType : dialogType,
         dialogTitle : dialogTitle,
@@ -83,6 +85,9 @@ export class PostJobComponent implements OnInit {
         jobPost.companyName = result.companyName;
         jobPost.jobSpecification = result.jobSpecification;
         jobPost.location = result.location;
+        jobPost.point1 = result.point1;
+        jobPost.point2 = result.point2;
+        jobPost.point3 = result.point3;
       }
     });
   }

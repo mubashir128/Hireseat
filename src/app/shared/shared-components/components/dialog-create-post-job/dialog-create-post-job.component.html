@@ -59,6 +59,46 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <span>Select user who suggest you</span>
+                    <!-- <mat-label>Select user who suggest you</mat-label> -->
+                    <mat-select [(value)]="jobList.suggestBy" [disabled]="jobList._id">
+                        <mat-option *ngFor="let userType of anyUsers" [value]="userType._id">
+                            {{userType.fullName}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <span>Enter 3 most important things recruiter is looking*</span>
+                    <input class="form-control marBT" type="text" name="point1" formControlName="point1" [(ngModel)] = "jobList.point1"
+                        autocomplete="off" placeholder="point1*"/>
+                    <div *ngIf="jobPostForm.controls['point1'].invalid && jobPostForm.controls['point1'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="jobPostForm.controls['point1'].hasError('required')" class="error">
+                            Please Enter Point1
+                        </div>
+                    </div>
+                    <input class="form-control marBT" type="text" name="point2" formControlName="point2" [(ngModel)] = "jobList.point2"
+                        autocomplete="off" placeholder="point2*"/>
+                    <div *ngIf="jobPostForm.controls['point2'].invalid && jobPostForm.controls['point2'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="jobPostForm.controls['point2'].hasError('required')" class="error">
+                            Please Enter Point2
+                        </div>
+                    </div>
+                    <input class="form-control marBT" type="text" name="point3" formControlName="point3" [(ngModel)] = "jobList.point3"
+                        autocomplete="off" placeholder="point3*"/>
+                    <div *ngIf="jobPostForm.controls['point3'].invalid && jobPostForm.controls['point3'].touched"
+                        class="alert alert-danger">
+                        <div *ngIf="jobPostForm.controls['point3'].hasError('required')" class="error">
+                            Please Enter Point3
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row center-align">
                 <button type="submit" class="waves-effect waves-light commonBlueBtnN">
                     {{btnName}}
