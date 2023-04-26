@@ -24,18 +24,15 @@
                         </p>
 
                         <div class="formDivCreate">
-                            <div *ngIf="item?.postJobId?.point1" class="form-group">
-                                <input type="checkbox" name="point1" value="point1" class="createpostInput">
+                            <div *ngIf="item?.point1 && item?.postJobId?.point1" class="form-group">
                                 <p *ngIf="item?.postJobId?.point1"><label>Point1 :</label> {{ item?.postJobId?.point1 }}
                                 </p>
                             </div>
-                            <div *ngIf="item?.postJobId?.point2" class="form-group">
-                                <input type="checkbox" name="point2" value="point2" class="createpostInput">
+                            <div *ngIf="item?.point2 && item?.postJobId?.point2" class="form-group">
                                 <p *ngIf="item?.postJobId?.point2"><label>Point2 :</label> {{ item?.postJobId?.point2 }}
                                 </p>
                             </div>
-                            <div *ngIf="item?.postJobId?.point3" class="form-group">
-                                <input type="checkbox" name="point3" value="point3" class="createpostInput">
+                            <div *ngIf="item?.point3 && item?.postJobId?.point3" class="form-group">
                                 <p *ngIf="item?.postJobId?.point3"><label>Point3 :</label> {{ item?.postJobId?.point3 }}
                                 </p>
                             </div>

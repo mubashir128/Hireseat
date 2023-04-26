@@ -29,6 +29,10 @@ export class SuggestIntroduceComponent implements OnInit {
 
   applyPostJobs: any[] = [];
 
+  point1: boolean = false;
+  point2: boolean = false;
+  point3: boolean = false;
+
   constructor(
     protected _userService: UserService,
     private _router: Router,
@@ -109,18 +113,37 @@ export class SuggestIntroduceComponent implements OnInit {
     return check;
   }
 
+  checkApplyPoints(companiesAre, field){
+    let check = false;
+    for(let apply of this.applyPostJobs){
+      if(companiesAre?._id == apply?.postJobId?._id && apply[field]){
+        check = true;
+      }
+    }
+    return check;
+  }
+
   allreadApplyForJobPost(companiesAre){
     Materialize.toast("You Already applied for this Post job", 1000, "red");
   }
 
   applyForJobPost(companiesAre){
+    if(!this.point1 || !this.point2 || !this.point3){
+      Materialize.toast("Please select all three points!", 1000, "red");
+      return ;
+    }
+
     let promises = [];
-    promises.push(this._postJobService.applyPostJob({ postJobId : companiesAre._id }).toPromise());
+    promises.push(this._postJobService.applyPostJob({ postJobId : companiesAre._id, point1 : this.point1, point2 : this.point2, point3 : this.point3 }).toPromise());
     Promise.all(promises).then(result => {
       this.applyPostJobs = [...this.applyPostJobs, ...result];
       Materialize.toast("Applied for this Post job", 1000, "green");
     }).catch(err=>{
       Materialize.toast("You Already applied for this Post job", 1000, "red");
     });
+  }
+
+  changedValue(event, field){
+    this[field] = event.target.checked;
   }
 }
