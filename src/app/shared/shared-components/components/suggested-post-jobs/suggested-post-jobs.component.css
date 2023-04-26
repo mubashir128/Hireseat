@@ -23,21 +23,6 @@
         0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
 }
 
-/* Tablet css :STARTS */
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
-    .docSectionBtns button {
-        margin-bottom: 7px !important;
-    }
-
-    .singleList.employerResume {
-        padding: 20px !important;
-    }
-
-    .singleList22.employerResume22 {
-        padding: 20px !important;
-    }
-}
-
 .pro {
     width: 100%;
     float: left;
@@ -66,41 +51,4 @@
     border-radius: 50% !important;
     width: 100%;
     height: 100%;
-}
-
-.lblTxt label{
-    color: red;
-}
-
-.jobSpecClass{
-    display: none;
-    margin-left: 10px;
-}
-
-.jobTime {
-    float: right;
-    margin-top: 0px;
-    margin-bottom: 10px;
-    font-size: 12px !important;
-}
-
-.formDivCreate p {
-    margin: 0 5px;
-}
-
-.formDivCreate .form-group {
-    display: flex;
-    align-items: center;
-}
-
-.createpostInput{
-    opacity: 1;
-    position: unset;
-    pointer-events: unset;
-}
-
-.commonBlueBtnN{
-    height: 30px !important;
-    margin-top: 10px;
-    border: none !important;
 }

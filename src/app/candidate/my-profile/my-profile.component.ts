@@ -121,6 +121,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       locationPref: [""],
       // shareProfile: [false],
       fileURL: [""],
+      asARecruiterWithLimit : [""]
     });
 
     this.loopSkills = this._candidateCarrer.getLoopSkills();
@@ -296,6 +297,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             locationPref: res.locationPref,
             // shareProfile: res.shareProfile,
             fileURL: res.fileURL,
+            asARecruiterWithLimit : res.candidate_id.asARecruiterWithLimit
           });
           // console.log('file ', res.fileURL.length);
 
@@ -592,5 +594,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       Materialize.toast("Something Went Wrong !", 1000);
     });
 
+  }
+
+  changedValue(event){
+    this.userService.updateAsARecruiter({ asARecruiterWithLimit : event.target.checked }).subscribe((res) => {
+    }, (error) => {
+      console.log(error);
+    });
   }
 }

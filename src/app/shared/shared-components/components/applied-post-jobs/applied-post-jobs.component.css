@@ -1,0 +1,24 @@
+ListResume {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    float: left;
+    margin-bottom: 100px;
+    height: calc(75vh) !important;
+    overflow: auto;
+    /* border: 1px solid black; */
+}
+
+.singleList.employerResume {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px 30px;
+    display: block;
+    justify-content: unset;
+    margin-bottom: 20px;
+    transition: 1s;
+    height: auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}

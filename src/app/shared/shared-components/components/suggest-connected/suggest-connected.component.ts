@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ConstantsService } from 'src/app/_services/constants.service';
+import { IntroduceService } from 'src/app/_services/introduce.service';
 import { UserService } from 'src/app/_services/user.service';
 
 declare var jQuery;
@@ -28,9 +29,9 @@ export class SuggestConnectedComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    private _userService: UserService
+    private _userService: UserService,
+    protected _introduceService: IntroduceService
   ) {
-    this.pendingIntroduceCount = this._userService.getPendingIntroduceCount();
   }
 
   ngOnInit(): void {
@@ -44,6 +45,24 @@ export class SuggestConnectedComponent implements OnInit {
     if(this.type){
       this.switchPage2(this.type);
     }
+    this.getReadIntroduceCount();
+  }
+
+  getReadIntroduceCount(){
+    this._introduceService.getReadIntroduceCount().subscribe((res) => {
+      if(res){
+        this.pendingIntroduceCount = res.count;
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  updateReadIntroduceCount(){
+    this._introduceService.updateReadIntroduceCount().subscribe((res) => {
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   switchPage(page){
@@ -56,7 +75,7 @@ export class SuggestConnectedComponent implements OnInit {
       this.pendingIntros = false;
     }else if(this.itemsIs == 1){
       this.pendingIntroduceCount = 0;
-      this._userService.removePendingIntroduceCount();
+      this.updateReadIntroduceCount();
       this.intros = false;
       this.pendingIntros = true;
     }
@@ -70,6 +89,8 @@ export class SuggestConnectedComponent implements OnInit {
       this.intros = true;
       this.pendingIntros = false;
     }else if(this.itemsIs == 1){
+      this.pendingIntroduceCount = 0;
+      this.updateReadIntroduceCount();
       this.intros = false;
       this.pendingIntros = true;
     }

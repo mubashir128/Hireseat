@@ -151,6 +151,12 @@
           Please upload resume in PDF or .DOCX format.
         </div>
 
+        <div class="row input-field col s12 m12 l12 formDivCreate">
+          <div class="form-group">
+            <input type="checkbox" (change)="changedValue($event)" name="asARecruiterWithLimit" formControlName="asARecruiterWithLimit" class="createpostInput"> 
+            <p><label>I am recruiter.</label></p>
+          </div>
+        </div>          
         <div class="row input-field col s12 m12 l12">
           <div>
             <i class="fa fa-archive" aria-hidden="true"></i>

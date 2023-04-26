@@ -21,6 +21,8 @@ import { SuggestAndEventsComponent } from "../shared/shared-components/component
 import { EventListUsersComponent } from "../shared/shared-components/components/event-list-users/event-list-users.component";
 import { ConferenceRoomComponent } from "../shared/shared-components/components/conference-room/conference-room.component";
 import { SuggestConnectedComponent } from "../shared/shared-components/components/suggest-connected/suggest-connected.component";
+import { AppliedPostJobsComponent } from "../shared/shared-components/components/applied-post-jobs/applied-post-jobs.component";
+import { SuggestedPostJobsComponent } from "../shared/shared-components/components/suggested-post-jobs/suggested-post-jobs.component";
 
 const routes: Routes = [
   {
@@ -107,6 +109,14 @@ const routes: Routes = [
         path: "suggest-connected-friends",
         component: SuggestConnectedComponent,
       },
+      {
+        path: "applied-jobs",
+        component: AppliedPostJobsComponent,
+      },
+      {
+        path: "my-post-jobs",
+        component: SuggestedPostJobsComponent,
+      }
     ],
   },
 ];

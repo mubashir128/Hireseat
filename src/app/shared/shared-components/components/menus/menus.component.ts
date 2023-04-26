@@ -57,6 +57,7 @@ export class MenusComponent implements OnInit {
       }else if (this.loggedInUser.userRole == "recruiter") {
         this.recruiterMenuTabs();
       }else if(this.loggedInUser.userRole == "candidate") {
+        this.getIAmAsARecruiterOrNot();
         this.candidateMenuTabs();
       }else if(this.loggedInUser.userRole == "admin") {
         this.isAdmin = true;
@@ -175,6 +176,8 @@ export class MenusComponent implements OnInit {
     this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters", false, "fas fa-user-alt"));
     // this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
 
+    this.tabs2.push(new Tab2("/candidate/applied-jobs", "Applied jobs", true, "fas fa-user"));
+
     this.tabs2.push(new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-search"));
     this.tabs2.push(new Tab2("/candidate/settings", "Settings", false, "fas fa-cogs"));
 
@@ -280,6 +283,16 @@ export class MenusComponent implements OnInit {
     dialogDeleteUserRef.afterClosed().subscribe(result => {
       if(result){
         this.router.navigate([this.loggedInUser.userRole+'/all-user-list'], { queryParams: { type: result.type}});
+      }
+    });
+  }
+
+  getIAmAsARecruiterOrNot(){
+    let promises = [];
+    promises.push(this.userService.getUsersById().toPromise());
+    Promise.all(promises).then(result => {
+      if(result){
+        this.tabs2.splice(8, 0, new Tab2("/candidate/my-post-jobs", "My jobs List", true, "fas fa-user"));
       }
     });
   }
