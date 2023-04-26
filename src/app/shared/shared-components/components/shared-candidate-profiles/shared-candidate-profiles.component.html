@@ -204,6 +204,13 @@
         
       </div>
 
+      <div class="row input-field col s12 m12 l12 formDivCreate">
+        <div class="form-group">
+          <input type="checkbox" (change)="changedValue($event)" [checked]="resume?.candidate_id?.asARecruiterWithLimit" name="asARecruiterWithLimit" class="createpostInput"> 
+          <p><label>I am recruiter.</label></p>
+        </div>
+      </div>
+      
       <div *ngIf="loggedUser.userRole == 'candidate'" class="row" style="margin-bottom: 5px;">
         <button class="shareBtn3" (click)="editHightlights()" joyrideStep="firstStep" title="Summary" text="Ok this one is important…most people do not know how to market themselves. We can help you sell yourself to recruiters and hiring managers in 60 seconds." stepPosition = "bottom">
           <a>

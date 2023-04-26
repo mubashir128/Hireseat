@@ -856,3 +856,18 @@ input {
   background-color: #e0e0e0;
   margin-top: 20px;
 }
+
+.formDivCreate p {
+  margin: 0 5px;
+}
+
+.formDivCreate .form-group {
+  display: flex;
+  align-items: center;
+}
+
+.createpostInput{
+  opacity: 1;
+  position: unset;
+  pointer-events: unset;
+}
