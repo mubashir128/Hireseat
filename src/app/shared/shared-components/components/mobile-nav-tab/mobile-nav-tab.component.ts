@@ -116,9 +116,6 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
       case this._constants.multiSharedCandidateProfileCountType:
         this.multiSharedCandidateProfileCount += 1;
         break;
-      case this._constants.pendintIntroduceCount:
-          this.pendingIntroduceCount += 1;
-          break;
       default:
         break;
     }
@@ -234,9 +231,6 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   SelectItem2(item) {
     this.tabs2.forEach((tab) => {
-      if(tab.displayText == "Suggest And Events"){
-        this.pendingIntroduceCount = 0;
-      }
       if (tab.id === item) {
         tab.selected = true;
       } else {

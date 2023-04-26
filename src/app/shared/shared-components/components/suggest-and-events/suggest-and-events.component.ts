@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IntroduceService } from 'src/app/_services/introduce.service';
 
 @Component({
   selector: 'app-suggest-and-events',
@@ -14,8 +15,11 @@ export class SuggestAndEventsComponent implements OnInit {
   showIntro: boolean = false;
   showJobs: boolean = false;
 
+  pendingIntroduceCount = 0;
+
   constructor(
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _introduceService: IntroduceService
   ){
     this.itemsIs = this._route.snapshot.queryParams["eventRoute"] ? this._route.snapshot.queryParams["eventRoute"] : this.itemsIs;
     let eventRoute = this._route.snapshot.queryParams["eventRoute"];
@@ -27,6 +31,7 @@ export class SuggestAndEventsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getReadIntroduceCount();
   }
 
   switchPage(page){
@@ -60,6 +65,7 @@ export class SuggestAndEventsComponent implements OnInit {
   }
 
   activeNewIntros(){
+    this.updateReadIntroduceCount();
     this.showNewIntro = true;
     this.showEvents = false;
     this.showIntro = false;
@@ -71,5 +77,23 @@ export class SuggestAndEventsComponent implements OnInit {
     this.showEvents = false;
     this.showNewIntro = false;
     this.showIntro = false;
+  }
+
+  getReadIntroduceCount(){
+    this._introduceService.getReadIntroduceCount().subscribe((res) => {
+      if(res){
+        this.pendingIntroduceCount = res.count;
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  updateReadIntroduceCount(){
+    this._introduceService.updateReadIntroduceCount().subscribe((res) => {
+      this.pendingIntroduceCount = 0;
+    }, (err) => {
+      console.log(err);
+    });
   }
 }
