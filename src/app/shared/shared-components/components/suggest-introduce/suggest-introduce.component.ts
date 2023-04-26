@@ -4,6 +4,7 @@ import { BiddingEventService } from 'src/app/_services/bidding-event.service';
 import { UserService } from 'src/app/_services/user.service';
 import * as myGlobals from '../../../../globalPath';
 import { PostJobService } from 'src/app/_services/post-job.service';
+import { PostJob } from '../app-list/app-list.component';
 
 declare var Materialize;
 
@@ -14,7 +15,7 @@ declare var Materialize;
 })
 export class SuggestIntroduceComponent implements OnInit {
 
-  suggestIntro: any[] = [];
+  suggestIntro: PostJob[] = [];
   searchFilters = new Map();
 
   showLoadStatus : boolean = true;
@@ -28,10 +29,6 @@ export class SuggestIntroduceComponent implements OnInit {
   suggestIntro2: any[] = [];
 
   applyPostJobs: any[] = [];
-
-  point1: boolean = false;
-  point2: boolean = false;
-  point3: boolean = false;
 
   constructor(
     protected _userService: UserService,
@@ -128,13 +125,13 @@ export class SuggestIntroduceComponent implements OnInit {
   }
 
   applyForJobPost(companiesAre){
-    if(!this.point1 || !this.point2 || !this.point3){
+    if(!companiesAre.pointBoolean1 || !companiesAre.pointBoolean2 || !companiesAre.pointBoolean3){
       Materialize.toast("Please select all three points!", 1000, "red");
       return ;
     }
 
     let promises = [];
-    promises.push(this._postJobService.applyPostJob({ postJobId : companiesAre._id, point1 : this.point1, point2 : this.point2, point3 : this.point3 }).toPromise());
+    promises.push(this._postJobService.applyPostJob({ postJobId : companiesAre._id, point1 : companiesAre.pointBoolean1, point2 : companiesAre.pointBoolean2, point3 : companiesAre.pointBoolean3 }).toPromise());
     Promise.all(promises).then(result => {
       this.applyPostJobs = [...this.applyPostJobs, ...result];
       Materialize.toast("Applied for this Post job", 1000, "green");
@@ -143,7 +140,7 @@ export class SuggestIntroduceComponent implements OnInit {
     });
   }
 
-  changedValue(event, field){
-    this[field] = event.target.checked;
+  changedValue(event, companiesAre, field){
+    companiesAre[field] = event.target.checked;
   }
 }

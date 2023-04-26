@@ -18,10 +18,14 @@ export class PostJob {
   public point1: string;
   public point2: string;
   public point3: string;
+  public pointBoolean1: Boolean;
+  public pointBoolean2: Boolean;
+  public pointBoolean3: Boolean;
   public suggestBy: any;
+  public candidate: any[];
 
   constructor();
-  constructor(_id?: string, companyName?: string, jobTitle?: string, jobSpecification?: string, location?: string, point1?: string, point2?: string, point3?: string, suggestBy?: string){
+  constructor(_id?: string, companyName?: string, jobTitle?: string, jobSpecification?: string, location?: string, point1?: string, point2?: string, point3?: string, pointBoolean1?: Boolean, pointBoolean2?: Boolean, pointBoolean3?: Boolean, suggestBy?: string, candidate?: any[]){
     this._id = _id;
     this.companyName = companyName;
     this.jobTitle = jobTitle;
@@ -30,7 +34,11 @@ export class PostJob {
     this.point1 = point1;
     this.point2 = point2;
     this.point3 = point3;
+    this.pointBoolean1 = pointBoolean1;
+    this.pointBoolean2 = pointBoolean2;
+    this.pointBoolean3 = pointBoolean3;
     this.suggestBy = suggestBy;
+    this.candidate = candidate;
   }
 }
 
