@@ -13,6 +13,7 @@ declare var Materialize;
 })
 export class IntrosTabComponent implements OnInit {
   @Input() eachEntry: any;
+  @Input() searchLabel: any;
   searchTerm: String = "";
 
   Search: FormGroup;
