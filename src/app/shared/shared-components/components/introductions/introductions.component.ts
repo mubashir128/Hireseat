@@ -27,6 +27,9 @@ export class IntroductionsComponent implements OnInit {
   industries: boolean = false;
   itemsIs = 0;
 
+  seachCompanyLable = "Desired Companies";
+  seachIndustryLable = "Desired Industries";
+
   constructor(
     private _candidateService: CandidateService,
     private _constants: ConstantsService,
@@ -45,72 +48,23 @@ export class IntroductionsComponent implements OnInit {
     let payload = {
       type: this._constants.asAFriend
     }
-
-    let payload2 = {
-      type: this._constants.asAFriend,
-      allRecords : true
-    }
-
+    
     let promises = [];
-    promises.push(this._candidateService.getAllConnectedUsers(payload).toPromise());
-    promises.push(this._candidateService.getAllConnectedUsers(payload2).toPromise());
+    promises.push(this._candidateService.getIntrosCompanies(payload).toPromise());
+    promises.push(this._candidateService.getIntrosIndustries(payload).toPromise());
     Promise.all(promises).then(result => {
-      this.friendsConnections = result[0].data;
-      this.allConnectedFriends = result[1].data;
-      this.fetchEachMatchingEntry();
-      this.fetchEachMatchingEntryByIndustries();
+      this.fetchEachMatchingEntry(result);
+      this.fetchEachMatchingEntryByIndustries(result);
     });
   }
 
-  fetchEachMatchingEntry() {
-    this.friendsConnections.forEach((connection, index) => {
-      if (connection?.requester?._id == this.loggedUser._id) {
-        let array = connection?.resumeId2?.desiredCompanies ? connection?.resumeId2?.desiredCompanies?.split(",") : [];
-        let userObj = {
-          user: connection?.recipient,
-          intro: []
-        };
-
-        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry1, connection.recipient, this.loggedUser, this.allConnectedFriends);
-      } else if (connection?.recipient?._id == this.loggedUser._id) {
-        let array = connection?.resumeId?.desiredCompanies ? connection?.resumeId?.desiredCompanies?.split(",") : [];
-        let userObj = {
-          user: connection?.requester,
-          intro: []
-        };
-
-        this._userService.getUserObject(this.friendsConnections, array, userObj, this.eachEntry1, connection.requester, this.loggedUser, this.allConnectedFriends);
-      } else {
-        console.log("no match : ");
-      }
-    });
-    // console.log("desired company this.eachEntry : ",this.eachEntry1);
+  fetchEachMatchingEntry(result) {
+    this.eachEntry1 = result[0];
     this.showLoader = false;
   }
 
-  fetchEachMatchingEntryByIndustries() {
-    this.friendsConnections.forEach((connection, index) => {
-      if (connection?.requester?._id == this.loggedUser._id) {
-        let array = connection?.resumeId2?.industries ? connection?.resumeId2?.industries.map((industry)=>industry.name) : [];
-        let userObj = {
-          user: connection?.recipient,
-          intro: []
-        };
-
-        this._userService.getUserObject2(this.friendsConnections, array, userObj, this.eachEntry2, connection.recipient, this.loggedUser, this.allConnectedFriends);
-      } else if (connection?.recipient?._id == this.loggedUser._id) {
-        let array = connection?.resumeId?.industries ? connection?.resumeId?.industries.map((industry)=>industry.name) : [];
-        let userObj = {
-          user: connection?.requester,
-          intro: []
-        };
-
-        this._userService.getUserObject2(this.friendsConnections, array, userObj, this.eachEntry2, connection.requester, this.loggedUser, this.allConnectedFriends);
-      } else {
-        console.log("no match : ");
-      }
-    });
-    // console.log("industries this.eachEntry : ",this.eachEntry2);
+  fetchEachMatchingEntryByIndustries(result) {
+    this.eachEntry2 = result[1];
     this.showLoader = false;
   }
 
