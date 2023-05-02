@@ -292,7 +292,7 @@ export class MenusComponent implements OnInit {
     promises.push(this.userService.getUsersById().toPromise());
     Promise.all(promises).then(result => {
       if(result){
-        this.tabs2.splice(8, 0, new Tab2("/candidate/my-post-jobs", "My jobs List", true, "fas fa-user"));
+        // this.tabs2.splice(8, 0, new Tab2("/candidate/my-post-jobs", "My jobs List", true, "fas fa-user"));
       }
     });
   }
