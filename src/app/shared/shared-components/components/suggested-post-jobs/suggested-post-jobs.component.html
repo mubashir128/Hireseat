@@ -1,7 +1,7 @@
 <ng-container>
     <span style="font-size: 20px;">My Posted Jobs : </span>
     <div class="ListResume">
-        <div class="singleList employerResume animatePart" *ngFor="let item of appliedPostJobs">
+        <div class="singleList employerResume animatePart" *ngFor="let item of myPostJobs">
             <div class="pro">
                 <span style="color: red;">
                     {{item?.companyName | uppercase}}
@@ -43,7 +43,7 @@
                     </div>
                     <span *ngIf = "item?.applyPostJobId?.length" style="color: red;"  (click)="gotoUsers(companiesAre)">- Users who applied to above Job Post : </span>
                     <div class="sideCss" *ngFor="let apply of item.applyPostJobId; index as indexValue">
-                        <div class="row" style="margin: auto;">
+                        <div *ngIf="apply?._id" class="row" style="margin: auto;">
 
                             <div *ngIf="!apply?.applyUserId?.showCreatedLogo" class="big-badge candProfile22">
                                 <img src="{{ apply?.applyUserId?.profileimage }}" (error)="changeLogo(apply.applyUserId)"

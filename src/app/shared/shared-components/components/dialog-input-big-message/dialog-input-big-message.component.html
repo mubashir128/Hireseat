@@ -1,0 +1,19 @@
+<div>
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
+
+    <div class="modal-content">
+        <p class="bodyPara">{{dialogText}}</p>
+        <div class="">
+            <textarea class="commentTxt" [(ngModel)]="message" rows="5" cols="4"></textarea>
+        </div>
+        <div class="textCenter">
+            <button (click)="closeScreen($event)" class="sendBtn spaceBet introStyle">
+                Cancel
+            </button>&nbsp;&nbsp;
+            <button (click)="apply()" class="sendBtn spaceBet introStyle">
+                Apply
+            </button>
+        </div>
+    </div>
+</div>

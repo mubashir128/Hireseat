@@ -10,7 +10,7 @@ import { UserService } from 'src/app/_services/user.service';
 export class SuggestedPostJobsComponent implements OnInit {
 
   loggedUser: any;
-  appliedPostJobs = [];
+  myPostJobs = [];
 
   constructor(
     protected _userService: UserService,
@@ -27,7 +27,7 @@ export class SuggestedPostJobsComponent implements OnInit {
     let promises = [];
     promises.push(this._postJobService.getMyPostJob(null, null).toPromise());
     Promise.all(promises).then(result => {
-      this.appliedPostJobs = result[0];
+      this.myPostJobs = result[0];
     });
   }
 

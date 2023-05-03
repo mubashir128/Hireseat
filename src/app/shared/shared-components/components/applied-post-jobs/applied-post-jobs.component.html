@@ -36,6 +36,10 @@
                                 <p *ngIf="item?.postJobId?.point3"><label>Point3 :</label> {{ item?.postJobId?.point3 }}
                                 </p>
                             </div>
+                            <div *ngIf="item?.message" class="form-group">
+                                <p *ngIf="item?.message"><label>Message :</label> {{ item?.message }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
