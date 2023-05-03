@@ -137,7 +137,7 @@ export class SuggestIntroduceComponent implements OnInit {
       data: {
         dialogType : "enterMessage",
         dialogTitle : "Message",
-        dialogText : "",
+        dialogText : "Please provide a quick summary to the hiring manager highlighting why you think you are the best candidate (less than 150 characters).",
         btns  : ["apply"]
       }
     });
