@@ -137,7 +137,7 @@ export class SuggestIntroduceComponent implements OnInit {
       data: {
         dialogType : "enterMessage",
         dialogTitle : "Message",
-        dialogText : "Please provide a quick summary to the hiring manager highlighting why you think you are the best candidate (less than 150 characters).",
+        dialogText : "Please provide 3 quick reasons highlighting to the hiring manager why you think you are the best candidate (less than 150 characters).",
         btns  : ["apply"]
       }
     });
@@ -150,7 +150,9 @@ export class SuggestIntroduceComponent implements OnInit {
           point1 : companiesAre.pointBoolean1,
           point2 : companiesAre.pointBoolean2,
           point3 : companiesAre.pointBoolean3,
-          message : result.message
+          message1 : result.message1,
+          message2 : result.message2,
+          message3 : result.message3
         };
         promises.push(this._postJobService.applyPostJob(payload).toPromise());
         Promise.all(promises).then(result => {

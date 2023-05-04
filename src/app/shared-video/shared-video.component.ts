@@ -66,6 +66,10 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
 
   loggedInUser: any;
 
+  postJobId : any;
+  appliedPostJobs : boolean = false;
+  myJobList : boolean = false;
+  
   constructor(
     private elementRef: ElementRef,
     private sharedVideoService: ShareVideoService,
@@ -84,6 +88,12 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
     this.spinner.show();
     this.token = this.activatedRoute.snapshot.paramMap.get('token');
     this.userChatId = this.activatedRoute.snapshot.queryParams["userChatId"];
+
+    this.postJobId = this.activatedRoute.snapshot.queryParams["postJobId"];
+    this.appliedPostJobs = this.activatedRoute.snapshot.queryParams["appliedPostJobs"];
+
+    this.postJobId = this.activatedRoute.snapshot.queryParams["postJobId"];
+    this.myJobList = this.activatedRoute.snapshot.queryParams["myJobList"];
 
     const isCandidate = this.token.split('@')[1];
     
@@ -280,7 +290,11 @@ export class SharedVideoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   backToPage(){
-    if(this.userChatId){
+    if(this.myJobList){
+      this._router.navigate([ "/" + this.loggedInUser.userRole + "/my-post-jobs" ]);
+    }else if(this.appliedPostJobs){
+      this._router.navigate([ "/" + this.loggedInUser.userRole + "/applied-jobs" ]);
+    }else if(this.userChatId){
       this._router.navigate(["/"+this.loggedInUser.userRole+"/chat-record", this.userChatId]);
     }else{
       this._router.navigate["/home"];

@@ -10,7 +10,9 @@ import { AbstractDialogComponent } from '../abstract-dialog.component';
 export class DialogInputBigMessageComponent extends AbstractDialogComponent implements OnInit {
 
   btns: any[] = [];
-  message: string = "";
+  message1: string = "";
+  message2: string = "";
+  message3: string = "";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogInputBigMessageComponent,
     public dialogRef: MatDialogRef<DialogInputBigMessageComponent>
@@ -23,7 +25,7 @@ export class DialogInputBigMessageComponent extends AbstractDialogComponent impl
   }
 
   apply() {
-    this.dialogRef.close( { message : this.message, status : true } );
+    this.dialogRef.close( { message1 : this.message1, message2 : this.message2, message3 : this.message3, status : true } );
   }
 
   getBtn(btnName) {

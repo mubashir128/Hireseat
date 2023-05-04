@@ -57,6 +57,14 @@
                                 {{apply?.applyUserId?.fullName}}
                             </div>
                         </div>
+                        <div *ngIf="apply?.profileLink" class="form-group" style="color: red;">
+                            <span *ngIf="apply?.profileLink" (click)="seeProfile(apply?._id, apply?.profileLink)">
+                                <label>
+                                    Profile :
+                                </label>
+                                Click to see profile.
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

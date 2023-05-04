@@ -4,9 +4,12 @@
         <div class="singleList employerResume animatePart" *ngFor="let item of appliedPostJobs">
             <div class="pro">
                 <span style="color: red;">
-                    {{item?.postJobId?.companyName | uppercase}}
+                    Job Post : {{ item?.postJobId?.companyName | uppercase }}
                 </span>
                 <br>
+                <!-- <span style="color: red; font-size: 10px;">
+                    *Suggested By : {{ item?.postJobId?.suggestBy?.fullName }}
+                </span> -->
                 <div class="sideCss">
                     <div class="lblTxt">
                         <p *ngIf="item?.postJobId?.jobTitle"><label>Job Title :</label> {{ item?.postJobId?.jobTitle }}
@@ -36,8 +39,24 @@
                                 <p *ngIf="item?.postJobId?.point3"><label>Point3 :</label> {{ item?.postJobId?.point3 }}
                                 </p>
                             </div>
-                            <div *ngIf="item?.message" class="form-group">
-                                <p *ngIf="item?.message"><label>Message :</label> {{ item?.message }}
+                            <div *ngIf="item?.message1" class="form-group">
+                                <p *ngIf="item?.message1"><label>Message1 :</label> {{ item?.message1 }}
+                                </p>
+                            </div>
+                            <div *ngIf="item?.message2" class="form-group">
+                                <p *ngIf="item?.message2"><label>Message2 :</label> {{ item?.message2 }}
+                                </p>
+                            </div>
+                            <div *ngIf="item?.message3" class="form-group">
+                                <p *ngIf="item?.message3"><label>Message3 :</label> {{ item?.message3 }}
+                                </p>
+                            </div>
+                            <div *ngIf="item?.profileLink" class="form-group" style="color: red;">
+                                <p *ngIf="item?.profileLink" (click)="seeProfile(item?._id, item?.profileLink)">
+                                    <label>
+                                        Profile :
+                                    </label>
+                                    Click to see your profile.
                                 </p>
                             </div>
                         </div>
