@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PostJobService } from 'src/app/_services/post-job.service';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -14,7 +15,8 @@ export class AppliedPostJobsComponent implements OnInit {
 
   constructor(
     protected _userService: UserService,
-    private _postJobService: PostJobService
+    private _postJobService: PostJobService,
+    private _router: Router
   ) {
     this.loggedUser = this._userService.getUserData();
   }
@@ -39,6 +41,10 @@ export class AppliedPostJobsComponent implements OnInit {
       jQuery("#jobSpec_" + item._id).css("display", "block");
       item.expanded = true;
     }
+  }
+
+  seeProfile(_id, profileLink) {
+    this._router.navigate([profileLink], { queryParams: { appliedPostJobs : true, postJobId : _id }});
   }
 
 }

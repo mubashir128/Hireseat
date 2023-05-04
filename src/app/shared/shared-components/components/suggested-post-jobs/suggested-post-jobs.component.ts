@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PostJobService } from 'src/app/_services/post-job.service';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -10,11 +11,12 @@ import { UserService } from 'src/app/_services/user.service';
 export class SuggestedPostJobsComponent implements OnInit {
 
   loggedUser: any;
-  appliedPostJobs = [];
+  myPostJobs = [];
 
   constructor(
     protected _userService: UserService,
-    private _postJobService: PostJobService
+    private _postJobService: PostJobService,
+    private _router: Router
   ) {
     this.loggedUser = this._userService.getUserData();
   }
@@ -27,11 +29,15 @@ export class SuggestedPostJobsComponent implements OnInit {
     let promises = [];
     promises.push(this._postJobService.getMyPostJob(null, null).toPromise());
     Promise.all(promises).then(result => {
-      this.appliedPostJobs = result[0];
+      this.myPostJobs = result[0];
     });
   }
 
   changeLogo(apply){
     apply.showCreatedLogo = true;
+  }
+
+  seeProfile(_id, profileLink) {
+    this._router.navigate([profileLink], { queryParams: { myJobList : true, postJobId : _id }});
   }
 }
