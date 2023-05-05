@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { UserService } from "src/app/_services/user.service";
 import { DialogDeleteComponent } from "../dialog-delete/dialog-delete.component";
+import { PostJobService } from "src/app/_services/post-job.service";
 
 export enum actionType {
   postJob = "postJob",
@@ -22,20 +23,30 @@ export class PostJob {
   public jobTitle: string;
   public jobSpecification: string;
   public location: string;
+  public point1: string;
+  public point2: string;
+  public point3: string;
+  public pointBoolean1: Boolean;
+  public pointBoolean2: Boolean;
+  public pointBoolean3: Boolean;
+  public suggestBy: any;
+  public candidate: any[];
 
   constructor();
-  constructor(
-    _id?: string,
-    companyName?: string,
-    jobTitle?: string,
-    jobSpecification?: string,
-    location?: string
-  ) {
+  constructor(_id?: string, companyName?: string, jobTitle?: string, jobSpecification?: string, location?: string, point1?: string, point2?: string, point3?: string, pointBoolean1?: Boolean, pointBoolean2?: Boolean, pointBoolean3?: Boolean, suggestBy?: string, candidate?: any[]){
     this._id = _id;
     this.companyName = companyName;
     this.jobTitle = jobTitle;
     this.jobSpecification = jobSpecification;
     this.location = location;
+    this.point1 = point1;
+    this.point2 = point2;
+    this.point3 = point3;
+    this.pointBoolean1 = pointBoolean1;
+    this.pointBoolean2 = pointBoolean2;
+    this.pointBoolean3 = pointBoolean3;
+    this.suggestBy = suggestBy;
+    this.candidate = candidate;
   }
 }
 
@@ -99,7 +110,7 @@ export class AppListComponent implements OnInit {
 
   constructor(
     protected _dialog: MatDialog,
-    protected _userService: UserService
+    protected _postJobService: PostJobService
   ) {}
 
   ngOnInit(): void {}
@@ -123,7 +134,7 @@ export class AppListComponent implements OnInit {
 
     dialogDeleteRef.afterClosed().subscribe((result) => {
       if (result.process == true) {
-        this._userService.deletePostJob(postJobId).subscribe(
+        this._postJobService.deletePostJob(postJobId).subscribe(
           (res) => {
             const eventIndex = this.lists.dataSource.findIndex((x) => {
               return x._id == postJobId;

@@ -6,6 +6,7 @@ import { ConstantsService } from 'src/app/_services/constants.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
+import { IntroduceService } from 'src/app/_services/introduce.service';
 
 @Component({
   selector: 'app-mobile-nav-tab',
@@ -36,7 +37,9 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   multiSharedCandidateProfileCountObserver = new Subject();
   multiSharedCandidateProfileCountObserver$ = this.multiSharedCandidateProfileCountObserver.asObservable();
 
-  constructor(private userService: UserService, private router: Router, private _socket: WebsocketService, private _constants : ConstantsService) {
+  constructor(private userService: UserService, private router: Router, private _socket: WebsocketService, private _constants : ConstantsService, 
+    protected _introduceService: IntroduceService
+  ) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
     if(this.loggedInUser != "no"){
@@ -101,8 +104,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   handleNotificationData(res: any) {
     switch (res.subType) {
       case this._constants.pendintIntroduceCount:
-        this.pendingIntroduceCount += 1;
-        this.userService.setPendingIntroduceCount(this.pendingIntroduceCount);
+        this.pendingIntroduceCount = res.data;
         break;
       default:
         break;
@@ -114,9 +116,6 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
       case this._constants.multiSharedCandidateProfileCountType:
         this.multiSharedCandidateProfileCount += 1;
         break;
-      case this._constants.pendintIntroduceCount:
-          this.pendingIntroduceCount += 1;
-          break;
       default:
         break;
     }
@@ -169,6 +168,8 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   }
 
   forCandidateMobileTab(){
+    this.getReadIntroduceCount();
+
     //for mobile view
     
     this.tabs2.push(
@@ -230,9 +231,6 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   SelectItem2(item) {
     this.tabs2.forEach((tab) => {
-      if(tab.displayText == "Suggest And Events"){
-        this.pendingIntroduceCount = 0;
-      }
       if (tab.id === item) {
         tab.selected = true;
       } else {
@@ -252,6 +250,16 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
 
   changeLogo(tab){
     tab.showCreatedLogo = true;
+  }
+
+  getReadIntroduceCount(){
+    this._introduceService.getReadIntroduceCount().subscribe((res) => {
+      if(res){
+        this.pendingIntroduceCount = res.count;
+      }
+    }, (err) => {
+      console.log(err);
+    });
   }
 
 }

@@ -279,4 +279,20 @@ export class CandidateService {
     }
     return this.http.get<any>(this.baseurl + "api/getCandidateSharedProfiles", {params :params});
   }
+
+  getIntrosCompanies(payload) {
+    return this.http.post<any>(this.baseurl + "api/get-intros-companies", payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  getIntrosIndustries(payload) {
+    return this.http.post<any>(this.baseurl + "api/get-intros-industries", payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
 }

@@ -1,0 +1,73 @@
+<ng-container>
+    <span style="font-size: 20px;">My Posted Jobs : </span>
+    <div class="ListResume">
+        <div class="singleList employerResume animatePart" *ngFor="let item of myPostJobs">
+            <div class="pro">
+                <span style="color: red;">
+                    {{item?.companyName | uppercase}}
+                </span>
+                <br>
+                <div class="sideCss">
+                    <div class="lblTxt">
+                        <p *ngIf="item?.jobTitle"><label>Job Title :</label> {{ item?.jobTitle }}
+                        </p>
+                        <p *ngIf="item?.jobSpecification || item?.jobBrief"><label>Job
+                                Specification
+                                :</label>
+                            <span (click)="showHideJobSpec(item)" style="color: red;"> - Click to see
+                                specifications</span>
+                            <span class="jobSpecClass" [id]="'jobSpec_' + item._id">
+                                - {{ item?.jobSpecification || item?.jobBrief }}
+                            </span>
+                        </p>
+                        <p *ngIf="item?.location"><label>Location :</label> {{ item?.location }}
+                        </p>
+
+                        <div class="formDivCreate">
+                            <div *ngIf="item?.point1" class="form-group">
+                                <input type="checkbox" name="point1" value="point1" class="createpostInput">
+                                <p *ngIf="item?.point1"><label>Point1 :</label> {{ item?.point1 }}
+                                </p>
+                            </div>
+                            <div *ngIf="item?.point2" class="form-group">
+                                <input type="checkbox" name="point2" value="point2" class="createpostInput">
+                                <p *ngIf="item?.point2"><label>Point2 :</label> {{ item?.point2 }}
+                                </p>
+                            </div>
+                            <div *ngIf="item?.point3" class="form-group">
+                                <input type="checkbox" name="point3" value="point3" class="createpostInput">
+                                <p *ngIf="item?.point3"><label>Point3 :</label> {{ item?.point3 }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <span *ngIf = "item?.applyPostJobId?.length" style="color: red;"  (click)="gotoUsers(companiesAre)">- Users who applied to above Job Post : </span>
+                    <div class="sideCss" *ngFor="let apply of item.applyPostJobId; index as indexValue">
+                        <div *ngIf="apply?._id" class="row" style="margin: auto;">
+
+                            <div *ngIf="!apply?.applyUserId?.showCreatedLogo" class="big-badge candProfile22">
+                                <img src="{{ apply?.applyUserId?.profileimage }}" (error)="changeLogo(apply.applyUserId)"
+                                    style="max-width: 100%" />
+                            </div>
+                            <div *ngIf="apply?.applyUserId?.showCreatedLogo" class="big-badge candProfile22">
+                                {{ apply?.applyUserId?.fullName | uppercase | slice: 0 : 1 }}
+                            </div>
+
+                            <div style="margin-left: 22px !important;">
+                                {{apply?.applyUserId?.fullName}}
+                            </div>
+                        </div>
+                        <div *ngIf="apply?.profileLink" class="form-group" style="color: red;">
+                            <span *ngIf="apply?.profileLink" (click)="seeProfile(apply?._id, apply?.profileLink)">
+                                <label>
+                                    Profile :
+                                </label>
+                                Click to see profile.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

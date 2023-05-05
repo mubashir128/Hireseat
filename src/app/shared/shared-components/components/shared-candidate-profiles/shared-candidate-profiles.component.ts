@@ -636,6 +636,13 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     });
   }
 
+  changedValue(event){
+    this.userService.updateAsARecruiter({ asARecruiterWithLimit : event.target.checked }).subscribe((res) => {
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.sharedProfileType });
     this.sharedProfileObserver.unsubscribe();
