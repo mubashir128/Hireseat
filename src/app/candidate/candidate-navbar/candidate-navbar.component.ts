@@ -29,6 +29,7 @@ export class CandidateNavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getIAmAsARecruiterOrNot();
     this.userProfile = new Profile();
     this.tabs1.push(
       new Tab("/candidate/all-recruiters", "Recruiters Market Place", true)
@@ -46,6 +47,10 @@ export class CandidateNavbarComponent implements OnInit {
     this.tabs1.push(new Tab("/candidate/all-only-candidate-shared-profile", "HireSeat Network", false));
     this.tabs1.push(new Tab("/candidate/friends-connections", "HireSeat Connections", false));
     this.tabs1.push(new Tab("/candidate/suggest-connected-friends", "Suggest Connected friends", false));
+
+    this.tabs1.push(new Tab2("/candidate/suggest-introduce", "Jobs", false, "fas fa-user"));
+    this.tabs1.push(new Tab2("/candidate/applied-jobs", "Applied jobs", false, "fas fa-user"));
+
     this.tabs1.push(
       new Tab("/candidate/bidding-event-list", "Job Posting", false)
     );
@@ -86,6 +91,16 @@ export class CandidateNavbarComponent implements OnInit {
     this.tabs1.forEach((tab) => {
       if (tab.id === item) tab.selected = true;
       else tab.selected = false;
+    });
+  }
+
+  getIAmAsARecruiterOrNot(){
+    let promises = [];
+    promises.push(this.userService.getUsersById().toPromise());
+    Promise.all(promises).then(result => {
+      if(result){
+        this.tabs1.splice(9, 0, new Tab2("/candidate/my-post-jobs", "My jobs List", false, "fas fa-user"));
+      }
     });
   }
 

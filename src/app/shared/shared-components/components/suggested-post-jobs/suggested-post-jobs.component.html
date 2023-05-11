@@ -1,8 +1,9 @@
 <ng-container>
     <span style="font-size: 20px;">My Posted Jobs : </span>
     <div class="ListResume">
+        <div *ngIf = "showLoadStatus" class="stDv">{{loadStatus}}</div>
         <div class="singleList employerResume animatePart" *ngFor="let item of myPostJobs">
-            <div class="pro">
+            <div class="">
                 <span style="color: red;">
                     {{item?.companyName | uppercase}}
                 </span>
@@ -58,12 +59,25 @@
                             </div>
                         </div>
                         <div *ngIf="apply?.profileLink" class="form-group" style="color: red;">
-                            <span *ngIf="apply?.profileLink" (click)="seeProfile(apply?._id, apply?.profileLink)">
+                            <div class="marLeft10" *ngIf="apply?.profileLink" (click)="seeProfile(apply?._id, apply?.profileLink)">
                                 <label>
                                     Profile :
                                 </label>
-                                Click to see profile.
-                            </span>
+                                <span class="pointer">
+                                    Click to see profile.
+                                </span>
+                            </div>
+                            <div class="marLeft10">
+                                <div *ngIf="apply?.message1" class="form-group">
+                                    <label>Message1 :</label> {{ apply?.message1 }}
+                                </div>
+                                <div *ngIf="apply?.message2" class="form-group">
+                                    <label>Message2 :</label> {{ apply?.message2 }}
+                                </div>
+                                <div *ngIf="apply?.message3" class="form-group">
+                                    <label>Message3 :</label> {{ apply?.message3 }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

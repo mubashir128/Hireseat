@@ -30,13 +30,14 @@
 
 .sideCss {
     margin-left: 10px;
+    border-bottom: 1px solid #847B7B;
 }
 
 .candProfile22 {
     float: left;
     margin-top: 3px;
-    width: 15px !important;
-    height: 15px !important;
+    width: 25px !important;
+    height: 25px !important;
 }
 
 @media (max-width: 1440px) {
