@@ -42,6 +42,16 @@ export class SuggestedPostJobsComponent implements OnInit {
     apply.showCreatedLogo = true;
   }
 
+  showHideJobSpec(company){
+    if(company.expanded){
+      jQuery("#jobSpec_"+company._id).css("display", "none");
+      company.expanded = false;
+    }else{
+      jQuery("#jobSpec_"+company._id).css("display", "block");
+      company.expanded = true;
+    }
+  }
+
   seeProfile(_id, profileLink) {
     this._router.navigate([profileLink], { queryParams: { myJobList : true, postJobId : _id }});
   }

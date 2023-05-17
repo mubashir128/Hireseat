@@ -1539,3 +1539,14 @@ body {
   margin-left: 40%;
   font-size: 20px;
 }
+
+.jobSpecClass{
+  display: none;
+  margin-left: 10px;
+}
+
+.styClass {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
