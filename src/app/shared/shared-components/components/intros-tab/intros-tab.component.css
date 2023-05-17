@@ -84,7 +84,7 @@
 }
 
 .candidate-name {
-    width: calc(100% - 200px);
+    /* width: calc(100% - 200px); */
     text-align: left;
 }
 
@@ -173,7 +173,7 @@
 }
 
 .acceptBtn {
-    width: 48%;
+    width: 100%;
     border-radius: 7px;
 }
 

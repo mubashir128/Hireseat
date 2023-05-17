@@ -27,23 +27,29 @@
                         <div class="formDivCreate">
                             <div *ngIf="item?.point1" class="form-group">
                                 <input type="checkbox" name="point1" value="point1" class="createpostInput">
-                                <p *ngIf="item?.point1"><label>Point1 :</label> {{ item?.point1 }}
+                                <p *ngIf="item?.point1">
+                                    <i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
+                                    {{ item?.point1 }}
                                 </p>
                             </div>
                             <div *ngIf="item?.point2" class="form-group">
                                 <input type="checkbox" name="point2" value="point2" class="createpostInput">
-                                <p *ngIf="item?.point2"><label>Point2 :</label> {{ item?.point2 }}
+                                <p *ngIf="item?.point2">
+                                    <i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
+                                    {{ item?.point2 }}
                                 </p>
                             </div>
                             <div *ngIf="item?.point3" class="form-group">
                                 <input type="checkbox" name="point3" value="point3" class="createpostInput">
-                                <p *ngIf="item?.point3"><label>Point3 :</label> {{ item?.point3 }}
+                                <p *ngIf="item?.point3">
+                                    <i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
+                                    {{ item?.point3 }}
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <span *ngIf = "item?.applyPostJobId?.length" style="color: red;"  (click)="gotoUsers(companiesAre)">- Users who applied to above Job Post : </span>
-                    <div class="sideCss" *ngFor="let apply of item.applyPostJobId; index as indexValue">
+                    <span *ngIf = "item?.applyPostJobId?.length" style="color: red; font-size: 16px;"  (click)="gotoUsers(companiesAre)">- Users who applied to above Job Post : </span>
+                    <div class="row" *ngFor="let apply of item.applyPostJobId; index as indexValue">
                         <div *ngIf="apply?._id" class="row" style="margin: auto;">
 
                             <div *ngIf="!apply?.applyUserId?.showCreatedLogo" class="big-badge candProfile22">
@@ -54,28 +60,28 @@
                                 {{ apply?.applyUserId?.fullName | uppercase | slice: 0 : 1 }}
                             </div>
 
-                            <div style="margin-left: 22px !important;">
+                            <div style="margin-left: 22px !important; font-size: 16px;">
                                 {{apply?.applyUserId?.fullName}}
                             </div>
                         </div>
-                        <div *ngIf="apply?.profileLink" class="form-group" style="color: red;">
+                        <div *ngIf="apply?.profileLink" class="form-group">
                             <div class="marLeft10" *ngIf="apply?.profileLink" (click)="seeProfile(apply?._id, apply?.profileLink)">
                                 <label>
                                     Profile :
                                 </label>
-                                <span class="pointer">
+                                <span class="pointer" style="color: red;">
                                     Click to see profile.
                                 </span>
                             </div>
-                            <div class="marLeft10">
+                            <div class="marLeft10 sideStyle">
                                 <div *ngIf="apply?.message1" class="form-group">
-                                    <label>Message1 :</label> {{ apply?.message1 }}
+                                    - {{ apply?.message1 }}
                                 </div>
                                 <div *ngIf="apply?.message2" class="form-group">
-                                    <label>Message2 :</label> {{ apply?.message2 }}
+                                    - {{ apply?.message2 }}
                                 </div>
                                 <div *ngIf="apply?.message3" class="form-group">
-                                    <label>Message3 :</label> {{ apply?.message3 }}
+                                    - {{ apply?.message3 }}
                                 </div>
                             </div>
                         </div>

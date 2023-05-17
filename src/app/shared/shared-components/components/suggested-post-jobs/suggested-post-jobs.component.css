@@ -35,9 +35,10 @@
 
 .candProfile22 {
     float: left;
-    margin-top: 3px;
-    width: 25px !important;
-    height: 25px !important;
+    margin-top: -5px;
+    margin-right: 5px;
+    width: 30px !important;
+    height: 30px !important;
 }
 
 @media (max-width: 1440px) {
@@ -52,4 +53,10 @@
     border-radius: 50% !important;
     width: 100%;
     height: 100%;
+}
+
+.sideStyle {
+    border: 1px solid red;
+    border-radius: 20px;
+    padding: 3px;
 }
