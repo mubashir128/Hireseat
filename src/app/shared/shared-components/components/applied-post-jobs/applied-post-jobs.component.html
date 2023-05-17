@@ -1,15 +1,20 @@
 <ng-container>
-    <span style="font-size: 20px;">Applied for Jobs : </span>
+    <span class="styClass">Applied for Jobs : </span>
     <div class="ListResume">
+        <div *ngIf = "showLoadStatus" class="stDv">{{loadStatus}}</div>
         <div class="singleList employerResume animatePart" *ngFor="let item of appliedPostJobs">
             <div class="pro">
                 <span style="color: red;">
                     Job Post : {{ item?.postJobId?.companyName | uppercase }}
                 </span>
                 <br>
-                <!-- <span style="color: red; font-size: 10px;">
-                    *Suggested By : {{ item?.postJobId?.suggestBy?.fullName }}
-                </span> -->
+                <span style="color: red; font-size: 10px;">
+                    *JOb Suggested By : {{ item?.postJobId?.suggestBy?.fullName }}
+                </span>
+                <br>
+                <span style="color: green; font-size: 10px;">
+                    *You Referred By : {{ item?.referedUserId?.fullName }}
+                </span>
                 <div class="sideCss">
                     <div class="lblTxt">
                         <p *ngIf="item?.postJobId?.jobTitle"><label>Job Title :</label> {{ item?.postJobId?.jobTitle }}
@@ -56,7 +61,9 @@
                                     <label>
                                         Profile :
                                     </label>
-                                    Click to see your profile.
+                                    <span class="pointer">
+                                        Click to see your profile.
+                                    </span>
                                 </p>
                             </div>
                         </div>

@@ -13,6 +13,9 @@ export class AppliedPostJobsComponent implements OnInit {
   loggedUser: any;
   appliedPostJobs = [];
 
+  showLoadStatus : boolean = true;
+  loadStatus = "Loading...";
+
   constructor(
     protected _userService: UserService,
     private _postJobService: PostJobService,
@@ -30,6 +33,8 @@ export class AppliedPostJobsComponent implements OnInit {
     promises.push(this._postJobService.getApplyPostJob(null, null).toPromise());
     Promise.all(promises).then(result => {
       this.appliedPostJobs = result[0];
+      this.showLoadStatus = false;
+      this.loadStatus = "";
     });
   }
 
