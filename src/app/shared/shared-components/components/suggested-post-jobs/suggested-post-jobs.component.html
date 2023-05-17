@@ -65,6 +65,11 @@
                             </div>
                         </div>
                         <div *ngIf="apply?.profileLink" class="form-group">
+                            <div class="marLeft10" *ngIf="apply?.referedUserId">
+                                <span style="color: green; font-size: 10px;">
+                                    *Referred By : {{ apply?.referedUserId?.fullName }}
+                                </span>
+                            </div>
                             <div class="marLeft10" *ngIf="apply?.profileLink" (click)="seeProfile(apply?._id, apply?.profileLink)">
                                 <label>
                                     Profile :

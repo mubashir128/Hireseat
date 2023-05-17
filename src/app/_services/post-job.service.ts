@@ -3,6 +3,11 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import * as myGlobals from "../globalPath";
 
+export enum eTypes {
+  apply = "apply",
+  refer = "refer"
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,6 +52,15 @@ export class PostJobService {
 
   applyPostJob(info: any) {
     let url = this.baseurl + "api/apply-post-job/" + info.postJobId;
+    return this._http.post<any>(url, info).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  referPostJob(info: any) {
+    let url = this.baseurl + "api/refer-post-job/" + info.postJobId;
     return this._http.post<any>(url, info).pipe(
       map((res: any) => {
         return res;

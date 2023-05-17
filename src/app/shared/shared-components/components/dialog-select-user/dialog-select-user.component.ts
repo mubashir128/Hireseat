@@ -86,4 +86,9 @@ export class DialogSelectUserComponent extends AbstractDialogComponent implement
     let onlySelected: any[] = this.getOnlySelectedUserId();
     this._dialogRef.close(onlySelected);
   }
+
+  selectUsers(event) {
+    let onlySelected: any[] = this.getOnlySelectedUserId();
+    this._dialogRef.close(onlySelected);
+  }
 }
