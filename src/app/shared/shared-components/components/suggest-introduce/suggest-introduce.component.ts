@@ -123,10 +123,10 @@ export class SuggestIntroduceComponent implements OnInit {
   }
 
   applyForJobPost(companiesAre){
-    // if(!companiesAre.pointBoolean1 || !companiesAre.pointBoolean2 || !companiesAre.pointBoolean3){
-    //   Materialize.toast("Please select all three points!", 1000, "red");
-    //   return ;
-    // }
+    if(!companiesAre.pointBoolean1 || !companiesAre.pointBoolean2 || !companiesAre.pointBoolean3){
+      Materialize.toast("Please select all three points!", 1000, "red");
+      return ;
+    }
 
     this.inputBigMessageDialogOpen(companiesAre, eTypes.apply);
   }
