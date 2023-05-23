@@ -175,6 +175,8 @@ export class ConstantsService {
   threeIntroduce;
   pendintIntroduceCount;
 
+  extractChatGPTCount;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -425,6 +427,8 @@ export class ConstantsService {
 
     this.threeIntroduce = obj.threeIntroduce;
     this.pendintIntroduceCount = obj.pendintIntroduceCount;
+
+    this.extractChatGPTCount = obj.extractChatGPTCount;
   }
 
 }

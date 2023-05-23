@@ -9,6 +9,8 @@ import { ReadResumeService } from 'src/app/_services/read-resume.service';
 import { CandidateCarrerService } from 'src/app/_services/candidate-carrer.service';
 import { MatStepper } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
+import { ChatGptService } from 'src/app/_services/chat-gpt.service';
+import { ConstantsService } from 'src/app/_services/constants.service';
 
 declare var Materialize: any;
 
@@ -101,7 +103,9 @@ export class EditHighlightsComponent implements OnInit, AfterViewInit {
     private _router: Router,
     private _readResume : ReadResumeService,
     private _candidateCarrer : CandidateCarrerService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _chatGptService : ChatGptService,
+    private _constantsService : ConstantsService
   ){
     this.loggedInUser = this.userService.getUserData();
 
@@ -172,8 +176,11 @@ export class EditHighlightsComponent implements OnInit, AfterViewInit {
     Promise.all(promiseAll).then(result=>{
       this.skillSets = result[0];
       this.resumeData = result[1].resumeDataIs ? result[1].resumeDataIs.toLowerCase() : "";
+
+      this.getChatGPTResponse(this.resumeData, "give me " + this._constantsService.extractChatGPTCount + " reasons to hire this person ?");
+
       this.getEducation();
-      this.expBoxValues();
+      // this.expBoxValues(true, []);
       this.candidateProfile = result[1] ? result[1] : {};
       this.skillSets.forEach((item, index)=>{
         if(this.resumeData && this.resumeData.indexOf(item.value.toLowerCase()) !== -1){
@@ -183,6 +190,20 @@ export class EditHighlightsComponent implements OnInit, AfterViewInit {
       });
       this.tagsBind = this._readResume.getSortSkillsResult2(this.tagsBind);
       this.finalSkillSets = this._readResume.getSortSkillsResult(this.finalSkillSets);
+    });
+  }
+
+  getChatGPTResponse(data, prompt){
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      let responseText = res?.choices[0]?.message?.content;
+      let finalResponse = this._chatGptService.convertChatGPTResponse(responseText);
+      let finalResponse2 = [];
+      for(let text of finalResponse){
+        let result = this._readResume.countStatementValue(text);
+        finalResponse2.push(result);
+      }
+      this._readResume.sortArray(finalResponse2);
+      this.expBoxValues(false, finalResponse2);
     });
   }
 
@@ -229,10 +250,14 @@ export class EditHighlightsComponent implements OnInit, AfterViewInit {
 
   }
 
-  async expBoxValues(){
+  async expBoxValues(statements = true, data = []){
 
     let finalStatementsArr = [];
-    finalStatementsArr = await this._readResume.readResume({resumeDataIs : this.resumeData});
+    if(statements){
+      finalStatementsArr = await this._readResume.readResume({resumeDataIs : this.resumeData});
+    }else{
+      finalStatementsArr = data;
+    }
 
     //combine first three statements.
     finalStatementsArr.forEach((val ,index)=>{
