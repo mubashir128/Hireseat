@@ -19,6 +19,7 @@ import { DialogProfileExampleComponent } from "src/app/shared/shared-components/
 import { MatDialog } from "@angular/material/dialog";
 import { AuthenticationService } from "src/app/_services/authentication.service";
 import { DialogDeleteComponent } from "src/app/shared/shared-components/components/dialog-delete/dialog-delete.component";
+import { ChatGptService } from "src/app/_services/chat-gpt.service";
 
 declare var Materialize: any;
 
@@ -68,7 +69,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private _readResume : ReadResumeService,
     private readonly joyrideService: JoyrideService,
     protected dialog: MatDialog,
-    protected _dialog: MatDialog
+    protected _dialog: MatDialog,
+    private _chatGptService: ChatGptService
   ) {}
 
   ngOnInit() {
@@ -88,6 +90,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       location: [""],
       Employers1: [""],
       Employers2: [""],
+      summary: [""],
       skills: [""],
       linkedIn: [""],
       desiredRoles: [""],
@@ -223,6 +226,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           .uploadResume(fdata)
           .subscribe(
             (data: any) => {
+              this.getProfile();
               if (data.result) {
                 this.downloadURL = data.result;
                 // this.resume.fileURL = data.result;
@@ -252,6 +256,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         (res) => {
           this.spinner.hide();
           this.candidateProfile = res;
+
+          this.getSummaryFromChatGPT(res.resumeDataIs);
+
           this.getIndustries();
           this.editProfile.patchValue({
             fullName: res.candidate_id.fullName,
@@ -312,6 +319,17 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           Materialize.toast("Something Went Wrong !", 1000);
         }
       );
+  }
+
+  getSummaryFromChatGPT(data){
+    let prompt = "give a short summary?";
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      if(res?.choices[0]?.message?.content){
+        this.editProfile.patchValue({
+          summary: res?.choices[0]?.message?.content
+        });
+      }
+    });
   }
 
   async seeSuggestions(){
