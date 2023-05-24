@@ -57,6 +57,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   loopSkills;
   loopIndustries;
 
+  resumeChanged: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
@@ -226,6 +228,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           .uploadResume(fdata)
           .subscribe(
             (data: any) => {
+              this.resumeChanged = true;
               this.getProfile();
               if (data.result) {
                 this.downloadURL = data.result;
@@ -258,6 +261,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           this.candidateProfile = res;
 
           this.getSummaryFromChatGPT(res.resumeDataIs);
+          if(this.resumeChanged){
+            this.getThreePointsFromChatGPT(res.resumeDataIs);
+          }
 
           this.getIndustries();
           this.editProfile.patchValue({
@@ -322,11 +328,26 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   getSummaryFromChatGPT(data){
-    let prompt = "give a short summary?";
+    let prompt = "give a short summary of this candidate?";
     this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
       if(res?.choices[0]?.message?.content){
         this.editProfile.patchValue({
           summary: res?.choices[0]?.message?.content
+        });
+      }
+    });
+  }
+
+  getThreePointsFromChatGPT(data){
+    let prompt = "give me 3 reasons to hire this candidate?";
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      if(res?.choices[0]?.message?.content){
+        let responseText = res?.choices[0]?.message?.content;
+        let result = this._chatGptService.convertChatGPTResponse(responseText);
+        this.editProfile.patchValue({
+          comments: result[0],
+          comment2: result[1],
+          comment3: result[2]
         });
       }
     });

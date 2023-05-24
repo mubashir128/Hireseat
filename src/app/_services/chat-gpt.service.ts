@@ -51,6 +51,10 @@ export class ChatGptService {
   }
 
   convertChatGPTResponse(responseText) {
+    if(responseText.indexOf(":\n\n") !== -1){
+      responseText = responseText?.split(":\n\n")[1];
+    }
+    
     const chatResponse = responseText?.split("\n\n");
     let result = [];
     let index = 1;

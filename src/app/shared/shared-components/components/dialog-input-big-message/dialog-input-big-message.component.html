@@ -2,16 +2,21 @@
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
     <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
 
+    <div *ngIf="showLoadStatus" class="stDv">{{loadStatus}}</div>
+
     <div class="modal-content">
         <p class="bodyPara">{{dialogText}}</p>
-        <div class="">
-            <textarea class="commentTxt" [(ngModel)]="message1" rows="5" cols="4"></textarea>
-        </div>
-        <div class="">
-            <textarea class="commentTxt" [(ngModel)]="message2" rows="5" cols="4"></textarea>
-        </div>
-        <div class="">
-            <textarea class="commentTxt" [(ngModel)]="message3" rows="5" cols="4"></textarea>
+        <div *ngFor="let item of messageObject; let i = index">
+            <div class="row" style="margin: 0px;">
+                <div class="col s1 m1 l1" style="width: 10px;" *ngIf="checkBoxesIs">
+                    <mat-checkbox (change)="changeValue($event, item)" [checked]="item.value"
+                        [disabled]="!item.value && checkedNumber === limitNumber">
+                    </mat-checkbox>
+                </div>
+                <div class="col s11 m11 l11">
+                    <textarea class="commentTxt" [(ngModel)]="item.text" rows="5" cols="4"></textarea>
+                </div>
+            </div>
         </div>
         <div class="textCenter">
             <button (click)="closeScreen($event)" class="sendBtn spaceBet introStyle">
