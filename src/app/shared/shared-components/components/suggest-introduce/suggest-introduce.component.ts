@@ -128,7 +128,7 @@ export class SuggestIntroduceComponent implements OnInit {
       return ;
     }
 
-    this.inputBigMessageDialogOpen(companiesAre, eTypes.apply);
+    this.inputBigMessageDialogOpen(companiesAre, eTypes.apply, [], companiesAre.jobSpecification);
   }
 
   refer(companiesAre){
@@ -147,13 +147,16 @@ export class SuggestIntroduceComponent implements OnInit {
     });
   }
 
-  inputBigMessageDialogOpen(companiesAre, type: eTypes, selectedUsers = []){
+  inputBigMessageDialogOpen(companiesAre, type: eTypes, selectedUsers = [], jobDescription: string = ""){
     const dialogIntroduceRef = this._dialog.open(DialogInputBigMessageComponent,{
       data: {
         dialogType : "enterMessage",
         dialogTitle : "Message",
         dialogText : "Please provide 3 quick reasons highlighting to the hiring manager why you think you are the best candidate (less than 150 characters).",
-        btns  : ["apply"]
+        btns  : ["apply"],
+        jobDescription : jobDescription,
+        type : type,
+        userId : (type == eTypes.apply) ? this.loggedUser._id : undefined
       }
     });
 

@@ -4,6 +4,7 @@ import { HttpBackend, HttpClient, HttpHeaders, HttpRequest } from "@angular/comm
 import * as myGlobals from "../globalPath";
 import { map } from "rxjs/operators";
 import { AbstractService } from "./abstract.service";
+import { ConstantsService } from "./constants.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +12,19 @@ import { AbstractService } from "./abstract.service";
 export class ChatGptService {
 
   baseurl: any;
+  chatGptKey: any;
   chatGptUrl: string = "https://api.openai.com/v1/chat/completions";
 
   private httpClient: HttpClient;
 
   constructor(
     httpBackend: HttpBackend,
-    private _abstractService: AbstractService
+    private _abstractService: AbstractService,
+    private _constantsService: ConstantsService
   ) {
     this.baseurl = myGlobals.baseUrl;
     this.httpClient = new HttpClient(httpBackend);
+    this.chatGptKey = this._constantsService.chatGptKey;
   }
 
   getChatGPTResponse(data, prompt) {
@@ -36,7 +40,7 @@ export class ChatGptService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer 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`
+      'Authorization': `Bearer ${this.chatGptKey}`
     });
 
     return this.httpClient.post<any>(
@@ -47,6 +51,10 @@ export class ChatGptService {
   }
 
   convertChatGPTResponse(responseText) {
+    if(responseText.indexOf(":\n\n") !== -1){
+      responseText = responseText?.split(":\n\n")[1];
+    }
+    
     const chatResponse = responseText?.split("\n\n");
     let result = [];
     let index = 1;
