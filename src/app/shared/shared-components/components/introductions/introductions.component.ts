@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ConstantsService } from 'src/app/_services/constants.service';
@@ -30,6 +31,11 @@ export class IntroductionsComponent implements OnInit {
   seachCompanyLable = "Desired Companies";
   seachIndustryLable = "Desired Industries";
 
+  pageSize: number = 10;
+  pageLength: number = 100;
+  pageIndex: number = 0;
+  currentPageEvent: PageEvent;
+
   constructor(
     private _candidateService: CandidateService,
     private _constants: ConstantsService,
@@ -41,30 +47,72 @@ export class IntroductionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getConnectedFriends();
+    this.getConnectedFriendsIntroCompanies();
   }
 
-  getConnectedFriends() {
+  getConnectedFriendsIntroCompanies(){
     let payload = {
       type: this._constants.asAFriend
     }
     
     let promises = [];
-    promises.push(this._candidateService.getIntrosCompanies(payload).toPromise());
-    promises.push(this._candidateService.getIntrosIndustries(payload).toPromise());
+    promises.push(this._candidateService.getIntrosCompanies(payload, this.currentPageEvent).toPromise());
     Promise.all(promises).then(result => {
       this.fetchEachMatchingEntry(result);
+    });
+  }
+
+  getConnectedFriendsIntroIndustries(){
+    let payload = {
+      type: this._constants.asAFriend
+    }
+    
+    let promises = [];
+    promises.push(this._candidateService.getIntrosIndustries(payload, this.currentPageEvent).toPromise());
+    Promise.all(promises).then(result => {
+      this.fetchEachMatchingEntryByIndustries(result);
+    });
+  }
+
+  getIntrosCompanies(pageEvent: PageEvent = this.currentPageEvent){
+    this.currentPageEvent = pageEvent;
+    
+    let payload = {
+      type: this._constants.asAFriend
+    }
+    
+    let promises = [];
+    promises.push(this._candidateService.getIntrosCompanies(payload, pageEvent).toPromise());
+    Promise.all(promises).then(result => {
+      this.fetchEachMatchingEntry(result);
+    });
+  }
+
+  getIntrosIndustries(pageEvent: PageEvent = this.currentPageEvent){
+    this.currentPageEvent = pageEvent;
+    
+    let payload = {
+      type: this._constants.asAFriend
+    }
+    
+    let promises = [];
+    promises.push(this._candidateService.getIntrosIndustries(payload, pageEvent).toPromise());
+    Promise.all(promises).then(result => {
       this.fetchEachMatchingEntryByIndustries(result);
     });
   }
 
   fetchEachMatchingEntry(result) {
-    this.eachEntry1 = result[0];
+    this.eachEntry1 = result[0].eachEntry;
+    this.pageLength = result[0].totalLength;
+    this.pageIndex = result[0].pageIndex;
     this.showLoader = false;
   }
 
   fetchEachMatchingEntryByIndustries(result) {
-    this.eachEntry2 = result[1];
+    this.eachEntry2 = result[0].eachEntry;
+    this.pageLength = result[0].totalLength;
+    this.pageIndex = result[0].pageIndex;
     this.showLoader = false;
   }
 
@@ -73,12 +121,15 @@ export class IntroductionsComponent implements OnInit {
     this.itemsIs = page;
     jQuery("#switch" + page).css("background-color", "#27B1BD");
 
+    this.currentPageEvent = undefined;
     if(this.itemsIs == 0){
       this.jobs = true;
       this.industries = false;
+      this.getConnectedFriendsIntroCompanies();
     }else if(this.itemsIs == 1){
       this.jobs = false;
       this.industries = true;
+      this.getConnectedFriendsIntroIndustries();
     }
   }
 

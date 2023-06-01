@@ -163,6 +163,7 @@ export class ConstantsService {
   pendintIntroduceCount;
 
   chatGptKey;
+  chatGptVersion;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -404,6 +405,7 @@ export class ConstantsService {
     this.pendintIntroduceCount = obj.pendintIntroduceCount;
 
     this.chatGptKey = obj.chatGptKey;
+    this.chatGptVersion = obj.chatGptVersion;
   }
 
 }

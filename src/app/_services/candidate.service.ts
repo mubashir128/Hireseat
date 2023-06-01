@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 import * as myGlobals from "../globalPath";
 import { map } from "rxjs/operators";
+import { PageEvent } from "@angular/material/paginator";
 
 @Injectable({
   providedIn: "root",
@@ -213,16 +214,34 @@ export class CandidateService {
     );
   }
 
-  getIntrosCompanies(payload) {
-    return this.http.post<any>(this.baseurl + "api/get-intros-companies", payload).pipe(
+  getIntrosCompanies(payload, pageEvent?: PageEvent) {
+    let page = pageEvent? pageEvent.pageIndex + 1 : 1;
+    let limit = pageEvent? pageEvent.pageSize : 10;
+    let pageIndex = pageEvent? pageEvent.pageIndex : 0;
+    
+    let params = new HttpParams();
+    params = params.append('page', page.toString());
+    params = params.append('limit', limit.toString());
+    params = params.append('pageIndex', pageIndex.toString());
+    
+    return this.http.post<any>(this.baseurl + "api/get-intros-companies", payload, { params : params } ).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
 
-  getIntrosIndustries(payload) {
-    return this.http.post<any>(this.baseurl + "api/get-intros-industries", payload).pipe(
+  getIntrosIndustries(payload, pageEvent?: PageEvent) {
+    let page = pageEvent? pageEvent.pageIndex + 1 : 1;
+    let limit = pageEvent? pageEvent.pageSize : 10;
+    let pageIndex = pageEvent? pageEvent.pageIndex : 0;
+    
+    let params = new HttpParams();
+    params = params.append('page', page.toString());
+    params = params.append('limit', limit.toString());
+    params = params.append('pageIndex', pageIndex.toString());
+
+    return this.http.post<any>(this.baseurl + "api/get-intros-industries", payload, { params : params } ).pipe(
       map((res: any) => {
         return res;
       })
