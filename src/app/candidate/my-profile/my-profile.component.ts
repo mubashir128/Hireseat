@@ -113,6 +113,11 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       comments: [""],
       comment2: [""],
       comment3: [""],
+      accomplishment1: [""],
+      accomplishment2: [""],
+      accomplishment3: [""],
+      accomplishment4: [""],
+      accomplishment5: [""],
       totalWorkExpYrs: [""],
       gender: [""],
       totalWorkExpMonths: [""],
@@ -235,6 +240,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
                 // this.resume.fileURL = data.result;
                 this.fileUploaded = 2;
                 Materialize.toast("Resume Uploaded Successfully !", 1000);
+                Materialize.toast("Please click Save button !", 1000);
                 this.submit();
               } else {
                 Materialize.toast("Something Went Wrong !", 1000);
@@ -260,9 +266,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           this.spinner.hide();
           this.candidateProfile = res;
 
-          this.getSummaryFromChatGPT(res.resumeDataIs);
           if(this.resumeChanged){
+            this.getSummaryFromChatGPT(res.resumeDataIs);
             this.getThreePointsFromChatGPT(res.resumeDataIs);
+            this.getAccomplishmentsFromChatGPT(res.resumeDataIs);
           }
 
           this.getIndustries();
@@ -291,6 +298,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             comments: res.comments,
             comment2: res.comment2,
             comment3: res.comment3,
+            summary: res.summary,
+            accomplishment1: res.accomplishment1,
+            accomplishment2: res.accomplishment2,
+            accomplishment3: res.accomplishment3,
+            accomplishment4: res.accomplishment4,
+            accomplishment5: res.accomplishment5,
             totalWorkExpYrs: res.totalWorkExpYrs,
             totalWorkExpMonths: res.totalWorkExpMonths,
             locationPref: res.locationPref,
@@ -348,6 +361,23 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           comments: result[0],
           comment2: result[1],
           comment3: result[2]
+        });
+      }
+    });
+  }
+
+  getAccomplishmentsFromChatGPT(data){
+    let prompt = "Provide the candidate 5 biggest accomplishments (less than 2000 words)?";
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      if(res?.choices[0]?.message?.content){
+        let responseText = res?.choices[0]?.message?.content;
+        let result = this._chatGptService.convertChatGPTResponse(responseText);
+        this.editProfile.patchValue({
+          accomplishment1: result[0],
+          accomplishment2: result[1],
+          accomplishment3: result[2],
+          accomplishment4: result[3],
+          accomplishment5: result[4]
         });
       }
     });

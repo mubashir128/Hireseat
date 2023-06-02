@@ -17,8 +17,6 @@ export class DialogInputBigMessageComponent extends AbstractDialogComponent impl
   type: eTypes;
   userId: any;
   jobDescription: string = "";
-  showLoadStatus: boolean = true;
-  loadStatus = "Loading points... Please wait...";
 
   messageObject = [
     {
@@ -59,8 +57,10 @@ export class DialogInputBigMessageComponent extends AbstractDialogComponent impl
       }
       this.messageObject.push({ id: 4, value: false, text: "" });
       this.messageObject.push({ id: 5, value: false, text: "" });
+      this.messageObject.push({ id: 6, value: false, text: "" });
+      this.messageObject.push({ id: 7, value: false, text: "" });
+      this.messageObject.push({ id: 8, value: false, text: "" });
     } else {
-      this.showLoadStatus = false;
     }
 
     if (this.type == eTypes.refer) {
@@ -83,34 +83,20 @@ export class DialogInputBigMessageComponent extends AbstractDialogComponent impl
   getProfile() {
     this._candidateService.getCandidateProfile().subscribe((res) => {
       if (res) {
-        this.getReasonsFromChatGPT(res.resumeDataIs);
-      } else {
-        this.clearLoader();
+        this.setReasons(res);
       }
     });
   }
 
-  getReasonsFromChatGPT(data) {
-    let prompt = "tell me 5 reasons why this candidate is a good fit for this job?";
-    this._chatGptService.getChatGPTResponse(this.jobDescription + data, prompt).subscribe(res => {
-      if (res?.choices[0]?.message?.content) {
-        let responseText = res?.choices[0]?.message?.content;
-        let result = this._chatGptService.convertChatGPTResponse(responseText);
-        this.messageObject[0].text = result[0];
-        this.messageObject[1].text = result[1];
-        this.messageObject[2].text = result[2];
-        this.messageObject[3].text = result[3];
-        this.messageObject[4].text = result[4];
-        this.clearLoader();
-      } else {
-        this.clearLoader();
-      }
-    });
-  }
-
-  clearLoader() {
-    this.showLoadStatus = false;
-    this.loadStatus = "";
+  setReasons(data) {
+    this.messageObject[0].text = data.accomplishment1 !== '' ? data.accomplishment1 : '';
+    this.messageObject[1].text = data.accomplishment2 !== '' ? data.accomplishment2 : '';
+    this.messageObject[2].text = data.accomplishment3 !== '' ? data.accomplishment3 : '';
+    this.messageObject[3].text = data.accomplishment4 !== '' ? data.accomplishment4 : '';
+    this.messageObject[4].text = data.accomplishment5 !== '' ? data.accomplishment5 : '';
+    this.messageObject[5].text = data.comments !== '' ? data.comments : '';
+    this.messageObject[6].text = data.comment2 !== '' ? data.comment2 : '';
+    this.messageObject[7].text = data.comment3 !== '' ? data.comment3 : '';
   }
 
   apply() {

@@ -2,8 +2,6 @@
     <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
     <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
 
-    <div *ngIf="showLoadStatus" class="stDv">{{loadStatus}}</div>
-
     <div class="modal-content">
         <p class="bodyPara">{{dialogText}}</p>
         <span style="color: red;" *ngIf="checkBoxesIs">Select only three points.</span>

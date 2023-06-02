@@ -17,6 +17,7 @@
                         <p *ngIf = "companiesAre?.jobSpecification || companiesAre?.jobBrief"><label>Job Specification :</label> 
                             <span (click) = "showHideJobSpec(companiesAre)" style="color: red;"> - Click to see specifications</span>
                             <span class="jobSpecClass" [id] = "'jobSpec_' + companiesAre._id">
+                                <br>
                                 - {{ companiesAre?.jobSpecification || companiesAre?.jobBrief }}
                             </span>
                         </p>
