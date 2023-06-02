@@ -35,7 +35,7 @@ export class ChatGptService {
       ],
       max_tokens: 1024,
       temperature: 0.7,
-      model: "gpt-3.5-turbo",
+      model: this._constantsService.chatGptVersion
     };
 
     const headers = new HttpHeaders({

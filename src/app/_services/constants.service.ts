@@ -177,6 +177,7 @@ export class ConstantsService {
 
   extractChatGPTCount;
   chatGptKey;
+  chatGptVersion;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -431,6 +432,7 @@ export class ConstantsService {
 
     this.extractChatGPTCount = obj.extractChatGPTCount;
     this.chatGptKey = obj.chatGptKey;
+    this.chatGptVersion = obj.chatGptVersion;
   }
 
 }

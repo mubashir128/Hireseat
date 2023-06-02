@@ -1,7 +1,8 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IntroduceService } from 'src/app/_services/introduce.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { PageEvent } from '@angular/material/paginator';
 
 declare var jQuery;
 declare var Materialize;
@@ -14,10 +15,17 @@ declare var Materialize;
 export class IntrosTabComponent implements OnInit {
   @Input() eachEntry: any;
   @Input() searchLabel: any;
+
+  @Input() pageSize: number;
+  @Input() pageLength: number;
+  @Input() pageIndex: number;
+
   searchTerm: String = "";
 
   Search: FormGroup;
   @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
+
+  @Output() pageEM = new EventEmitter();
 
   constructor(
     protected _introduceService: IntroduceService,
@@ -57,4 +65,7 @@ export class IntrosTabComponent implements OnInit {
     });
   }
 
+  handlePageEvent(event: PageEvent){
+    this.pageEM.emit(event);
+  }
 }
