@@ -17,7 +17,7 @@
 <div class="ListResume">
     <div class="singleList employerResume animatePart"
         *ngFor="let entry of eachEntry | serchByFullName : searchTerm : 'intros' ">
-        <div class="row" style="text-align: center;">
+        <div class="row" style="text-align: center; width: 100%;">
             <div class="col s5 m5 l5">
                 <div class="pro">
                     <div class="pro-3">
@@ -28,7 +28,7 @@
                                         <div class="user-details">
 
                                             <div class="row" style="margin: auto;">
-                                                <div class="col s3 m3 l3" style="width: auto;">
+                                                <div class="col s3 m3 l3">
                                                     <div *ngIf="!entry?.desiredUser?.showCreatedLogo"
                                                         class="big-badge big-badge-wid">
                                                         <img src="{{ entry?.desiredUser?.profileimage }}"
@@ -85,7 +85,7 @@
                                         <div class="user-details">
 
                                             <div class="row" style="margin: auto;">
-                                                <div class="col s3 m3 l3" style="width: auto;">
+                                                <div class="col s3 m3 l3">
                                                     <div *ngIf="!entry?.introUser?.showCreatedLogo"
                                                         class="big-badge big-badge-wid">
                                                         <img src="{{ entry?.introUser?.profileimage }}"
@@ -142,5 +142,14 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row" style="display: inline-block;">
+        <mat-paginator
+            [length]="pageLength"
+            [pageSize]="pageSize"
+            [pageIndex]="pageIndex"
+            aria-label="Select page"
+            (page)="handlePageEvent($event)">
+        </mat-paginator>    
     </div>
 </div>

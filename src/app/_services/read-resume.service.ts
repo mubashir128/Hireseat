@@ -542,4 +542,29 @@ export class ReadResumeService {
     });
   }
 
+  countStatementValue(globalString){
+    let obj = {
+      stm : globalString.trim(),
+      value : 0
+    };
+
+    Object.entries(this.loopSkills).forEach((key) => {
+      if((globalString.indexOf(key[0].toLowerCase()) !== -1)){
+        obj.value = obj.value + this.loopSkills[key[0]];
+      }
+    });
+
+    Object.entries(this.loopIndustries).forEach((key) => {
+      if(globalString.indexOf(key[0].toLowerCase()) !== -1){
+        obj.value = obj.value + this.loopIndustries[key[0]];
+      }
+    });
+
+    Object.entries(this.loopAchivments).forEach((key) => {
+      if(globalString.indexOf(key[0].toLowerCase()) !== -1){
+        obj.value = obj.value + this.loopAchivments[key[0]];
+      }
+    });
+    return obj;
+  }
 }

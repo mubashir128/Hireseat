@@ -19,6 +19,7 @@ import { DialogProfileExampleComponent } from "src/app/shared/shared-components/
 import { MatDialog } from "@angular/material/dialog";
 import { AuthenticationService } from "src/app/_services/authentication.service";
 import { DialogDeleteComponent } from "src/app/shared/shared-components/components/dialog-delete/dialog-delete.component";
+import { ChatGptService } from "src/app/_services/chat-gpt.service";
 
 declare var Materialize: any;
 
@@ -60,6 +61,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   loggedInUser: any;
 
   resumeUploaded: boolean = false;
+  resumeChanged: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -73,7 +75,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private _readResume : ReadResumeService,
     private readonly joyrideService: JoyrideService,
     protected dialog: MatDialog,
-    protected _dialog: MatDialog
+    protected _dialog: MatDialog,
+    private _chatGptService: ChatGptService
   ) {
     this.loggedInUser = this.userService.getUserData();
   }
@@ -95,6 +98,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       location: [""],
       Employers1: [""],
       Employers2: [""],
+      summary: [""],
       skills: [""],
       linkedIn: [""],
       desiredRoles: [""],
@@ -115,6 +119,11 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       comments: [""],
       comment2: [""],
       comment3: [""],
+      accomplishment1: [""],
+      accomplishment2: [""],
+      accomplishment3: [""],
+      accomplishment4: [""],
+      accomplishment5: [""],
       totalWorkExpYrs: [""],
       gender: [""],
       totalWorkExpMonths: [""],
@@ -236,11 +245,14 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           .uploadResume(fdata)
           .subscribe(
             (data: any) => {
+              this.resumeChanged = true;
+              this.getProfile();
               if (data.result) {
                 this.downloadURL = data.result;
                 // this.resume.fileURL = data.result;
                 this.fileUploaded = 2;
                 Materialize.toast("Resume Uploaded Successfully !", 1000);
+                Materialize.toast("Please click Save button !", 1000);
                 this.resumeUploaded = true;
                 this.submit();
               } else {
@@ -266,6 +278,13 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         (res) => {
           this.spinner.hide();
           this.candidateProfile = res;
+
+          if(this.resumeChanged){
+            this.getSummaryFromChatGPT(res.resumeDataIs);
+            this.getThreePointsFromChatGPT(res.resumeDataIs);
+            this.getAccomplishmentsFromChatGPT(res.resumeDataIs);
+          }
+
           this.getIndustries();
           this.editProfile.patchValue({
             fullName: res.candidate_id.fullName,
@@ -292,6 +311,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             comments: res.comments,
             comment2: res.comment2,
             comment3: res.comment3,
+            summary: res.summary,
+            accomplishment1: res.accomplishment1,
+            accomplishment2: res.accomplishment2,
+            accomplishment3: res.accomplishment3,
+            accomplishment4: res.accomplishment4,
+            accomplishment5: res.accomplishment5,
             totalWorkExpYrs: res.totalWorkExpYrs,
             totalWorkExpMonths: res.totalWorkExpMonths,
             locationPref: res.locationPref,
@@ -326,6 +351,49 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           Materialize.toast("Something Went Wrong !", 1000);
         }
       );
+  }
+
+  getSummaryFromChatGPT(data){
+    let prompt = "give a short summary of this candidate?";
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      if(res?.choices[0]?.message?.content){
+        this.editProfile.patchValue({
+          summary: res?.choices[0]?.message?.content
+        });
+      }
+    });
+  }
+
+  getThreePointsFromChatGPT(data){
+    let prompt = "give me 3 reasons to hire this candidate?";
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      if(res?.choices[0]?.message?.content){
+        let responseText = res?.choices[0]?.message?.content;
+        let result = this._chatGptService.convertChatGPTResponse(responseText);
+        this.editProfile.patchValue({
+          comments: result[0],
+          comment2: result[1],
+          comment3: result[2]
+        });
+      }
+    });
+  }
+
+  getAccomplishmentsFromChatGPT(data){
+    let prompt = "Provide the candidate 5 biggest accomplishments (less than 2000 words)?";
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      if(res?.choices[0]?.message?.content){
+        let responseText = res?.choices[0]?.message?.content;
+        let result = this._chatGptService.convertChatGPTResponse(responseText);
+        this.editProfile.patchValue({
+          accomplishment1: result[0],
+          accomplishment2: result[1],
+          accomplishment3: result[2],
+          accomplishment4: result[3],
+          accomplishment5: result[4]
+        });
+      }
+    });
   }
 
   async seeSuggestions(){

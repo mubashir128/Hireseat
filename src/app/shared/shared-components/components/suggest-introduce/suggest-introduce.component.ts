@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
 import { UserService } from 'src/app/_services/user.service';
 import * as myGlobals from '../../../../globalPath';
-import { PostJobService } from 'src/app/_services/post-job.service';
+import { PostJobService, eTypes } from 'src/app/_services/post-job.service';
 import { PostJob } from '../app-list/app-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogInputBigMessageComponent } from '../dialog-input-big-message/dialog-input-big-message.component';
+import { DialogSelectUserComponent } from '../dialog-select-user/dialog-select-user.component';
 
 declare var Materialize;
 
@@ -127,12 +128,35 @@ export class SuggestIntroduceComponent implements OnInit {
       return ;
     }
 
+    this.inputBigMessageDialogOpen(companiesAre, eTypes.apply, [], companiesAre.jobSpecification);
+  }
+
+  refer(companiesAre){
+    const dialogSelectUserRef = this._dialog.open(DialogSelectUserComponent,{
+      data: {
+        dialogType : "select-candidates",
+        dialogTitle : "Select Candidates to refer",
+        btns : ["select"]
+      }
+    });
+
+    dialogSelectUserRef.afterClosed().subscribe(result => {
+      if(result){
+        this.inputBigMessageDialogOpen(companiesAre, eTypes.refer, result);
+      }
+    });
+  }
+
+  inputBigMessageDialogOpen(companiesAre, type: eTypes, selectedUsers = [], jobDescription: string = ""){
     const dialogIntroduceRef = this._dialog.open(DialogInputBigMessageComponent,{
       data: {
         dialogType : "enterMessage",
         dialogTitle : "Message",
         dialogText : "Please provide 3 quick reasons highlighting to the hiring manager why you think you are the best candidate (less than 150 characters).",
-        btns  : ["apply"]
+        btns  : ["apply"],
+        jobDescription : jobDescription,
+        type : type,
+        userId : (type == eTypes.apply) ? this.loggedUser._id : undefined
       }
     });
 
@@ -146,15 +170,26 @@ export class SuggestIntroduceComponent implements OnInit {
           point3 : companiesAre.pointBoolean3,
           message1 : result.message1,
           message2 : result.message2,
-          message3 : result.message3
+          message3 : result.message3,
+          selectedUsers : selectedUsers
         };
-        promises.push(this._postJobService.applyPostJob(payload).toPromise());
-        Promise.all(promises).then(result => {
-          this.applyPostJobs = [...this.applyPostJobs, ...result];
-          Materialize.toast("Applied for this Post job", 1000, "green");
-        }).catch(err=>{
-          Materialize.toast("You Already applied for this Post job", 1000, "red");
-        });
+
+        if(type == eTypes.apply){
+          promises.push(this._postJobService.applyPostJob(payload).toPromise());
+          Promise.all(promises).then(result => {
+            this.applyPostJobs = [...this.applyPostJobs, ...result];
+            Materialize.toast("Applied for this Post job", 1000, "green");
+          }).catch(err=>{
+            Materialize.toast("You Already applied for this Post job", 1000, "red");
+          });
+        }else if(type == eTypes.refer){
+          promises.push(this._postJobService.referPostJob(payload).toPromise());
+          Promise.all(promises).then(result => {
+            Materialize.toast("Refered for this Post job", 1000, "green");
+          }).catch(err=>{
+            Materialize.toast("You Already refered for this Post job", 1000, "red");
+          });
+        }
       }
     });
   }

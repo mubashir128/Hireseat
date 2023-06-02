@@ -1644,3 +1644,13 @@ body {
 .marAuto {
   margin: auto;
 }
+
+.marLeft10 {
+  margin-left: 10px;
+}
+
+.stDv {
+  margin-top: 50%;
+  margin-left: 40%;
+  font-size: 20px;
+}

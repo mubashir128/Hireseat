@@ -151,6 +151,7 @@ import { DialogInputTextMessageComponent } from './components/dialog-input-text-
 import { SuggestedPostJobsComponent } from './components/suggested-post-jobs/suggested-post-jobs.component';
 import { AppliedPostJobsComponent } from './components/applied-post-jobs/applied-post-jobs.component';
 import { DialogInputBigMessageComponent } from './components/dialog-input-big-message/dialog-input-big-message.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -190,7 +191,8 @@ import { DialogInputBigMessageComponent } from './components/dialog-input-big-me
     MatTableModule,
     DragDropModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+    MatPaginatorModule
   ],
   declarations: [
     FooterComponent,

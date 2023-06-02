@@ -16,9 +16,25 @@
 </ng-container>
 
 <ng-container *ngIf="jobs">
-    <app-intros-tab [(eachEntry)]="eachEntry1" [(searchLabel)]="seachCompanyLable"></app-intros-tab>
+    <app-intros-tab
+        [(eachEntry)]="eachEntry1"
+        [(searchLabel)]="seachCompanyLable"
+        [(pageSize)]="pageSize"
+        [(pageLength)]="pageLength"
+        [(pageIndex)]="pageIndex"
+        (pageEM)='getIntrosCompanies($event)'
+    >
+    </app-intros-tab>
 </ng-container>
 
 <ng-container *ngIf="industries">
-    <app-intros-tab [(eachEntry)]="eachEntry2" [(searchLabel)]="seachIndustryLable"></app-intros-tab>
+    <app-intros-tab
+        [(eachEntry)]="eachEntry2"
+        [(searchLabel)]="seachIndustryLable"
+        [(pageSize)]="pageSize"
+        [(pageLength)]="pageLength"
+        [(pageIndex)]="pageIndex"
+        (pageEM)='getIntrosIndustries($event)'
+    >
+    </app-intros-tab>
 </ng-container>

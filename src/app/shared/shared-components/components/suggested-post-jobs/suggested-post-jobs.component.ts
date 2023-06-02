@@ -13,6 +13,9 @@ export class SuggestedPostJobsComponent implements OnInit {
   loggedUser: any;
   myPostJobs = [];
 
+  showLoadStatus : boolean = true;
+  loadStatus = "Loading...";
+
   constructor(
     protected _userService: UserService,
     private _postJobService: PostJobService,
@@ -30,11 +33,23 @@ export class SuggestedPostJobsComponent implements OnInit {
     promises.push(this._postJobService.getMyPostJob(null, null).toPromise());
     Promise.all(promises).then(result => {
       this.myPostJobs = result[0];
+      this.showLoadStatus = false;
+      this.loadStatus = "";
     });
   }
 
   changeLogo(apply){
     apply.showCreatedLogo = true;
+  }
+
+  showHideJobSpec(company){
+    if(company.expanded){
+      jQuery("#jobSpec_"+company._id).css("display", "none");
+      company.expanded = false;
+    }else{
+      jQuery("#jobSpec_"+company._id).css("display", "block");
+      company.expanded = true;
+    }
   }
 
   seeProfile(_id, profileLink) {

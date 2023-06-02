@@ -5,6 +5,9 @@
     <button *ngIf="getBtn('review')" style="margin-right:8px" mat-raised-button color="primary" (click)="review()">
         Review
     </button>
+    <button *ngIf="getBtn('select')" style="margin-right:8px" mat-raised-button color="primary" (click)="selectUsers()">
+        Select
+    </button>
 </div>
 <div class='table-responsive' [formGroup]="listFormGroup">
     <table mat-table [dataSource]="list.dataSource" class="mat-elevation-z8" multiTemplateDataRows cdkDropList

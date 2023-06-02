@@ -4,7 +4,6 @@ button.sendBtn {
     border: 1px solid #039be5;
     padding: 10px 20px;
     border-radius: 3px;
-    margin-top: 20px;
 }
 
 .spaceBet {
@@ -15,4 +14,37 @@ button.sendBtn {
 .introStyle {
     border: 1px solid #03aaff !important;
     background-color: #03aaff !important;
+}
+
+.commentTxt {
+    height: 4rem !important;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 667px) {
+    .commentTxt {
+        height: 4rem !important;
+    }
+    
+    .textCenter{
+        margin-bottom: 100px !important;
+    }
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    opacity: 0.03 !important;
+    background-color: #005691 !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #005691 !important;
+}
+
+::ng-deep .mat-checkbox-ripple .mat-ripple-element,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #005691 !important;
+}
+
+.bodyPara{
+    margin: 0px;
 }

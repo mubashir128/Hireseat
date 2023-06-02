@@ -72,11 +72,6 @@
     color: red;
 }
 
-.jobSpecClass{
-    display: none;
-    margin-left: 10px;
-}
-
 .jobTime {
     float: right;
     margin-top: 0px;
@@ -103,4 +98,8 @@
     height: 30px !important;
     margin-top: 10px;
     border: none !important;
+}
+
+.spaceLft {
+    margin-left: 5px;
 }
