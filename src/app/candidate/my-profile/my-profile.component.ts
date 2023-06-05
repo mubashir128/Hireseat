@@ -381,7 +381,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   getAccomplishmentsFromChatGPT(data){
     let prompt = "Provide the candidate 5 biggest accomplishments (less than 2000 words)?";
+    this.spinner.show();
     this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      this.spinner.hide();
       if(res?.choices[0]?.message?.content){
         let responseText = res?.choices[0]?.message?.content;
         let result = this._chatGptService.convertChatGPTResponse(responseText);
@@ -393,6 +395,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           accomplishment5: result[4]
         });
       }
+      Materialize.toast("Please save the details", 700, "green");
     });
   }
 
@@ -502,9 +505,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
               this.handleResumeData(res.data);
             }
           }
-          if(this.resumeUploaded){
-            this.router.navigate(["/"+this.loggedInUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
-          }
+          // if(this.resumeUploaded){
+          //   this.router.navigate(["/"+this.loggedInUser.userRole+"/edit-highlights"],  { queryParams: { step: 2}});
+          // }
         },
         (err) => {
           Materialize.toast("Something Went Wrong !", 1000);
