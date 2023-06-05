@@ -200,6 +200,11 @@ export class SuggestIntroduceComponent implements OnInit {
     });
   }
 
+  getJobSpecification(jobSpec){
+    let textArray = jobSpec ? jobSpec.split('.') : [];
+    return textArray;
+  }
+
   changedValue(event, companiesAre, field){
     companiesAre[field] = event.target.checked;
   }
