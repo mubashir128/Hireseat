@@ -19,7 +19,7 @@
                             <span class="jobSpecClass" [id] = "'jobSpec_' + companiesAre._id">
                                 <br>
                                 <span *ngFor="let jobSpec of getJobSpecification(companiesAre?.jobSpecification || companiesAre?.jobBrief)">
-                                    {{ jobSpec }} .
+                                    *{{ jobSpec }} .
                                     <br><br>
                                 </span>
                             </span>
