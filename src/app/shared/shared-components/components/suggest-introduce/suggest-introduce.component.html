@@ -29,7 +29,10 @@
                             <span (click) = "showHideJobSpec(companiesAre)" style="color: red;"> - Click to see specifications</span>
                             <span class="jobSpecClass" [id] = "'jobSpec_' + companiesAre._id">
                                 <br>
-                                - {{ companiesAre?.jobSpecification || companiesAre?.jobBrief }}
+                                <span *ngFor="let jobSpec of getJobSpecification(companiesAre?.jobSpecification || companiesAre?.jobBrief)">
+                                    - {{ jobSpec }} .
+                                    <br><br>
+                                </span>
                             </span>
                         </p>
                         <p *ngIf = "companiesAre?.location"><label>Location :</label> {{ companiesAre?.location }}</p>
