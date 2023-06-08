@@ -1554,3 +1554,7 @@ body {
 .fontSize20{
   font-size: 20px !important;
 }
+
+.floatRight{
+  float: right !important;
+}
