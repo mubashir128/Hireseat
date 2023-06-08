@@ -99,6 +99,20 @@
                 </div>
               </ng-container>
             </div>
+
+            <div *ngIf="timeline.status == _constants.threeIntroduce" class="">
+              <ng-container *ngIf="timeline.introduceId">
+                <div class="candProfile11">
+                  <img [src] = "timeline.introduceId?.profileimage ? timeline.introduceId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                </div>
+              </ng-container>
+              
+              <ng-container *ngIf="timeline.toId">
+                <div class="candProfile11">
+                  <img [src] = "timeline.toId?.profileimage ? timeline.toId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
+                </div>
+              </ng-container>
+            </div>
           </div>
           
           <div class="row introSection" *ngIf = "timeline.status == _constants.actualTimeline">

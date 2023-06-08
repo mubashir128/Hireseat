@@ -135,8 +135,10 @@ export class SuggestIntroduceComponent implements OnInit {
     const dialogSelectUserRef = this._dialog.open(DialogSelectUserComponent,{
       data: {
         dialogType : "select-candidates",
-        dialogTitle : "Select Candidates to refer",
-        btns : ["select"]
+        dialogTitle : "Select One Candidates to refer",
+        btns : ["select"],
+        multiSelect : false,
+        selectUserCount : 1
       }
     });
 
@@ -156,7 +158,7 @@ export class SuggestIntroduceComponent implements OnInit {
         btns  : ["apply"],
         jobDescription : jobDescription,
         type : type,
-        userId : (type == eTypes.apply) ? this.loggedUser._id : undefined
+        userId : (type == eTypes.apply) ? this.loggedUser._id : selectedUsers[0]
       }
     });
 
