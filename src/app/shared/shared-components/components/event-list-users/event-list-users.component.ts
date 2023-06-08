@@ -238,4 +238,13 @@ export class EventListUsersComponent implements OnInit {
       Materialize.toast(err.err, 3000, "red");
     });
   }
+
+  onLinkedIn(user){
+    let link = user?.candidate_id?.linkedIn;
+    if (link.includes("https")) {
+      window.open(link, "_blank");
+    } else {
+      window.open("https://" + link, "_blank");
+    }
+  }
 }
