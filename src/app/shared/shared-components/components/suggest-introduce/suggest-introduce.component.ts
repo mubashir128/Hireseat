@@ -141,8 +141,10 @@ export class SuggestIntroduceComponent implements OnInit {
     const dialogSelectUserRef = this._dialog.open(DialogSelectUserComponent,{
       data: {
         dialogType : "select-candidates",
-        dialogTitle : "Select Candidates to refer",
-        btns : ["select"]
+        dialogTitle : "Select One Candidates to refer",
+        btns : ["select"],
+        multiSelect : false,
+        selectUserCount : 1
       }
     });
 

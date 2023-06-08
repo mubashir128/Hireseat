@@ -59,6 +59,9 @@ export class UserListComponent implements OnInit {
   @Input() columnNames: any;
   @Input() type: actionUserType;
   @Input() btns: any;
+  @Input() multiSelect: boolean = true;
+  @Input() selectUserCount: number = 0;
+  checkedNumber: number = 0;
 
   @Output() filterEM = new EventEmitter();
   @Output() editEM = new EventEmitter();
@@ -79,6 +82,9 @@ export class UserListComponent implements OnInit {
     this.listFormGroup = this._formBuilder.group({
       column: ['', Validators.required]
     });
+    if(this.multiSelect == undefined){
+      this.multiSelect = true;
+    }
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -140,5 +146,14 @@ export class UserListComponent implements OnInit {
 
   getBtn(btn){
     return this.btns.includes(btn) ? true : false;
+  }
+
+  changeValue(event, row){
+    row.value = event.checked;
+    if (event.checked) {
+      this.checkedNumber++;
+    } else {
+      this.checkedNumber--;
+    }
   }
 }

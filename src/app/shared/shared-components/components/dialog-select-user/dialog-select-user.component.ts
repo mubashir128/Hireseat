@@ -20,6 +20,8 @@ export class DialogSelectUserComponent extends AbstractDialogComponent implement
   };
 
   btns: any[];
+  multiSelect: boolean;
+  selectUserCount: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogSelectUserComponent,
@@ -29,6 +31,9 @@ export class DialogSelectUserComponent extends AbstractDialogComponent implement
   ) {
     super(data, _dialogRef);
     this.btns = this.data.btns;
+    this.multiSelect = this.data.multiSelect;
+    this.selectUserCount = this.data.selectUserCount;
+    
     this.userList = new UserList(
       ['fullName'],
       ['fullName'],
