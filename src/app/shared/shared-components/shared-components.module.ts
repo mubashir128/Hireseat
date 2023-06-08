@@ -152,6 +152,7 @@ import { SuggestedPostJobsComponent } from './components/suggested-post-jobs/sug
 import { AppliedPostJobsComponent } from './components/applied-post-jobs/applied-post-jobs.component';
 import { DialogInputBigMessageComponent } from './components/dialog-input-big-message/dialog-input-big-message.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { DialogOnlyTextMessageComponent } from './components/dialog-only-text-message/dialog-only-text-message.component';
 
 @NgModule({
   imports: [
@@ -326,7 +327,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     DialogInputTextMessageComponent,
     SuggestedPostJobsComponent,
     AppliedPostJobsComponent,
-    DialogInputBigMessageComponent
+    DialogInputBigMessageComponent,
+    DialogOnlyTextMessageComponent
   ],
   exports: [
     FooterComponent,

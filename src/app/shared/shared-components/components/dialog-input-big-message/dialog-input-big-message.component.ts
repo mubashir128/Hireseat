@@ -4,6 +4,7 @@ import { AbstractDialogComponent } from '../abstract-dialog.component';
 import { eTypes } from 'src/app/_services/post-job.service';
 import { CandidateService } from 'src/app/_services/candidate.service';
 import { ChatGptService } from 'src/app/_services/chat-gpt.service';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-dialog-input-big-message',
@@ -33,6 +34,31 @@ export class DialogInputBigMessageComponent extends AbstractDialogComponent impl
       id: 3,
       value: false,
       text: ""
+    },
+    {
+      id: 4,
+      value: false,
+      text: ""
+    },
+    {
+      id: 5,
+      value: false,
+      text: ""
+    },
+    {
+      id: 6,
+      value: false,
+      text: ""
+    },
+    {
+      id: 7,
+      value: false,
+      text: ""
+    },
+    {
+      id: 8,
+      value: false,
+      text: ""
     }
   ];
 
@@ -44,7 +70,8 @@ export class DialogInputBigMessageComponent extends AbstractDialogComponent impl
     @Inject(MAT_DIALOG_DATA) public data: DialogInputBigMessageComponent,
     public dialogRef: MatDialogRef<DialogInputBigMessageComponent>,
     private _candidateService: CandidateService,
-    private _chatGptService: ChatGptService
+    private _chatGptService: ChatGptService,
+    private _userService : UserService
   ) {
     super(data, dialogRef);
     this.btns = this?.data?.btns;
@@ -53,18 +80,10 @@ export class DialogInputBigMessageComponent extends AbstractDialogComponent impl
     this.jobDescription = this?.data?.jobDescription;
     if (this.type == eTypes.apply) {
       if (this.userId) {
-        this.getProfile();
+        this.getUserDetails();
       }
-      this.messageObject.push({ id: 4, value: false, text: "" });
-      this.messageObject.push({ id: 5, value: false, text: "" });
-      this.messageObject.push({ id: 6, value: false, text: "" });
-      this.messageObject.push({ id: 7, value: false, text: "" });
-      this.messageObject.push({ id: 8, value: false, text: "" });
-    } else {
-    }
-
-    if (this.type == eTypes.refer) {
-      this.checkBoxesIs = false;
+    } else if (this.type == eTypes.refer) {
+      this.getUserDetails();
     }
   }
 
@@ -80,23 +99,21 @@ export class DialogInputBigMessageComponent extends AbstractDialogComponent impl
     }
   }
 
-  getProfile() {
-    this._candidateService.getCandidateProfile().subscribe((res) => {
-      if (res) {
-        this.setReasons(res);
-      }
+  getUserDetails() {
+    this._userService.getUserDetails({ receiverId: this.userId }).subscribe((res: any) => {
+      this.setReasons(res);
     });
   }
 
-  setReasons(data) {
-    this.messageObject[0].text = data.accomplishment1 !== '' ? data.accomplishment1 : '';
-    this.messageObject[1].text = data.accomplishment2 !== '' ? data.accomplishment2 : '';
-    this.messageObject[2].text = data.accomplishment3 !== '' ? data.accomplishment3 : '';
-    this.messageObject[3].text = data.accomplishment4 !== '' ? data.accomplishment4 : '';
-    this.messageObject[4].text = data.accomplishment5 !== '' ? data.accomplishment5 : '';
-    this.messageObject[5].text = data.comments !== '' ? data.comments : '';
-    this.messageObject[6].text = data.comment2 !== '' ? data.comment2 : '';
-    this.messageObject[7].text = data.comment3 !== '' ? data.comment3 : '';
+  setReasons(res) {
+    this.messageObject[0].text = res?.data?.candidate_id?.accomplishment1 !== '' ? res?.data?.candidate_id?.accomplishment1 : '';
+    this.messageObject[1].text = res?.data?.candidate_id?.accomplishment2 !== '' ? res?.data?.candidate_id?.accomplishment2 : '';
+    this.messageObject[2].text = res?.data?.candidate_id?.accomplishment3 !== '' ? res?.data?.candidate_id?.accomplishment3 : '';
+    this.messageObject[3].text = res?.data?.candidate_id?.accomplishment4 !== '' ? res?.data?.candidate_id?.accomplishment4 : '';
+    this.messageObject[4].text = res?.data?.candidate_id?.accomplishment5 !== '' ? res?.data?.candidate_id?.accomplishment5 : '';
+    this.messageObject[5].text = res?.data?.candidate_id?.comments !== '' ? res?.data?.candidate_id?.comments : '';
+    this.messageObject[6].text = res?.data?.candidate_id?.comment2 !== '' ? res?.data?.candidate_id?.comment2 : '';
+    this.messageObject[7].text = res?.data?.candidate_id?.comment3 !== '' ? res?.data?.candidate_id?.comment3 : '';
   }
 
   apply() {

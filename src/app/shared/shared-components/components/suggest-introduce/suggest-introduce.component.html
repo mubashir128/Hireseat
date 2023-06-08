@@ -44,32 +44,35 @@
                         </div>
 
                         <div class="formDivCreate">
-                            <div *ngIf = "companiesAre?.point1" class="form-group">
-                                <input type="checkbox" name="point1" [checked]="checkApplyPoints(companiesAre, 'point1')" [disabled]="!checkApply(companiesAre) && checkApplyPoints(companiesAre, 'point1')" (change)="changedValue($event, companiesAre, 'pointBoolean1')" class="createpostInput"> 
-                                <!-- <p *ngIf = "companiesAre?.point1">
-                                    <label>Point1 :</label>
-                                </p> -->
-                                <span class="spaceLft">
-                                    {{ companiesAre?.point1 }}
-                                </span>
+                            <div *ngIf = "companiesAre?.point1" class="row form-group">
+                                <div class="col">
+                                    <input type="checkbox" name="point1" [checked]="checkApplyPoints(companiesAre, 'point1')" [disabled]="!checkApply(companiesAre) && checkApplyPoints(companiesAre, 'point1')" (change)="changedValue($event, companiesAre, 'pointBoolean1')" class="createpostInput"> 
+                                </div>
+                                <div class="col">
+                                    <span class="spaceLft">
+                                        {{ companiesAre?.point1 }}
+                                    </span>
+                                </div>
                             </div>
-                            <div *ngIf = "companiesAre?.point2" class="form-group">
-                                <input type="checkbox" name="point2" [checked]="checkApplyPoints(companiesAre, 'point2')" [disabled]="!checkApply(companiesAre) && checkApplyPoints(companiesAre, 'point2')" (change)="changedValue($event, companiesAre, 'pointBoolean2')" class="createpostInput"> 
-                                <!-- <p *ngIf = "companiesAre?.point2">
-                                    <label>Point2 :</label>
-                                </p> -->
-                                <span class="spaceLft">
-                                    {{ companiesAre?.point2 }}
-                                </span>
+                            <div *ngIf = "companiesAre?.point2" class="row form-group">
+                                <div class="col">
+                                    <input type="checkbox" name="point2" [checked]="checkApplyPoints(companiesAre, 'point2')" [disabled]="!checkApply(companiesAre) && checkApplyPoints(companiesAre, 'point2')" (change)="changedValue($event, companiesAre, 'pointBoolean2')" class="createpostInput"> 
+                                </div>
+                                <div class="col">
+                                    <span class="spaceLft">
+                                        {{ companiesAre?.point2 }}
+                                    </span>
+                                </div>
                             </div>
-                            <div *ngIf = "companiesAre?.point3" class="form-group">
-                                <input type="checkbox" name="point3" [checked]="checkApplyPoints(companiesAre, 'point3')" [disabled]="!checkApply(companiesAre) && checkApplyPoints(companiesAre, 'point3')" (change)="changedValue($event, companiesAre, 'pointBoolean3')" class="createpostInput"> 
-                                <!-- <p *ngIf = "companiesAre?.point3">
-                                    <label>Point3 :</label>
-                                </p> -->
-                                <span class="spaceLft">
-                                    {{ companiesAre?.point3 }}
-                                </span>
+                            <div *ngIf = "companiesAre?.point3" class="row form-group">
+                                <div class="col">
+                                    <input type="checkbox" name="point3" [checked]="checkApplyPoints(companiesAre, 'point3')" [disabled]="!checkApply(companiesAre) && checkApplyPoints(companiesAre, 'point3')" (change)="changedValue($event, companiesAre, 'pointBoolean3')" class="createpostInput"> 
+                                </div>
+                                <div class="col">
+                                    <span class="spaceLft">
+                                        {{ companiesAre?.point3 }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

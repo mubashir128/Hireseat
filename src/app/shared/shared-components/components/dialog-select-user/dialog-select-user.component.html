@@ -5,6 +5,8 @@
         style="max-height: 525px !important; display: block;"
         [(list)]="userList" 
         [(type)]="actionType"
+        [(multiSelect)]="multiSelect"
+        [(selectUserCount)]="selectUserCount"
         [(columnNames)]="columnNames"
         [(btns)]="btns" 
         (filterEM)='filterModules($event)'

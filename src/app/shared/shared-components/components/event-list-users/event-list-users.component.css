@@ -97,6 +97,17 @@
 }
 
 .events-button{
+    height: 50px;
     display: flex;
     justify-content: center;
+    margin-bottom: 0px !important;
+}
+
+.smallBtns {
+    margin: 7px 0px 7px 0px;
+}
+
+.LinkedInBtn {
+    background-color: #0288d1 !important;
+    border: 1px solid #0e76a8;
 }

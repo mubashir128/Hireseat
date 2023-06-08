@@ -27,6 +27,17 @@
                                 <img [src]="entry?.fromId?.profileimage" alt="profile" />
                             </div>
                         </ng-container>
+                        <div class="">
+                            <div class="smallBtns">
+                                <button class="LinkedInBtn">
+                                  <a>
+                                    <div class="icon-name" (click)="onLinkedIn(entry?.fromId)">
+                                      <span>LinkedIn</span>
+                                    </div>
+                                  </a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="pro-4">
                         <ng-container *ngIf="loggedUser?._id == entry?.fromId?._id">
@@ -53,19 +64,45 @@
                                     </span>
                                 </ng-container>
                             </span>
-                            <div class="">
-                                <ng-container *ngIf="entry?.toId">
-                                    <div class="candProfile11">
-                                        <img [src]="entry?.toId?.profileimage ? entry?.toId?.profileimage : 'assets/img/profile-user.png' "
+                            <div class="row floatRight">
+                                <div class="col">
+                                    <ng-container *ngIf="entry?.toId">
+                                        <div class="candProfile11">
+                                            <img [src]="entry?.toId?.profileimage ? entry?.toId?.profileimage : 'assets/img/profile-user.png' "
                                             alt="profile" />
+                                        </div>
+                                    </ng-container>
+                                    <div class="">
+                                        <div class="smallBtns">
+                                            <button class="LinkedInBtn">
+                                                <a>
+                                                    <div class="icon-name" (click)="onLinkedIn(entry?.toId)">
+                                                        <span>LinkedIn</span>
+                                                    </div>
+                                                </a>
+                                            </button>
+                                        </div>
                                     </div>
-                                </ng-container>
-                                <ng-container *ngIf="entry?.introduceId">
-                                    <div class="candProfile11">
-                                        <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
+                                </div>
+                                <div class="col">
+                                    <ng-container *ngIf="entry?.introduceId">
+                                        <div class="candProfile11">
+                                            <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
                                             alt="profile" />
+                                        </div>
+                                    </ng-container>
+                                    <div class="">
+                                        <div class="smallBtns">
+                                            <button class="LinkedInBtn">
+                                                <a>
+                                                    <div class="icon-name" (click)="onLinkedIn(entry?.introduceId)">
+                                                        <span>LinkedIn</span>
+                                                    </div>
+                                                </a>
+                                            </button>
+                                        </div>
                                     </div>
-                                </ng-container>
+                                </div>
                             </div>
                         </ng-container>
                         <ng-container *ngIf="loggedUser._id == entry?.toId?._id">
@@ -78,19 +115,45 @@
                                     </span>
                                 </ng-container>
                             </span>
-                            <div class="">
-                                <ng-container *ngIf="entry?.toId">
-                                    <div class="candProfile11">
-                                        <img [src]="entry?.toId?.profileimage ? entry?.toId?.profileimage : 'assets/img/profile-user.png' "
+                            <div class="row floatRight">
+                                <div class="col">
+                                    <ng-container *ngIf="entry?.toId">
+                                        <div class="candProfile11">
+                                            <img [src]="entry?.toId?.profileimage ? entry?.toId?.profileimage : 'assets/img/profile-user.png' "
                                             alt="profile" />
+                                        </div>
+                                    </ng-container>
+                                    <div class="">
+                                        <div class="smallBtns">
+                                            <button class="LinkedInBtn">
+                                                <a>
+                                                    <div class="icon-name" (click)="onLinkedIn(entry?.toId)">
+                                                        <span>LinkedIn</span>
+                                                    </div>
+                                                </a>
+                                            </button>
+                                        </div>
                                     </div>
-                                </ng-container>
-                                <ng-container *ngIf="entry?.introduceId">
-                                    <div class="candProfile11">
-                                        <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
-                                            alt="profile" />
-                                    </div>`
-                                </ng-container>
+                                </div>
+                                <div class="col">
+                                    <ng-container *ngIf="entry?.introduceId">
+                                        <div class="candProfile11">
+                                            <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
+                                                alt="profile" />
+                                        </div>
+                                    </ng-container>
+                                    <div class="">
+                                        <div class="smallBtns">
+                                            <button class="LinkedInBtn">
+                                                <a>
+                                                    <div class="icon-name" (click)="onLinkedIn(entry?.introduceId)">
+                                                        <span>LinkedIn</span>
+                                                    </div>
+                                                </a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </ng-container>
                         <ng-container *ngIf="loggedUser?._id == entry?.introduceId?._id">
@@ -103,19 +166,45 @@
                                     </span>
                                 </ng-container>
                             </span>
-                            <div class="">
-                                <ng-container *ngIf="entry?.toId">
-                                    <div class="candProfile11">
-                                        <img [src]="entry?.toId?.profileimage ? entry?.toId?.profileimage : 'assets/img/profile-user.png' "
+                            <div class="row floatRight">
+                                <div class="col">
+                                    <ng-container *ngIf="entry?.toId">
+                                        <div class="candProfile11">
+                                            <img [src]="entry?.toId?.profileimage ? entry?.toId?.profileimage : 'assets/img/profile-user.png' "
                                             alt="profile" />
+                                        </div>
+                                    </ng-container>
+                                    <div class="">
+                                        <div class="smallBtns">
+                                            <button class="LinkedInBtn">
+                                                <a>
+                                                    <div class="icon-name" (click)="onLinkedIn(entry?.toId)">
+                                                        <span>LinkedIn</span>
+                                                    </div>
+                                                </a>
+                                            </button>
+                                        </div>
                                     </div>
-                                </ng-container>
-                                <ng-container *ngIf="entry?.introduceId">
-                                    <div class="candProfile11">
-                                        <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
-                                            alt="profile" />
-                                    </div>`
-                                </ng-container>
+                                </div>
+                                <div class="col">
+                                    <ng-container *ngIf="entry?.introduceId">
+                                        <div class="candProfile11">
+                                            <img [src]="entry?.introduceId?.profileimage ? entry?.introduceId?.profileimage : 'assets/img/profile-user.png' "
+                                                alt="profile" />
+                                        </div>
+                                    </ng-container>
+                                    <div class="">
+                                        <div class="smallBtns">
+                                            <button class="LinkedInBtn">
+                                                <a>
+                                                    <div class="icon-name" (click)="onLinkedIn(entry?.introduceId)">
+                                                        <span>LinkedIn</span>
+                                                    </div>
+                                                </a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </ng-container>
                     </div>

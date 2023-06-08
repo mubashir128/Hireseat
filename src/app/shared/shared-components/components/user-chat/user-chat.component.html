@@ -137,7 +137,7 @@
             {{ group.fullName | uppercase | slice: 0 : 1 }}
           </div>
           <div class="chat-user-title" (click)="showUserData(group._id, true)">
-            {{ group.fullName }}
+            {{ getGroupChatName(group.fullName) }}
             <span class="countText" *ngIf="group.count > 0">
               {{group.count}}
             </span>
