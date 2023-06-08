@@ -20,6 +20,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { AuthenticationService } from "src/app/_services/authentication.service";
 import { DialogDeleteComponent } from "src/app/shared/shared-components/components/dialog-delete/dialog-delete.component";
 import { ChatGptService } from "src/app/_services/chat-gpt.service";
+import { DialogOnlyTextMessageComponent } from "src/app/shared/shared-components/components/dialog-only-text-message/dialog-only-text-message.component";
 
 declare var Materialize: any;
 
@@ -240,7 +241,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
                 // this.resume.fileURL = data.result;
                 this.fileUploaded = 2;
                 Materialize.toast("Resume Uploaded Successfully !", 1000);
-                Materialize.toast("Please click Save button !", 1000);
                 this.submit();
               } else {
                 Materialize.toast("Something Went Wrong !", 1000);
@@ -368,7 +368,19 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   getAccomplishmentsFromChatGPT(data){
     let prompt = "Provide the candidate 5 biggest accomplishments (less than 2000 words)?";
+    // this.spinner.show();
+    const dialogOnlyTextRef = this.dialog.open(DialogOnlyTextMessageComponent,{
+      data: {
+        disableClose: true,
+        dialogText : "Please wait as we load responses from Chatgpt. This may take up to a minute."
+      },
+    });
+
+    dialogOnlyTextRef.afterClosed().subscribe(result => {
+    });
+
     this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      dialogOnlyTextRef.close();
       if(res?.choices[0]?.message?.content){
         let responseText = res?.choices[0]?.message?.content;
         let result = this._chatGptService.convertChatGPTResponse(responseText);
@@ -379,6 +391,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           accomplishment4: result[3],
           accomplishment5: result[4]
         });
+        Materialize.toast("Please click Save button !", 1500);
       }
     });
   }

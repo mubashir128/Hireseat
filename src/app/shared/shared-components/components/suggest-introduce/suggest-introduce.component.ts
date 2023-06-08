@@ -162,7 +162,7 @@ export class SuggestIntroduceComponent implements OnInit {
         btns  : ["apply"],
         jobDescription : jobDescription,
         type : type,
-        userId : (type == eTypes.apply) ? this.loggedUser._id : undefined
+        userId : (type == eTypes.apply) ? this.loggedUser._id : selectedUsers[0]
       }
     });
 

@@ -403,4 +403,9 @@ export class UserChatComponent implements OnInit, OnChanges {
     });
     user.count = count;
   }
+
+  getGroupChatName(groupName){
+    let text = groupName.split(this._constants.groupChatTextIgnore);
+    return text ? text[0] : groupName;
+  }
 }
