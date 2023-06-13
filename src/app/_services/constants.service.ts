@@ -166,6 +166,7 @@ export class ConstantsService {
   chatGptVersion;
 
   groupChatTextIgnore;
+  jobPostAnnounce;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -410,6 +411,7 @@ export class ConstantsService {
     this.chatGptVersion = obj.chatGptVersion;
 
     this.groupChatTextIgnore = obj.groupChatTextIgnore;
+    this.jobPostAnnounce = obj.jobPostAnnounce;
   }
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import * as myGlobals from "../globalPath";
+import { Observable } from 'rxjs';
 
 export enum eTypes {
   apply = "apply",
@@ -96,5 +97,10 @@ export class PostJobService {
     }
 
     return this._http.get<any>(this.baseurl + "api/get-my-post-job", { params: params });
+  }
+
+  annoucPostJob(jobData):Observable<any>{
+    let url = this.baseurl + "api/annouce-post-job";
+    return this._http.post<any>(url, jobData);
   }
 }

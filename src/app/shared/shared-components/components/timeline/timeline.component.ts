@@ -98,6 +98,12 @@ export class TimelineComponent implements OnInit {
     this._router.navigate(["/"+this.loggedUser.userRole + url], {queryParams : {fromId : fromId, introduceId: introduceId, toId : toId, type: 1}});
   }
 
+  goToJobPosts(timeline){
+    let postJobId = timeline?.postJobId?._id;
+    let url = "/suggest-introduce";
+    this._router.navigate( [ "/" + this.loggedUser.userRole + url ], { queryParams : { postJobId : postJobId } } );
+  }
+  
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.timelineType });
     this.timelineObserver.unsubscribe();

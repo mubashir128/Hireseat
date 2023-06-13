@@ -69,6 +69,8 @@ export class AppListComponent implements OnInit {
   @Output() editEM = new EventEmitter();
   @Output() selectEM = new EventEmitter();
 
+  @Output() annoucePostJobEM = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -80,6 +82,10 @@ export class AppListComponent implements OnInit {
 
   edit(item: any){
     this.editEM.emit(item);
+  }
+
+  annoucPostJob(postJobData){
+    this.annoucePostJobEM.emit(postJobData);
   }
 
 }
