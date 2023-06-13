@@ -91,4 +91,9 @@ export class PostJobComponent implements OnInit {
       }
     });
   }
+
+  annoucPostJob(postJobData){
+    this._postJobService.annoucPostJob(postJobData).subscribe((res)=>{
+    })
+  }
 }
