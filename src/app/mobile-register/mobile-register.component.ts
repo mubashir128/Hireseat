@@ -66,6 +66,7 @@ export class MobileRegisterComponent implements OnInit {
 
   industriesAre = [];
   industries = [];
+  otherSignUp: boolean = false;
 
   constructor(private _router: Router, 
     private _formBuilder: FormBuilder,
@@ -168,11 +169,13 @@ export class MobileRegisterComponent implements OnInit {
       if(data.status){
         this.goForward(stepper);
       }else{
+        this.otherSignUp = false;
         Materialize.toast("Something went wrong.", 1000, "red");  
       }
     }, (err)=>{
       Materialize.toast("Email already exists.", 1000, "red");
       this.loading = false;
+      this.otherSignUp = false;
     });
   }
 
@@ -271,14 +274,19 @@ export class MobileRegisterComponent implements OnInit {
       userRole: this.localRole,
       role: this.userRoleData,
       fileURL: this.fileURL,
-      industries: this.industries
+      industries: this.industries,
+      otherSignUp : this.otherSignUp
     }
 
     this._userService.registerMobileCandidate(payload).subscribe((data) => {
       if(data){
         this.currentUserId = data.currentUserId;
         this._spinner.hide();
-        this.goForward(stepper);
+        if(this.otherSignUp){
+          this.goToLogin(true);
+        }else{
+          this.goForward(stepper);
+        }
       }
       
     }, (err) => {
@@ -328,6 +336,7 @@ export class MobileRegisterComponent implements OnInit {
     this.canValue = eUserType.candidate;
     this.firstName = emailData.givenName;
     this.lastName = emailData.familyName;
+    this.otherSignUp = true;
     this.signUp(stepper);
   }
 
