@@ -102,13 +102,14 @@ export class MobileRegisterComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       jobTitle: ['', Validators.required],
-      linkedIn : [''],
-      desiredRoles: ['', Validators.required]
-    });
-    this.thirdFormGroup = this._formBuilder.group({
+      // linkedIn : [''],
       desiredCompanies: ['', Validators.required],
-      introduceYouToo: ['', Validators.required]
+      // desiredRoles: ['', Validators.required]
     });
+    // this.thirdFormGroup = this._formBuilder.group({
+    //   desiredCompanies: ['', Validators.required],
+    //   introduceYouToo: ['', Validators.required]
+    // });
     this.fourFormGroup = this._formBuilder.group({
       verifyCode: ['', Validators.required]
     });
@@ -184,7 +185,7 @@ export class MobileRegisterComponent implements OnInit {
   }
 
   sendVerifyCode(stepper: MatStepper){
-    if(this.desiredCompanies.trim() == "" || this.introduceYouToo.trim() == ""){
+    if(this.desiredCompanies.trim() == ""){
       Materialize.toast("All Fields are required.", 1000, "red");
       return ;
     }

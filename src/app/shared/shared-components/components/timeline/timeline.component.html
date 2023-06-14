@@ -86,6 +86,10 @@
               </span>
             </span>
 
+            <span class="intoedClass" *ngIf = "timeline.status == _constants.jobPostAnnounce" (click)="goToJobPosts(timeline)">
+              {{ timeline.fromId?.fullName }} - {{ timeline?.toName }}.
+            </span>
+
             <div class="">
               <ng-container *ngIf="timeline.systemUserId">
                 <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
