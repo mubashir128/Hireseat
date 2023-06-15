@@ -494,4 +494,13 @@ export class UserService {
     return endTime.diff(startTime, 'minutes');
     // return endTime.diff(startTime, 'hours');
   }
+
+  getBeforeMyProfileDialog(){
+    return localStorage.getItem("beforeMyProfileDialog");
+  }
+
+  setBeforeMyProfileDialog(){
+    localStorage.setItem("beforeMyProfileDialog", "true");
+  }
+  
 }
