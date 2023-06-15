@@ -402,4 +402,12 @@ export class UserService {
   formatDate(now, format){
     return now ? moment(now).format(format) : '';
   }
+
+  getBeforeMyProfileDialog(){
+    return localStorage.getItem("beforeMyProfileDialog");
+  }
+
+  setBeforeMyProfileDialog(){
+    localStorage.setItem("beforeMyProfileDialog", "true");
+  }
 }

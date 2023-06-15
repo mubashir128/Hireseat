@@ -21,6 +21,7 @@ import { AuthenticationService } from "src/app/_services/authentication.service"
 import { DialogDeleteComponent } from "src/app/shared/shared-components/components/dialog-delete/dialog-delete.component";
 import { ChatGptService } from "src/app/_services/chat-gpt.service";
 import { DialogOnlyTextMessageComponent } from "src/app/shared/shared-components/components/dialog-only-text-message/dialog-only-text-message.component";
+import { DialogOnlyMessageComponent } from "src/app/shared/shared-components/components/dialog-only-message/dialog-only-message.component";
 
 declare var Materialize: any;
 
@@ -132,10 +133,31 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     this.loopIndustries = this._candidateCarrer.getLoopIndustries();
 
     this.getProfile();
+    this.openTextDialog();
 
-    setTimeout(()=>{
-      this.tourStart();
-    }, 500);
+    // setTimeout(()=>{
+    //   this.tourStart();
+    // }, 500);
+  }
+
+  openTextDialog(){
+    let loginCount = JSON.parse(localStorage.getItem("currentUser")).userInfo.loginCount;
+    let beforeMyProfileDialog = JSON.parse(this.userService.getBeforeMyProfileDialog());
+    
+    if(loginCount == 1 || !beforeMyProfileDialog){
+      const dialogOnlyTextRef = this.dialog.open(DialogOnlyMessageComponent,{
+        data: {
+          disableClose: true,
+          dialogText1 : ' "Why should I hire you? Give me 3 reasons." ',
+          dialogText2 : "Surprisingly most candidates do not know the answer.",
+          dialogText3 : "Upload your resume and ChatGPT can help."
+        },
+      });
+  
+      dialogOnlyTextRef.afterClosed().subscribe(result => {
+        this.userService.setBeforeMyProfileDialog();
+      });
+    }
   }
 
   tourStart(){
