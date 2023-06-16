@@ -6,4 +6,13 @@
         <p class="bodyPara">{{ dialogText2 }}</p>
         <p class="bodyPara">{{ dialogText3 }}</p>
     </div>
+    <div *ngIf="inputBox">
+        <input type="text" placeholder="Abc, Lmn, etc*" [(ngModel)]="inputText">
+        <span style="color: red;">This field must*</span>
+    </div>
+    <div class="textCenter">
+        <button *ngIf="getBtns('save')" (click)="save()" class="sendBtn saveBtnClass">
+            Save
+        </button>
+    </div>
 </div>
