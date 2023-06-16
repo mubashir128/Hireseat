@@ -93,7 +93,8 @@ export class TimelineComponent implements OnInit {
     let status = JSON.parse(this.userService.getSelectToAddFriends());
     let autoValueFinder = JSON.parse(this.userService.getAutoRunValueFinder());
     if(status){
-      this._router.navigate(["/"+this.loggedUser.userRole+"/friends-connections"]);
+      // this._router.navigate(["/"+this.loggedUser.userRole+"/friends-connections"]);
+      this._router.navigate(["/"+this.loggedUser.userRole+"/my-profile"]);
       const dialogRef = this._dialog.open(DialogSelectToAddFriendsComponent, {
         autoFocus: false,
         width: '45vh',
