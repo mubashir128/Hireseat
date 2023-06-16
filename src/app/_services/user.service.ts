@@ -410,4 +410,22 @@ export class UserService {
   setBeforeMyProfileDialog(){
     localStorage.setItem("beforeMyProfileDialog", "true");
   }
+
+  getFirstTimeIntro(){
+    return localStorage.getItem("firstFirstTimeIntro");
+  }
+
+  setFirstTimeIntro(){
+    localStorage.setItem("firstFirstTimeIntro", "true");
+  }
+
+  updateUserIntro(payload){
+    return this.http
+      .post<any>(this.baseurl + "api/update-user-intro", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
 }

@@ -20,6 +20,7 @@ import { ResumeService } from 'src/app/_services/resume.service';
 import { IntroduceService } from 'src/app/_services/introduce.service';
 import { DialogSelectUserComponent } from '../dialog-select-user/dialog-select-user.component';
 import { DialogInputTextMessageComponent } from '../dialog-input-text-message/dialog-input-text-message.component';
+import { DialogOnlyMessageComponent } from '../dialog-only-message/dialog-only-message.component';
 
 declare var jQuery;
 declare var Materialize;
@@ -98,7 +99,43 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
       this.handleConnectionFriendData(res);
     });
 
+    this.openTextDialog();
     this.getFriendConnections();
+  }
+
+  openTextDialog(){
+    let loginCount = JSON.parse(localStorage.getItem("currentUser")).userInfo.loginCount;
+    let getFirstTimeIntro = JSON.parse(this._userService.getFirstTimeIntro());
+    
+    if(loginCount == 1 || !getFirstTimeIntro){
+      const dialogOnlyTextRef = this.dialog.open(DialogOnlyMessageComponent, {
+        data: {
+          disableClose: true,
+          dialogText1 : "What companies can you intro someone to?",
+          dialogText2 : "The secret of networking is helping others.",
+          dialogText3 : "Enter atleast one company you can intro other members to start getting connected.",
+          btnsAre : ["save"],
+          inputBox : true
+        },
+      });
+  
+      dialogOnlyTextRef.afterClosed().subscribe(result => {
+        if(result?.save && result?.inputText !== ""){
+          this._userService.setFirstTimeIntro();
+          this.updateUserIntro(result?.inputText);
+        }else{
+          this.openTextDialog();
+        }
+      });
+    }
+  }
+
+  updateUserIntro(intro){
+    let payload = {
+      intro : intro
+    }
+    this._userService.updateUserIntro(payload).subscribe(res=>{
+    });
   }
 
   handleConnectionFriendData(res: any) {
