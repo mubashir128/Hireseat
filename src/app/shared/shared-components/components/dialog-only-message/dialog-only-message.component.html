@@ -7,8 +7,8 @@
         <p class="bodyPara">{{ dialogText3 }}</p>
     </div>
     <div *ngIf="inputBox">
-        <input type="text" placeholder="Abc, Lmn, etc*" [(ngModel)]="inputText">
-        <span style="color: red;">This field must*</span>
+        <input type="text" placeholder="Google, JP Morgan… etc*" [(ngModel)]="inputText">
+        <span style="color: red;">This field is required*</span>
     </div>
     <div class="textCenter">
         <button *ngIf="getBtns('save')" (click)="save()" class="sendBtn saveBtnClass">
