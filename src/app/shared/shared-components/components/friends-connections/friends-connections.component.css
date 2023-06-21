@@ -371,3 +371,23 @@ button.shareBtn{
   background-color: #03aaff !important;
   border: 1px solid #03aaff !important;
 }
+
+.smallBtns {
+  margin-left: 3px !important;
+}
+
+.LinkedInBtnNew {
+  padding: 0px !important;
+}
+
+.LinkedInBtnNew a {
+  color: #ffffff;
+}
+
+.LinkedInBtnNew .icon-name {
+  display: flex;
+}
+
+.LinkedInBtnNew span {
+  font-size: 10px;
+}

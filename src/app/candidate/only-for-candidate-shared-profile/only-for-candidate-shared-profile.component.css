@@ -1038,5 +1038,9 @@ input {
 
 .marOther{
   margin-left: 55px;
-  margin-top: -15px;
+  margin-top: -50px;
+}
+
+.smallBtns{
+  margin-left: 3px !important;
 }

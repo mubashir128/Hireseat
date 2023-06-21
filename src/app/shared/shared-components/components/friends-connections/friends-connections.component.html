@@ -175,12 +175,23 @@
 
                         <div class="row" style="margin: auto;">
                           <div class="col s3 m3 l3" style="width: auto;">
-                            <div *ngIf = "!friendsAre.requester.showCreatedLogo" class="big-badge big-badge-wid">
+                            <div *ngIf = "!friendsAre?.requester?.showCreatedLogo" class="big-badge big-badge-wid">
                               <img src="{{ friendsAre?.requester?.profileimage }}" (error)="changeLogo(friendsAre.requester)" class="iconStyle" style="max-width: 100%" />
                             </div>
-                            <div *ngIf = "friendsAre.requester.showCreatedLogo" class="big-badge big-badge-wid">
+                            <div *ngIf = "friendsAre?.requester?.showCreatedLogo" class="big-badge big-badge-wid">
                               {{ friendsAre?.requester?.fullName | uppercase | slice: 0 : 1 }}
                             </div>
+
+                            <div class="smallBtns">
+                              <button class="LinkedInBtnNew">
+                                <a>
+                                  <div class="icon-name" (click)="onLinkedIn(friendsAre?.resumeId?.linkedIn)">
+                                    <span class="colorWhiteClass">LinkedIn</span>
+                                  </div>
+                                </a>
+                              </button>
+                            </div>
+
                           </div>
 
                           <div class="col s9 m9 l9 marTop wrdWrap">
@@ -247,6 +258,17 @@
                             <div *ngIf = "friendsAre.recipient.showCreatedLogo" class="big-badge big-badge-wid">
                               {{ friendsAre?.recipient?.fullName | uppercase | slice: 0 : 1 }}
                             </div>
+
+                            <div class="smallBtns">
+                              <button class="LinkedInBtnNew">
+                                <a>
+                                  <div class="icon-name" (click)="onLinkedIn(friendsAre?.resumeId2?.linkedIn)">
+                                    <span class="colorWhiteClass">LinkedIn</span>
+                                  </div>
+                                </a>
+                              </button>
+                            </div>
+                            
                           </div>
 
                           <div class="col s9 m9 l9 marTop">
