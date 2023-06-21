@@ -150,7 +150,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     let loginCount = JSON.parse(localStorage.getItem("currentUser")).userInfo.loginCount;
     let beforeMyProfileDialog = JSON.parse(this.userService.getBeforeMyProfileDialog());
     
-    if(loginCount == 1 || !beforeMyProfileDialog){
+    if(loginCount == 1 && !beforeMyProfileDialog){
       const dialogOnlyTextRef = this.dialog.open(DialogOnlyMessageComponent,{
         data: {
           disableClose: true,
@@ -426,7 +426,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           accomplishment4: result[3],
           accomplishment5: result[4]
         });
-        Materialize.toast("Please click Save button !", 1500);
+        this.submit();
+        // Materialize.toast("Please click Save button !", 1500);
       }
       Materialize.toast("Please save the details", 700, "green");
     });

@@ -119,7 +119,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     let loginCount = JSON.parse(localStorage.getItem("currentUser")).userInfo.loginCount;
     let getFirstTimeIntro = JSON.parse(this._userService.getFirstTimeIntro());
     
-    if(loginCount == 1 || !getFirstTimeIntro){
+    if(loginCount == 1 && !getFirstTimeIntro){
       const dialogOnlyTextRef = this.dialog.open(DialogOnlyMessageComponent, {
         data: {
           disableClose: true,

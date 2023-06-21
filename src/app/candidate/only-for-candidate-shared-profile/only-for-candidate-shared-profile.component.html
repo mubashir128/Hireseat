@@ -74,11 +74,22 @@
         <div class="container-fluid mar">
           <div class="container">
             <div class="row marginAuto" style="padding: 0px !important;">
-              <div class="candProfileNew" *ngIf = "!resume.showCreatedLogo" style="float: left;">
-                <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
-              </div>
-              <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge extrabig-badge22">
-                {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+              <div class="col">
+                <div class="candProfileNew" *ngIf = "!resume.showCreatedLogo" style="float: left;">
+                  <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
+                </div>
+                <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge extrabig-badge22">
+                  {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
+                </div>
+                <div class="smallBtns">
+                  <button class="LinkedInBtnNew">
+                    <a>
+                      <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
+                        <span>LinkedIn</span>
+                      </div>
+                    </a>
+                  </button>
+                </div>
               </div>
 
               <!-- <div class="col-xs-3 col-md-3" style="float: left; width: auto;">
