@@ -75,6 +75,17 @@
                             <div *ngIf = "requestedFriendIs.requester.showCreatedLogo" class="big-badge big-badge-wid">
                               {{ requestedFriendIs.requester.fullName | uppercase | slice: 0 : 1 }}
                             </div>
+
+                            <div class="smallBtns">
+                              <button class="LinkedInBtnNew">
+                                <a>
+                                  <div class="icon-name" (click)="onLinkedIn(requestedFriendIs?.resumeId?.linkedIn)">
+                                    <span class="colorWhiteClass">LinkedIn</span>
+                                  </div>
+                                </a>
+                              </button>
+                            </div>
+                            
                           </div>
 
                           <div class="col s9 m9 l9 marTop wrdWrap">
