@@ -97,24 +97,3 @@ button.acceptBtn {
 .smallBtns {
     margin: 7px 0px 7px 0px;
 }
-
-.LinkedInBtn {
-    border-radius: 7px;
-    background-color: #0288d1;
-    border: 1px solid #0e76a8;
-    margin-right: -10px;
-}
-
-.LinkedInBtn a {
-    color: #ffffff;
-}
-
-.LinkedInBtn .icon-name {
-    display: flex;
-}
-
-.LinkedInBtn span {
-    text-align: center;
-    margin: 0 auto;
-    font-size: 10px;
-}

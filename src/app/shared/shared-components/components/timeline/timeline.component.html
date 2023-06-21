@@ -27,6 +27,19 @@
                 <img [src] = "timeline.fromId?.profileimage" alt="profile" />
               </div>
             </ng-container>
+
+            <ng-container *ngIf="timeline.status == _constants.threeIntroduce || timeline.status == _constants.connectionRequest">
+              <div class="smallBtns">
+                <button class="LinkedInBtnNew">
+                  <a>
+                    <div class="icon-name" (click)="onLinkedIn(timeline?.fromId)">
+                      <span>LinkedIn</span>
+                    </div>
+                  </a>
+                </button>
+              </div>
+            </ng-container>
+            
           </div>
           <div class="pro-4">
             <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && !timeline.systemUserId" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
@@ -90,32 +103,71 @@
               {{ timeline.fromId?.fullName }} - {{ timeline?.toName }}.
             </span>
 
-            <div class="">
-              <ng-container *ngIf="timeline.systemUserId">
-                <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
-                  <img [src] = "timeline.systemUserId?.profileimage ? timeline.systemUserId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
+            <div class="row floatRight">
+              <div class="col paddZeroClass floatRight">
+                <ng-container *ngIf="timeline.systemUserId">
+                  <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
+                    <img [src] = "timeline.systemUserId?.profileimage ? timeline.systemUserId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
+                  </div>
+                </ng-container>
+              </div>
+
+              <div class="col paddZeroClass floatRight">
+                <ng-container *ngIf="timeline.profileUserId">
+                  <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
+                    <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                  </div>
+                </ng-container>
+              </div>
+              
+              <ng-container *ngIf="timeline.status == _constants.connectionRequest">
+                <div class="smallBtns">
+                  <button class="LinkedInBtnNew">
+                    <a>
+                      <div class="icon-name" (click)="onLinkedIn(timeline?.toId)">
+                        <span>LinkedIn</span>
+                      </div>
+                    </a>
+                  </button>
                 </div>
               </ng-container>
 
-              <ng-container *ngIf="timeline.profileUserId">
-                <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
-                  <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
-                </div>
-              </ng-container>
             </div>
 
-            <div *ngIf="timeline.status == _constants.threeIntroduce" class="">
-              <ng-container *ngIf="timeline.introduceId">
-                <div class="candProfile11">
-                  <img [src] = "timeline.introduceId?.profileimage ? timeline.introduceId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+            <div *ngIf="timeline.status == _constants.threeIntroduce" class="row floatRight">
+              <div class="col paddZeroClass" style="padding-left: 15px !important;">
+                <ng-container *ngIf="timeline.introduceId">
+                  <div class="candProfile11">
+                    <img [src] = "timeline.introduceId?.profileimage ? timeline.introduceId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                  </div>
+                </ng-container>
+                <div class="smallBtns">
+                  <button class="LinkedInBtnNew">
+                    <a>
+                      <div class="icon-name" (click)="onLinkedIn(timeline?.introduceId)">
+                        <span>LinkedIn</span>
+                      </div>
+                    </a>
+                  </button>
                 </div>
-              </ng-container>
+              </div>
               
-              <ng-container *ngIf="timeline.toId">
-                <div class="candProfile11">
-                  <img [src] = "timeline.toId?.profileimage ? timeline.toId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
+              <div class="col paddZeroClass" style="padding-left: 15px !important;">
+                <ng-container *ngIf="timeline.toId">
+                  <div class="candProfile11">
+                    <img [src] = "timeline.toId?.profileimage ? timeline.toId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
+                  </div>
+                </ng-container>
+                <div class="smallBtns">
+                  <button class="LinkedInBtnNew">
+                    <a>
+                      <div class="icon-name" (click)="onLinkedIn(timeline?.toId)">
+                        <span>LinkedIn</span>
+                      </div>
+                    </a>
+                  </button>
                 </div>
-              </ng-container>
+              </div>
             </div>
           </div>
           

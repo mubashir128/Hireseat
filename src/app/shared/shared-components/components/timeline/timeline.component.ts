@@ -103,7 +103,18 @@ export class TimelineComponent implements OnInit {
     let url = "/suggest-introduce";
     this._router.navigate( [ "/" + this.loggedUser.userRole + url ], { queryParams : { postJobId : postJobId } } );
   }
-  
+
+  onLinkedIn(user){
+    this.userService.getUserDetails({ receiverId: user._id }).subscribe((res : any)=>{
+      let link = res?.data?.candidate_id?.linkedIn;
+      if (link.includes("https")) {
+        window.open(link, "_blank");
+      } else {
+        window.open("https://" + link, "_blank");
+      }
+    });
+  }
+
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.timelineType });
     this.timelineObserver.unsubscribe();

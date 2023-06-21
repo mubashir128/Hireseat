@@ -1558,3 +1558,28 @@ body {
 .floatRight{
   float: right !important;
 }
+
+.paddZeroClass{
+  padding: 0px !important;
+}
+
+.LinkedInBtnNew {
+  border-radius: 7px;
+  background-color: #0288d1;
+  border: 1px solid #0e76a8;
+  margin-right: -10px;
+}
+
+.LinkedInBtnNew a {
+  color: #ffffff;
+}
+
+.LinkedInBtnNew .icon-name {
+  display: flex;
+}
+
+.LinkedInBtnNew span {
+  text-align: center;
+  margin: 0 auto;
+  font-size: 10px;
+}
