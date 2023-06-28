@@ -78,15 +78,6 @@
                 <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge extrabig-badge22">
                   {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
                 </div>
-                <div class="smallBtns">
-                  <button class="LinkedInBtnNew">
-                    <a>
-                      <div class="icon-name" (click)="onLinkedIn(resume?.linkedIn)">
-                        <span>LinkedIn</span>
-                      </div>
-                    </a>
-                  </button>
-                </div>
               </div>
 
               <!-- <div class="col-xs-3 col-md-3" style="float: left; width: auto;">
@@ -96,15 +87,6 @@
                 <!-- <span [ngClass]="(resume?.candidateKey?.online || resume?.candidate_id?.online) ? 'dotOnline' : 'dotOffline'"></span> -->
                 <span style="margin-left: 5px;">{{ resume?.candidateName || resume?.candidate_id?.fullName }}</span>
                 <!-- <span>First & Last Name</span> -->
-              </div>
-            </div>
-            <div class="row marginAuto marOther">
-              <div style="border-radius: 10px; background-color: red; width: 60%;">
-                <label style="margin-left: 5px; color: white;"># of Introductions : </label>
-                  <label style="font-size: 12px; color: white;">
-                    <!-- {{ resume?.introduceCount || resume?.candidateProfileKey?.introduceCount }} -->
-                    {{ getIntroduceCount(resume) }}
-                  </label>
               </div>
             </div>
           </div>
@@ -133,6 +115,14 @@
                     {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
                   </label>
               </p>
+              <p>
+                <span style="border-radius: 10px; background-color: red; width: 60%; padding: 4px;">
+                  <label style="margin-left: 5px; color: white;"># of Introductions : </label>
+                    <label style="font-size: 12px; color: white;">
+                      {{ getIntroduceCount(resume) }}
+                    </label>
+                </span>
+              </p>
             </div>
 
             <!-- <div class="row list">
@@ -151,7 +141,16 @@
         </div>
 
         <div style="margin-bottom: 10px;">
-          <div class="container-fluid"  *ngIf = "!resume.toRequested && !resume.addedAsAFriend">
+
+          <div class="container-fluid">
+            <div class="container">
+              <div class="row cont">
+                <button class="LinkedInBtnNewSelf" (click)="onLinkedIn(resume?.linkedIn)">LinkedIn</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid" style="margin-top: 10px;" *ngIf = "!resume.toRequested && !resume.addedAsAFriend">
             <div class="container">
               <div class="row cont">
                 <button (click)="connectWithOffers(resume)">connect</button>
@@ -337,4 +336,12 @@
   </ng-container>
 </div> -->
 
-<app-no-data-available *ngIf = "resumes.length == 0"></app-no-data-available>
+<ng-container *ngIf="loading || true">
+  <div style="font-size: 18px; text-align: center;">
+    Loading...
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!loading">
+  <app-no-data-available *ngIf = "resumes.length == 0"></app-no-data-available>
+</ng-container>

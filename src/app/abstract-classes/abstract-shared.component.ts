@@ -77,6 +77,7 @@ export abstract class AbstractSharedComponent{
   searchTerm = "";
 
   resumes = [];
+  loading: boolean = true;
   resume: any;
   show: any;
   editTextIndex: any;
