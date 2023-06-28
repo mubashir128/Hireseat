@@ -985,10 +985,10 @@ input {
 .work { text-align: center; font-size: 18px;}
 .work H4 { margin-top: 10%;}
 .list  li { float: left; text-decoration: none; list-style: none; }
-.bor { border:solid 1px #03aaff; margin-top: 5%; margin-bottom: 5%;}
+.bor { border:solid 1px #03aaff; margin-top: 2%; margin-bottom: 2%;}
 .list { text-align: center; margin: 0 auto; padding: 10px; margin-top: 30px; margin-bottom: 30px;}
 .img-1 { text-align: center; margin: 0 auto;}
-.cont button { border: solid 1px #4472c4;padding: 10px; border-radius: 5px; background: transparent; text-transform: uppercase; font-size: 15px;font-weight: 500; color: #4472c4; width: 50%;}
+.cont button { border: solid 1px #4472c4;padding: 6px; border-radius: 5px; background: transparent; text-transform: uppercase; font-size: 13px;font-weight: 500; color: #4472c4; width: 40%;}
 .img-1 { padding: 20px;}
 .list img { text-align: center; margin: 0 auto;}
 .cont {  text-align: center; margin: 0 auto;}
@@ -998,9 +998,9 @@ input {
 
 .first{
   float: left;
-  margin-top: 15px;
-  font-size: 20px;
-  margin-left: 10px;
+  margin-top: 22px;
+  font-size: 17px;
+  /* margin-left: 10px; */
 }
 
 .areaDiv{
