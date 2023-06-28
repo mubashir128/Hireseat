@@ -1702,3 +1702,7 @@ body {
 .colorWhiteClass {
   color: #fff !important;
 }
+
+.marTop10 {
+  margin-top: 10px;
+}
