@@ -24,9 +24,17 @@ export class SuggestAndEventsComponent implements OnInit {
     this.itemsIs = this._route.snapshot.queryParams["eventRoute"] ? this._route.snapshot.queryParams["eventRoute"] : this.itemsIs;
     let eventRoute = this._route.snapshot.queryParams["eventRoute"];
     let eventId = this._route.snapshot.queryParams["eventId"];
+
+    let postJobId = this._route.snapshot.queryParams["postJobId"];
+    
     if(eventRoute){
       this.itemsIs = eventRoute;
       this.activeEventstab();
+    }
+
+    if(postJobId){
+      this.itemsIs = 3;
+      this.activeJobs();
     }
   }
 
