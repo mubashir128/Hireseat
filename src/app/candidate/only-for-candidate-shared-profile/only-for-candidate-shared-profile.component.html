@@ -153,7 +153,7 @@
             </div>
           </div>
 
-          <div class="container-fluid" style="margin-top: 10px;" *ngIf = "!resume.toRequested && !resume.addedAsAFriend">
+          <div class="container-fluid marTop10" *ngIf = "!resume.toRequested && !resume.addedAsAFriend">
             <div class="container">
               <div class="row cont">
                 <button (click)="connectWithOffers(resume)">connect</button>
@@ -161,7 +161,7 @@
             </div>
           </div>
 
-          <div class="container-fluid"  *ngIf = "resume.toRequested">
+          <div class="container-fluid marTop10" *ngIf = "resume.toRequested">
             <div class="container">
               <div class="row cont">
                 <button (click)="pendingRequest(resume)">Pending</button>
@@ -169,14 +169,14 @@
             </div>
           </div>
 
-          <!-- <div class="container-fluid" style="margin-top: 10px;" *ngIf = "resume.addedAsAFriend">
+          <!-- <div class="container-fluid marTop10" *ngIf = "resume.addedAsAFriend">
             <div class="container">
               <div class="row cont">
                 <button (click)="showShareModal2(resume)">Offer Intro</button>
               </div>
             </div>
           </div> -->
-          <div class="container-fluid" style="margin-top: 10px;" *ngIf = "resume.addedAsAFriend">
+          <div class="container-fluid marTop10" *ngIf = "resume.addedAsAFriend">
             <div class="container">
               <div class="row cont">
                 <button (click)="swapIntro(resume)">Start Conversation</button>
