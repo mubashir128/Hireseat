@@ -7,6 +7,7 @@ declare var Materialize;
 
 export enum eSelectContentType {
   pendingCandidates = "pendingCandidates",
+  allCandidates = "allCandidates",
   select = "select"
 }
 
@@ -19,7 +20,8 @@ export class DialogDeleteUsersComponent extends AbstractDialogComponent implemen
   defaultType = eSelectContentType.select;
   selectTypes = [
     { name: "Select", value: eSelectContentType.select },
-    { name: "Pending Candidates", value: eSelectContentType.pendingCandidates }
+    { name: "Pending Candidates", value: eSelectContentType.pendingCandidates },
+    { name: "All Candidates", value: eSelectContentType.allCandidates }
   ];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogDeleteUsersComponent,

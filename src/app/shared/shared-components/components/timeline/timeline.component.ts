@@ -163,7 +163,7 @@ export class TimelineComponent implements OnInit {
 
   goToJobPosts(timeline){
     let postJobId = timeline?.postJobId?._id;
-    let url = "/suggest-introduce";
+    let url = "/suggest-and-events";
     this._router.navigate( [ "/" + this.loggedUser.userRole + url ], { queryParams : { postJobId : postJobId } } );
   }
 

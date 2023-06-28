@@ -209,6 +209,8 @@ export class MenusComponent implements OnInit {
 
     this.tabs2.push(new Tab2("api/export-user", "Export User", false, "fas fa-file-export"));
 
+    this.tabs2.push(new Tab2("api/download-hireseat-network-canddiates", "Export Hireseat Network Candiates", false, "fas fa-file-export"));
+    
     this.tabs2.push(new Tab2("/super-admin/create-event", "Create event", false, "fas fa-network-wired"));
 
     this.tabs2.push(new Tab2("api/delete-users", "Delete Users", false, "fas fa-trash"));
@@ -242,6 +244,8 @@ export class MenusComponent implements OnInit {
       this.selectUserToExport(item);
     }else if(text == 'Delete Users'){
       this.deleteUsers(item);
+    }else if(text == 'Export Hireseat Network Candiates'){
+      this.downloadHireseatNetworkCandidatesExports(item);
     }else{
       this.router.navigate([item]);
     }
@@ -255,6 +259,13 @@ export class MenusComponent implements OnInit {
     // });
 
 
+  }
+
+  downloadHireseatNetworkCandidatesExports(item){
+    let promises = this._exportsService.exportXlsxData(item, 'Hireseat-Network-Candidates-Exports').toPromise();
+    promises.then(result=>{
+      // console.log("result : ",result);
+    });
   }
 
   selectUserToExport(item){

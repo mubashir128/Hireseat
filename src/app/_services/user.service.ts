@@ -467,8 +467,17 @@ export class UserService {
     return this.http.post<any>(this.baseurl + "api/deleteParticularUser", {userId : userId});
   }
 
-  getTypeUsers(type){
-    return this.http.post<any>(this.baseurl + "api/getTypeUsers", {type : type});
+  getTypeUsers(type, searchFilters?){
+    let params = new HttpParams();
+    if(type){
+      params = params.append('type', type);
+    }
+    if (searchFilters) {
+      searchFilters.forEach((value, key) => {
+        params = params.append(key, value);
+      });
+    }
+    return this.http.get<any>(this.baseurl + "api/getTypeUsers", { params: params });
   }
 
   formatDate(now, format){
