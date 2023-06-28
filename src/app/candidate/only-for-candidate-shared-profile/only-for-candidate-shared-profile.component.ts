@@ -179,6 +179,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     switch (res.subType) {
       case this._constants.getAllOnlyForCandidateSharedProfileType:
         this.showLoader = false;
+        this.loading = false;
         this.resumes = res.data;
         this.scrollAndBorder();
         this.addFriendConnectionToProfile(res);
