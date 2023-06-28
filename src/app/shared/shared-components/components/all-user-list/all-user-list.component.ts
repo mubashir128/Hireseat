@@ -25,6 +25,8 @@ export class AllUserListComponent implements OnInit {
   displayedColumns: string[] = ['action', 'fullName', 'email', 'status', 'createdAt'];
   dataSource;
 
+  searchFilters = new Map();
+
   constructor(
     private _route: ActivatedRoute,
     private _userService: UserService,
@@ -38,18 +40,18 @@ export class AllUserListComponent implements OnInit {
       this.type = params.type;
     });
     this.title = (this.type == this._constants.pendingCandidates) ? "Pending Candidates" : "";
-    this.getTypeUsers(this.type);
+    this.getTypeUsers();
   }
 
-  getTypeUsers(type){
-    let promises = this._userService.getTypeUsers(type).toPromise();
+  getTypeUsers(searchFilters = this.searchFilters){
+    let promises = this._userService.getTypeUsers(this.type, searchFilters).toPromise();
     promises.then(result=>{
       this.dataSource = result;
     });
   }
 
   delete(element){
-    const dialogDeleteRef = this._dialog.open(DialogDeleteComponent,{
+    const dialogDeleteRef = this._dialog.open(DialogDeleteComponent, {
       data: {
         dialogType : "ConfirmDeleteAction",
         dialogTitle : "Confirm Delete Action",
@@ -62,7 +64,7 @@ export class AllUserListComponent implements OnInit {
         this._spinner.show();
         let promises = this._userService.deleteParticularUser(element._id).toPromise();
         promises.then(result2=>{
-          this.getTypeUsers(this.type);
+          this.getTypeUsers();
           this._spinner.hide();
           Materialize.toast("User deleted successfully", 1000, "green");
         }).catch((err)=>{
@@ -70,6 +72,11 @@ export class AllUserListComponent implements OnInit {
         });
       }
     });
+  }
+
+  onFilterChange(column: string, searchValue: string){
+    this.searchFilters.set(column, searchValue);
+    this.getTypeUsers();
   }
 
 }
