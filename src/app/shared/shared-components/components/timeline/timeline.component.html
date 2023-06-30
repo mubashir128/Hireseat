@@ -29,11 +29,11 @@
             </ng-container>
 
             <ng-container *ngIf="timeline.status == _constants.threeIntroduce || timeline.status == _constants.connectionRequest">
-              <div class="smallBtns">
+              <div class="smallBtns" (click)="onLinkedIn(timeline?.fromId)">
                 <button class="LinkedInBtnNew">
                   <a>
-                    <div class="icon-name" (click)="onLinkedIn(timeline?.fromId)">
-                      <span>LinkedIn</span>
+                    <div class="icon-name">
+                      <span class="font12 zIndex10">LinkedIn</span>
                     </div>
                   </a>
                 </button>
@@ -121,11 +121,11 @@
               </div>
               
               <ng-container *ngIf="timeline.status == _constants.connectionRequest">
-                <div class="smallBtns">
+                <div class="smallBtns" (click)="onLinkedIn(timeline?.toId)">
                   <button class="LinkedInBtnNew">
                     <a>
-                      <div class="icon-name" (click)="onLinkedIn(timeline?.toId)">
-                        <span>LinkedIn</span>
+                      <div class="icon-name">
+                        <span class="font12 zIndex10">LinkedIn</span>
                       </div>
                     </a>
                   </button>
@@ -142,10 +142,10 @@
                   </div>
                 </ng-container>
                 <div class="smallBtns">
-                  <button class="LinkedInBtnNew">
+                  <button class="LinkedInBtnNew" (click)="onLinkedIn(timeline?.introduceId)">
                     <a>
-                      <div class="icon-name" (click)="onLinkedIn(timeline?.introduceId)">
-                        <span>LinkedIn</span>
+                      <div class="icon-name">
+                        <span class="font12 zIndex10">LinkedIn</span>
                       </div>
                     </a>
                   </button>
@@ -158,11 +158,11 @@
                     <img [src] = "timeline.toId?.profileimage ? timeline.toId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
                   </div>
                 </ng-container>
-                <div class="smallBtns">
+                <div class="smallBtns" (click)="onLinkedIn(timeline?.toId)">
                   <button class="LinkedInBtnNew">
                     <a>
-                      <div class="icon-name" (click)="onLinkedIn(timeline?.toId)">
-                        <span>LinkedIn</span>
+                      <div class="icon-name">
+                        <span class="font12 zIndex10">LinkedIn</span>
                       </div>
                     </a>
                   </button>
