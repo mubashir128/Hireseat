@@ -1591,3 +1591,11 @@ body {
 .marTop10 {
   margin-top: 10px;
 }
+
+.font12 {
+  font-size: 12px !important;
+}
+
+.zIndex10 {
+  z-index: 10;
+}
