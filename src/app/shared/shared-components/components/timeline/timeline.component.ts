@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
+import { TimelineService } from 'src/app/_services/timeline.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 
@@ -30,7 +31,8 @@ export class TimelineComponent implements OnInit {
     private _router: Router,
     private userService: UserService,
     private _subList: SubscriberslistService,
-    public _dialog: MatDialog
+    public _dialog: MatDialog,
+    private _timelineService: TimelineService
   ) {
     this.loggedUser = this.userService.getUserData();
   }
@@ -111,6 +113,41 @@ export class TimelineComponent implements OnInit {
         window.open(link, "_blank");
       } else {
         window.open("https://" + link, "_blank");
+      }
+    });
+  }
+
+  checkLikedOrNot(timeline){
+    let liked: boolean = false;
+    let users = timeline?.liked ? timeline?.liked : [];
+    for(let user of users){
+      if(user?.userId?.toString() == this.loggedUser?._id){
+        liked = true;
+      }
+    }
+    return liked;
+  }
+
+  likeTimeline(timeline){
+    let liked = this.checkLikedOrNot(timeline);
+    if(liked){
+      console.log("already liked : ");
+      return ;
+    }
+
+    this._timelineService.likeTimeline(timeline._id).subscribe(res=>{
+      if(res){
+        this.addLiketoTimeline(res);
+      }
+    }, err=>{
+      console.log(err);
+    });
+  }
+
+  addLiketoTimeline(resTimeline){
+    this.timelines.filter((timeline) => {
+      if (timeline?._id?.toString() === resTimeline?._id?.toString()) {
+        timeline.liked = [...resTimeline.liked];
       }
     });
   }
