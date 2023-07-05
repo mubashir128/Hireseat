@@ -3,6 +3,11 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import * as myGlobals from "../globalPath";
 import { map } from "rxjs/operators";
 
+export enum tabTypes {
+  companiesTab = "companiesTab",
+  industriesTab = "industriesTab"
+}
+
 @Injectable({
   providedIn: 'root'
 })

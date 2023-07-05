@@ -1,8 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { IntroduceService } from 'src/app/_services/introduce.service';
+import { IntroduceService, tabTypes } from 'src/app/_services/introduce.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
+import { SearchFilter } from '../user-list/user-list.component';
 
 declare var jQuery;
 declare var Materialize;
@@ -15,17 +16,20 @@ declare var Materialize;
 export class IntrosTabComponent implements OnInit {
   @Input() eachEntry: any;
   @Input() searchLabel: any;
+  @Input() tabName: tabTypes = tabTypes.companiesTab;
 
   @Input() pageSize: number;
   @Input() pageLength: number;
   @Input() pageIndex: number;
 
-  searchTerm: String = "";
+  searchTerm: string = "";
 
   Search: FormGroup;
   @ViewChild("searchByName", { static: true }) searchByName: ElementRef;
 
   @Output() pageEM = new EventEmitter();
+  @Output() companySearchEM = new EventEmitter();
+  @Output() industriesSearchEM = new EventEmitter();
 
   constructor(
     protected _introduceService: IntroduceService,
@@ -43,6 +47,11 @@ export class IntrosTabComponent implements OnInit {
   debounceSearch(){
     this.Search.valueChanges.pipe(debounceTime(1200), distinctUntilChanged()).subscribe((value) => {
       this.searchTerm = value.searchTerm;
+      if(this.tabName == tabTypes.companiesTab){
+        this.companySearchEM.emit(new SearchFilter("name", this.searchTerm));
+      }else{
+        this.industriesSearchEM.emit(new SearchFilter("name", this.searchTerm));
+      }
     });
   }
 
