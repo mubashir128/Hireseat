@@ -363,7 +363,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   getSummaryFromChatGPT(data){
-    let prompt = "give a short summary of this candidate?";
+    // let prompt = "give a short summary of this candidate?";
+    let prompt = "summarize this candidates resume in less than 50 words?";
     this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
       if(res?.choices[0]?.message?.content){
         this.editProfile.patchValue({
@@ -374,7 +375,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   getThreePointsFromChatGPT(data){
-    let prompt = "give me 3 reasons to hire this candidate?";
+    // let prompt = "give me 3 reasons to hire this candidate?";
+    let prompt = "give me 3 reasons to hire this candidate and keep each reason to less than 30 words?";
     this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
       if(res?.choices[0]?.message?.content){
         let responseText = res?.choices[0]?.message?.content;
@@ -389,7 +391,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   getAccomplishmentsFromChatGPT(data){
-    let prompt = "Provide the candidate 5 biggest accomplishments (less than 2000 words)?";
+    // let prompt = "Provide the candidate 5 biggest accomplishments (less than 2000 words)?";
+    let prompt = "provide the candidates 5 biggest accomplishments and keep each accomplishment to less than 30 words?";
     // this.spinner.show();
     const dialogOnlyTextRef = this.dialog.open(DialogOnlyTextMessageComponent,{
       data: {
