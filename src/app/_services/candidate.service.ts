@@ -281,7 +281,7 @@ export class CandidateService {
     return this.http.get<any>(this.baseurl + "api/getCandidateSharedProfiles", {params :params});
   }
 
-  getIntrosCompanies(payload,  pageEvent?: PageEvent) {
+  getIntrosCompanies(payload,  pageEvent?: PageEvent, searchFilters?) {
     let page = pageEvent? pageEvent.pageIndex + 1 : 1;
     let limit = pageEvent? pageEvent.pageSize : 10;
     let pageIndex = pageEvent? pageEvent.pageIndex : 0;
@@ -290,6 +290,13 @@ export class CandidateService {
     params = params.append('page', page.toString());
     params = params.append('limit', limit.toString());
     params = params.append('pageIndex', pageIndex.toString());
+    
+    if (searchFilters) {
+      searchFilters.forEach((value, key) => {
+        params = params.append(key, value);
+      });
+    }
+
     return this.http.post<any>(this.baseurl + "api/get-intros-companies", payload, { params : params } ).pipe(
       map((res: any) => {
         return res;
@@ -297,7 +304,7 @@ export class CandidateService {
     );
   }
 
-  getIntrosIndustries(payload, pageEvent?: PageEvent) {
+  getIntrosIndustries(payload, pageEvent?: PageEvent, searchFilters?) {
     let page = pageEvent? pageEvent.pageIndex + 1 : 1;
     let limit = pageEvent? pageEvent.pageSize : 10;
     let pageIndex = pageEvent? pageEvent.pageIndex : 0;
@@ -307,6 +314,12 @@ export class CandidateService {
     params = params.append('limit', limit.toString());
     params = params.append('pageIndex', pageIndex.toString());
 
+    if (searchFilters) {
+      searchFilters.forEach((value, key) => {
+        params = params.append(key, value);
+      });
+    }
+    
     return this.http.post<any>(this.baseurl + "api/get-intros-industries", payload, { params : params } ).pipe(
       map((res: any) => {
         return res;

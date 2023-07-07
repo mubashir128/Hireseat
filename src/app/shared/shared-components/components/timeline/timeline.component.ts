@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { SubscriberslistService } from 'src/app/_services/subscriberslist.service';
+import { TimelineService } from 'src/app/_services/timeline.service';
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { DialogSelectToAddFriendsComponent } from '../dialog-select-to-add-friends/dialog-select-to-add-friends.component';
@@ -68,7 +69,8 @@ export class TimelineComponent implements OnInit {
     public _dialog: MatDialog,
     private resumeService: ResumeService,
     private candidateService: CandidateService,
-    private _readResume : ReadResumeService
+    private _readResume : ReadResumeService,
+    private _timelineService: TimelineService
   ) {
     this.loggedUser = this.userService.getUserData();
   }
@@ -292,6 +294,41 @@ export class TimelineComponent implements OnInit {
         window.open(link, "_blank");
       } else {
         window.open("https://" + link, "_blank");
+      }
+    });
+  }
+
+  checkLikedOrNot(timeline){
+    let liked: boolean = false;
+    let users = timeline?.liked ? timeline?.liked : [];
+    for(let user of users){
+      if(user?.userId?.toString() == this.loggedUser?._id){
+        liked = true;
+      }
+    }
+    return liked;
+  }
+
+  likeTimeline(timeline){
+    let liked = this.checkLikedOrNot(timeline);
+    if(liked){
+      console.log("already liked : ");
+      return ;
+    }
+
+    this._timelineService.likeTimeline(timeline._id).subscribe(res=>{
+      if(res){
+        this.addLiketoTimeline(res);
+      }
+    }, err=>{
+      console.log(err);
+    });
+  }
+
+  addLiketoTimeline(resTimeline){
+    this.timelines.filter((timeline) => {
+      if (timeline?._id?.toString() === resTimeline?._id?.toString()) {
+        timeline.liked = [...resTimeline.liked];
       }
     });
   }
