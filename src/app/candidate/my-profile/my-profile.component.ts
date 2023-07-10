@@ -22,6 +22,7 @@ import { DialogDeleteComponent } from "src/app/shared/shared-components/componen
 import { ChatGptService } from "src/app/_services/chat-gpt.service";
 import { DialogOnlyTextMessageComponent } from "src/app/shared/shared-components/components/dialog-only-text-message/dialog-only-text-message.component";
 import { DialogOnlyMessageComponent } from "src/app/shared/shared-components/components/dialog-only-message/dialog-only-message.component";
+import { ConstantsService } from "src/app/_services/constants.service";
 
 declare var Materialize: any;
 
@@ -74,7 +75,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     private readonly joyrideService: JoyrideService,
     protected dialog: MatDialog,
     protected _dialog: MatDialog,
-    private _chatGptService: ChatGptService
+    private _chatGptService: ChatGptService,
+    private _constantsService: ConstantsService
   ) {}
 
   ngOnInit() {
@@ -363,8 +365,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   getSummaryFromChatGPT(data){
-    // let prompt = "give a short summary of this candidate?";
-    let prompt = "summarize this candidates resume in less than 50 words?";
+    let prompt = this._constantsService.summaryPrompt;
     this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
       if(res?.choices[0]?.message?.content){
         this.editProfile.patchValue({
@@ -375,8 +376,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   getThreePointsFromChatGPT(data){
-    // let prompt = "give me 3 reasons to hire this candidate?";
-    let prompt = "give me 3 reasons to hire this candidate and keep each reason to less than 30 words?";
+    let prompt = this._constantsService.hire3PointsPrompt;
     this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
       if(res?.choices[0]?.message?.content){
         let responseText = res?.choices[0]?.message?.content;
@@ -391,8 +391,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   getAccomplishmentsFromChatGPT(data){
-    // let prompt = "Provide the candidate 5 biggest accomplishments (less than 2000 words)?";
-    let prompt = "provide the candidates 5 biggest accomplishments and keep each accomplishment to less than 30 words?";
+    let prompt = this._constantsService.accomplishmentPrompt;
     // this.spinner.show();
     const dialogOnlyTextRef = this.dialog.open(DialogOnlyTextMessageComponent,{
       data: {

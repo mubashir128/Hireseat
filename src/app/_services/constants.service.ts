@@ -168,6 +168,10 @@ export class ConstantsService {
   groupChatTextIgnore;
   jobPostAnnounce;
 
+  summaryPrompt;
+  hire3PointsPrompt;
+  accomplishmentPrompt;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -412,6 +416,10 @@ export class ConstantsService {
 
     this.groupChatTextIgnore = obj.groupChatTextIgnore;
     this.jobPostAnnounce = obj.jobPostAnnounce;
+
+    this.summaryPrompt = obj.summaryPrompt;
+    this.hire3PointsPrompt = obj.hire3PointsPrompt;
+    this.accomplishmentPrompt = obj.accomplishmentPrompt;
   }
 
 }
