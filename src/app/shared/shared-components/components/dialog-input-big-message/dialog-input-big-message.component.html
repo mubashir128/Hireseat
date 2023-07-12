@@ -6,13 +6,15 @@
         <p class="bodyPara">{{dialogText}}</p>
         <span style="color: red;" *ngIf="checkBoxesIs">Select only three points.</span>
         <div *ngFor="let item of messageObject; let i = index">
-            <div class="row" style="margin: 0px;">
-                <div class="col s1 m1 l1" style="width: 10px;" *ngIf="checkBoxesIs">
+            <div class="row" style="margin: 0px;" *ngIf="checkBoxesIs">
+                <div class="col paddZeroClass" style="width: 100%;">
                     <mat-checkbox (change)="changeValue($event, item)" [checked]="item.value"
                         [disabled]="!item.value && checkedNumber === limitNumber">
                     </mat-checkbox>
                 </div>
-                <div class="col s11 m11 l11" [ngClass]="!checkBoxesIs ? 'col s12 m12 l12' : 'col s11 m11 l11'">
+            </div>
+            <div class="row" style="margin: 0px;">
+                <div class="col paddZeroClass" style="width: 100%;">
                     <textarea class="commentTxt" [(ngModel)]="item.text" rows="5" cols="4"></textarea>
                 </div>
             </div>
