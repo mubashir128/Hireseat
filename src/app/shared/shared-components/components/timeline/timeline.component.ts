@@ -312,7 +312,7 @@ export class TimelineComponent implements OnInit {
   }
 
   likedUsers(timeline){
-    console.log("timeline : ",timeline);
+    timeline.showLikedUsers = !timeline.showLikedUsers;
   }
 
   likeTimeline(timeline){
