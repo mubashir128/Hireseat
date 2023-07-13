@@ -301,7 +301,19 @@
               </span>
             </div>
           </div>
-
+          <ng-container *ngIf="timeline?.liked?.length">
+            <div class="row" style="margin: auto;">
+                <span class="ellipeseClass" *ngIf="timeline?.liked?.length > profileImageLength">
+                    <i class="fa fa-ellipsis-h"></i>
+                </span>
+                <div *ngFor="let user of timeline?.liked | slice:0:profileImageLength">
+                    <div class="candProfile12">
+                        <img [src]="user?.userId?.profileimage ? user.userId.profileimage : 'assets/img/profile-user.png'"
+                            alt="profile" />
+                    </div>
+                </div>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>

@@ -60,6 +60,8 @@ export class TimelineComponent implements OnInit {
   finalIndustriesAre = [];
   industriesAre = [];
 
+  profileImageLength: number = 5;
+
   constructor(
     private _constants: ConstantsService,
     private _socket: WebsocketService,
