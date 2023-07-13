@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BiddingEventService } from 'src/app/_services/bidding-event.service';
 import { UserService } from 'src/app/_services/user.service';
 import * as myGlobals from '../../../../globalPath';
@@ -31,18 +31,25 @@ export class SuggestIntroduceComponent implements OnInit {
 
   applyPostJobs: any[] = [];
 
+  postJobId;
+
   constructor(
     protected _userService: UserService,
     private _router: Router,
     private _biddingEventService: BiddingEventService,
     private _postJobService: PostJobService,
-    protected _dialog: MatDialog
+    protected _dialog: MatDialog,
+    private _route: ActivatedRoute
   ){
     this.baseurl = myGlobals.redirecUrl;
     this.loggedUser = this._userService.getUserData();
   }
 
   ngOnInit(): void {
+    this.postJobId = this._route.snapshot.queryParams["postJobId"];
+    if(this.postJobId){
+      this.searchFilters.set("companyId", this.postJobId);
+    }
     this.jobsAre();
     // this.getSuggestIntroduce();
   }
