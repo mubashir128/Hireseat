@@ -24,6 +24,7 @@ export class TimelineComponent implements OnInit {
   loggedUser: any;
 
   showLoader: boolean = true;
+  profileImageLength: number = 5;
 
   constructor(
     private _constants: ConstantsService,
@@ -129,7 +130,7 @@ export class TimelineComponent implements OnInit {
   }
 
   likedUsers(timeline){
-    console.log("timeline : ",timeline);
+    timeline.showLikedUsers = !timeline.showLikedUsers;
   }
 
   likeTimeline(timeline){
