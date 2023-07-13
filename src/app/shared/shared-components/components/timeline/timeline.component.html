@@ -292,8 +292,13 @@
               {{timeline.createdAt | amTimeAgo}}
             </div>
             
-            <div class="col timelineTime notificaationDateTime pointer colorGreen" (click)="likeTimeline(timeline)">
-              {{ checkLikedOrNot(timeline) ? 'Liked' : 'Like'}}
+            <div class="col timelineTime notificaationDateTime pointer colorGreen">
+              <span (click)="likeTimeline(timeline)">
+                {{ checkLikedOrNot(timeline) ? 'Liked' : 'Like'}}
+              </span>
+              <span (click)="likedUsers(timeline)">
+                {{ ' (' + getLikedCount(timeline) + ')' }}
+              </span>
             </div>
           </div>
 
