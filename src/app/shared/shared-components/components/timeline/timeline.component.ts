@@ -304,7 +304,7 @@ export class TimelineComponent implements OnInit {
     let liked: boolean = false;
     let users = timeline?.liked ? timeline?.liked : [];
     for(let user of users){
-      if(user?.userId?.toString() == this.loggedUser?._id){
+      if(user?.userId?._id?.toString() == this.loggedUser?._id){
         liked = true;
       }
     }
