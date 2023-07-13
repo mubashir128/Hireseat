@@ -311,11 +311,6 @@ export class TimelineComponent implements OnInit {
     return liked;
   }
 
-  getLikedCount(timeline){
-    let users = timeline?.liked ? timeline?.liked : [];
-    return users.length;
-  }
-
   likedUsers(timeline){
     console.log("timeline : ",timeline);
   }

@@ -296,8 +296,8 @@
               <span (click)="likeTimeline(timeline)">
                 {{ checkLikedOrNot(timeline) ? 'Liked' : 'Like'}}
               </span>
-              <span (click)="likedUsers(timeline)">
-                {{ ' (' + getLikedCount(timeline) + ')' }}
+              <span *ngIf="timeline?.liked?.length > 0" (click)="likedUsers(timeline)">
+                {{ ' (' + timeline?.liked?.length + ')' }}
               </span>
             </div>
           </div>
