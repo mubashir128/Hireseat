@@ -60,6 +60,8 @@ export class TimelineComponent implements OnInit {
   finalIndustriesAre = [];
   industriesAre = [];
 
+  profileImageLength: number = 5;
+
   constructor(
     private _constants: ConstantsService,
     private _socket: WebsocketService,
@@ -302,11 +304,15 @@ export class TimelineComponent implements OnInit {
     let liked: boolean = false;
     let users = timeline?.liked ? timeline?.liked : [];
     for(let user of users){
-      if(user?.userId?.toString() == this.loggedUser?._id){
+      if(user?.userId?._id?.toString() == this.loggedUser?._id){
         liked = true;
       }
     }
     return liked;
+  }
+
+  likedUsers(timeline){
+    timeline.showLikedUsers = !timeline.showLikedUsers;
   }
 
   likeTimeline(timeline){

@@ -292,12 +292,29 @@
               {{timeline.createdAt | amTimeAgo}}
             </div>
             
-            <div class="col timelineTime notificaationDateTime pointer colorGreen" (click)="likeTimeline(timeline)">
-              {{ checkLikedOrNot(timeline) ? 'Liked' : 'Like'}}
+            <div class="col timelineTime notificaationDateTime pointer colorGreen">
+              <span (click)="likeTimeline(timeline)">
+                {{ checkLikedOrNot(timeline) ? 'Liked' : 'Like'}}
+              </span>
+              <span *ngIf="timeline?.liked?.length > 0" (click)="likedUsers(timeline)">
+                {{ ' (' + timeline?.liked?.length + ')' }}
+              </span>
             </div>
           </div>
-
         </div>
+        <ng-container *ngIf="timeline?.showLikedUsers && timeline?.liked?.length">
+          <div class="row" style="margin: auto; margin-bottom: 5px;">
+              <span class="ellipeseClass" *ngIf="timeline?.liked?.length > profileImageLength">
+                  <i class="fa fa-ellipsis-h"></i>
+              </span>
+              <div *ngFor="let user of timeline?.liked | slice:0:profileImageLength">
+                  <div class="candProfile12">
+                      <img [src]="user?.userId?.profileimage ? user.userId.profileimage : 'assets/img/profile-user.png'"
+                          alt="profile" />
+                  </div>
+              </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
