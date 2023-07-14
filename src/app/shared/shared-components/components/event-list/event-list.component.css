@@ -157,13 +157,6 @@
     object-fit: cover;
 }
 
-.ellipeseClass {
-    float: right;
-    font-size : 20px;
-    margin-left : 5px;
-    margin-top: 5px;
-}
-
 ::ng-deep .mat-tab-body-wrapper{
     padding: 10px !important;
 }

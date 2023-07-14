@@ -1722,3 +1722,10 @@ body {
 .colorGreen {
   color: green !important;
 }
+
+.ellipeseClass {
+  float: right;
+  font-size : 20px;
+  margin-left : 5px;
+  margin-top: 5px;
+}
