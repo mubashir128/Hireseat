@@ -642,11 +642,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     }
   }
 
-  onLinkedIn(link: string) {
-    window.open(link)
-    console.log(link)
 
-  }
 
   connectWithOffers(resume) {
     this.shareVideoService.setResume(resume);
