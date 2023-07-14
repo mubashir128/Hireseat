@@ -1,4 +1,3 @@
-
 <!-- <ng-container *ngIf = "showResult"> -->
 <ng-container *ngIf="!showLoader">
   <!-- <div (click) = "goBack()" style="font-size: 15px; color: #33aaff;">
@@ -10,20 +9,23 @@
   </div> -->
   <div class="">
     <div class="sortIndustriesMain input-field col s12 m12 l12">
-      
+
       <div>
         <form [formGroup]="CompaniesTeamsRolesFrm" novalidate style="width: 100%">
           <div class="row" class="btmSpace">
             <div class="skillInput" style="margin-top: 10px">
-              <span class="note" style="float: left"
-                ><span style="color: black; font-size: 14px;"> Search Introductions to Companies/Teams/Roles: </span><br>
-                <span style="font-size: 10px; color: red;">For multi search use comma (ex- abc , lmn) seperated values.</span>
+              <span class="note" style="float: left"><span style="color: black; font-size: 14px;"> Search Introductions
+                  to Companies/Teams/Roles: </span><br>
+                <span style="font-size: 10px; color: red;">For multi search use comma (ex- abc , lmn) seperated
+                  values.</span>
               </span>
             </div>
 
             <div class="row" class="btmSpace">
-              <div class="searchDiv" joyrideStep="firstStep" title="The Network" text="Search for members who can make intros to your top companies." stepPosition = "bottom">
-                <input type="text" class="searchRecruiter" autocomplete="off" formControlName="searchCTRTerm" [(ngModel)]="searchCTRTerm" placeholder="Ex: Barclays, Amazon, ABC...">
+              <div class="searchDiv" joyrideStep="firstStep" title="The Network"
+                text="Search for members who can make intros to your top companies." stepPosition="bottom">
+                <input type="text" class="searchRecruiter" autocomplete="off" formControlName="searchCTRTerm"
+                  [(ngModel)]="searchCTRTerm" placeholder="Ex: Barclays, Amazon, ABC...">
                 <i class="fa fa-search" aria-hidden="true"></i>
               </div>
             </div>
@@ -57,28 +59,30 @@
 
 <ng-container *ngIf="showLoader">
   <div class="loader-container marTop50">
-      <div class="loader"></div>
+    <div class="loader"></div>
   </div>
 </ng-container>
 
-<ng-container *ngIf = "!showLoader && resumes.length == 0">
+<ng-container *ngIf="!showLoader && resumes.length == 0">
   <div class="marTop">
-      <app-no-data-available ></app-no-data-available>
+    <app-no-data-available></app-no-data-available>
   </div>
 </ng-container>
 
 <ng-container *ngIf="resumes">
   <div class="ListResume">
-    <div class="" *ngFor="let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | sortByIndustires : searchIndustry | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index">
-      <div class="areaDiv" [id] = "'profile_' + resume._id">
+    <div class=""
+      *ngFor="let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | sortByIndustires : searchIndustry | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index">
+      <div class="areaDiv" [id]="'profile_' + resume._id">
         <div class="container-fluid mar">
           <div class="container">
             <div class="row marginAuto" style="padding: 0px !important;">
               <div class="col">
-                <div class="candProfileNew" *ngIf = "!resume.showCreatedLogo" style="float: left;">
-                  <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage" (error)="getImage(resume)" class="uploadedImgUser">
+                <div class="candProfileNew" *ngIf="!resume.showCreatedLogo" style="float: left;">
+                  <img [src]="resume?.candidate_id?.profileimage || resume?.candidateKey?.profileimage"
+                    (error)="getImage(resume)" class="uploadedImgUser">
                 </div>
-                <div *ngIf = "resume.showCreatedLogo" class="big-badge extrabig-badge extrabig-badge22">
+                <div *ngIf="resume.showCreatedLogo" class="big-badge extrabig-badge extrabig-badge22">
                   {{ (resume?.candidateName || resume?.candidate_id?.fullName) | uppercase | slice: 0 : 1 }}
                 </div>
               </div>
@@ -98,32 +102,34 @@
         <div class="container-fluid">
           <div class="container bor">
             <div class="row other-details marginAuto">
-              <p *ngIf = "resume?.jobTitle"><label>Job Title :</label> {{ resume?.jobTitle }}</p>
+              <p *ngIf="resume?.jobTitle"><label>Job Title :</label> {{ resume?.jobTitle }}</p>
               <!-- <p *ngIf = "resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles">
                 <label>Desired Roles :</label>
                   {{ resume?.desiredRoles || resume?.candidateProfileKey?.desiredRoles }}
               </p> -->
-              <p *ngIf = "resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo">
+              <p *ngIf="resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo">
                 <i class="fas fa-star" aria-hidden="true"></i>
                 <label style="color:red;">I can Intro you to Companies/Teams at :</label>
-                  <label style="font-size: 14px; color: #cc530c;">
-                    {{ resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo }}
-                  </label>
+                <label style="font-size: 14px; color: #cc530c;">
+                  {{ resume?.introduceYouToo || resume?.candidateProfileKey?.introduceYouToo }}
+                </label>
               </p>
-              <p *ngIf = "resume?.location"><label>Location :</label> {{ resume?.location }}</p>
-              <p *ngIf = "(resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies) && resume.addedAsAFriend">
+              <p *ngIf="resume?.location"><label>Location :</label> {{ resume?.location }}</p>
+              <p
+                *ngIf="(resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies) && resume.addedAsAFriend">
                 <i class="fas fa-binoculars" aria-hidden="true"></i>
-                <label joyrideStep="secondStep" title="The Network" text="See which companies members want intros to." stepPosition = "bottom">Desired Companies :</label>
-                  <label style="font-size: 14px; color: #54A4F0;">
-                    {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
-                  </label>
+                <label joyrideStep="secondStep" title="The Network" text="See which companies members want intros to."
+                  stepPosition="bottom">Desired Companies :</label>
+                <label style="font-size: 14px; color: #54A4F0;">
+                  {{ resume?.desiredCompanies || resume?.candidateProfileKey?.desiredCompanies }}
+                </label>
               </p>
               <p>
                 <span style="border-radius: 10px; background-color: red; width: 60%; padding: 4px;">
                   <label style="margin-left: 5px; color: white;"># of Introductions : </label>
-                    <label style="font-size: 12px; color: white;">
-                      {{ getIntroduceCount(resume) }}
-                    </label>
+                  <label style="font-size: 12px; color: white;">
+                    {{ getIntroduceCount(resume) }}
+                  </label>
                 </span>
               </p>
             </div>
@@ -148,12 +154,12 @@
           <div class="container-fluid">
             <div class="container">
               <div class="row cont">
-                <button class="LinkedInBtnNewSelf" (click)="onLinkedIn(resume?.linkedIn)">LinkedIn</button>
+                <button class="LinkedInBtnNewSelf" (click)="onLinkedIn( resume?.Link)">LinkedIn</button>
               </div>
             </div>
           </div>
 
-          <div class="container-fluid marTop10" *ngIf = "!resume.toRequested && !resume.addedAsAFriend">
+          <div class="container-fluid marTop10" *ngIf="!resume.toRequested && !resume.addedAsAFriend">
             <div class="container">
               <div class="row cont">
                 <button (click)="connectWithOffers(resume)">connect</button>
@@ -161,7 +167,7 @@
             </div>
           </div>
 
-          <div class="container-fluid marTop10" *ngIf = "resume.toRequested">
+          <div class="container-fluid marTop10" *ngIf="resume.toRequested">
             <div class="container">
               <div class="row cont">
                 <button (click)="pendingRequest(resume)">Pending</button>
@@ -176,7 +182,7 @@
               </div>
             </div>
           </div> -->
-          <div class="container-fluid marTop10" *ngIf = "resume.addedAsAFriend">
+          <div class="container-fluid marTop10" *ngIf="resume.addedAsAFriend">
             <div class="container">
               <div class="row cont">
                 <button (click)="swapIntro(resume)">Start Conversation</button>

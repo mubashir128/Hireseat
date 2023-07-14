@@ -37,6 +37,8 @@ body {
     margin-top: 55px !important;
 }
 
+
+
 /* Status Bar */
 
 .status-bar {
@@ -70,6 +72,7 @@ body {
 
 .chat-container {
     height: 100%;
+    position: relative;
 }
 
 /* User Bar */
@@ -140,7 +143,9 @@ body {
 /* Conversation */
 
 .conversation {
-    height: calc(100% - 12px);
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+    /* Adjust the height as needed */
     position: relative;
     /* background: #efe7dd url("https://cloud.githubusercontent.com/assets/398893/15136779/4e765036-1639-11e6-9201-67e728e86f39.jpg") repeat; */
     /* background: #efe7dd url("../../../../../assets/chat-back/chat-screen-2.png") repeat; */
@@ -290,6 +295,8 @@ body {
 /* Compose */
 
 .conversation-compose {
+    position: fixed;
+    bottom: 80px;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -300,10 +307,7 @@ body {
 }
 
 .conversation-compose div,
-.conversation-compose input {
-    background: #fff;
-    height: 100%;
-}
+.conversation-compose input {}
 
 .conversation-compose textarea {
     background: #fff;
@@ -369,6 +373,7 @@ body {
     margin-right: 8px;
     padding: 0;
     position: relative;
+    bottom: 2px;
     outline: none;
 }
 
@@ -448,7 +453,7 @@ body {
     font-size: 18px;
 }
 
-.colorSt{
+.colorSt {
     color: white;
 }
 
@@ -483,12 +488,12 @@ body {
     font-size: 0px !important;
     margin-top: 5px;
 }
-  
+
 .progress-bar span {
     display: inline-block;
     height: 100%;
     border-radius: 3px;
     box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
-    transition: width .4s ease-in-out;    
-    background-color:#a5a5a5;   
+    transition: width .4s ease-in-out;
+    background-color: #a5a5a5;
 }
