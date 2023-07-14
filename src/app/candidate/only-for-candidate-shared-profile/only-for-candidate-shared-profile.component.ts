@@ -65,7 +65,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   throughRoute: boolean = false;
   throughProfileId;
-  
+
   @Output() countEM = new EventEmitter();
 
   showLoader: boolean = true;
@@ -83,7 +83,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     protected _subList: SubscriberslistService,
     private _constants: ConstantsService,
     protected _bidEventService: BiddingEventService,
-    protected _readResume : ReadResumeService,
+    protected _readResume: ReadResumeService,
     private _router: Router,
     private _route: ActivatedRoute,
     private readonly joyrideService: JoyrideService,
@@ -130,20 +130,20 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     });
   }
 
-  tourStart(){
+  tourStart() {
     let loginCount = this.loggedUser.loginCount;
     let beforeOnlyCandidateWalkthrough = JSON.parse(this.userService.getOnlyCandidateWalkthrough());
-    if(loginCount == 1){
-      if(!beforeOnlyCandidateWalkthrough){
+    if (loginCount == 1) {
+      if (!beforeOnlyCandidateWalkthrough) {
         this.joyRide();
       }
-    }else if(!beforeOnlyCandidateWalkthrough){
+    } else if (!beforeOnlyCandidateWalkthrough) {
       this.joyRide();
     }
   }
 
-  joyRide(){
-    this.joyrideService.startTour({ steps: ['firstStep', 'secondStep', 'thirdStep'], themeColor: '', showPrevButton: false}).subscribe((step) => {
+  joyRide() {
+    this.joyrideService.startTour({ steps: ['firstStep', 'secondStep', 'thirdStep'], themeColor: '', showPrevButton: false }).subscribe((step) => {
       /*Do something*/
     }, (err) => {
       /*handle error*/
@@ -154,25 +154,25 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     });
   }
 
-  onDone(){
+  onDone() {
     this.userService.setOnlyCandidateWalkthroughWalkthrough();
   }
 
-  debounceSearchForCTR(){
+  debounceSearchForCTR() {
     this.CompaniesTeamsRolesFrm.valueChanges
       .pipe(
         debounceTime(1500),
         distinctUntilChanged()).subscribe((value) => {
           let obj = {};
-          if(value.searchCTRTerm !== undefined ){
+          if (value.searchCTRTerm !== undefined) {
             this.skillText = value.searchCTRTerm;
             obj = {
               searchType: "skill",
               searchSkills: this.skillText,
-              userRole : this.loggedUser.userRole
+              userRole: this.loggedUser.userRole
             };
           }
-      });
+        });
   }
 
   handleProfileData(res: any) {
@@ -181,11 +181,12 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
         this.showLoader = false;
         this.loading = false;
         this.resumes = res.data;
+        console.log(this.resumes)
         this.scrollAndBorder();
         this.addFriendConnectionToProfile(res);
         this.sortProfilesByConpanies();
         this.onCount(this.resumes.length);
-        this._subList.loaderList.next({type : "0"});
+        this._subList.loaderList.next({ type: "0" });
         break;
       case this._constants.addComment:
         this.addCommentToCommets(res);
@@ -217,38 +218,38 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       case this._constants.userIsOffline:
         this.changesOnlineStatus(res, false);
         break;
-  
+
       default:
         break;
     }
   }
 
-  scrollAndBorder(){
-    if(this.throughRoute){
-      setTimeout(()=>{
-        this.handleToggleSign({searchTab :  true});
-        var scrollPos =  jQuery("#profile_"+this.throughProfileId).offset().top;
+  scrollAndBorder() {
+    if (this.throughRoute) {
+      setTimeout(() => {
+        this.handleToggleSign({ searchTab: true });
+        var scrollPos = jQuery("#profile_" + this.throughProfileId).offset().top;
         jQuery(window).scrollTop(scrollPos);
-        jQuery("#profile_"+this.throughProfileId).css("border","1px solid red");
+        jQuery("#profile_" + this.throughProfileId).css("border", "1px solid red");
       }, 1000);
     }
   }
 
-  onCount(count){
+  onCount(count) {
     this.countEM.emit(count);
   }
 
-  changesOnlineStatus(res, status){
+  changesOnlineStatus(res, status) {
     this.resumes.forEach((profile, index) => {
-      if(profile.candidateKey && profile.candidateKey._id == res.userId){
+      if (profile.candidateKey && profile.candidateKey._id == res.userId) {
         profile.candidateKey.online = status;
-      }else if(profile.candidate_id && profile.candidate_id._id == res.userId){
+      } else if (profile.candidate_id && profile.candidate_id._id == res.userId) {
         profile.candidate_id.online = status;
       }
     });
   }
 
-  sortProfilesByConpanies(){
+  sortProfilesByConpanies() {
     // let introduceYouToo = this.myProfileContent ? this.myProfileContent.introduceYouToo?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.introduceYouToo?.trim().toLowerCase().split(",") : [];
     let desiredCompanies = this.myProfileContent ? this.myProfileContent.desiredCompanies?.trim().toLowerCase().split(",") : this.loggedUser ? this.loggedUser.desiredCompanies?.trim().toLowerCase().split(",") : [];
     this.resumes.forEach((profile, index) => {
@@ -256,48 +257,48 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       this.clients.push(profile.candidateKey ? profile.candidateKey : profile.candidate_id ? profile.candidate_id : {});
       // introduceYouToo.forEach((intro, index2) => {
       desiredCompanies.forEach((intro, index2) => {
-        if(profile.candidateProfileKey){
-          if(profile.candidateProfileKey?.desiredCompanies?.toLowerCase().indexOf(intro) !== -1 && profile.candidateProfileKey?.desiredCompanies !== ""){
+        if (profile.candidateProfileKey) {
+          if (profile.candidateProfileKey?.desiredCompanies?.toLowerCase().indexOf(intro) !== -1 && profile.candidateProfileKey?.desiredCompanies !== "") {
             status = true;
           }
-        }else if(profile.desiredCompanies){
-          if(profile.desiredCompanies?.toLowerCase().indexOf(intro) !== -1 && profile.desiredCompanies !== ""){
+        } else if (profile.desiredCompanies) {
+          if (profile.desiredCompanies?.toLowerCase().indexOf(intro) !== -1 && profile.desiredCompanies !== "") {
             status = true;
           }
         }
       });
 
-      if(status){
+      if (status) {
         this.resumes = [profile, ...this.resumes];
         this.resumes.splice(index + 1, 1);
       }
-      
+
     });
   }
 
-  addFriendConnectionToProfile(res){
+  addFriendConnectionToProfile(res) {
     res.frdConnection.forEach((frd, index) => {
       this.resumes.forEach((profile, index2) => {
-        if(profile.candidateKey?._id == frd.recipient._id || profile.candidate_id?._id == frd.recipient._id){
-          if(frd.status == this._constants.asAFriend){
+        if (profile.candidateKey?._id == frd.recipient._id || profile.candidate_id?._id == frd.recipient._id) {
+          if (frd.status == this._constants.asAFriend) {
             profile.addedAsAFriend = true;
-          }else if(frd.status == this._constants.asARequested){
+          } else if (frd.status == this._constants.asARequested) {
             profile.toRequested = true;
           }
-        }else if(profile.candidateKey?._id == frd.requester._id || profile.candidate_id?._id == frd.requester._id){
-          if(frd.status == this._constants.asAFriend){
+        } else if (profile.candidateKey?._id == frd.requester._id || profile.candidate_id?._id == frd.requester._id) {
+          if (frd.status == this._constants.asAFriend) {
             profile.addedAsAFriend = true;
-          }else if(frd.status == this._constants.asARequested){
+          } else if (frd.status == this._constants.asARequested) {
             profile.toRequested = true;
           }
-        }else{
+        } else {
 
         }
       });
     });
   }
 
-  pendingRequest(resume){
+  pendingRequest(resume) {
     Materialize.toast("Request is pending", 1000, "red");
   }
 
@@ -314,21 +315,21 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
       if (res) {
         this.industriesAre = res.industries;
-        this.industriesAre = [{_id : 1121, name : "All"}, ...this.industriesAre];
+        this.industriesAre = [{ _id: 1121, name: "All" }, ...this.industriesAre];
       }
     });
   }
 
-  industryClick(type){
+  industryClick(type) {
     this.searchIndustry = type.trim().toLowerCase();
     this.showResult = true;
-    setTimeout(()=>{
+    setTimeout(() => {
       this.tourStart();
     }, 500);
   }
 
   getProfiles() {
-    this._subList.loaderList.next({type : "1"});
+    this._subList.loaderList.next({ type: "1" });
     this._socket.sendMessage({
       type: this._constants.onlyForCandidateSharedProfileType,
       data: {
@@ -348,71 +349,71 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   showShareModal2(resume) {
     this.shareVideoService.setResume(resume);
     let payload = {
-      dialogType : "OfferIntro",
-      dialogTitle : "Offer Intro",
-      clients : this.clients,
-      loggedUser : this.loggedUser,
-      btns : ["Offer Intro"]
+      dialogType: "OfferIntro",
+      dialogTitle: "Offer Intro",
+      clients: this.clients,
+      loggedUser: this.loggedUser,
+      btns: ["Offer Intro"]
     }
     this.showShareModalSuper(payload, this.showShareModalSuperCallback);
   }
 
-  showShareModalSuperCallback(result, THIS){
-    switch(result.type){
-      case "copyProfileLink" : 
-        if(result.process){
+  showShareModalSuperCallback(result, THIS) {
+    switch (result.type) {
+      case "copyProfileLink":
+        if (result.process) {
           THIS.generateLinkForVideo();
         }
         break;
-      case "careerReferral" : 
-        if(result.process){
+      case "careerReferral":
+        if (result.process) {
           THIS.introduceUser(result);
         }
         break;
-      case "generalReferral" : 
-        if(result.process){
+      case "generalReferral":
+        if (result.process) {
           THIS.generalEmailIntro(result);
         }
         break;
-      case "OfferIntro" : 
-        if(result.process){
+      case "OfferIntro":
+        if (result.process) {
           THIS.emailPreview(result);
         }
         break;
     }
   }
 
-  emailPreview(result){
+  emailPreview(result) {
     let senderName = this.loggedUser.fullName;
     let recipientName = result.recipientName;
     let payload = {
-      dialogType : "OfferIntro",
-      dialogTitle : "Email Preview...",
-      senderName : senderName,
-      recipientName :recipientName,
-      recipientEmail : result.recipientEmail,
-      cc : result.cc
+      dialogType: "OfferIntro",
+      dialogTitle: "Email Preview...",
+      senderName: senderName,
+      recipientName: recipientName,
+      recipientEmail: result.recipientEmail,
+      cc: result.cc
     }
     this.emailPreviewSuper(payload, this.emailPreviewSuperCallback);
   }
 
-  emailPreviewSuperCallback(payload, result, THIS){
+  emailPreviewSuperCallback(payload, result, THIS) {
     THIS.emailSend(payload, result);
   }
 
-  emailSend(result, result2){
+  emailSend(result, result2) {
     let payload = {
-      recipientEmail : result.recipientEmail,
-      fullName : result.recipientName,
-      cc : result.cc,
-      senderName : result2.senderName,
-      recipientName : result.recipientName,
-      linkedIn : this.linedIn,
-      companies : result2.companies,
-      emailType : this._constants.offerEmailIntro,
-      chatLink : myGlobals.chatRedirectUrl + this.loggedUser.userRole + "/chat-record/" + this.loggedUser._id
+      recipientEmail: result.recipientEmail,
+      fullName: result.recipientName,
+      cc: result.cc,
+      senderName: result2.senderName,
+      recipientName: result.recipientName,
+      linkedIn: this.linedIn,
+      companies: result2.companies,
+      emailType: this._constants.offerEmailIntro,
+      chatLink: myGlobals.chatRedirectUrl + this.loggedUser.userRole + "/chat-record/" + this.loggedUser._id
     };
-    
+
     this.spinner.show();
     this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
       (res) => {
@@ -422,9 +423,9 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
           Materialize.toast(res.err, 3000, "red");
         }
         this.spinner.hide();
-    }, (err) => {
-      Materialize.toast(err.err, 3000, "red");
-    });
+      }, (err) => {
+        Materialize.toast(err.err, 3000, "red");
+      });
   }
 
   // share process
@@ -435,18 +436,18 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     let bcc = this.loggedUser.email ? this.loggedUser.email : "";
     cc = cc + ", " + bcc;
     let payload = {
-      dialogType : "OfferReferral",
-      dialogTitle : "Offer Referral",
-      cc : cc,
-      bcc : bcc,
-      clients : this.clients,
-      loggedUser : this.loggedUser,
-      btns : ["General Referral", "Career Referral", "Copy Profile Link"]
+      dialogType: "OfferReferral",
+      dialogTitle: "Offer Referral",
+      cc: cc,
+      bcc: bcc,
+      clients: this.clients,
+      loggedUser: this.loggedUser,
+      btns: ["General Referral", "Career Referral", "Copy Profile Link"]
     }
     this.showShareModalSuper(payload, this.showShareModalSuperCallback);
   }
 
-  shareInvisible(resume){
+  shareInvisible(resume) {
     Materialize.toast("Not Connectioned", 1000, "red");
   }
 
@@ -515,30 +516,30 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
       Materialize.toast("Invalid email", 800);
       return;
     }
-    
+
     const candidateName = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
-    const subject ="Hireseat" + " - " + this.loggedUser.companyName + " - " + this.shareResume.jobTitle + " - " + candidateName + " Profile.";
-    
+    const subject = "Hireseat" + " - " + this.loggedUser.companyName + " - " + this.shareResume.jobTitle + " - " + candidateName + " Profile.";
+
     const archiveIdPayload = {
       archivedId: this.shareResume.interviewLinkedByRecruiter,
     };
-    
+
     this.spinner.show();
-    
+
     // getting url
     this.getArchivedVideoSubscription = this.videoCallingService
       .getArchivedVideo(archiveIdPayload)
       .subscribe(
-        async(res) => {
+        async (res) => {
           if (res) {
             this.shareableVideoURL = res.url;
             this.spinner.hide();
             if (this.shareableVideoURL) {
               let systemUserId;
-              this.resumes.forEach((prof, index)=>{
-                if(prof.candidate_id && (prof.candidate_id.fullName == result.recipientName) && (prof.candidate_id.email == result.recipientEmail)){
+              this.resumes.forEach((prof, index) => {
+                if (prof.candidate_id && (prof.candidate_id.fullName == result.recipientName) && (prof.candidate_id.email == result.recipientEmail)) {
                   systemUserId = prof.candidate_id._id;
-                }else if(prof.candidateKey && (prof.candidateKey.fullName == result.recipientName) && (prof.candidateKey.email == result.recipientEmail)){
+                } else if (prof.candidateKey && (prof.candidateKey.fullName == result.recipientName) && (prof.candidateKey.email == result.recipientEmail)) {
                   systemUserId = prof.candidateKey._id;
                 }
               });
@@ -555,14 +556,14 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
                 comment2: result.comment2,
                 comment3: result.comment3,
                 candidateProfile: this.shareResume.resumeType ? false : true,
-                intruduce : true, //only when hitting a introduce
-                senderName : result.senderName,
-                fileURL : this.shareResume.fileURL,
-                recipientName : result.recipientName,
-                onlyCandidate : true,
-                linkedIn : this.shareResume.linkedIn,
-                profileUserId : this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
-                systemUserId : systemUserId
+                intruduce: true, //only when hitting a introduce
+                senderName: result.senderName,
+                fileURL: this.shareResume.fileURL,
+                recipientName: result.recipientName,
+                onlyCandidate: true,
+                linkedIn: this.shareResume.linkedIn,
+                profileUserId: this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id._id,
+                systemUserId: systemUserId
               };
 
               // let finalStatementsArr = await this._readResume.readResume(this.shareResume);
@@ -601,29 +602,29 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     }
   }
 
-  goToUserChat(resume){
+  goToUserChat(resume) {
     this.shareVideoService.setResume(resume);
     let introsAt = this.shareResume.introduceYouToo;
 
-    const dialogOfferEmailChatRef = this.dialog.open(DialogOfferIntroChatComponent,{
+    const dialogOfferEmailChatRef = this.dialog.open(DialogOfferIntroChatComponent, {
       data: {
-        dialogType : "OfferIntro...",
-        dialogTitle : "Offer Intro...",
-        introsAt : introsAt
+        dialogType: "OfferIntro...",
+        dialogTitle: "Offer Intro...",
+        introsAt: introsAt
       }
     });
 
     dialogOfferEmailChatRef.afterClosed().subscribe(result => {
-      if(result){
-        switch(result.type){
-          case "noThankYou" : 
-            if(result.process){
+      if (result) {
+        switch (result.type) {
+          case "noThankYou":
+            if (result.process) {
               this.redirectToUserChat();
             }
             break;
-          case "offerIntro" : 
-            if(result.process){
-              this.offerEmailIntro(); 
+          case "offerIntro":
+            if (result.process) {
+              this.offerEmailIntro();
             }
             break;
         }
@@ -632,36 +633,42 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   }
 
-  redirectToUserChat(){
+  redirectToUserChat() {
     let id = this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id ? this.shareResume.candidate_id._id : "";
-    if(id !== "" && id !== this.loggedUser._id){
-      this._router.navigate(["/"+this.loggedUser.userRole+"/chat-record", id]);
-    }else{
+    if (id !== "" && id !== this.loggedUser._id) {
+      this._router.navigate(["/" + this.loggedUser.userRole + "/chat-record", id]);
+    } else {
       Materialize.toast("It's your Profile, you can't chat to yourself.", 1000, "red");
     }
   }
 
-  connectWithOffers(resume){
+  onLinkedIn(link: string) {
+    window.open(link)
+    console.log(link)
+
+  }
+
+  connectWithOffers(resume) {
     this.shareVideoService.setResume(resume);
     let askAndConnectName = this.shareResume.candidateKey ? this.shareResume.candidateKey.fullName : this.shareResume.candidate_id ? this.shareResume.candidate_id.fullName : "";
     let askAndConnectDesiredCompanies = this.shareResume.introduceYouToo;
 
-    const dialogConnectOfferIntroRef = this.dialog.open(DialogConnectOfferIntroComponent,{
+    const dialogConnectOfferIntroRef = this.dialog.open(DialogConnectOfferIntroComponent, {
       data: {
-        dialogType : "OfferIntro...",
-        dialogTitle : "Offer Intro...",
-        askAndConnectName : askAndConnectName,
-        askAndConnectDesiredCompanies : askAndConnectDesiredCompanies
+        dialogType: "OfferIntro...",
+        dialogTitle: "Offer Intro...",
+        askAndConnectName: askAndConnectName,
+        askAndConnectDesiredCompanies: askAndConnectDesiredCompanies
       }
     });
 
     dialogConnectOfferIntroRef.afterClosed().subscribe(result => {
-      if(result){
-        switch(result.type){
-          case "connect" : 
+      if (result) {
+        switch (result.type) {
+          case "connect":
             this.connect();
             break;
-          case "connectWithIntros" : 
+          case "connectWithIntros":
             this.conenctWithIntro();
             break;
 
@@ -670,21 +677,21 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     });
   }
 
-  conenctWithIntro(){
+  conenctWithIntro() {
     jQuery("#askOfferAndConnect").modal("close");
     this.goToUserChat(this.shareResume);
     this.connect();
   }
 
-  connect(){
+  connect() {
     let id = this.shareResume.candidateKey ? this.shareResume.candidateKey._id : this.shareResume.candidate_id ? this.shareResume.candidate_id._id : "";
     let payload = {
-      recipient : id
+      recipient: id
     };
-    
-    if(this.loggedUser._id == id){
+
+    if (this.loggedUser._id == id) {
       Materialize.toast("It's your Profile, you can't connect yourself.", 1000, "red");
-      return ;
+      return;
     }
 
     this.candidateService.connectWithUsers(payload).subscribe((res) => {
@@ -696,11 +703,11 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   }
 
-  connected(resume){
+  connected(resume) {
     Materialize.toast("Already Connected !...", 1000, "green");
   }
 
-  introduceUser(result){
+  introduceUser(result) {
     let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
     let comment1 = this.shareResume.comments;
     let comment2 = this.shareResume.comment2;
@@ -708,61 +715,61 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     let senderName = this.loggedUser.fullName;
 
     let payload = {
-      dialogType : "EmailPreview...",
-      dialogTitle : "Email Preview...",
-      cc : result.cc,
-      bcc : result.bcc,
-      recipientName : result.recipientName,
-      recipientEmail : result.recipientEmail,
-      senderName : senderName,
-      candidateNameIs : candidateNameIs,
-      comment1 : comment1,
-      comment2 : comment2,
-      comment3 : comment3
+      dialogType: "EmailPreview...",
+      dialogTitle: "Email Preview...",
+      cc: result.cc,
+      bcc: result.bcc,
+      recipientName: result.recipientName,
+      recipientEmail: result.recipientEmail,
+      senderName: senderName,
+      candidateNameIs: candidateNameIs,
+      comment1: comment1,
+      comment2: comment2,
+      comment3: comment3
     }
 
     this.introduceUserSuper(payload, this.introduceUserSuperCallback);
   }
 
-  introduceUserSuperCallback(result, THIS){
+  introduceUserSuperCallback(result, THIS) {
     THIS.share(result);
   }
 
-  generalEmailIntro(result){
-      let senderName = this.loggedUser.fullName;
-      let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
-      let linedIn = this.shareResume.linkedIn;
+  generalEmailIntro(result) {
+    let senderName = this.loggedUser.fullName;
+    let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    let linedIn = this.shareResume.linkedIn;
 
-      let payload = {
-        dialogType : "EmailPreview...",
-        dialogTitle : "Email Preview...",
-        cc : result.cc,
-        bcc : result.bcc,
-        recipientName : result.recipientName,
-        recipientEmail : result.recipientEmail,
-        senderName : senderName,
-        candidateNameIs : candidateNameIs,
-        linedIn : linedIn
-      }
-      this.generalEmailIntroSuper(payload, this.generalEmailIntroSuperCallback);
+    let payload = {
+      dialogType: "EmailPreview...",
+      dialogTitle: "Email Preview...",
+      cc: result.cc,
+      bcc: result.bcc,
+      recipientName: result.recipientName,
+      recipientEmail: result.recipientEmail,
+      senderName: senderName,
+      candidateNameIs: candidateNameIs,
+      linedIn: linedIn
+    }
+    this.generalEmailIntroSuper(payload, this.generalEmailIntroSuperCallback);
   }
 
-  generalEmailIntroSuperCallback(result, THIS){
+  generalEmailIntroSuperCallback(result, THIS) {
     THIS.generalEmailIntroSend(result);
   }
 
-  generalEmailIntroSend(result){
+  generalEmailIntroSend(result) {
     let payload = {
-      recipientEmail : result.recipientEmail,
-      fullName : result.candidateNameIs,
-      senderName : result.senderName,
-      recipientName : result.recipientName,
+      recipientEmail: result.recipientEmail,
+      fullName: result.candidateNameIs,
+      senderName: result.senderName,
+      recipientName: result.recipientName,
       cc: result.cc,
       bcc: result.bcc,
-      linkedIn : result.linedIn,
-      emailType : this._constants.generalEmailIntro
+      linkedIn: result.linedIn,
+      emailType: this._constants.generalEmailIntro
     };
-    
+
     this.spinner.show();
     this.shareVideoService.sendCandidateMailToUsers(payload).subscribe(
       (res) => {
@@ -772,13 +779,13 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
           Materialize.toast(res.err, 3000, "red");
         }
         this.spinner.hide();
-    }, (err) => {
-      Materialize.toast(err.err, 3000, "red");
-      this.spinner.hide();
-    });
+      }, (err) => {
+        Materialize.toast(err.err, 3000, "red");
+        this.spinner.hide();
+      });
   }
 
-  offerEmailIntro(){
+  offerEmailIntro() {
     let senderName = this.loggedUser.fullName;
     let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
     let recipientName = candidateNameIs;
@@ -786,32 +793,32 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     this.linedIn = this.shareResume.linkedIn;
 
     let resultIs = {
-      recipientName : recipientName,
-      recipientEmail : recipientEmail,
-      cc : "atulpisal.ap@gmail.com"
+      recipientName: recipientName,
+      recipientEmail: recipientEmail,
+      cc: "atulpisal.ap@gmail.com"
     }
 
-    const dialogIntroduceRef = this.dialog.open(DialogIntroduceComponent,{
+    const dialogIntroduceRef = this.dialog.open(DialogIntroduceComponent, {
       data: {
-        dialogType : "OfferIntro",
-        dialogTitle : "Email Preview...",
-        senderName : senderName,
-        recipientName : recipientName
+        dialogType: "OfferIntro",
+        dialogTitle: "Email Preview...",
+        senderName: senderName,
+        recipientName: recipientName
       }
     });
 
     dialogIntroduceRef.afterClosed().subscribe(result2 => {
-      if(result2){
+      if (result2) {
         this.emailSend(resultIs, result2);
       }
     });
   }
 
-  goBack(){
+  goBack() {
     this.showResult = false;
   }
 
-  getIntroduceCount(resume){
+  getIntroduceCount(resume) {
     return (resume?.introduceCount) ? resume.introduceCount : (resume?.candidateProfileKey?.introduceCount) ? resume.candidateProfileKey.introduceCount : 0;
   }
 

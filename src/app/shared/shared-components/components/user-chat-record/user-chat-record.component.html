@@ -31,48 +31,56 @@
                                 <i (click)="backToChat()" class="fa fa-arrow-left colorSt" aria-hidden="true"></i>
                             </div>
                             <div class="avatar">
-                                <div *ngIf = "!user.showCreatedLogo">
-                                    <img [src]="user.profileimage" (error)="getImage(user)" (click)="showImageModal(user)" class="uploadedImgUser"/>
+                                <div *ngIf="!user.showCreatedLogo">
+                                    <img [src]="user.profileimage" (error)="getImage(user)"
+                                        (click)="showImageModal(user)" class="uploadedImgUser" />
                                 </div>
-                                <div *ngIf = "user.showCreatedLogo" class="big-badge extrabig-badge"  style="background: radial-gradient(black, transparent) !important; border: 1px solid gainsboro;" (click)="showImageModal(user)">
+                                <div *ngIf="user.showCreatedLogo" class="big-badge extrabig-badge"
+                                    style="background: radial-gradient(black, transparent) !important; border: 1px solid gainsboro;"
+                                    (click)="showImageModal(user)">
                                     {{ user.fullName | uppercase | slice: 0 : 1 }}
                                 </div>
                             </div>
                             <div class="name">
                                 <span class="stSize">{{ user.fullName }}</span>
                                 <!-- <span *ngIf = "!groupChat" class="status">online</span> -->
-                                <span *ngIf = "groupChat" class="status">
+                                <span *ngIf="groupChat" class="status">
                                     <marquee>
                                         {{groupUserAre}}
                                     </marquee>
                                 </span>
                             </div>
                             <div class="actions more">
-                                <i *ngIf = "!groupChat" class="fa fa-ellipsis-v colorSt" aria-hidden="true" (click) = "setting()"></i>
-                                <i *ngIf = "groupChat && groupIsMore" class="fa fa-ellipsis-v colorSt" aria-hidden="true" (click) = "setting()"></i>
+                                <i *ngIf="!groupChat" class="fa fa-ellipsis-v colorSt" aria-hidden="true"
+                                    (click)="setting()"></i>
+                                <i *ngIf="groupChat && groupIsMore" class="fa fa-ellipsis-v colorSt" aria-hidden="true"
+                                    (click)="setting()"></i>
                             </div>
                         </div>
-                        
+
                         <div class="conversation">
-                            <div class="conversation-container" #chatDiv *ngIf = "!groupChat">
+
+                            <div id="chatContainer" class="conversation-container" #chatDiv *ngIf="!groupChat">
                                 <ng-container *ngIf="showChatLoader">
                                     <div class="loader-container">
                                         <div class="loader"></div>
                                     </div>
                                 </ng-container>
-                                
-                                <ng-container *ngIf = "!showChatLoader && userMessages.message.length == 0">
+
+                                <ng-container *ngIf="!showChatLoader && userMessages.message.length == 0">
                                     <div class="marTopText50">
-                                        <app-no-data-available ></app-no-data-available>
+                                        <app-no-data-available></app-no-data-available>
                                     </div>
                                 </ng-container>
 
                                 <ng-container *ngFor="let msg of userMessages.message">
                                     <div *ngIf="msg.senderId === userMessages.user1._id">
-                                        <div [ngClass] = "['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
+                                        <div
+                                            [ngClass]="['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
                                             <span class="stSize">{{ userMessages.user1.fullName }}</span>
                                             <p>{{ msg.message }}</p>
-                                            <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
+                                            <span class="metadata"><span class="time">{{msg.timestamps | date:
+                                                    "dd/MM/yyyy HH:mm:ss"}}</span></span>
                                             <!-- <span class="metadata">
                                                 <span class="time"></span><span class="tick"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="16" height="15"
@@ -82,16 +90,18 @@
                                                             fill="#4fc3f7" />
                                                     </svg></span>
                                             </span> -->
-                                            <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.chatFileUpload">
-                                                <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
+                                            <div *ngIf="isUrl(msg.message) && msg.type !== _constants.chatFileUpload">
+                                                <button class="clkOpen" (click)="openUrl(msg.message)">My
+                                                    Resume</button>
                                             </div>
 
-                                            <div *ngIf = "isUrl2(msg.message) && msg.type !== _constants.chatFileUpload">
-                                                <button class="clkOpen" (click) = "openUrl2(msg.message)">Click</button>
+                                            <div *ngIf="isUrl2(msg.message) && msg.type !== _constants.chatFileUpload">
+                                                <button class="clkOpen" (click)="openUrl2(msg.message)">Click</button>
                                             </div>
 
-                                            <div *ngIf = "msg.type == _constants.chatFileUpload">
-                                                <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
+                                            <div *ngIf="msg.type == _constants.chatFileUpload">
+                                                <i class="fa fa-download downloadIcon" aria-hidden="true"
+                                                    (click)="downloadFile(msg.message, msg.filePath)"></i>
                                             </div>
 
                                             <!-- <ng-container *ngIf = "msg.type == _constants.chatFileUpload">
@@ -99,12 +109,13 @@
                                             </ng-container> -->
                                         </div>
                                     </div>
-
                                     <div *ngIf="msg.senderId === userMessages.user2._id">
-                                        <div [ngClass] = "['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
+                                        <div
+                                            [ngClass]="['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
                                             <span class="stSize">{{ userMessages.user2.fullName }}</span>
                                             <p>{{ msg.message }}</p>
-                                            <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
+                                            <span class="metadata"><span class="time">{{msg.timestamps | date:
+                                                    "dd/MM/yyyy HH:mm:ss"}}</span></span>
                                             <!-- <span class="metadata">
                                                 <span class="time"></span><span class="tick"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="16" height="15"
@@ -114,16 +125,18 @@
                                                             fill="#4fc3f7" />
                                                     </svg></span>
                                             </span> -->
-                                            <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.chatFileUpload">
-                                                <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
+                                            <div *ngIf="isUrl(msg.message) && msg.type !== _constants.chatFileUpload">
+                                                <button class="clkOpen" (click)="openUrl(msg.message)">My
+                                                    Resume</button>
                                             </div>
 
-                                            <div *ngIf = "isUrl2(msg.message) && msg.type !== _constants.chatFileUpload">
-                                                <button class="clkOpen" (click) = "openUrl2(msg.message)">Click</button>
+                                            <div *ngIf="isUrl2(msg.message) && msg.type !== _constants.chatFileUpload">
+                                                <button class="clkOpen" (click)="openUrl2(msg.message)">Click</button>
                                             </div>
-                                            
-                                            <div *ngIf = "msg.type == _constants.chatFileUpload">
-                                                <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
+
+                                            <div *ngIf="msg.type == _constants.chatFileUpload">
+                                                <i class="fa fa-download downloadIcon" aria-hidden="true"
+                                                    (click)="downloadFile(msg.message, msg.filePath)"></i>
                                             </div>
 
                                             <!-- <ng-container *ngIf = "msg.type == _constants.chatFileUpload && inProgress">
@@ -132,54 +145,66 @@
                                         </div>
                                     </div>
                                 </ng-container>
+
                             </div>
 
-                            <div class="conversation-container" #chatDiv *ngIf = "groupChat">
+                            <div class="conversation-container" #chatDiv *ngIf="groupChat">
                                 <ng-container *ngIf="showGroupChatLoader">
                                     <div class="loader-container">
                                         <div class="loader"></div>
                                     </div>
                                 </ng-container>
-                                
-                                <ng-container *ngIf = "!showGroupChatLoader && groupMessages.message.length == 0">
+
+                                <ng-container *ngIf="!showGroupChatLoader && groupMessages.message.length == 0">
                                     <div class="marTopText50">
-                                        <app-no-data-available ></app-no-data-available>
+                                        <app-no-data-available></app-no-data-available>
                                     </div>
+
                                 </ng-container>
 
                                 <ng-container *ngFor="let msg of groupMessages.message">
-                                    <div [ngClass] = "['message', (msg.senderId._id === loggedInUser._id) ? 'sent' : 'received']">
+                                    <div
+                                        [ngClass]="['message', (msg.senderId._id === loggedInUser._id) ? 'sent' : 'received']">
                                         <span class="stSize">{{ msg.senderId.fullName }}</span>
                                         <p>{{ msg.message }}</p>
-                                        <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
-                                        <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.groupChatFileUpload">
-                                            <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
+                                        <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy
+                                                HH:mm:ss"}}</span></span>
+                                        <div *ngIf="isUrl(msg.message) && msg.type !== _constants.groupChatFileUpload">
+                                            <button class="clkOpen" (click)="openUrl(msg.message)">My Resume</button>
                                         </div>
 
-                                        <div *ngIf = "msg.type == _constants.groupChatFileUpload">
-                                            <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
+                                        <div *ngIf="msg.type == _constants.groupChatFileUpload">
+                                            <i class="fa fa-download downloadIcon" aria-hidden="true"
+                                                (click)="downloadFile(msg.message, msg.filePath)"></i>
                                         </div>
                                     </div>
                                 </ng-container>
+
                             </div>
 
-                            <form class="conversation-compose" *ngIf = "showType">
+                        </div>
+
+                        <div>
+                            <form id="myForm" class="conversation-compose" *ngIf="showType">
                                 <div class="emoji">
                                     <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" id="smiley" x="3147"
-                                        y="3209">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9.153 11.603c.795 0 1.44-.88 1.44-1.962s-.645-1.96-1.44-1.96c-.795 0-1.44.88-1.44 1.96s.645 1.965 1.44 1.965zM5.95 12.965c-.027-.307-.132 5.218 6.062 5.55 6.066-.25 6.066-5.55 6.066-5.55-6.078 1.416-12.13 0-12.13 0zm11.362 1.108s-.67 1.96-5.05 1.96c-3.506 0-5.39-1.165-5.608-1.96 0 0 5.912 1.055 10.658 0zM11.804 1.01C5.61 1.01.978 6.034.978 12.23s4.826 10.76 11.02 10.76S23.02 18.424 23.02 12.23c0-6.197-5.02-11.22-11.216-11.22zM12 21.355c-5.273 0-9.38-3.886-9.38-9.16 0-5.272 3.94-9.547 9.214-9.547a9.548 9.548 0 0 1 9.548 9.548c0 5.272-4.11 9.16-9.382 9.16zm3.108-9.75c.795 0 1.44-.88 1.44-1.963s-.645-1.96-1.44-1.96c-.795 0-1.44.878-1.44 1.96s.645 1.963 1.44 1.963z"
-                                            fill="#7d8489" />
-                                    </svg> --> 
+                                    y="3209">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.153 11.603c.795 0 1.44-.88 1.44-1.962s-.645-1.96-1.44-1.96c-.795 0-1.44.88-1.44 1.96s.645 1.965 1.44 1.965zM5.95 12.965c-.027-.307-.132 5.218 6.062 5.55 6.066-.25 6.066-5.55 6.066-5.55-6.078 1.416-12.13 0-12.13 0zm11.362 1.108s-.67 1.96-5.05 1.96c-3.506 0-5.39-1.165-5.608-1.96 0 0 5.912 1.055 10.658 0zM11.804 1.01C5.61 1.01.978 6.034.978 12.23s4.826 10.76 11.02 10.76S23.02 18.424 23.02 12.23c0-6.197-5.02-11.22-11.216-11.22zM12 21.355c-5.273 0-9.38-3.886-9.38-9.16 0-5.272 3.94-9.547 9.214-9.547a9.548 9.548 0 0 1 9.548 9.548c0 5.272-4.11 9.16-9.382 9.16zm3.108-9.75c.795 0 1.44-.88 1.44-1.963s-.645-1.96-1.44-1.96c-.795 0-1.44.878-1.44 1.96s.645 1.963 1.44 1.963z"
+                                        fill="#7d8489" />
+                                </svg> -->
                                 </div>
-                                <textarea class="input-msg" name="input" rows="5" cols="4" [(ngModel)]="messageIs" placeholder="Type a message" autocomplete="off" autofocus></textarea>
-                                <div class="photo" *ngIf = "!groupChat && loggedInUser.userRole == 'candidate'">
-                                    <i class="fas fa-link" (click) = "askShare()"></i>
+                                <textarea id="myTextarea" (input)="adjustFormHeight()" class="input-msg" name="input"
+                                    rows="1" cols="4" [(ngModel)]="messageIs" placeholder="Type a message"
+                                    autocomplete="off" autofocus></textarea>
+
+                                <div class="photo" *ngIf="!groupChat && loggedInUser.userRole == 'candidate'">
+                                    <i class="fas fa-link" (click)="askShare()"></i>
                                 </div>
-                                <div class="photo" *ngIf = "loggedInUser.userRole == 'candidate'">
+                                <div class="photo" *ngIf="loggedInUser.userRole == 'candidate'">
                                     <div class="image-upload">
                                         <label for="file-input">
-                                          <i class="fas fa-share"></i>
+                                            <i class="fas fa-share"></i>
                                         </label>
                                         <input id="file-input" #file type="file" (change)="preview(file.files)" />
                                     </div>
@@ -192,7 +217,9 @@
                             </form>
                         </div>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </div>

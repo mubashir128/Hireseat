@@ -49,23 +49,23 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   addGrpMembers = [];
   updateGrpMembers = [];
   allUpdateGrpMembers = [];
-  
+
   imgURL: any;
 
   allNewMembers = [];
   addNewGrpMembers = [];
 
   groupIsMore = true;
-  showType : boolean = false;
-  
+  showType: boolean = false;
+
   createdUrl = "";
 
   userCandidateProfileData: any;
 
   defaultMessage: string = "";
 
-  showChatLoader:boolean = true;
-  showGroupChatLoader:boolean = true;
+  showChatLoader: boolean = true;
+  showGroupChatLoader: boolean = true;
 
   imagePath: any;
   message: string;
@@ -73,15 +73,15 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   progress: Observable<any>;
   progressPercent: Number;
   inProgress: boolean = false;
-  
-  constructor(private route: ActivatedRoute, 
-    private router: Router, 
-    private userService: UserService, 
-    private _socket: WebsocketService, 
+
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService,
+    private _socket: WebsocketService,
     private _constants: ConstantsService,
     public dialog: MatDialog,
-    private _subList : SubscriberslistService,
-    private _mobileService : MobileServiceService,
+    private _subList: SubscriberslistService,
+    private _mobileService: MobileServiceService,
     private _chatService: ChatService
   ) {
     // this.messageIs = '';
@@ -90,17 +90,38 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       this.receiverId = params.id;
       this.groupChat = this.route.snapshot.queryParams["groupChat"] == 'true' ? true : false;
       this.defaultMessage = this.route.snapshot.queryParams["message"];
-      if(!this.groupChat){
+      if (!this.groupChat) {
         this.handleUserData();
       }
     });
 
   }
 
+  adjustFormHeight() {
+    const form = document.getElementById('myForm');
+    const textarea = document.getElementById('myTextarea');
+    const chatContainer = document.getElementById('chatContainer');
+    const scrollbarWidth = textarea.offsetWidth - textarea.clientWidth;
+    const oldHeight = textarea.style.height;
+
+    textarea.style.height = "37px"
+    textarea.style.height = (textarea.scrollHeight - scrollbarWidth) + 'px';
+    form.style.height = (textarea.scrollHeight - scrollbarWidth) + 'px';
+
+    const newHeight = textarea.style.height;
+    const heightDiff = parseInt(newHeight) - parseInt(oldHeight);
+    console.log(heightDiff)
+    if (heightDiff < 0) {
+      chatContainer.scrollBy(0, heightDiff);
+    } else if (heightDiff > 0) {
+      chatContainer.scrollBy(0, heightDiff);
+    }
+  }
+
   async ngOnInit() {
     jQuery(".modal").modal();
-    setTimeout(()=>{
-      this._subList.mobileMenuTabSub.next({show : false});
+    setTimeout(() => {
+      this._subList.mobileMenuTabSub.next({ show: false });
     }, 500);
 
     //add a observable for userChat
@@ -117,7 +138,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
 
     this.getAllChats();
 
-    if(this.defaultMessage){
+    if (this.defaultMessage) {
       this.messageIs = this.defaultMessage;
       this.sendChatMessage();
     }
@@ -134,7 +155,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   isUrl(s) {
     let result = false;
     var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    if(regexp.test(s)){
+    if (regexp.test(s)) {
       result = s.includes(myGlobals.platformUrl);
     }
     return result;
@@ -143,35 +164,35 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   isUrl2(s) {
     let result = false;
     var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    if(regexp.test(s)){
+    if (regexp.test(s)) {
       result = !s.includes(myGlobals.platformUrl);
     }
     return result;
   }
 
-  openUrl(url){
+  openUrl(url) {
     // window.open(url, "_blank");
     let token = url?.split("/")[4];
-    this.router.navigate(["/shared-video/", token], { queryParams: { userChatId: this.receiverId }});
+    this.router.navigate(["/shared-video/", token], { queryParams: { userChatId: this.receiverId } });
   }
 
-  openUrl2(url){
+  openUrl2(url) {
     window.open(url, "_blank");
   }
 
   getAllChats() {
-    if(this.groupChat){
+    if (this.groupChat) {
       //call to get all group chats.
       this._socket.sendMessage({
         type: this._constants.userChatMessageType,
         data: {
           subType: this._constants.getAllGroupChats,
-          payload : {
+          payload: {
             groupId: this.receiverId
           }
         }
       });
-    }else{
+    } else {
       //call to get all chats.
       this._socket.sendMessage({
         type: this._constants.userChatMessageType,
@@ -183,14 +204,14 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     }
   }
 
-  scrollToBottom(){
-    setTimeout(()=>{
+  scrollToBottom() {
+    setTimeout(() => {
       let height = jQuery(".message-box").last().offset().top;
-      jQuery('.chat-box').animate({scrollTop: height});
+      jQuery('.chat-box').animate({ scrollTop: height });
     }, 500);
   }
 
-  showTypeFlag(){
+  showTypeFlag() {
     this.showType = true;
   }
 
@@ -205,7 +226,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
           this.userChatId = this.userMessages._id;
           this.insertTwoWayChatSettingList();
         }
-        setTimeout(()=>{
+        setTimeout(() => {
           this.goToBottomFirst();
         }, 700);
         break;
@@ -220,7 +241,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
           this.getAllUsers();
           this.setGroupProfilePicture();
         }
-        setTimeout(()=>{
+        setTimeout(() => {
           this.goToBottomFirst();
         }, 700);
         break;
@@ -241,8 +262,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
           }
         }
         break;
-      case this._constants.updateGroupMembers : 
-        if(res.data){
+      case this._constants.updateGroupMembers:
+        if (res.data) {
           this.groupMessages = res.data;
           this.user = this.groupMessages;
           this.addGrpMembers = [];
@@ -257,33 +278,33 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
         this.addAllNewMembers();
         break;
       case this._constants.deleteUserChat:
-        if(res.data){
+        if (res.data) {
           Materialize.toast("Chat deleted sucessfully...", 700, "green");
           this.backToChat();
         }
         break;
       case this._constants.leftGroupChat:
-        if(res.data){
+        if (res.data) {
           Materialize.toast("Lefted from group sucessfully...", 700, "green");
           this.backToChat();
         }
         break;
       case this._constants.deleteGroupChat:
-        if(res.data){
+        if (res.data) {
           Materialize.toast("Permantly deleted group...", 700, "green");
           this.backToChat();
         }
         break;
       case this._constants.deleteGroupChatNoteMessage:
-        if(res.data){
+        if (res.data) {
           Materialize.toast("This group is no more available...", 700, "red");
           // this.backToChat();
           this.groupIsMore = false;
-          jQuery(".right-chat").css("display","none");
+          jQuery(".right-chat").css("display", "none");
         }
         break;
-      case this._constants.generateLink : 
-        if(res){
+      case this._constants.generateLink:
+        if (res) {
           this.messageIs = res.link.link;
           this.createdUrl = res.link.link;
           this.sendChatMessage();
@@ -310,25 +331,25 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     document.body.removeChild(selBox);
   }
 
-  setGroupProfilePicture(){
+  setGroupProfilePicture() {
     this.imgURL = this.groupMessages.profileimage;
   }
 
-  addAllNewMembers(){
+  addAllNewMembers() {
     this.allUpdateGrpMembers.forEach((ele, index) => {
       let temp = true;
       this.user.members.forEach((eleMatch, index2) => {
-        if(ele._id == eleMatch.memberId._id){
+        if (ele._id == eleMatch.memberId._id) {
           temp = false;
         }
       });
-      if(temp){
+      if (temp) {
         this.updateGrpMembers.push(ele);
       }
     });
   }
 
-  getAllUsers(){
+  getAllUsers() {
     //call to get all users.
     this._socket.sendMessage({
       type: this._constants.userChatMessageType,
@@ -338,46 +359,46 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     });
   }
 
-  insertGrpMembers(){
+  insertGrpMembers() {
     this.groupMessages.members.forEach((member) => {
       this.addGrpMembers.push(member.memberId._id);
-      this.groupUserAre += member.memberId.fullName + ", " ;
+      this.groupUserAre += member.memberId.fullName + ", ";
     });
   }
 
-  insertGroupSettingList(){
+  insertGroupSettingList() {
     this.settingLists = [{
-      id : 1,
-      status : true,
-      name : "Show Members"
-    },{
-      id : 2,
-      status : (this.loggedInUser._id == this.user.createdBy?._id),
-      name : "Add Members"
-    },{
-      id : 3,
-      status : true,
-      name : "Upload Profile Picture"
-    },{
-      id : 4,
-      status : (this.loggedInUser._id == this.user.createdBy?._id),
-      name : "Delete Group Chat Permanantly"
-    },{
-      id : 5,
-      status : true,
-      name : "Leave Group Chat"
+      id: 1,
+      status: true,
+      name: "Show Members"
+    }, {
+      id: 2,
+      status: (this.loggedInUser._id == this.user.createdBy?._id),
+      name: "Add Members"
+    }, {
+      id: 3,
+      status: true,
+      name: "Upload Profile Picture"
+    }, {
+      id: 4,
+      status: (this.loggedInUser._id == this.user.createdBy?._id),
+      name: "Delete Group Chat Permanantly"
+    }, {
+      id: 5,
+      status: true,
+      name: "Leave Group Chat"
     }];
   }
 
-  insertTwoWayChatSettingList(){
+  insertTwoWayChatSettingList() {
     this.settingLists = [{
-      id : 11,
-      status : true,
-      name : "Create Group"
-    },{
-      id : 22,
-      status : true,
-      name : "Delete Chat"
+      id: 11,
+      status: true,
+      name: "Create Group"
+    }, {
+      id: 22,
+      status: true,
+      name: "Delete Chat"
     }];
   }
 
@@ -399,7 +420,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   backToChat() {
-    this.router.navigate(["/" + this.loggedInUser.userRole + "/user-chat"], { queryParams: { groupChatActive: this.groupChat ? 3 : 1 }});
+    this.router.navigate(["/" + this.loggedInUser.userRole + "/user-chat"], { queryParams: { groupChatActive: this.groupChat ? 3 : 1 } });
   }
 
   sendChatMessage() {
@@ -407,7 +428,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       return;
     }
 
-    if(!this.groupChat){
+    if (!this.groupChat) {
       let payload = {
         receiverId: this.receiverId,
         message: this.messageIs
@@ -422,7 +443,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
           },
         });
       }
-    }else{
+    } else {
       let payload = {
         groupId: this.receiverId,
         message: this.messageIs
@@ -444,24 +465,24 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
 
   goToBottomFirst() {
     try {
-      setTimeout(()=>{
-        if(this.chatDiv && this.chatDiv.nativeElement && this.chatDiv.nativeElement.scrollHeight){
+      setTimeout(() => {
+        if (this.chatDiv && this.chatDiv.nativeElement && this.chatDiv.nativeElement.scrollHeight) {
           this.chatDiv.nativeElement.scrollTop = this.chatDiv.nativeElement.scrollHeight;
-          return ;
-        }else{
+          return;
+        } else {
           this.goToBottomFirst();
         }
       }, 500);
     } catch (err) {
       console.log(err);
-    } 
+    }
   }
 
   goToBottom() {
     try {
-      if(this.chatDiv && this.chatDiv.nativeElement && this.chatDiv.nativeElement.scrollHeight){
+      if (this.chatDiv && this.chatDiv.nativeElement && this.chatDiv.nativeElement.scrollHeight) {
         let height = this.chatDiv.nativeElement.scrollHeight;
-        jQuery('.conversation-container').animate({scrollTop: height});
+        jQuery('.conversation-container').animate({ scrollTop: height });
       }
     } catch (err) {
       console.log(err);
@@ -469,68 +490,68 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
   }
 
   showImageModal(showValue) {
-    const dialogIntroduceRef = this.dialog.open(DialogImagePreviewComponent,{
+    const dialogIntroduceRef = this.dialog.open(DialogImagePreviewComponent, {
       data: {
-        dialogType : "imagePreview",
-        dialogTitle : "Image Preview...",
-        imgUrl : showValue.profileimage,
-        fullName : showValue.fullName
+        dialogType: "imagePreview",
+        dialogTitle: "Image Preview...",
+        imgUrl: showValue.profileimage,
+        fullName: showValue.fullName
       }
     });
 
     dialogIntroduceRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
       }
     });
   }
 
-  setting(){
-    const dialogSettingRef = this.dialog.open(DialogSettingComponent,{
+  setting() {
+    const dialogSettingRef = this.dialog.open(DialogSettingComponent, {
       data: {
-        dialogType : "setting",
-        dialogTitle : "Setting...",
-        settingLists : this.settingLists
+        dialogType: "setting",
+        dialogTitle: "Setting...",
+        settingLists: this.settingLists
       }
     });
 
     dialogSettingRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.openListsModals(result.id);
       }
     });
   }
 
-  openListsModals(id){
-    switch(id){
-      case 1 : 
+  openListsModals(id) {
+    switch (id) {
+      case 1:
         this.openMembersModal();
-        break ;
-      case 2 : 
+        break;
+      case 2:
         this.openAddMemberModal();
-        break ;
-      case 3 : 
+        break;
+      case 3:
         this.openUpdateProfilePictureModal();
         break;
-      case 4 : 
+      case 4:
         //Delete Group Chat Permanantly
         this.deleteGroupChat();;
         break;
-      case 5 : 
+      case 5:
         // Left Group Chat
         this.leftGroupChat();
         break;
-      case 11 : 
+      case 11:
         this.gotoCreateGroup();
-        break ;
-      case 22 : 
+        break;
+      case 22:
         this.deleteUserChat();
         break
-      default : 
-        break ;
+      default:
+        break;
     }
   }
 
-  leftGroupChat(){
+  leftGroupChat() {
     let payload = {
       receiverId: this.receiverId,
     }
@@ -539,12 +560,12 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       type: this._constants.userChatMessageType,
       data: {
         subType: this._constants.leftGroupChat,
-        payload : payload
+        payload: payload
       },
     });
   }
 
-  deleteGroupChat(){
+  deleteGroupChat() {
     let payload = {
       receiverId: this.receiverId,
     }
@@ -553,12 +574,12 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       type: this._constants.userChatMessageType,
       data: {
         subType: this._constants.deleteGroupChat,
-        payload : payload
+        payload: payload
       },
     });
   }
 
-  deleteUserChat(){
+  deleteUserChat() {
     let payload = {
       userChatId: this.userChatId,
     }
@@ -566,75 +587,75 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       type: this._constants.userChatMessageType,
       data: {
         subType: this._constants.deleteUserChat,
-        payload : payload
+        payload: payload
       },
     });
   }
 
-  gotoCreateGroup(){
+  gotoCreateGroup() {
     let userData = (this.userMessages.user1._id == this.loggedInUser._id) ? this.userMessages.user2 : this.userMessages.user1;
-    this.router.navigate(["/"+this.loggedInUser.userRole+"/user-chat"], { queryParams: { groupChatActive : 3, openCreateGroupModal : true, userData :  JSON.stringify(userData) }});
+    this.router.navigate(["/" + this.loggedInUser.userRole + "/user-chat"], { queryParams: { groupChatActive: 3, openCreateGroupModal: true, userData: JSON.stringify(userData) } });
   }
 
   openMembersModal() {
-    const dialogGroupMembersRef = this.dialog.open(DialogGroupMembersComponent,{
+    const dialogGroupMembersRef = this.dialog.open(DialogGroupMembersComponent, {
       data: {
-        dialogType : "groupMembers",
-        dialogTitle : "Group Members...",
-        groupMessages : this.groupMessages,
-        groupChat : this.groupChat,
-        loggedInUser : this.loggedInUser,
-        user : this.user,
-        addGrpMembers : this.addGrpMembers
+        dialogType: "groupMembers",
+        dialogTitle: "Group Members...",
+        groupMessages: this.groupMessages,
+        groupChat: this.groupChat,
+        loggedInUser: this.loggedInUser,
+        user: this.user,
+        addGrpMembers: this.addGrpMembers
       }
     });
 
     dialogGroupMembersRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.updateMembers(result);
       }
     });
   }
 
   openUpdateProfilePictureModal() {
-    const dialogUploadPictureRef = this.dialog.open(DialogUploadPictureComponent,{
+    const dialogUploadPictureRef = this.dialog.open(DialogUploadPictureComponent, {
       data: {
-        dialogType : "uploadProfilePicture",
-        dialogTitle : "Picture...",
-        imgURL : this.imgURL,
+        dialogType: "uploadProfilePicture",
+        dialogTitle: "Picture...",
+        imgURL: this.imgURL,
       }
     });
 
     dialogUploadPictureRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.updateProfilePicture(result);
       }
     });
   }
 
   openAddMemberModal() {
-    const dialogAddGroupMembersRef = this.dialog.open(DialogAddMembersComponent,{
+    const dialogAddGroupMembersRef = this.dialog.open(DialogAddMembersComponent, {
       data: {
-        dialogType : "addGroupMembers",
-        dialogTitle : "Add Group Members...",
-        groupChat : this.groupChat,
-        loggedInUser : this.loggedInUser,
-        addNewGrpMembers : this.addNewGrpMembers,
-        updateGrpMembers : this.updateGrpMembers
+        dialogType: "addGroupMembers",
+        dialogTitle: "Add Group Members...",
+        groupChat: this.groupChat,
+        loggedInUser: this.loggedInUser,
+        addNewGrpMembers: this.addNewGrpMembers,
+        updateGrpMembers: this.updateGrpMembers
       }
     });
 
     dialogAddGroupMembersRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.addMoreGroupMembers(result);
       }
     });
   }
 
-  updateMembers(result){
+  updateMembers(result) {
     let payload = {
-      groupId : this.receiverId,
-      members : result.addGrpMembers
+      groupId: this.receiverId,
+      members: result.addGrpMembers
     };
 
     this._socket.sendMessage({
@@ -647,15 +668,15 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
 
   }
 
-  addMoreGroupMembers(result){
+  addMoreGroupMembers(result) {
     let previousMembers = [];
     this.user.members.forEach((item) => {
       previousMembers.push(item.memberId._id);
     });
 
     let payload = {
-      groupId : this.receiverId,
-      members : [...previousMembers, ...result.addNewGrpMembers]
+      groupId: this.receiverId,
+      members: [...previousMembers, ...result.addNewGrpMembers]
     };
 
     this._socket.sendMessage({
@@ -667,8 +688,8 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     });
   }
 
-  updateProfilePicture(result){
-    if(result.filepath){
+  updateProfilePicture(result) {
+    if (result.filepath) {
       if (!result.imagePath) {
         Materialize.toast(
           "Please click on the plus Icon to upload a Picture !",
@@ -690,25 +711,25 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     }
   }
 
-  askShare(){
-    const dialogCreateGroupRef = this.dialog.open(DialogAskToSendProfileLinkComponent,{
+  askShare() {
+    const dialogCreateGroupRef = this.dialog.open(DialogAskToSendProfileLinkComponent, {
       data: {
-        dialogType : "askProfileLink",
-        dialogTitle : "Profile link send..."
+        dialogType: "askProfileLink",
+        dialogTitle: "Profile link send..."
       }
     });
 
     dialogCreateGroupRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.sendProfiledata();
       }
     });
   }
 
-  sendProfiledata(){
+  sendProfiledata() {
     let payload = {
       recruiterId: this.loggedInUser._id,
-      resumeId : this.userCandidateProfileData._id
+      resumeId: this.userCandidateProfileData._id
     };
 
     this._socket.sendMessage({
@@ -721,7 +742,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
 
   }
 
-  getImage(obj){
+  getImage(obj) {
     obj.showCreatedLogo = true;
   }
 
@@ -741,7 +762,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     reader.onload = (_event) => {
       this.imgURL = reader.result;
     };
-    if (this.filepath){
+    if (this.filepath) {
       this.uploadChatFile();
     }
   }
@@ -755,16 +776,16 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
       fd.append("fromId", this.loggedInUser._id);
       fd.append("chatId", this.receiverId);
 
-      if(this.groupChat){
+      if (this.groupChat) {
         this._chatService.uploadGroupChatFile(fd).subscribe((res) => {
-          if(res.data){
+          if (res.data) {
           }
         }, (error) => {
           console.log(error);
         });
-      }else{
+      } else {
         this._chatService.uploadChatFile(fd).subscribe((res) => {
-          if(res.data){
+          if (res.data) {
           }
         }, (error) => {
           console.log(error);
@@ -773,14 +794,14 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     }
   }
 
-  downloadFile(message, filePath){
+  downloadFile(message, filePath) {
     this.progress = this._chatService.downloadChatFile(filePath, message);
     this.progressPercent = 0;
     this.progress.subscribe(progress => {
       this.progressPercent = progress.percent;
       console.log(`Upload ${this.progressPercent}% completed`);
       this.inProgress = true;
-      if(progress.completeStatus && progress.body){
+      if (progress.completeStatus && progress.body) {
         this._chatService.download(progress.body, message);
       }
     }, error => {
@@ -792,7 +813,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     });
   }
 
-  insertChat(res){
+  insertChat(res) {
     if (res.data.user1._id === this.receiverId || res.data.user2._id === this.receiverId) {
       if (this.userMessages === undefined) {
         res.data.message = [res.data.message];
