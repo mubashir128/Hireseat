@@ -59,6 +59,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   showFriendsConnectionsLoader: boolean = true;
 
   profileId: any;
+
+  dialogOnlyTextRefGlobal;
   
   constructor(
     protected _userService: UserService,
@@ -120,7 +122,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     let getFirstTimeIntro = JSON.parse(this._userService.getFirstTimeIntro());
     
     if(loginCount == 1 && !getFirstTimeIntro){
-      const dialogOnlyTextRef = this.dialog.open(DialogOnlyMessageComponent, {
+      this.dialogOnlyTextRefGlobal = this.dialog.open(DialogOnlyMessageComponent, {
         data: {
           disableClose: true,
           dialogText1 : "What companies can you intro someone to?",
@@ -131,7 +133,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         },
       });
   
-      dialogOnlyTextRef.afterClosed().subscribe(result => {
+      this.dialogOnlyTextRefGlobal.afterClosed().subscribe(result => {
         if(result?.save && result?.inputText !== ""){
           this._userService.setFirstTimeIntro();
           this.updateUserIntro(result?.inputText);
@@ -443,6 +445,10 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   swapIntroLocal(_id, resumeId, resumeId2){
     let resume = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
     this.swapIntro(resume);
+  }
+
+  introduceToFromOnlyCandidatePage(resume){
+    this.introduceTo(null, resume, resume);
   }
 
   introduceTo(_id, resumeId, resumeId2){
@@ -760,6 +766,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
+    this.dialogOnlyTextRefGlobal.close();
     this.connectFriendObserver.unsubscribe();
   }
 
