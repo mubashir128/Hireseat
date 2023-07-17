@@ -13,7 +13,7 @@
 </div>
 
 <ng-container *ngIf="showOnlyCan">
-  <app-only-for-candidate-shared-profile (countEM)='countModules($event)' [(companyName)]="companyName"></app-only-for-candidate-shared-profile>
+  <app-only-for-candidate-shared-profile (introduceToFromOnlyCandidatePageEM)='introduceToFromOnlyCandidatePage($event)' (countEM)='countModules($event)' [(companyName)]="companyName"></app-only-for-candidate-shared-profile>
 </ng-container>
 
 <ng-container *ngIf="showRequest">

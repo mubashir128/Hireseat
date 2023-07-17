@@ -67,6 +67,7 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   throughProfileId;
 
   @Output() countEM = new EventEmitter();
+  @Output() introduceToFromOnlyCandidatePageEM = new EventEmitter();
 
   showLoader: boolean = true;
 
@@ -816,6 +817,10 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   getIntroduceCount(resume) {
     return (resume?.introduceCount) ? resume.introduceCount : (resume?.candidateProfileKey?.introduceCount) ? resume.candidateProfileKey.introduceCount : 0;
+  }
+
+  introduceTo(resume){
+    this.introduceToFromOnlyCandidatePageEM.emit(resume);
   }
 
   ngOnDestroy() {
