@@ -428,6 +428,10 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     this.swapIntro(resume);
   }
 
+  introduceToFromOnlyCandidatePage(resume){
+    this.introduceTo(null, resume, resume);
+  }
+
   introduceTo(_id, resumeId, resumeId2){
     let resume = (_id !== this.loggedUser._id) ? resumeId : resumeId2;
     const dialogThanksLaterRef = this.dialog.open(DialogSelectUserComponent,{
