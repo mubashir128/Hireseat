@@ -31,15 +31,15 @@
                                 <i (click)="backToChat()" class="fa fa-arrow-left colorSt" aria-hidden="true"></i>
                             </div>
                             <div class="avatar">
-                                <div *ngIf = "!user.showCreatedLogo">
-                                    <img [src]="user.profileimage" (error)="getImage(user)" (click)="showImageModal(user)" class="uploadedImgUser"/>
+                                <div *ngIf = "!user?.showCreatedLogo">
+                                    <img [src]="user?.profileimage" (error)="getImage(user)" (click)="showImageModal(user)" class="uploadedImgUser"/>
                                 </div>
-                                <div *ngIf = "user.showCreatedLogo" class="big-badge extrabig-badge"  style="background: radial-gradient(black, transparent) !important; border: 1px solid gainsboro;" (click)="showImageModal(user)">
-                                    {{ user.fullName | uppercase | slice: 0 : 1 }}
+                                <div *ngIf = "user?.showCreatedLogo" class="big-badge extrabig-badge"  style="background: radial-gradient(black, transparent) !important; border: 1px solid gainsboro;" (click)="showImageModal(user)">
+                                    {{ user?.fullName | uppercase | slice: 0 : 1 }}
                                 </div>
                             </div>
                             <div class="name">
-                                <span class="stSize">{{ user.fullName }}</span>
+                                <span class="stSize">{{ user?.fullName }}</span>
                                 <!-- <span *ngIf = "!groupChat" class="status">online</span> -->
                                 <span *ngIf = "groupChat" class="status">
                                     <marquee>
@@ -61,18 +61,18 @@
                                     </div>
                                 </ng-container>
                                 
-                                <ng-container *ngIf = "!showChatLoader && userMessages.message.length == 0">
+                                <ng-container *ngIf = "!showChatLoader && userMessages?.message?.length == 0">
                                     <div class="marTopText50">
                                         <app-no-data-available ></app-no-data-available>
                                     </div>
                                 </ng-container>
 
-                                <ng-container *ngFor="let msg of userMessages.message">
-                                    <div *ngIf="msg.senderId === userMessages.user1._id">
-                                        <div [ngClass] = "['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
-                                            <span class="stSize">{{ userMessages.user1.fullName }}</span>
-                                            <p>{{ msg.message }}</p>
-                                            <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
+                                <ng-container *ngFor="let msg of userMessages?.message">
+                                    <div *ngIf="msg?.senderId === userMessages?.user1?._id">
+                                        <div [ngClass] = "['message', (msg?.senderId === loggedInUser._id) ? 'sent' : 'received']">
+                                            <span class="stSize">{{ userMessages?.user1?.fullName }}</span>
+                                            <p>{{ msg?.message }}</p>
+                                            <span class="metadata"><span class="time">{{msg?.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
                                             <!-- <span class="metadata">
                                                 <span class="time"></span><span class="tick"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="16" height="15"
@@ -82,16 +82,16 @@
                                                             fill="#4fc3f7" />
                                                     </svg></span>
                                             </span> -->
-                                            <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.chatFileUpload">
-                                                <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
+                                            <div *ngIf = "isUrl(msg?.message) && msg?.type !== _constants.chatFileUpload">
+                                                <button class="clkOpen" (click) = "openUrl(msg?.message)">My Resume</button>
                                             </div>
 
-                                            <div *ngIf = "isUrl2(msg.message) && msg.type !== _constants.chatFileUpload">
-                                                <button class="clkOpen" (click) = "openUrl2(msg.message)">Click</button>
+                                            <div *ngIf = "isUrl2(msg?.message) && msg?.type !== _constants.chatFileUpload">
+                                                <button class="clkOpen" (click) = "openUrl2(msg?.message)">Click</button>
                                             </div>
 
-                                            <div *ngIf = "msg.type == _constants.chatFileUpload">
-                                                <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
+                                            <div *ngIf = "msg?.type == _constants.chatFileUpload">
+                                                <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg?.message, msg?.filePath)"></i>
                                             </div>
 
                                             <!-- <ng-container *ngIf = "msg.type == _constants.chatFileUpload">
@@ -100,11 +100,11 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="msg.senderId === userMessages.user2._id">
-                                        <div [ngClass] = "['message', (msg.senderId === loggedInUser._id) ? 'sent' : 'received']">
-                                            <span class="stSize">{{ userMessages.user2.fullName }}</span>
-                                            <p>{{ msg.message }}</p>
-                                            <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
+                                    <div *ngIf="msg?.senderId === userMessages?.user2?._id">
+                                        <div [ngClass] = "['message', (msg?.senderId === loggedInUser._id) ? 'sent' : 'received']">
+                                            <span class="stSize">{{ userMessages?.user2?.fullName }}</span>
+                                            <p>{{ msg?.message }}</p>
+                                            <span class="metadata"><span class="time">{{msg?.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
                                             <!-- <span class="metadata">
                                                 <span class="time"></span><span class="tick"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="16" height="15"
@@ -114,16 +114,16 @@
                                                             fill="#4fc3f7" />
                                                     </svg></span>
                                             </span> -->
-                                            <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.chatFileUpload">
-                                                <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
+                                            <div *ngIf = "isUrl(msg?.message) && msg?.type !== _constants.chatFileUpload">
+                                                <button class="clkOpen" (click) = "openUrl(msg?.message)">My Resume</button>
                                             </div>
 
-                                            <div *ngIf = "isUrl2(msg.message) && msg.type !== _constants.chatFileUpload">
-                                                <button class="clkOpen" (click) = "openUrl2(msg.message)">Click</button>
+                                            <div *ngIf = "isUrl2(msg?.message) && msg?.type !== _constants.chatFileUpload">
+                                                <button class="clkOpen" (click) = "openUrl2(msg?.message)">Click</button>
                                             </div>
                                             
-                                            <div *ngIf = "msg.type == _constants.chatFileUpload">
-                                                <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
+                                            <div *ngIf = "msg?.type == _constants.chatFileUpload">
+                                                <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg?.message, msg?.filePath)"></i>
                                             </div>
 
                                             <!-- <ng-container *ngIf = "msg.type == _constants.chatFileUpload && inProgress">
@@ -141,23 +141,23 @@
                                     </div>
                                 </ng-container>
                                 
-                                <ng-container *ngIf = "!showGroupChatLoader && groupMessages.message.length == 0">
+                                <ng-container *ngIf = "!showGroupChatLoader && groupMessages?.message?.length == 0">
                                     <div class="marTopText50">
                                         <app-no-data-available ></app-no-data-available>
                                     </div>
                                 </ng-container>
 
                                 <ng-container *ngFor="let msg of groupMessages.message">
-                                    <div [ngClass] = "['message', (msg.senderId._id === loggedInUser._id) ? 'sent' : 'received']">
+                                    <div [ngClass] = "['message', (msg?.senderId?._id === loggedInUser._id) ? 'sent' : 'received']">
                                         <span class="stSize">{{ msg.senderId.fullName }}</span>
                                         <p>{{ msg.message }}</p>
                                         <span class="metadata"><span class="time">{{msg.timestamps | date: "dd/MM/yyyy HH:mm:ss"}}</span></span>
-                                        <div *ngIf = "isUrl(msg.message) && msg.type !== _constants.groupChatFileUpload">
-                                            <button class="clkOpen" (click) = "openUrl(msg.message)">My Resume</button>
+                                        <div *ngIf = "isUrl(msg?.message) && msg?.type !== _constants.groupChatFileUpload">
+                                            <button class="clkOpen" (click) = "openUrl(msg?.message)">My Resume</button>
                                         </div>
 
-                                        <div *ngIf = "msg.type == _constants.groupChatFileUpload">
-                                            <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg.message, msg.filePath)"></i>
+                                        <div *ngIf = "msg?.type == _constants.groupChatFileUpload">
+                                            <i class="fa fa-download downloadIcon" aria-hidden="true" (click)="downloadFile(msg?.message, msg?.filePath)"></i>
                                         </div>
                                     </div>
                                 </ng-container>
