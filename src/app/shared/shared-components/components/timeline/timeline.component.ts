@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ConstantsService } from 'src/app/_services/constants.service';
@@ -25,6 +26,11 @@ export class TimelineComponent implements OnInit {
 
   showLoader: boolean = true;
   profileImageLength: number = 5;
+
+  selector: string = ".timelineList";
+
+  pageSize: number = 10;
+  pageIndex: number = 0;
 
   constructor(
     private _constants: ConstantsService,
@@ -59,6 +65,8 @@ export class TimelineComponent implements OnInit {
       type: this._constants.timelineType,
       data: {
         subType: this._constants.getTimelinesType,
+        pageIndex : this.pageIndex,
+        pageSize : this.pageSize
       },
     });
   }
@@ -68,7 +76,7 @@ export class TimelineComponent implements OnInit {
       case this._constants.getTimelinesType:
         this.showLoader = false;
         if(res.data){
-          this.timelines = res.data.reverse();
+          this.timelines = [...this.timelines, ...res.data];
         }
         this._subList.loaderListAfterSearch.next({type : "000"});
         break ;
@@ -155,6 +163,12 @@ export class TimelineComponent implements OnInit {
         timeline.liked = [...resTimeline.liked];
       }
     });
+  }
+
+  //when timeline DIV is scrolled, then call to get next limit timelines.
+  onScroll() {
+    this.pageIndex++;
+    this.getAllTimelines();
   }
 
   ngOnDestroy() {

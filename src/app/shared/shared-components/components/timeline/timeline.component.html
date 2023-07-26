@@ -11,7 +11,15 @@
 </ng-container>
 
 <ng-container *ngIf="timelines">
-  <div class="timelineList">
+  <div
+    class="timelineList"
+    infiniteScroll
+    [infiniteScrollDistance]="1"
+    [infiniteScrollThrottle]="100"
+    [infiniteScrollContainer]="selector"
+    [fromRoot]="true"
+    (scrolled)="onScroll()"
+  >
     <div class="timelineUI animatePart" *ngFor="let timeline of timelines; let ind = index">
       <div class="row" style="margin: auto;">
         <div class="pro">
