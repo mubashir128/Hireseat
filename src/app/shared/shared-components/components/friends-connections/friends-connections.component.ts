@@ -60,7 +60,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
   profileId: any;
 
-  dialogOnlyTextRefGlobal;
+  dialogOnlyTextRefGlobal:any;
   
   constructor(
     protected _userService: UserService,
@@ -766,7 +766,9 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
-    this.dialogOnlyTextRefGlobal.close();
+    if(this.dialogOnlyTextRefGlobal){
+      this.dialogOnlyTextRefGlobal?.close();
+    }
     this.connectFriendObserver.unsubscribe();
   }
 
