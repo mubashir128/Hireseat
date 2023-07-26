@@ -104,7 +104,7 @@ export class UserChatRecordComponent implements OnInit, AfterViewChecked, OnChan
     const scrollbarWidth = textarea.offsetWidth - textarea.clientWidth;
     const oldHeight = textarea.style.height;
 
-    textarea.style.height = "37px"
+    textarea.style.height = "43px"
     textarea.style.height = (textarea.scrollHeight - scrollbarWidth) + 'px';
     form.style.height = (textarea.scrollHeight - scrollbarWidth) + 'px';
 
