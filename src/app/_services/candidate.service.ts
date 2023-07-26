@@ -326,4 +326,24 @@ export class CandidateService {
       })
     );
   }
+
+  saveFileUrl(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/save-file-url", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
+  saveUserOnlyProfile(payload) {
+    return this.http
+      .post<any>(this.baseurl + "api/save-user-only-profile", payload)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
 }
