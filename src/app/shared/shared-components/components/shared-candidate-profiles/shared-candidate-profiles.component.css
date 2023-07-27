@@ -871,3 +871,13 @@ input {
   position: unset;
   pointer-events: unset;
 }
+
+.uploadBtnClass {
+  height: 34px !important;
+  background-color: red;
+  display: flex;
+}
+
+.btn:hover {
+  background-color: red !important;
+}

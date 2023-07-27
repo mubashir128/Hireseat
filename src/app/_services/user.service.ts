@@ -15,6 +15,32 @@ export enum eUserType {
   candidate = "candidate" //4
 }
 
+export class Candidate {
+  fileURL: string;
+  summary: string;
+  comments: string;
+  comment2: string;
+  comment3: string;
+  accomplishment1: string;
+  accomplishment2: string;
+  accomplishment3: string;
+  accomplishment4: string;
+  accomplishment5: string;
+
+  constructor(){
+    this.fileURL = "";
+    this.summary = "";
+    this.comments = "";
+    this.comment2 = "";
+    this.comment3 = "";
+    this.accomplishment1 = "";
+    this.accomplishment2 = "";
+    this.accomplishment3 = "";
+    this.accomplishment4 = "";
+    this.accomplishment5 = "";
+  }
+}
+
 @Injectable({
   providedIn: "root",
 })

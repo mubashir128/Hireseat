@@ -1733,3 +1733,7 @@ body {
 .fontSize10 {
   font-size: 10px !important;
 }
+
+.marTopZero {
+  margin-top: 0px !important;
+}

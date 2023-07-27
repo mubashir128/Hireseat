@@ -13,7 +13,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Subject } from "rxjs";
 import { ResumeService } from "src/app/_services/resume.service";
 import { ShareVideoService } from "src/app/_services/share-video.service";
-import { UserService } from "src/app/_services/user.service";
+import { Candidate, UserService } from "src/app/_services/user.service";
 import { VideoCallingService } from "src/app/_services/video-calling.service";
 import { WebsocketService } from "src/app/_services/websocket.service";
 import { CandidateService } from "src/app/_services/candidate.service";
@@ -28,6 +28,8 @@ import { JoyrideService } from "ngx-joyride";
 import { ConferenceRoomService } from "src/app/_services/conference-room.service";
 import { shareConstants } from "../app-list/app-list.component";
 import { DialogSelectUserComponent } from "../dialog-select-user/dialog-select-user.component";
+import { ChatGptService } from "src/app/_services/chat-gpt.service";
+import { DialogOnlyTextMessageComponent } from "../dialog-only-text-message/dialog-only-text-message.component";
 
 declare var jQuery;
 declare var Materialize;
@@ -53,6 +55,11 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
   throughRoute: boolean = false;
   throughProfileId;
 
+  downloadURL: string = "";
+  resumeChanged: boolean = false;
+
+  candidate: Candidate = new Candidate();
+
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -71,7 +78,8 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     public dialog: MatDialog,
     private readonly _joyrideService: JoyrideService,
     private _conferenceRoom : ConferenceRoomService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _chatGptService: ChatGptService
   ) {
     super(dialog, shareVideoService, userService, formBuilder, _bidEventService, _sanitizer, candidateService, _readResume, resumeService, _subList, spinner, videoCallingService);
 
@@ -640,6 +648,119 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     this.userService.updateAsARecruiter({ asARecruiterWithLimit : event.target.checked }).subscribe((res) => {
     }, (error) => {
       console.log(error);
+    });
+  }
+
+  fileChange(event, resume) {
+    this.shareResume = resume;
+    if (event.target.files) {
+      if(event.target.files[0].name.endsWith(".pdf") || event.target.files[0].name.endsWith(".docx")){
+        let fileList: FileList = event.target.files;
+        let file: File = fileList[0];
+        var fdata = new FormData();
+        fdata.append("image", file);
+        this.spinner.show();
+        this.resumeService
+          .uploadResume(fdata)
+          .subscribe((data: any) => {
+              if (data.result) {
+                Materialize.toast("Resume Uploaded Successfully !", 1000);
+                this.candidate.fileURL = data.result;
+                this.resumeChanged = true;
+                this.saveFileUrl();
+                this.getProfile();
+              } else {
+                Materialize.toast("Something Went Wrong !", 1000);
+                this.spinner.hide();
+              }
+            }, (error) => {
+              this.spinner.hide();
+              if (error) {
+                Materialize.toast("Something Went Wrong !", 1000);
+              }
+            });
+      }else{
+        Materialize.toast("Only allow .PDF and .DOCX extension files", 1500, 'red');
+      }
+    }
+  }
+
+  saveFileUrl(){
+    this.candidateService.saveFileUrl( { fileURL : this.candidate.fileURL } ).subscribe((res) => {
+    });
+  }
+
+  getProfile() {
+    this.candidateService.getCandidateProfile().subscribe((res) => {
+      this.spinner.hide();
+      if(this.resumeChanged){
+        this.getSummaryFromChatGPT(res.resumeDataIs);
+        this.getThreePointsFromChatGPT(res.resumeDataIs);
+        this.getAccomplishmentsFromChatGPT(res.resumeDataIs);
+      }
+    });
+  }
+
+  getSummaryFromChatGPT(data){
+    let prompt = this._constants.summaryPrompt;
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      if(res?.choices[0]?.message?.content){
+        this.candidate.summary = res?.choices[0]?.message?.content
+      }
+    });
+  }
+
+  getThreePointsFromChatGPT(data){
+    let prompt = this._constants.hire3PointsPrompt;
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      if(res?.choices[0]?.message?.content){
+        let responseText = res?.choices[0]?.message?.content;
+        let result = this._chatGptService.convertChatGPTResponse(responseText);
+        this.candidate.comments = result[0];
+        this.candidate.comment2 = result[1];
+        this.candidate.comment3 = result[2];
+      }
+    });
+  }
+
+  getAccomplishmentsFromChatGPT(data){
+    let prompt = this._constants.accomplishmentPrompt;
+    const dialogOnlyTextRef = this.dialog.open(DialogOnlyTextMessageComponent,{
+      data: {
+        disableClose: true,
+        dialogText : "Please wait as we load responses from Chatgpt. This may take up to a minute."
+      },
+    });
+
+    dialogOnlyTextRef.afterClosed().subscribe(result => {
+    });
+
+    this._chatGptService.getChatGPTResponse(data, prompt).subscribe(res=>{
+      dialogOnlyTextRef.close();
+      if(res?.choices[0]?.message?.content){
+        let responseText = res?.choices[0]?.message?.content;
+        let result = this._chatGptService.convertChatGPTResponse(responseText);
+        this.candidate.accomplishment1 = result[0];
+        this.candidate.accomplishment2 = result[1];
+        this.candidate.accomplishment3 = result[2];
+        this.candidate.accomplishment4 = result[3];
+        this.candidate.accomplishment5 = result[4];
+        this.saveUserOnlyProfile();
+      }
+    });
+  }
+
+  saveUserOnlyProfile() {
+    this.candidateService.saveUserOnlyProfile(this.candidate).subscribe((res) => {
+      this.shareResume.summary = this.candidate?.summary;
+      this.shareResume.comments = this.candidate?.comments;
+      this.shareResume.comment2 = this.candidate?.comment2;
+      this.shareResume.comment3 = this.candidate?.comment3;
+      this.shareResume.accomplishment1 = this.candidate?.accomplishment1;
+      this.shareResume.accomplishment2 = this.candidate?.accomplishment2;
+      this.shareResume.accomplishment3 = this.candidate?.accomplishment3;
+      this.shareResume.accomplishment4 = this.candidate?.accomplishment4;
+      this.shareResume.accomplishment5 = this.candidate?.accomplishment5;
     });
   }
 

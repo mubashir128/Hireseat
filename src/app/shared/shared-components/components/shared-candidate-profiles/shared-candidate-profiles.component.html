@@ -211,7 +211,7 @@
         </div>
       </div>
       
-      <div *ngIf="loggedUser.userRole == 'candidate'" class="row" style="margin-bottom: 5px;">
+      <!-- <div *ngIf="loggedUser.userRole == 'candidate'" class="row" style="margin-bottom: 5px;">
         <button class="shareBtn3" (click)="editHightlights()" joyrideStep="firstStep" title="Summary" text="Ok this one is important…most people do not know how to market themselves. We can help you sell yourself to recruiters and hiring managers in 60 seconds." stepPosition = "bottom">
           <a>
             <div class="icon-name">
@@ -220,6 +220,13 @@
             </div>
           </a>
         </button>
+      </div> -->
+
+      <div *ngIf="loggedUser.userRole == 'candidate'" class="file-field input-field btn marTopZero uploadBtnClass">
+        <div class="uploadBtn">
+          <span style="font-size: 12px;">Upload Resume - ChatGPT help</span>
+          <input type="file" accept=".pdf, .docx" (change)="fileChange($event, resume)" />
+        </div>
       </div>
 
       <ng-container *ngIf="resume?.comments">
