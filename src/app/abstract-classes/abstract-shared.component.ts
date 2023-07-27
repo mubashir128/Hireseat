@@ -26,13 +26,14 @@ import {
   tap,
 } from "rxjs/operators";
 import { DialogShareToUsersComponent } from "../shared/shared-components/components/dialog-share-to-users/dialog-share-to-users.component";
+import { Browser } from "@capacitor/browser";
 
 declare var jQuery;
 declare var Materialize;
 
 @Injectable()
-export abstract class AbstractSharedComponent{
-  
+export abstract class AbstractSharedComponent {
+
   clients = [];
   linedIn = "";
 
@@ -133,14 +134,14 @@ export abstract class AbstractSharedComponent{
 
   isMultiShare: boolean = false;
 
-  constructor(protected dialog: MatDialog, 
-    protected _shareVideoService: ShareVideoService, 
-    protected _userService: UserService, 
+  constructor(protected dialog: MatDialog,
+    protected _shareVideoService: ShareVideoService,
+    protected _userService: UserService,
     protected _formBuilder: FormBuilder,
     protected _bidEventService: BiddingEventService,
     protected _sanitizer: DomSanitizer,
     protected _candidateService: CandidateService,
-    protected _readResume : ReadResumeService,
+    protected _readResume: ReadResumeService,
     protected _resumeService: ResumeService,
     protected _subList: SubscriberslistService,
     private _spinner: NgxSpinnerService,
@@ -198,26 +199,26 @@ export abstract class AbstractSharedComponent{
     });
 
     this.auctionFrm = this._formBuilder.group({
-      searchTermByNameIs : []
+      searchTermByNameIs: []
     });
 
   }
 
-  setModel(){
+  setModel() {
     jQuery(".modal").modal();
     jQuery("select").material_select();
   }
 
-  getTopRecruiterList(){
-    this._bidEventService.getTopRecruiterList({userRole : this.loggedUser.userRole}).subscribe(res=>{
+  getTopRecruiterList() {
+    this._bidEventService.getTopRecruiterList({ userRole: this.loggedUser.userRole }).subscribe(res => {
       this.topRecruiters = res;
       this.allTopRecruiters = this.topRecruiters;
-    },err=>{
+    }, err => {
       console.log(err);
     });
   }
 
-  addNoteToNoteSection(res){
+  addNoteToNoteSection(res) {
     this.resumes.filter((element) => {
       if (element._id === res.profileId) {
         element.canNote = [...element.canNote, res.data];
@@ -265,8 +266,9 @@ export abstract class AbstractSharedComponent{
     });
   }
 
-  linkedIn(url) {
-    window.open(url, "_blank");
+  async linkedIn(url) {
+    await Browser.open({ url: url });
+
   }
 
   showComments(index, resume) {
@@ -368,25 +370,25 @@ export abstract class AbstractSharedComponent{
 
   }
 
-  async handleResumeData(){
-    this.resumes.forEach(async (item, index)=>{
+  async handleResumeData() {
+    this.resumes.forEach(async (item, index) => {
       let finalStatementsArr = [];
       finalStatementsArr = await this._readResume.readResume2(item, this.skillText);
 
       //combine first three statements.
-      finalStatementsArr.forEach((val ,index)=>{
-        if(val.stm !== item.comments && val.stm !== item.comment2 && val.stm !== item.comment3){ 
-          switch(index){
-            case 0 : 
+      finalStatementsArr.forEach((val, index) => {
+        if (val.stm !== item.comments && val.stm !== item.comment2 && val.stm !== item.comment3) {
+          switch (index) {
+            case 0:
               item.commentsResume1 = val.stm + " ...";
               break;
-            case 1 : 
+            case 1:
               item.commentsResume2 = val.stm + " ...";
               break;
-            case 2 : 
+            case 2:
               item.commentsResume3 = val.stm + " ...";
               break;
-            default : 
+            default:
               break;
           }
         }
@@ -447,42 +449,42 @@ export abstract class AbstractSharedComponent{
     });
   }
 
-  getSearchBySkills(payload){
+  getSearchBySkills(payload) {
     this._resumeService.getSearchBySkills(payload).subscribe((res) => {
-        if (res) {
-          this.resumes = res;
-          this._subList.loaderListAfterSearch.next({type : "0"});
-          this.handleResumeData();
-        }
-      }, (err) => {
-        this._subList.loaderListAfterSearch.next({type : "0"});
+      if (res) {
+        this.resumes = res;
+        this._subList.loaderListAfterSearch.next({ type: "0" });
+        this.handleResumeData();
+      }
+    }, (err) => {
+      this._subList.loaderListAfterSearch.next({ type: "0" });
     });
   }
 
-  getCandidateSearchBySkills(payload){
+  getCandidateSearchBySkills(payload) {
     this._resumeService.getCandidateSearchBySkills(payload).subscribe((res) => {
-        if (res) {
-          this.resumes = res;
-          this._subList.loaderListAfterSearch.next({type : "00"});
-          this.handleResumeData();
-        }
-      }, (err) => {
-        this._subList.loaderListAfterSearch.next({type : "00"});
+      if (res) {
+        this.resumes = res;
+        this._subList.loaderListAfterSearch.next({ type: "00" });
+        this.handleResumeData();
+      }
+    }, (err) => {
+      this._subList.loaderListAfterSearch.next({ type: "00" });
     });
   }
 
   getUsersProfile() {
     this._userService.getUserProfile(this._userService.getUserData().userRole).subscribe((data: any) => {
-          if (data != null && data != undefined && data != "") {
-            this._userService.setUserProfile(data.res);
-          } else {
-            Materialize.toast("Something went wrong", 1000);
-          }
-          this._spinner.hide();
-        }, (err) => {
-          this._spinner.hide();
-        }
-      );
+      if (data != null && data != undefined && data != "") {
+        this._userService.setUserProfile(data.res);
+      } else {
+        Materialize.toast("Something went wrong", 1000);
+      }
+      this._spinner.hide();
+    }, (err) => {
+      this._spinner.hide();
+    }
+    );
   }
 
   videoSet() {
@@ -500,47 +502,47 @@ export abstract class AbstractSharedComponent{
     }
 
     // server-side search
-    fromEvent(this.searchInputTerm.nativeElement,'keyup')
-    .pipe(
-      map(event=>event),
-      filter(Boolean),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      tap((text) => {
-        this.getRecruiterList({
-          searchTerm : this.searchTermByNameIs,
-          userRole : this.loggedUser.userRole
-        });
-      })
-    ).subscribe();
+    fromEvent(this.searchInputTerm.nativeElement, 'keyup')
+      .pipe(
+        map(event => event),
+        filter(Boolean),
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap((text) => {
+          this.getRecruiterList({
+            searchTerm: this.searchTermByNameIs,
+            userRole: this.loggedUser.userRole
+          });
+        })
+      ).subscribe();
 
   }
 
-  getRecruiterList(obj){
-    if(obj.searchTerm === '' || obj.searchTerm === undefined){
+  getRecruiterList(obj) {
+    if (obj.searchTerm === '' || obj.searchTerm === undefined) {
       this.topRecruiters = this.allTopRecruiters;
-      return ;
+      return;
     }
 
-    this._bidEventService.getRecruiterList(obj).subscribe(res=>{
+    this._bidEventService.getRecruiterList(obj).subscribe(res => {
       jQuery(".searchData").scrollTop(0);
-      if(res.length !== 0 ){
+      if (res.length !== 0) {
         this.topRecruiters = res;
-      }else{
+      } else {
         this.topRecruiters = this.allTopRecruiters;
       }
-    },err=>{
+    }, err => {
       console.log(err);
     });
   }
 
   getAllSharedResumes(payload) {
     this.getAllSharedCandidateProfileSubscription = this._resumeService.getAllSharedCandidateProfile(payload).subscribe((res) => {
-          if (res) {
-            this.resumes = res;
-          }
-        }, (err) => { }
-      );
+      if (res) {
+        this.resumes = res;
+      }
+    }, (err) => { }
+    );
   }
 
   getVideo(payload) {
@@ -628,7 +630,7 @@ export abstract class AbstractSharedComponent{
       sharedTo: result.finalRecruitersAre,
       resumeId: this.shareResume._id,
       candidateProfile: this.shareResume.resumeType ? false : true,
-      isMultiShare : this.isMultiShare
+      isMultiShare: this.isMultiShare
     }
 
     this.shareWithRecruiterSubscription = this._candidateService.shareWithUsers(payload).subscribe((res) => {
@@ -638,32 +640,32 @@ export abstract class AbstractSharedComponent{
     });
   }
 
-  debounceSearchForSkills(){
+  debounceSearchForSkills() {
     this.searchSkillsFrm.valueChanges
       .pipe(
         debounceTime(1500),
         distinctUntilChanged()).subscribe((value) => {
           let obj = {};
-          if(value.searchSkillTerm !== undefined ){
+          if (value.searchSkillTerm !== undefined) {
             this.skillText = value.searchSkillTerm;
             obj = {
               searchType: "skill",
               searchSkills: this.skillText,
-              userRole : this.loggedUser.userRole
+              userRole: this.loggedUser.userRole
             };
           }
           this.resumes = [];
-          
-          if(this.loggedUser.userRole == 'candidate'){
+
+          if (this.loggedUser.userRole == 'candidate') {
             //search for candidate
-            this._subList.loaderListAfterSearch.next({type : "11"});
+            this._subList.loaderListAfterSearch.next({ type: "11" });
             this.getCandidateSearchBySkills(obj);
-          }else{
+          } else {
             //search for recrutier and employer
-            this._subList.loaderListAfterSearch.next({type : "1"});
+            this._subList.loaderListAfterSearch.next({ type: "1" });
             this.getSearchBySkills(obj);
           }
-      });
+        });
   }
 
   postMycmt(i, cmt, resume) {
@@ -678,7 +680,7 @@ export abstract class AbstractSharedComponent{
         resumeId: resume._id,
         review: cmt,
         role: this.loggedUser.userRole,
-        isMultiShare : this.isMultiShare
+        isMultiShare: this.isMultiShare
       };
 
       this.postCommentSubscription = this._resumeService
@@ -690,10 +692,10 @@ export abstract class AbstractSharedComponent{
 
               if (this.loggedUser.userRole == "recruiter") {
                 Materialize.toast("You gained 100 recruiter karma points", 2000, "red");
-              }else if (this.loggedUser.userRole == "employer"){
+              } else if (this.loggedUser.userRole == "employer") {
                 Materialize.toast("You just helped someone....and changed someones life...good job!", 2000, "red");
               }
-              
+
               let candidateObj = {
                 pointer: "advicePoints",
                 subType: "divide",
@@ -808,7 +810,7 @@ export abstract class AbstractSharedComponent{
       cmtId: cmtId,
       candidateProfile: candidateProfile,
       replyComment: comment,
-      isMultiShare : this.isMultiShare
+      isMultiShare: this.isMultiShare
     };
 
     this.replyTocommentSubscription = this._resumeService
@@ -882,22 +884,22 @@ export abstract class AbstractSharedComponent{
     }
     this.videoURL = "";
   }
-  
-  showShareModalSuper(payload, callback){
-    const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent,{
+
+  showShareModalSuper(payload, callback) {
+    const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent, {
       data: {
-        dialogType : payload.dialogType,
-        dialogTitle : payload.dialogTitle,
-        cc : payload.cc,
-        bcc : payload.bcc,
-        clients : payload.clients,
-        loggedUser : payload.loggedUser,
-        btns : payload.btns
+        dialogType: payload.dialogType,
+        dialogTitle: payload.dialogTitle,
+        cc: payload.cc,
+        bcc: payload.bcc,
+        clients: payload.clients,
+        loggedUser: payload.loggedUser,
+        btns: payload.btns
       }
     });
 
     dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         callback(result, this);
       }
     });
@@ -960,134 +962,134 @@ export abstract class AbstractSharedComponent{
     this.disableDay = this.daysArray.filter(
       (val) => !this.dayToBeAvailable.includes(val)
     );
-    
+
     this.reqCoachingFunction();
     this.closeRecruiterModal();
   }
 
   showShareTouserModalSuper(payload, callback) {
-    const dialogShareToUsersRef = this.dialog.open(DialogShareToUsersComponent ,{
+    const dialogShareToUsersRef = this.dialog.open(DialogShareToUsersComponent, {
       data: {
-        dialogType : payload.dialogType,
-        dialogTitle : payload.dialogTitle,
-        loggedUser : payload.loggedUser,
-        topRecruiters : payload.topRecruiters,
-        finalRecruitersAre : payload.finalRecruitersAre
+        dialogType: payload.dialogType,
+        dialogTitle: payload.dialogTitle,
+        loggedUser: payload.loggedUser,
+        topRecruiters: payload.topRecruiters,
+        finalRecruitersAre: payload.finalRecruitersAre
       }
     });
 
     dialogShareToUsersRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         callback(result, this);
       }
     });
   }
-  
-  generalEmailIntroSuper(payload, callback){
-    const dialogEmailPreviewRef = this.dialog.open(DialogEmailPreviewComponent ,{
+
+  generalEmailIntroSuper(payload, callback) {
+    const dialogEmailPreviewRef = this.dialog.open(DialogEmailPreviewComponent, {
       data: {
-        dialogType : payload.dialogType,
-        dialogTitle : payload.dialogTitle,
-        cc : payload.cc,
-        bcc : payload.bcc,
-        recipientName : payload.recipientName,
-        recipientEmail : payload.recipientEmail,
-        senderName : payload.senderName,
-        candidateNameIs : payload.candidateNameIs,
-        linedIn : payload.linedIn
+        dialogType: payload.dialogType,
+        dialogTitle: payload.dialogTitle,
+        cc: payload.cc,
+        bcc: payload.bcc,
+        recipientName: payload.recipientName,
+        recipientEmail: payload.recipientEmail,
+        senderName: payload.senderName,
+        candidateNameIs: payload.candidateNameIs,
+        linedIn: payload.linedIn
       }
     });
 
     dialogEmailPreviewRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         callback(result, this);
       }
     });
   }
 
-  introduceUserSuper(payload, callback){
-    const dialogEmailPreview2Ref = this.dialog.open(DialogEmailPreview2Component,{
+  introduceUserSuper(payload, callback) {
+    const dialogEmailPreview2Ref = this.dialog.open(DialogEmailPreview2Component, {
       data: {
-        dialogType : payload.dialogType,
-        dialogTitle : payload.dialogTitle,
-        cc : payload.cc,
-        bcc : payload.bcc,
-        recipientName : payload.recipientName,
-        recipientEmail : payload.recipientEmail,
-        senderName : payload.senderName,
-        candidateNameIs : payload.candidateNameIs,
-        comment1 : payload.comment1,
-        comment2 : payload.comment2,
-        comment3 : payload.comment3
+        dialogType: payload.dialogType,
+        dialogTitle: payload.dialogTitle,
+        cc: payload.cc,
+        bcc: payload.bcc,
+        recipientName: payload.recipientName,
+        recipientEmail: payload.recipientEmail,
+        senderName: payload.senderName,
+        candidateNameIs: payload.candidateNameIs,
+        comment1: payload.comment1,
+        comment2: payload.comment2,
+        comment3: payload.comment3
       }
     });
 
     dialogEmailPreview2Ref.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         callback(result, this);
       }
     });
   }
 
-  emailPreviewSuper(payload, callback){
-    const dialogIntroduceRef = this.dialog.open(DialogIntroduceComponent,{
+  emailPreviewSuper(payload, callback) {
+    const dialogIntroduceRef = this.dialog.open(DialogIntroduceComponent, {
       data: {
-        dialogType : payload.dialogType,
-        dialogTitle : payload.dialogTitle,
-        senderName : payload.senderName,
-        recipientName : payload.recipientName
+        dialogType: payload.dialogType,
+        dialogTitle: payload.dialogTitle,
+        senderName: payload.senderName,
+        recipientName: payload.recipientName
       }
     });
 
     dialogIntroduceRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         callback(payload, result, this);
       }
     });
   }
 
-  thxLetterSuper(payload, callback){
-    const dialogThanksLaterRef = this.dialog.open(DialogThanksLaterComponent,{
+  thxLetterSuper(payload, callback) {
+    const dialogThanksLaterRef = this.dialog.open(DialogThanksLaterComponent, {
       data: {
-        dialogType : payload.dialogType,
-        dialogTitle : payload.dialogTitle,
-        thxFullName : payload.thxFullName
+        dialogType: payload.dialogType,
+        dialogTitle: payload.dialogTitle,
+        thxFullName: payload.thxFullName
       }
     });
 
     dialogThanksLaterRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         callback(result, this);
       }
     });
   }
 
-  showShareCandidateModalSuper(payload, callback){
-    const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent,{
+  showShareCandidateModalSuper(payload, callback) {
+    const dialogOfferIntroEmailRef = this.dialog.open(DiaplogOfferIntroEmailComponent, {
       data: {
-        dialogType : payload.dialogType,
-        dialogTitle : payload.dialogTitle,
-        cc : payload.cc,
-        bcc : payload.bcc,
-        btns : payload.btns,
-        clients : payload.clients,
-        loggedUser : payload.loggedUser
+        dialogType: payload.dialogType,
+        dialogTitle: payload.dialogTitle,
+        cc: payload.cc,
+        bcc: payload.bcc,
+        btns: payload.btns,
+        clients: payload.clients,
+        loggedUser: payload.loggedUser
       }
     });
 
     dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         callback(result, this);
       }
     });
   }
 
-  getImage(obj){
+  getImage(obj) {
     obj.showCreatedLogo = true;
   }
 
-  swapIntro(resume){
-    this._resumeService.swapIntro(resume).subscribe((data)=>{
+  swapIntro(resume) {
+    this._resumeService.swapIntro(resume).subscribe((data) => {
       Materialize.toast("Intro swapped", 1000, "green");
     });
   }
