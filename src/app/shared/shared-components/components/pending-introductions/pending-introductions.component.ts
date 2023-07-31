@@ -59,7 +59,7 @@ export class PendingIntroductionsComponent implements OnInit {
   }
 
   async open(link) {
-    await Browser.open({ url: link });
+    await window.open(link);
   }
 
   onLinkedIn(user) {

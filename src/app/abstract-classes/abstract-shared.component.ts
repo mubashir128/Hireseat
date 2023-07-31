@@ -267,7 +267,7 @@ export abstract class AbstractSharedComponent {
   }
 
   async linkedIn(url) {
-    await Browser.open({ url: url });
+    await window.open(url);
 
   }
 

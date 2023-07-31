@@ -18,7 +18,7 @@ export class AppComponent {
 
 
     this.initializeApp();
-
+    this.startChecks();
   }
 
   initializeApp() {
@@ -30,8 +30,9 @@ export class AppComponent {
         }
       });
     });
+  }
 
-
+  startChecks() {
     // Listen for app state changes
     App.addListener('appStateChange', async (state: AppState) => {
       if (state.isActive) {
@@ -39,6 +40,7 @@ export class AppComponent {
         BackgroundMode.moveToForeground();
         BackgroundMode.wakeUp();
         BackgroundMode.disable();
+        this.initializeApp();
         console.log('App resumed');
         // Perform actions or resume tasks as needed.
       } else {
@@ -53,7 +55,6 @@ export class AppComponent {
         // Perform actions or save state before the app goes into the background.
       }
     });
-
 
   }
 
