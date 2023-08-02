@@ -38,6 +38,7 @@ import { DialogIntroduceComponent } from "src/app/shared/shared-components/compo
 import { DialogOfferIntroChatComponent } from "src/app/shared/shared-components/components/dialog-offer-intro-chat/dialog-offer-intro-chat.component";
 import { DialogConnectOfferIntroComponent } from "src/app/shared/shared-components/components/dialog-connect-offer-intro/dialog-connect-offer-intro.component";
 import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-shared.component";
+import { PageEvent } from "@angular/material/paginator";
 
 declare var jQuery;
 declare var Materialize;
@@ -71,6 +72,13 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   showLoader: boolean = true;
 
+  pageSize: number = 10;
+  pageLength: number = 100;
+  pageIndex: number = 0;
+  currentPageEvent: PageEvent;
+
+  connectedFriends: any = [];
+  
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -120,8 +128,12 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     });
 
     this.getTopRecruiterList();
-    this.getIndustries();
-    this.getProfiles();
+    // this.getIndustries();
+    // this.getProfiles();
+
+    this.getHireseatNetworkCout();
+    this.getConnectedFriends();
+    this.getHireseatNetwork();
 
     this.debounceSearchForCTR();
     this.debounceSearchForSkills();
@@ -276,6 +288,28 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     });
   }
 
+  addFriendConnectionToHireseatNetwork(){
+    this.connectedFriends.forEach((frd, index) => {
+      this.resumes.forEach((profile, index2) => {
+        if(profile.candidateKey?._id == frd.recipient._id || profile.candidate_id?._id == frd.recipient._id){
+          if(frd.status == this._constants.asAFriend){
+            profile.addedAsAFriend = true;
+          }else if(frd.status == this._constants.asARequested){
+            profile.toRequested = true;
+          }
+        }else if(profile.candidateKey?._id == frd.requester._id || profile.candidate_id?._id == frd.requester._id){
+          if(frd.status == this._constants.asAFriend){
+            profile.addedAsAFriend = true;
+          }else if(frd.status == this._constants.asARequested){
+            profile.toRequested = true;
+          }
+        }else{
+
+        }
+      });
+    });
+  }
+
   addFriendConnectionToProfile(res){
     res.frdConnection.forEach((frd, index) => {
       this.resumes.forEach((profile, index2) => {
@@ -311,14 +345,14 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     this.spinner.hide();
   }
 
-  getIndustries() {
-    this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
-      if (res) {
-        this.industriesAre = res.industries;
-        this.industriesAre = [{_id : 1121, name : "All"}, ...this.industriesAre];
-      }
-    });
-  }
+  // getIndustries() {
+  //   this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
+  //     if (res) {
+  //       this.industriesAre = res.industries;
+  //       this.industriesAre = [{_id : 1121, name : "All"}, ...this.industriesAre];
+  //     }
+  //   });
+  // }
 
   industryClick(type){
     this.searchIndustry = type.trim().toLowerCase();
@@ -328,18 +362,41 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     }, 500);
   }
 
-  getProfiles() {
-    this._subList.loaderList.next({type : "1"});
-    this._socket.sendMessage({
-      type: this._constants.onlyForCandidateSharedProfileType,
-      data: {
-        subType: this._constants.getAllOnlyForCandidateSharedProfileType,
-      },
-    });
+  // getProfiles() {
+  //   this._subList.loaderList.next({type : "1"});
+  //   this._socket.sendMessage({
+  //     type: this._constants.onlyForCandidateSharedProfileType,
+  //     data: {
+  //       subType: this._constants.getAllOnlyForCandidateSharedProfileType,
+  //     },
+  //   });
 
-    if (this.loggedUser.userRole === "candidate") {
-      this.myProfile();
-    }
+  //   if (this.loggedUser.userRole === "candidate") {
+  //     this.myProfile();
+  //   }
+  // }
+
+  getHireseatNetworkCout(){
+    this.candidateService.getHireseatNetworkCount().subscribe(res=>{
+      this.pageLength = res.count;
+      this.onCount(this.pageLength);
+    });
+  }
+
+  getConnectedFriends(){
+    this.candidateService.getAllConnectedUsers({}).subscribe(res=>{
+      this.connectedFriends = res.data;
+      this.addFriendConnectionToHireseatNetwork();
+    });
+  }
+
+  getHireseatNetwork(){
+    this.candidateService.getHireseatNetwork({}, this.currentPageEvent).subscribe(res=>{
+      this.resumes = res;
+      this.loading = false;
+      this.showLoader = false;
+      this._subList.loaderList.next({type : "0"});
+    });
   }
 
   ngAfterViewInit() {
@@ -818,6 +875,11 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   introduceTo(resume){
     this.introduceToFromOnlyCandidatePageEM.emit(resume);
+  }
+
+  handlePageEvent(pageEvent: PageEvent = this.currentPageEvent){
+    this.currentPageEvent = pageEvent;
+    this.getHireseatNetwork();
   }
 
   ngOnDestroy() {
