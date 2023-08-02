@@ -384,6 +384,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     Promise.all(promises).then(result => {
       this.connectedFriends = result[0]?.data;
       this.resumes = result[1]?.data;
+      this.loading = false;
+      this.showLoader = false;
       this.addFriendConnectionToHireseatNetwork();
     });
   }
