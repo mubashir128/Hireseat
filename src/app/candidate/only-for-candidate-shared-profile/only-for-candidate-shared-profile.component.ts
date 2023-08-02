@@ -119,7 +119,6 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     // this.getProfiles();
 
     this.getAllData();
-    this.getHireseatNetworkCout();
 
     this.debounceSearchForCTR();
     this.debounceSearchForSkills();
@@ -353,14 +352,10 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     Promise.all(promises).then(result => {
       this.connectedFriends = result[0]?.data;
       this.resumes = result[1]?.data;
-      this.addFriendConnectionToHireseatNetwork();
-    });
-  }
-
-  getHireseatNetworkCout(){
-    this.candidateService.getHireseatNetworkCount().subscribe(res=>{
-      this.pageLength = res.count;
+      this.pageLength = result[1]?.total;
       this.onCount(this.pageLength);
+      this.loading = false;
+      this.addFriendConnectionToHireseatNetwork();
     });
   }
 
