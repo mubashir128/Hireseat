@@ -118,9 +118,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     // this.getIndustries();
     // this.getProfiles();
 
+    this.getAllData();
     this.getHireseatNetworkCout();
-    this.getConnectedFriends();
-    this.getHireseatNetwork();
 
     this.debounceSearchForCTR();
     this.debounceSearchForSkills();
@@ -164,6 +163,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
               searchSkills: this.skillText,
               userRole : this.loggedUser.userRole
             };
+            this.searchFilters.set("skills", this.skillText);
+            this.getHireseatNetwork();
           }
       });
   }
@@ -345,6 +346,17 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   //   }
   // }
 
+  getAllData(): void {
+    let promises = [];
+    promises.push(this.candidateService.getAllConnectedUsers({}).toPromise());
+    promises.push(this.candidateService.getHireseatNetwork({}, this.currentPageEvent, this.searchFilters).toPromise());
+    Promise.all(promises).then(result => {
+      this.connectedFriends = result[0]?.data;
+      this.resumes = result[1]?.data;
+      this.addFriendConnectionToHireseatNetwork();
+    });
+  }
+
   getHireseatNetworkCout(){
     this.candidateService.getHireseatNetworkCount().subscribe(res=>{
       this.pageLength = res.count;
@@ -352,16 +364,11 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     });
   }
 
-  getConnectedFriends(){
-    this.candidateService.getAllConnectedUsers({}).subscribe(res=>{
-      this.connectedFriends = res.data;
-      this.addFriendConnectionToHireseatNetwork();
-    });
-  }
-
   getHireseatNetwork(){
-    this.candidateService.getHireseatNetwork({}, this.currentPageEvent).subscribe(res=>{
-      this.resumes = res;
+    this.candidateService.getHireseatNetwork({}, this.currentPageEvent, this.searchFilters).subscribe(res=>{
+      this.resumes = res.data;
+      this.addFriendConnectionToHireseatNetwork();
+      this.pageLength = res.total;
       this.loading = false;
       this._subList.loaderList.next({type : "0"});
     });

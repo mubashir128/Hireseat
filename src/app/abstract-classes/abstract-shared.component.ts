@@ -135,6 +135,8 @@ export abstract class AbstractSharedComponent{
 
   isMultiShare: boolean = false;
 
+  searchFilters = new Map();
+
   constructor(protected dialog: MatDialog, 
     protected _shareVideoService: ShareVideoService, 
     protected _userService: UserService, 
