@@ -259,4 +259,29 @@ export class CandidateService {
       })
     );
   }
+
+  getHireseatNetwork(payload, pageEvent?: PageEvent) {
+    let page = pageEvent? pageEvent.pageIndex + 1 : 1;
+    let limit = pageEvent? pageEvent.pageSize : 10;
+    let pageIndex = pageEvent? pageEvent.pageIndex : 0;
+    
+    let params = new HttpParams();
+    params = params.append('page', page.toString());
+    params = params.append('limit', limit.toString());
+    params = params.append('pageIndex', pageIndex.toString());
+    
+    return this.http.post<any>(this.baseurl + "api/get-hireseat-network", payload, { params : params } ).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  getHireseatNetworkCount() {
+    return this.http.get<any>(this.baseurl + "api/get-hireseat-network-count").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
 }
