@@ -196,18 +196,18 @@
 
       </div>
     </div>
-  </div>
-  <div class="row" *ngIf="loggedUser.userRole == 'candidate' && resumes.length !== 0">
-    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
-    <div class="row" style="display: inline-block;">
-      <mat-paginator
+    <div class="row" *ngIf="loggedUser.userRole == 'candidate' && resumes.length !== 0">
+      <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+      <div class="row" style="display: inline-block;">
+        <mat-paginator
           [length]="pageLength"
           [pageSize]="pageSize"
           [pageIndex]="pageIndex"
           aria-label="Select page"
           (page)="handlePageEvent($event)">
-      </mat-paginator>    
-  </div>
+        </mat-paginator>    
+      </div>
+    </div>
   </div>
 </ng-container>
 
