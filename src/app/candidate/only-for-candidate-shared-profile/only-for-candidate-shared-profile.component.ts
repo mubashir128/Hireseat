@@ -38,6 +38,7 @@ import { DialogIntroduceComponent } from "src/app/shared/shared-components/compo
 import { DialogOfferIntroChatComponent } from "src/app/shared/shared-components/components/dialog-offer-intro-chat/dialog-offer-intro-chat.component";
 import { DialogConnectOfferIntroComponent } from "src/app/shared/shared-components/components/dialog-connect-offer-intro/dialog-connect-offer-intro.component";
 import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-shared.component";
+import { PageEvent } from "@angular/material/paginator";
 
 declare var jQuery;
 declare var Materialize;
@@ -71,6 +72,13 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   showLoader: boolean = true;
 
+  pageSize: number = 10;
+  pageLength: number = 100;
+  pageIndex: number = 0;
+  currentPageEvent: PageEvent;
+
+  connectedFriends: any = [];
+  
   constructor(
     protected resumeService: ResumeService,
     protected _sanitizer: DomSanitizer,
@@ -120,8 +128,10 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     });
 
     this.getTopRecruiterList();
-    this.getIndustries();
-    this.getProfiles();
+    // this.getIndustries();
+    // this.getProfiles();
+
+    this.getAllData();
 
     this.debounceSearchForCTR();
     this.debounceSearchForSkills();
@@ -172,6 +182,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
               searchSkills: this.skillText,
               userRole: this.loggedUser.userRole
             };
+            this.searchFilters.set("skills", this.skillText);
+            this.getHireseatNetwork();
           }
         });
   }
@@ -312,14 +324,14 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     this.spinner.hide();
   }
 
-  getIndustries() {
-    this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
-      if (res) {
-        this.industriesAre = res.industries;
-        this.industriesAre = [{ _id: 1121, name: "All" }, ...this.industriesAre];
-      }
-    });
-  }
+  // getIndustries() {
+  //   this.getProfileSubscription = this.candidateService.getCandidateIndustries().subscribe((res) => {
+  //     if (res) {
+  //       this.industriesAre = res.industries;
+  //       this.industriesAre = [{ _id: 1121, name: "All" }, ...this.industriesAre];
+  //     }
+  //   });
+  // }
 
   industryClick(type) {
     this.searchIndustry = type.trim().toLowerCase();
@@ -329,18 +341,62 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     }, 500);
   }
 
-  getProfiles() {
-    this._subList.loaderList.next({ type: "1" });
-    this._socket.sendMessage({
-      type: this._constants.onlyForCandidateSharedProfileType,
-      data: {
-        subType: this._constants.getAllOnlyForCandidateSharedProfileType,
-      },
-    });
+  // getProfiles() {
+  //   this._subList.loaderList.next({ type: "1" });
+  //   this._socket.sendMessage({
+  //     type: this._constants.onlyForCandidateSharedProfileType,
+  //     data: {
+  //       subType: this._constants.getAllOnlyForCandidateSharedProfileType,
+  //     },
+  //   });
+  // }
 
-    if (this.loggedUser.userRole === "candidate") {
-      this.myProfile();
-    }
+  addFriendConnectionToHireseatNetwork(){
+    this.connectedFriends.forEach((frd, index) => {
+      this.resumes.forEach((profile, index2) => {
+        if(profile.candidateKey?._id == frd.recipient._id || profile.candidate_id?._id == frd.recipient._id){
+          if(frd.status == this._constants.asAFriend){
+            profile.addedAsAFriend = true;
+          }else if(frd.status == this._constants.asARequested){
+            profile.toRequested = true;
+          }
+        }else if(profile.candidateKey?._id == frd.requester._id || profile.candidate_id?._id == frd.requester._id){
+          if(frd.status == this._constants.asAFriend){
+            profile.addedAsAFriend = true;
+          }else if(frd.status == this._constants.asARequested){
+            profile.toRequested = true;
+          }
+        }else{
+
+        }
+      });
+    });
+  }
+
+  getAllData(): void {
+    let promises = [];
+    promises.push(this.candidateService.getAllConnectedUsers({}).toPromise());
+    promises.push(this.candidateService.getHireseatNetwork({}, this.currentPageEvent, this.searchFilters).toPromise());
+    Promise.all(promises).then(result => {
+      this.connectedFriends = result[0]?.data;
+      this.resumes = result[1]?.data;
+      this.pageLength = result[1]?.total;
+      this.onCount(this.pageLength);
+      this.loading = false;
+      this.showLoader = false;
+      this.addFriendConnectionToHireseatNetwork();
+    });
+  }
+
+  getHireseatNetwork(){
+    this.candidateService.getHireseatNetwork({}, this.currentPageEvent, this.searchFilters).subscribe(res=>{
+      this.resumes = res.data;
+      this.addFriendConnectionToHireseatNetwork();
+      this.pageLength = res.total;
+      this.loading = false;
+      this.showLoader = false;
+      this._subList.loaderList.next({type : "0"});
+    });
   }
 
   ngAfterViewInit() {
@@ -821,6 +877,11 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
 
   introduceTo(resume){
     this.introduceToFromOnlyCandidatePageEM.emit(resume);
+  }
+
+  handlePageEvent(pageEvent: PageEvent = this.currentPageEvent){
+    this.currentPageEvent = pageEvent;
+    this.getHireseatNetwork();
   }
 
   ngOnDestroy() {

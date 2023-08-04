@@ -71,8 +71,9 @@
 
 <ng-container *ngIf="resumes">
   <div class="ListResume">
-    <div class=""
-      *ngFor="let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | sortByIndustires : searchIndustry | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index">
+    <!-- <div class=""
+      *ngFor="let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | sortByIndustires : searchIndustry | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index"> -->
+    <div class="" *ngFor="let resume of resumes; let i = index">
       <div class="areaDiv" [id]="'profile_' + resume._id">
         <div class="container-fluid mar">
           <div class="container">
@@ -201,9 +202,18 @@
 
       </div>
     </div>
-  </div>
-  <div class="row" *ngIf="loggedUser.userRole == 'candidate' && resumes.length !== 0">
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <div class="row" style="padding: 0px !important;" *ngIf="loggedUser.userRole == 'candidate' && resumes.length !== 0">
+      <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+      <div class="row" style="display: inline-block;">
+        <mat-paginator
+          [length]="pageLength"
+          [pageSize]="pageSize"
+          [pageIndex]="pageIndex"
+          aria-label="Select page"
+          (page)="handlePageEvent($event)">
+        </mat-paginator>    
+      </div>
+    </div>
   </div>
 </ng-container>
 
