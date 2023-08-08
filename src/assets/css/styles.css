@@ -1618,3 +1618,7 @@ body {
 .fontSize10 {
   font-size: 10px !important;
 }
+
+.redColor {
+  color: red !important;
+}
