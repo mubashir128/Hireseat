@@ -1,0 +1,32 @@
+{
+	"appId": "com.hireseat.app",
+	"appName": "HireSeat",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		},
+		"PushNotifications": {
+			"presentationOptions": [
+				"badge",
+				"sound",
+				"alert"
+			]
+		},
+		"Badge": {
+			"persist": true,
+			"autoClear": false
+		}
+	},
+	"cordova": {},
+	"server": {
+		"hostname": "hireseat",
+		"iosScheme": "ionic",
+		"androidScheme": "https",
+		"allowNavigation": [
+			"https://hireseat.com:5000"
+		]
+	}
+}

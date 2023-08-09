@@ -299,20 +299,19 @@ export class TimelineComponent implements OnInit {
   }
 
   async open(link) {
-    await window.open(link);
-    console.log(link);
+    // await window.open(link);
+    if (!window.open(link)) {
+      window.location.href = link
+    }
   }
 
   onLinkedIn(user) {
     this.userService.getUserDetails({ receiverId: user._id }).subscribe((res: any) => {
       let link = res?.data?.candidate_id?.linkedIn;
-      console.log(res)
       if (link.includes("https")) {
         this.open(link);
-
       } else {
         this.open("https://" + link)
-
       }
     });
   }
