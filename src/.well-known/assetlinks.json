@@ -1,0 +1,5 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : { "namespace": "android_app", "package_name": "com.hireseat.app",
+                 "sha256_cert_fingerprints": ["E5:81:8E:13:9D:47:5E:02:8B:9A:A8:D4:80:1A:2B:B7:04:4D:FB:8E:68:3F:8B:47:C5:8A:69:42:E7:B7:F5:CD"] }
+  }]

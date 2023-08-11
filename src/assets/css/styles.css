@@ -1737,3 +1737,7 @@ body {
 .marTopZero {
   margin-top: 0px !important;
 }
+
+.redColor {
+  color: red !important;
+}

@@ -134,6 +134,11 @@
             "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
+        },
+        "assets" : {
+          "glob": "**/*",
+          "input": "src/.well-known",
+          "output": ".well-known/"
         }
       }
     },
