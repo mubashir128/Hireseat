@@ -98,10 +98,10 @@
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.threeIntroduce" (click)="goToIntroducePage(timeline)">
               {{timeline.fromId?.fullName}} introduced {{timeline.introduceId?.fullName}} to {{timeline.toId?.fullName}}.
-              <div class="row introSection" *ngIf = "timeline.candidateFromId?.introduceCount">
+              <div class="row removeMargin" *ngIf = "timeline.candidateFromId?.introduceCount">
                 <span>
                   <label class="redColor"># of Introductions : </label>
-                  <label class="backStyle redColor">
+                  <label class="backStyle">
                     {{ timeline.candidateFromId?.introduceCount}}
                   </label>
                 </span>
