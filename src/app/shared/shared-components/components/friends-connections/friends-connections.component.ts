@@ -455,18 +455,20 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
         });
     
         dialogTextInputRef.afterClosed().subscribe(result2 => {
-          let payload = {
-            toIds: result,
-            introduceId: resume?.candidate_id?._id,
-            comapnyName:  resume?.desiredCompanies,
-            message : result2.message
+          if(result2){
+            let payload = {
+              toIds: result,
+              introduceId: resume?.candidate_id?._id,
+              comapnyName:  resume?.desiredCompanies,
+              message : result2.message
+            }
+            this._introduceService.multipleIntroduce(payload).subscribe((res) => {
+              Materialize.toast("Introduced successfully", 1000, "green");
+            }, (err) => {
+              console.log(err);
+              Materialize.toast("Already introduced", 1000, "red");
+            });
           }
-          this._introduceService.multipleIntroduce(payload).subscribe((res) => {
-            Materialize.toast("Introduced successfully", 1000, "green");
-          }, (err) => {
-            console.log(err);
-            Materialize.toast("Already introduced", 1000, "red");
-          });
         });
       }
     });
