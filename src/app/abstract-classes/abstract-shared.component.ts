@@ -26,7 +26,6 @@ import {
   tap,
 } from "rxjs/operators";
 import { DialogShareToUsersComponent } from "../shared/shared-components/components/dialog-share-to-users/dialog-share-to-users.component";
-import { Browser } from "@capacitor/browser";
 
 declare var jQuery;
 declare var Materialize;

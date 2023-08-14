@@ -14,7 +14,6 @@ import { ResumeService } from 'src/app/_services/resume.service';
 import { ReadResumeService } from 'src/app/_services/read-resume.service';
 import { FormGroup } from '@angular/forms';
 import { AccomplishmentType } from '../edit-highlights/edit-highlights.component';
-import { Browser } from '@capacitor/browser';
 declare var Materialize: any;
 
 @Component({

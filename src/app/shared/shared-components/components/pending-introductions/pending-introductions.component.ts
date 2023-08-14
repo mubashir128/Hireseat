@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Browser } from '@capacitor/browser';
 import { ConstantsService } from 'src/app/_services/constants.service';
 import { IntroduceService } from 'src/app/_services/introduce.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -59,7 +58,10 @@ export class PendingIntroductionsComponent implements OnInit {
   }
 
   async open(link) {
-    await window.open(link);
+    // await window.open(link);
+    if (!window.open(link)) {
+      window.location.href = link
+    }
   }
 
   onLinkedIn(user) {
