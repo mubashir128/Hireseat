@@ -6,12 +6,21 @@
         <!-- <h4 class="count" *ngIf="notificationLength > 0 && (tab.displayText === 'Notification')">
           {{notificationLength}}
         </h4> -->
-        <div *ngIf = "tab.displayText !== 'Menu'">
+        <div *ngIf = "tab.displayText !== 'Menu' && tab.displayText !== 'My Connections'">
           <i
             [ngClass]="tab.addedClass"
             [ngStyle]="{ color: tab.selected ? '#393B3B' : '#ffffff' }"
           ></i><br />
         </div>
+
+        <div *ngIf = "tab.displayText == 'My Connections'">
+          <div class="">
+            <div class="big-badge candProfile middleMenu">
+              <img src="assets/img/profile.png" style="max-width: 100%" />
+            </div>
+          </div>
+        </div>
+
         <div *ngIf = "tab.displayText == 'Menu'">
           <div class="">
             <div *ngIf = "!loggedInUser.showCreatedLogo" class="big-badge candProfile">
