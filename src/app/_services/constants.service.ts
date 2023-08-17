@@ -186,6 +186,8 @@ export class ConstantsService {
   hire3PointsPrompt;
   accomplishmentPrompt;
 
+  getTimelinesTabsCount;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -447,6 +449,8 @@ export class ConstantsService {
     this.summaryPrompt = obj.summaryPrompt;
     this.hire3PointsPrompt = obj.hire3PointsPrompt;
     this.accomplishmentPrompt = obj.accomplishmentPrompt;
+
+    this.getTimelinesTabsCount = obj.getTimelinesTabsCount;
   }
 
 }
