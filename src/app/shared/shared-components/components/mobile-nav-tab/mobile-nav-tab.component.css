@@ -140,3 +140,9 @@ h4.count {
   -o-object-fit: cover;
   object-fit: cover;
 }
+
+.middleMenu {
+  margin-right: 0px !important;
+  border: 1px solid black !important;
+  transform: scale(1.5);
+}

@@ -3,7 +3,7 @@
     <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
 
     <div class="modal-content">
-        <input type="text" class="" placeholder="Message" [(ngModel)]="message">
+        <textarea rows="4" style="height: 6rem;" placeholder="Message" [(ngModel)]="message"></textarea>
         <div class="textCenter">
             <button (click)="closeScreen($event)" class="sendBtn introStyle">
                 Cancel

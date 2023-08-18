@@ -67,6 +67,10 @@ export class TimelineComponent implements OnInit {
   pageSize: number = 10;
   pageIndex: number = 0;
 
+  itemsIs: number = 0;
+  introsMadeCount: number = 0;
+  myNetworkCount: number = 0;
+
   constructor(
     private _constants: ConstantsService,
     private _socket: WebsocketService,
@@ -133,6 +137,13 @@ export class TimelineComponent implements OnInit {
         pageSize: this.pageSize
       },
     });
+
+    this._socket.sendMessage({
+      type: this._constants.timelineType,
+      data: {
+        subType: this._constants.getTimelinesTabsCount
+      }
+    });
   }
 
   handleTimelineData(res) {
@@ -144,6 +155,10 @@ export class TimelineComponent implements OnInit {
         }
         this._subList.loaderListAfterSearch.next({ type: "000" });
         break;
+      case this._constants.getTimelinesTabsCount:
+        this.introsMadeCount = res?.data?.introsMadeCount;
+        this.myNetworkCount = res?.data?.myNetworkCount;
+        break ;
       default:
         break;
     }
