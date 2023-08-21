@@ -165,12 +165,13 @@ button.connectBtn{
 }
 
 .cirDiv {
+  display: inline-block;
   background: #ff0000 !important;
   width: 20px !important;
   height: 20px !important;
   border-radius: 50%;
   color: #fff;
-  position: absolute;
+  /* position: absolute; */
   padding: 3px;
   top: 25px;
   margin-left: -10px;
