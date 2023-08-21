@@ -375,6 +375,10 @@ export class TimelineComponent implements OnInit {
     this.getAllTimelines();
   }
 
+  getIntroduceCount(count){
+    return (count < 10 ? '0' : '') + count;
+  }
+  
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.timelineType });
     this.timelineObserver.unsubscribe();
