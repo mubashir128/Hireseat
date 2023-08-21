@@ -1,10 +1,18 @@
 <div class="tabsAre">
   <ul class="tabs">
     <li class="tablink" id="switch0">
-      Intros made <br><span class="cirDiv">{{ introsMadeCount }}</span>
+      Intros made
+      <br>
+      <span class="row cirDiv">
+        {{ introsMadeCount }}
+      </span>
     </li>
     <li class="tablink" id="switch1">
-      My Network <br><span class="cirDiv">{{ myNetworkCount }}</span>
+      My Network
+      <br>
+      <span class="row cirDiv">
+        {{ myNetworkCount }}
+      </span>
     </li>
   </ul>
 </div>
@@ -113,7 +121,7 @@
                 <span>
                   <label class="redColor"># of Introductions : </label>
                   <label class="backStyle">
-                    {{ timeline.candidateFromId?.introduceCount}}
+                    {{ getIntroduceCount(timeline.candidateFromId?.introduceCount) }}
                   </label>
                 </span>
               </div>
