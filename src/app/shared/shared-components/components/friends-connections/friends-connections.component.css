@@ -219,7 +219,7 @@ button.cancelBtn{
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 16px;
+  /* font-size: 15px; */
   width: 50%;
   z-index: 1;
   height: 50px;
@@ -338,15 +338,16 @@ input {
 }
 
 .cirDiv {
+  font-size: 12px;
+  display: inline-block;
   background: #ff0000 !important;
-  width: 20px !important;
-  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
   border-radius: 50%;
   color: #fff;
   position: absolute;
-  padding: 3px;
-  top: 25px;
-  margin-left: -10px;
+  padding-top: 2px;
+  top: 27px;
 }
 
 .styDiv1 {

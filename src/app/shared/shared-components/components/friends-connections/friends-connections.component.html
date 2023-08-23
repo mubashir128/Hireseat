@@ -1,13 +1,25 @@
 <div class="tabsAre">
   <ul class="tabs">
     <li class="tablink" id="switch2" [ngClass]="itemsIs === 2 ? 'tablinkActive' : false" (click)="switchPage(2)">
-      Hireseat Network <br><span class="cirDiv">{{onlyCanCount}}</span>
+      Hireseat Network
+      <br>
+      <span class="row cirDiv">
+        {{ onlyCanCount }}
+      </span>
     </li>
     <li class="tablink" id="switch0" [ngClass]="itemsIs === 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
-      Intros to Companies <br><span class="cirDiv">{{introsToCompaniesCount}}</span>
+      Intros to Companies
+      <br>
+      <span class="row cirDiv">
+        {{ introsToCompaniesCount }}
+      </span>
     </li>
     <li class="tablink" id="switch1" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
-      My Network <br><span class="cirDiv">{{myNetworkCount}}</span>
+      My Network
+      <br>
+      <span class="row cirDiv">
+        {{ myNetworkCount }}
+      </span>
     </li>
   </ul>
 </div>

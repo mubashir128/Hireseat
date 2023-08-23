@@ -92,8 +92,8 @@ export class TimelineComponent implements OnInit {
         this._subList.loaderListAfterSearch.next({type : "000"});
         break ;
       case this._constants.getTimelinesTabsCount:
-        this.introsMadeCount = res?.data?.introsMadeCount;
-        this.myNetworkCount = res?.data?.myNetworkCount;
+        this.introsMadeCount = res?.data?.introsMadeCount ? res?.data?.introsMadeCount : 0;
+        this.myNetworkCount = res?.data?.myNetworkCount ? res?.data?.myNetworkCount : 0;
         break ;
       default : 
         break ;
