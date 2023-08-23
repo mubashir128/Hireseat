@@ -1,0 +1,122 @@
+<ng-container>
+    <!-- <span style="font-size: 20px;">Events : </span> -->
+    <div class="row ListResume">
+        <div class="singleList employerResume" *ngFor="let event of eventsList;let ind=index;">
+            <div class="edit-event" *ngIf="loggedUser.userRole == 'super-admin'">
+                <i class="fa fa-bullhorn" (click)="annoucevent(event)"></i>
+                <i class="fa fa-edit" (click)="editEvent(event)"></i>
+                <i class="fa fa-trash" (click)="deleteEvent(event._id)"></i>
+            </div>
+            <div class="uploadProfileImgDiv">
+                <div class="uploadProfileImg">
+                    <ng-container *ngIf="event.eventPicture">
+                        <img [src]="event.eventPicture" alt="add img" />
+                    </ng-container>
+                </div>
+            </div>
+            <div class="pro">
+                <span style="color: red;">
+                    Event Name : {{event.name | uppercase}}
+                </span>
+
+                <br>
+
+                <div class="sideCss">
+                    <div class="lblTxt">
+                        <p *ngIf="event?.location"><label>Event location :</label> {{ event?.location }}</p>
+                        <p *ngIf="event?.eventDate"><label>Event date :</label> {{ event?.eventDate | date:"d MMM y" }}</p>
+                        <p *ngIf="event?.eventTime"><label>Event time :</label> {{ event?.eventTime }}</p>
+                        <p *ngIf="event?.link"><label>Event link :</label> {{ event?.link }}</p>
+                    </div>
+                </div>
+
+                <div class="details-tab">
+                    <mat-tab-group (selectedTabChange)="matTabChange($event,event._id)">
+                        <mat-tab label="Details"> 
+                            {{event?.eventDetails}}
+                         </mat-tab>
+                        <mat-tab label="Comments" > 
+                            <div class="comment-list" id="comment-list_{{event._id}}" *ngIf="event.comments">
+                                <ng-container *ngFor="let comments of event.comments">
+                                <div class="comment-data" *ngIf="comments.userId._id">
+                                    <div class="profile" *ngIf="!comments.userId.profileimage">
+                                        <img class="candidate-profile" src="assets/img/profile-user.png"/>
+                                    </div>
+                                    <div class="profile" *ngIf="comments.userId.profileimage">
+                                        <img class="candidate-profile" [src]="comments.userId.profileimage"/>
+                                    </div>
+                                    <div class="comment-details">
+                                        <mat-card>
+                                            <div class="user-name">
+                                                <p>{{comments.userId.fullName}}</p>
+                                                <span style="font-size: 12px;" *ngIf="comments.timestamps">{{comments.timestamps | date:'dd/MM/yyyy hh:mm a'}}</span>
+                                            </div>
+                                            <div class="comment-description">
+                                                <p>{{comments.message}}</p>
+                                            </div>                                            
+                                        </mat-card>
+                                    </div>
+                                </div>
+                                </ng-container>
+                            </div> 
+                            <div class="No-comments" *ngIf="!event.comments.length" style="text-align: center;">
+                                <p>No Comments</p>
+                            </div>
+                            <div  *ngIf="loggedUser.userRole !== 'super-admin'" class="comment-texbox-area" style="text-align: end;">
+                                <textarea class="form-control" placeholder="comment..." [(ngModel)]="commentData" rows="3" style="height: unset;"></textarea>
+                                <button class="commonBlueBtnN" (click)="onCommentPostClick(event._id,ind)">Post</button>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+
+            <ng-container *ngIf="event?.attendingUsers.length">
+                <div class="row" style="margin: auto;">
+                    <span class="ellipeseClass" *ngIf="event.attendingUsers.length > profileImageLength">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <div *ngFor="let user of event.attendingUsers | slice:0:profileImageLength">
+                        <div class="candProfile12">
+                            <img [src]="user?.userId?.profileimage ? user.userId.profileimage : 'assets/img/profile-user.png'"
+                                alt="profile" />
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="row events-button" *ngIf="loggedUser.userRole !== 'super-admin'">
+                <div class="row center-align" *ngIf="!checkStatus(event)">
+                    <button type="button" (click)="attendEvent(event)" class="waves-effect waves-light commonBlueBtnN">
+                        Attend
+                    </button>
+                </div>
+                <div class="row center-align" *ngIf="checkStatus(event)">
+                    <button type="button" (click)="cancelAttendEvent(event)"
+                        class="waves-effect waves-light commonBlueBtnN">
+                        Cancel Attend
+                    </button>
+                </div>
+                <div class="row center-align">
+                    <button type="button" (click)="seeEventUsers(event)"
+                        class="waves-effect waves-light commonBlueBtnN">
+                        Attending Users
+                    </button>
+                </div>
+            </div>
+            <div class="row events-button" *ngIf="loggedUser.userRole !== 'super-admin' && getCheckInStatus(event)">
+                <div class="row center-align" *ngIf="!checkInUserStatus(event)">
+                    <button type="button" class="waves-effect waves-light commonBlueBtnN redBtn" (click)="onCheckInClick(event)">
+                        CheckIn
+                    </button>
+                </div>
+
+                <div class="row center-align" *ngIf="checkInUserStatus(event)">
+                    <button type="button" class="waves-effect waves-light commonBlueBtnN redBtn" (click)="onUncheckInClick(event)">
+                        Uncheck
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

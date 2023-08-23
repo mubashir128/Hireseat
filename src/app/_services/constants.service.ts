@@ -174,6 +174,9 @@ export class ConstantsService {
 
   getTimelinesTabsCount;
 
+  peopleEventComment;
+  postPeopleEventComment;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -424,6 +427,9 @@ export class ConstantsService {
     this.accomplishmentPrompt = obj.accomplishmentPrompt;
 
     this.getTimelinesTabsCount = obj.getTimelinesTabsCount;
+
+    this.peopleEventComment = obj.peopleEventComment;
+    this.postPeopleEventComment = obj.postPeopleEventComment;
   }
 
 }

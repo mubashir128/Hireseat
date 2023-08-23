@@ -133,6 +133,12 @@ import { DialogInputBigMessageComponent } from './components/dialog-input-big-me
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DialogOnlyTextMessageComponent } from './components/dialog-only-text-message/dialog-only-text-message.component';
 import { DialogOnlyMessageComponent } from './components/dialog-only-message/dialog-only-message.component';
+import { SuggestAndEventsComponent } from './components/suggest-and-events/suggest-and-events.component';
+import { CreateEventComponent } from "./components/create-event/create-event.component";
+import { DialogCreateEventComponent } from "./components/dialog-create-event/dialog-create-event.component";
+import { EventListComponent } from "./components/event-list/event-list.component";
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -166,7 +172,9 @@ import { DialogOnlyMessageComponent } from './components/dialog-only-message/dia
     DragDropModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule,
+    MatCardModule
   ],
   declarations: [
     FooterComponent,
@@ -290,7 +298,11 @@ import { DialogOnlyMessageComponent } from './components/dialog-only-message/dia
     AppliedPostJobsComponent,
     DialogInputBigMessageComponent,
     DialogOnlyTextMessageComponent,
-    DialogOnlyMessageComponent
+    DialogOnlyMessageComponent,
+    SuggestAndEventsComponent,
+    CreateEventComponent,
+		DialogCreateEventComponent,
+    EventListComponent
   ],
   exports: [
     FooterComponent,
@@ -370,7 +382,9 @@ import { DialogOnlyMessageComponent } from './components/dialog-only-message/dia
     CandidateSummaryComponent,
     SkillsAndIndustriesComponent,
     ProfileButtonsComponent,
-    InterviewQuestionsComponent
+    InterviewQuestionsComponent,
+    MatTabsModule,
+    MatCardModule
   ],
 
 })

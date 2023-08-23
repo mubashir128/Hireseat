@@ -1,0 +1,33 @@
+<div class="tabsAre">
+    <ul class="tabs">
+        <li id="switch1" [ngClass]="{'tablinkActive' : itemsIs == 0, 'tablink': true}" (click)="switchPage(0)">
+            Events
+        </li>
+        <li id="switch1" [ngClass]="{'tablinkActive' : itemsIs == 1, 'tablink': true}" (click)="switchPage(1)">
+            New Intros
+            <span *ngIf="pendingIntroduceCount >= 1">{{ pendingIntroduceCount }}</span>
+        </li>
+        <li id="switch1" [ngClass]="{'tablinkActive' : itemsIs == 2, 'tablink': true}" (click)="switchPage(2)">
+            Intros
+        </li>
+        <li id="switch0" [ngClass]="{'tablinkActive' : itemsIs == 3, 'tablink': true}" (click)="switchPage(3)">
+            Jobs
+        </li>
+    </ul>
+</div>
+
+<ng-container *ngIf="showEvents">
+    <app-create-event></app-create-event>
+</ng-container>
+
+<ng-container *ngIf="showNewIntro">
+    <app-pending-introductions></app-pending-introductions>
+</ng-container>
+
+<ng-container *ngIf="showIntro">
+    <app-introductions></app-introductions>
+</ng-container>
+
+<ng-container *ngIf="showJobs">
+    <app-suggest-introduce></app-suggest-introduce>
+</ng-container>

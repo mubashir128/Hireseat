@@ -31,6 +31,26 @@ export class AbstractService {
     });
   }
 
+  toFormData(formData: any, item) {
+    for (var key in item) {
+      if (Array.isArray(item[key]))
+        formData.append(key, item[key].join(","));
+      else {
+        switch (typeof item[key]) {
+          case "boolean":
+          case "number":
+            formData.append(key, JSON.stringify(item[key]));
+            break;
+          default:
+            if (item[key] == "{}")
+              formData.append(key, null);
+            else
+              formData.append(key, item[key]);
+        }
+      }
+    }
+  }
+
   handleError(error: any) {
     return throwError(error);
   }

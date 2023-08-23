@@ -1,0 +1,132 @@
+.marBT {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.row {
+    margin-bottom: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.header{
+    height: 8vh;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #cccccc;
+}
+
+.mat-body-data{
+    height: 55vh;
+    overflow: auto;
+}
+
+.uploadProfilePictureClass span {
+    font-size: 18px;
+    font-family: 'gilroybold';
+}
+
+.uploadProfileImgDiv {
+    background-color: #ffffff;
+    padding: 5px;
+}
+
+.uploadProfileImg {
+    background-color: #f7f7f7;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+}
+
+.uploadProfileImg img {
+    width: 100%;
+    height: 100%;
+}
+
+.uploadProfileImg:hover .profileAdd {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.uploadProfileImg input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.UploadImgDefault {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.profileAdd {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #18181842;
+    opacity: 1;
+    transition: 0.8s;
+    cursor: pointer;
+}
+
+.profileAdd i {
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.profileAdd p {
+    font-size: 10px;
+    color: #ffffff;
+    margin-top: 4px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.profileAddInner {
+    cursor: pointer;
+}
+
+.mat-footer{
+    height: 10vh;
+    border-top: 1px solid #cccccc;
+}
+
+.mat-footer .row{
+    margin: 10px !important;
+    padding-right: 10px !important;
+    padding-bottom: 0px !important;
+}   
+
+::ng-deep .cdk-overlay-pane{
+    max-height: 75% !important;
+    max-width: 90vw !important;
+}
+
+::ng-deep textarea{
+    border: none !important;
+    border-bottom: 1px solid #9e9e9e !important;
+}
+
+::ng-deep .timepicker-overlay{
+    z-index: 9999 !important;
+}
+
+::ng-deep .mat-dialog-container{
+    overflow: hidden;
+    padding: 0px !important;
+}

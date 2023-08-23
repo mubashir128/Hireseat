@@ -42,6 +42,43 @@ export class PostJob {
   }
 }
 
+export class PeoplesEvent {
+  _id: string;
+  name: string;
+  eventDate: Date;
+  eventTime:string;
+  location: string;
+  link: string;
+  eventDetails:string;
+  eventPicture: string;
+  attendingUsers: any[];
+  attendingCandidateList: any[];
+  comments:any=[];
+  checkInUsers:any=[];
+
+  constructor();
+  constructor(
+    _id?: string,
+    name?: string,
+    eventDate?: Date,
+    location?: string,
+    link?: string,
+    eventPicture?: string,
+    attendingUsers?: any[],
+    attendingCandidateList?: any[]
+  ) {
+    this._id = _id;
+    this.name = name;
+    this.eventDate = eventDate;
+    this.location = location;
+    this.link = link;
+    this.eventPicture = eventPicture;
+    this.attendingUsers = attendingUsers;
+    this.attendingCandidateList = attendingCandidateList;
+  }
+}
+
+
 export class List {
   constructor(public dynamicColumns: string[], public dataSource : any[]){
   }
