@@ -139,6 +139,7 @@ import { DialogCreateEventComponent } from "./components/dialog-create-event/dia
 import { EventListComponent } from "./components/event-list/event-list.component";
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
   imports: [
@@ -174,7 +175,8 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    NgxMaterialTimepickerModule
   ],
   declarations: [
     FooterComponent,
@@ -384,7 +386,8 @@ import {MatCardModule} from '@angular/material/card';
     ProfileButtonsComponent,
     InterviewQuestionsComponent,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    NgxMaterialTimepickerModule
   ],
 
 })
