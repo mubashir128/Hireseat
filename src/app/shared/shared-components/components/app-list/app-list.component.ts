@@ -23,9 +23,10 @@ export class PostJob {
   public pointBoolean3: Boolean;
   public suggestBy: any;
   public candidate: any[];
+  public salary: string;
 
   constructor();
-  constructor(_id?: string, companyName?: string, jobTitle?: string, jobSpecification?: string, location?: string, point1?: string, point2?: string, point3?: string, pointBoolean1?: Boolean, pointBoolean2?: Boolean, pointBoolean3?: Boolean, suggestBy?: string, candidate?: any[]){
+  constructor(_id?: string, companyName?: string, jobTitle?: string, jobSpecification?: string, location?: string, point1?: string, point2?: string, point3?: string, pointBoolean1?: Boolean, pointBoolean2?: Boolean, pointBoolean3?: Boolean, suggestBy?: string, candidate?: any[], salary?: string){
     this._id = _id;
     this.companyName = companyName;
     this.jobTitle = jobTitle;
@@ -39,6 +40,7 @@ export class PostJob {
     this.pointBoolean3 = pointBoolean3;
     this.suggestBy = suggestBy;
     this.candidate = candidate;
+    this.salary = salary;
   }
 }
 
