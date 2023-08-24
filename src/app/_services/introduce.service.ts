@@ -5,7 +5,8 @@ import { map } from "rxjs/operators";
 
 export enum tabTypes {
   companiesTab = "companiesTab",
-  industriesTab = "industriesTab"
+  industriesTab = "industriesTab",
+  desireRolesTab = "desireRolesTab"
 }
 
 @Injectable({
