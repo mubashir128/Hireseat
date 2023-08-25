@@ -1,0 +1,81 @@
+<ng-container>
+    <div class="title-bar">
+        <div class="backBtn">
+            <i (click)="backToEvents()" class="fa fa-arrow-left colorSt" aria-hidden="true"></i>
+        </div>
+        <div class="event-name">
+            <span style="color: red; font-size: 16px;font-weight: 600;">
+                Event Name : {{eventsList?.name}}
+            </span>
+        </div>
+    </div>
+    <div *ngIf="eventsList?.attendingUsers?.length" class="eventList">
+        <div class="eventUI animatePart" *ngFor="let eventUsers of eventsList?.attendingUsers; let ind = index">
+            
+            <div class="user-card"> 
+                <mat-card>
+                    <div class="user-data pro">
+                        <div class="candProfile">
+                            <ng-container *ngIf="!eventUsers?.userId?.profileimage">
+                                <img src="assets/img/profile-user.png" alt="profile" />
+                            </ng-container>
+                            <ng-container *ngIf="eventUsers?.userId?.profileimage">
+                                <img [src]="eventUsers.userId.profileimage" alt="profile" />
+                            </ng-container>
+                        </div>
+                        <div class="pro-user-name" style="width: 75%;">
+                            <p>{{eventUsers?.userId?.fullName | uppercase}}</p>
+                            <span *ngIf="eventUsers?.checkIn">I am here</span>                           
+                        </div>
+                        <div class="chat-icon" style="width: 10%;">
+                            <div *ngIf="eventUsers?.userId?._id != loggedUser._id" (click)="gotoChat(eventUsers.userId._id)">
+                                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="row other-details">
+                        <p *ngIf = "eventUsers?.candidate_id?.introduceYouToo">
+                          <label class="lableClass">I can Intro you to Companies/Teams at :</label>
+                          <label class="lableClass2">
+                            {{ eventUsers?.candidate_id?.introduceYouToo}}
+                          </label>
+                        </p>
+                        <p *ngIf = "eventUsers?.candidate_id?.desiredCompanies">
+                            <label class="lableClass">I am interested in intros to :</label>
+                            <label class="lableClass2">
+                                {{ eventUsers?.candidate_id?.desiredCompanies }}
+                            </label>
+                        </p>
+                    </div>
+                    <div class="row events-button" *ngIf = "eventUsers?.userId?._id != loggedUser._id">
+                        <div class="row center-align">
+                            <button type="button" class="waves-effect waves-light commonBlueBtnN redBtn" (click)="connectWithOffers(eventUsers)">
+                                Connect
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row events-button">
+                        <div class="row center-align">
+                            <button type="button" class="waves-effect waves-light commonBlueBtnN LinkedInBtn" (click)="onLinkedIn(eventUsers)">
+                                LinkedIn
+                            </button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="showLoader">
+    <div class="loader-container marTop50">
+        <div class="loader"></div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf = "!showLoader && eventsList?.attendingUsers?.length == 0">
+    <div class="marTop">
+        <app-no-data-available ></app-no-data-available>
+    </div>
+</ng-container>

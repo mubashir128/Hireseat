@@ -134,6 +134,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { DialogOnlyTextMessageComponent } from './components/dialog-only-text-message/dialog-only-text-message.component';
 import { DialogOnlyMessageComponent } from './components/dialog-only-message/dialog-only-message.component';
 import { SuggestAndEventsComponent } from './components/suggest-and-events/suggest-and-events.component';
+import { EventListUsersComponent } from './components/event-list-users/event-list-users.component';
 import { CreateEventComponent } from "./components/create-event/create-event.component";
 import { DialogCreateEventComponent } from "./components/dialog-create-event/dialog-create-event.component";
 import { EventListComponent } from "./components/event-list/event-list.component";
@@ -302,6 +303,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     DialogOnlyTextMessageComponent,
     DialogOnlyMessageComponent,
     SuggestAndEventsComponent,
+    EventListUsersComponent,
     CreateEventComponent,
 		DialogCreateEventComponent,
     EventListComponent

@@ -20,6 +20,7 @@ import { SuggestConnectedComponent } from "../shared/shared-components/component
 import { AppliedPostJobsComponent } from "../shared/shared-components/components/applied-post-jobs/applied-post-jobs.component";
 import { SuggestedPostJobsComponent } from "../shared/shared-components/components/suggested-post-jobs/suggested-post-jobs.component";
 import { SuggestAndEventsComponent } from "../shared/shared-components/components/suggest-and-events/suggest-and-events.component";
+import { EventListUsersComponent } from "../shared/shared-components/components/event-list-users/event-list-users.component";
 
 const routes: Routes = [
   {
@@ -101,6 +102,10 @@ const routes: Routes = [
       {
         path: "suggest-and-events",
         component: SuggestAndEventsComponent,
+      },
+      {
+        path: "see-event-users/:eventId",
+        component: EventListUsersComponent,
       }
     ],
   },
