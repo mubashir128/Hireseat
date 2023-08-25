@@ -48,10 +48,10 @@ export class CandidateHomeComponent implements OnInit {
   ngOnInit() {
     const checkSA = this.supperAdmin.checkSuperAdminEmail();
 
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 500);
+    // this.spinner.show();
+    // setTimeout(() => {
+    //   this.spinner.hide();
+    // }, 500);
 
     // jQuery(".dropdown-button").dropdown({
     //   inDuration: 300,

@@ -23,7 +23,8 @@
                         </p>
                         <p *ngIf="item?.location"><label>Location :</label> {{ item?.location }}
                         </p>
-
+                        <p *ngIf="item?.salary"><label>Salary :</label> {{ item?.salary }}
+                        </p>
                         <div class="formDivCreate">
                             <div *ngIf="item?.point1" class="form-group">
                                 <input type="checkbox" name="point1" value="point1" class="createpostInput">

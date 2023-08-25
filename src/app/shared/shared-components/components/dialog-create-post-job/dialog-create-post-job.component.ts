@@ -37,7 +37,8 @@ export class DialogCreatePostJobComponent extends AbstractDialogComponent implem
       location: ["", Validators.compose([Validators.required])],
       point1: ["", Validators.compose([Validators.required])],
       point2: ["", Validators.compose([Validators.required])],
-      point3: ["", Validators.compose([Validators.required])]
+      point3: ["", Validators.compose([Validators.required])],
+      salary: [""]
     });
 
     if(this.data && this.data.jobList){

@@ -36,7 +36,8 @@
                             </span>
                         </p>
                         <p *ngIf = "companiesAre?.location"><label>Location :</label> {{ companiesAre?.location }}</p>
-
+                        <p *ngIf="companiesAre?.salary"><label>Salary :</label> {{ companiesAre?.salary }}
+                        </p>
                         <div class="formDivCreate">
                             <span style="font-size: 16px; color: green;">
                                 Below are 3 Hiring Manager Must Haves. Click all that apply.
