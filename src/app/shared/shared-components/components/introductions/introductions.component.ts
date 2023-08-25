@@ -22,15 +22,18 @@ export class IntroductionsComponent implements OnInit {
   loggedUser: any;
   eachEntry1: any[] = [];
   eachEntry2: any[] = [];
+  eachEntry3: any[] = [];
 
   showLoader: boolean = true;
 
   jobs: boolean = true;
   industries: boolean = false;
+  desireRoles: boolean = false;
   itemsIs = 0;
 
   seachCompanyLable = "Desired Companies";
   seachIndustryLable = "Desired Industries";
+  seachDesireRoleLable = "Desired Roles";
 
   pageSize: number = 10;
   pageLength: number = 100;
@@ -39,6 +42,7 @@ export class IntroductionsComponent implements OnInit {
 
   companiesTab: tabTypes = tabTypes.companiesTab;
   industriesTab: tabTypes = tabTypes.industriesTab;
+  desireRolesTab: tabTypes = tabTypes.desireRolesTab;
 
   searchFilters = new Map();
 
@@ -80,6 +84,18 @@ export class IntroductionsComponent implements OnInit {
     });
   }
 
+  getConnectedFriendsIntroRoles(){
+    let payload = {
+      type: this._constants.asAFriend
+    }
+    
+    let promises = [];
+    promises.push(this._candidateService.getIntrosDesireRoles(payload, this.currentPageEvent, this.searchFilters).toPromise());
+    Promise.all(promises).then(result => {
+      this.fetchEachMatchingEntryByDesireRoles(result);
+    });
+  }
+
   getIntrosCompanies(pageEvent: PageEvent = this.currentPageEvent){
     this.currentPageEvent = pageEvent;
     
@@ -108,6 +124,20 @@ export class IntroductionsComponent implements OnInit {
     });
   }
 
+  getIntrosDesireRoles(pageEvent: PageEvent = this.currentPageEvent){
+    this.currentPageEvent = pageEvent;
+    
+    let payload = {
+      type: this._constants.asAFriend
+    }
+    
+    let promises = [];
+    promises.push(this._candidateService.getIntrosDesireRoles(payload, pageEvent, this.searchFilters).toPromise());
+    Promise.all(promises).then(result => {
+      this.fetchEachMatchingEntryByDesireRoles(result);
+    });
+  }
+
   fetchEachMatchingEntry(result) {
     this.eachEntry1 = result[0].eachEntry;
     this.pageLength = result[0].totalLength;
@@ -117,6 +147,13 @@ export class IntroductionsComponent implements OnInit {
 
   fetchEachMatchingEntryByIndustries(result) {
     this.eachEntry2 = result[0].eachEntry;
+    this.pageLength = result[0].totalLength;
+    this.pageIndex = result[0].pageIndex;
+    this.showLoader = false;
+  }
+
+  fetchEachMatchingEntryByDesireRoles(result) {
+    this.eachEntry3 = result[0].eachEntry;
     this.pageLength = result[0].totalLength;
     this.pageIndex = result[0].pageIndex;
     this.showLoader = false;
@@ -132,11 +169,18 @@ export class IntroductionsComponent implements OnInit {
     if(this.itemsIs == 0){
       this.jobs = true;
       this.industries = false;
+      this.desireRoles = false;
       this.getConnectedFriendsIntroCompanies();
     }else if(this.itemsIs == 1){
       this.jobs = false;
       this.industries = true;
+      this.desireRoles = false;
       this.getConnectedFriendsIntroIndustries();
+    }else if(this.itemsIs == 2){
+      this.jobs = false;
+      this.industries = false;
+      this.desireRoles = true;
+      this.getConnectedFriendsIntroRoles();
     }
   }
 
@@ -148,5 +192,10 @@ export class IntroductionsComponent implements OnInit {
   searchIntrosIndustries(searchFilter: SearchFilter){
     this.searchFilters.set(searchFilter.column, searchFilter.value);
     this.getConnectedFriendsIntroIndustries();
+  }
+
+  searchIntrosDesireRoles(searchFilter: SearchFilter){
+    this.searchFilters.set(searchFilter.column, searchFilter.value);
+    this.getConnectedFriendsIntroRoles();
   }
 }

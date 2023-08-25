@@ -51,6 +51,14 @@ export class CandidateNavbarComponent implements OnInit {
       new Tab("/candidate/user-chat", "Messaging", false)
     );
 
+    this.tabs1.push(
+      new Tab("/candidate/timeline", "Timeline", false)
+    );
+
+    this.tabs1.push(
+      new Tab("/candidate/suggest-and-events", "Suggest Events", false)
+    );
+
     // this.tabs1.push(
     //   new Tab("/candidate/my-posted-profiles", "My Posted Profiles", false)
     // );

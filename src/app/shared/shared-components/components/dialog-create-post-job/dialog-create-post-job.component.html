@@ -61,6 +61,13 @@
             </div>
             <div class="row">
                 <div class="input-field col s12 m12 l12">
+                    <input class="form-control marBT" type="text" name="salary" formControlName="salary" [(ngModel)] = "jobList.salary"
+                        autocomplete="off" placeholder="Salary"/>
+                    <span>Salary*</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
                     <span>Select user who suggest you</span>
                     <!-- <mat-label>Select user who suggest you</mat-label> -->
                     <mat-select [(value)]="jobList.suggestBy" [disabled]="jobList._id">

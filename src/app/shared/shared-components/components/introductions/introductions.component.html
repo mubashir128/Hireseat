@@ -6,6 +6,9 @@
         <li class="tablink" id="switch1" [ngClass]="itemsIs == 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
             Industries
         </li>
+        <!-- <li class="tablink" id="switch2" [ngClass]="itemsIs == 2 ? 'tablinkActive' : false" (click)="switchPage(2)">
+            Desire Roles
+        </li> -->
     </ul>
 </div>
 
@@ -39,6 +42,20 @@
         [(pageIndex)]="pageIndex"
         (pageEM)='getIntrosIndustries($event)'
         (industriesSearchEM)='searchIntrosIndustries($event)'
+    >
+    </app-intros-tab>
+</ng-container>
+
+<ng-container *ngIf="desireRoles">
+    <app-intros-tab
+        [(eachEntry)]="eachEntry3"
+        [(tabName)]="desireRolesTab"
+        [(searchLabel)]="seachDesireRoleLable"
+        [(pageSize)]="pageSize"
+        [(pageLength)]="pageLength"
+        [(pageIndex)]="pageIndex"
+        (pageEM)='getIntrosDesireRoles($event)'
+        (desireRoleSearchEM)='searchIntrosDesireRoles($event)'
     >
     </app-intros-tab>
 </ng-container>

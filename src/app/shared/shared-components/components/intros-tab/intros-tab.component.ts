@@ -30,6 +30,7 @@ export class IntrosTabComponent implements OnInit {
   @Output() pageEM = new EventEmitter();
   @Output() companySearchEM = new EventEmitter();
   @Output() industriesSearchEM = new EventEmitter();
+  @Output() desireRoleSearchEM = new EventEmitter();
 
   constructor(
     protected _introduceService: IntroduceService,
@@ -49,8 +50,10 @@ export class IntrosTabComponent implements OnInit {
       this.searchTerm = value.searchTerm;
       if(this.tabName == tabTypes.companiesTab){
         this.companySearchEM.emit(new SearchFilter("name", this.searchTerm));
-      }else{
+      }else if(this.tabName == tabTypes.industriesTab){
         this.industriesSearchEM.emit(new SearchFilter("name", this.searchTerm));
+      }else if(this.tabName == tabTypes.desireRolesTab){
+        this.desireRoleSearchEM.emit(new SearchFilter("name", this.searchTerm));
       }
     });
   }
