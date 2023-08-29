@@ -56,7 +56,7 @@ export class CandidateNavbarComponent implements OnInit {
     );
 
     this.tabs1.push(
-      new Tab("/candidate/suggest-and-events", "Suggest Events", false)
+      new Tab("/candidate/suggest-and-events", "Events", false)
     );
 
     // this.tabs1.push(
