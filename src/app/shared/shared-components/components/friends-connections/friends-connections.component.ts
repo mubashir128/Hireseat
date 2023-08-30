@@ -582,6 +582,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   
   introduceUser(result){
     let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
+    let candidateIdIs = this.shareResume.resumeType ? this.shareResume.candidate_id : this.shareResume.candidate_id._id;
     let comment1 = this.shareResume.comments;
     let comment2 = this.shareResume.comment2;
     let comment3 = this.shareResume.comment3;
@@ -596,12 +597,13 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
       recipientEmail : result.recipientEmail,
       senderName : senderName,
       candidateNameIs : candidateNameIs,
-      comment1 : comment1,
-      comment2 : comment2,
-      comment3 : comment3
+      // comment1 : comment1,
+      // comment2 : comment2,
+      // comment3 : comment3
     }
 
-    this.introduceUserSuper(payload, this.introduceUserSuperCallback);
+    this.inputBigMessageDialogOpen2(candidateIdIs, payload);
+    // this.introduceUserSuper(payload, this.introduceUserSuperCallback);
   }
 
   introduceUserSuperCallback(result, THIS){

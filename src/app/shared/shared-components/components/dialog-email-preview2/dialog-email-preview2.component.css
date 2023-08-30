@@ -47,3 +47,7 @@ button.sendBtn {
 .spaceBet{
   margin-left: 10px;
 }
+
+.commentTxt {
+  height: 6rem !important;
+}
