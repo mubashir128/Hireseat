@@ -345,9 +345,9 @@ input {
   min-height: 20px !important;
   border-radius: 50%;
   color: #fff;
-  position: absolute;
+  position: relative;
   padding-top: 2px;
-  top: 27px;
+  top: -2px;
 }
 
 .styDiv1 {

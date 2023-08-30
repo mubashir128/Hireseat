@@ -26,6 +26,8 @@ import {
   tap,
 } from "rxjs/operators";
 import { DialogShareToUsersComponent } from "../shared/shared-components/components/dialog-share-to-users/dialog-share-to-users.component";
+import { DialogInputBigMessageComponent } from "../shared/shared-components/components/dialog-input-big-message/dialog-input-big-message.component";
+import { eTypes } from "../_services/post-job.service";
 
 declare var jQuery;
 declare var Materialize;
@@ -1093,5 +1095,31 @@ export abstract class AbstractSharedComponent {
     this._resumeService.swapIntro(resume).subscribe((data) => {
       Materialize.toast("Intro swapped", 1000, "green");
     });
+  }
+
+  inputBigMessageDialogOpen2(userId, payload){
+    const dialogIntroduceRef = this.dialog.open(DialogInputBigMessageComponent, {
+      data: {
+        dialogType : "enterMessage",
+        dialogTitle : "Message",
+        dialogText : "Please provide 3 highlights of your referral.",
+        btns  : ["apply"],
+        type : eTypes.apply,
+        userId : userId
+      }
+    });
+
+    dialogIntroduceRef.afterClosed().subscribe(result => {
+      if(result.status){
+        payload.comment1 = result.message1,
+        payload.comment2 = result.message2,
+        payload.comment3 = result.message3
+        this.introduceUserSuper(payload, this.introduceUserSuperCallback);
+      }
+    });
+  }
+
+  introduceUserSuperCallback(result, THIS){
+    THIS.share(result);
   }
 }

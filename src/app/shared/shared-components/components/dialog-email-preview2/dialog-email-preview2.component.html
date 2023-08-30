@@ -18,9 +18,18 @@
     </div>
     <div class="skill">
         <ul>
-            <li><input type="text" placeholder="commect1..." [(ngModel)]="comment1"> </li>
-            <li><input type="text" placeholder="commect2..." [(ngModel)]="comment2"> </li>
-            <li><input type="text" placeholder="commect3..." [(ngModel)]="comment3"> </li>
+            <li>
+                <!-- <input type="text" placeholder="comment1..." [(ngModel)]="comment1"> -->
+                <textarea class="commentTxt" placeholder="comment1..." [(ngModel)]="comment1" rows="5" cols="4"></textarea>
+            </li>
+            <li>
+                <textarea class="commentTxt" placeholder="comment2..." [(ngModel)]="comment2" rows="5" cols="4"></textarea>
+                <!-- <input type="text" placeholder="comment2..." [(ngModel)]="comment2"> -->
+            </li>
+            <li>
+                <textarea class="commentTxt" placeholder="comment3..." [(ngModel)]="comment3" rows="5" cols="4"></textarea>
+                <!-- <input type="text" placeholder="comment3..." [(ngModel)]="comment3"> -->
+            </li>
         </ul>
     </div>
     <div class="email">
