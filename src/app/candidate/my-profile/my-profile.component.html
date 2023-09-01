@@ -571,6 +571,17 @@
                 formControlName="locationPref"
               />
             </div>
+
+            <div class="input-field col s12 m12 l12">
+              <div>
+                <i class="fa fa-address-card" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Select Job title : </span>
+              </div>
+              <p style="margin-top: 0px;">
+                <app-select-job-title [(jobTitleAre)]="jobTitleArray"></app-select-job-title>
+              </p>
+            </div>
+            
             <!--  -->
             <!-- <div class="input-field col s12 m12 l12 iv">
               <div class="subTitle">
