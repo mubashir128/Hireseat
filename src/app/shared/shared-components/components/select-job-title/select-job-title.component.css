@@ -1,0 +1,16 @@
+.mat-form-field {
+    width: 100%;
+}
+
+::ng-deep .color-selector .mat-form-field-infix {
+    display: flex !important;
+}
+
+.example-chip-list {
+    width: 100%;
+}
+
+::ng-deep .mat-autocomplete-panel {
+    background-color: white;
+    border: 1px solid #03aaff;;
+}

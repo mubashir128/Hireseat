@@ -141,6 +141,10 @@ import { EventListComponent } from "./components/event-list/event-list.component
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { SelectJobTitleComponent } from './components/select-job-title/select-job-title.component';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -177,7 +181,10 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     MatPaginatorModule,
     MatTabsModule,
     MatCardModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatIconModule
   ],
   declarations: [
     FooterComponent,
@@ -306,7 +313,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     EventListUsersComponent,
     CreateEventComponent,
 		DialogCreateEventComponent,
-    EventListComponent
+    EventListComponent,
+    SelectJobTitleComponent
   ],
   exports: [
     FooterComponent,
@@ -389,7 +397,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     InterviewQuestionsComponent,
     MatTabsModule,
     MatCardModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    SelectJobTitleComponent
   ],
 
 })
