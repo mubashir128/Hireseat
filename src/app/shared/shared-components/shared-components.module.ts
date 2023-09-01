@@ -154,6 +154,10 @@ import { DialogInputBigMessageComponent } from './components/dialog-input-big-me
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DialogOnlyTextMessageComponent } from './components/dialog-only-text-message/dialog-only-text-message.component';
 import { DialogOnlyMessageComponent } from './components/dialog-only-message/dialog-only-message.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { SelectJobTitleComponent } from './components/select-job-title/select-job-title.component';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -194,7 +198,10 @@ import { DialogOnlyMessageComponent } from './components/dialog-only-message/dia
     DragDropModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatIconModule
   ],
   declarations: [
     FooterComponent,
@@ -330,7 +337,8 @@ import { DialogOnlyMessageComponent } from './components/dialog-only-message/dia
     AppliedPostJobsComponent,
     DialogInputBigMessageComponent,
     DialogOnlyTextMessageComponent,
-    DialogOnlyMessageComponent
+    DialogOnlyMessageComponent,
+    SelectJobTitleComponent
   ],
   exports: [
     FooterComponent,
@@ -413,7 +421,8 @@ import { DialogOnlyMessageComponent } from './components/dialog-only-message/dia
     InterviewQuestionsComponent,
     MatTabsModule,
     MatCardModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    SelectJobTitleComponent
   ],
 
 })
