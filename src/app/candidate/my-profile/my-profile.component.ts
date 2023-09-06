@@ -63,6 +63,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   resumeChanged: boolean = false;
 
   jobTitleArray: string[] = [];
+  desiredCompaniesArray: string[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -338,6 +339,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             asARecruiterWithLimit : res.candidate_id.asARecruiterWithLimit
           });
           this.jobTitleArray = this.editProfile.value.jobTitle ? this.editProfile.value.jobTitle.split(',') : [];
+          this.desiredCompaniesArray = this.editProfile.value.desiredCompanies ? this.editProfile.value.desiredCompanies.split(',') : [];
           // console.log('file ', res.fileURL.length);
 
           if (res.fileURL.length > 0) {
@@ -505,6 +507,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     if(this.jobTitleArray){
       this.editProfile.patchValue({
         jobTitle: this.jobTitleArray.toString()
+      });
+    }
+
+    if(this.desiredCompaniesArray){
+      this.editProfile.patchValue({
+        desiredCompanies: this.desiredCompaniesArray.toString()
       });
     }
 

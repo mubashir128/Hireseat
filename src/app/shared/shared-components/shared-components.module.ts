@@ -145,6 +145,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { SelectJobTitleComponent } from './components/select-job-title/select-job-title.component';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { SelectDesiredCompaniesComponent } from './components/select-desired-companies/select-desired-companies.component';
 
 @NgModule({
   imports: [
@@ -314,7 +315,8 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
     CreateEventComponent,
 		DialogCreateEventComponent,
     EventListComponent,
-    SelectJobTitleComponent
+    SelectJobTitleComponent,
+    SelectDesiredCompaniesComponent
   ],
   exports: [
     FooterComponent,
@@ -398,7 +400,8 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
     MatTabsModule,
     MatCardModule,
     NgxMaterialTimepickerModule,
-    SelectJobTitleComponent
+    SelectJobTitleComponent,
+    SelectDesiredCompaniesComponent
   ],
 
 })
