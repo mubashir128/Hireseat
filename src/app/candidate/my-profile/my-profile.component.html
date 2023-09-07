@@ -360,17 +360,7 @@
                 <div *ngIf="f.fullName.errors.required">Name is required</div>
               </div>
             </div>
-
-            <div class="input-field col s12 m12 l12">
-              <div>
-                <i class="fa fa-address-card" aria-hidden="true"></i>
-                <span class="resume-subtitle"> Select Job title : </span>
-              </div>
-              <p style="margin-top: 0px;">
-                <app-select-job-title [(jobTitleAre)]="jobTitleArray"></app-select-job-title>
-              </p>
-            </div>
-
+            
             <!-- <div class="input-field col s6 m6 l6">
               <div>
                 <i class="fa fa-briefcase" aria-hidden="true"></i>
@@ -428,7 +418,7 @@
               />
             </div>
 
-            <div class="input-field col s6 m6 l6">
+            <div class="input-field col s12 m12 l12">
               <div>
                 <i class="fa fa-linkedin-square" aria-hidden="true"></i>
                 <span
@@ -447,10 +437,10 @@
                 formControlName="linkedIn"
               />
             </div>
-            <div class="input-field col s6 m6 l6"></div>
-            <div class="input-field col s6 m6 l6"></div>
+            <!-- <div class="input-field col s6 m6 l6"></div> -->
+            <!-- <div class="input-field col s6 m6 l6"></div> -->
 
-            <div class="input-field col s6 m6 l6">
+            <!-- <div class="input-field col s6 m6 l6">
               <div>
                 <span class="resume-subtitle"> Desired Companies </span>
               </div>
@@ -461,8 +451,29 @@
                 formControlName="desiredCompanies"
                 joyrideStep="seventhStep" title="My Profile" text="List the companies you are interested in making connections at" stepPosition = "bottom"
               />
+            </div> -->
+
+            <div class="input-field col s12 m12 l12">
+              <div>
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Select Job title : </span>
+              </div>
+              <p style="margin-top: 0px;">
+                <app-select-job-title [(jobTitleAre)]="jobTitleArray"></app-select-job-title>
+              </p>
             </div>
-            <div class="input-field col s6 m6 l6">
+
+            <div class="input-field col s12 m12 l12">
+              <div>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span class="resume-subtitle"> Select Desired Companies : </span>
+              </div>
+              <p style="margin-top: 0px;">
+                <app-select-desired-companies [(desiredCompaniesAre)]="desiredCompaniesArray"></app-select-desired-companies>
+              </p>
+            </div>
+
+            <div class="input-field col s12 m12 l12">
               <div>
                 <span
                   [ngClass]="
@@ -483,7 +494,7 @@
               />
             </div>
 
-            <div class="input-field col s6 m6 l6">
+            <div class="input-field col s12 m12 l12">
               <div>
                 <span [ngClass]="editProfile.value.introduceYouToo ? 'resume-subtitle' : 'change'" class="resume-subtitle">
                   I can Intro you to Companies/Teams

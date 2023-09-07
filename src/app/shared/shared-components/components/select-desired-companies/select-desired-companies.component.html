@@ -1,0 +1,19 @@
+<mat-form-field class="example-chip-list">
+    <mat-chip-list #chipList>
+        <mat-chip *ngFor="let jobTitle of desiredCompaniesLists" (removed)="remove(jobTitle)">
+            {{jobTitle}}
+            <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip>
+        <input name="somthing" #desiredCompaniesInput [formControl]="desiredCompaniesControl" [matAutocomplete]="auto"
+            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="getOptionText"
+        (optionSelected)='desiredCompaniesSelected($event.option)'>
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option.name}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>
