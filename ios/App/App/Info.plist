@@ -32,6 +32,14 @@
 				<string>com.googleusercontent.apps.861355719085-qkp3qskj1fb2bb68uismhpb297hoo3hm</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>hireseat.com</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
