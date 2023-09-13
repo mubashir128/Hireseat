@@ -1,0 +1,19 @@
+<div class="emailTemp" id="shareEmailModal">
+    <app-close-screen (closeEm)='closeScreen($event)'></app-close-screen>
+    <app-dialog-title [(dialogTitle)]="dialogTitle"></app-dialog-title>
+    <div>
+        <div class="">
+            <div class="row form-group autoClass autoClass1">
+                <div class="" style="float: left;" *ngIf="getBtns(selectButtons.introInApp)">
+                    <button class="sendBtn" (click)="selectBtn(selectButtons.introInApp)">Intro In App</button>
+                </div>
+            </div>
+            <div class="row form-group autoClass autoClass2">
+                <div class="" style="float: right !important; border-left: 2px solid white;"
+                    *ngIf="getBtns(selectButtons.introOnEmail)">
+                    <button class="sendBtn" (click)="selectBtn(selectButtons.introOnEmail)">Intro On Email</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

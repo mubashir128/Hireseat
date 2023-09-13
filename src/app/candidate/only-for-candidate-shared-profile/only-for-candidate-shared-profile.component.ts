@@ -884,6 +884,11 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
     this.getHireseatNetwork();
   }
 
+  goToUserChatDirect(resume){
+    this.shareVideoService.setResume(resume);
+    this.redirectToUserChat();
+  }
+  
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.onlyForCandidateSharedProfileType });
     this.onlyForCandidateSharedProfileObserver.unsubscribe();

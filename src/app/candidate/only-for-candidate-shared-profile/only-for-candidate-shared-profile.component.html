@@ -191,10 +191,17 @@
               </div>
             </div>
           </div> -->
-          <div class="container-fluid marTop10" *ngIf="resume.addedAsAFriend">
+          <!-- <div class="container-fluid marTop10" *ngIf="resume.addedAsAFriend">
             <div class="container">
               <div class="row cont">
                 <button (click)="swapIntro(resume)">Start Conversation</button>
+              </div>
+            </div>
+          </div> -->
+          <div class="container-fluid marTop10" *ngIf = "resume.addedAsAFriend">
+            <div class="container">
+              <div class="row cont">
+                <button (click)="goToUserChatDirect(resume)">Chat</button>
               </div>
             </div>
           </div>

@@ -159,6 +159,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { SelectJobTitleComponent } from './components/select-job-title/select-job-title.component';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { SelectDesiredCompaniesComponent } from './components/select-desired-companies/select-desired-companies.component';
+import { DialogSelectButttonsComponent } from './components/dialog-select-butttons/dialog-select-butttons.component';
 
 @NgModule({
   imports: [
@@ -340,7 +341,8 @@ import { SelectDesiredCompaniesComponent } from './components/select-desired-com
     DialogOnlyTextMessageComponent,
     DialogOnlyMessageComponent,
     SelectJobTitleComponent,
-    SelectDesiredCompaniesComponent
+    SelectDesiredCompaniesComponent,
+    DialogSelectButttonsComponent
   ],
   exports: [
     FooterComponent,
