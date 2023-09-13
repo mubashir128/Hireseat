@@ -38,32 +38,32 @@
                 <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
             </div>
 
-            <div *ngIf = "loggedUser.userRole == 'candidate' && getBtns(shareConstants.shareConferenceRoom)" class="row form-group autoClass" style="margin-top: -15px;">
+            <!-- <div *ngIf = "loggedUser.userRole == 'candidate' && getBtns(shareConstants.shareConferenceRoom)" class="row form-group autoClass" style="margin-top: -15px;">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="shareConferenceRoom()">Share on HireSeat</button>
                 </div>
-            </div>
+            </div> -->
             
-            <div *ngIf = "getBtns('Offer Intro')" class="row form-group autoClass">
+            <!-- <div *ngIf = "getBtns('Offer Intro')" class="row form-group autoClass">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="closeOfferEmailDialog()">Offer Intro</button>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row form-group autoClass">
-                <div *ngIf = "getBtns('General Referral')" class="" style="width: 55%; float: left;">
+                <!-- <div *ngIf = "getBtns('General Referral')" class="" style="width: 55%; float: left;">
                     <button class="sendBtn" (click)="generalEmailIntro()">General Referral</button>
-                </div>
+                </div> -->
                 <div *ngIf = "getBtns('Career Referral')" class="" style="width: 45%; float: right !important; border-left: 2px solid white;">
                     <button class="sendBtn" (click)="introduceUser()">Share on Email</button>
                 </div>
             </div>
 
-            <div *ngIf = "getBtns('Copy Profile Link')" class="row form-group autoClass" style="margin-top: -25px;">
+            <!-- <div *ngIf = "getBtns('Copy Profile Link')" class="row form-group autoClass" style="margin-top: -25px;">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="generateLinkForVideo()">Copy Profile Link</button>
                 </div>
-            </div>
+            </div> -->
 
             <div *ngIf = "getBtns('SEND')" class="row form-group autoClass">
                 <div class="" style="float: right;">
