@@ -343,12 +343,24 @@
         </div>
 
         <div class="row">
-          <div class="pro-share marTop">
+          <!-- <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn" (click)="showShareModal(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
                   <div class="icon-name">
                     <span class="btnText"> Share </span>
+                  </div>
+                </a>
+              </button>
+            </div>
+          </div> -->
+
+          <div class="pro-share marTop">
+            <div class="">
+              <button class="acceptBtn" (click)="introduceWithOptions(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
+                <a>
+                  <div class="icon-name">
+                    <span class="btnText"> Introduce </span>
                   </div>
                 </a>
               </button>
@@ -379,7 +391,7 @@
             </div>
           </div> -->
 
-          <div class="pro-share marTop">
+          <!-- <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn shareBtn " (click)="introduceTo(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
@@ -389,10 +401,10 @@
                 </a>
               </button>
             </div>
-          </div>
+          </div> -->
           
           <!-- <div class="pro-share pro-share-width marTop"> -->
-          <div class="pro-share marTop">
+          <!-- <div class="pro-share marTop">
             <div class="">
               <button class="acceptBtn cancelBtn" (click)="thxLetter(friendsAre.requester._id, friendsAre.resumeId, friendsAre.resumeId2)">
                 <a>
@@ -402,7 +414,7 @@
                 </a>
               </button>
             </div>
-          </div>
+          </div> -->
 
         </div>
 

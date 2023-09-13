@@ -38,26 +38,26 @@
                 <input type="text" class="form-control inputComm" [(ngModel)]="bcc" />
             </div>
             
-            <div class="row form-group autoClass" *ngIf = "getBtns('Offer Intro')">
+            <!-- <div class="row form-group autoClass" *ngIf = "getBtns('Offer Intro')">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="closeOfferEmailDialog()">Offer Intro</button>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row form-group autoClass">
-                <div class="" style="width: 55%; float: left;" *ngIf = "getBtns('General Referral')">
+                <!-- <div class="" style="width: 55%; float: left;" *ngIf = "getBtns('General Referral')">
                     <button class="sendBtn" (click)="generalEmailIntro()">General Referral</button>
-                </div>
+                </div> -->
                 <div class="" style="width: 45%; float: right !important; border-left: 2px solid white;" *ngIf = "getBtns('Career Referral')">
                     <button class="sendBtn" (click)="introduceUser()">Career Referral</button>
                 </div>
             </div>
 
-            <div class="row form-group autoClass" style="margin-top: -25px;" *ngIf = "getBtns('Copy Profile Link')">
+            <!-- <div class="row form-group autoClass" style="margin-top: -25px;" *ngIf = "getBtns('Copy Profile Link')">
                 <div class="" style="float: right;">
                     <button class="sendBtn" (click)="generateLinkForVideo()">Copy Profile Link</button>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row form-group autoClass" *ngIf = "getBtns('SEND')">
                 <div class="" style="float: right;">

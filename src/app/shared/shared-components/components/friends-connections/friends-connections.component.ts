@@ -21,6 +21,7 @@ import { IntroduceService } from 'src/app/_services/introduce.service';
 import { DialogSelectUserComponent } from '../dialog-select-user/dialog-select-user.component';
 import { DialogInputTextMessageComponent } from '../dialog-input-text-message/dialog-input-text-message.component';
 import { DialogOnlyMessageComponent } from '../dialog-only-message/dialog-only-message.component';
+import { DialogSelectButttonsComponent, selectButtons } from '../dialog-select-butttons/dialog-select-butttons.component';
 
 declare var jQuery;
 declare var Materialize;
@@ -739,6 +740,31 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
     this.onlyCanCount = event;
   }
 
+  introduceWithOptions(_id, resumeId, resumeId2){
+    const dialogOfferIntroEmailRef = this.dialog.open(DialogSelectButttonsComponent, {
+      data: {
+        dialogType : "Select buttons",
+        dialogTitle : "Select options",
+        btns : [selectButtons.introInApp, selectButtons.introOnEmail]
+      }
+    });
+
+    dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
+      if(result){
+        switch (result.btnName) {
+          case selectButtons.introInApp :
+            this.introduceTo(_id, resumeId, resumeId2);
+            break;
+          case selectButtons.introOnEmail :
+            this.showShareModal(_id, resumeId, resumeId2);
+            break;
+          default:
+            break;
+        }
+      }
+    });
+  }
+  
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
     if(this.dialogOnlyTextRefGlobal){
