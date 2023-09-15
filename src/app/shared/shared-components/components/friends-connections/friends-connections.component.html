@@ -7,12 +7,22 @@
         {{ onlyCanCount }}
       </span>
     </li>
-    <li class="tablink" id="switch0" [ngClass]="itemsIs === 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
+    <!-- <li class="tablink" id="switch0" [ngClass]="itemsIs === 0 ? 'tablinkActive' : false" (click)="switchPage(0)">
       Intros to Companies
       <br>
       <span class="row cirDiv">
         {{ introsToCompaniesCount }}
       </span>
+    </li> -->
+    <li class="tablink" id="switch3" [ngClass]="itemsIs === 3 ? 'tablinkActive' : false" (click)="switchPage(3)">
+      New Intros
+      <br>
+      <span class="row cirDiv" *ngIf="pendingIntroduceCount >= 1">
+        {{ pendingIntroduceCount }}
+      </span>
+    </li>
+    <li class="tablink" id="switch4" [ngClass]="itemsIs === 4 ? 'tablinkActive' : false" (click)="switchPage(4)">
+      Intros
     </li>
     <li class="tablink" id="switch1" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
       My Network
@@ -28,48 +38,17 @@
   <app-only-for-candidate-shared-profile (introduceToFromOnlyCandidatePageEM)='introduceToFromOnlyCandidatePage($event)' (countEM)='countModules($event)' [(companyName)]="companyName"></app-only-for-candidate-shared-profile>
 </ng-container>
 
-<ng-container *ngIf="showRequest">
-  <ng-container *ngIf="showCompaniesLoader">
-    <div class="loader-container marTop50">
-      <div class="loader"></div>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf = "!showCompaniesLoader && companiesUsresAre.length == 0">
-    <div class="marTop">
-      <app-no-data-available ></app-no-data-available>
-    </div>
-  </ng-container>
-  
-  <div class="ListResume">
-    <div class="singleList employerResume animatePart" *ngFor = "let companiesAre of companiesUsresAre">
-      <div class="pro">
-        <span style="color: red;">
-          {{companiesAre.companyName}}
-        </span>
-        <br>
-        <div class="sideCss">
-          <span>- Users who can introduce you to above company : </span>
-          <div class="sideCss" *ngFor = "let userList of companiesAre.users; index as indexValue">
-            <div class="row" (click) = "gotoUser(userList.user._id)" style="margin: auto;">
-
-              <div *ngIf = "!userList.user.showCreatedLogo" class="big-badge candProfile22">
-                <img src="{{ userList.user.profileimage }}" (error)="changeLogo(userList.user)" style="max-width: 100%" />
-              </div>
-              <div *ngIf = "userList.user.showCreatedLogo" class="big-badge candProfile22">
-                {{ userList.user.fullName | uppercase | slice: 0 : 1 }}
-              </div>
-
-              <div class="wrdWrap" style="margin-left: 22px !important;">
-                {{userList.user.fullName}}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<ng-container *ngIf="showNewIntro">
+  <app-pending-introductions></app-pending-introductions>
 </ng-container>
+
+<ng-container *ngIf="showIntro">
+  <app-introductions></app-introductions>
+</ng-container>
+
+<!-- <ng-container *ngIf="showRequest">
+  <app-intros-to-companies (gotoUserEM)='gotoUser($event)' [(companiesUsresAre)]="companiesUsresAre"></app-intros-to-companies>
+</ng-container> -->
 
 <ng-container *ngIf = "showFriends">
 

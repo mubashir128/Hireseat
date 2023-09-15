@@ -1,0 +1,56 @@
+.ListResume {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    float: left;
+    margin-bottom: 100px;
+}
+
+.singleList.employerResume {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px 30px;
+    display: block;
+    justify-content: unset;
+    margin-bottom: 20px;
+    transition: 1s;
+    height: auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .singleList.employerResume {
+        padding: 20px !important;
+    }
+}
+
+.pro {
+    width: 100%;
+    float: left;
+}
+
+.sideCss {
+    margin-left: 10px;
+}
+
+.candProfile22 {
+    float: left;
+    margin-top: 3px;
+    width: 15px !important;
+    height: 15px !important;
+}
+
+@media (max-width: 1440px) {
+    .candProfile22 {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+.wrdWrap {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
