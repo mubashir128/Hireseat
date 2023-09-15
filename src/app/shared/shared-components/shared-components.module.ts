@@ -160,6 +160,7 @@ import { SelectJobTitleComponent } from './components/select-job-title/select-jo
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { SelectDesiredCompaniesComponent } from './components/select-desired-companies/select-desired-companies.component';
 import { DialogSelectButttonsComponent } from './components/dialog-select-butttons/dialog-select-butttons.component';
+import { IntrosToCompaniesComponent } from './components/intros-to-companies/intros-to-companies.component';
 
 @NgModule({
   imports: [
@@ -342,7 +343,8 @@ import { DialogSelectButttonsComponent } from './components/dialog-select-buttto
     DialogOnlyMessageComponent,
     SelectJobTitleComponent,
     SelectDesiredCompaniesComponent,
-    DialogSelectButttonsComponent
+    DialogSelectButttonsComponent,
+    IntrosToCompaniesComponent
   ],
   exports: [
     FooterComponent,

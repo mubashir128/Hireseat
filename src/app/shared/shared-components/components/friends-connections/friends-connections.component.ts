@@ -41,6 +41,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
   showOnlyCan: boolean = true;
   showRequest: boolean = false;
   showFriends: boolean = false;
+  showNewIntro: boolean = false;
+  showIntro: boolean = false;
 
   connectFriendObserver = new Subject();
   connectFriendObserver$ = this.connectFriendObserver.asObservable();
@@ -63,6 +65,8 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
   dialogOnlyTextRefGlobal:any;
   
+  pendingIntroduceCount = 0;
+
   constructor(
     protected _userService: UserService,
     protected _candidateService: CandidateService,
@@ -93,6 +97,16 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
       if(this.profileId){
         this.switchPage(1);
       }
+
+      let userIdIs = this._route.snapshot.queryParams["userId"] ? this._route.snapshot.queryParams["userId"] : "";
+      let pageNumber = this._route.snapshot.queryParams["pageNumber"] ? this._route.snapshot.queryParams["pageNumber"] : "";
+      if(userIdIs && pageNumber == 1){
+        this.gotoUser(userIdIs);
+      }else if(pageNumber){
+        setTimeout(()=>{
+          this.switchPage(pageNumber);
+        }, 700);
+      }
     });
 
     //add a observable for connection
@@ -109,6 +123,7 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
 
     this.openTextDialog();
     this.getFriendConnections();
+    this.getReadIntroduceCount();
   }
 
   openTextDialog(){
@@ -327,14 +342,33 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
       this.showOnlyCan = false;
       this.showFriends = false;
       this.showRequest = true;
+      this.showNewIntro = false;
+      this.showIntro = false;
     }else if(this.itemsIs == 1){
       this.showOnlyCan = false;
       this.showRequest = false;
       this.showFriends = true;
-    }else{
+      this.showNewIntro = false;
+      this.showIntro = false;
+    }else if(this.itemsIs == 2){
       this.showFriends = false;
       this.showRequest = false;
       this.showOnlyCan = true;
+      this.showNewIntro = false;
+      this.showIntro = false;
+    }else if(this.itemsIs == 3){
+      this.updateReadIntroduceCount();
+      this.showFriends = false;
+      this.showRequest = false;
+      this.showOnlyCan = false;
+      this.showNewIntro = true;
+      this.showIntro = false;
+    }else if(this.itemsIs == 4){
+      this.showFriends = false;
+      this.showRequest = false;
+      this.showOnlyCan = false;
+      this.showNewIntro = false;
+      this.showIntro = true;
     }
   }
 
@@ -786,7 +820,25 @@ export class FriendsConnectionsComponent extends AbstractSharedComponent impleme
       }
     });
   }
+
+  getReadIntroduceCount(){
+    this._introduceService.getReadIntroduceCount().subscribe((res) => {
+      if(res){
+        this.pendingIntroduceCount = res.count;
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
   
+  updateReadIntroduceCount(){
+    this._introduceService.updateReadIntroduceCount().subscribe((res) => {
+      this.pendingIntroduceCount = 0;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
   //unscubscribe the subscribed variables.
   ngOnDestroy() {
     if(this.dialogOnlyTextRefGlobal){

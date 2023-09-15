@@ -3,12 +3,16 @@
         <li id="switch1" [ngClass]="{'tablinkActive' : itemsIs == 0, 'tablink': true}" (click)="switchPage(0)">
             Events
         </li>
-        <li id="switch1" [ngClass]="{'tablinkActive' : itemsIs == 1, 'tablink': true}" (click)="switchPage(1)">
+        <!-- <li id="switch1" [ngClass]="{'tablinkActive' : itemsIs == 1, 'tablink': true}" (click)="switchPage(1)">
             New Intros
             <span *ngIf="pendingIntroduceCount >= 1">{{ pendingIntroduceCount }}</span>
         </li>
         <li id="switch1" [ngClass]="{'tablinkActive' : itemsIs == 2, 'tablink': true}" (click)="switchPage(2)">
             Intros
+        </li> -->
+        <li id="switch1" [ngClass]="{'tablinkActive' : itemsIs == 4, 'tablink': true}" (click)="switchPage(4)">
+            Intros to Companies
+            <span *ngIf="introsToCompaniesCount >= 1">{{ introsToCompaniesCount }}</span>
         </li>
         <li id="switch0" [ngClass]="{'tablinkActive' : itemsIs == 3, 'tablink': true}" (click)="switchPage(3)">
             Jobs
@@ -30,4 +34,8 @@
 
 <ng-container *ngIf="showJobs">
     <app-suggest-introduce></app-suggest-introduce>
+</ng-container>
+
+<ng-container *ngIf="showRequest">
+    <app-intros-to-companies (gotoUserEM)='gotoUser($event)' [(companiesUsresAre)]="companiesUsresAre"></app-intros-to-companies>
 </ng-container>
