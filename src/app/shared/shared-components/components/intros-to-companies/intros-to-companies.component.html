@@ -1,0 +1,29 @@
+<div class="ListResume">
+    <div class="singleList employerResume animatePart" *ngFor="let companiesAre of companiesUsresAre">
+        <div class="pro">
+            <span style="color: red;">
+                {{companiesAre.companyName}}
+            </span>
+            <br>
+            <div class="sideCss">
+                <span>- Users who can introduce you to above company : </span>
+                <div class="sideCss" *ngFor="let userList of companiesAre.users; index as indexValue">
+                    <div class="row" (click)="gotoUser(userList.user._id)" style="margin: auto;">
+
+                        <div *ngIf="!userList.user.showCreatedLogo" class="big-badge candProfile22">
+                            <img src="{{ userList.user.profileimage }}" (error)="changeLogo(userList.user)"
+                                style="max-width: 100%" />
+                        </div>
+                        <div *ngIf="userList.user.showCreatedLogo" class="big-badge candProfile22">
+                            {{ userList.user.fullName | uppercase | slice: 0 : 1 }}
+                        </div>
+
+                        <div class="wrdWrap" style="margin-left: 22px !important;">
+                            {{userList.user.fullName}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
