@@ -55,7 +55,7 @@
               </div>
             </ng-container>
 
-            <ng-container *ngIf="timeline.status == _constants.threeIntroduce || timeline.status == _constants.connectionRequest">
+            <ng-container *ngIf="timeline.status == _constants.threeIntroduce || timeline.status == _constants.connectionRequest || timeline.status == _constants.actualTimeline">
               <div class="row mar0 fontSize10">
                 <span>
                   Job Title : {{ timeline?.candidateFromId?.jobTitle }}
