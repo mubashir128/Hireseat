@@ -151,6 +151,11 @@
               <span>
                 Time : {{timeline.peopleEventId?.eventTime}}.
               </span>
+              <ng-container *ngIf="timeline.peopleEventId?.eventPicture">
+                <div class="candProfile">
+                  <img [src] = "timeline.peopleEventId?.eventPicture" alt="profile" />
+                </div>
+              </ng-container>
             </span>
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.jobPostAnnounce" (click)="goToJobPosts(timeline)">
