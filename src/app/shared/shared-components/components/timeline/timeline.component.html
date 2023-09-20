@@ -76,7 +76,7 @@
           <div class="pro-4">
             <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && !timeline.systemUserId" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
               {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}}.
-              <div class="row removeMargin" *ngIf = "timeline.candidateFromId?.introduceCount">
+              <div class="row removeMargin marTop-8" *ngIf = "timeline.candidateFromId?.introduceCount">
                 <span>
                   <label class="redColor"># of Introductions : </label>
                   <label class="backStyle" style="color: green;">
@@ -92,7 +92,7 @@
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && timeline.systemUserId" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
               {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}} with {{timeline.systemUserId.fullName}}.
-              <div class="row removeMargin" *ngIf = "timeline.candidateFromId?.introduceCount">
+              <div class="row removeMargin marTop-8" *ngIf = "timeline.candidateFromId?.introduceCount">
                 <span>
                   <label class="redColor"># of Introductions : </label>
                   <label class="backStyle" style="color: green;">
@@ -131,7 +131,7 @@
 
             <span class="intoedClass" *ngIf = "timeline.status == _constants.threeIntroduce" (click)="goToIntroducePage(timeline)">
               {{timeline.fromId?.fullName}} introduced {{timeline.introduceId?.fullName}} to {{timeline.toId?.fullName}}.
-              <div class="row removeMargin" *ngIf = "timeline.candidateFromId?.introduceCount">
+              <div class="row removeMargin marTop-8" *ngIf = "timeline.candidateFromId?.introduceCount">
                 <span>
                   <label class="redColor"># of Introductions : </label>
                   <label class="backStyle" style="color: green;">

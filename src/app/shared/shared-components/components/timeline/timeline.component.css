@@ -174,3 +174,7 @@ button.connectBtn{
   padding: 3px;
   top: 25px;
 }
+
+.marTop-8 {
+  margin-top: -8px !important;
+}
