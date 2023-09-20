@@ -12,7 +12,11 @@
         </li> -->
         <li id="switch1" [ngClass]="{'tablinkActive' : itemsIs == 4, 'tablink': true}" (click)="switchPage(4)">
             Intros to Companies
-            <span *ngIf="introsToCompaniesCount >= 1">{{ introsToCompaniesCount }}</span>
+            <!-- <span *ngIf="introsToCompaniesCount >= 1">{{ introsToCompaniesCount }}</span> -->
+            <br>
+            <span class="row cirDiv" *ngIf="introsToCompaniesCount >= 1">
+                {{ introsToCompaniesCount }}
+            </span>
         </li>
         <li id="switch0" [ngClass]="{'tablinkActive' : itemsIs == 3, 'tablink': true}" (click)="switchPage(3)">
             Jobs
