@@ -7,6 +7,7 @@ import { SubscriberslistService } from 'src/app/_services/subscriberslist.servic
 import { UserService } from 'src/app/_services/user.service';
 import { WebsocketService } from 'src/app/_services/websocket.service';
 import { IntroduceService } from 'src/app/_services/introduce.service';
+import { ChatService } from 'src/app/_services/chat.service';
 
 @Component({
   selector: 'app-mobile-nav-tab',
@@ -30,6 +31,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   multiSharedCandidateProfileCount = 0;
 
   pendingIntroduceCount = 0;
+  chatUnreadUserCounts: number = 0;
 
   mobileNotificationIncrementObserver = new Subject();
   mobileNotificationIncrementObserver$ = this.mobileNotificationIncrementObserver.asObservable();
@@ -38,7 +40,8 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
   multiSharedCandidateProfileCountObserver$ = this.multiSharedCandidateProfileCountObserver.asObservable();
 
   constructor(private userService: UserService, private router: Router, private _subList : SubscriberslistService, private _socket: WebsocketService, private _constants : ConstantsService, 
-    protected _introduceService: IntroduceService
+    protected _introduceService: IntroduceService,
+    protected _chatService: ChatService
   ) {
     this.tabs2 = [];
     this.loggedInUser = this.userService.getUserData();
@@ -102,6 +105,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
       this.handleMultiSharedCandidateProfileCountData(res);
     });
 
+    this.getOnlyUsersUnreadChatCounts();
   }
 
   //handle notifications of user.
@@ -116,6 +120,33 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+  }
+
+  getOnlyUsersUnreadChatCounts(){
+    //call to get all only chats.
+    this._chatService.getOnlyUsersUnreadChatCounts().subscribe(res=>{
+      this.setReadCount(res);
+    });
+  }
+
+  setReadCount(res){
+    res?.forEach((user)=>{
+      this.getUnreadMessageCount(user);
+      if(user.count !== 0){
+        this.chatUnreadUserCounts++;
+      }
+    });
+  }
+
+  getUnreadMessageCount(user){
+    let count = 0;
+    user?.message.forEach((message)=>{
+      if(message.is_read){
+      }else if(message.senderId !== this.loggedInUser._id){
+        count++;
+      }
+    });
+    user.count = count;
   }
 
   handleMultiSharedCandidateProfileCountData(res){

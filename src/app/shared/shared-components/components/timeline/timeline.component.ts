@@ -33,6 +33,7 @@ export class TimelineComponent implements OnInit {
   pageIndex: number = 0;
 
   itemsIs: number = 0;
+  allIntrosCount: number = 0;
   introsMadeCount: number = 0;
   myNetworkCount: number = 0;
 
@@ -56,11 +57,28 @@ export class TimelineComponent implements OnInit {
     });
 
     this.getAllTimelines();
+    this.getCounts();
 
     this.timelineObserver$.subscribe((res: any) => {
       this.handleTimelineData(res);
     });
 
+  }
+
+  getCounts(){
+    this._socket.sendMessage({
+      type: this._constants.timelineType,
+      data: {
+        subType: this._constants.getTimelinesTabsCount
+      }
+    });
+
+    this._socket.sendMessage({
+      type: this._constants.timelineType,
+      data: {
+        subType: this._constants.allIntrosCount
+      }
+    });
   }
 
   getAllTimelines(){
@@ -72,13 +90,6 @@ export class TimelineComponent implements OnInit {
         pageIndex : this.pageIndex,
         pageSize : this.pageSize
       },
-    });
-
-    this._socket.sendMessage({
-      type: this._constants.timelineType,
-      data: {
-        subType: this._constants.getTimelinesTabsCount
-      }
     });
   }
 
@@ -94,6 +105,9 @@ export class TimelineComponent implements OnInit {
       case this._constants.getTimelinesTabsCount:
         this.introsMadeCount = res?.data?.introsMadeCount ? res?.data?.introsMadeCount : 0;
         this.myNetworkCount = res?.data?.myNetworkCount ? res?.data?.myNetworkCount : 0;
+        break ;
+      case this._constants.allIntrosCount:
+        this.allIntrosCount = res?.data?.allIntrosCount;
         break ;
       default : 
         break ;

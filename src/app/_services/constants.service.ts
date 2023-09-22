@@ -177,6 +177,8 @@ export class ConstantsService {
   peopleEventComment;
   postPeopleEventComment;
 
+  allIntrosCount;
+
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -430,6 +432,8 @@ export class ConstantsService {
 
     this.peopleEventComment = obj.peopleEventComment;
     this.postPeopleEventComment = obj.postPeopleEventComment;
+
+    this.allIntrosCount = obj.allIntrosCount;
   }
 
 }
