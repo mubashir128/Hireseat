@@ -38,6 +38,7 @@
       <span *ngIf="multiSharedCandidateProfileCount > 0 && (tab.displayText === 'Multi Shared Candidate Profile')">{{ multiSharedCandidateProfileCount }}</span>
       <!-- <span *ngIf="notificationLength > 0 && (tab.displayText === 'Notification')">{{ notificationLength }}</span> -->
       <span *ngIf="pendingIntroduceCount >= 1 && (tab.displayText === 'My Connections')">{{ pendingIntroduceCount }}</span>
+      <span *ngIf="chatUnreadUserCounts >= 1 && (tab.displayText === 'Candidate Chat')">{{ chatUnreadUserCounts }}</span>
     </li>
   </ul>
 </div>

@@ -188,6 +188,8 @@ export class ConstantsService {
 
   getTimelinesTabsCount;
 
+  allIntrosCount;
+  
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -451,6 +453,8 @@ export class ConstantsService {
     this.accomplishmentPrompt = obj.accomplishmentPrompt;
 
     this.getTimelinesTabsCount = obj.getTimelinesTabsCount;
+
+    this.allIntrosCount = obj.allIntrosCount;
   }
 
 }

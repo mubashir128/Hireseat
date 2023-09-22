@@ -49,4 +49,8 @@ export class ChatService {
     aElement.click();
     window.URL.revokeObjectURL(objectUrl);
   }
+
+  getOnlyUsersUnreadChatCounts() {
+    return this._http.get(this.baseurl + "api/get-only-users-unread-chat-count");
+  }
 }
