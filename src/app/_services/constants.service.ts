@@ -178,6 +178,7 @@ export class ConstantsService {
   postPeopleEventComment;
 
   allIntrosCount;
+  allSlotIntrosCount;
 
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -434,6 +435,7 @@ export class ConstantsService {
     this.postPeopleEventComment = obj.postPeopleEventComment;
 
     this.allIntrosCount = obj.allIntrosCount;
+    this.allSlotIntrosCount = obj.allSlotIntrosCount;
   }
 
 }
