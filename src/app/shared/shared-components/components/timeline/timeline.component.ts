@@ -204,7 +204,7 @@ export class TimelineComponent implements OnInit {
     return (count < 10 ? '0' : '') + count;
   }
 
-  comments(timeline){
+  commentsClick(timeline){
     this._router.navigate(["/"+this.loggedUser.userRole + "/timeline-comments", timeline._id]);
   }
 
