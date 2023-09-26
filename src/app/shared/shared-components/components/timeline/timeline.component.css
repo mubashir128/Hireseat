@@ -178,3 +178,17 @@ button.connectBtn{
 .marTop-8 {
   margin-top: -8px !important;
 }
+
+.pro .candProfile31 {
+  /* width: 50px; */
+  height: 80px;
+  background-color: #e7e7e7;
+  /* border-radius: 50%; */
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.imgEvent {
+  width: 100%;
+  height: 100%;
+}

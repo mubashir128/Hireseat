@@ -21,6 +21,7 @@ import { AppliedPostJobsComponent } from "../shared/shared-components/components
 import { SuggestedPostJobsComponent } from "../shared/shared-components/components/suggested-post-jobs/suggested-post-jobs.component";
 import { SuggestAndEventsComponent } from "../shared/shared-components/components/suggest-and-events/suggest-and-events.component";
 import { EventListUsersComponent } from "../shared/shared-components/components/event-list-users/event-list-users.component";
+import { TimelineCommentsComponent } from "../shared/shared-components/components/timeline-comments/timeline-comments.component";
 
 const routes: Routes = [
   {
@@ -106,6 +107,10 @@ const routes: Routes = [
       {
         path: "see-event-users/:eventId",
         component: EventListUsersComponent,
+      },
+      {
+        path: "timeline-comments/:timelineId",
+        component: TimelineCommentsComponent
       }
     ],
   },

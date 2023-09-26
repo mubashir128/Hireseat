@@ -159,8 +159,8 @@
                 Time : {{timeline.peopleEventId?.eventTime}}.
               </span>
               <ng-container *ngIf="timeline.peopleEventId?.eventPicture">
-                <div class="candProfile">
-                  <img [src] = "timeline.peopleEventId?.eventPicture" alt="profile" />
+                <div class="candProfile31">
+                  <img class="imgEvent" [src] = "timeline.peopleEventId?.eventPicture" alt="profile" />
                 </div>
               </ng-container>
             </span>
@@ -400,6 +400,10 @@
                 {{ ' (' + timeline?.liked?.length + ')' }}
               </span>
             </div>
+
+            <!-- <div class="col timelineTime pointer colorGreen" (click)="comments(timeline)">
+              Comments
+            </div> -->
           </div>
           <ng-container *ngIf="timeline?.liked?.length">
             <div class="row" style="margin: auto;">
