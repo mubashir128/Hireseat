@@ -23,6 +23,7 @@ import { ConferenceRoomComponent } from "../shared/shared-components/components/
 import { SuggestConnectedComponent } from "../shared/shared-components/components/suggest-connected/suggest-connected.component";
 import { AppliedPostJobsComponent } from "../shared/shared-components/components/applied-post-jobs/applied-post-jobs.component";
 import { SuggestedPostJobsComponent } from "../shared/shared-components/components/suggested-post-jobs/suggested-post-jobs.component";
+import { TimelineCommentsComponent } from "../shared/shared-components/components/timeline-comments/timeline-comments.component";
 
 const routes: Routes = [
   {
@@ -116,6 +117,10 @@ const routes: Routes = [
       {
         path: "my-post-jobs",
         component: SuggestedPostJobsComponent,
+      },
+      {
+        path: "timeline-comments/:timelineId",
+        component: TimelineCommentsComponent
       }
     ],
   },

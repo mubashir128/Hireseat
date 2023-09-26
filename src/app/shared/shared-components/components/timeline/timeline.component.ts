@@ -385,6 +385,10 @@ export class TimelineComponent implements OnInit {
   getIntroduceCount(count){
     return (count < 10 ? '0' : '') + count;
   }
+
+  commentsClick(timeline){
+    this._router.navigate(["/"+this.loggedUser.userRole + "/timeline-comments", timeline._id]);
+  }
   
   ngOnDestroy() {
     this._socket.removeListener({ type: this._constants.timelineType });
