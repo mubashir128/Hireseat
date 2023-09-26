@@ -144,6 +144,13 @@ export class TimelineComponent implements OnInit {
         subType: this._constants.allIntrosCount
       }
     });
+
+    this._socket.sendMessage({
+      type: this._constants.timelineType,
+      data: {
+        subType: this._constants.allSlotIntrosCount
+      }
+    });
   }
 
   getAllTimelines(){
@@ -173,6 +180,9 @@ export class TimelineComponent implements OnInit {
         break ;
       case this._constants.allIntrosCount:
         this.allIntrosCount = res?.data?.allIntrosCount;
+        break ;
+      case this._constants.allSlotIntrosCount:
+        console.log("+++ res : ",res);
         break ;
       default : 
         break ;

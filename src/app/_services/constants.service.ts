@@ -189,6 +189,7 @@ export class ConstantsService {
   getTimelinesTabsCount;
 
   allIntrosCount;
+  allSlotIntrosCount;
   
   // ratingPoints = 1000;
   // sharedPoints = 200;
@@ -455,6 +456,7 @@ export class ConstantsService {
     this.getTimelinesTabsCount = obj.getTimelinesTabsCount;
 
     this.allIntrosCount = obj.allIntrosCount;
+    this.allSlotIntrosCount = obj.allSlotIntrosCount;
   }
 
 }
