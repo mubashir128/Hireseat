@@ -555,5 +555,15 @@ export class UserService {
         })
       );
   }
+
+  getDetailsWithKeys(info: any) {
+    return this.http
+      .post<any>(this.baseurl + "api/get-details-with-keys", info)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
   
 }
