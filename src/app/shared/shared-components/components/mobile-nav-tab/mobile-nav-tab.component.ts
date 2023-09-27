@@ -74,6 +74,7 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     if(this.loggedInUser != "no" && !this.isSuperAdmin){
       this.getNotificationCount();
       this.getMultiSharedCandidateProfileCount();
+      this.getOnlyUsersUnreadChatCounts();
     }
 
     this.SelectItem2(this.router.url);
@@ -104,8 +105,6 @@ export class MobileNavTabComponent implements OnInit, OnDestroy {
     this.multiSharedCandidateProfileCountObserver$.subscribe((res: any) => {
       this.handleMultiSharedCandidateProfileCountData(res);
     });
-
-    this.getOnlyUsersUnreadChatCounts();
   }
 
   //handle notifications of user.
