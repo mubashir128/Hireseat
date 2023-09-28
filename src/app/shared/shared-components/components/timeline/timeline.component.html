@@ -63,7 +63,7 @@
             </ng-container>
 
             <ng-container *ngIf="timeline.status == _constants.threeIntroduce || timeline.status == _constants.connectionRequest || timeline.status == _constants.actualTimeline">
-              <div class="row mar0 fontSize10">
+              <div class="row mar0 fontSize10" *ngIf="timeline?.candidateFromId?.jobTitle">
                 <span>
                   Job Title : {{ timeline?.candidateFromId?.jobTitle }}
                 </span>
@@ -187,6 +187,11 @@
               </div>
               
               <ng-container *ngIf="timeline.status == _constants.connectionRequest">
+                <ng-container *ngIf="timeline.profileUserId">
+                  <div class="candProfile11">
+                    <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                  </div>
+                </ng-container>
                 <div class="smallBtns" (click)="onLinkedIn(timeline?.toId)">
                   <button class="LinkedInBtnNew">
                     <a>

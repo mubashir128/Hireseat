@@ -1622,3 +1622,7 @@ body {
 .redColor {
   color: red !important;
 }
+
+.marginBtm {
+  margin-bottom: 10px !important;
+}
