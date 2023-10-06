@@ -63,6 +63,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./email-verification/email-verification.module').then(m => m.EmailVerificationModule)
   },
   {
+    path: "user/email/verification/check/:key/:key2/:key3",
+    loadChildren: () => import('./email-verification/email-verification.module').then(m => m.EmailVerificationModule)
+  },
+  {
     path: "user/forgot/password/check/hireseat/:key",
     loadChildren: () => import('./forgot-password-reset/forgot-password-reset.module').then(m => m.ForgotPasswordResetModule)
   },

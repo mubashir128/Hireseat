@@ -193,6 +193,13 @@ export class ConstantsService {
 
   getTimelinesTabsCount;
 
+  allIntrosCount;
+  allSlotIntrosCount;
+  
+  timelineCommentsType;
+  addTimelineComment;
+  getTimelineComments;
+  
   // ratingPoints = 1000;
   // sharedPoints = 200;
   // ReplyAdvicePoints = 25;
@@ -460,6 +467,13 @@ export class ConstantsService {
     this.accomplishmentPrompt = obj.accomplishmentPrompt;
 
     this.getTimelinesTabsCount = obj.getTimelinesTabsCount;
+
+    this.allIntrosCount = obj.allIntrosCount;
+    this.allSlotIntrosCount = obj.allSlotIntrosCount;
+
+    this.timelineCommentsType = obj.timelineCommentsType;
+    this.getTimelineComments = obj.getTimelineComments;
+    this.addTimelineComment = obj.addTimelineComment;
   }
 
 }

@@ -68,6 +68,7 @@ export class TimelineComponent implements OnInit {
   pageIndex: number = 0;
 
   itemsIs: number = 0;
+  allIntrosCount: number = 0;
   introsMadeCount: number = 0;
   myNetworkCount: number = 0;
 
@@ -94,6 +95,7 @@ export class TimelineComponent implements OnInit {
     });
 
     this.getAllTimelines();
+    this.getCounts();
 
     this.timelineObserver$.subscribe((res: any) => {
       this.handleTimelineData(res);
@@ -127,6 +129,29 @@ export class TimelineComponent implements OnInit {
     }
   }
 
+  getCounts(){
+    this._socket.sendMessage({
+      type: this._constants.timelineType,
+      data: {
+        subType: this._constants.getTimelinesTabsCount
+      }
+    });
+
+    this._socket.sendMessage({
+      type: this._constants.timelineType,
+      data: {
+        subType: this._constants.allIntrosCount
+      }
+    });
+
+    this._socket.sendMessage({
+      type: this._constants.timelineType,
+      data: {
+        subType: this._constants.allSlotIntrosCount
+      }
+    });
+  }
+
   getAllTimelines() {
     this._subList.loaderListAfterSearch.next({ type: "222" });
     this._socket.sendMessage({
@@ -136,13 +161,6 @@ export class TimelineComponent implements OnInit {
         pageIndex: this.pageIndex,
         pageSize: this.pageSize
       },
-    });
-
-    this._socket.sendMessage({
-      type: this._constants.timelineType,
-      data: {
-        subType: this._constants.getTimelinesTabsCount
-      }
     });
   }
 
@@ -158,6 +176,12 @@ export class TimelineComponent implements OnInit {
       case this._constants.getTimelinesTabsCount:
         this.introsMadeCount = res?.data?.introsMadeCount ? res?.data?.introsMadeCount : 0;
         this.myNetworkCount = res?.data?.myNetworkCount ? res?.data?.myNetworkCount : 0;
+        break ;
+      case this._constants.allIntrosCount:
+        this.allIntrosCount = res?.data?.allIntrosCount;
+        break ;
+      case this._constants.allSlotIntrosCount:
+        console.log("+++ res : ",res);
         break ;
       default:
         break;
@@ -377,6 +401,10 @@ export class TimelineComponent implements OnInit {
 
   getIntroduceCount(count){
     return (count < 10 ? '0' : '') + count;
+  }
+
+  commentsClick(timeline){
+    this._router.navigate(["/"+this.loggedUser.userRole + "/timeline-comments", timeline._id]);
   }
   
   ngOnDestroy() {

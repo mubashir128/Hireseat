@@ -1,5 +1,12 @@
 <div class="tabsAre">
   <ul class="tabs">
+    <li class="tablink" id="switch2">
+      All Intros
+      <br>
+      <span class="row cirDiv">
+        {{ allIntrosCount }}
+      </span>
+    </li>
     <li class="tablink" id="switch0">
       Intros made
       <br>
@@ -56,7 +63,7 @@
             </ng-container>
 
             <ng-container *ngIf="timeline.status == _constants.threeIntroduce || timeline.status == _constants.connectionRequest || timeline.status == _constants.actualTimeline">
-              <div class="row mar0 fontSize10">
+              <div class="row mar0 fontSize10" *ngIf="timeline?.candidateFromId?.jobTitle">
                 <span>
                   Job Title : {{ timeline?.candidateFromId?.jobTitle }}
                 </span>
@@ -152,8 +159,8 @@
                 Time : {{timeline.peopleEventId?.eventTime}}.
               </span>
               <ng-container *ngIf="timeline.peopleEventId?.eventPicture">
-                <div class="candProfile">
-                  <img [src] = "timeline.peopleEventId?.eventPicture" alt="profile" />
+                <div class="candProfile31">
+                  <img class="imgEvent" [src] = "timeline.peopleEventId?.eventPicture" alt="profile" />
                 </div>
               </ng-container>
             </span>
@@ -180,6 +187,11 @@
               </div>
               
               <ng-container *ngIf="timeline.status == _constants.connectionRequest">
+                <ng-container *ngIf="timeline.profileUserId">
+                  <div class="candProfile11">
+                    <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                  </div>
+                </ng-container>
                 <div class="smallBtns" (click)="onLinkedIn(timeline?.toId)">
                   <button class="LinkedInBtnNew">
                     <a>
@@ -392,6 +404,10 @@
               <span *ngIf="timeline?.liked?.length > 0" (click)="likedUsers(timeline)">
                 {{ ' (' + timeline?.liked?.length + ')' }}
               </span>
+            </div>
+
+            <div class="col timelineTime pointer colorGreen" (click)="commentsClick(timeline)">
+              Comments
             </div>
           </div>
         </div>

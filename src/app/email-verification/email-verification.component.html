@@ -12,6 +12,11 @@
 <div class="center-align pageClass">
   <div class="row slide-sub-heading" *ngIf="isSuccess"> Email Verified Successfully</div>
 </div>
+<div class="center-align pageClass" *ngIf="key2 && key3">
+  <div class="row slide-sub-heading">
+    <a (click)="signIn()">Sign In</a>
+  </div>
+</div>
 <div class="center-align pageClass">
   <div class="row slide-sub-heading" *ngIf="isErr"> Something went wrong! </div>
   <div class="row slide-sub-heading">

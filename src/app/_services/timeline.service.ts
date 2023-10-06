@@ -20,4 +20,12 @@ export class TimelineService {
       })
     );
   }
+
+  getTimelineComments(timelineId) {
+    return this.http.get<any>(this.baseurl + "api/get-timeline-comments/" + timelineId).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
 }
