@@ -1,35 +1,44 @@
 <div class="t-comments-box">
-    <div class="backBtn">
-        <i (click)="backToPage()" class="fa fa-arrow-left colorSt" aria-hidden="true"></i>
-    </div>
-    <div class="comment-title">
-        Comments
+    <div class="row marginBtm">
+        <div class="col backBtn">
+            <i (click)="backToPage()" class="fa fa-arrow-left colorSt" aria-hidden="true"></i>
+        </div>
+        <div class="col comment-title">
+            Comments
+        </div>
     </div>
     <div class="add-comment">
         <img style="margin-top: 8px;" [src]="loggedUser.profileimage" alt="" />
         <div class="comment-input">
-            <input class="form-control form-control-sm" type="text" placeholder="Add a comment.." />
-            <div class="comment-send"><i class="fab fa-telegram-plane"></i></div>
+            <input class="form-control form-control-sm" type="text" placeholder="Add a comment.." [(ngModel)]="comment">
+            <div class="comment-send" (click)="sendTimelineComments()"><i class="fab fa-telegram-plane"></i></div>
         </div>
     </div>
-    <div class="comment comment-level-1">
-        <img src="assets/img/profile-user.png" alt="" />
-        <div>
-            <div class="comment-label">
-                <span class="comment-name">Uchiha Itachi</span>
-                <span class="comment-time"> - 5 days ago</span>
-            </div>
-            <div class="comment-content">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-            </div>
-            <div class="comment-action">
-                <span> <i class="far fa-heart"></i> Like (0)</span>
-                <span> <i class="far fa-comment-alt"></i> Comment (0)</span>
+    <ng-container *ngIf="comments.length">
+        <div class="commentsSection">
+            <div class="comment comment-level-1" *ngFor="let comment of comments; let ind = index">
+                <div class="">
+                    <img [src] = "comment?.userId?.profileimage ? comment?.userId?.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                </div>
+                <div>
+                    <div class="comment-label">
+                        <span class="comment-name"> {{ comment?.userId?.fullName }} </span>
+                        <span class="comment-time"> {{ comment?.userId?.timestamps | amTimeAgo }} </span>
+                    </div>
+                    <div class="comment-content">
+                        {{ comment.comment }}
+                    </div>
+                    <!-- <div class="comment-action">
+                        <span> <i class="far fa-heart"></i> Like (0)</span> &nbsp;&nbsp;
+                        <span> <i class="far fa-comment-alt"></i> Comment (0)</span>
+                    </div> -->
+                </div>
             </div>
         </div>
-    </div>
-    <div class="comment comment-level-2">
+    </ng-container>
+
+    <!-- reply on comments section -->
+    <!-- <div class="comment comment-level-2">
         <img src="assets/img/profile-user.png" alt="" />
         <div>
             <div class="comment-label">
@@ -43,5 +52,5 @@
                 <span> <i class="far fa-heart"></i> Like (0)</span>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
