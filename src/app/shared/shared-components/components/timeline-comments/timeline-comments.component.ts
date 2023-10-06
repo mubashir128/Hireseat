@@ -42,6 +42,7 @@ export class TimelineCommentsComponent implements OnInit {
 
   ngOnInit() {
     this.loggedUser = this.userService.getUserData();
+    this.getTimelineComments();
     this._socket.addListener({
       type: this._constants.timelineCommentsType,
       callback: this.timelineCommentsObserver,
@@ -50,7 +51,6 @@ export class TimelineCommentsComponent implements OnInit {
       this.handleTimelineCommentsData(res);
     });
 
-    this.getTimelineComments();
   }
 
   handleTimelineCommentsData(res) {
