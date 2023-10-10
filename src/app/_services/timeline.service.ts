@@ -28,4 +28,12 @@ export class TimelineService {
       })
     );
   }
+
+  allSlotIntrosCount() {
+    return this.http.get<any>(this.baseurl + "api/all-slot-intros-count").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
 }
