@@ -24,6 +24,22 @@
   </ul>
 </div>
 
+<ng-container *ngIf="true">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header class="expansionHeader">
+        <!-- <mat-panel-title>
+          Self aware panel
+        </mat-panel-title> -->
+        <mat-panel-description>
+          Top connectors this week
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-top-users></app-top-users>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
+
 <ng-container *ngIf="showLoader">
   <div class="loader-container marTop50">
     <div class="loader"></div>
@@ -407,7 +423,10 @@
             </div>
 
             <div class="col timelineTime pointer colorGreen" (click)="commentsClick(timeline)">
-              Comments
+              Comments 
+              <ng-container *ngIf="timeline?.comments?.length > 0">
+                ({{ timeline?.comments?.length }})
+              </ng-container>
             </div>
           </div>
         </div>

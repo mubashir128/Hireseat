@@ -72,6 +72,8 @@ export class TimelineComponent implements OnInit {
   introsMadeCount: number = 0;
   myNetworkCount: number = 0;
 
+  panelOpenState = false;
+
   constructor(
     private _constants: ConstantsService,
     private _socket: WebsocketService,
@@ -144,12 +146,12 @@ export class TimelineComponent implements OnInit {
       }
     });
 
-    this._socket.sendMessage({
-      type: this._constants.timelineType,
-      data: {
-        subType: this._constants.allSlotIntrosCount
-      }
-    });
+    // this._socket.sendMessage({
+    //   type: this._constants.timelineType,
+    //   data: {
+    //     subType: this._constants.allSlotIntrosCount
+    //   }
+    // });
   }
 
   getAllTimelines() {

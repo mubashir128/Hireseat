@@ -162,6 +162,8 @@ import { SelectDesiredCompaniesComponent } from './components/select-desired-com
 import { DialogSelectButttonsComponent } from './components/dialog-select-butttons/dialog-select-butttons.component';
 import { IntrosToCompaniesComponent } from './components/intros-to-companies/intros-to-companies.component';
 import { TimelineCommentsComponent } from './components/timeline-comments/timeline-comments.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { TopUsersComponent } from './components/top-users/top-users.component';
 
 @NgModule({
   imports: [
@@ -346,7 +348,8 @@ import { TimelineCommentsComponent } from './components/timeline-comments/timeli
     SelectDesiredCompaniesComponent,
     DialogSelectButttonsComponent,
     IntrosToCompaniesComponent,
-    TimelineCommentsComponent
+    TimelineCommentsComponent,
+    TopUsersComponent
   ],
   exports: [
     FooterComponent,
@@ -431,7 +434,8 @@ import { TimelineCommentsComponent } from './components/timeline-comments/timeli
     MatCardModule,
     NgxMaterialTimepickerModule,
     SelectJobTitleComponent,
-    SelectDesiredCompaniesComponent
+    SelectDesiredCompaniesComponent,
+    MatExpansionModule
   ],
 
 })
