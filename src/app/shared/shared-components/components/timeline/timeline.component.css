@@ -200,7 +200,7 @@ button.connectBtn{
 .expansionHeader,
 .mat-expansion-panel-header.mat-expanded,
 .mat-expansion-panel-header.mat-expanded:hover {
-  color: #3F3E3E;
+  color: white !important;
   background-color: #03aaff !important;
   padding: 8px;
 }
@@ -208,6 +208,7 @@ button.connectBtn{
 .mat-expansion-panel-header-description {
   display: flex;
   justify-content: center;
+  color: white !important;
 }
 
 .mat-expansion-panel-header {
@@ -215,5 +216,5 @@ button.connectBtn{
 }
 
 ::ng-deep .mat-expansion-panel-body {
-  padding: 8px !important;
+  padding: 2px !important;
 }
