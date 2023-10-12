@@ -1632,3 +1632,7 @@ body {
 .marginRight5 {
   margin-right: 5px !important;
 }
+
+.displayInlineBlockClass {
+  display: inline-block !important;
+}
