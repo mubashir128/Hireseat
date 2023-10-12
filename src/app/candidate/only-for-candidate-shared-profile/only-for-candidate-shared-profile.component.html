@@ -67,7 +67,12 @@
   </div>
 </ng-container>
 
+<ng-container *ngIf="searchCTRTerm == '' && requestedFriendAre.length !== 0">
+  <app-connection-requests [(requestedFriendAre)]="requestedFriendAre"></app-connection-requests>
+</ng-container>
+
 <ng-container *ngIf="resumes">
+  <label for="" class="labelStyle">Networks : </label>
   <div class="ListResume">
     <!-- <div class="" *ngFor="let resume of resumes | serchByFullName : searchTerm | searchByCTR : searchCTRTerm | serchByJobTitle : searchJobTitleTerm | sortByIndustires : searchIndustry | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index"> -->
     <div class="" *ngFor="let resume of resumes; let i = index">
@@ -90,6 +95,9 @@
               <div class="col-xs-9 col-md-9 first">
                 <!-- <span [ngClass]="(resume?.candidateKey?.online || resume?.candidate_id?.online) ? 'dotOnline' : 'dotOffline'"></span> -->
                 <span style="margin-left: 5px;">{{ resume?.candidateName || resume?.candidate_id?.fullName }}</span>
+                <div class="">
+                  <span *ngIf="resume.addedAsAFriend" class="marLeft5" style="font-size: 12px; color: green;">(connected)</span>
+                </div>
                 <!-- <span>First & Last Name</span> -->
               </div>
             </div>
@@ -157,7 +165,8 @@
           <div class="container-fluid marTop10">
             <div class="container">
               <div class="row cont">
-                <button class="LinkedInBtnNewSelf" (click)="introduceTo(resume)">Introduce</button>
+                <!-- <button class="LinkedInBtnNewSelf" (click)="introduceTo(resume)">Introduce</button> -->
+                <button class="LinkedInBtnNewSelf" (click)="introduceWithOptions(resume)">Introduce</button>
               </div>
             </div>
           </div>

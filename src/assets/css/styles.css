@@ -1749,3 +1749,11 @@ body {
 .marginRight5 {
   margin-right: 5px !important;
 }
+
+.displayInlineBlockClass {
+  display: inline-block !important;
+}
+
+.marLeft5 {
+  margin-left: 5px;
+}
