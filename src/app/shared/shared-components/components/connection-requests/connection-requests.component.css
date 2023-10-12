@@ -1,0 +1,187 @@
+.ListResume {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    float: left;
+    margin-bottom: 100px;
+}
+
+.singleList.employerResume {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px 30px;
+    display: block;
+    justify-content: unset;
+    margin-bottom: 20px;
+    transition: 1s;
+    height: auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+.newCss {
+    border: 1px solid #ddd;
+    border-radius: 10px !important;
+}
+
+.labelStyle {
+    color: darkblue;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.pro {
+    width: 100%;
+    float: left;
+}
+
+.pro-3 {
+    width: 100%;
+    float: left;
+}
+
+.pro-1 {
+    width: 100%;
+    float: left;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .pro-share {
+        width: 50% !important;
+    }
+
+    .CandidateDetails {
+        width: 100%;
+        display: block;
+    }
+
+    .candidate-name {
+        width: 100%;
+    }
+
+    .candidate-name p {
+        font-size: 0.8rem;
+    }
+
+    .lates-s {
+        width: 100% !important;
+    }
+
+}
+
+.smallBtns {
+    margin-left: 3px !important;
+}
+
+.LinkedInBtnNew {
+    padding: 0px !important;
+}
+
+.LinkedInBtnNew a {
+    color: #ffffff;
+}
+
+.LinkedInBtnNew .icon-name {
+    display: flex;
+}
+
+.LinkedInBtnNew span {
+    font-size: 10px;
+}
+
+.icon-name {
+    padding: 5px;
+}
+
+.marTop {
+    margin-top: 10px;
+}
+
+.wrdWrap {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.marginAuto {
+    margin: auto;
+}
+
+.marOther {
+    margin-left: 65px;
+    margin-top: -15px;
+}
+
+.styDiv1 {
+    border-radius: 10px;
+    background-color: red;
+    width: 50%;
+    margin-left: 20px;
+}
+
+.lblSty {
+    color: white;
+    margin-left: 10px;
+}
+
+.pro-share {
+    width: 50%;
+    float: left;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .pro-share {
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 1440px) {
+    .pro-share {
+        width: 50% !important;
+    }
+
+    button.acceptBtn {
+        width: 98%;
+        display: block;
+        border-radius: 5px;
+    }
+
+}
+
+.acceptBtn {
+    width: 48%;
+    border-radius: 7px;
+}
+
+button.acceptBtn {
+    border: 1px solid #1a1;
+    background-color: #1a1;
+}
+
+button.cancelBtn {
+    border: 1px solid red !important;
+    background-color: red !important;
+}
+
+.btnText {
+    color: #fff !important;
+}
+
+.btn-icon {
+    width: 20px;
+    margin-right: 3px;
+    color: #fff !important;
+}
+
+.big-badge-wid {
+    width: 52px !important;
+    height: 52px !important;
+}
+
+.big-badge-wid img,
+.big-badge img {
+    border-radius: 50% !important;
+    width: 100%;
+    height: 100%;
+}

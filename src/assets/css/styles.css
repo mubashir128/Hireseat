@@ -1636,3 +1636,7 @@ body {
 .displayInlineBlockClass {
   display: inline-block !important;
 }
+
+.marLeft5 {
+  margin-left: 5px;
+}

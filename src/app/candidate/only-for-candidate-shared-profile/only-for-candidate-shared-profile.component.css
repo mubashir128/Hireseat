@@ -1005,7 +1005,7 @@ input {
 
 .areaDiv{
   /* border: 1px solid #33aaff; */
-  border-radius: 50px;
+  border-radius: 15px;
   margin-bottom: 15px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%) !important;
@@ -1050,4 +1050,10 @@ input {
   background-color: #0288d1 !important;
   border: 1px solid #0e76a8;
   color: white !important;
+}
+
+.labelStyle {
+  color: darkblue;
+  font-size: 18px;
+  font-family: 'Courier New', Courier, monospace;
 }
