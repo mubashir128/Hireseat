@@ -1757,3 +1757,9 @@ body {
 .marLeft5 {
   margin-left: 5px;
 }
+
+.extpanelClass{
+  width: 100%;
+  display: inline-block;
+  justify-content: space-evenly;
+}
