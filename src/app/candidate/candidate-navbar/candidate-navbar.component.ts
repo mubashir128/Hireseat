@@ -111,7 +111,7 @@ export class CandidateNavbarComponent implements OnInit {
     promises.push(this.userService.getUsersById().toPromise());
     Promise.all(promises).then(result => {
       if(result){
-        this.tabs1.splice(1, 0, new Tab2("/candidate/my-post-jobs", "My jobs List", false, "fas fa-user"));
+        this.tabs1.splice(6, 0, new Tab2("/candidate/my-post-jobs", "My jobs List", false, "fas fa-user"));
       }
     });
   }
