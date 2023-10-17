@@ -35,11 +35,17 @@ export class CandidateNavbarComponent implements OnInit {
     //   new Tab("/candidate/all-recruiters", "Recruiters Market Place", true)
     // );
     this.tabs1.push(new Tab("/candidate/my-profile", "My Profile", false));
+    this.tabs1.push(
+      new Tab("/candidate/timeline", "Timeline", false)
+    );
+    this.tabs1.push(new Tab("/candidate/suggest-connected-friends", "Intros", false));
+    this.tabs1.push(new Tab("/candidate/friends-connections", "HireSeat Connections", false));
+    this.tabs1.push(
+      new Tab("/candidate/suggest-and-events", "Networking Events", false)
+    );
+    
     this.tabs1.push(new Tab2("/candidate/suggest-introduce", "Jobs", false, "fas fa-user"));
     this.tabs1.push(new Tab2("/candidate/applied-jobs", "Applied jobs", false, "fas fa-user"));
-    this.tabs1.push(new Tab("/candidate/friends-connections", "HireSeat Connections", false));
-    this.tabs1.push(new Tab("/candidate/suggest-connected-friends", "Intros", false));
-
 
     this.tabs1.push(
       new Tab("/candidate/my-reviewed-profiles", "My Reviewed Profiles", false)
@@ -49,14 +55,6 @@ export class CandidateNavbarComponent implements OnInit {
     );
     this.tabs1.push(
       new Tab("/candidate/user-chat", "Messaging", false)
-    );
-
-    this.tabs1.push(
-      new Tab("/candidate/timeline", "Timeline", false)
-    );
-
-    this.tabs1.push(
-      new Tab("/candidate/suggest-and-events", "Events", false)
     );
 
     // this.tabs1.push(
