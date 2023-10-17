@@ -24,18 +24,18 @@
     <li class="tablink" id="switch4" [ngClass]="itemsIs === 4 ? 'tablinkActive' : false" (click)="switchPage(4)">
       Intros
     </li>
-    <li class="tablink" id="switch1" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
+    <!-- <li class="tablink" id="switch1" [ngClass]="itemsIs === 1 ? 'tablinkActive' : false" (click)="switchPage(1)">
       My Network
       <br>
       <span class="row cirDiv">
         {{ myNetworkCount }}
       </span>
-    </li>
+    </li> -->
   </ul>
 </div>
 
 <ng-container *ngIf="showOnlyCan">
-  <app-only-for-candidate-shared-profile (introduceToFromOnlyCandidatePageEM)='introduceToFromOnlyCandidatePage($event)' (countEM)='countModules($event)' [(companyName)]="companyName"></app-only-for-candidate-shared-profile>
+  <app-only-for-candidate-shared-profile (introduceToFromOnlyCandidatePageEM)='introduceToFromOnlyCandidatePage($event)' (countEM)='countModules($event)' [(companyName)]="companyName" [(requestedFriendAre)]="requestedFriendAre"></app-only-for-candidate-shared-profile>
 </ng-container>
 
 <ng-container *ngIf="showNewIntro">

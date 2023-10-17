@@ -39,6 +39,7 @@ import { DialogOfferIntroChatComponent } from "src/app/shared/shared-components/
 import { DialogConnectOfferIntroComponent } from "src/app/shared/shared-components/components/dialog-connect-offer-intro/dialog-connect-offer-intro.component";
 import { AbstractSharedComponent } from "src/app/abstract-classes/abstract-shared.component";
 import { PageEvent } from "@angular/material/paginator";
+import { DialogSelectButttonsComponent, selectButtons } from "src/app/shared/shared-components/components/dialog-select-butttons/dialog-select-butttons.component";
 
 declare var jQuery;
 declare var Materialize;
@@ -78,6 +79,8 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   currentPageEvent: PageEvent;
 
   connectedFriends: any = [];
+  
+  @Input() requestedFriendAre;
   
   constructor(
     protected resumeService: ResumeService,
@@ -887,6 +890,36 @@ export class OnlyForCandidateSharedProfileComponent extends AbstractSharedCompon
   goToUserChatDirect(resume){
     this.shareVideoService.setResume(resume);
     this.redirectToUserChat();
+  }
+
+  introduceWithOptions(resume){
+    if(!resume.addedAsAFriend){
+      this.showShareModal(resume);
+      return ;
+    }
+
+    const dialogOfferIntroEmailRef = this.dialog.open(DialogSelectButttonsComponent, {
+      data: {
+        dialogType : "Select buttons",
+        dialogTitle : "Select options",
+        btns : [selectButtons.introInApp, selectButtons.introOnEmail]
+      }
+    });
+
+    dialogOfferIntroEmailRef.afterClosed().subscribe(result => {
+      if(result){
+        switch (result.btnName) {
+          case selectButtons.introInApp :
+            this.introduceTo(resume);
+            break;
+          case selectButtons.introOnEmail :
+            this.showShareModal(resume);
+            break;
+          default:
+            break;
+        }
+      }
+    });
   }
   
   ngOnDestroy() {

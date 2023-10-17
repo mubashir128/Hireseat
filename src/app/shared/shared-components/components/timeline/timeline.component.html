@@ -25,19 +25,21 @@
 </div>
 
 <ng-container *ngIf="true">
-  <mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header class="expansionHeader">
-        <!-- <mat-panel-title>
-          Self aware panel
-        </mat-panel-title> -->
-        <mat-panel-description>
-          Top connectors this week
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <app-top-users></app-top-users>
-    </mat-expansion-panel>
-  </mat-accordion>
+  <div class="extpanelClass">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header class="expansionHeader">
+          <!-- <mat-panel-title>
+            Self aware panel
+          </mat-panel-title> -->
+          <mat-panel-description>
+            Top connectors this week
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-top-users></app-top-users>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </ng-container>
 
 <ng-container *ngIf="showLoader">
@@ -436,7 +438,7 @@
                   <i class="fa fa-ellipsis-h"></i>
               </span>
               <div *ngFor="let user of timeline?.liked | slice:0:profileImageLength">
-                  <div class="candProfile12">
+                  <div class="row candProfile12 displayInlineBlockClass mar0">
                       <img [src]="user?.userId?.profileimage ? user.userId.profileimage : 'assets/img/profile-user.png'"
                           alt="profile" />
                   </div>

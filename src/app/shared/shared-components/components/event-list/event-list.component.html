@@ -77,7 +77,7 @@
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
                     <div *ngFor="let user of event.attendingUsers | slice:0:profileImageLength">
-                        <div class="candProfile12">
+                        <div class="row candProfile12 displayInlineBlockClass mar0">
                             <img [src]="user?.userId?.profileimage ? user.userId.profileimage : 'assets/img/profile-user.png'"
                                 alt="profile" />
                         </div>
