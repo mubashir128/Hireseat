@@ -31,6 +31,8 @@ import { shareConstants } from "../app-list/app-list.component";
 import { DialogSelectUserComponent } from "../dialog-select-user/dialog-select-user.component";
 import { ChatGptService } from "src/app/_services/chat-gpt.service";
 import { DialogOnlyTextMessageComponent } from "../dialog-only-text-message/dialog-only-text-message.component";
+import { DialogInputBigMessageComponent } from "../dialog-input-big-message/dialog-input-big-message.component";
+import { eTypes } from "src/app/_services/post-job.service";
 
 declare var jQuery;
 declare var Materialize;
@@ -312,7 +314,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
         break;
       case "careerReferral" : 
         if(result.process){
-          THIS.introduceUser22(result);
+          THIS.inputBigMessageDialogOpen22222(result);
         }
         break;
       case "shareOnHireseat" : 
@@ -443,7 +445,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
                 videoUrl: this.shareableVideoURL,
                 fullName: candidateName,
                 subject: subject,
-                comment: result.comments,
+                comment: result.comment1,
                 comment2: result.comment2,
                 comment3: result.comment3,
                 candidateProfile: this.shareResume.resumeType ? false : true,
@@ -530,12 +532,35 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
     this.setCurrentTime(obj.seconds , obj.questionNumber);
   }
 
+  inputBigMessageDialogOpen22222(payload){
+    const dialogIntroduceRef = this.dialog.open(DialogInputBigMessageComponent, {
+      data: {
+        dialogType : "enterMessage",
+        dialogTitle : "Message",
+        dialogText : "Please provide 3 highlights of your referral.",
+        btns  : ["apply"],
+        type : eTypes.apply,
+        userId : this.loggedUser._id
+      }
+    });
+
+    dialogIntroduceRef.afterClosed().subscribe(result => {
+      if(result.status){
+        payload.comment1 = result.message1,
+        payload.comment2 = result.message2,
+        payload.comment3 = result.message3
+        this.introduceUser22(payload);
+      }
+    });
+  }
+
   introduceUser22(result){
     let candidateNameIs = this.shareResume.resumeType ? this.shareResume.candidateName : this.shareResume.candidate_id.fullName;
-    let comment1 = this.shareResume.comments;
-    let comment2 = this.shareResume.comment2;
-    let comment3 = this.shareResume.comment3;
+    let comment1 = result.comment1 ? result.comment1 : this.shareResume.comments;
+    let comment2 = result.comment2 ? result.comment2 : this.shareResume.comment2;
+    let comment3 = result.comment3 ? result.comment3 : this.shareResume.comment3;
     let senderName = this.loggedUser.fullName;
+
     let payload = {
       dialogType : "EmailPreview...",
       dialogTitle : "Email Preview...",
@@ -549,7 +574,7 @@ export class SharedCandidateProfilesComponent extends AbstractSharedComponent im
       comment2 : comment2,
       comment3 : comment3
     }
-
+    
     this.introduceUserSuper(payload, this.introduceUserSuperCallback);
   }
 
