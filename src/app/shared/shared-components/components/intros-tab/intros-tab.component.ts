@@ -4,6 +4,8 @@ import { IntroduceService, tabTypes } from 'src/app/_services/introduce.service'
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
 import { SearchFilter } from '../user-list/user-list.component';
+import { DialogInputTextMessageComponent } from '../dialog-input-text-message/dialog-input-text-message.component';
+import { MatDialog } from '@angular/material/dialog';
 
 declare var jQuery;
 declare var Materialize;
@@ -34,7 +36,8 @@ export class IntrosTabComponent implements OnInit {
 
   constructor(
     protected _introduceService: IntroduceService,
-    protected _formBuilder: FormBuilder
+    protected _formBuilder: FormBuilder,
+    public _dialog: MatDialog
   ) {
     this.Search = this._formBuilder.group({
       searchTerm: [""],
@@ -63,17 +66,28 @@ export class IntrosTabComponent implements OnInit {
   }
 
   introduce(entry){
-    let payload = {
-      toId: entry?.introUser?._id,
-      introduceId: entry?.desiredUser?._id,
-      comapnyName:  entry?.company
-    };
+    const dialogTextInputRef = this._dialog.open(DialogInputTextMessageComponent,{
+      data: {
+        dialogType : "select-note",
+        dialogTitle : "Provide a messge to tell about this user."
+      }
+    });
 
-    this._introduceService.introduce(payload).subscribe((res) => {
-      Materialize.toast("Introduced successfully", 1000, "green");
-    }, (err) => {
-      console.log(err);
-      Materialize.toast("Already introduced", 1000, "red");
+    dialogTextInputRef.afterClosed().subscribe(result => {
+      if(result){
+        let payload = {
+          toId: entry?.introUser?._id,
+          introduceId: entry?.desiredUser?._id,
+          comapnyName:  entry?.company,
+          message : result.message
+        };
+        this._introduceService.introduce(payload).subscribe((res) => {
+          Materialize.toast("Introduced successfully", 1000, "green");
+        }, (err) => {
+          console.log(err);
+          Materialize.toast("Already introduced", 1000, "red");
+        });
+      }
     });
   }
 

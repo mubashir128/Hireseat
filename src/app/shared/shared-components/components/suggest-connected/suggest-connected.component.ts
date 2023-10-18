@@ -14,9 +14,9 @@ declare var Materialize;
   styleUrls: ['./suggest-connected.component.css']
 })
 export class SuggestConnectedComponent implements OnInit {
-  intros: boolean = true;
-  pendingIntros: boolean = false;
-  itemsIs = 0;
+  intros: boolean = false;
+  pendingIntros: boolean = true;
+  itemsIs = 1;
 
   redirectId;
   type;

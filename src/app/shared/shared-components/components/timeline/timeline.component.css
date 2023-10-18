@@ -104,9 +104,14 @@ button.connectBtn{
 }
 
 .backStyle {
-  width: 35px !important;
-  height: 35px !important;
-  font-size: 15px !important;
+  background: #ff0000 !important;
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 50%;
+  color: #fff;
+  /* position: absolute; */
+  padding: 3px;
+  top: 8px;
 }
 
 .candProfile12 {
@@ -165,6 +170,7 @@ button.connectBtn{
 }
 
 .cirDiv {
+  font-size: 12px;
   display: inline-block;
   background: #ff0000 !important;
   min-width: 20px !important;
