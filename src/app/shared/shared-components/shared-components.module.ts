@@ -165,7 +165,7 @@ import { TimelineCommentsComponent } from './components/timeline-comments/timeli
 import {MatExpansionModule} from '@angular/material/expansion';
 import { TopUsersComponent } from './components/top-users/top-users.component';
 import { ConnectionRequestsComponent } from './components/connection-requests/connection-requests.component';
-
+import { MatGridListModule } from '@angular/material/grid-list';
 @NgModule({
   imports: [
     CommonModule,
@@ -208,7 +208,8 @@ import { ConnectionRequestsComponent } from './components/connection-requests/co
     MatPaginatorModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule,
   ],
   declarations: [
     FooterComponent,

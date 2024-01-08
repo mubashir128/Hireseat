@@ -48,39 +48,88 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf = "!showLoader && timelines.length == 0">
+<ng-container *ngIf="!showLoader && timelines.length == 0">
   <div class="marTop">
-    <app-no-data-available ></app-no-data-available>
+    <app-no-data-available></app-no-data-available>
   </div>
 </ng-container>
 
 <ng-container *ngIf="timelines">
-  <div
-    class="timelineList"
-    infiniteScroll
-    [infiniteScrollDistance]="1"
-    [infiniteScrollThrottle]="100"
-    [infiniteScrollContainer]="selector"
-    [fromRoot]="true"
-    (scrolled)="onScroll()"
-  >
+  <ion-grid class="timelineList mar0" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="100"
+    [infiniteScrollContainer]="selector" [fromRoot]="true" (scrolled)="onScroll()">
+    <div class="border_bottom padding" *ngFor="let timeline of timelines; let ind = index">
+      <ion-row>
+        <ion-col size="12" class="ion-text-center ">
+          <span class="title_txt">Mike Polakyou connected to Michael Lorota</span>
+        </ion-col>
+      </ion-row >
+      <ion-row [fixed]="true" class="mar0">
+        <ion-col class="mar0 align_item_center">
+          <ion-avatar>
+            <img *ngIf="!timeline.fromId?.profileimage" src="assets/img/profile-user.png" alt="profile" />
+            <img *ngIf="timeline.fromId?.profileimage" [src]="timeline.fromId?.profileimage" alt="profile" />
+          </ion-avatar>
+          <ion-label class="name">Item Avatar</ion-label>
+          <ion-button class="linkedin_btn">LinkedIn</ion-button>
+        </ion-col>
+        <ion-col class="mar0 align_item_center"><ion-icon src="assets/icon_svg/connection.svg" class="connection_icon"></ion-icon></ion-col>
+        <ion-col  class="align_item_center mar0">
+          <ion-avatar>
+            <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </ion-avatar>
+          <ion-label class="name">Item Avatar</ion-label>
+          <ion-button class="linkedin_btn">LinkedIn</ion-button>
+        </ion-col>
+        <ion-col  class="align_item_center mar0">
+          <ion-avatar>
+            <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </ion-avatar>
+          <ion-label class="name">Item Avatar</ion-label>
+          <ion-button class="linkedin_btn">LinkedIn</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="marginBottom_10">
+        <ion-col size="5" class="">
+          <p class="redColor p_style ion-no-margin">No of introductions <b>75</b></p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11.5" class="ion-text-center">
+          <ion-button class="bottom_btn">Comments
+            <ng-container *ngIf="timeline?.comments?.length > 0">
+              ({{ timeline?.comments?.length }})
+            </ng-container>
+          </ion-button>
+          <ion-button class="bottom_btn" (click)="likeTimeline(timeline)">{{ checkLikedOrNot(timeline) ? 'Liked' :
+            'Like'}}</ion-button>
+          <ion-button class="bottom_btn" *ngIf="timeline?.liked?.length > 0" (click)="likedUsers(timeline)">>{{ ' (' +
+            timeline?.liked?.length + ')' }}</ion-button>
+          <ion-button class="bottom_btn">{{timeline.createdAt | amTimeAgo}}</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+
+  <div class="timelineList" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="100"
+    [infiniteScrollContainer]="selector" [fromRoot]="true" (scrolled)="onScroll()">
     <div class="timelineUI animatePart" *ngFor="let timeline of timelines; let ind = index">
       <div class="row" style="margin: auto;">
         <div class="pro">
           <div class="pro-3">
             <ng-container *ngIf="!timeline.fromId?.profileimage">
               <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
-                <img src = "assets/img/profile-user.png" alt="profile" />
+                <img src="assets/img/profile-user.png" alt="profile" />
               </div>
             </ng-container>
 
             <ng-container *ngIf="timeline.fromId?.profileimage">
               <div class="candProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
-                <img [src] = "timeline.fromId?.profileimage" alt="profile" />
+                <img [src]="timeline.fromId?.profileimage" alt="profile" />
               </div>
             </ng-container>
 
-            <ng-container *ngIf="timeline.status == _constants.threeIntroduce || timeline.status == _constants.connectionRequest || timeline.status == _constants.actualTimeline">
+            <ng-container
+              *ngIf="timeline.status == _constants.threeIntroduce || timeline.status == _constants.connectionRequest || timeline.status == _constants.actualTimeline">
               <div class="row mar0 fontSize10" *ngIf="timeline?.candidateFromId?.jobTitle">
                 <span>
                   Job Title : {{ timeline?.candidateFromId?.jobTitle }}
@@ -96,12 +145,13 @@
                 </button>
               </div>
             </ng-container>
-            
+
           </div>
           <div class="pro-4">
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && !timeline.systemUserId" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.actualTimeline && !timeline.systemUserId"
+              (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
               {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}}.
-              <div class="row removeMargin marTop-8" *ngIf = "timeline.candidateFromId?.introduceCount">
+              <div class="row removeMargin marTop-8" *ngIf="timeline.candidateFromId?.introduceCount">
                 <span>
                   <label class="redColor"># of Introductions : </label>
                   <label class="backStyle">
@@ -111,13 +161,16 @@
               </div>
             </span>
 
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.connectionRequest" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.connectionRequest"
+              (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
               {{timeline.fromId?.fullName}} Connected to {{timeline.profileUserId?.fullName}}.
             </span>
 
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.actualTimeline && timeline.systemUserId" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
-              {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}} with {{timeline.systemUserId.fullName}}.
-              <div class="row removeMargin marTop-8" *ngIf = "timeline.candidateFromId?.introduceCount">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.actualTimeline && timeline.systemUserId"
+              (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
+              {{timeline.fromId?.fullName}} intro'd {{timeline.profileUserId?.fullName}} with
+              {{timeline.systemUserId.fullName}}.
+              <div class="row removeMargin marTop-8" *ngIf="timeline.candidateFromId?.introduceCount">
                 <span>
                   <label class="redColor"># of Introductions : </label>
                   <label class="backStyle">
@@ -127,36 +180,42 @@
               </div>
             </span>
 
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.sayThanks" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.sayThanks"
+              (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
               {{timeline.fromId?.fullName}} said thanks to {{timeline.profileUserId?.fullName}}.
             </span>
 
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.publicProfile" (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.publicProfile"
+              (click)="introProfile(timeline, 'candidateFromId', 'fromId')">
               {{timeline.fromId?.fullName}} just joined the HireSeat Network. Welcome {{timeline.fromId?.fullName}}.
             </span>
 
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.answer" (click)="goToQuestionAnswer()">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.answer" (click)="goToQuestionAnswer()">
               {{timeline.toName}} : <br>
               Question : {{timeline?.answerId?.questionByUserId?.question}}
               <p class="marAuto" style="font-size: 15px; font-family: 'gilroybold';">
-                Answer by {{timeline.fromId?.fullName}} : 
+                Answer by {{timeline.fromId?.fullName}} :
               </p>
               <p class="marAuto" style="margin-left: 10px;">
                 - {{timeline?.answerId?.answer}}
               </p>
             </span>
 
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.eventCheckIn" (click)="goToPeopleEvent(timeline.peopleEventId)">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.eventCheckIn"
+              (click)="goToPeopleEvent(timeline.peopleEventId)">
               {{timeline.fromId?.fullName}} Check In to ' {{timeline.peopleEventId?.name}} ' event.
             </span>
 
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.eventAttendingAre" (click)="goToPeopleEvent(timeline.peopleEventId)">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.eventAttendingAre"
+              (click)="goToPeopleEvent(timeline.peopleEventId)">
               {{timeline.fromId?.fullName}} Attending ' {{timeline.peopleEventId?.name}} ' event.
             </span>
 
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.threeIntroduce" (click)="goToIntroducePage(timeline)">
-              {{timeline.fromId?.fullName}} introduced {{timeline.introduceId?.fullName}} to {{timeline.toId?.fullName}}.
-              <div class="row removeMargin marTop-8" *ngIf = "timeline.candidateFromId?.introduceCount">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.threeIntroduce"
+              (click)="goToIntroducePage(timeline)">
+              {{timeline.fromId?.fullName}} introduced {{timeline.introduceId?.fullName}} to
+              {{timeline.toId?.fullName}}.
+              <div class="row removeMargin marTop-8" *ngIf="timeline.candidateFromId?.introduceCount">
                 <span>
                   <label class="redColor"># of Introductions : </label>
                   <label class="backStyle">
@@ -165,8 +224,9 @@
                 </span>
               </div>
             </span>
-            
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.createdNewEvent" (click)="goToPeopleEvent(timeline.peopleEventId)">
+
+            <span class="intoedClass" *ngIf="timeline.status == _constants.createdNewEvent"
+              (click)="goToPeopleEvent(timeline.peopleEventId)">
               New event - '{{timeline.peopleEventId?.name}}'.
               <br>
               <span>
@@ -178,12 +238,13 @@
               </span>
               <ng-container *ngIf="timeline.peopleEventId?.eventPicture">
                 <div class="candProfile31">
-                  <img class="imgEvent" [src] = "timeline.peopleEventId?.eventPicture" alt="profile" />
+                  <img class="imgEvent" [src]="timeline.peopleEventId?.eventPicture" alt="profile" />
                 </div>
               </ng-container>
             </span>
 
-            <span class="intoedClass" *ngIf = "timeline.status == _constants.jobPostAnnounce" (click)="goToJobPosts(timeline)">
+            <span class="intoedClass" *ngIf="timeline.status == _constants.jobPostAnnounce"
+              (click)="goToJobPosts(timeline)">
               {{ timeline.fromId?.fullName }} - {{ timeline?.toName }}.
             </span>
 
@@ -191,23 +252,30 @@
               <div class="col paddZeroClass floatRight">
                 <ng-container *ngIf="timeline.systemUserId && timeline.status == !_constants.actualTimeline">
                   <div class="candProfile11" (click)="introProfile(timeline, 'candidateSystemUserId', 'systemUserId')">
-                    <img [src] = "timeline.systemUserId?.profileimage ? timeline.systemUserId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
+                    <img
+                      [src]="timeline.systemUserId?.profileimage ? timeline.systemUserId.profileimage : 'assets/img/profile-user.png'"
+                      alt="profile" />
                   </div>
                 </ng-container>
               </div>
 
               <div class="col paddZeroClass floatRight">
                 <ng-container *ngIf="timeline.profileUserId && timeline.status == !_constants.actualTimeline">
-                  <div class="candProfile11" (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
-                    <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                  <div class="candProfile11"
+                    (click)="introProfile(timeline, 'candidateProfileUserId', 'profileUserId')">
+                    <img
+                      [src]="timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' "
+                      alt="profile" />
                   </div>
                 </ng-container>
               </div>
-              
+
               <ng-container *ngIf="timeline.status == _constants.connectionRequest">
                 <ng-container *ngIf="timeline.profileUserId">
                   <div class="candProfile11">
-                    <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                    <img
+                      [src]="timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' "
+                      alt="profile" />
                   </div>
                 </ng-container>
                 <div class="smallBtns" (click)="onLinkedIn(timeline?.toId)">
@@ -227,7 +295,9 @@
               <div class="col paddZeroClass" style="padding-left: 15px !important;">
                 <ng-container *ngIf="timeline.introduceId">
                   <div class="candProfile11">
-                    <img [src] = "timeline.introduceId?.profileimage ? timeline.introduceId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                    <img
+                      [src]="timeline.introduceId?.profileimage ? timeline.introduceId.profileimage : 'assets/img/profile-user.png' "
+                      alt="profile" />
                   </div>
                 </ng-container>
                 <div class="smallBtns">
@@ -240,11 +310,13 @@
                   </button>
                 </div>
               </div>
-              
+
               <div class="col paddZeroClass" style="padding-left: 15px !important;">
                 <ng-container *ngIf="timeline.toId">
                   <div class="candProfile11">
-                    <img [src] = "timeline.toId?.profileimage ? timeline.toId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
+                    <img
+                      [src]="timeline.toId?.profileimage ? timeline.toId.profileimage : 'assets/img/profile-user.png'"
+                      alt="profile" />
                   </div>
                 </ng-container>
                 <div class="smallBtns" (click)="onLinkedIn(timeline?.toId)">
@@ -263,7 +335,9 @@
               <div class="col paddZeroClass" style="padding-left: 15px !important;">
                 <ng-container *ngIf="timeline.profileUserId">
                   <div class="candProfile11">
-                    <img [src] = "timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' " alt="profile" />
+                    <img
+                      [src]="timeline.profileUserId?.profileimage ? timeline.profileUserId.profileimage : 'assets/img/profile-user.png' "
+                      alt="profile" />
                   </div>
                 </ng-container>
                 <div class="smallBtns">
@@ -276,11 +350,13 @@
                   </button>
                 </div>
               </div>
-              
+
               <div class="col paddZeroClass" style="padding-left: 15px !important;">
                 <ng-container *ngIf="timeline.systemUserId">
                   <div class="candProfile11">
-                    <img [src] = "timeline.systemUserId?.profileimage ? timeline.systemUserId.profileimage : 'assets/img/profile-user.png'" alt="profile" />
+                    <img
+                      [src]="timeline.systemUserId?.profileimage ? timeline.systemUserId.profileimage : 'assets/img/profile-user.png'"
+                      alt="profile" />
                   </div>
                 </ng-container>
                 <div class="smallBtns" *ngIf="timeline.systemUserId" (click)="onLinkedIn(timeline?.systemUserId)">
@@ -296,7 +372,7 @@
             </div>
 
           </div>
-          
+
           <!-- <div class="row introSection" *ngIf = "timeline.status == _constants.actualTimeline">
             <span style="font-size: 17px;">Request Introductions : </span>
             <div class="row" style="text-align: center;">
@@ -414,7 +490,7 @@
             <div class="col timelineTime notificaationDateTime">
               {{timeline.createdAt | amTimeAgo}}
             </div>
-            
+
             <div class="col timelineTime notificaationDateTime pointer colorGreen">
               <span (click)="likeTimeline(timeline)">
                 {{ checkLikedOrNot(timeline) ? 'Liked' : 'Like'}}
@@ -425,7 +501,7 @@
             </div>
 
             <div class="col timelineTime pointer colorGreen" (click)="commentsClick(timeline)">
-              Comments 
+              Comments
               <ng-container *ngIf="timeline?.comments?.length > 0">
                 ({{ timeline?.comments?.length }})
               </ng-container>
@@ -434,15 +510,15 @@
         </div>
         <ng-container *ngIf="timeline?.liked?.length">
           <div class="row" style="margin: auto; margin-bottom: 5px;">
-              <span class="ellipeseClass" *ngIf="timeline?.liked?.length > profileImageLength">
-                  <i class="fa fa-ellipsis-h"></i>
-              </span>
-              <div *ngFor="let user of timeline?.liked | slice:0:profileImageLength">
-                  <div class="row candProfile12 displayInlineBlockClass mar0">
-                      <img [src]="user?.userId?.profileimage ? user.userId.profileimage : 'assets/img/profile-user.png'"
-                          alt="profile" />
-                  </div>
+            <span class="ellipeseClass" *ngIf="timeline?.liked?.length > profileImageLength">
+              <i class="fa fa-ellipsis-h"></i>
+            </span>
+            <div *ngFor="let user of timeline?.liked | slice:0:profileImageLength">
+              <div class="row candProfile12 displayInlineBlockClass mar0">
+                <img [src]="user?.userId?.profileimage ? user.userId.profileimage : 'assets/img/profile-user.png'"
+                  alt="profile" />
               </div>
+            </div>
           </div>
         </ng-container>
       </div>

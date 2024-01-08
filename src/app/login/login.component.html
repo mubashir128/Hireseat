@@ -1,6 +1,99 @@
 <div id="login-page" class="mainWrapperLogin">
   <app-navbar></app-navbar>
   <div id="container-parent">
+    <!-- new app code -->
+    <ion-grid class="show_mobile_view" style="padding: 10px 20px;">
+      <form novalidate (ngSubmit)="formSubmit()" role="form" [formGroup]="login">
+
+        <ion-row class="welcome_row">
+          <ion-col class="mar0" size="12">
+            <p class="welcome_back mar0"> Welcome Back</p>
+          </ion-col>
+          <ion-col class="mar0" size="12">
+            <p class="txt mar0">
+              A network of people helping people get jobs
+            </p>
+          </ion-col>
+        </ion-row>
+        <div>
+          <ion-label class="email_label">Email</ion-label>
+          <ion-row class="inpt">
+            <ion-input mode="ios" placeholder="Enter Email Address" type="email" 
+              formControlName="email" autocomplete="off" (focus)="focusFunction($event)"
+              pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"></ion-input>
+          </ion-row>
+          <div *ngIf="login.controls['email'].hasError('required')" class="error">
+            Please Enter Email id
+          </div>
+          <div *ngIf="login.controls['email'].hasError('pattern')" class="error">
+            Please Enter valid email id
+          </div>
+          <div *ngIf="status == 'emailnotfound'" class="error">
+            Email not register.
+          </div>
+        </div>
+        <div class="top">
+          <ion-label class="email_label">Password</ion-label>
+          <ion-row class="inpt">
+            <ion-input mode="ios" placeholder="Enter Password" type="password" name="password"
+              formControlName="password" (focus)="focusFunction($event)" minlength="5" autocomplete="off"></ion-input>
+          </ion-row>
+          <div *ngIf="login.controls['password'].hasError('required')" class="error">
+            Please Enter Password
+          </div>
+          <div *ngIf="status == 'wrongpass'" class="error">
+            password not match.
+          </div>
+        </div>
+        <div class="width100" style="display: none !important;">
+          <!-- <mat-form-field class="width100" appearance="fill">
+              <mat-label>Select Role</mat-label>
+              <mat-select [(value)]="canValue">
+                  <mat-option *ngFor="let role of userTypes" [value]="role.value">
+                      {{role.name}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field> -->
+        </div>
+        <ion-row>
+          <ion-col size="12">
+            <p [routerLink]="['/Forgot-Password']" class="forgot_pssword">
+              Forgot Password ?
+            </p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="btn_align">
+          <ion-col size="12">
+            <ion-button class="btn_signUp" type="submit" [disabled]="!suBtnActive" expand="block">
+
+              <span *ngIf="suBtnActive">LOGIN</span>
+              <i *ngIf="!suBtnActive" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+
+            </ion-button>
+          </ion-col>
+          <ion-col size="12">
+            <ion-button (click)="doGoogleAuthLogin()" class="btn_google_signup" expand="block">
+              <ion-icon style="padding-right: 10px;" src="assets/icon_mobile_app/google 2.svg"></ion-icon>
+              Sign in with Google
+            </ion-button>
+          </ion-col>
+          <ion-col size="12">
+            <ion-button (click)="doAppleAuthLogin()" class="btn_google_signup" expand="block">
+              <!-- <ion-icon style="padding-right: 10px;" src="assets/icon_mobile_app/google 2.svg" ></ion-icon> -->
+              Sign in with Apple
+            </ion-button>
+          </ion-col>
+
+        </ion-row>
+        <ion-row class="mar0">
+          <ion-col class="mar0">
+            <p class="no_account">You don't have an account yet? <span class="signup_txt">Sign up</span></p>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+    <!-- old code  -->
     <div class="container">
       <div class="row loginCardDiv" style="padding-top:10vh;">
         <div class="col s12 m6 l6 hide-on-small-only">
@@ -51,8 +144,8 @@
               </div>
               <div class="row">
                 <div class="input-field col s12 m12 l12">
-                  <input [type]="showTextPassword ? 'text' : 'password'" class="form-control" name="password" formControlName="password"
-                    (focus)="focusFunction($event)" minlength="5" autocomplete="off" />
+                  <input [type]="showTextPassword ? 'text' : 'password'" class="form-control" name="password"
+                    formControlName="password" (focus)="focusFunction($event)" minlength="5" autocomplete="off" />
                   <div *ngIf="login.controls['password'].hasError('required')" class="error">
                     Please Enter Password
                   </div>
@@ -62,7 +155,8 @@
                   <label for="password">Password</label>
 
                   <label class="CheckBoxcontainer">
-                    <input type="checkbox" name="showPassowrd" formControlName="showPassowrd" (change)="showPassword($event)"/>
+                    <input type="checkbox" name="showPassowrd" formControlName="showPassowrd"
+                      (change)="showPassword($event)" />
                     <span class="checkmark"></span>
                     <span class="industrieName">
                       Show Password
@@ -79,9 +173,10 @@
               </div>
 
               <div class="row col s12 m6 offset-m3 center-align">
-                <a class="oauth-container btn darken-4 white black-text" (click)="doGoogleAuthLogin()" style="text-transform: none; border: 1px solid #03aaff;">
+                <a class="oauth-container btn darken-4 white black-text" (click)="doGoogleAuthLogin()"
+                  style="text-transform: none; border: 1px solid #03aaff;">
                   <div class="left">
-                    <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in" 
+                    <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in"
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
                   </div>
                   Login with Google
@@ -89,7 +184,8 @@
               </div>
 
               <div class="row col s12 m6 offset-m3 center-align">
-                <a class="oauth-container btn darken-4 white black-text" (click)="doAppleAuthLogin()" style="text-transform: none; border: 1px solid #03aaff;">
+                <a class="oauth-container btn darken-4 white black-text" (click)="doAppleAuthLogin()"
+                  style="text-transform: none; border: 1px solid #03aaff;">
                   <div class="left">
                     <!-- <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in" 
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" /> -->
@@ -116,5 +212,7 @@
       </div>
     </div>
   </div>
-  <app-footer></app-footer>
+  <div class="hide">
+    <app-footer></app-footer>
+  </div>
 </div>

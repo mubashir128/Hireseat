@@ -1205,8 +1205,12 @@ body {
   height: 100%;
 }
 body {
+  
   margin: 0;
   font-family: "Roboto", sans-serif;
+  /* new code */
+  background-color: #F8F7F7 !important;
+  
 }
 
 /* global buttons */
@@ -1762,4 +1766,10 @@ body {
   width: 100%;
   display: inline-block;
   justify-content: space-evenly;
+}
+
+/* new app Code  */
+input{
+  margin: 0px !important;
+  background-color: #fff;
 }

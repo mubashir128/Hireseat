@@ -4,15 +4,94 @@
         <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
             <form [formGroup]="firstFormGroup">
                 <div class="container contSt">
-                    <div class="login_top">
+                    <!-- new app Code -->
+                    <ion-grid>
+                        <ion-row class="welcome_row">
+                            <ion-col class="mar0" size="12">
+                                <p class="welcome_back mar0"> Welcome Back</p>
+                            </ion-col>
+                            <ion-col class="mar0" size="12">
+                                <p class="txt mar0">
+                                    A network of people helping people get jobs
+                                </p>
+                            </ion-col>
+                        </ion-row>
+                        <div>
+                            <ion-label class="email_label">Email</ion-label>
+                            <ion-row class="inpt">
+                                <ion-input mode="ios" placeholder="Enter Email Address" formControlName="email" [(ngModel)]="email" required></ion-input>
+                            </ion-row>
+                        </div>
+                        <div class="top">
+                            <ion-label class="email_label">Password</ion-label>
+                            <ion-row class="inpt">
+                                <ion-input mode="ios" placeholder="Enter Password" type="password" autocomplete="off" formControlName="password"
+                               [(ngModel)]="password" required></ion-input>
+                            </ion-row>
+                        </div>
+                        <div class="width100" style="display: none !important;">
+                            <mat-form-field class="width100" appearance="fill">
+                                <mat-label>Select Role</mat-label>
+                                <mat-select [(value)]="canValue">
+                                    <mat-option *ngFor="let role of userTypes" [value]="role.value">
+                                        {{role.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <ion-row>
+                            <ion-col size="12">
+                                <p [routerLink]="['/Forgot-Password']" class="forgot_pssword">
+                                    Forgot Password ?
+                                </p>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row class="btn_align">
+                            <ion-col size="12">
+                                <ion-button class="btn_signUp"  (click)="signUp(stepper)" expand="block">
+                                    Sign Up
+                                    <i class="fa" style="color: aliceblue;" [ngClass]="{'fa-spin fa-spinner': loading}"></i>
+                                </ion-button>
+                            </ion-col>
+                            <ion-col size="12">
+                                <ion-button (click)="doGoogleAuthSignup(stepper)" class="btn_google_signup" expand="block">
+                                    <ion-icon style="padding-right: 10px;" src="assets/icon_mobile_app/google 2.svg" ></ion-icon>
+                                    Sign in with Google
+                                </ion-button>
+                            </ion-col>
+                            <ion-col size="12">
+                                <ion-button (click)="doAppleAuthSignup(stepper)" class="btn_google_signup" expand="block">
+                                    <ion-icon style="padding-right: 10px;" src="assets/icon_mobile_app/google 2.svg" ></ion-icon>
+                                    Sign in with Apple
+                                </ion-button>
+                            </ion-col>
+                            <ion-col size="12">
+                                <ion-button class="btn_signUp" (click)="goToLogin(false)" expand="block">
+                                    LOGIN
+                                    
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="mar0">
+                            <ion-col class="mar0">
+                                <p class="no_account">You don't have an account yet? <span class="signup_txt">Sign up</span></p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+
+                    <!-- old app Code  -->
+                    <!-- <div class="login_top">
                         <div style="text-align: center;">
                             <h2>A network of people helping people get jobs</h2>
                         </div>
                         <img class="marTop20" src="assets/img/navbar-logo.png" alt="no img" />
                     </div>
                     <div class="login_middle">
-                        <div class="width100"><input type="text" autocomplete="off" formControlName="email" placeholder="email ID*" [(ngModel)]="email" required></div>
-                        <div class="width100"><input type="password" autocomplete="off" formControlName="password" placeholder="password*" [(ngModel)]="password" required></div>
+                        <div class="width100"><input type="text" autocomplete="off" formControlName="email"
+                                placeholder="email ID*" [(ngModel)]="email" required></div>
+                        <div class="width100"><input type="password" autocomplete="off" formControlName="password"
+                                placeholder="password*" [(ngModel)]="password" required></div>
                         <div class="width100" style="display: none !important;">
                             <mat-form-field class="width100" appearance="fill">
                                 <mat-label>Select Role</mat-label>
@@ -30,23 +109,25 @@
                             </button>
                         </div>
                         <div class="row col s12 m6 offset-m3 center-align">
-                            <a class="oauth-container btn darken-4 white black-text" (click)="doGoogleAuthSignup(stepper)" style="text-transform: none; border: 1px solid #03aaff;">
-                              <div class="left">
-                                <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in" 
-                                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                              </div>
-                              Sign up with Google
+                            <a class="oauth-container btn darken-4 white black-text"
+                                (click)="doGoogleAuthSignup(stepper)"
+                                style="text-transform: none; border: 1px solid #03aaff;">
+                                <div class="left">
+                                    <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in"
+                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                </div>
+                                Sign up with Google
                             </a>
                         </div>
                         <div class="row col s12 m6 offset-m3 center-align">
-                            <a class="oauth-container btn darken-4 white black-text" (click)="doAppleAuthSignup(stepper)" style="text-transform: none; border: 1px solid #03aaff;">
-                              <div class="left">
-                                <!-- <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in" 
-                                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" /> -->
-                              </div>
-                              Login with Apple
+                            <a class="oauth-container btn darken-4 white black-text"
+                                (click)="doAppleAuthSignup(stepper)"
+                                style="text-transform: none; border: 1px solid #03aaff;">
+                                <div class="left">
+                                  </div>
+                                Login with Apple
                             </a>
-                          </div>
+                        </div>
                     </div>
                     <div class="login_footer">
                         <div>
@@ -54,9 +135,10 @@
                         </div>
                         <div><button class="btn" (click)="goToLogin(false)">LOGIN</button></div>
                         <div class="mar_5">
-                        <h2 style="cursor: pointer;"><a [routerLink] = "['/Forgot-Password']" >Forgot Password ?</a></h2>
+                            <h2 style="cursor: pointer;"><a [routerLink]="['/Forgot-Password']">Forgot Password ?</a>
+                            </h2>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
             </form>
@@ -70,12 +152,12 @@
                             <img class="marTop20" src="assets/img/navbar-logo.png" alt="" />
                         </div>
                         <div class="login_middle">
-                            <div class="width100"><input autocomplete="off" formControlName="firstName" matInput [(ngModel)]="firstName" placeholder="First Name*"
-                                    required></div>
-                            <div class="width100"><input autocomplete="off" formControlName="lastName" matInput [(ngModel)]="lastName" placeholder="Last Name*"
-                                    required></div>
-                            <div class="width100"><input autocomplete="off" formControlName="jobTitle" matInput [(ngModel)]="jobTitle" placeholder="Job title*"
-                                required></div>
+                            <div class="width100"><input autocomplete="off" formControlName="firstName" matInput
+                                    [(ngModel)]="firstName" placeholder="First Name*" required></div>
+                            <div class="width100"><input autocomplete="off" formControlName="lastName" matInput
+                                    [(ngModel)]="lastName" placeholder="Last Name*" required></div>
+                            <div class="width100"><input autocomplete="off" formControlName="jobTitle" matInput
+                                    [(ngModel)]="jobTitle" placeholder="Job title*" required></div>
                             <!-- <div class="width100"><input autocomplete="off" formControlName="linkedIn" matInput [(ngModel)]="linkedIn" placeholder="LinkedIn optional">
                             </div> -->
                             <div class="width100">
@@ -83,8 +165,8 @@
                                 <div class="signup_middle_content">
                                     <div>
                                         <div class="example-form width100">
-                                            <input autocomplete="off" formControlName="desiredCompanies" matInput [(ngModel)]="desiredCompanies"
-                                                placeholder="Ex. Abc, Lmn, etc*"/>
+                                            <input autocomplete="off" formControlName="desiredCompanies" matInput
+                                                [(ngModel)]="desiredCompanies" placeholder="Ex. Abc, Lmn, etc*" />
                                         </div>
                                     </div>
                                 </div>

@@ -121,6 +121,7 @@ import { JoyrideModule } from "ngx-joyride";
 // import { SocialShareComponent } from "src/app/blog/frontend/single-page/social-share/social-share.component";
 // import { AllBlogTagComponent } from "./blog/frontend/all-blog-tag/all-blog-tag.component";
 // import { JobpostComponent } from "./job-post/jobpost/jobpost.component";
+
 @NgModule({
   imports: [
     AppRoutingModule,
