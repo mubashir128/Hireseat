@@ -1,12 +1,12 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="!this.supperAdmin.checkSuperAdminEmail()"></app-navbar>
 <!-- for super admin -->
 <ng-container>
   <div class="container">
     <div class="row">
-      <div
+      <!-- <div
         class="LogOutOption mobileHeadRe"
         *ngIf="this.supperAdmin.checkSuperAdminEmail()"
-      >
+      > -->
       <!-- <ion-item>
         <ion-avatar slot="start">
           <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
@@ -14,9 +14,23 @@
         <ion-label>{{ UserData.fullName }} : {{ UserData.userRole }}</ion-label>
         <a slot="end" (click)="logoutSA()"> Logout </a>
       </ion-item> -->
-        <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
-        <a (click)="logoutSA()"> Logout </a>
+        <!-- <h4>{{ UserData.fullName }} : {{ UserData.userRole }}</h4>
+        <a (click)="logoutSA()"> Logout </a> -->
+      <!-- </div> -->
+      <ion-item *ngIf="this.supperAdmin.checkSuperAdminEmail()" class="logout_bar" lines="none">
+        <div style="width: 100%; margin: 16px 0px;">
+          <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img [src]="UserData.profileimage" />
+        </ion-avatar>
+        <ion-label>
+          <h6>{{ UserData.fullName }}</h6>
+          <p>{{ UserData.userRole }}</p>
+        </ion-label>
+        <a slot="end" class="logout_btn" (click)="logoutSA()"> Logout </a>
+      </ion-item>
       </div>
+      </ion-item>
       <div class="col s12 m3 l3 for-web" *ngIf="!isOnProfile">
         <!-- <app-recruiter-navbar (selected)="navigate($event)"></app-recruiter-navbar> -->
         <app-candidate-navbar

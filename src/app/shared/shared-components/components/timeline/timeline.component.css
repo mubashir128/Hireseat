@@ -136,7 +136,7 @@ button.connectBtn {
 }
 
 .tablink {
-  background-color: #33aaff;
+  /* background-color: #33aaff; */
   color: #fff;
   border-bottom: 1px solid #33aaff !important;
   float: left;
@@ -145,12 +145,13 @@ button.connectBtn {
   cursor: pointer;
   width: 33.3%;
   z-index: 1;
-  height: 50px;
+  height: 60px;
+  /* height: 50px; */
   text-align: center;
   padding-top: 8px;
   position: relative;
   margin-bottom: 10px;
-  font-size: 10px !important;
+  /* font-size: 10px !important; */
 }
 
 .tablink:hover {
@@ -167,12 +168,16 @@ button.connectBtn {
 
 @media only screen and (min-width: 320px) and (max-width: 667px) {
   .tablink {
-    height: 50px;
-    font-size: 10px !important;
+    height: 60px;
+    /* height: 50px; */
+    /* font-size: 10px !important; */
     width: 50% !important;
   }
 }
 
+.tabs {
+  height: 60px !important;
+}
 .tabsAre {
   margin-bottom: 2px;
 }
@@ -181,9 +186,10 @@ button.connectBtn {
   font-size: 12px;
   display: inline-block;
   background: #ff0000 !important;
-  min-width: 20px !important;
+  min-width: 24px !important;
+  /* min-width: 20px !important; */
   min-height: 20px !important;
-  border-radius: 50%;
+  border-radius: 50px;
   color: #fff;
   padding: 3px;
   top: 25px;
