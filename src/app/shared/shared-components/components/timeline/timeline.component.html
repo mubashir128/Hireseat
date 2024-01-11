@@ -101,9 +101,13 @@
             </ng-container>
           </ion-button>
           <ion-button class="bottom_btn" (click)="likeTimeline(timeline)">{{ checkLikedOrNot(timeline) ? 'Liked' :
-            'Like'}}</ion-button>
-          <ion-button class="bottom_btn" *ngIf="timeline?.liked?.length > 0" (click)="likedUsers(timeline)">>{{ ' (' +
-            timeline?.liked?.length + ')' }}</ion-button>
+            'Like'}}
+                        <ng-container *ngIf="timeline?.liked?.length > 0">
+                          ({{ timeline?.liked?.length }})
+                        </ng-container>
+          </ion-button>
+          <!-- <ion-button class="bottom_btn" *ngIf="timeline?.liked?.length > 0" (click)="likedUsers(timeline)">>{{ ' (' +
+            timeline?.liked?.length + ')' }}</ion-button> -->
           <ion-button class="bottom_btn">{{timeline.createdAt | amTimeAgo}}</ion-button>
         </ion-col>
       </ion-row>
