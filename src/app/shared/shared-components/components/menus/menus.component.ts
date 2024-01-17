@@ -158,7 +158,7 @@ export class MenusComponent implements OnInit {
   }
   
   candidateMenuTabs(){
-    this.tabs2.push(new Tab2("/candidate/my-posted-profiles", "My Profiles", true, "fas fa-user"));
+    this.tabs2.push(new Tab2("/candidate/my-posted-profiles", "My Profiles", true, 'profile.svg'));
 
     // this.tabs2.push(new Tab2("/candidate/my-profile", "Profile", true, "fas fa-user"));
     // this.tabs2.push(new Tab2("/Product Walkthrough", "Product Walkthrough", false, "fas fa-info"));
@@ -167,31 +167,31 @@ export class MenusComponent implements OnInit {
     // this.tabs2.push(new Tab2("/candidate/user-chat", "Candidate Chat", false, "fas fa-comment"));
     
     this.tabs2.push(
-      new Tab2("/candidate/notification", "Notification", false, "fas fa-bell")
+      new Tab2("/candidate/notification", "Notification", false, "notificatioin.svg")
     );
     // this.tabs2.push(new Tab2("/candidate/friends-connections", "My Connections", true, "fas fa-user"));
     
     // this.tabs2.push(new Tab2("/candidate/fill-form", "Career Value Finder", false, "fas fa-shopping-bag"));
-    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter 24/7", false, "fas fa-shopping-bag"));
-    this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters", false, "fas fa-user-alt"));
+    this.tabs2.push(new Tab2("/forum", "Ask a Recruiter 24/7", false, "AskaRecuriters.svg"));
+    this.tabs2.push(new Tab2("/candidate/all-recruiters", "Recruiters", false, "Recruiters.svg"));
     // this.tabs2.push(new Tab2("/home", "Home", true, "fas fa-home"));
 
-    this.tabs2.push(new Tab2("/candidate/applied-jobs", "Applied jobs", true, "fas fa-user"));
+    this.tabs2.push(new Tab2("/candidate/applied-jobs", "Applied jobs", true, "AppliedJob.svg"));
 
     // this.tabs2.push(new Tab2("/candidate/bidding-event-list", "Jobs", false, "fas fa-search"));
-    this.tabs2.push(new Tab2("/candidate/settings", "Settings", false, "fas fa-cogs"));
+    this.tabs2.push(new Tab2("/candidate/settings", "Settings", false, "setting.svg"));
 
-    this.tabs2.push(new Tab2("/candidate/conference-room", "Conference room", false, "fas fa-cogs"));
+    this.tabs2.push(new Tab2("/candidate/conference-room", "Conference room", false, "conferenceRoom.svg"));
 
     if(!this.supperAdmin.checkSuperAdminEmail()){
-      this.tabs2.push(new Tab2("/home", "Logout", false, "fas fa-plus"));
+      this.tabs2.push(new Tab2("/home", "Logout", false, "Logout.svg"));
     }
     
     // this.tabs2.push(new Tab2("/blog", "Blog", false, "fas fa-bell"));
     // this.tabs2.push(new Tab2("/candidate/my-reviewed-profiles", "My Reviews Profiles", false, "fas fa-shopping-bag"));
     // this.tabs2.push(new Tab2("/candidate/interview-room", "Interview Room", false, "fas fa-question"));
 
-    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion + " - click to upgrade", false, "fas fa-plus"));
+    this.tabs2.push(new Tab2("/home", "Version - " + this.currVersion + " - click to upgrade", false, "Versoin.svg"));
   }
 
   superAdminMenuTab(){
@@ -305,7 +305,7 @@ export class MenusComponent implements OnInit {
     promises.push(this.userService.getUsersById().toPromise());
     Promise.all(promises).then(result => {
       if(result){
-        this.tabs2.splice(7, 0, new Tab2("/candidate/my-post-jobs", "My jobs List", true, "fas fa-user"));
+        this.tabs2.splice(7, 0, new Tab2("/candidate/my-post-jobs", "My jobs List", true, "MyJob.svg"));
       }
     });
   }

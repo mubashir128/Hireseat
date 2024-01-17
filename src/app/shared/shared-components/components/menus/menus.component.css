@@ -1,11 +1,13 @@
 .menu {
   width: 100%;
-  margin-bottom : 70px !important;
+  margin-bottom: 70px !important;
 }
+
 .menu ul {
   margin: 0;
   padding: 0;
 }
+
 .menu ul li {
   background: #fff;
   padding: 10px;
@@ -14,29 +16,35 @@
   -webkit-box-shadow: -3px 9px 21px -6px rgba(153, 142, 142, 0.8);
   -moz-box-shadow: -3px 9px 21px -6px rgba(153, 142, 142, 0.8);
 }
+
 .menu ul li a {
   font-size: 18px;
   color: #0aafff;
   font-weight: 100;
 }
+
 .menu i {
   padding-right: 10px;
   color: #0aafff;
 }
+
 .menu h4 {
   background: #0aafff;
   padding: 10px;
   font-size: 20px;
   color: #fff;
 }
+
 .menu ul li:hover {
   background: #48aef3;
   color: #fff !important;
   display: block;
 }
+
 .menu ul a:hover {
   color: #fff !important;
 }
+
 .active {
   color: #0aafff;
   background: white;
@@ -57,4 +65,40 @@ span.badge {
   height: 13px;
   line-height: 0px;
   padding: 0px;
+}
+
+.menu_candidate {
+  overflow-y: auto; 
+   height: 100vh;
+  margin: 0 !important;
+  font-family: 'DM Sans', sans-serif !important;
+  /* new code */
+  background-color: #fff !important;
+
+  background: #fff !important;
+}
+
+.menu_list {
+  padding: 10px 20px;
+}
+
+.menu_show {
+  background: #FDFDFD;
+  border-radius: 10px;
+  border: 1px #BDBDBD solid;
+  /* --margin: 10px 0px; */
+
+}
+
+.icon_img {
+  padding-right: 5px;
+}
+
+.lbl {
+  color: black;
+  font-size: 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  line-height: 30px;
+  word-wrap: break-word
 }

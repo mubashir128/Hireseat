@@ -1,4 +1,4 @@
-<div class="menu">
+<!-- <div class="menu">
   <ul *ngFor="let tab of tabs2">
     <li (click)="SelectItem2(tab.id, tab.displayText)">
       <a [ngClass]="{ active: tab.selected === true }">
@@ -13,4 +13,13 @@
       </a>
     </li>
   </ul>
+</div> -->
+<div class="menu_candidate">
+  <div class="menu_list" *ngFor="let tab of tabs2">
+    <ion-item  lines="none" class="menu_show" (click)="SelectItem2(tab.id, tab.displayText)">
+      <img class="icon_img" src=".\assets\menu-candidate-icon\{{tab.addedClass}}" >
+      <ion-label class="lbl">{{ tab.displayText }}</ion-label>
+      <ion-icon slot="end" src=".\assets\menu-candidate-icon\Arrow.svg"></ion-icon>
+    </ion-item>
+  </div>
 </div>
